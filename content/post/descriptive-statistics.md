@@ -164,7 +164,7 @@ Skewness measures the symmetry of a distribution.  It's quite common to have non
 
 
 
-![skewness](/images/skewness.png)
+![skewness](/blog/post/images/skewness.png)
 
 
 
@@ -184,7 +184,7 @@ A right-/positive-skewed distribution
 
 A skewed distribution implies that there are some special values that are larger/smaller than the common values.  Let's see an example.
 
-![skewness](/images/fish-skew.png){ width=50% }
+![skewness](/blog/post/images/fish-skew.png){ width=50% }
 
 
 
