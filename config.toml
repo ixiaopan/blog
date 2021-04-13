@@ -1,0 +1,81 @@
+
+baseURL = "https://ixiaopan.github.io"
+# title = "Hugo Themes"
+theme = "harbor"
+paginate = 5
+languageCode = "en"
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+footnoteReturnLinkContents = "^"
+
+[Author]
+  name = "ixiaopan"
+
+
+# [permalinks]
+# 	post = "/:year/:month/:day/:filename/"
+# 	page = "/:filename/"
+
+[outputs]
+    section = ["JSON", "HTML"]
+
+
+[[params.nav]]
+  identifier = "about"
+  name = "About"
+  icon = "fas fa-user fa-lg"
+  url = "/about/"
+  weight = 3
+
+[[params.nav]]
+  identifier = "search"
+  name = "Search"
+  icon = "fas fa-search fa-lg"
+  url = "search"
+  weight = 3
+
+[[params.nav]]
+  identifier = "archives"
+  name = "Archives"
+  icon = "fas fa-archive fa-lg"
+  url = "archives"
+  weight = 3
+
+# [[params.nav]]
+#   identifier = "tags"
+#   name = "Tags"
+#   icon = "fas fa-tag fa-lg"
+#   url = "tags"
+#   weight = 3
+
+# [[params.nav]]
+#   identifier = "categories"
+#   name = "Category"
+#   icon = "fas fa-folder-open fa-lg"
+#   url = "categories"
+#   weight = 3
+
+
+# copy paste this block and change for each social media to add how many ever social media
+# acounts/links you want
+[[params.social]]
+  name= "Email"
+  url="mailto:?to=wxp201013@163.com"
+  icon="fas fa-envelope"
+
+[[params.social]]
+  name= "GitHub"
+  url="https://github.com/ixiaopan/"
+  icon="fab fa-github"
+
+[[params.social]]
+  name= "Bilibili"
+  url="https://space.bilibili.com/22910840"
+  icon="fab fa-youtube"
+
+
+[params.logo]
+  url = "icon.JPG" # static/images/icon.JPG
+  width = 50
+  height = 50
+  alt = "Logo"
