@@ -1,5 +1,5 @@
 
-baseURL = "https://ixiaopan.github.io/blog"
+baseURL = "https://ixiaopan.github.io/blog/"
 # title = "Hugo Themes"
 theme = "harbor"
 paginate = 5
