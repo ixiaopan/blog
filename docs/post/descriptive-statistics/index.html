@@ -141,17 +141,17 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>In this series , I'm going to go through some basic concepts of  statistics required in Data Science.</p>
+  <p>In this post , I'm going to go through some basic concepts of  statistics required in Data Science.</p>
 
 <p>There are two main branches of statistics :</p>
 
 <ul>
 <li><p>descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you've learned in high school.</p></li>
 
-<li><p>inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population. They are totally two different things. Now let's start from descriptive statistics.</p></li>
+<li><p>inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population.</p></li>
 </ul>
 
-<p>But now we will focus on descriptive statistics, specifically, the central tendency and dispersion. Central tendency measures the center of the data while dispersion measures how spread out a given data is.</p>
+<p>We will firstly focus on descriptive statistics, specifically, the central tendency and dispersion. Central tendency measures the center of the data while dispersion measures how spread out a given data is.</p>
 
 <h2 id="central-tendency">Central tendency</h2>
 
@@ -159,7 +159,7 @@
 
 <h3 id="mean">Mean</h3>
 
-<p>Mean is the average of data and calculated by summing up all data values and then dividing them by the number of data.</p>
+<p>Mean is the average of the data and calculated by summing up all data values and then dividing them by the number of data.</p>
 
 <p><span  class="math">\[
 \overline x = \frac{\sum_i^nx_i}{n}
@@ -169,7 +169,7 @@
 
 <h3 id="median">Median</h3>
 
-<p>Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems a bit strange since most of the data values is less than <code>10</code> except one extreme value <code>100</code>, which strech the distribution of the whole data to the right. This is why median comes.</p>
+<p>Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems a bit strange since most of the data values is less than <code>10</code> except one extreme value <code>100</code>, which stretches the distribution of the whole data set to the right. This is why median comes.</p>
 
 <p>To get the median, firstly we need to sort the data in ascending order and then find the middle number that separate the data into two groups with the same size. In this example, the median is <code>4</code>.</p>
 
@@ -181,7 +181,7 @@
 
 <h3 id="range">Range</h3>
 
-<p>Range is the distance between the maximum value and the minimum value. So range can tell us where the minimum and maximum value is. Again, range is sensitive to outliers.</p>
+<p>Range is the distance between the maximum value and the minimum value. Again, range is sensitive to outliers.</p>
 
 <p><span  class="math">\[
 r=max - min
@@ -197,7 +197,7 @@ r=max - min
 IQR = Q3 - Q1
 \]</span></p>
 
-<p>IQR can be used to detect outliers. Data that is greater than <strong>upper boundary</strong> or less than <strong>lower boundary</strong> is considered as an outlier.</p>
+<p>IQR can be used to detect outliers. Data that is greater than <strong>upper boundary</strong> or less than <strong>lower boundary</strong> can be considered as an outlier.</p>
 
 <p><span  class="math">\[
 upper \ boundary = Q3 + 1.5*IQR \\
@@ -273,13 +273,11 @@ s = \sqrt{\frac{\sum (x - \overline x)^2}{n-1}}
 
 <p><figure><img src="/blog/post/images/fish-skew.png" alt="skewness"></figure></p>
 
-<p>Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish size is between 0 and 3kg and there are a few special fishes that weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.</p>
+<p>Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish sizes are between 0 and 3kg and there are a few special fishes that weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.</p>
 
-<h2 id="references">References</h2>
+<h2 id="reference">Reference</h2>
 
-<ul>
-<li><a href="https://courses.lumenlearning.com/introstats1/">Introduction to Statistics</a></li>
-</ul>
+<p>[1] B. al., &quot;Introduction to Statistics | Simple Book Production&quot;, <em>Courses.lumenlearning.com</em>, 2021. [Online]. Available: <a href="https://courses.lumenlearning.com/introstats1">https://courses.lumenlearning.com/introstats1</a>. [Accessed: 14- Apr- 2021].</p>
 
 
 

@@ -124,10 +124,22 @@ h1,h2,h3,h4,h5,h6 {
   color: #333333;
 }
 
+.container figure {
+  text-align: center;
+}
 .container img {
   width: 75%;
   display: block;
   margin: 0 auto;
+}
+img[src~="half"] {
+  width: 50%;
+}
+img[src~="bordered"] {
+  border: 1px solid black;
+}
+.container table {
+  margin: 1em auto;
 }
 
 #blog-archives {

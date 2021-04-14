@@ -9,19 +9,29 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Wed, 14 Apr 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Linear Regression 01</title>
+			<link>https://ixiaopan.github.io/blog/post/linear-regression/</link>
+			<pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/linear-regression/</guid>
+			<description>There are two main tasks in machine learning: regression and classfication. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&#39;s the first algorithm that most of people learn in the world of machine learning. So let&#39;s go!
+Problem statement Suppose you are a teacher, and you record some data about the hours students spent on study and the grades they achieved.</description>
+		</item>
+      	
 		<item>
 			<title>Descriptive Statistics</title>
 			<link>https://ixiaopan.github.io/blog/post/descriptive-statistics/</link>
 			<pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/descriptive-statistics/</guid>
-			<description>In this series , I&#39;m going to go through some basic concepts of statistics required in Data Science.
+			<description>In this post , I&#39;m going to go through some basic concepts of statistics required in Data Science.
 There are two main branches of statistics :
  descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you&#39;ve learned in high school.
- inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population. They are totally two different things.</description>
+ inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population.
+  We will firstly focus on descriptive statistics, specifically, the central tendency and dispersion.</description>
 		</item>
       	
 	</channel>

@@ -13,15 +13,15 @@ markup: "mmark"
 
 
 
-In this series , I'm going to go through some basic concepts of  statistics required in Data Science. 
+In this post , I'm going to go through some basic concepts of  statistics required in Data Science. 
 
 There are two main branches of statistics :
 
 - descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you've learned in high school. 
 
-- inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population. They are totally two different things. Now let's start from descriptive statistics.
+- inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population. 
 
-But now we will focus on descriptive statistics, specifically, the central tendency and dispersion. Central tendency measures the center of the data while dispersion measures how spread out a given data is.
+We will firstly focus on descriptive statistics, specifically, the central tendency and dispersion. Central tendency measures the center of the data while dispersion measures how spread out a given data is.
 
 
 
@@ -31,7 +31,7 @@ Mean, mode and median are three mainly used measures of central tendency.
 
 ### Mean
 
-Mean is the average of data and calculated by summing up all data values and then dividing them by the number of data.
+Mean is the average of the data and calculated by summing up all data values and then dividing them by the number of data.
 
 
 $$
@@ -46,7 +46,7 @@ For instance, say we have a group of data `1,2,3,4,5,6`, the mean is `3.5`.
 
 ### Median
 
-Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data `1,2,3,4,5,6,100`, after some calculations, you find that the mean is `17.28`. However, it seems a bit strange since most of the data values is less than `10` except one extreme value `100`, which strech the distribution of the whole data to the right. This is why median comes.
+Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data `1,2,3,4,5,6,100`, after some calculations, you find that the mean is `17.28`. However, it seems a bit strange since most of the data values is less than `10` except one extreme value `100`, which stretches the distribution of the whole data set to the right. This is why median comes.
 
 To get the median, firstly we need to sort the data in ascending order and then find the middle number that separate the data into two groups with the same size. In this example, the median is `4`.
 
@@ -62,7 +62,7 @@ Mode is the most frequent value. There could be one, two or more data values tha
 
 ### Range
 
-Range is the distance between the maximum value and the minimum value. So range can tell us where the minimum and maximum value is. Again, range is sensitive to outliers.
+Range is the distance between the maximum value and the minimum value. Again, range is sensitive to outliers.
 
 
 $$
@@ -84,7 +84,7 @@ IQR = Q3 - Q1
 $$
 
 
-IQR can be used to detect outliers. Data that is greater than **upper boundary** or less than **lower boundary** is considered as an outlier.
+IQR can be used to detect outliers. Data that is greater than **upper boundary** or less than **lower boundary** can be considered as an outlier.
 
 
 $$
@@ -188,11 +188,11 @@ A skewed distribution implies that there are some special values that are larger
 
 
 
-Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish size is between 0 and 3kg and there are a few special fishes that weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.
+Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish sizes are between 0 and 3kg and there are a few special fishes that weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.
 
 
 
-## References
+## Reference
 
-- [Introduction to Statistics](https://courses.lumenlearning.com/introstats1/)
+[1] B. al., "Introduction to Statistics | Simple Book Production", *Courses.lumenlearning.com*, 2021. [Online]. Available: https://courses.lumenlearning.com/introstats1. [Accessed: 14- Apr- 2021].
 
