@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 01"
 date: "2021-04-14"
-description: ""
+description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning."
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ markup: "mmark"
 
 
 
-There are two main tasks in machine learning: regression and classfication. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning. So let's go!
+There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning. So let's go!
 
 
 
@@ -57,7 +57,7 @@ In this example, $$x$$ is the variable $$hours$$ and $$y$$ is the variable $$gra
 
 ## Loss
 
-What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close to the true value as possible. 
+What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value close to the true value as much as possible. 
 
 
 

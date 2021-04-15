@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Bias-Variance dilemma</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bias-Variance dilemma"/>
+<meta name="twitter:description" content="When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by &#39;high bias&#39; or &#39;high variance&#39;?"/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Bias-Variance dilemma</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Apr 15, 2021
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <p>When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by 'high bias' or 'high variance'? Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I'm writing this post to try to explain this. I hope this post can help people who are still struggling with them understand the two most important concepts clearly.</p>
+
+<h2 id="generalization">Generalization</h2>
+
+<p>Before diving into it further, we should know what the generalization is.</p>
+
+<p><strong>Generalization measures how well our machine works on unseen data</strong>.</p>
+
+<ul>
+<li>If our machine is too simple, then we might not be able to fit the training data. Since the machine knows little about the data, it's unlikely to work well on unseen data.</li>
+<li>If our machine is too complex, then we might be able to fit the training data perfectly. It means that the machine knows too much about the data, even the noise that it should not learn. Thus, it's too sensitive to data so that a little change in data will cause a great variance.</li>
+</ul>
+
+<h2 id="generalization-error">Generalization Error</h2>
+
+<p>The underlying assumption of machine learning is that there are some relationships between data. However, we are not able to know this true function, otherwise there is no need to learn it.</p>
+
+<p>Suppose we have a true realtionship denoted by <span  class="math">\(f(x)\)</span> (the red dot in Figure 2), and we want to construct a machine denoted by <span  class="math">\(f'(x)\)</span> to approximate the true function based on the data <span  class="math">\(D\)</span> sampled from the population <span  class="math">\(\chi\)</span>. Then the <strong>training loss</strong> is defined by the following equation, where <span  class="math">\(f'(x|D)\)</span> is the machine we learn from this particular data set <span  class="math">\(D\)</span></p>
+
+<p><span  class="math">\[
+L_T(D) = \sum_{x\in D}(f'(x|D) - f(x))^2
+\]</span></p>
+
+<p>Okay, now we want to know how well this machine works on unseen data, which can be measured by <strong>generalization loss</strong>.</p>
+
+<p><span  class="math">\[
+L_G(D) = \sum_{x\in \chi} p(x) (f'(x|D) - f(x))^2
+\]</span></p>
+
+<p>If we have another data set <span  class="math">\(D_1\)</span>, then we will get another machine <span  class="math">\(f'(x|D_1)\)</span> and another generalization loss <span  class="math">\(L_G(D_1)\)</span> shown in Figure 1.</p>
+
+<p><figure><img src="/blog/post/images/generalization-error.png" alt="generalisation error" title="Figure 1"><figcaption>Figure 1</figcaption></figure></p>
+
+<p>We can see that the generalization loss is depend on our training data. Thus, the generalization loss for a particular data set doesn't make much sense. Instead, the average generalization loss over all the data set with the same size of <span  class="math">\(n\)</span> is what we expect.</p>
+
+<p><span  class="math">\[
+E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi} p(x)(f'(x|D) - f(x))^2]
+\]</span></p>
+
+<h2 id="mean-machine">Mean Machine</h2>
+
+<p>We have already known that there is a different machine <span  class="math">\(f'(x|D)\)</span> for a given data set <span  class="math">\(D\)</span>. Thus, for an unseen data <span  class="math">\(x\)</span>, we will have many predictions of many different machines, which are represented in blut dots shown in Figure 2.</p>
+
+<p><figure><img src="/blog/post/images/bias-variance.png" alt="Bias-Variance" title="Figure 2: Bias and variance."><figcaption>Figure 2: Bias and variance.</figcaption></figure></p>
+
+<p>The average prediction for an unseen data is the mean prediction(the yellow dot in Figure 2).</p>
+
+<p><span  class="math">\[
+f'_m(x) = E_D[f'(x|D)]
+\]</span></p>
+
+<h2 id="bias">Bias</h2>
+
+<p>Bias is the distance between the mean prediction(the yellow dot) and the true value(the red dot) shown in Figure 2. High bias implies that our model is too simple and the prediction value is much far away from the true value.</p>
+
+<p><span  class="math">\[
+B = \sum_{x \in \chi} p(x) (f'm - f(x))^2
+\]</span></p>
+
+<h2 id="variance">Variance</h2>
+
+<p>Variance measures the variation in the prediction of the machine when we change different data set we train on. If we have a complex machine, as mentioned earlier, the machine will try its best to match every data in training data set. In other words, the machine memorized the trainining data and a little change in data set will cause significant variation in prediction.</p>
+
+<p><span  class="math">\[
+V = \sum_{x \in \chi}p(x) E_D[ (f'(x|D) - f'm)^2 ]
+\]</span></p>
+
+<h2 id="biasvariance-dilemma">Bias-Variance dilemma</h2>
+
+<p>Now it's time to decompose the average generalisation error. Let's plug the <span  class="math">\(f'_m(x)\)</span> into the previous equation</p>
+
+<p><span  class="math">\[
+E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi} p(x)(f'(x|D) - f(x))^2] \\
+= E_D[\sum_{x\in \chi}p(x) (f'(x|D) - f_m' + f_m' - f(x))^2] \\
+= E_D[\sum_{x\in \chi}p(x)\{(f'(x|D) - f_m')^2 + (f_m' - f(x))^2 + 2(f'(x|D) - f_m')(f_m' - f(x)) \}]
+\]</span></p>
+
+<p>It's noticeable that the cross-term will cancel out because <span  class="math">\(f'm\)</span> and <span  class="math">\(f(x)\)</span> are constants no matter what data set <span  class="math">\(D\)</span> is.</p>
+
+<p><span  class="math">\[
+E_D[\sum_{x\in \chi}p(x)2(f'(x|D) - f_m')(f_m' - f(x))] = \sum_{x\in \chi}p(x) (2E_D[f'(x|D)]-f'm)(f'm-f(x)) = 0
+\]</span></p>
+
+<p>Therefore, we are left with</p>
+
+<p><span  class="math">\[
+E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi}p(x)(f'(x|D) - f_m')^2 + \sum_{x\in \chi}p(x)(f_m' - f(x))^2] \\
+= \sum_{x\in \chi}p(x) E_D[(f'(x|D) - f_m')^2] + \sum_{x\in \chi}p(x)(f_m' - f(x))^2 \\
+= V + B
+\]</span></p>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
