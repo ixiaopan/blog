@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Linear Regression 02</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linear Regression 02"/>
+<meta name="twitter:description" content="In last post, we talked about simple linear regression. However, we only considered 2 variables. In fact, it&#39;s quite common to have mulitple variables in real-world problems."/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Linear Regression 02</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Apr 17, 2021
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <p>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it's quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</p>
+
+<h2 id="multiple-linear-regression">Multiple Linear Regression</h2>
+
+<p>Suppose we have a data set with the size of <span  class="math">\(n\)</span> , and each data point has <span  class="math">\(d\)</span> dimensions. Then the input data is denoted by  <span  class="math">\(X \in R^{n \times d}\)</span>, and the parameters and targets are denoted by <span  class="math">\(\bold w \in R^d\)</span>, <span  class="math">\(\bold y \in R^n\)</span> respectively. Thus, the loss function can be written by the following equation:</p>
+
+<p><span  class="math">\[
+L = \sum_i^{n} (\bold x_i \bold w - \bold y_i)^2 = (\bold X \bold w - \bold y)^T(\bold X \bold w - \bold y)\\
+= \bold w^T\bold X^T \bold X \bold w  - \bold y^T \bold X \bold w - \bold w^T \bold X^T \bold y + \bold y^T \bold y \\
+= \bold w^T\bold X^T \bold X \bold w  - 2 \bold w^T \bold X^T \bold y + \bold y^T \bold y 
+\]</span></p>
+
+<p>Then we take the derivative of <span  class="math">\(L\)</span> with respect to <span  class="math">\(\bold w\)</span> as simple linear regression before. Well, we need to know a little bit about the matrix calculus</p>
+
+<p><span  class="math">\[
+\frac{\partial}{\partial \bold x} \bold x^TA\bold x = (A + A^T)\bold x \\
+\frac{\partial}{\partial \bold x} A^T \bold x = A
+\]</span></p>
+
+<p>The gradient of <span  class="math">\(L\)</span> can be seen easily</p>
+
+<p><span  class="math">\[
+\frac{\partial}{\partial \bold x } L = (2\bold X^T\bold X)\bold w - 2 \bold X^T\bold y
+\]</span></p>
+
+<p>Setting this gradient to zero,</p>
+
+<p><span  class="math">\[
+\bold w= (\bold X^T\bold X)^{-1} \bold X^T \bold y
+\]</span></p>
+
+<p>However, this equation is unlikely to work if  <span  class="math">\(\bold X^T\bold X\)</span> is not invertible(singular), such as if the number of features are more than the number of observations(<span  class="math">\(n < d\)</span>). One way to solve this equation is to use SVD.</p>
+
+<h3 id="pseudoinverse">pseudoinverse</h3>
+
+<p>SVD technique can decompose any matrix <span  class="math">\(A\)</span> into the matrix multiplication of  three matrices <span  class="math">\(U\Sigma V^T\)</span>. Thus the above equation can be written in the following form</p>
+
+<p><span  class="math">\[
+\bold w = A^+y \\
+A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
+\]</span></p>
+
+<p>In practice, the algorithm will set the elements of <span  class="math">\(\Sigma\)</span> that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. <span  class="math">\((U\Sigma V^T)^{-1}\)</span></p>
+
+<h2 id="probabilistic-interpretation">Probabilistic Interpretation</h2>
+
+<p>It's inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be <span  class="math">\(\epsilon_i\)</span> for each observation.</p>
+
+<p><span  class="math">\[
+y_i = a + bx_i + \epsilon_i
+\]</span></p>
+
+<p>The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of <span  class="math">\(\sigma^2\)</span>.</p>
+
+<p><span  class="math">\[
+\epsilon_i \sim N(0, \sigma^2)
+\]</span></p>
+
+<p>Thus, the probability of <span  class="math">\(y_i\)</span> is defined by the predictors <span  class="math">\(x_i\)</span> and the paramters <span  class="math">\(a, b, \sigma^2\)</span>.</p>
+
+<h3 id="mle">MLE</h3>
+
+<p>We have found the parameters by minimizing the loss, but now we are going to use another method to derive the same result, which is knowns as maximum likelihood estimation(MLE).</p>
+
+<p>The basic idea of MLE is that if the data were generated from some model, then what's the parameters of the model were most likely to make this happen? In other words, we are finding the parameters that maximize the probability of the data <span  class="math">\(D\)</span> that we've seen.</p>
+
+<p>Suppose we have a data set of inputs <span  class="math">\(X={x^{(1)}, x^{(2)}, ..., x^{(N)}}\)</span> and corresponding target variables <span  class="math">\({y_1, y_2, .., y_N}\)</span> with a Gaussian noise <span  class="math">\(\epsilon\)</span>. Then we can construct the likelihood of all data points,</p>
+
+<p><span  class="math">\[
+L(\theta|D) = \prod_{n=1}^N p(y_i|x_i, a, b, \sigma^2)
+\]</span></p>
+
+<p>Usually, we will take the log likelihood to make computation more simpler,</p>
+
+<p><span  class="math">\[
+In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y - a - bx_i)^2}{2\sigma^2}})\\
+= \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - a - bx_i)^2
+\]</span></p>
+
+<p>From above equation, we can see that maximizing the likelihood is equivalent to minimizing the sum of squared error.</p>
+
+<h2 id="geometry-of-linear-regression">Geometry of Linear Regression</h2>
+
+<p>In this section, we will look at the geometry of the linear regression. In <span  class="math">\(N\)</span>-dimensional space whose axes are the values of <span  class="math">\(y_1, y_2, ..., y_n\)</span> , the least-squares solution is obtained by finding the orthogonal projection of the target vector <span  class="math">\(y\)</span> onto the subspace spanned by the columns of <span  class="math">\(X\)</span>.</p>
+
+<p><figure><img src="/blog/post/images/geometry-linear-regression.png" alt="Geometry interpretation of the least-squares solution" title="Figure 1: Geometry interpretation of the least-squares solution. (PRML 2006)"><figcaption>Figure 1: Geometry interpretation of the least-squares solution. (PRML 2006)</figcaption></figure></p>
+
+<p>From the following matrix form, we can see that the predicted value <span  class="math">\(\bold y'\)</span> lies the column space of <span  class="math">\(X\)</span>. If the true target value <span  class="math">\(\bold y\)</span> also lies in this space, then the loss of linear regression is zero, which is never the case in real life.</p>
+
+<p><span  class="math">\[
+\bold y' = \bold X \bold w = \begin{bmatrix}
+1&x_{11} & x_{12} & ... & x_{1d} \\ 
+1&x_{21} & x_{22} & ... & x_{2d} \\ 
+... \\ 
+1&x_{n1} & x_{n2} & ... & x_{nd} 
+\end{bmatrix}
+\begin{bmatrix}
+w_0\\
+w_1\\
+w_2\\
+...\\
+w_d
+\end{bmatrix}
+\]</span></p>
+
+<h2 id="references">References</h2>
+
+<p>[1]C. Bishop, <em>Pattern Recognition and Machine Learning</em>. 2006.</p>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

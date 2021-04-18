@@ -57,7 +57,7 @@ In this example, $$x$$ is the variable $$hours$$ and $$y$$ is the variable $$gra
 
 ## Loss
 
-What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value close to the true value as much as possible. 
+What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close as possible to the true value.
 
 
 
@@ -83,7 +83,7 @@ Unfortunately, some error terms will cancel out when you do this calculation dir
 
 
 $$
-total \ error = \sum_i^n (y_i - y'_i) = \sum_i^n (y_i - ax_i - b)
+L = \sum_i^n (y_i - y'_i) = \sum_i^n (y_i - ax_i - b)
 $$
 
 
@@ -93,7 +93,7 @@ One way to tackle this is taking the absolute value of the error terms.
 
 
 $$
-total \ error =  \sum_i^n |y_i - y_i'|
+L =  \sum_i^n |y_i - y_i'|
 $$
 
 
@@ -107,7 +107,7 @@ However, the absoulte value of $$x$$ is not differentiable at $$0$$.
 
 
 
-Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly.
+Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as `Residual Sum of Squares(RSS)` or `Sum of Squared Error (SSE)`
 
 
 $$
