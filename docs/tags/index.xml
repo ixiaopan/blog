@@ -12,6 +12,14 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Ensemble Methods</title>
+			<link>https://ixiaopan.github.io/blog/post/ensemble/</link>
+			<pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/ensemble/</guid>
+			<description>Bagging Bootstrap Random Forest Boosting AdaBoost Gradient Boost XGBoost LGBM </description>
+		</item>
+      	
+		<item>
 			<title>Decision Tree</title>
 			<link>https://ixiaopan.github.io/blog/post/decision-tree/</link>
 			<pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>

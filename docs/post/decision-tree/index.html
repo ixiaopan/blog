@@ -19,9 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Decision Tree"/>
-<meta name="twitter:description" content="The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &#39;Is it a fiction movie? Is it directed by David Fincher?&#39;
-Figure 1: The process of movie selection
-From Figure 1, we can see that a decision tree builds a binary tree to partion the data."/>
+<meta name="twitter:description" content="The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &#39;Is it a fiction movie? Is it directed by David Fincher?&#39;"/>
 
 
 
@@ -154,19 +152,21 @@ From Figure 1, we can see that a decision tree builds a binary tree to partion t
 <li>How deep is the decision tree?</li>
 </ul>
 
-<h2 id="splitting-rule">Splitting Rule</h2>
+<h2 id="decision-rule">Decision Rule</h2>
 
-<p>Since there are so many features and each feature can have different values, we have to loop over all of them and find the best splitting point. Well, how to measure the performance of a splitting? 3 measures mainly used are Gini Impurity, Entropy, Information Gain.</p>
+<p>Since there are so many features and each feature can have different values, we have to loop over all of them and find the best split. Well, how to measure the performance of a split? There are 3 measures widely used — Gini Impurity, Entropy, Information Gain.</p>
 
 <h3 id="gini-index">Gini Index</h3>
 
-<p>Gini Index, also known as Gini Impurity, measures how often a randomly selected element from the set is classified incorrectly, which is defined as,</p>
+<p>Gini Index, also known as Gini Impurity, measures how often a randomly selected element from the set is classified incorrectly.</p>
 
 <p><span  class="math">\[
 Q_m^g(L) = \sum_{c \in C } p_c(L) (1 - p_c(L)) = 1 - \sum_{c \in C } p_c(L)^2
 \]</span></p>
 
-<p><span  class="math">\(p_c(L)\)</span> is defined as</p>
+<p>where <span  class="math">\(L\)</span> is short for the leaf node <span  class="math">\(L\)</span>.</p>
+
+<p><span  class="math">\(P_c(L)\)</span> is the faction of class <span  class="math">\(c\)</span> in the leaf node <span  class="math">\(L\)</span> defined as</p>
 
 <p><span  class="math">\[
 p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
@@ -174,9 +174,14 @@ p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
 
 <p>where <span  class="math">\([y == c] = 1\)</span>  if <span  class="math">\(y\)</span> belongs to class <span  class="math">\(c\)</span> and <span  class="math">\(0\)</span> otherwise.</p>
 
-<p><figure><img src="/blog/post/images/gini-index.png# half" alt="Gini Index" title="Figure 2: Gini Index."><figcaption>Figure 2: Gini Index.</figcaption></figure></p>
+<p><figure><img src="/blog/post/images/gini-index.png# half" alt="Gini Index" title="Figure 2: The plot of Gini Index"><figcaption>Figure 2: The plot of Gini Index</figcaption></figure></p>
 
-<p>Figure 1 shows that the value of Gini Index is the lowest at the start and end of the x-axis and maximum at the middle of the x-axis. In other words, if the leaf node only has one class, then this node is a pure node and the gini impurity of this leaf node is <span  class="math">\(0\)</span>. On the other hand, if all elements in this leaf node belong to an individual class, then the maximum value of Gini Index is <span  class="math">\( 1 - 1/len(L) \)</span>.</p>
+<p>Figure 2 shows that the value of Gini Index is the lowest at the start and end of the x-axis and maximum at the middle of the x-axis. In other words,</p>
+
+<ul>
+<li>If the leaf node only has one class, then this node is a pure node and the gini impurity of this leaf node is <span  class="math">\(0\)</span>.</li>
+<li>On the other hand, if all elements in this leaf node belong to an individual class, then the Gini Index of this node has the maximum value of <span  class="math">\( 1 - 1/len(L) \)</span>.</li>
+</ul>
 
 <h3 id="entropy">Entropy</h3>
 
@@ -192,45 +197,73 @@ I(x) = -log(p(x))
 
 <p>If an event is unlikely to happen, then <span  class="math">\(p(x)\)</span> is close to 0 and <span  class="math">\(I(x)\)</span> tends to be infinity, which means it conveys much information since impossible things happened and it must have a significant implication behind it.</p>
 
-<p>Then what's the entropy? The previous equation calculate the information of one outcome. However, it's quite often to have many outcomes for a random variable <span  class="math">\(X\)</span>. Therefore, the expected information over all outcomes is defined as the entropy.</p>
+<p>Then what's the entropy? The previous equation calculate the information contained in one outcome. However, it's quite often to have many outcomes for a random variable <span  class="math">\(X\)</span>. Therefore, the expected information over all outcomes is defined as the entropy.</p>
 
 <p><span  class="math">\[
 H(X) = E_{x \in X}[-log(p(x)]
 \]</span></p>
 
-<p>In this case, it is expressed as</p>
+<p>In this case, the classes in the leaf node is the random variable <span  class="math">\(X\)</span> and the probability of each outcome is the fraction of each class, which is expressed as</p>
 
 <p><span  class="math">\[
 Q_m^e(L) = \sum_{c \in C}- p_c(L) log(p_c(L))
 \]</span></p>
 
+<p>In a word, entropy measures the randomness of a set. Lower entropy means a purer set while higher entropy means there are more other classes that is not the class <span  class="math">\(c\)</span> in a set.</p>
+
 <h3 id="information-gain">Information Gain</h3>
 
-<p>Information Gain is simply the difference between the impurity of the parent node before splitting and the sum of impurity of all children nodes after splitting.</p>
+<p>Information Gain is simply the difference between the impurity of the parent node <span  class="math">\(A\)</span> before splitting and the sum of impurity of all children nodes after splitting.</p>
 
 <p><span  class="math">\[
-IG(A) = H(A) - \sum_{L \in Leave Nodes} p(L) H(L)
+IG(A) = H(A) - \sum_{L \in Leaf Nodes} p(L) H(L)
 \]</span></p>
 
-<p>In words, it measures how much impurity of a set <span  class="math">\(A\)</span> were reduced after splitting. The larger the information gain is, the better the splitting is.</p>
+<p>In words, it measures how much the impurity of a set <span  class="math">\(A\)</span> were reduced after splitting. The larger the information gain is, the better the split is.</p>
 
-<p>In summary, when decisiton tree makes a split on a feature, it tries to achieve:</p>
+<p>In summary, when a decisiton tree makes a split on a feature, it tries to achieve,</p>
 
 <ul>
-<li>lower impurity</li>
-<li>lower entropy</li>
-<li>higher information gain</li>
+<li>a lower impurity</li>
+<li>a lower entropy</li>
+<li>a higher information gain</li>
 </ul>
+
+<h2 id="cart">CART</h2>
+
+<p>CART is short for classification and regression tree algorithm, which is used to train Decisioin Trees. CART tries to find the best split that produces purest subsets by calculating the weighted Gini Impurity on each split made by each feature <span  class="math">\(k\)</span>  from the parent node's training sample and corresponding threshold <span  class="math">\(t_k\)</span>.</p>
+
+<p>Specifically, it tries to minimize the following loss function for a classification task,</p>
+
+<p><span  class="math">\[
+L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}Q_m^G(C_m^L) + \frac{len(C_m^R)}{len(N_m)} Q_m^G(C_m^R)
+\]</span></p>
+
+<p>where <span  class="math">\(C_m^L\)</span> and <span  class="math">\(C_m^R\)</span> are children nodes splitted on node <span  class="math">\(N_m\)</span></p>
+
+<p>For a regression task, it minimizes the sum of squred error</p>
+
+<p><span  class="math">\[
+L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}SSE(C_m^L) + \frac{len(C_m^R)}{len(N_m)} SSE(C_m^R)
+\]</span></p>
+
+<p>where <span  class="math">\(SSE(subset)\)</span> is defined as</p>
+
+<p><span  class="math">\[
+SSE(subset) = \sum_{n \in subset} (y_n - \overline y)^2 \\
+\overline y = \frac{1}{len(subset)} \sum_{n \in subset} y_n
+\]</span></p>
 
 <h2 id="hyperparameters">Hyperparameters</h2>
 
 <p>Now let's address the second problem, i.e. when to stop growing the tree. Scikit-learn provides several hyperparameters to avoid overfitting:</p>
 
 <ul>
-<li>maximum depth</li>
-<li>minimum number of the samples a node must have to split</li>
-<li>minimum number of the samples in a leaf node</li>
-<li>minimum leaf nodes</li>
+<li>criterion</li>
+<li>the maximum depth</li>
+<li>the minimum number of the samples a node must have to split</li>
+<li>the minimum number of the samples in a leaf node</li>
+<li>the maximum number of leaf nodes</li>
 </ul>
 
 <p>All of these parameters can be tuned by cross-validation.</p>
