@@ -9,10 +9,20 @@
 		
 		<managingEditor>Page(/categories/machine-learning) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 17 Apr 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 18 Apr 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Decision Tree</title>
+			<link>https://ixiaopan.github.io/blog/post/decision-tree/</link>
+			<pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/decision-tree/</guid>
+			<description>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &#39;Is it a fiction movie? Is it directed by David Fincher?&#39;
+Figure 1: The process of movie selection
+From Figure 1, we can see that a decision tree builds a binary tree to partion the data.</description>
+		</item>
+      	
 		<item>
 			<title>Linear Regression 02</title>
 			<link>https://ixiaopan.github.io/blog/post/linear-regression-02/</link>

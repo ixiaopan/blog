@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 02"
 date: "2021-04-17"
-description: "In last post, we talked about simple linear regression. However, we only considered 2 variables. In fact, it's quite common to have mulitple variables in real-world problems."
+description: "In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it's quite common to have mulitple attributes in real-world problems."
 # tags: []
 categories: [
     "Machine Learning",
@@ -108,7 +108,7 @@ Thus, the probability of $$y_i$$ is defined by the predictors $$x_i$$ and the pa
 
 ### MLE
 
-We have found the parameters by minimizing the loss, but now we are going to use another method to derive the same result, which is knowns as maximum likelihood estimation(MLE).
+We have found the parameters by minimizing the loss, but now we are going to use another method to derive the same result, which is known as maximum likelihood estimation(MLE).
 
 
 
