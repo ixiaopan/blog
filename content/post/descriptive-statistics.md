@@ -23,7 +23,7 @@ In this post , I'm going to go through some basic concepts of  statistics requir
 
 There are two main branches of statistics :
 
-- descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you've learned in high school. 
+- descriptive statistics tells us the statistics about the data like mean, mode and standard deviation, which you've learned in high school. 
 
 - inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population. 
 

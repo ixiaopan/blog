@@ -193,7 +193,7 @@ $$
 $$
 
 $$
-\frac{Cov(x, y)}{Var(x)}
+= \frac{Cov(x, y)}{Var(x)}
 $$
 
 
@@ -201,9 +201,87 @@ Finally, we find the best estimators for simple linear regression.
 
 
 
+## $R^2$
+
+
+
+So how to evaluate our model? How good is it? We can use $R^2$ to measure this. Let's rewrite the previous euqation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
+
+
+$$
+a = \frac{\sum_i^n (x_i - \overline x)(y_i - \overline y) \sqrt {\sum_i^n(y_i-\overline y)^2}}{\sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(y_i-\overline y)^2}}
+$$
+
+$$
+a = R\frac{s_y}{s_x}
+$$
+
+
+where 
+
+
+$$
+R = \frac{Cov(x, y)}{\sqrt{var(x)} \sqrt{var(y)}}
+$$
+
+$$
+s_y =  \sqrt{Var(y)}
+$$
+
+$$
+s_x = \sqrt{Var(x)}
+$$
+
+
+
+
+Remember that the error is defined as $e_i = y_i' - y_i$, so the mean of $e$ is
+
+
+$$
+E(e) = \frac{1}{N} \sum_i^n e_i =  \frac{1}{N} \sum_i^n b + ax_i - y_i =b + a\overline x - \overline y = 0
+$$
+
+
+and the variance is given by
+
+
+$$
+var(e) = \sum_i^n (e_i - \overline e)^2 = \sum_i^n  (y_i - b - ax_i)^2 = \sum_i^n (y_i - \overline y + a\overline x - ax_i)^2
+$$
+
+
+Let's plug $a$ into this equation
+
+
+$$
+var(e) = \sum_i^n [(y_i - \overline y) - R\frac{s_y}{s_x}( x_i - \overline x)]^2 = var(y) (1-R^2)
+$$
+
+
+Or you might be more familiar with this equation
+
+
+
+
+$$
+R^2 = 1 - \frac{var(e)}{var(y)} = 1 - \frac{RSS}{TSS}
+$$
+
+
+
+
+Therefore, $R^2$ tells us how much variance of $y$ has been explained by our models. The higher the $R^2$ is, the better our model is.
+
+
+
+
+
 ## Reference
 
 [1] *Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
+
+[2] http://mlwiki.org/index.php/Linear_Regression
 
 
 

@@ -51,11 +51,7 @@ $$
 
 
 
-where $L$ is short for the children node.
-
-
-
-$P_c(L)$ is the faction of class $$c$$ in the leaf node $L$ defined as
+where $L$ is short for the children node and $P_c(L)$ is the faction of class $c$ in the leaf node $L$,
 
 
 
@@ -195,13 +191,14 @@ $$
 
 
 
-### Pre pruning
+Now let's address the second problem, i.e. when to stop growing the tree. You can either stop growing the tree when you build the tree or trim the tree after building, which are known as pre-pruning and post-pruning respectively.
 
 
 
-Now let's address the second problem, i.e. when to stop growing the tree. Scikit-learn provides several hyperparameters to avoid overfitting:
+### Pre-pruning
 
-- criterion
+Scikit-learn provides several hyperparameters to do a pre-pruning:
+
 - the maximum depth
 - the minimum number of the samples a node must have to split
 - the minimum number of the samples in a leaf node
@@ -209,13 +206,13 @@ Now let's address the second problem, i.e. when to stop growing the tree. Scikit
 
 
 
-All of these parameters can be tuned by cross-validation.
+All of these parameters can be tuned with cross-validation.
 
 
 
-### Cost Complexity Pruning
+### Post Pruning
 
-TODO
+Though pre-pruning is straightforward, it is a bit short-sighted since it doesn't build a full tree and there might be some splits works better later on. Therefore, it would be better to have a large and full-size tree and then we trim some useless branches to get a better substree. Cost complexity pruning, also known as weakest link pruning, is one way to do this.
 
 
 
@@ -223,14 +220,13 @@ TODO
 
 Advantages:
 
-- Decision trees are simple and intutive to interpret because we can easily visualize the process of decision making.
+- Decision trees are simple and intutive to interpret, and we can easily visualize the process of decision making.
 - They can be used for both classification and regression.
-- They can handle missing data. The missing data is either on the left or right depends on maximum purity.
 - There is no need to normalize or scale data.
+- They can help to understand what features are most important.
 
 Disadvantages:
 
-- They can have high bias because they split the data based on a single variable. 
 - They can be easy to overfit.
 - They are sensitive to variations of training data. If you rotate the same data, you will get a completely different tree because all splits are perpendicular to an axis.
 
@@ -243,7 +239,7 @@ Disadvantages:
 ## References
 
 - [1]A. Géron, *Hands-on machine learning with Scikit-Learn and TensorFlow*. Sebastopol (CA): O'Reilly Media, 2019.
-- [pruning-decision-trees, Kaggle](https://www.kaggle.com/arunmohan003/pruning-decision-trees)
-- [how-to-choose-alpha-in-cost-complexity-pruning](https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning)
-- [Cost-Complexity Pruning](http://mlwiki.org/index.php/Cost-Complexity_Pruning)
+- [2] [pruning-decision-trees, Kaggle](https://www.kaggle.com/arunmohan003/pruning-decision-trees)
+- [3] [how-to-choose-alpha-in-cost-complexity-pruning](https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning)
+- [4] [Cost-Complexity Pruning](http://mlwiki.org/index.php/Cost-Complexity_Pruning)
 

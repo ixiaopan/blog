@@ -172,8 +172,7 @@
 <p>$$
 Q_m^g(L) = \sum_{c \in C } p_c(L) (1 - p_c(L)) = 1 - \sum_{c \in C } p_c(L)^2
 $$</p>
-<p>where $L$ is short for the children node.</p>
-<p>$P_c(L)$ is the faction of class $$c$$ in the leaf node $L$ defined as</p>
+<p>where $L$ is short for the children node and $P_c(L)$ is the faction of class $c$ in the leaf node $L$,</p>
 <p>$$
 p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
 $$</p>
@@ -237,29 +236,28 @@ $$</p>
 \overline y = \frac{1}{len(subset)} \sum_{n \in subset} y_n
 $$</p>
 <h2 id="prunning">Prunning</h2>
-<h3 id="pre-pruning">Pre pruning</h3>
-<p>Now let&rsquo;s address the second problem, i.e. when to stop growing the tree. Scikit-learn provides several hyperparameters to avoid overfitting:</p>
+<p>Now let&rsquo;s address the second problem, i.e. when to stop growing the tree. You can either stop growing the tree when you build the tree or trim the tree after building, which are known as pre-pruning and post-pruning respectively.</p>
+<h3 id="pre-pruning">Pre-pruning</h3>
+<p>Scikit-learn provides several hyperparameters to do a pre-pruning:</p>
 <ul>
-<li>criterion</li>
 <li>the maximum depth</li>
 <li>the minimum number of the samples a node must have to split</li>
 <li>the minimum number of the samples in a leaf node</li>
 <li>the maximum number of leaf nodes</li>
 </ul>
-<p>All of these parameters can be tuned by cross-validation.</p>
-<h3 id="cost-complexity-pruning">Cost Complexity Pruning</h3>
-<p>TODO</p>
+<p>All of these parameters can be tuned with cross-validation.</p>
+<h3 id="post-pruning">Post Pruning</h3>
+<p>Though pre-pruning is straightforward, it is a bit short-sighted since it doesn&rsquo;t build a full tree and there might be some splits works better later on. Therefore, it would be better to have a large and full-size tree and then we trim some useless branches to get a better substree. Cost complexity pruning, also known as weakest link pruning, is one way to do this.</p>
 <h2 id="pros-and-cons">Pros and Cons</h2>
 <p>Advantages:</p>
 <ul>
-<li>Decision trees are simple and intutive to interpret because we can easily visualize the process of decision making.</li>
+<li>Decision trees are simple and intutive to interpret, and we can easily visualize the process of decision making.</li>
 <li>They can be used for both classification and regression.</li>
-<li>They can handle missing data. The missing data is either on the left or right depends on maximum purity.</li>
 <li>There is no need to normalize or scale data.</li>
+<li>They can help to understand what features are most important.</li>
 </ul>
 <p>Disadvantages:</p>
 <ul>
-<li>They can have high bias because they split the data based on a single variable.</li>
 <li>They can be easy to overfit.</li>
 <li>They are sensitive to variations of training data. If you rotate the same data, you will get a completely different tree because all splits are perpendicular to an axis.</li>
 </ul>
@@ -273,9 +271,9 @@ $$</p>
 <h2 id="references">References</h2>
 <ul>
 <li>[1]A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</li>
-<li><a href="https://www.kaggle.com/arunmohan003/pruning-decision-trees">pruning-decision-trees, Kaggle</a></li>
-<li><a href="https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning">how-to-choose-alpha-in-cost-complexity-pruning</a></li>
-<li><a href="http://mlwiki.org/index.php/Cost-Complexity_Pruning">Cost-Complexity Pruning</a></li>
+<li>[2] <a href="https://www.kaggle.com/arunmohan003/pruning-decision-trees">pruning-decision-trees, Kaggle</a></li>
+<li>[3] <a href="https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning">how-to-choose-alpha-in-cost-complexity-pruning</a></li>
+<li>[4] <a href="http://mlwiki.org/index.php/Cost-Complexity_Pruning">Cost-Complexity Pruning</a></li>
 </ul>
 
 
