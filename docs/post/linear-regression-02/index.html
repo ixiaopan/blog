@@ -49,6 +49,17 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
     
   </head>
   <body>
@@ -141,115 +152,85 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it's quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</p>
-
+  <p>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&rsquo;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</p>
 <h2 id="multiple-linear-regression">Multiple Linear Regression</h2>
-
-<p>Suppose we have a data set with the size of <span  class="math">\(n\)</span> , and each data point has <span  class="math">\(d\)</span> dimensions. Then the input data is denoted by  <span  class="math">\(X \in R^{n \times d}\)</span>, and the parameters and targets are denoted by <span  class="math">\(\bold w \in R^d\)</span>, <span  class="math">\(\bold y \in R^n\)</span> respectively. Thus, the loss function can be written by the following equation:</p>
-
-<p><span  class="math">\[
-L = \sum_i^{n} (\bold x_i \bold w - \bold y_i)^2 = (\bold X \bold w - \bold y)^T(\bold X \bold w - \bold y)\\
-= \bold w^T\bold X^T \bold X \bold w  - \bold y^T \bold X \bold w - \bold w^T \bold X^T \bold y + \bold y^T \bold y \\
-= \bold w^T\bold X^T \bold X \bold w  - 2 \bold w^T \bold X^T \bold y + \bold y^T \bold y 
-\]</span></p>
-
-<p>Then we take the derivative of <span  class="math">\(L\)</span> with respect to <span  class="math">\(\bold w\)</span> as simple linear regression before. Well, we need to know a little bit about the matrix calculus</p>
-
-<p><span  class="math">\[
-\frac{\partial}{\partial \bold x} \bold x^TA\bold x = (A + A^T)\bold x \\
+<p>Suppose we have a data set with the size of $n$,  and each data point has $d$ dimensions. Then the input data is denoted by  $X \in R^{n \times d}$, and the parameters and targets are denoted by $\bold w \in R^d$, $\bold y \in R^n$ respectively. Thus, the loss function can be written by the following equation:</p>
+<p>$$
+L = \sum_i^{n} (\bold x_i \bold w - \bold y_i)^2 = (\bold X \bold w - \bold y)^T(\bold X \bold w - \bold y)
+$$</p>
+<p>$$
+= \bold w^T\bold X^T \bold X \bold w  - \bold y^T \bold X \bold w - \bold w^T \bold X^T \bold y + \bold y^T \bold y
+$$</p>
+<p>$$
+= \bold w^T\bold X^T \bold X \bold w  - 2 \bold w^T \bold X^T \bold y + \bold y^T \bold y
+$$</p>
+<p>Then we take the derivative of $L$ with respect to $\bold w$ as simple linear regression before. Well, we need to know a little bit about the matrix calculus</p>
+<p>$$
+\frac{\partial}{\partial \bold x} \bold x^TA\bold x = (A + A^T)\bold x
+$$</p>
+<p>$$
 \frac{\partial}{\partial \bold x} A^T \bold x = A
-\]</span></p>
-
-<p>The gradient of <span  class="math">\(L\)</span> can be seen easily</p>
-
-<p><span  class="math">\[
+$$</p>
+<p>The gradient of $L$ can be seen easily</p>
+<p>$$
 \frac{\partial}{\partial \bold x } L = (2\bold X^T\bold X)\bold w - 2 \bold X^T\bold y
-\]</span></p>
-
+$$</p>
 <p>Setting this gradient to zero,</p>
-
-<p><span  class="math">\[
+<p>$$
 \bold w= (\bold X^T\bold X)^{-1} \bold X^T \bold y
-\]</span></p>
-
-<p>However, this equation is unlikely to work if  <span  class="math">\(\bold X^T\bold X\)</span> is not invertible(singular), such as if the number of features are more than the number of observations(<span  class="math">\(n < d\)</span>). One way to solve this equation is to use SVD.</p>
-
+$$</p>
+<p>However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible(singular), such as if the number of features are more than the number of observations($n &lt; d$). One way to solve this equation is to use SVD.</p>
 <h3 id="pseudoinverse">pseudoinverse</h3>
-
-<p>SVD technique can decompose any matrix <span  class="math">\(A\)</span> into the matrix multiplication of  three matrices <span  class="math">\(U\Sigma V^T\)</span>. Thus the above equation can be written in the following form</p>
-
-<p><span  class="math">\[
-\bold w = A^+y \\
+<p>SVD technique can decompose any matrix $A$ into the matrix multiplication of  three matrices $U\Sigma V^T$. Thus the above equation can be written in the following form</p>
+<p>$$
+\bold w = A^+y
+$$</p>
+<p>$$
 A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
-\]</span></p>
-
-<p>In practice, the algorithm will set the elements of <span  class="math">\(\Sigma\)</span> that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. <span  class="math">\((U\Sigma V^T)^{-1}\)</span></p>
-
+$$</p>
+<p>In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$</p>
 <h2 id="probabilistic-interpretation">Probabilistic Interpretation</h2>
-
-<p>It's inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be <span  class="math">\(\epsilon_i\)</span> for each observation.</p>
-
-<p><span  class="math">\[
+<p>It&rsquo;s inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be $\epsilon_i$ for each observation.</p>
+<p>$$
 y_i = a + bx_i + \epsilon_i
-\]</span></p>
-
-<p>The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of <span  class="math">\(\sigma^2\)</span>.</p>
-
-<p><span  class="math">\[
+$$</p>
+<p>The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of $\sigma^2$.</p>
+<p>$$
 \epsilon_i \sim N(0, \sigma^2)
-\]</span></p>
-
-<p>Thus, the probability of <span  class="math">\(y_i\)</span> is defined by the predictors <span  class="math">\(x_i\)</span> and the paramters <span  class="math">\(a, b, \sigma^2\)</span>.</p>
-
+$$</p>
+<p>Thus, the probability of $y_i$ is defined by the predictors $x_i$ and the paramters $a, b, \sigma^2$.</p>
 <h3 id="mle">MLE</h3>
-
 <p>We have found the parameters by minimizing the loss, but now we are going to use another method to derive the same result, which is known as maximum likelihood estimation(MLE).</p>
-
-<p>The basic idea of MLE is that if the data were generated from some model, then what's the parameters of the model were most likely to make this happen? In other words, we are finding the parameters that maximize the probability of the data <span  class="math">\(D\)</span> that we've seen.</p>
-
-<p>Suppose we have a data set of inputs <span  class="math">\(X={x^{(1)}, x^{(2)}, ..., x^{(N)}}\)</span> and corresponding target variables <span  class="math">\({y_1, y_2, .., y_N}\)</span> with a Gaussian noise <span  class="math">\(\epsilon\)</span>. Then we can construct the likelihood of all data points,</p>
-
-<p><span  class="math">\[
+<p>The basic idea of MLE is that if the data were generated from some model, then what&rsquo;s the parameters of the model were most likely to make this happen? In other words, we are finding the parameters that maximize the probability of the data $D$ that we&rsquo;ve seen.</p>
+<p>Suppose we have a data set of inputs $X={x^{(1)}, x^{(2)}, &hellip;, x^{(N)}}$ and corresponding target variables ${y_1, y_2, .., y_N}$ with a Gaussian noise $\epsilon$. Then we can construct the likelihood of all data points,</p>
+<p>$$
 L(\theta|D) = \prod_{n=1}^N p(y_i|x_i, a, b, \sigma^2)
-\]</span></p>
-
+$$</p>
 <p>Usually, we will take the log likelihood to make computation more simpler,</p>
-
-<p><span  class="math">\[
-In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y - a - bx_i)^2}{2\sigma^2}})\\
+<p>$$
+In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y - a - bx_i)^2}{2\sigma^2}})
+$$</p>
+<p>$$
 = \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - a - bx_i)^2
-\]</span></p>
-
+$$</p>
 <p>From above equation, we can see that maximizing the likelihood is equivalent to minimizing the sum of squared error.</p>
-
 <h2 id="geometry-of-linear-regression">Geometry of Linear Regression</h2>
+<p>In this section, we will look at the geometry of the linear regression. In $N$-dimensional space whose axes are the values of $y_1, y_2, &hellip;, y_n$ , the least-squares solution is obtained by finding the orthogonal projection of the target vector $y$ onto the subspace spanned by the columns of $X$.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/geometry-linear-regression.png" alt="Geometry interpretation of the least-squares solution">
+    <figcaption>Figure 1: Geometry interpretation of the least-squares solution. \(PRML 2006\)</figcaption>
+  </figure>
 
-<p>In this section, we will look at the geometry of the linear regression. In <span  class="math">\(N\)</span>-dimensional space whose axes are the values of <span  class="math">\(y_1, y_2, ..., y_n\)</span> , the least-squares solution is obtained by finding the orthogonal projection of the target vector <span  class="math">\(y\)</span> onto the subspace spanned by the columns of <span  class="math">\(X\)</span>.</p>
-
-<p><figure><img src="/blog/post/images/geometry-linear-regression.png" alt="Geometry interpretation of the least-squares solution" title="Figure 1: Geometry interpretation of the least-squares solution. (PRML 2006)"><figcaption>Figure 1: Geometry interpretation of the least-squares solution. (PRML 2006)</figcaption></figure></p>
-
-<p>From the following matrix form, we can see that the predicted value <span  class="math">\(\bold y'\)</span> lies the column space of <span  class="math">\(X\)</span>. If the true target value <span  class="math">\(\bold y\)</span> also lies in this space, then the loss of linear regression is zero, which is never the case in real life.</p>
-
-<p><span  class="math">\[
-\bold y' = \bold X \bold w = \begin{bmatrix}
-1&x_{11} & x_{12} & ... & x_{1d} \\ 
-1&x_{21} & x_{22} & ... & x_{2d} \\ 
-... \\ 
-1&x_{n1} & x_{n2} & ... & x_{nd} 
-\end{bmatrix}
-\begin{bmatrix}
-w_0\\
-w_1\\
-w_2\\
-...\\
-w_d
-\end{bmatrix}
-\]</span></p>
-
+</p>
+<p>From the following matrix form, we can see that the predicted value $\bold y'$ lies the column space of $X$. If the true target value $\bold y$ also lies in this space, then the loss of linear regression is zero, which is never the case in real life.</p>
+<p>$$
+\displaystyle{\bold y' = \bold X \bold w = \begin{bmatrix}1&amp;x_{11} &amp; x_{12} &amp; &hellip; &amp; x_{1d}\\ 1&amp;x_{21} &amp; x_{22} &amp; &hellip; &amp; x_{2d}\\ &hellip; \\ 1&amp;x_{n1} &amp; x_{n2} &amp; &hellip; &amp; x_{nd} \end{bmatrix}
+\begin{bmatrix}w_0\\ w_1\\ w_2\\ &hellip;\\ w_d \end{bmatrix}
+}
+$$</p>
 <h2 id="references">References</h2>
-
 <p>[1]C. Bishop, <em>Pattern Recognition and Machine Learning</em>. 2006.</p>
-
 
 
 

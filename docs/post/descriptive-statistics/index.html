@@ -49,6 +49,17 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
     
   </head>
   <body>
@@ -141,144 +152,96 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>In this post , I'm going to go through some basic concepts of  statistics required in Data Science.</p>
-
+  <p>In this post , I&rsquo;m going to go through some basic concepts of  statistics required in Data Science.</p>
 <p>There are two main branches of statistics :</p>
-
 <ul>
-<li><p>descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you've learned in high school.</p></li>
-
-<li><p>inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population.</p></li>
+<li>
+<p>descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you&rsquo;ve learned in high school.</p>
+</li>
+<li>
+<p>inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population.</p>
+</li>
 </ul>
-
 <p>We will firstly focus on descriptive statistics, specifically, the central tendency and dispersion. Central tendency measures the center of the data while dispersion measures how spread out a given data is.</p>
-
 <h2 id="central-tendency">Central tendency</h2>
-
 <p>Mean, mode and median are three mainly used measures of central tendency.</p>
-
 <h3 id="mean">Mean</h3>
-
 <p>Mean is the average of the data and calculated by summing up all data values and then dividing them by the number of data.</p>
-
-<p><span  class="math">\[
+<p>$$
 \overline x = \frac{\sum_i^nx_i}{n}
-\]</span></p>
-
+$$</p>
 <p>For instance, say we have a group of data <code>1,2,3,4,5,6</code>, the mean is <code>3.5</code>.</p>
-
 <h3 id="median">Median</h3>
-
-<p>Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems a bit strange since most of the data values is less than <code>10</code> except one extreme value <code>100</code>, which stretches the distribution of the whole data set to the right. This is why median comes.</p>
-
+<p>Though mean is widely used, it&rsquo;s sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems a bit strange since most of the data values is less than <code>10</code> except one extreme value <code>100</code>, which stretches the distribution of the whole data set to the right. This is why median comes.</p>
 <p>To get the median, firstly we need to sort the data in ascending order and then find the middle number that separate the data into two groups with the same size. In this example, the median is <code>4</code>.</p>
-
 <h3 id="mode">Mode</h3>
-
 <p>Mode is the most frequent value. There could be one, two or more data values that have the same frequency and that freqency is the highest.</p>
-
 <h2 id="dispersion">Dispersion</h2>
-
 <h3 id="range">Range</h3>
-
 <p>Range is the distance between the maximum value and the minimum value. Again, range is sensitive to outliers.</p>
-
-<p><span  class="math">\[
+<p>$$
 r=max - min
-\]</span></p>
-
+$$</p>
 <h3 id="quantile">Quantile</h3>
-
 <p>Quantiles are used to divide data into several equal-sized groups. The most widely used cut points are <code>0, 25, 50, 75, 100</code>, denoted by <code>min, Q1, Q2, Q3, max</code> respectively.</p>
-
 <p>IQR or interquartile range measures where the central 50% of the data is.</p>
-
-<p><span  class="math">\[
+<p>$$
 IQR = Q3 - Q1
-\]</span></p>
-
+$$</p>
 <p>IQR can be used to detect outliers. Data that is greater than <strong>upper boundary</strong> or less than <strong>lower boundary</strong> can be considered as an outlier.</p>
-
-<p><span  class="math">\[
-upper \ boundary = Q3 + 1.5*IQR \\
-\]</span></p>
-
-<p><span  class="math">\[
-lower \ boundary = Q1 - 1.5*IQR
-\]</span></p>
-
+<p>$$
+upper \ boundary = Q3 + 1.5<em>IQR\<br>
+lower \ boundary = Q1 - 1.5</em>IQR
+$$</p>
 <h3 id="variance">Variance</h3>
-
 <p>Deviation is the distance between a given data point and the mean. Since there are many data points, the variance calculates the average deviation from the mean.</p>
-
 <p>But when you do this, you will always get a zero due to the definition of the mean.</p>
-
-<p><span  class="math">\[
+<p>$$
 \sum_i^n d_i = \sum_i^n (x_i - \overline x) = \sum_i^nx_i - n\overline x = n\overline x - n\overline x  = 0
-\]</span></p>
-
+$$</p>
 <p>For simplicity, I omit the denominator <code>n</code>.</p>
-
-<p>Okay,  let's ignore the sign and use the absolute value of the deviation.</p>
-
-<p><span  class="math">\[
+<p>Okay,  let&rsquo;s ignore the sign and use the absolute value of the deviation.</p>
+<p>$$
 d_i = |x - \overline x|
-\]</span></p>
-
+$$</p>
 <p>Though it works, the most popularly used method is calculate the square of the deviation.</p>
-
-<p><span  class="math">\[
+<p>$$
 s^2 = \frac{\sum_i^n (x_i - \overline x)^2}{n-1}
-\]</span></p>
-
+$$</p>
 <p>Though variance works fine, the value is a bit hard to interpret. For instance, we have 15 records of fish size measured in kilogram:</p>
-
 <p><code>[ 2.1, 2.4, 2.4, 2.4, 2.4, 2.6, 2.9, 3.2, 3.2, 3.9, 4.5, 6.3, 8.2, 12.8, 23.5 ]</code>.</p>
-
-<p>The variance is <code>30.97</code>.  It means that if we randomly catch a fish, its weight would be <code>30.97 squared kilogram</code> far away from the average weight. Emm...squared kilogram is an odd unit.</p>
-
+<p>The variance is <code>30.97</code>.  It means that if we randomly catch a fish, its weight would be <code>30.97 squared kilogram</code> far away from the average weight. Emm&hellip;squared kilogram is an odd unit.</p>
 <h3 id="standard-deviation">Standard Deviation</h3>
-
-<p>It's simple to solve this problem by taking the square root of the variance, which is standard deviation.</p>
-
-<p><span  class="math">\[
+<p>It&rsquo;s simple to solve this problem by taking the square root of the variance, which is standard deviation.</p>
+<p>$$
 s = \sqrt{\frac{\sum (x - \overline x)^2}{n-1}}
-\]</span></p>
-
+$$</p>
 <p>So the standard deviation in the previous example is <code>5.56kg</code>, which makes much sense.</p>
-
 <h2 id="distribution">Distribution</h2>
-
 <h3 id="skewness">Skewness</h3>
+<p>Skewness measures the symmetry of a distribution.  It&rsquo;s quite common to have non-symmetric distributions.</p>
+<p>
+  <img src="/blog/post/images/skewness.png" alt="skewness">
 
-<p>Skewness measures the symmetry of a distribution.  It's quite common to have non-symmetric distributions.</p>
-
-<p><figure><img src="/blog/post/images/skewness.png" alt="skewness"></figure></p>
-
+</p>
 <p>A left-/negative-skewed distribution</p>
-
 <ul>
 <li>it has a long left tail</li>
 <li>the mean is on the left of the median</li>
 </ul>
-
 <p>A right-/positive-skewed distribution</p>
-
 <ul>
 <li>it has a long right tail</li>
 <li>the mean is on the right of the median</li>
 </ul>
+<p>A skewed distribution implies that there are some special values that are larger/smaller than the common values.  Let&rsquo;s see an example.</p>
+<p>
+  <img src="/blog/post/images/fish-skew.png" alt="skewness">
 
-<p>A skewed distribution implies that there are some special values that are larger/smaller than the common values.  Let's see an example.</p>
-
-<p><figure><img src="/blog/post/images/fish-skew.png" alt="skewness"></figure></p>
-
+</p>
 <p>Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish sizes are between 0 and 3kg and there are a few special fishes that weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.</p>
-
 <h2 id="reference">Reference</h2>
-
-<p>[1] B. al., &quot;Introduction to Statistics | Simple Book Production&quot;, <em>Courses.lumenlearning.com</em>, 2021. [Online]. Available: <a href="https://courses.lumenlearning.com/introstats1">https://courses.lumenlearning.com/introstats1</a>. [Accessed: 14- Apr- 2021].</p>
-
+<p>[1] B. al., &ldquo;Introduction to Statistics | Simple Book Production&rdquo;, <em>Courses.lumenlearning.com</em>, 2021. [Online]. Available: <a href="https://courses.lumenlearning.com/introstats1">https://courses.lumenlearning.com/introstats1</a>. [Accessed: 14- Apr- 2021].</p>
 
 
 

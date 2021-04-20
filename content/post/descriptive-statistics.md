@@ -8,12 +8,18 @@ categories: [
 ]
 series: ["Machine Learning"]
 katex: true
-markup: "mmark"
+
 ---
 
 
 
 In this post , I'm going to go through some basic concepts of  statistics required in Data Science. 
+
+
+
+<!--more-->
+
+
 
 There are two main branches of statistics :
 
@@ -88,10 +94,7 @@ IQR can be used to detect outliers. Data that is greater than **upper boundary**
 
 
 $$
-upper \ boundary = Q3 + 1.5*IQR \\
-$$
-
-$$
+upper \ boundary = Q3 + 1.5*IQR\\
 lower \ boundary = Q1 - 1.5*IQR
 $$
 
@@ -184,7 +187,9 @@ A right-/positive-skewed distribution
 
 A skewed distribution implies that there are some special values that are larger/smaller than the common values.  Let's see an example.
 
-![skewness](/blog/post/images/fish-skew.png){ width=50% }
+
+
+![skewness](/blog/post/images/fish-skew.png)
 
 
 

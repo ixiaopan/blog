@@ -8,12 +8,16 @@ categories: [
 ]
 series: ["Machine Learning"]
 katex: true
-markup: "mmark"
+
 ---
 
 
 
 There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning. So let's go!
+
+
+
+<!--more-->
 
 
 
@@ -31,11 +35,11 @@ Since there are only two variables, let's plot them.
 
 
 
-![scatter-plot](/blog/post/images/simple-linear-grade.png# half "Figure 1: The scatter plot of hours and grade")
+![scatter-plot](/blog/post/images/simple-linear-grade.png "Figure 1: The scatter plot of hours and grade")
 
 
 
-Well, we can see that the variable $$grade$$ is positive related to the variable $$hours$$. For simplicity, we can use a simple line(the red line in this figure)  to approximate this relationship. And this is exactly our first simple linear model.
+Well, we can see that the variable `grade` is positive related to the variable `hours`. For simplicity, we can use a simple line(the red line in this figure)  to approximate this relationship. And this is exactly our first simple linear model.
 
 
 
@@ -51,7 +55,7 @@ y = ax + b
 $$
 
 
-In this example, $$x$$ is the variable $$hours$$ and $$y$$ is the variable $$grade$$ , which we already know. So the problem is how to calculate the parameter $$a, b$$. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.
+In this example, $x$ is the variable `hours `and $y$ is the variable `grade` , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.
 
 
 
@@ -61,11 +65,11 @@ What is the loss? Basically, it's the error between the esitmated value and our 
 
 
 
-![simple-linear-grade](/blog/post/images/linear-regression-residual.png# half "Figure 2: The error for a single data \(Bradthiessen.com 2021\)")
+![simple-linear-grade](/blog/post/images/linear-regression-residual.png "Figure 2: The error for a single data \(Bradthiessen.com 2021\)")
 
 
 
-For a single data point, the loss function is defined below, where $$y$$ is the true value and $$y'$$ is our estimated value for a given $$a, b$$.  
+For a single data point, the loss function is defined below, where $y$ is the true value and $y'$ is our estimated value for a given $a, b$.  
 
 
 $$
@@ -99,7 +103,7 @@ $$
 
 
 
-However, the absoulte value of $$x$$ is not differentiable at $$0$$.
+However, the absoulte value of $x$ is not differentiable at $0$.
 
 
 
@@ -125,7 +129,7 @@ Okay, finally we find a function to measure the loss. Next we need to find the p
 
 
 
-Let's take the first derivatve of $$b$$
+Let's take the first derivatve of $b$
 
 
 $$
@@ -133,16 +137,23 @@ $$
 $$
 
 
-and then set this equation to $$0$$,
+and then set this equation to $0$,
+
+
 
 
 $$
--2(\sum_i^ny_i -a\sum_i^nx_i - \sum_i^nb) = -2(n\overline y-an\overline x - nb) = 0 \\
-b = \overline y-a\overline x
+-2(\sum_i^ny_i -a\sum_i^nx_i - \sum_i^nb) = -2(n\overline y-an\overline x - nb) = 0
+$$
+
+$$
+b = \overline y - a\overline x
 $$
 
 
-Let's take the first derivatve of $$a$$
+
+
+Let's take the first derivatve of $a$
 
 
 $$
@@ -150,11 +161,14 @@ $$
 $$
 
 
-and then plug $$b$$ into this equaiton and set this equation to $$0$$ again,
+and then plug $b$ into this equaiton and set this equation to 0 again,
 
 
 $$
-\sum_i^n -2x_i(y_i - ax_i-\overline y+a\overline x) = \sum_i^n -2x_i[(y_i-\overline y)- a(x_i -\overline x)]\\
+\sum_i^n -2x_i(y_i - ax_i-\overline y+a\overline x) = \sum_i^n -2x_i[(y_i-\overline y)- a(x_i -\overline x)]
+$$
+
+$$
 a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)}
 $$
 
@@ -171,9 +185,15 @@ Then we plug this into the previous equation
 
 
 $$
-a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}\\
-= \frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}\\
-= \frac{Cov(x, y)}{Var(x)}
+a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}
+$$
+
+$$
+= \frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}
+$$
+
+$$
+\frac{Cov(x, y)}{Var(x)}
 $$
 
 

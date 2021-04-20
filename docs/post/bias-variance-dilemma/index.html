@@ -49,6 +49,17 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
     
   </head>
   <body>
@@ -141,97 +152,88 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by 'high bias' or 'high variance'? Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I'm writing this post to try to explain this. I hope this post can help people who are still struggling with them understand the two most important concepts clearly.</p>
-
+  <p>When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by &lsquo;high bias&rsquo; or &lsquo;high variance&rsquo;?</p>
+<p>Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I&rsquo;m writing this post to try to explain this. I hope this post can help people who are still struggling with them understand the two most important concepts clearly.</p>
 <h2 id="generalization">Generalization</h2>
-
 <p>Before diving into it further, we should know what the generalization is.</p>
-
 <p><strong>Generalization measures how well our machine works on unseen data</strong>.</p>
-
 <ul>
-<li>If our machine is too simple, then we might not be able to fit the training data. Since the machine knows little about the data, it's unlikely to work well on unseen data.</li>
-<li>If our machine is too complex, then we might be able to fit the training data perfectly. It means that the machine knows too much about the data, even the noise that it should not learn. Thus, it's too sensitive to data so that a little change in data will cause a great variance.</li>
+<li>If our machine is too simple, then we might not be able to fit the training data. Since the machine knows little about the data, it&rsquo;s unlikely to work well on unseen data.</li>
+<li>If our machine is too complex, then we might be able to fit the training data perfectly. It means that the machine knows too much about the data, even the noise that it should not learn. Thus, it&rsquo;s too sensitive to data so that a little change in data will cause a great variance.</li>
 </ul>
-
 <h2 id="generalization-error">Generalization Error</h2>
-
 <p>The underlying assumption of machine learning is that there are some relationships between data. However, we are not able to know this true function, otherwise there is no need to learn it.</p>
-
-<p>Suppose we have a true realtionship denoted by <span  class="math">\(f(x)\)</span> (the red dot in Figure 2), and we want to construct a machine denoted by <span  class="math">\(f'(x)\)</span> to approximate the true function based on the data <span  class="math">\(D\)</span> sampled from the population <span  class="math">\(\chi\)</span>. Then the <strong>training loss</strong> is defined by the following equation, where <span  class="math">\(f'(x|D)\)</span> is the machine we learn from this particular data set <span  class="math">\(D\)</span></p>
-
-<p><span  class="math">\[
+<p>Suppose we have a true realtionship denoted by $f(x)$ (the red dot in Figure 2), and we want to construct a machine denoted by $f'(x)$ to approximate the true function based on the data $D$ sampled from the population $\chi$. Then the <strong>training loss</strong> is defined by the following equation, where $f'(x|D)$ is the machine we learn from this particular data set $D$</p>
+<p>$$
 L_T(D) = \sum_{x\in D}(f'(x|D) - f(x))^2
-\]</span></p>
-
+$$</p>
 <p>Okay, now we want to know how well this machine works on unseen data, which can be measured by <strong>generalization loss</strong>.</p>
-
-<p><span  class="math">\[
+<p>$$
 L_G(D) = \sum_{x\in \chi} p(x) (f'(x|D) - f(x))^2
-\]</span></p>
+$$</p>
+<p>If we have another data set $D_1$, then we will get another machine $f'(x|D_1)$ and another generalization loss $L_G(D_1)$ shown in Figure 1.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/generalization-error.png" alt="generalisation error">
+    <figcaption>Figure 1: Generalisation error</figcaption>
+  </figure>
 
-<p>If we have another data set <span  class="math">\(D_1\)</span>, then we will get another machine <span  class="math">\(f'(x|D_1)\)</span> and another generalization loss <span  class="math">\(L_G(D_1)\)</span> shown in Figure 1.</p>
-
-<p><figure><img src="/blog/post/images/generalization-error.png" alt="generalisation error" title="Figure 1"><figcaption>Figure 1</figcaption></figure></p>
-
-<p>We can see that the generalization loss is depend on our training data. Thus, the generalization loss for a particular data set doesn't make much sense. Instead, the average generalization loss over all the data set with the same size of <span  class="math">\(n\)</span> is what we expect.</p>
-
-<p><span  class="math">\[
+</p>
+<p>We can see that the generalization loss is depend on our training data. Thus, the generalization loss for a particular data set doesn&rsquo;t make much sense. Instead, the average generalization loss over all the data set with the same size of $n$ is what we expect.</p>
+<p>$$
 E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi} p(x)(f'(x|D) - f(x))^2]
-\]</span></p>
-
+$$</p>
 <h2 id="mean-machine">Mean Machine</h2>
+<p>We have already known that there is a different machine $f'(x|D)$ for a given data set $D$. Thus, for an unseen data $x$, we will have many predictions of many different machines, which are represented in blut dots shown in Figure 2.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/bias-variance.png" alt="Bias-Variance">
+    <figcaption>Figure 2: Bias and variance</figcaption>
+  </figure>
 
-<p>We have already known that there is a different machine <span  class="math">\(f'(x|D)\)</span> for a given data set <span  class="math">\(D\)</span>. Thus, for an unseen data <span  class="math">\(x\)</span>, we will have many predictions of many different machines, which are represented in blut dots shown in Figure 2.</p>
-
-<p><figure><img src="/blog/post/images/bias-variance.png" alt="Bias-Variance" title="Figure 2: Bias and variance."><figcaption>Figure 2: Bias and variance.</figcaption></figure></p>
-
+</p>
 <p>The average prediction for an unseen data is the mean prediction(the yellow dot in Figure 2).</p>
-
-<p><span  class="math">\[
+<p>$$
 f'_m(x) = E_D[f'(x|D)]
-\]</span></p>
-
+$$</p>
 <h2 id="bias">Bias</h2>
-
 <p>Bias is the distance between the mean prediction(the yellow dot) and the true value(the red dot) shown in Figure 2. High bias implies that our model is too simple and the prediction value is much far away from the true value.</p>
-
-<p><span  class="math">\[
-B = \sum_{x \in \chi} p(x) (f'm - f(x))^2
-\]</span></p>
-
+<p>$$
+B = \sum_{x \in \chi} p(x) (f&rsquo;m - f(x))^2
+$$</p>
 <h2 id="variance">Variance</h2>
-
 <p>Variance measures the variation in the prediction of the machine when we change different data set we train on. If we have a complex machine, as mentioned earlier, the machine will try its best to match every data in training data set. In other words, the machine memorized the trainining data and a little change in data set will cause significant variation in prediction.</p>
-
-<p><span  class="math">\[
-V = \sum_{x \in \chi}p(x) E_D[ (f'(x|D) - f'm)^2 ]
-\]</span></p>
-
-<h2 id="biasvariance-dilemma">Bias-Variance dilemma</h2>
-
-<p>Now it's time to decompose the average generalisation error. Let's plug the <span  class="math">\(f'_m(x)\)</span> into the previous equation</p>
-
-<p><span  class="math">\[
-E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi} p(x)(f'(x|D) - f(x))^2] \\
-= E_D[\sum_{x\in \chi}p(x) (f'(x|D) - f_m' + f_m' - f(x))^2] \\
-= E_D[\sum_{x\in \chi}p(x)\{(f'(x|D) - f_m')^2 + (f_m' - f(x))^2 + 2(f'(x|D) - f_m')(f_m' - f(x)) \}]
-\]</span></p>
-
-<p>It's noticeable that the cross-term will cancel out because <span  class="math">\(f'm\)</span> and <span  class="math">\(f(x)\)</span> are constants no matter what data set <span  class="math">\(D\)</span> is.</p>
-
-<p><span  class="math">\[
-E_D[\sum_{x\in \chi}p(x)2(f'(x|D) - f_m')(f_m' - f(x))] = \sum_{x\in \chi}p(x) (2E_D[f'(x|D)]-f'm)(f'm-f(x)) = 0
-\]</span></p>
-
+<p>$$
+V = \sum_{x \in \chi}p(x) E_D[ (f'(x|D) - f&rsquo;m)^2 ]
+$$</p>
+<h2 id="bias-variance-dilemma">Bias-Variance dilemma</h2>
+<p>Now it&rsquo;s time to decompose the average generalisation error. Let&rsquo;s plug the $f'_m(x)$ into the previous equation</p>
+<p>$$
+E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi} p(x)(f'(x|D) - f(x))^2]
+$$</p>
+<p>$$
+= E_D[\sum_{x\in \chi}p(x) (f'(x|D) - f_m' + f_m' - f(x))^2]
+$$</p>
+<p>$$
+= E_D[\sum_{x\in \chi}p(x){(f'(x|D) - f_m')^2 + (f_m' - f(x))^2 + 2(f'(x|D) - f_m')(f_m' - f(x)) }]
+$$</p>
+<p>It&rsquo;s noticeable that the cross-term will cancel out because $f&rsquo;m$ and $f(x)$ are constants no matter what data set $D$ is.</p>
+<p>$$
+E_D[\sum_{x\in \chi}p(x)2(f'(x|D) - f_m')(f_m' - f(x))]
+$$</p>
+<p>$$
+= \sum_{x\in \chi}p(x) (2E_D[f'(x|D)]-f&rsquo;m)(f&rsquo;m-f(x)) = 0
+$$</p>
 <p>Therefore, we are left with</p>
-
-<p><span  class="math">\[
-E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi}p(x)(f'(x|D) - f_m')^2 + \sum_{x\in \chi}p(x)(f_m' - f(x))^2] \\
-= \sum_{x\in \chi}p(x) E_D[(f'(x|D) - f_m')^2] + \sum_{x\in \chi}p(x)(f_m' - f(x))^2 \\
+<p>$$
+E_G = E_D[L_G(D)] = E_D[\sum_{x\in \chi}p(x)(f'(x|D) - f_m')^2 + \sum_{x\in \chi}p(x)(f_m' - f(x))^2]
+$$</p>
+<p>$$
+= \sum_{x\in \chi}p(x) E_D[(f'(x|D) - f_m')^2] + \sum_{x\in \chi}p(x)(f_m' - f(x))^2
+$$</p>
+<p>$$
 = V + B
-\]</span></p>
-
+$$</p>
 
 
 

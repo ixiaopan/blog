@@ -49,6 +49,17 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
     
   </head>
   <body>
@@ -141,12 +152,9 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning. So let's go!</p>
-
+  <p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&rsquo;s the first algorithm that most of people learn in the world of machine learning. So let&rsquo;s go!</p>
 <h2 id="problem-statement">Problem statement</h2>
-
 <p>Suppose you are a teacher, and you record some data about the hours students spent on study and the grades they achieved. Then you want to predict the grade for given hours that someone spent. Here are some sample data you collected:</p>
-
 <table>
 <thead>
 <tr>
@@ -158,7 +166,6 @@
 <th>4</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Grade</td>
@@ -170,115 +177,93 @@
 </tr>
 </tbody>
 </table>
+<p>Since there are only two variables, let&rsquo;s plot them.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/simple-linear-grade.png" alt="scatter-plot">
+    <figcaption>Figure 1: The scatter plot of hours and grade</figcaption>
+  </figure>
 
-<p>Since there are only two variables, let's plot them.</p>
-
-<p><figure><img src="/blog/post/images/simple-linear-grade.png# half" alt="scatter-plot" title="Figure 1: The scatter plot of hours and grade"><figcaption>Figure 1: The scatter plot of hours and grade</figcaption></figure></p>
-
-<p>Well, we can see that the variable <span  class="math">\(grade\)</span> is positive related to the variable <span  class="math">\(hours\)</span>. For simplicity, we can use a simple line(the red line in this figure)  to approximate this relationship. And this is exactly our first simple linear model.</p>
-
+</p>
+<p>Well, we can see that the variable <code>grade</code> is positive related to the variable <code>hours</code>. For simplicity, we can use a simple line(the red line in this figure)  to approximate this relationship. And this is exactly our first simple linear model.</p>
 <h2 id="simple-linear-regression">Simple Linear Regression</h2>
-
 <p>Remember a line equation is written in this way:</p>
-
-<p><span  class="math">\[
+<p>$$
 y = ax + b
-\]</span></p>
-
-<p>In this example, <span  class="math">\(x\)</span> is the variable <span  class="math">\(hours\)</span> and <span  class="math">\(y\)</span> is the variable <span  class="math">\(grade\)</span> , which we already know. So the problem is how to calculate the parameter <span  class="math">\(a, b\)</span>. Technically, this is called <strong>parameter estimation</strong>. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.</p>
-
+$$</p>
+<p>In this example, $x$ is the variable <code>hours </code>and $y$ is the variable <code>grade</code> , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called <strong>parameter estimation</strong>. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.</p>
 <h2 id="loss">Loss</h2>
+<p>What is the loss? Basically, it&rsquo;s the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close as possible to the true value.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/linear-regression-residual.png" alt="simple-linear-grade">
+    <figcaption>Figure 2: The error for a single data \(Bradthiessen.com 2021\)</figcaption>
+  </figure>
 
-<p>What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close as possible to the true value.</p>
-
-<p><figure><img src="/blog/post/images/linear-regression-residual.png# half" alt="simple-linear-grade" title="Figure 2: The error for a single data (Bradthiessen.com 2021)"><figcaption>Figure 2: The error for a single data (Bradthiessen.com 2021)</figcaption></figure></p>
-
-<p>For a single data point, the loss function is defined below, where <span  class="math">\(y\)</span> is the true value and <span  class="math">\(y'\)</span> is our estimated value for a given <span  class="math">\(a, b\)</span>.</p>
-
-<p><span  class="math">\[
+</p>
+<p>For a single data point, the loss function is defined below, where $y$ is the true value and $y'$ is our estimated value for a given $a, b$.</p>
+<p>$$
 error = y_i - y'_i = y_i - ax_i - b
-\]</span></p>
-
+$$</p>
 <p>Since we have many data points, we need to sum up them all to evaluate the overall errors.</p>
-
 <h3 id="1-error">1. error</h3>
-
 <p>Unfortunately, some error terms will cancel out when you do this calculation directly.</p>
-
-<p><span  class="math">\[
+<p>$$
 L = \sum_i^n (y_i - y'_i) = \sum_i^n (y_i - ax_i - b)
-\]</span></p>
-
+$$</p>
 <h3 id="2-the-absolute-value-of-error">2. the absolute value of error</h3>
-
 <p>One way to tackle this is taking the absolute value of the error terms.</p>
-
-<p><span  class="math">\[
+<p>$$
 L =  \sum_i^n |y_i - y_i'|
-\]</span></p>
-
-<p>However, the absoulte value of <span  class="math">\(x\)</span> is not differentiable at <span  class="math">\(0\)</span>.</p>
-
+$$</p>
+<p>However, the absoulte value of $x$ is not differentiable at $0$.</p>
 <h3 id="3-the-squared-value-of-error">3. the squared value of error</h3>
-
 <p>Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as <code>Residual Sum of Squares(RSS)</code> or <code>Sum of Squared Error (SSE)</code></p>
-
-<p><span  class="math">\[
+<p>$$
 L =  \sum_i^n (y_i - y_i')^2
-\]</span></p>
-
+$$</p>
 <p>PS: We will revisit the squared error later from the perspective of MLE.</p>
-
-<h2 id="closedform-solution">Closed-form solution</h2>
-
+<h2 id="closed-form-solution">Closed-form solution</h2>
 <p>Okay, finally we find a function to measure the loss. Next we need to find the parameters that minimize the squared error. Good news is that our loss function is differentiable and convex! It means that we have a global minimial value and can be calculated directly by taking derivatives.</p>
-
-<p>Let's take the first derivatve of <span  class="math">\(b\)</span></p>
-
-<p><span  class="math">\[
+<p>Let&rsquo;s take the first derivatve of $b$</p>
+<p>$$
 \frac{\partial L}{\partial b} = \sum_i^n -2(y_i - ax_i-b)
-\]</span></p>
-
-<p>and then set this equation to <span  class="math">\(0\)</span>,</p>
-
-<p><span  class="math">\[
--2(\sum_i^ny_i -a\sum_i^nx_i - \sum_i^nb) = -2(n\overline y-an\overline x - nb) = 0 \\
-b = \overline y-a\overline x
-\]</span></p>
-
-<p>Let's take the first derivatve of <span  class="math">\(a\)</span></p>
-
-<p><span  class="math">\[
+$$</p>
+<p>and then set this equation to $0$,</p>
+<p>$$
+-2(\sum_i^ny_i -a\sum_i^nx_i - \sum_i^nb) = -2(n\overline y-an\overline x - nb) = 0
+$$</p>
+<p>$$
+b = \overline y - a\overline x
+$$</p>
+<p>Let&rsquo;s take the first derivatve of $a$</p>
+<p>$$
 \frac{\partial L}{\partial a} = \sum_i^n -2x_i(y_i - ax_i-b)
-\]</span></p>
-
-<p>and then plug <span  class="math">\(b\)</span> into this equaiton and set this equation to <span  class="math">\(0\)</span> again,</p>
-
-<p><span  class="math">\[
-\sum_i^n -2x_i(y_i - ax_i-\overline y+a\overline x) = \sum_i^n -2x_i[(y_i-\overline y)- a(x_i -\overline x)]\\
+$$</p>
+<p>and then plug $b$ into this equaiton and set this equation to 0 again,</p>
+<p>$$
+\sum_i^n -2x_i(y_i - ax_i-\overline y+a\overline x) = \sum_i^n -2x_i[(y_i-\overline y)- a(x_i -\overline x)]
+$$</p>
+<p>$$
 a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)}
-\]</span></p>
-
+$$</p>
 <p>Here, we use a slight algebra trick,</p>
-
-<p><span  class="math">\[
+<p>$$
 a\sum_i^n(x_i - \overline x_i) = 0
-\]</span></p>
-
+$$</p>
 <p>Then we plug this into the previous equation</p>
-
-<p><span  class="math">\[
-a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}\\
-= \frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}\\
-= \frac{Cov(x, y)}{Var(x)}
-\]</span></p>
-
+<p>$$
+a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}
+$$</p>
+<p>$$
+= \frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}
+$$</p>
+<p>$$
+\frac{Cov(x, y)}{Var(x)}
+$$</p>
 <p>Finally, we find the best estimators for simple linear regression.</p>
-
 <h2 id="reference">Reference</h2>
-
 <p>[1] <em>Bradthiessen.com</em>, 2021. [Online]. Available: <a href="https://www.bradthiessen.com/html5/docs/ols.pdf">https://www.bradthiessen.com/html5/docs/ols.pdf</a>. [Accessed: 14- Apr- 2021].</p>
-
 
 
 

@@ -49,6 +49,17 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
     
   </head>
   <body>
@@ -115,7 +126,7 @@
         
           <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 18, 2021
+  >&nbsp;Apr 19, 2021
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
@@ -141,123 +152,93 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as 'Is it a fiction movie? Is it directed by David Fincher?'</p>
+  <p>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &lsquo;Is it a fiction movie? Is it directed by David Fincher?&rsquo;</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/decision-tree-explain.png" alt="The process of movie selection">
+    <figcaption>Figure 1: The process of movie selection</figcaption>
+  </figure>
 
-<p><figure><img src="/blog/post/images/decision-tree-explain.png# half" alt="The process of movie seltction" title="Figure 1: The process of movie selection"><figcaption>Figure 1: The process of movie selection</figcaption></figure></p>
-
+</p>
 <p>From Figure 1, we can see that a decision tree builds a binary tree to partion the data. Each node is a decision rule based on a feature and the tree can grow endlessly. Two questions then arise:</p>
-
 <ul>
 <li>How is the decision rule made?</li>
 <li>How deep is the decision tree?</li>
 </ul>
-
 <h2 id="decision-rule">Decision Rule</h2>
-
-<p>Since there are so many features and each feature can have different values, we have to loop over all of them and find the best split. Well, how to measure the performance of a split? There are 3 measures widely used — Gini Impurity, Entropy, Information Gain.</p>
-
+<p>Since there are so many features and each feature can have different values, we have to loop over all of them and find the best split. Well, how to measure the performance of a split? There are 3 measures widely used — Gini Impurity, Entropy, and Information Gain.</p>
 <h3 id="gini-index">Gini Index</h3>
-
 <p>Gini Index, also known as Gini Impurity, measures how often a randomly selected element from the set is classified incorrectly.</p>
-
-<p><span  class="math">\[
+<p>$$
 Q_m^g(L) = \sum_{c \in C } p_c(L) (1 - p_c(L)) = 1 - \sum_{c \in C } p_c(L)^2
-\]</span></p>
-
-<p>where <span  class="math">\(L\)</span> is short for the leaf node <span  class="math">\(L\)</span>.</p>
-
-<p><span  class="math">\(P_c(L)\)</span> is the faction of class <span  class="math">\(c\)</span> in the leaf node <span  class="math">\(L\)</span> defined as</p>
-
-<p><span  class="math">\[
+$$</p>
+<p>where $L$ is short for the children node.</p>
+<p>$P_c(L)$ is the faction of class $$c$$ in the leaf node $L$ defined as</p>
+<p>$$
 p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
-\]</span></p>
+$$</p>
+<p>where $[y == c] = 1$  if $y$ belongs to class $c$ and 0 otherwise.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/gini-index.png" alt="Gini Index">
+    <figcaption>Figure 2: The plot of Gini Index</figcaption>
+  </figure>
 
-<p>where <span  class="math">\([y == c] = 1\)</span>  if <span  class="math">\(y\)</span> belongs to class <span  class="math">\(c\)</span> and <span  class="math">\(0\)</span> otherwise.</p>
-
-<p><figure><img src="/blog/post/images/gini-index.png# half" alt="Gini Index" title="Figure 2: The plot of Gini Index"><figcaption>Figure 2: The plot of Gini Index</figcaption></figure></p>
-
+</p>
 <p>Figure 2 shows that the value of Gini Index is the lowest at the start and end of the x-axis and maximum at the middle of the x-axis. In other words,</p>
-
 <ul>
-<li>If the leaf node only has one class, then this node is a pure node and the gini impurity of this leaf node is <span  class="math">\(0\)</span>.</li>
-<li>On the other hand, if all elements in this leaf node belong to an individual class, then the Gini Index of this node has the maximum value of <span  class="math">\( 1 - 1/len(L) \)</span>.</li>
+<li>If the leaf node only has one class, then this node is a pure node and the gini impurity of this leaf node is 0.</li>
+<li>On the other hand, if all elements in this leaf node belong to an individual class, then the Gini Index of this node has the maximum value of $ 1 - 1/len(L) $.</li>
 </ul>
-
 <h3 id="entropy">Entropy</h3>
-
 <p>Entropy is a concept of Information Theory. Before introducing the entropy, we should have a little understanding of information.</p>
-
-<p>Information is related to the surprise in some way. For example, if I told you that you will go to work tomorrow. Well, that's not surprising because you work every day. However, if I told you that tomorrow is the end of the world, you are likely to be shocked because it is an breaking news.</p>
-
+<p>Information is related to the surprise in some way. For example, if I told you that you will go to work tomorrow. Well, that&rsquo;s not surprising because you work every day. However, if I told you that tomorrow is the end of the world, you are likely to be shocked because it is an breaking news.</p>
 <p>We can measure this surprise by the following equation</p>
-
-<p><span  class="math">\[
+<p>$$
 I(x) = -log(p(x))
-\]</span></p>
-
-<p>If an event is unlikely to happen, then <span  class="math">\(p(x)\)</span> is close to 0 and <span  class="math">\(I(x)\)</span> tends to be infinity, which means it conveys much information since impossible things happened and it must have a significant implication behind it.</p>
-
-<p>Then what's the entropy? The previous equation calculate the information contained in one outcome. However, it's quite often to have many outcomes for a random variable <span  class="math">\(X\)</span>. Therefore, the expected information over all outcomes is defined as the entropy.</p>
-
-<p><span  class="math">\[
+$$</p>
+<p>If an event is unlikely to happen, then $p(x)$ is close to 0 and $I(x)$ tends to be infinity, which means it conveys much information since impossible things happened and it must have a significant implication behind it.</p>
+<p>Then what&rsquo;s the entropy? The previous equation calculate the information contained in one outcome. However, it&rsquo;s quite often to have many outcomes for a random variable $X$. Therefore, the expected information over all outcomes is defined as the entropy.</p>
+<p>$$
 H(X) = E_{x \in X}[-log(p(x)]
-\]</span></p>
-
-<p>In this case, the classes in the leaf node is the random variable <span  class="math">\(X\)</span> and the probability of each outcome is the fraction of each class, which is expressed as</p>
-
-<p><span  class="math">\[
+$$</p>
+<p>In this case, the classes in the leaf node is the random variable $X$ and the probability of each outcome is the fraction of each class, which is expressed as</p>
+<p>$$
 Q_m^e(L) = \sum_{c \in C}- p_c(L) log(p_c(L))
-\]</span></p>
-
-<p>In a word, entropy measures the randomness of a set. Lower entropy means a purer set while higher entropy means there are more other classes that is not the class <span  class="math">\(c\)</span> in a set.</p>
-
+$$</p>
+<p>In a word, entropy measures the randomness of a set. Lower entropy means a purer set while higher entropy means there are more other classes that is not the class $c$ in a set.</p>
 <h3 id="information-gain">Information Gain</h3>
-
-<p>Information Gain is simply the difference between the impurity of the parent node <span  class="math">\(A\)</span> before splitting and the sum of impurity of all children nodes after splitting.</p>
-
-<p><span  class="math">\[
-IG(A) = H(A) - \sum_{L \in Leaf Nodes} p(L) H(L)
-\]</span></p>
-
-<p>In words, it measures how much the impurity of a set <span  class="math">\(A\)</span> were reduced after splitting. The larger the information gain is, the better the split is.</p>
-
+<p>Information Gain is simply the difference between the impurity of the parent node $A$ before splitting and the sum of impurity of all children nodes after splitting. It measures how much the impurity of a set $A$ were reduced after splitting. The larger the information gain is, the better the split is.</p>
+<p>$$
+IG(A) = H(A) - \sum_{L \in children \ nodes} p(L) H(L)
+$$</p>
 <p>In summary, when a decisiton tree makes a split on a feature, it tries to achieve,</p>
-
 <ul>
 <li>a lower impurity</li>
 <li>a lower entropy</li>
 <li>a higher information gain</li>
 </ul>
-
 <h2 id="cart">CART</h2>
-
-<p>CART is short for classification and regression tree algorithm, which is used to train Decisioin Trees. CART tries to find the best split that produces purest subsets by calculating the weighted Gini Impurity on each split made by each feature <span  class="math">\(k\)</span>  from the parent node's training sample and corresponding threshold <span  class="math">\(t_k\)</span>.</p>
-
+<p>CART is short for classification and regression tree algorithm, which is used to train Decisioin Trees. CART tries to find the best split that produces purest subsets by calculating the weighted Gini Impurity on each split made by each feature $k$ from the parent node&rsquo;s training sample and corresponding threshold $t_k$.</p>
 <p>Specifically, it tries to minimize the following loss function for a classification task,</p>
-
-<p><span  class="math">\[
+<p>$$
 L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}Q_m^G(C_m^L) + \frac{len(C_m^R)}{len(N_m)} Q_m^G(C_m^R)
-\]</span></p>
-
-<p>where <span  class="math">\(C_m^L\)</span> and <span  class="math">\(C_m^R\)</span> are children nodes splitted on node <span  class="math">\(N_m\)</span></p>
-
+$$</p>
+<p>where $C_m^L$ and $C_m^R$ are children nodes splitted on node $N_m$.</p>
 <p>For a regression task, it minimizes the sum of squred error</p>
-
-<p><span  class="math">\[
+<p>$$
 L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}SSE(C_m^L) + \frac{len(C_m^R)}{len(N_m)} SSE(C_m^R)
-\]</span></p>
-
-<p>where <span  class="math">\(SSE(subset)\)</span> is defined as</p>
-
-<p><span  class="math">\[
-SSE(subset) = \sum_{n \in subset} (y_n - \overline y)^2 \\
+$$</p>
+<p>where $SSE(subset)$ is defined as</p>
+<p>$$
+SSE(subset) = \sum_{n \in subset} (y_n - \overline y)^2
+$$</p>
+<p>$$
 \overline y = \frac{1}{len(subset)} \sum_{n \in subset} y_n
-\]</span></p>
-
-<h2 id="hyperparameters">Hyperparameters</h2>
-
-<p>Now let's address the second problem, i.e. when to stop growing the tree. Scikit-learn provides several hyperparameters to avoid overfitting:</p>
-
+$$</p>
+<h2 id="prunning">Prunning</h2>
+<h3 id="pre-pruning">Pre pruning</h3>
+<p>Now let&rsquo;s address the second problem, i.e. when to stop growing the tree. Scikit-learn provides several hyperparameters to avoid overfitting:</p>
 <ul>
 <li>criterion</li>
 <li>the maximum depth</li>
@@ -265,36 +246,37 @@ SSE(subset) = \sum_{n \in subset} (y_n - \overline y)^2 \\
 <li>the minimum number of the samples in a leaf node</li>
 <li>the maximum number of leaf nodes</li>
 </ul>
-
 <p>All of these parameters can be tuned by cross-validation.</p>
-
+<h3 id="cost-complexity-pruning">Cost Complexity Pruning</h3>
+<p>TODO</p>
 <h2 id="pros-and-cons">Pros and Cons</h2>
-
 <p>Advantages:</p>
-
 <ul>
 <li>Decision trees are simple and intutive to interpret because we can easily visualize the process of decision making.</li>
 <li>They can be used for both classification and regression.</li>
 <li>They can handle missing data. The missing data is either on the left or right depends on maximum purity.</li>
 <li>There is no need to normalize or scale data.</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>They can have high bias because they split the data based on a single variable.</li>
 <li>They can be easy to overfit.</li>
 <li>They are sensitive to variations of training data. If you rotate the same data, you will get a completely different tree because all splits are perpendicular to an axis.</li>
 </ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/decision-tree-sensitve.png" alt="Decision Trees are sensitive">
+    <figcaption>Figure 3: senstivity to variations of training set \(Hands-on machine learning 2019\)</figcaption>
+  </figure>
 
-<p><figure><img src="/blog/post/images/decision-tree-sensitve.png" alt="Decision Trees are sensitive" title="Figure 3: senstivity to variations of training set (Hands-on machine learning 2019)"><figcaption>Figure 3: senstivity to variations of training set (Hands-on machine learning 2019)</figcaption></figure></p>
-
+</p>
 <h2 id="references">References</h2>
-
 <ul>
-<li>[1]A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O'Reilly Media, 2019.</li>
+<li>[1]A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</li>
+<li><a href="https://www.kaggle.com/arunmohan003/pruning-decision-trees">pruning-decision-trees, Kaggle</a></li>
+<li><a href="https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning">how-to-choose-alpha-in-cost-complexity-pruning</a></li>
+<li><a href="http://mlwiki.org/index.php/Cost-Complexity_Pruning">Cost-Complexity Pruning</a></li>
 </ul>
-
 
 
 

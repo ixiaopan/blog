@@ -2,12 +2,15 @@
 baseURL = "https://ixiaopan.github.io/blog/"
 # title = "Hugo Themes"
 theme = "harbor"
-paginate = 5
+paginate = 7
 languageCode = "en"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 publishDir = "docs"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
 
 [Author]
   name = "ixiaopan"

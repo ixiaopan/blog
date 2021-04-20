@@ -9,26 +9,24 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Mon, 19 Apr 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Tue, 20 Apr 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Ensemble Methods</title>
-			<link>https://ixiaopan.github.io/blog/post/ensemble/</link>
-			<pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/ensemble/</guid>
-			<description>Bagging Bootstrap Random Forest Boosting AdaBoost Gradient Boost XGBoost LGBM </description>
+			<link>https://ixiaopan.github.io/blog/post/ensemble-methods/</link>
+			<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/ensemble-methods/</guid>
+			<description>Hello</description>
 		</item>
       	
 		<item>
 			<title>Decision Tree</title>
 			<link>https://ixiaopan.github.io/blog/post/decision-tree/</link>
-			<pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+			<pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/decision-tree/</guid>
-			<description>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &#39;Is it a fiction movie? Is it directed by David Fincher?&#39;
-Figure 1: The process of movie selection
-From Figure 1, we can see that a decision tree builds a binary tree to partion the data.</description>
+			<description>&lt;p&gt;The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &amp;lsquo;Is it a fiction movie? Is it directed by David Fincher?&amp;rsquo;&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -36,7 +34,7 @@ From Figure 1, we can see that a decision tree builds a binary tree to partion t
 			<link>https://ixiaopan.github.io/blog/post/linear-regression-02/</link>
 			<pubDate>Sat, 17 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/linear-regression-02/</guid>
-			<description>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&#39;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</description>
+			<description>&lt;p&gt;In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&amp;rsquo;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -44,7 +42,7 @@ From Figure 1, we can see that a decision tree builds a binary tree to partion t
 			<link>https://ixiaopan.github.io/blog/post/bias-variance-dilemma/</link>
 			<pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/bias-variance-dilemma/</guid>
-			<description>When you learn more about machine learning, you must hear people talking about high bias or high variance something like that. What does they mean by &#39;high bias&#39; or &#39;high variance&#39;? Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I&#39;m writing this post to try to explain this.</description>
+			<description>&lt;p&gt;When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by &amp;lsquo;high bias&amp;rsquo; or &amp;lsquo;high variance&amp;rsquo;?&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -52,8 +50,7 @@ From Figure 1, we can see that a decision tree builds a binary tree to partion t
 			<link>https://ixiaopan.github.io/blog/post/linear-regression-01/</link>
 			<pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/linear-regression-01/</guid>
-			<description>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&#39;s the first algorithm that most of people learn in the world of machine learning. So let&#39;s go!
-Problem statement Suppose you are a teacher, and you record some data about the hours students spent on study and the grades they achieved.</description>
+			<description>&lt;p&gt;There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&amp;rsquo;s the first algorithm that most of people learn in the world of machine learning. So let&amp;rsquo;s go!&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -61,11 +58,7 @@ Problem statement Suppose you are a teacher, and you record some data about the 
 			<link>https://ixiaopan.github.io/blog/post/descriptive-statistics/</link>
 			<pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/descriptive-statistics/</guid>
-			<description>In this post , I&#39;m going to go through some basic concepts of statistics required in Data Science.
-There are two main branches of statistics :
- descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you&#39;ve learned in high school.
- inferential statistics, on the other hand, uses a random dataset sampled from population to make inferences about population.
-  We will firstly focus on descriptive statistics, specifically, the central tendency and dispersion.</description>
+			<description>&lt;p&gt;In this post , I&amp;rsquo;m going to go through some basic concepts of  statistics required in Data Science.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
