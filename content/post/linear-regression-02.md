@@ -165,7 +165,7 @@ In this section, we will look at the geometry of the linear regression. In $N$-d
 
 
 
-![Geometry interpretation of the least-squares solution](/blog/post/images/geometry-linear-regression.png "Figure 1: Geometry interpretation of the least-squares solution. \(PRML 2006\)")
+![Geometry interpretation of the least-squares solution](/blog/post/images/geometry-linear-regression.png "Figure 1: Geometry interpretation of the least-squares solution (PRML 2006)")
 
 
 

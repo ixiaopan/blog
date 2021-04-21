@@ -25,24 +25,15 @@ Actually, when I first heard these terms, I was completely confused. Even though
 
 
 
-
-
-## Generalization
-
-Before diving into it further, we should know what the generalization is. 
-
-**Generalization measures how well our machine works on unseen data**. 
-
-- If our machine is too simple, then we might not be able to fit the training data. Since the machine knows little about the data, it's unlikely to work well on unseen data.
-- If our machine is too complex, then we might be able to fit the training data perfectly. It means that the machine knows too much about the data, even the noise that it should not learn. Thus, it's too sensitive to data so that a little change in data will cause a great variance.
-
-
-
 ## Generalization Error
+
+
 
 The underlying assumption of machine learning is that there are some relationships between data. However, we are not able to know this true function, otherwise there is no need to learn it.
 
-Suppose we have a true realtionship denoted by $f(x)$ (the red dot in Figure 2), and we want to construct a machine denoted by $f'(x)$ to approximate the true function based on the data $D$ sampled from the population $\chi$. Then the **training loss** is defined by the following equation, where $f'(x|D)$ is the machine we learn from this particular data set $D$
+Suppose we have a true realtionship denoted by $f(x)$ (the red dot in Figure 1), and we want to construct a machine denoted by $f'(x)$ to approximate the true function based on the data $D$ sampled from the population $\chi$. 
+
+The **training loss** is defined by the following equation, where $f'(x|D)$ is the machine we learn from this particular data set $D$
 
 
 
@@ -52,7 +43,9 @@ L_T(D) = \sum_{x\in D}(f'(x|D) - f(x))^2
 $$
 
 
-Okay, now we want to know how well this machine works on unseen data, which can be measured by **generalization loss**. 
+However, our goal is to know how well this machine works on unseen data, which is known as **generalization**. The generalization loss is expressed as
+
+
 
 
 $$
@@ -166,3 +159,14 @@ $$
 $$
 = V + B
 $$
+
+
+In summary,
+
+- If our machine is too simple, then we might not be able to fit the training data. Since the machine knows little about the data, it's unlikely to work well on unseen data. This means our model has a **high bias**.
+- If our machine is too complex, then we might be able to fit the training data perfectly. It means that the machine knows too much about the data, even the noise that it should not learn. Thus, it's too sensitive to training data so that a little change in data will cause a great variance. This means our model has a **high variance**.
+
+
+
+Throughout the world of machine learning, we are always trying to find a balance between bias and variance.
+

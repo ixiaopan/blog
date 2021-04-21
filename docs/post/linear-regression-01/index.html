@@ -152,7 +152,7 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&rsquo;s the first algorithm that most of people learn in the world of machine learning. So let&rsquo;s go!</p>
+  <p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it&rsquo;s the first algorithm that most people learn in the world of machine learning. So let&rsquo;s go!</p>
 <h2 id="problem-statement">Problem statement</h2>
 <p>Suppose you are a teacher, and you record some data about the hours students spent on study and the grades they achieved. Then you want to predict the grade for given hours that someone spent. Here are some sample data you collected:</p>
 <table>
@@ -191,13 +191,13 @@
 <p>$$
 y = ax + b
 $$</p>
-<p>In this example, $x$ is the variable <code>hours </code>and $y$ is the variable <code>grade</code> , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called <strong>parameter estimation</strong>. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.</p>
+<p>In this example, $x$ is the variable <code>hours </code>and $y$ is the variable <code>grade</code> , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called <strong>parameter estimation</strong>. Usually, there are two ways to do this: minimising the loss and maximising the likelihood. Now we focus on the former.</p>
 <h2 id="loss">Loss</h2>
-<p>What is the loss? Basically, it&rsquo;s the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close as possible to the true value.</p>
+<p>What is the loss? Basically, it&rsquo;s the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close to the true value as possible.</p>
 <p>
   <figure>
     <img src="/blog/post/images/linear-regression-residual.png" alt="simple-linear-grade">
-    <figcaption>Figure 2: The error for a single data \(Bradthiessen.com 2021\)</figcaption>
+    <figcaption>Figure 2: The error of a single data (Bradthiessen.com 2021)</figcaption>
   </figure>
 
 </p>
@@ -218,7 +218,7 @@ L =  \sum_i^n |y_i - y_i'|
 $$</p>
 <p>However, the absoulte value of $x$ is not differentiable at $0$.</p>
 <h3 id="3-the-squared-value-of-error">3. the squared value of error</h3>
-<p>Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as <code>Residual Sum of Squares(RSS)</code> or <code>Sum of Squared Error (SSE)</code></p>
+<p>Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as <strong>Residual Sum of Squares(RSS)</strong>  or <strong>Sum of Squared Error (SSE)</strong>.</p>
 <p>$$
 L =  \sum_i^n (y_i - y_i')^2
 $$</p>
@@ -263,7 +263,7 @@ $$</p>
 $$</p>
 <p>Finally, we find the best estimators for simple linear regression.</p>
 <h2 id="r2">$R^2$</h2>
-<p>So how to evaluate our model? How good is it? We can use $R^2$ to measure this. Let&rsquo;s rewrite the previous euqation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$</p>
+<p>So how to evaluate our model? In other words, how good is it? We can use $R^2$ to measure our model. Let&rsquo;s rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$</p>
 <p>$$
 a = \frac{\sum_i^n (x_i - \overline x)(y_i - \overline y) \sqrt {\sum_i^n(y_i-\overline y)^2}}{\sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(y_i-\overline y)^2}}
 $$</p>
@@ -284,7 +284,7 @@ $$</p>
 <p>$$
 E(e) = \frac{1}{N} \sum_i^n e_i =  \frac{1}{N} \sum_i^n b + ax_i - y_i =b + a\overline x - \overline y = 0
 $$</p>
-<p>and the variance is given by</p>
+<p>and the variance is</p>
 <p>$$
 var(e) = \sum_i^n (e_i - \overline e)^2 = \sum_i^n  (y_i - b - ax_i)^2 = \sum_i^n (y_i - \overline y + a\overline x - ax_i)^2
 $$</p>
@@ -297,8 +297,8 @@ $$</p>
 R^2 = 1 - \frac{var(e)}{var(y)} = 1 - \frac{RSS}{TSS}
 $$</p>
 <p>Therefore, $R^2$ tells us how much variance of $y$ has been explained by our models. The higher the $R^2$ is, the better our model is.</p>
-<h2 id="reference">Reference</h2>
-<p>[1] <em>Bradthiessen.com</em>, 2021. [Online]. Available: <a href="https://www.bradthiessen.com/html5/docs/ols.pdf">https://www.bradthiessen.com/html5/docs/ols.pdf</a>. [Accessed: 14- Apr- 2021].</p>
+<h2 id="references">References</h2>
+<p>[1]<em>Bradthiessen.com</em>, 2021. [Online]. Available: <a href="https://www.bradthiessen.com/html5/docs/ols.pdf">https://www.bradthiessen.com/html5/docs/ols.pdf</a>. [Accessed: 14- Apr- 2021].</p>
 <p>[2] <a href="http://mlwiki.org/index.php/Linear_Regression">http://mlwiki.org/index.php/Linear_Regression</a></p>
 
 

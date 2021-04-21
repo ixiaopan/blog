@@ -19,13 +19,8 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ensemble Methods"/>
-<meta name="twitter:description" content="Ensemble together, blablabla
-Voting classifiers different algorithms trained on the same data
-the same algorithm trained on the different data
-base model
-Bagging bootstrap
-random forest
-Boosting References [1] https://machinelearningmastery.com/voting-ensembles-with-python/"/>
+<meta name="twitter:description" content="Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.
+Voting ensemble In real life, we often take advices from many people."/>
 
 
 
@@ -158,17 +153,27 @@ Boosting References [1] https://machinelearningmastery.com/voting-ensembles-with
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>Ensemble  together, blablabla</p>
-<h2 id="voting-classifiers">Voting classifiers</h2>
-<p>different algorithms trained on the same data</p>
-<p>the same algorithm trained on the different data</p>
-<p>base model</p>
+  <p>Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
+<!-- more -->
+<h2 id="voting-ensemble">Voting ensemble</h2>
+<p>In real life, we often take advices from many people. For example, suppose you want to know whether a movie is worthwhile, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. Finally, you decide to watch Avatar. From this example, we can see that gathering plenty of opinions are likely to lead an informed decision.</p>
+<p>The method used in this example to decide whether to watch a movie or not is known as voting. For classification, there are 2 types of voting named hard voting and soft voting. Hard voting returns the most popular class shown in Figure 1 while soft voting averages the probability of each class and then return the class that has the maximum probability. For regression, we simply average all the predictions.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/ensemble-voting.png" alt="Ensemble Voting">
+    <figcaption>Figure 1: Hard voting classifier predicitons (Hands-on machine learning, 2019)</figcaption>
+  </figure>
+
+</p>
+<h3 id="hard-voting">Hard Voting</h3>
+<h3 id="soft-voting">Soft Voting</h3>
+<h3 id="average-for-regression">Average for Regression</h3>
 <h2 id="bagging">Bagging</h2>
 <p>bootstrap</p>
 <p>random forest</p>
 <h2 id="boosting">Boosting</h2>
 <h2 id="references">References</h2>
-<p>[1] <a href="https://machinelearningmastery.com/voting-ensembles-with-python/">https://machinelearningmastery.com/voting-ensembles-with-python/</a></p>
+<p>[1] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
 
 
 

@@ -74,7 +74,7 @@ li {
 
 <section class="edu">
 <div class="timeline edu-item">
-  <p class="time">09/2020 - now</p>
+  <p class="time">09/2020 - present</p>
   <div class="edu-right">
     <p class="degree">MSc Data Science, University of Southampton</p>
   </div>

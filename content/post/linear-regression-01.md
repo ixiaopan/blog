@@ -13,7 +13,7 @@ katex: true
 
 
 
-There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning. So let's go!
+There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most people learn in the world of machine learning. So let's go!
 
 
 
@@ -55,17 +55,17 @@ y = ax + b
 $$
 
 
-In this example, $x$ is the variable `hours `and $y$ is the variable `grade` , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising likelihood. Now we focus on minimising the loss.
+In this example, $x$ is the variable `hours `and $y$ is the variable `grade` , which we already know. So the problem is how to calculate the parameter $a, b$. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising the likelihood. Now we focus on the former.
 
 
 
 ## Loss
 
-What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close as possible to the true value.
+What is the loss? Basically, it's the error between the esitmated value and our true value. Minimising the error is simply to make the estimated value as close to the true value as possible.
 
 
 
-![simple-linear-grade](/blog/post/images/linear-regression-residual.png "Figure 2: The error for a single data \(Bradthiessen.com 2021\)")
+![simple-linear-grade](/blog/post/images/linear-regression-residual.png "Figure 2: The error of a single data (Bradthiessen.com 2021)")
 
 
 
@@ -111,7 +111,7 @@ However, the absoulte value of $x$ is not differentiable at $0$.
 
 
 
-Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as `Residual Sum of Squares(RSS)` or `Sum of Squared Error (SSE)`
+Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as **Residual Sum of Squares(RSS)**  or **Sum of Squared Error (SSE)**.
 
 
 $$
@@ -205,7 +205,7 @@ Finally, we find the best estimators for simple linear regression.
 
 
 
-So how to evaluate our model? How good is it? We can use $R^2$ to measure this. Let's rewrite the previous euqation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
+So how to evaluate our model? In other words, how good is it? We can use $R^2$ to measure our model. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
 
 
 $$
@@ -243,7 +243,7 @@ E(e) = \frac{1}{N} \sum_i^n e_i =  \frac{1}{N} \sum_i^n b + ax_i - y_i =b + a\ov
 $$
 
 
-and the variance is given by
+and the variance is
 
 
 $$
@@ -277,9 +277,9 @@ Therefore, $R^2$ tells us how much variance of $y$ has been explained by our mod
 
 
 
-## Reference
+## References
 
-[1] *Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
+[1]*Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
 
 [2] http://mlwiki.org/index.php/Linear_Regression
 

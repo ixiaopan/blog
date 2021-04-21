@@ -232,14 +232,17 @@ Disadvantages:
 
 
 
-![Decision Trees are sensitive](/blog/post/images/decision-tree-sensitve.png "Figure 3: senstivity to variations of training set \(Hands-on machine learning 2019\)")
+![Decision Trees are sensitive](/blog/post/images/decision-tree-sensitve.png "Figure 3: senstivity to variations of training set (Hands-on machine learning 2019)")
 
 
 
 ## References
 
-- [1]A. Géron, *Hands-on machine learning with Scikit-Learn and TensorFlow*. Sebastopol (CA): O'Reilly Media, 2019.
-- [2] [pruning-decision-trees, Kaggle](https://www.kaggle.com/arunmohan003/pruning-decision-trees)
-- [3] [how-to-choose-alpha-in-cost-complexity-pruning](https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning)
-- [4] [Cost-Complexity Pruning](http://mlwiki.org/index.php/Cost-Complexity_Pruning)
+[1] A. Géron, *Hands-on machine learning with Scikit-Learn and TensorFlow*. Sebastopol (CA): O'Reilly Media, 2019.
+
+[2] [pruning-decision-trees, Kaggle](https://www.kaggle.com/arunmohan003/pruning-decision-trees)
+
+[3] [how-to-choose-alpha-in-cost-complexity-pruning](https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning)
+
+[4] [Cost-Complexity Pruning](http://mlwiki.org/index.php/Cost-Complexity_Pruning)
 

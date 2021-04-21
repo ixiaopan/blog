@@ -94,7 +94,10 @@ IQR can be used to detect outliers. Data that is greater than **upper boundary**
 
 
 $$
-upper \ boundary = Q3 + 1.5*IQR\\
+upper \ boundary = Q3 + 1.5*IQR
+$$
+
+$$
 lower \ boundary = Q1 - 1.5*IQR
 $$
 
@@ -197,7 +200,7 @@ Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We c
 
 
 
-## Reference
+## References
 
 [1] B. al., "Introduction to Statistics | Simple Book Production", *Courses.lumenlearning.com*, 2021. [Online]. Available: https://courses.lumenlearning.com/introstats1. [Accessed: 14- Apr- 2021].
 
