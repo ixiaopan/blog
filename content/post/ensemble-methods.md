@@ -13,4 +13,41 @@ katex: true
 
 
 
-Hello
+Ensemble  together, blablabla
+
+
+
+## Voting classifiers
+
+different algorithms trained on the same data
+
+the same algorithm trained on the different data
+
+base model
+
+
+
+## Bagging
+
+
+
+bootstrap
+
+
+
+random forest
+
+
+
+## Boosting
+
+
+
+
+
+
+
+## References
+
+[1] https://machinelearningmastery.com/voting-ensembles-with-python/
+

@@ -174,7 +174,7 @@ Q_m^g(L) = \sum_{c \in C } p_c(L) (1 - p_c(L)) = 1 - \sum_{c \in C } p_c(L)^2
 $$</p>
 <p>where $L$ is short for the children node and $P_c(L)$ is the faction of class $c$ in the leaf node $L$,</p>
 <p>$$
-p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
+p_c(L) = \frac{1}{|L|} \sum_{x, y \in L} [y == c]
 $$</p>
 <p>where $[y == c] = 1$  if $y$ belongs to class $c$ and 0 otherwise.</p>
 <p>
@@ -221,19 +221,19 @@ $$</p>
 <p>CART is short for classification and regression tree algorithm, which is used to train Decisioin Trees. CART tries to find the best split that produces purest subsets by calculating the weighted Gini Impurity on each split made by each feature $k$ from the parent node&rsquo;s training sample and corresponding threshold $t_k$.</p>
 <p>Specifically, it tries to minimize the following loss function for a classification task,</p>
 <p>$$
-L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}Q_m^G(C_m^L) + \frac{len(C_m^R)}{len(N_m)} Q_m^G(C_m^R)
+L(k, t_k) = \frac{|C_m^L|}{|N_m|}Q_m^G(C_m^L) + \frac{|C_m^R|}{|N_m|} Q_m^G(C_m^R)
 $$</p>
 <p>where $C_m^L$ and $C_m^R$ are children nodes splitted on node $N_m$.</p>
 <p>For a regression task, it minimizes the sum of squred error</p>
 <p>$$
-L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}SSE(C_m^L) + \frac{len(C_m^R)}{len(N_m)} SSE(C_m^R)
+L(k, t_k) = \frac{|C_m^L|}{|N_m|}SSE(C_m^L) + \frac{|C_m^R|}{|N_m|} SSE(C_m^R)
 $$</p>
 <p>where $SSE(subset)$ is defined as</p>
 <p>$$
 SSE(subset) = \sum_{n \in subset} (y_n - \overline y)^2
 $$</p>
 <p>$$
-\overline y = \frac{1}{len(subset)} \sum_{n \in subset} y_n
+\overline y = \frac{1}{|subset|} \sum_{n \in subset} y_n
 $$</p>
 <h2 id="prunning">Prunning</h2>
 <p>Now let&rsquo;s address the second problem, i.e. when to stop growing the tree. You can either stop growing the tree when you build the tree or trim the tree after building, which are known as pre-pruning and post-pruning respectively.</p>

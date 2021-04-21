@@ -18,7 +18,13 @@
 			<link>https://ixiaopan.github.io/blog/post/ensemble-methods/</link>
 			<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/ensemble-methods/</guid>
-			<description>Hello</description>
+			<description>Ensemble together, blablabla
+Voting classifiers different algorithms trained on the same data
+the same algorithm trained on the different data
+base model
+Bagging bootstrap
+random forest
+Boosting References [1] https://machinelearningmastery.com/voting-ensembles-with-python/</description>
 		</item>
       	
 		<item>

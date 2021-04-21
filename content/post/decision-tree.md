@@ -56,7 +56,7 @@ where $L$ is short for the children node and $P_c(L)$ is the faction of class $c
 
 
 $$
-p_c(L) = \frac{1}{len(L)} \sum_{x, y \in L} [y == c]
+p_c(L) = \frac{1}{|L|} \sum_{x, y \in L} [y == c]
 $$
 
 
@@ -154,7 +154,7 @@ CART is short for classification and regression tree algorithm, which is used to
 Specifically, it tries to minimize the following loss function for a classification task,
 
 $$
-L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}Q_m^G(C_m^L) + \frac{len(C_m^R)}{len(N_m)} Q_m^G(C_m^R)
+L(k, t_k) = \frac{|C_m^L|}{|N_m|}Q_m^G(C_m^L) + \frac{|C_m^R|}{|N_m|} Q_m^G(C_m^R)
 $$
 
 
@@ -168,7 +168,7 @@ For a regression task, it minimizes the sum of squred error
 
 
 $$
-L(k, t_k) = \frac{len(C_m^L)}{len(N_m)}SSE(C_m^L) + \frac{len(C_m^R)}{len(N_m)} SSE(C_m^R)
+L(k, t_k) = \frac{|C_m^L|}{|N_m|}SSE(C_m^L) + \frac{|C_m^R|}{|N_m|} SSE(C_m^R)
 $$
 
 
@@ -183,7 +183,7 @@ $$
 
 
 $$
-\overline y = \frac{1}{len(subset)} \sum_{n \in subset} y_n
+\overline y = \frac{1}{|subset|} \sum_{n \in subset} y_n
 $$
 
 
