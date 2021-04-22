@@ -42,8 +42,7 @@ a {
 
 /* markdown ** */
 strong {
-  color: #2b82f1;
-  font-weight: normal;
+  color: #333;
 }
 
 .error-text {

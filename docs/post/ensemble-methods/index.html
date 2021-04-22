@@ -19,8 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ensemble Methods"/>
-<meta name="twitter:description" content="Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.
-Voting ensemble In real life, we often take advices from many people."/>
+<meta name="twitter:description" content="Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting."/>
 
 
 
@@ -154,10 +153,15 @@ Voting ensemble In real life, we often take advices from many people."/>
     <article class="article" class="blog-post">
       
   <p>Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
-<!-- more -->
+<p>In real life, we often take advices from others. For example, suppose you want to know whether a movie is worthwhile to watch, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. You agree with their opinons and decide to watch Avatar finally. From this example, we can see that <strong>gathering plenty of opinions from different people</strong> are likely to make an informed decision.</p>
+<p>Here, I highlight the words <strong>different people</strong>. It makes little sense if we only asks for people who have the same interests. Therefore, the more diverse the people are, the more sensible our decisions are.</p>
 <h2 id="voting-ensemble">Voting ensemble</h2>
-<p>In real life, we often take advices from many people. For example, suppose you want to know whether a movie is worthwhile, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. Finally, you decide to watch Avatar. From this example, we can see that gathering plenty of opinions are likely to lead an informed decision.</p>
-<p>The method used in this example to decide whether to watch a movie or not is known as voting. For classification, there are 2 types of voting named hard voting and soft voting. Hard voting returns the most popular class shown in Figure 1 while soft voting averages the probability of each class and then return the class that has the maximum probability. For regression, we simply average all the predictions.</p>
+<p>The method used to decide whether to watch a movie or not in this example is known as <strong>voting</strong>. For classification, there are 2 types of voting named <strong>hard voting</strong> and <strong>soft voting</strong>.</p>
+<ul>
+<li>Hard voting returns the most popular class shown in Figure 1.</li>
+<li>Soft voting averages the probability of each class and then return the class that has the maximum probability.</li>
+</ul>
+<h3 id="hard-voting">Hard Voting</h3>
 <p>
   <figure>
     <img src="/blog/post/images/ensemble-voting.png" alt="Ensemble Voting">
@@ -165,16 +169,70 @@ Voting ensemble In real life, we often take advices from many people."/>
   </figure>
 
 </p>
-<h3 id="hard-voting">Hard Voting</h3>
-<h3 id="soft-voting">Soft Voting</h3>
+<p>Figure 1 can also be illustrated  in a mathematical way,</p>
+<p>$$
+y' = mode(C_1(x), C_2(x), &hellip;, C_n(x))
+$$</p>
+<p>For example, <code>{0, 1, 0, 1, 1}</code> are the class labels predicted by our 5 different classifiers for a data point $x$. By hard voting, the final class label is <code>class 1</code> .</p>
+<pre><code>C1 -&gt; 0
+C2 -&gt; 1
+C3 -&gt; 0
+C4 -&gt; 1
+C5 -&gt; 1
+</code></pre><h3 id="weighted-hard-voting">Weighted Hard Voting</h3>
+<p>Hard voting works nice, but in some cases, some people might be more professional than others. Hence, their opinions are much more significant. How to distinguish professionals and common people?</p>
+<p>We assign weights to them. Specifically, we assign higher weights to professionals while common people have lower weights. Then we calculate weighted sum of occurrence of each class label and find the class label that has the maximum value.</p>
+<p>$$
+y' = \operatorname*{argmax}_i w_j\sum_j [C_j == i]
+$$</p>
+<p>where $[C_j == i] = 1$ if classifier $j$ predicts class label i and 0 otherwise.</p>
+<p>For example, if we assign the following weights to the previous 5 classifiers, then we will have <code>0.7</code> for class 0 and<code>0.5</code> for class 1. Thus, <code>class 0</code> wins because 0.7 is greater than 0.5.</p>
+<pre><code>0.4, C1 -&gt; 0
+0.1, C2 -&gt; 1
+0.3, C3 -&gt; 0
+0.2, C4 -&gt; 1
+0.2, C5 -&gt; 1
+</code></pre><h3 id="soft-voting">Soft Voting</h3>
+<p>Instead of predicting the class label directly, some classifiers like logistic regression can predict the probability of each class label that $x$ belongs to. Then we simply average these probabilities for each class label. Certainly, you can assign weights to classifiers.</p>
+<p>$$
+y' = \operatorname*{argmax}_i \frac{1}{n} \sum_j^n w_j p_{ij}
+$$</p>
+<p>where $p_{ij}$ is the probability of class label $i$ that $x$ belongs to when using classifier $C_j$.</p>
 <h3 id="average-for-regression">Average for Regression</h3>
+<p>We simply <strong>average the predictions of different machines</strong> for a regression task.</p>
+<p>$$
+y' = \frac{1}{n} \sum_j^n w_j C_j
+$$</p>
 <h2 id="bagging">Bagging</h2>
-<p>bootstrap</p>
-<p>random forest</p>
+<p>In order to make our models different from each other, we use various algorithms to train the same data, as discussed above. Another way to have a set of diverse models is to train the same model on different data sets. But usually we only have one training data set. Where do other data sets come from? Well, they are sampled with replacement from the original data set, which is known as <strong>bootstrapping</strong>.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/bootstrap.png" alt="The process of bagging">
+    <figcaption>Figure 2: The process of bagging  (Hands-on machine learning, 2019)</figcaption>
+  </figure>
+
+</p>
+<p>Specifically, given a training data set $D=(x_i, y_i)_i^n$ of the size $N$, we build an ensemble model of size $m$ according to the following steps:</p>
+<ul>
+<li>
+<p>For $i=1, 2, 3, &hellip;, m$</p>
+<ul>
+<li>draw $N'(N' \le N)$ samples with replacement from $D$, which is denoted by $D^*_i$</li>
+<li>build a model (e.g. decision tree) $T^*_i$   based on  $D_i^*$</li>
+</ul>
+</li>
+<li>
+<p>For an unseen data, aggregate the predictions of all $T^*$</p>
+<ul>
+<li>perform a majority vote for classification</li>
+<li>average the predictions for regression</li>
+</ul>
+</li>
+</ul>
+<h2 id="random-forest">Random Forest</h2>
 <h2 id="boosting">Boosting</h2>
 <h2 id="references">References</h2>
 <p>[1] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
-
 
 
 
