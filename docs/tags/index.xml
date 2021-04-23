@@ -16,7 +16,7 @@
 			<link>https://ixiaopan.github.io/blog/post/ensemble-methods/</link>
 			<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/ensemble-methods/</guid>
-			<description>&lt;p&gt;Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

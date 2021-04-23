@@ -240,9 +240,9 @@ Disadvantages:
 
 [1] A. Géron, *Hands-on machine learning with Scikit-Learn and TensorFlow*. Sebastopol (CA): O'Reilly Media, 2019.
 
-[2] [pruning-decision-trees, Kaggle](https://www.kaggle.com/arunmohan003/pruning-decision-trees)
+[2] arunmohan, “Pruning decision trees,” Kaggle.com, 02-Sep-2020. [Online]. Available: https://www.kaggle.com/arunmohan003/pruning-decision-trees. [Accessed: 22-Apr-2021].
 
-[3] [how-to-choose-alpha-in-cost-complexity-pruning](https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning)
+[3] “How to choose α in cost-complexity pruning?,” Stackexchange.com. [Online]. Available: https://stats.stackexchange.com/questions/193538/how-to-choose-alpha-in-cost-complexity-pruning. [Accessed: 22-Apr-2021].
 
-[4] [Cost-Complexity Pruning](http://mlwiki.org/index.php/Cost-Complexity_Pruning)
+[4] “Cost-complexity pruning - ML wiki,” Mlwiki.org. [Online]. Available: http://mlwiki.org/index.php/Cost-Complexity_Pruning. [Accessed: 22-Apr-2021].
 

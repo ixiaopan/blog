@@ -279,9 +279,6 @@ Therefore, $R^2$ tells us how much variance of $y$ has been explained by our mod
 
 ## References
 
-[1]*Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
+[1] *Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
 
-[2] http://mlwiki.org/index.php/Linear_Regression
-
-
-
+[2] “Linear Regression - ML Wiki,” Mlwiki.org. [Online]. Available: http://mlwiki.org/index.php/Linear_Regression. [Accessed: 14-Apr-2021].

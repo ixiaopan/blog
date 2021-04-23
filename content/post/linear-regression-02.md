@@ -187,7 +187,7 @@ $$
 
 
 
-[1]C. Bishop, *Pattern Recognition and Machine Learning*. 2006.
+[1] C. Bishop, *Pattern Recognition and Machine Learning*. 2006.
 
 
 

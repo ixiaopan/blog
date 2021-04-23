@@ -152,10 +152,11 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
+  <p>Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
+<h2 id="example">Example</h2>
 <p>In real life, we often take advices from others. For example, suppose you want to know whether a movie is worthwhile to watch, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. You agree with their opinons and decide to watch Avatar finally. From this example, we can see that <strong>gathering plenty of opinions from different people</strong> are likely to make an informed decision.</p>
-<p>Here, I highlight the words <strong>different people</strong>. It makes little sense if we only asks for people who have the same interests. Therefore, the more diverse the people are, the more sensible our decisions are.</p>
-<h2 id="voting-ensemble">Voting ensemble</h2>
+<p>Here, I highlight the words <strong>different people</strong>. It makes little sense if we only asks for people who have the same interests. Therefore, the more diverse the people are, the more sensible our decisions are. Basically, the idea behind it is the wisdom of collaborating.</p>
+<h2 id="voting">Voting</h2>
 <p>The method used to decide whether to watch a movie or not in this example is known as <strong>voting</strong>. For classification, there are 2 types of voting named <strong>hard voting</strong> and <strong>soft voting</strong>.</p>
 <ul>
 <li>Hard voting returns the most popular class shown in Figure 1.</li>
@@ -229,10 +230,77 @@ $$</p>
 </ul>
 </li>
 </ul>
-<h2 id="random-forest">Random Forest</h2>
-<h2 id="boosting">Boosting</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> BaggingClassifier 
+<span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeClassifier
+
+ensemble_clf <span style="color:#f92672">=</span> BaggingClassifier(DecisionTreeClassifier(), n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span>True)
+
+</code></pre></div><h3 id="random-forest">Random Forest</h3>
+<p>Bagging can be used for any models. Among them random forest is the special one. As its name suggests, it is exclusively designed for decision trees. Besides, it introduces extra randomness when growing trees.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/random-forest.jpeg" alt="">
+    <figcaption>Figure 3: A random subset of features at each split for each tree (Reference [2])</figcaption>
+  </figure>
+
+</p>
+<p>Specifically, it randomly choose a subset of $m'$ of the features at each split instead of using all features shown in Figure 3. By doing so, all trees can have much different training data set further, so they are <strong>less similar</strong> to each other, which results in more significant predictions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> RandomForestClassifier, BaggingClassifier 
+<span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeClassifier
+
+random_forest_clf <span style="color:#f92672">=</span> BaggingClassifier(splitter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;random&#39;</span>, DecisionTreeClassifier(), max_leaf_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span>True)
+
+<span style="color:#75715e">## is equivalent to this</span>
+random_forest_clf<span style="color:#f92672">=</span>RandomForestClassifier(n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_leaf_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+
+</code></pre></div><h3 id="extra-trees">Extra-Trees</h3>
+<p>TODO</p>
+<h3 id="why-bagging-works">Why Bagging works</h3>
+<p>Take random forests as an example, each decision tree is a machine learned from a data set. Based on the theory of bias and variance, we know that the mean meachine can be expressed as $f'_m=E_D[f'(x|D)]$. Thus, $f'(x|D)$ can be interpreted as a random variable $X$, and $f'_m$ can be described as $\mu = E(X)$.</p>
+<p>Since we have $N$ decision trees in a random forest, there are $N$ random variables $X_i$, where $\mu = E(X_i)$. We can construct a new random variable $Z = \frac{1}{n}\sum_i^nX_i$, which represents the mean of $n$ random <strong>independent</strong> variables $X_i$.</p>
+<p>The expected value of $Z$ is given by</p>
+<p>$$
+E[Z] = E[ \frac{1}{n}\sum_i^nX_i ] =\frac{1}{n} E[\sum_i^nX_i] = \frac{1}{n} nE[X_i] = \mu
+$$</p>
+<p>The variance is</p>
+<p>$$
+E[(Z - E[Z])^2] = E[(\frac{1}{n}\sum_i^nX_i - \mu)^2] = \frac{1}{n^2} E[(\sum_i^n (X_i - \mu))^2]
+$$</p>
+<p>$$
+= \frac{1}{n^2}E[\sum_i^n(X_i - \mu)^2 + \sum_i^n\sum_{j=1,i \ne j}^n (X_i -\mu)(X_j -\mu)]
+$$</p>
+<p>Since $X_i$ is independent of $X_j$ ( $i\ne j$ ),</p>
+<p>$$
+E[\sum_i^n\sum_{j=1,i \ne j}^n (X_i -\mu)(X_j -\mu)] = 0
+$$</p>
+<p>we are left with</p>
+<p>$$
+E[(Z - E[Z])^2] = \frac{1}{n^2}E[\sum_i^n(X_i - \mu)^2] = \frac{1}{n} \sigma^2
+$$</p>
+<p>where $E[(X_i-\mu)^2]=\sigma^2$.</p>
+<p>From the above euqation, we can see that ensemble methods reduce variances as $n$ increases when our models are <strong>uncorrelated</strong>.</p>
+<p>On the contrary, if our models are correlated with the correlation coefficient $\rho$</p>
+<p>$$
+\rho = \frac{E[(X_i - \mu)(X_j - \mu)]} {\sqrt{\sigma^2(X_i)}\sqrt{\sigma^2(X_j)}}
+$$</p>
+<p>The variance is</p>
+<p>$$
+E[(Z - E[Z])^2] = \frac{1}{n} \sigma^2 + \frac{n-1}{n} \rho \sigma^2 = \rho \sigma^2 + \frac{(1 - \rho)}{n} \sigma^2
+$$</p>
+<p>As $n$ increases, the second term vanishes and we are left with the first term. Therefore, if we want the ensemble methods to do well, we need our models to be uncorrelated.</p>
+<p><strong>Random forests do a good job because of both the randomness of training data sets sampled via bootstrapping and the randomness of features considered at each split.</strong> The algorithm results in much less correlated trees, which trades a higher bias for a lower variance, generally yielding better results.</p>
+<h3 id="feature-importance">Feature Importance</h3>
+<p>Like decision tree, random forests can tell us the relative importance of each feature. It is measured by calculating the sum of the reduction in impurity over all the nodes that are split on that feature.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+random_forest_clf<span style="color:#f92672">.</span>feature_importances_
+
+</code></pre></div><h2 id="boosting">Boosting</h2>
 <h2 id="references">References</h2>
 <p>[1] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
+<p>[2] T. Yiu, “Understanding random forest - towards data science,” Towards Data Science, 12-Jun-2019. [Online]. Available: <a href="https://towardsdatascience.com/understanding-random-forest-58381e0602d2">https://towardsdatascience.com/understanding-random-forest-58381e0602d2</a>. [Accessed: 23-Apr-2021].</p>
+<p><a href="https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205">https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205</a></p>
+<p><a href="https://towardsdatascience.com/an-implementation-and-explanation-of-the-random-forest-in-python-77bf308a9b76">https://towardsdatascience.com/an-implementation-and-explanation-of-the-random-forest-in-python-77bf308a9b76</a></p>
 
 
 
