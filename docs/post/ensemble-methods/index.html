@@ -128,6 +128,9 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 20, 2021
   
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min  read
+
+  
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
@@ -135,6 +138,7 @@
         >Machine Learning</a
       >&nbsp;
     
+  
   
 </span>
 
@@ -153,7 +157,7 @@
     <article class="article" class="blog-post">
       
   <p>Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
-<h2 id="example">Example</h2>
+<h2 id="overview">Overview</h2>
 <p>In real life, we often take advices from others. For example, suppose you want to know whether a movie is worthwhile to watch, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. You agree with their opinons and decide to watch Avatar finally. From this example, we can see that <strong>gathering plenty of opinions from different people</strong> are likely to make an informed decision.</p>
 <p>Here, I highlight the words <strong>different people</strong>. It makes little sense if we only asks for people who have the same interests. Therefore, the more diverse the people are, the more sensible our decisions are. Basically, the idea behind it is the wisdom of collaborating.</p>
 <h2 id="voting">Voting</h2>
@@ -296,11 +300,170 @@ $$</p>
 random_forest_clf<span style="color:#f92672">.</span>feature_importances_
 
 </code></pre></div><h2 id="boosting">Boosting</h2>
+<p>In boosting, we combine a group of weak learners into a strong learner.</p>
+<p>What&rsquo;s the weak learners? They are the learning machines that do a little better than chance. Thus, they have high bias but low variance. The goal of boosting is to reduce the bias by combining them.</p>
+<p>How to construct a weak learner? Well, one of the widely used types of weak learner are very shallow trees, for example, the stump with only one depth.</p>
+<p>AdaBoost and GradientBoost are two popular algorithms for boosting. Let&rsquo;s lookt at AdaBoost first.</p>
+<h3 id="adaboost">AdaBoost</h3>
+<p>AdaBoost is a classic algorithm for binary classification. Suppose we have a data set $D=(x^i,y^i)_i^N$ with $y^i \in {-1, 1}$, and our weak learner $h(x)$ provides a prediction $h(x^i) \in {-1, 1 }$. The goal of AdaBoost is to construct a strong learner by combining all the weak learners, which can be written as a weighted sum of weak learners,</p>
+<p>$$
+C_n(x) = \sum_i \alpha_i h_i(x)
+$$</p>
+<p>How to find $\alpha_i$ and $h_i(x)$? Well, it&rsquo;s difficult to find all the coefficients for one time, so we will solve this equation greedily,</p>
+<p>$$
+C_n(x) = C_{n-1}(x) + \alpha_n h_n(x)
+$$</p>
+<p>where $C_{n-1}(x)$ is the current ensemble model that fit the training data best and $h_n(x)$ is the weak learner we are going to add.</p>
+<h3 id="exponential-loss">Exponential Loss</h3>
+<p>The second step is to find an appropriate loss function to optimize. How do we measure the performance of a classification model? One of the most widely used loss functions is <strong>0-1 loss</strong>,</p>
+<p>$$
+L = \sum_i^N [y_i \ne y'_i]
+$$</p>
+<p>where $[y_i \ne y'_i] = 1$ if $x_i$ is classified incorrectly and 0 otherwise. However, it&rsquo;s not-convex and difficult to optimize shown in Figure 4. In AdaBoost, we use <strong>exponential loss</strong>.</p>
+<p>$$
+L = \sum_i^n e^{-y^iC_n(x^i)}
+$$</p>
+<p>From Figure 4, it can be seen that data that are classified correctly have lower value while misclassfication observations have much larger values, which means exponential loss punishes examples classified incorrecly much more than correct classifications.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/exp-loss-adaboost.png" alt="Exponential loss">
+    <figcaption>Figure 4: Exponential loss in AdaBoost</figcaption>
+  </figure>
+
+</p>
+<h3 id="intuition">Intuition</h3>
+<p>To minimize the loss, we plug the previous $C_n(x)$ into the loss function</p>
+<p>$$
+L = \sum_i^n e^{-y^i (C_{n-1}(x^i) + \alpha_n h_n(x^i))} = \sum_i^n e^{-y^i C_{n-1}(x^i)}  e^{-y^i \alpha_n h_n(x^i)} =\sum_{y^i\ne h_n(x^i)}^n w_n^i e^{\alpha_n} + \sum_{y^i= h_n(x^i) }^n w_n^i e^{-\alpha_n}
+$$</p>
+<p>$$
+= \sum_{y^i= h_n(x^i) }^n w_n^i e^{-\alpha_n} + \sum_{y^i\ne h_n(x^i) }^n w_n^i e^{-\alpha_n} - \sum_{y^i\ne h_n(x^i) }^n w_n^i e^{-\alpha_n} + \sum_{y^i\ne h_n(x^i)}^n w_n^i e^{\alpha_n}
+$$</p>
+<p>$$
+= e^{-\alpha_n} \sum_i^n w_n^i + (e^{\alpha_n} - e^{-\alpha_n}) \sum_{y^i\ne h_n(x^i) }^n w_n^i
+$$</p>
+<p>Then we find that minimizing the loss is equivalent to minimizing the sum of weights of each data that $h_n(x)$ misclassified, and that the value of weights depend on the current ensemble model $C_{n-1}(x)$.</p>
+<p>$$
+\sum_{y^i\ne h_n(x^i) }^n w_n^i = \sum_{y^i\ne h_n(x^i) }^n e^{-y^i C_{n-1}(x^i)}
+$$</p>
+<ul>
+<li>If the data misclassified by $C_{n-1}(x)$ are still classified incorrectly by  $h_n(x)$, then $w_n^i$ is extremely large.</li>
+<li>If the data classified correcly by $C_{n-1}(x)$ are misclassified by  $h_n(x)$, then $w_n^i$ is small.</li>
+</ul>
+<p>Simply put, misclassified data points will get high weights while correctly classified data points will get their weights decreased.</p>
+<p>Therefore, we are finding some weak learner that tries to correct the errors the previous learners made. Furthermore, we also notice that we need to update $w_n^i$ for the next weak learner $h_{n+1}(x)$,</p>
+<p>$$
+w_{n+1}^i = e^{-y^i C_{n}(x^i)} = e^{-y^i (C_{n-1}(x^i) + \alpha_nh_n(x^i))} = w_n^i e^{-y^i\alpha_nh_n(x^i)}
+$$</p>
+<p>So the new weight of each data depends on the last weight of that data, the weight of the previous weak learner $h_n(x)$ and itself. But wait, what&rsquo;s the initial weight of each data? We simply initialize weights $w_1^i = \frac{1}{N}$ for every training sample.</p>
+<p>Okay, now we are only left with $\alpha_n$. To find $\alpha_n$, we take the derivative of $L$ with respect to $\alpha_n$</p>
+<p>$$
+\frac{\partial L}{\partial \alpha_n} = e^{\alpha_n} \sum_{y^i\ne h_n(x^i)}^n w_n^i  - e^{-\alpha_n} \sum_{y^i= h_n(x^i) }^n w_n^i
+$$</p>
+<p>That is</p>
+<p>$$
+\alpha_n = \frac{1}{2} In\frac{\sum_{y^i= h_n(x^i) }^n w_n^i}{\sum_{y^i\ne h_n(x^i) }^n w_n^i}
+$$</p>
+<h3 id="algorithm">Algorithm</h3>
+<p>Let&rsquo;s put it all together. The algorithm of AdaBoost can be summarised as below,</p>
+<ul>
+<li>
+<p>Given a data set $D=(x^i,y^i)_i^N$ with $y^i \in \{-1, 1\}$ and a group of weak learners $h(x)$ of size $T$</p>
+</li>
+<li>
+<p>Associate a weight $w_1^i = \frac{1}{N}$ with every data point $(x^i, y^i)$</p>
+</li>
+<li>
+<p>For $t = 1$ to $T$</p>
+<ul>
+<li>Train a weak learner $h_t(x)$ that minimises $\sum_{y^i\ne h_t(x^i) }^n w_t^i $</li>
+<li>Update the weight of this learner, $\alpha_t = \frac{1}{2} In\frac{\sum_{y^i= h_t(x^i) }^n w_t^i}{\sum_{y^i\ne h_t(x^i) }^n w_t^i}$</li>
+<li>Update weights for each training point, $w_{t+1}^i = w_t^i e^{-y^i\alpha_th_t(x^i)}$</li>
+</ul>
+</li>
+<li>
+<p>Make a prediction</p>
+<ul>
+<li>$C_n(x) = sign[\sum_t^T \alpha_t h_t(x)]$</li>
+</ul>
+</li>
+</ul>
+<h3 id="example">Example</h3>
+<p>Step 1: Initialisation</p>
+<p>Here we have 8 rows with 3 predictors <code>chest_pain, blocked_arteries and weight</code> and 1 target variable <code>heart_disease</code>. Each data point is initialised with an equal weight <code>0.125</code>.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/ada-example-df.png" alt="Toy data for AdaBoost">
+    <figcaption>Figure 5: Toy data from &#39;StatQuest with Josh Starmer&#39;</figcaption>
+  </figure>
+
+</p>
+<p>Step 2: Find the weak learner</p>
+<p>Here, we use stump as our weak learner and Figure 6 shows the first optimal tree where we only misclassified one observation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn <span style="color:#f92672">import</span> tree
+
+X <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>drop([<span style="color:#e6db74">&#39;heart_disease&#39;</span>, <span style="color:#e6db74">&#39;weights&#39;</span>], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+y <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;heart_disease&#39;</span>]
+
+clf <span style="color:#f92672">=</span> tree<span style="color:#f92672">.</span>DecisionTreeClassifier(max_depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) 
+clf <span style="color:#f92672">=</span> clf<span style="color:#f92672">.</span>fit(X, y)
+
+tree<span style="color:#f92672">.</span>plot_tree(clf<span style="color:#f92672">.</span>fit(X, y))
+plt<span style="color:#f92672">.</span>show()
+
+</code></pre></div><p>
+  <figure>
+    <img src="/blog/post/images/ada-stump.png" alt="">
+    <figcaption>Figure 6: The first stump</figcaption>
+  </figure>
+
+</p>
+<p>Step 3: Update weights</p>
+<p>Since we have only one misclassification, the error rate is <code>1/8</code> and $\alpha_1$ is 0.97. Then we update weights for each data point using $\alpha_1$.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cal_alpha</span>(error):
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>log((<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> error)<span style="color:#f92672">/</span>error)
+
+alpha_1 <span style="color:#f92672">=</span> cal_alpha(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>)
+
+correct_samples <span style="color:#f92672">=</span> df[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">==</span> y]
+df<span style="color:#f92672">.</span>loc[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">==</span> y, <span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">=</span> correct_samples[<span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>alpha_1)
+
+misclassified_samples <span style="color:#f92672">=</span> df[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">!=</span> y]
+df<span style="color:#f92672">.</span>loc[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">!=</span> y, <span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">=</span> misclassified_samples[<span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(alpha_1)
+
+<span style="color:#66d9ef">print</span>(alpha_1, df)
+
+</code></pre></div><p>
+  <figure>
+    <img src="/blog/post/images/ada-example-stump1.png" alt="">
+    <figcaption>Figure 7: Updated weigts after training the first stump</figcaption>
+  </figure>
+
+</p>
+<p>Step 4: Go back to Step 2 until the desired number of learners is reached.</p>
+<h3 id="adjusted-impurity">Adjusted impurity</h3>
+<p>Recall that Gini Index is written as</p>
+<p>$$
+Q_m^g(L) = 1 - \sum_{c \in C } p_c(L)^2
+$$</p>
+<p>and entropy discussed in Decision Tree as</p>
+<p>$$
+Q_m^e(L) = -p_c(L)logp_c(L)
+$$</p>
+<p>where $p_c(L)$ is the fraction of the observations belong to class $c$. In order to use the weight of each data in AdaBoost, we need to change it slightly.</p>
+<p>$$
+p_c(L) = \frac{\sum_{x^j \in C} w_n^j I[y_j == C]}{\sum_{x^i \in L} w_n^i}
+$$</p>
+<p>Why this works? Remember that the lower the impurity is, the better the split is. And a higher fraction leads to a lower impurity or entropy.</p>
+<ul>
+<li>If we classify the misclassified example in the node $L$ correctly, then the denominator of $p_c(L)$ becomes smaller and then $p_c(L)$ becomes larger.</li>
+<li>On the contratry, if this split works so bad, then we will have many observations that classified incorrectly, resulting in smaller $p_c(L)$ due to a small numerator and large denominator.</li>
+</ul>
+<p>Thus, we are finding the best split that can correctly classify the examples that previous learners failed as much as possible.</p>
 <h2 id="references">References</h2>
 <p>[1] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
-<p>[2] T. Yiu, “Understanding random forest - towards data science,” Towards Data Science, 12-Jun-2019. [Online]. Available: <a href="https://towardsdatascience.com/understanding-random-forest-58381e0602d2">https://towardsdatascience.com/understanding-random-forest-58381e0602d2</a>. [Accessed: 23-Apr-2021].</p>
-<p><a href="https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205">https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205</a></p>
-<p><a href="https://towardsdatascience.com/an-implementation-and-explanation-of-the-random-forest-in-python-77bf308a9b76">https://towardsdatascience.com/an-implementation-and-explanation-of-the-random-forest-in-python-77bf308a9b76</a></p>
+<p>[2]	T. Yiu, “Understanding random forest - towards data science,” Towards Data Science, 12-Jun-2019. [Online]. Available: <a href="https://towardsdatascience.com/understanding-random-forest-58381e0602d2">https://towardsdatascience.com/understanding-random-forest-58381e0602d2</a>. [Accessed: 23-Apr-2021].</p>
+<p>[3]	J. Rocca, “Ensemble methods: bagging, boosting and stacking - Towards Data Science,” Towards Data Science, 23-Apr-2019. [Online]. Available: <a href="https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205">https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205</a>. [Accessed: 23-Apr-2021].</p>
 
 
 

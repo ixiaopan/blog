@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 01"
 date: "2021-04-14"
-description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most of people learn in the world of machine learning."
+description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and possibly the first algorithm that most of people learn in the world of machine learning."
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ katex: true
 
 
 
-There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and maybe it's the first algorithm that most people learn in the world of machine learning. So let's go!
+There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and possibly the first algorithm that most people learn in the world of machine learning. So let's go!
 
 
 

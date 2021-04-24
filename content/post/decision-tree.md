@@ -51,7 +51,7 @@ $$
 
 
 
-where $L$ is short for the children node and $P_c(L)$ is the faction of class $c$ in the leaf node $L$,
+where $L$ is short for the children node and $p_c(L)$ is the faction of class $c$ in the leaf node $L$,
 
 
 
@@ -154,7 +154,7 @@ CART is short for classification and regression tree algorithm, which is used to
 Specifically, it tries to minimize the following loss function for a classification task,
 
 $$
-L(k, t_k) = \frac{|C_m^L|}{|N_m|}Q_m^G(C_m^L) + \frac{|C_m^R|}{|N_m|} Q_m^G(C_m^R)
+L(k, t_k) = \frac{|C_m^L|}{|N_m|}Q_m(C_m^L) + \frac{|C_m^R|}{|N_m|} Q_m(C_m^R)
 $$
 
 
