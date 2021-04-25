@@ -154,8 +154,9 @@
 
     
   <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
   <p>Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.</p>
 <h2 id="overview">Overview</h2>
 <p>In real life, we often take advices from others. For example, suppose you want to know whether a movie is worthwhile to watch, you may ask your friends who&rsquo;ve watched to give the movie a score(out of 5), say <code>3, 3, 2, 2, 2, 4</code>. Since 5 people gave a score that is lower than 4, you may think about choosing another movie, let&rsquo;s say Avatar. Then you ask your friends again and have some scores like this <code>5, 5, 5, 5, 5</code>. Wow! All of your friends think that Avatar is an amazing movie that should certainly not be missed. You agree with their opinons and decide to watch Avatar finally. From this example, we can see that <strong>gathering plenty of opinions from different people</strong> are likely to make an informed decision.</p>
@@ -467,9 +468,47 @@ $$</p>
 
 
 
-      
-    </article>
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#voting">Voting</a>
+      <ul>
+        <li><a href="#hard-voting">Hard Voting</a></li>
+        <li><a href="#weighted-hard-voting">Weighted Hard Voting</a></li>
+        <li><a href="#soft-voting">Soft Voting</a></li>
+        <li><a href="#average-for-regression">Average for Regression</a></li>
+      </ul>
+    </li>
+    <li><a href="#bagging">Bagging</a>
+      <ul>
+        <li><a href="#random-forest">Random Forest</a></li>
+        <li><a href="#extra-trees">Extra-Trees</a></li>
+        <li><a href="#why-bagging-works">Why Bagging works</a></li>
+        <li><a href="#feature-importance">Feature Importance</a></li>
+      </ul>
+    </li>
+    <li><a href="#boosting">Boosting</a>
+      <ul>
+        <li><a href="#adaboost">AdaBoost</a></li>
+        <li><a href="#exponential-loss">Exponential Loss</a></li>
+        <li><a href="#intuition">Intuition</a></li>
+        <li><a href="#algorithm">Algorithm</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#adjusted-impurity">Adjusted impurity</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
     
+
     
       
 

@@ -154,8 +154,9 @@
 
     
   <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
   <p>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&rsquo;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</p>
 <h2 id="multiple-linear-regression">Multiple Linear Regression</h2>
 <p>Suppose we have a data set with the size of $n$,  and each data point has $d$ dimensions. Then the input data is denoted by  $X \in R^{n \times d}$, and the parameters and targets are denoted by $\bold w \in R^d$, $\bold y \in R^n$ respectively. Thus, the loss function can be written by the following equation:</p>
@@ -238,9 +239,31 @@ $$</p>
 
 
 
-      
-    </article>
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#multiple-linear-regression">Multiple Linear Regression</a>
+      <ul>
+        <li><a href="#pseudoinverse">pseudoinverse</a></li>
+      </ul>
+    </li>
+    <li><a href="#probabilistic-interpretation">Probabilistic Interpretation</a>
+      <ul>
+        <li><a href="#mle">MLE</a></li>
+      </ul>
+    </li>
+    <li><a href="#geometry-of-linear-regression">Geometry of Linear Regression</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
     
+
     
       
 

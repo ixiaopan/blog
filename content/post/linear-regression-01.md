@@ -81,7 +81,7 @@ Since we have many data points, we need to sum up them all to evaluate the overa
 
 
 
-### 1. error
+### error
 
 Unfortunately, some error terms will cancel out when you do this calculation directly.
 
@@ -91,7 +91,7 @@ L = \sum_i^n (y_i - y'_i) = \sum_i^n (y_i - ax_i - b)
 $$
 
 
-### 2. the absolute value of error
+### the absolute value of error
 
 One way to tackle this is taking the absolute value of the error terms.
 
@@ -107,7 +107,7 @@ However, the absoulte value of $x$ is not differentiable at $0$.
 
 
 
-### 3. the squared value of error
+### the squared value of error
 
 
 

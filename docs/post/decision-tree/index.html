@@ -154,8 +154,9 @@
 
     
   <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
   <p>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &lsquo;Is it a fiction movie? Is it directed by David Fincher?&rsquo;</p>
 <p>
   <figure>
@@ -250,8 +251,8 @@ $$</p>
 <li>the maximum number of leaf nodes</li>
 </ul>
 <p>All of these parameters can be tuned with cross-validation.</p>
-<h3 id="post-pruning">Post Pruning</h3>
-<p>Though pre-pruning is straightforward, it is a bit short-sighted since it doesn&rsquo;t build a full tree and there might be some splits works better later on. Therefore, it would be better to have a large and full-size tree and then we trim some useless branches to get a better substree. Cost complexity pruning, also known as weakest link pruning, is one way to do this.</p>
+<h3 id="post-pruning">Post-pruning</h3>
+<p>Though pre-pruning is straightforward, it is a bit short-sighted since it doesn&rsquo;t build a full tree and there might be some splits works better later on. Therefore, it would be better to have a large and full-size tree and then we trim some less important branches to avoid overfitting. Cost complexity pruning, also known as weakest link pruning, is one way to achieve this.</p>
 <h2 id="pros-and-cons">Pros and Cons</h2>
 <p>Advantages:</p>
 <ul>
@@ -280,9 +281,35 @@ $$</p>
 
 
 
-      
-    </article>
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#decision-rule">Decision Rule</a>
+      <ul>
+        <li><a href="#gini-index">Gini Index</a></li>
+        <li><a href="#entropy">Entropy</a></li>
+        <li><a href="#information-gain">Information Gain</a></li>
+      </ul>
+    </li>
+    <li><a href="#cart">CART</a></li>
+    <li><a href="#prunning">Prunning</a>
+      <ul>
+        <li><a href="#pre-pruning">Pre-pruning</a></li>
+        <li><a href="#post-pruning">Post-pruning</a></li>
+      </ul>
+    </li>
+    <li><a href="#pros-and-cons">Pros and Cons</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
     
+
     
       
 

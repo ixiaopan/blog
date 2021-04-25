@@ -38,6 +38,7 @@ body {
 a {
   outline: none;
   text-decoration: none;
+  color: #0594cb;
 }
 
 /* markdown ** */
@@ -123,7 +124,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .container[role=main] {
   max-width: 760px;
-  padding: 0 15px;
   font-size: 16px;
   line-height: 1.7;
   color: #333333;
@@ -137,11 +137,8 @@ h1,h2,h3,h4,h5,h6 {
   display: block;
   margin: 0 auto;
 }
-img[src~="half"] {
-  width: 50%;
-}
-img[src~="bordered"] {
-  border: 1px solid black;
+img[src*='#full'] {
+  width: 100%;
 }
 .container table {
   margin: 1em auto;
@@ -161,24 +158,43 @@ img[src~="bordered"] {
   text-align: left;
 }
 
+/* layouts */
+.inner {
+  display: flex;
+  margin-right: -200px;
+}
 .article {
   text-align: justify;
+  flex: 1;
 }
-
+.article-aside {
+  transform: translateX(30%);
+}
+.article-aside nav {
+  position: sticky;
+  top: 2em;
+}
 #TableOfContents {
-  font-size: 14px;
+  width: 200px;
+  box-sizing: border-box;
   border: 2px dotted #cccccc;
-  margin: 1em 0;
-  padding: 0.5em 0;
+  margin: 1.2em 0 0;
+  padding: 1em;
+  font-size: 14px;
   background-color: #f0f0f0;
+  
 }
-
 #TableOfContents ul {
+  margin: 0;
   list-style-type: none;
+  line-height: 1.6;
 }
-
+#TableOfContents > ul {
+  padding: 0;
+}
 #TableOfContents ul ul {
   list-style-type: disc;
+  padding-left: 2.2em;
 }
 
 p {
@@ -221,7 +237,6 @@ p + p {
 }
 
 .blog-tags a {
-  color: #0000BB;
   text-decoration: none;
   padding: 0px 5px;
 }
@@ -452,17 +467,20 @@ mark {
 
 .pager li a {
   box-sizing: border-box;
+  
   font-family: 'Roboto', Helvetica, sans-serif;
   text-transform: uppercase;
   text-align: center;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 1px;
+  
   padding: 10px 5px;
   background: #ffffff;
   border-radius: 0;
   border: 1px solid #dddddd;
   display: inline-block;
+  
   color: #404040;
   text-decoration: none;
 }

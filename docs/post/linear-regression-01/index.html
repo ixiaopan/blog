@@ -154,8 +154,9 @@
 
     
   <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
   <p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and possibly the first algorithm that most people learn in the world of machine learning. So let&rsquo;s go!</p>
 <h2 id="problem-statement">Problem statement</h2>
 <p>Suppose you are a teacher, and you record some data about the hours students spent on study and the grades they achieved. Then you want to predict the grade for given hours that someone spent. Here are some sample data you collected:</p>
@@ -210,18 +211,18 @@ $$</p>
 error = y_i - y'_i = y_i - ax_i - b
 $$</p>
 <p>Since we have many data points, we need to sum up them all to evaluate the overall errors.</p>
-<h3 id="1-error">1. error</h3>
+<h3 id="error">error</h3>
 <p>Unfortunately, some error terms will cancel out when you do this calculation directly.</p>
 <p>$$
 L = \sum_i^n (y_i - y'_i) = \sum_i^n (y_i - ax_i - b)
 $$</p>
-<h3 id="2-the-absolute-value-of-error">2. the absolute value of error</h3>
+<h3 id="the-absolute-value-of-error">the absolute value of error</h3>
 <p>One way to tackle this is taking the absolute value of the error terms.</p>
 <p>$$
 L =  \sum_i^n |y_i - y_i'|
 $$</p>
 <p>However, the absoulte value of $x$ is not differentiable at $0$.</p>
-<h3 id="3-the-squared-value-of-error">3. the squared value of error</h3>
+<h3 id="the-squared-value-of-error">the squared value of error</h3>
 <p>Instead of taking absolute value, we will square all the errors. One reason is that the errors will become larger and can be distinguished easily when squaring them. It looks like the errors are zoomed in and we can find them and minimize them quickly. It is also known as <strong>Residual Sum of Squares(RSS)</strong>  or <strong>Sum of Squared Error (SSE)</strong>.</p>
 <p>$$
 L =  \sum_i^n (y_i - y_i')^2
@@ -307,9 +308,31 @@ $$</p>
 
 
 
-      
-    </article>
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#problem-statement">Problem statement</a></li>
+    <li><a href="#simple-linear-regression">Simple Linear Regression</a></li>
+    <li><a href="#loss">Loss</a>
+      <ul>
+        <li><a href="#error">error</a></li>
+        <li><a href="#the-absolute-value-of-error">the absolute value of error</a></li>
+        <li><a href="#the-squared-value-of-error">the squared value of error</a></li>
+      </ul>
+    </li>
+    <li><a href="#closed-form-solution">Closed-form solution</a></li>
+    <li><a href="#r2">$R^2$</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
     
+
     
       
 

@@ -128,7 +128,7 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 24, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -154,11 +154,12 @@
 
     
   <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
   <p>We have discussed many algorithms, such as linear regression and ensemble methods. It&rsquo;s time to kick off a project from scratch to learn the pipeline of a machine learning project.</p>
 <h2 id="overview">Overview</h2>
-<p>There are 8 steps discussed in the book &ldquo;Hands-on Machine Learning&rdquo; to do a machine learning project,</p>
+<p>The book, &ldquo;Hands-on Machine Learning&rdquo;, has summarised the below 8 steps as a guidance to do a end-to-end machine learning project,</p>
 <ul>
 <li>Frame the problem</li>
 <li>Get the data</li>
@@ -170,20 +171,105 @@
 </ul>
 <p>In this post, we will cover the first 3 parts.</p>
 <h2 id="frame-the-problem">Frame the problem</h2>
-<p>The first step is to define you problem. People are unlikely to do things without reasons, right?. So ask yourself, what problem do you want to solve? Why are they interested in you? What&rsquo;s your objective? Are there any solutions out there?</p>
+<p>The first step is to define you problem. People are unlikely to do things without reasons, right?. So ask yourself, what problem do you want to solve? Why are you interested in them? What&rsquo;s your objective? Are there any solutions out there?</p>
 <p>As an example, we are going to predict used car prices because accurate prices prediction can help both buyers and sellers. For buyers, it can ensure the money that customers invest on used cars to be worthy. For used car dealers, they might want to know which factors influence car prices most so as to adjust sales strategy and offer a better prediction to customers. Therefore, there is a necessity for building a used car price prediction system.</p>
 <h2 id="get-the-data">Get the data</h2>
-<p>There are many ways to get the desired data. You can write a scaper to download the data from related websites or you can search related data from some public databases. And Kaggle is one of the most popular platforms that enables us to achieve our data science goals. The data we used in this project is <a href="https://www.kaggle.com/austinreese/craigslist-carstrucks-data">Used Cars Dataset - Kaggle</a>.</p>
-<h2 id="eda">EDA</h2>
-<p>EDA stands for Exploratory Data Analysis, which is an important part throughout the project. In this step, we are trying to get insights from the data. Specifically, we will study the characteristics of each feature, find the correlation between them, visualize the data, identify the quality of the data like outlier detection.</p>
+<p>There are many ways to get the desired data. You can write a web crawler to download the data from related websites or you can get data freely from some public data platforms.Among them, Kaggle is one of the most popular platforms that enables us to achieve our data science goals. In this example project, the data is downloaded from <a href="https://www.kaggle.com/austinreese/craigslist-carstrucks-data">Used Cars Dataset - Kaggle</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">!</span>kaggle datasets download <span style="color:#f92672">-</span>d austinreese<span style="color:#f92672">/</span>craigslist<span style="color:#f92672">-</span>carstrucks<span style="color:#f92672">-</span>data <span style="color:#f92672">-</span>p data
+
+<span style="color:#960050;background-color:#1e0010">!</span>unzip data<span style="color:#f92672">/</span>craigslist<span style="color:#f92672">-</span>carstrucks<span style="color:#f92672">-</span>data<span style="color:#f92672">.</span>zip <span style="color:#f92672">-</span>d data
+
+</code></pre></div><h2 id="eda">EDA</h2>
+<p>EDA stands for Exploratory Data Analysis, which is an important part throughout the project. The goal of EDA is to get insights from the data so as to clean and prepare data for building models. Generally speaking, it involves the following steps,</p>
+<ul>
+<li>Identify variables</li>
+<li>Examine the quality of the data</li>
+<li>Univariate analysis</li>
+<li>Bi-variate analysis</li>
+</ul>
+<h3 id="identify-variables">Identify variables</h3>
+<p>Before any further analysis, we need to have a look at the data generally. More specifically, you need to answer the following questions,</p>
+<ul>
+<li>
+<p>How many observations and variables do you have?</p>
+</li>
+<li>
+<p>Which variables are your predictors and target?</p>
+</li>
+<li>
+<p>What&rsquo;s the data type and the memory usage?</p>
+</li>
+<li>
+<p>What&rsquo;s the descriptive statistics about the data?</p>
+</li>
+</ul>
+<p>Luckily, Pandas provides convenient functions to answer these questions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df_vehicles<span style="color:#f92672">.</span>shape
+
+df_vehicles<span style="color:#f92672">.</span>info()
+
+df_vehicles<span style="color:#f92672">.</span>describe()
+
+</code></pre></div><p>In our example, we have <code>458,213</code> rows and <code>25</code> attributes. The <code>price</code> is our target variable and the remaining are our predictors. The following table shows the distribution of data types and Figure 1 shows some example data.</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Variable Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numerical (5)</td>
+<td>id, price, odometer, lat, long</td>
+</tr>
+<tr>
+<td>Object (20)</td>
+<td>&lsquo;url&rsquo;, image_url, region_url, &lsquo;manufacturer&rsquo;,  model, &lsquo;condition&rsquo;, &lsquo;cylinders&rsquo;,   &lsquo;fuel&rsquo;, &lsquo;title_status&rsquo;, &lsquo;transmission&rsquo;,    &lsquo;drive&rsquo;,  &lsquo;type&rsquo;, &lsquo;paint_color&rsquo;, &lsquo;region&rsquo;, &lsquo;state&rsquo;,posting_date, description, image_url, size, VIN,</td>
+</tr>
+</tbody>
+</table>
+<p>
+  <figure>
+    <img src="/blog/post/images/used-car-toydata.png#full" alt="Example Data">
+    <figcaption>Figure 1: Some example data</figcaption>
+  </figure>
+
+</p>
+<h3 id="examine-data-quality">Examine data quality</h3>
+<p>The raw data is unlikely to use directly because it&rsquo;s inevitable to introduce errors like duplication, null values and extreme values when collecting data. The higher the data quality is, the better the model performance is. So we need to identify and solve these problems to obtain a clean data set.</p>
+<h3 id="univariate-analysis">Univariate analysis</h3>
+<h3 id="bi-variate-analysis">Bi-variate analysis</h3>
 <h2 id="references">References</h2>
 <p>[1] <a href="https://www.kaggle.com/austinreese/craigslist-carstrucks-data">https://www.kaggle.com/austinreese/craigslist-carstrucks-data</a></p>
 
 
 
-      
-    </article>
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#frame-the-problem">Frame the problem</a></li>
+    <li><a href="#get-the-data">Get the data</a></li>
+    <li><a href="#eda">EDA</a>
+      <ul>
+        <li><a href="#identify-variables">Identify variables</a></li>
+        <li><a href="#examine-data-quality">Examine data quality</a></li>
+        <li><a href="#univariate-analysis">Univariate analysis</a></li>
+        <li><a href="#bi-variate-analysis">Bi-variate analysis</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
     
+
     
       
 
