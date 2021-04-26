@@ -137,6 +137,9 @@ h1,h2,h3,h4,h5,h6 {
   display: block;
   margin: 0 auto;
 }
+img[src*='#half'] {
+  width: 50%;
+}
 img[src*='#full'] {
   width: 100%;
 }

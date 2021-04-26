@@ -9,16 +9,16 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 24 Apr 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>An E2E Project - EDA</title>
-			<link>https://ixiaopan.github.io/blog/post/end2end-project/</link>
-			<pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/end2end-project/</guid>
-			<description>&lt;p&gt;We have discussed many algorithms, such as linear regression and ensemble methods. It&amp;rsquo;s time to kick off a project from scratch to learn the pipeline of a machine learning project.&lt;/p&gt;</description>
+			<link>https://ixiaopan.github.io/blog/post/end2end-project-01/</link>
+			<pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/end2end-project-01/</guid>
+			<description>&lt;p&gt;So far, we have discussed many algorithms, such as linear regression and ensemble methods. It&amp;rsquo;s time to kick off a project from scratch to learn how a real machine learning project works.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
