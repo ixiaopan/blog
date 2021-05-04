@@ -302,7 +302,7 @@ PS: Aside from visualisation methods talked above, we can also do a statistic te
 
 
 
-So far, we've talked some common data analysis techniques to gain insights from your data. Hopefully it can give you an idea of how to explore data. If you'd like to explore more excellent analysis methods and visualizations, Kaggle is a great place to enhance your skills.   
+In summary, we introduced some common data analysis techniques to gain insights from your data in this post. Hopefully it can give you an idea of how to explore data. If you'd like to explore more excellent analysis methods and visualizations, Kaggle is a great place to enhance your skills.   
 
 As for the remaining parts, we will talk about them in the following posts.
 

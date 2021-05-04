@@ -12,6 +12,14 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Singular Value Decompsition</title>
+			<link>https://ixiaopan.github.io/blog/post/svd/</link>
+			<pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
+			<description>Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system that is defined by x and y axes by listing a pair of numbers, such as (x, y). Perhaps there are some people who don&amp;rsquo;t know Cartesian coordinates, and they might choose a random set of vectors as their reference coodinate. For example, the red point in Figure 1 is (-4, 1) from our standard view(in gray) while the coordinate is (-1, 2) if we are in the view of another person(in blue).</description>
+		</item>
+      	
+		<item>
 			<title>An E2E Project - EDA</title>
 			<link>https://ixiaopan.github.io/blog/post/end2end-project-01/</link>
 			<pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
