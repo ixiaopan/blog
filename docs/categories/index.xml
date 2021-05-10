@@ -26,7 +26,7 @@
 			<link>https://ixiaopan.github.io/blog/post/svd/</link>
 			<pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
-			<description>Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system to list a pair of numbers, such as (x, y). Perhaps there are some people who don&amp;rsquo;t know Cartesian coordinates, and they might randomly choose a set of vectors as their basis of the coordinate space. For example, the red point in Figure 1 is (-4, 1) from our standard view defined by the gray vectors while the coordinate is (-1, 2) if we look at the same point from another angle defined by the blue vectors.</description>
+			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

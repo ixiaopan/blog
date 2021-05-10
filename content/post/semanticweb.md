@@ -169,7 +169,7 @@ The following are some useful tools for understanding RDF.
 
 
 
-Generally, we are only required to know how to read them and write some simple statements in this module.
+Generally, we are required to know how to read them and write some simple statements in this module.
 
 
 
