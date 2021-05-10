@@ -21,7 +21,7 @@ The way decision tree works is similar to the way we make decisions in real life
 
 
 
-![The process of movie selection](/blog/post/images/decision-tree-explain.png "Figure 1: The process of movie selection")
+![The process of movie selection](/blog/post/images/decision-tree-explain.png#half "Figure 1: The process of movie selection")
 
 
 
@@ -143,7 +143,7 @@ In summary, when a decisiton tree makes a split on a feature, it tries to achiev
 
 
 
-## CART
+## CART Algorithm
 
 
 

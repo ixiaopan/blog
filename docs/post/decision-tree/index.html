@@ -160,7 +160,7 @@
   <p>The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &lsquo;Is it a fiction movie? Is it directed by David Fincher?&rsquo;</p>
 <p>
   <figure>
-    <img src="/blog/post/images/decision-tree-explain.png" alt="The process of movie selection">
+    <img src="/blog/post/images/decision-tree-explain.png#half" alt="The process of movie selection">
     <figcaption>Figure 1: The process of movie selection</figcaption>
   </figure>
 
@@ -222,7 +222,7 @@ $$</p>
 <li>a lower entropy</li>
 <li>a higher information gain</li>
 </ul>
-<h2 id="cart">CART</h2>
+<h2 id="cart-algorithm">CART Algorithm</h2>
 <p>CART is short for classification and regression tree algorithm, which is used to train Decisioin Trees. CART tries to find the best split that produces purest subsets by calculating the weighted Gini Impurity on each split made by each feature $k$ from the parent node&rsquo;s training sample and corresponding threshold $t_k$.</p>
 <p>Specifically, it tries to minimize the following loss function for a classification task,</p>
 <p>$$
@@ -294,7 +294,7 @@ $$</p>
         <li><a href="#information-gain">Information Gain</a></li>
       </ul>
     </li>
-    <li><a href="#cart">CART</a></li>
+    <li><a href="#cart-algorithm">CART Algorithm</a></li>
     <li><a href="#prunning">Prunning</a>
       <ul>
         <li><a href="#pre-pruning">Pre-pruning</a></li>

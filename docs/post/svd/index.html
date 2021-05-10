@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>Singular Value Decompsition</title>
+<title>Singular Value Decomposition</title>
 
 
   
@@ -18,8 +18,8 @@
   title=""
 />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Singular Value Decompsition"/>
-<meta name="twitter:description" content="Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system that is defined by x and y axes by listing a pair of numbers, such as (x, y). Perhaps there are some people who don&rsquo;t know Cartesian coordinates, and they might choose a random set of vectors as their reference coodinate. For example, the red point in Figure 1 is (-4, 1) from our standard view(in gray) while the coordinate is (-1, 2) if we are in the view of another person(in blue)."/>
+<meta name="twitter:title" content="Singular Value Decomposition"/>
+<meta name="twitter:description" content="Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system to list a pair of numbers, such as (x, y). Perhaps there are some people who don&rsquo;t know Cartesian coordinates, and they might randomly choose a set of vectors as their basis of the coordinate space. For example, the red point in Figure 1 is (-4, 1) from our standard view defined by the gray vectors while the coordinate is (-1, 2) if we look at the same point from another angle defined by the blue vectors."/>
 
 
 
@@ -120,15 +120,15 @@
     <div class="container">
       <div class="post-heading">
         
-          <h1>Singular Value Decompsition</h1>
+          <h1>Singular Value Decomposition</h1>
         
         
         
           <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 27, 2021
+  >&nbsp;May 4, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -158,7 +158,7 @@
       <article class="article" class="blog-post">
         
   <h2 id="change-of-basis">Change of Basis</h2>
-<p>Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system that is defined by x and y axes by listing a pair of numbers, such as <code>(x, y)</code>. Perhaps there are some people who don&rsquo;t know Cartesian coordinates, and they might choose a random set of vectors as their reference coodinate. For example, the red point in Figure 1 is <code>(-4, 1)</code> from our standard view(in gray) while the coordinate is <code>(-1, 2)</code> if we are in the view of another person(in blue).</p>
+<p>Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system to list a pair of numbers, such as <code>(x, y)</code>. Perhaps there are some people who don&rsquo;t know Cartesian coordinates, and they might randomly choose a set of vectors as their basis of the coordinate space. For example, the red point in Figure 1 is <code>(-4, 1)</code> from our standard view defined by the gray vectors while the coordinate is <code>(-1, 2)</code> if we look at the same point from another angle defined by the blue vectors.</p>
 <p>
   <figure>
     <img src="/blog/post/images/change-basis-example.png" alt="">
@@ -166,7 +166,7 @@
   </figure>
 
 </p>
-<p>Mathematically, the red point can be described from the view of new coordinate system represented in blue as follows,</p>
+<p>Mathematically, the red point can be described from the view of the new coordinate system as follows,</p>
 <p>$$
 x = P_b[x]_b
 $$</p>
@@ -180,15 +180,15 @@ $$</p>
 <p>$$
 [x]_b = [c_1, c_2, &hellip; c_n]
 $$</p>
-<p>where  $P_b$ the <strong>change of coordinate matrix from the new basis to the standard basis</strong> and $[x]_b$ is the coordinates in the new coordinate system.</p>
-<p>In this example, $P_b = [(2, 1),(-1, 1)]$, $[x]_b = (-1, 2)$ and then we have</p>
+<p>where $[x]_b$ is a set of scalars that represent the corresponding length along each axis and $P_b$ is the basis of this new coordinate system, also known as the <strong>change of coordinate matrix from the new basis to the standard basis</strong> (in this example, one of the basis for $R^2$ is coincidentally the standard basis). Basically, $P_b$ is the coordinates of the blue vectors described from our standard coordinate system.</p>
+<p>In this example, we have $P_b = [(2, 1),(-1, 1)]$ and $[x]_b = (-1, 2)$, so $x$ can be obtained by</p>
 <p>$$
 \displaystyle{\begin{bmatrix}-4\\ 1 \end{bmatrix} = \begin{bmatrix}2&amp;-1\\ 1&amp;1\end{bmatrix}
 \begin{bmatrix}-1\\ 2 \end{bmatrix}
 }
 $$</p>
-<p>Basically, $P_b$ is the coordinates of the blue vectors described from our standard coordinate system and also is the basis of the new coordinate system. The above equation tells us where the red point is from our standard view if we know its coordinates in other system $[x]_b$ and the corresponding change of coordinate matrix $P_b$.</p>
-<p>On the other hand, if we know the coordinates in our system, how to find the corresponding coordinates in another system? In Figure 2, the red point $(-4, 1)$ lies in the standard coordinate system, and we want to know where it is from the view of the red coordinate system defined by the two red vectors? In other words, we want to know the length along each axis in the red coordinate system to arrive at the red point.</p>
+<p>The above equation tells us where the red point is from our standard view if we know its coordinates in other system $[x]_b$ and the corresponding change of coordinate matrix from $b$ to the standard basis $P_b$.</p>
+<p>On the other hand, if we know the coordinates in our standard coordinate system, how to find the corresponding coordinates in another system? In Figure 2, the red point $(-4, 1)$ lies in the standard coordinate system, and we want to know where it is from the view of the red coordinate system defined by the two red vectors? In other words, we want to know the length along each axis in the red coordinate system to arrive at the red point.</p>
 <p>
   <figure>
     <img src="/blog/post/images/projection-example.png" alt="">

@@ -12,11 +12,19 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Singular Value Decompsition</title>
+			<title>Semantic Web</title>
+			<link>https://ixiaopan.github.io/blog/post/semanticweb/</link>
+			<pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/semanticweb/</guid>
+			<description>&lt;p&gt;In semester 2, I took a module called &lt;strong&gt;Semantic Web Technologies&lt;/strong&gt;. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it&amp;rsquo;s still on my shortlist because I&amp;rsquo;ve been working on the web for many years and I wondered what the semantic web is.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Singular Value Decomposition</title>
 			<link>https://ixiaopan.github.io/blog/post/svd/</link>
-			<pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate>
+			<pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
-			<description>Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system that is defined by x and y axes by listing a pair of numbers, such as (x, y). Perhaps there are some people who don&amp;rsquo;t know Cartesian coordinates, and they might choose a random set of vectors as their reference coodinate. For example, the red point in Figure 1 is (-4, 1) from our standard view(in gray) while the coordinate is (-1, 2) if we are in the view of another person(in blue).</description>
+			<description>Change of Basis Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system to list a pair of numbers, such as (x, y). Perhaps there are some people who don&amp;rsquo;t know Cartesian coordinates, and they might randomly choose a set of vectors as their basis of the coordinate space. For example, the red point in Figure 1 is (-4, 1) from our standard view defined by the gray vectors while the coordinate is (-1, 2) if we look at the same point from another angle defined by the blue vectors.</description>
 		</item>
       	
 		<item>

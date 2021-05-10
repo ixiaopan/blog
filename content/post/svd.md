@@ -1,6 +1,6 @@
 ---
-title: "Singular Value Decompsition"
-date: "2021-04-27"
+title: "Singular Value Decomposition"
+date: "2021-05-04"
 description: ""
 # tags: []
 categories: [
@@ -17,7 +17,7 @@ katex: true
 
 
 
-Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system that is defined by x and y axes by listing a pair of numbers, such as `(x, y)`. Perhaps there are some people who don't know Cartesian coordinates, and they might choose a random set of vectors as their reference coodinate. For example, the red point in Figure 1 is `(-4, 1)` from our standard view(in gray) while the coordinate is `(-1, 2)` if we are in the view of another person(in blue).
+Suppose there is a point in the 2D space, how do you describe it? One common way is to use Cartesian coordinate system to list a pair of numbers, such as `(x, y)`. Perhaps there are some people who don't know Cartesian coordinates, and they might randomly choose a set of vectors as their basis of the coordinate space. For example, the red point in Figure 1 is `(-4, 1)` from our standard view defined by the gray vectors while the coordinate is `(-1, 2)` if we look at the same point from another angle defined by the blue vectors.
 
 
 
@@ -25,7 +25,7 @@ Suppose there is a point in the 2D space, how do you describe it? One common way
 
 
 
-Mathematically, the red point can be described from the view of new coordinate system represented in blue as follows,
+Mathematically, the red point can be described from the view of the new coordinate system as follows,
 
 
 $$
@@ -50,11 +50,11 @@ $$
 $$
 
 
-where  $P_b$ the **change of coordinate matrix from the new basis to the standard basis** and $[x]_b$ is the coordinates in the new coordinate system. 
+where $[x]_b$ is a set of scalars that represent the corresponding length along each axis and $P_b$ is the basis of this new coordinate system, also known as the **change of coordinate matrix from the new basis to the standard basis** (in this example, one of the basis for $R^2$ is coincidentally the standard basis). Basically, $P_b$ is the coordinates of the blue vectors described from our standard coordinate system.
 
 
 
-In this example, $P_b = [(2, 1),(-1, 1)]$, $[x]_b = (-1, 2)$ and then we have
+In this example, we have $P_b = [(2, 1),(-1, 1)]$ and $[x]_b = (-1, 2)$, so $x$ can be obtained by
 
 
 $$
@@ -64,11 +64,11 @@ $$
 $$
 
 
-Basically, $P_b$ is the coordinates of the blue vectors described from our standard coordinate system and also is the basis of the new coordinate system. The above equation tells us where the red point is from our standard view if we know its coordinates in other system $[x]_b$ and the corresponding change of coordinate matrix $P_b$.
+The above equation tells us where the red point is from our standard view if we know its coordinates in other system $[x]_b$ and the corresponding change of coordinate matrix from $b$ to the standard basis $P_b$.
 
 
 
-On the other hand, if we know the coordinates in our system, how to find the corresponding coordinates in another system? In Figure 2, the red point $(-4, 1)$ lies in the standard coordinate system, and we want to know where it is from the view of the red coordinate system defined by the two red vectors? In other words, we want to know the length along each axis in the red coordinate system to arrive at the red point.
+On the other hand, if we know the coordinates in our standard coordinate system, how to find the corresponding coordinates in another system? In Figure 2, the red point $(-4, 1)$ lies in the standard coordinate system, and we want to know where it is from the view of the red coordinate system defined by the two red vectors? In other words, we want to know the length along each axis in the red coordinate system to arrive at the red point.
 
 
 
@@ -150,10 +150,6 @@ If $T=I$, then $x_s'$ is exactly the same as $x_s$.
 
 
 ## PCA
-
-
-
-
 
 
 

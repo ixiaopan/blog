@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Ontology</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ontology"/>
+<meta name="twitter:description" content="In semester 2, I took a module called **Semantic Web Technologies**. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it&#39;s still on my shortlist because I&#39;ve been working on the web for many years and I wondered what the semantic web is. "/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Ontology</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;May 8, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>In semester 2, I took a module called <strong>Semantic Web Technologies</strong>. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it&rsquo;s still on my shortlist because I&rsquo;ve been working on the web for many years and I wondered what the semantic web is.</p>
+<p>On the other hand, I was not interested in modules like Advanced Databases since I&rsquo;ve learnt database during my undergraduate degree in Computer Science. Besides, I hope I could have more free time to do other things, and I don&rsquo;t think I can deal with a more difficult module like Reinforcement Learning though it&rsquo;s indeed useful and interesting. Maybe I could learn it later when needed.</p>
+<p>Okay, let&rsquo;s go back to this post. The goal of this post is to go through the most important parts of this module for the final exam preparation.</p>
+<h2 id="web-for-machine">Web for machine</h2>
+<p>We all know that the current web pages are written in HTML. You can use <code>&lt;p&gt;</code> to define a paragraph like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;Hello world&lt;/<span style="color:#f92672">p</span>&gt;
+</code></pre></div><p>HTML looks more like a natural language as it is designed to be readable and understandable for human, not machines. However, we hope machines can understand information as well. But why? Because we want machines to do reasoning about data rather than save data only.</p>
+<p>Web pages can be linked using the markup <code>&lt;a&gt;</code>, but not all relevant documents are connected. Anyone can publish a new web page anytime. Moreover, not everyone uses the same language to describe the same thing. Thus, the interconnected web pages are simply a limited bundle of documents. More importantly, the data are not connected, and we don&rsquo;t have explicit schemas that enable machines to understand documents.</p>
+<p>On the contrary, the goal of Semantic Web is to make data readable and understandable for machines. To achieve this, the first step is to encourage people to share their data. Then things are denoted by their unique identifiers. Thus, data from various contexts can be connected through the identifiers, making a huge net finally (also known as Linked Data). Therefore, in Semantic Web, machines learn from data directly instead of documents that are written for people.</p>
+<p>What are the applications of Semantic web? Well, we can utilise the vocabulary of a domain to build a knowledge graph, which encodes the semantics of domain knowledge in this network. Search engines can augment their search results from such knowledge graphs since they provide domain-specific knowledge.</p>
+<h2 id="rdf">RDF</h2>
+<p>RDF is short for the Resource Description Framework. It&rsquo;s a triple-based data model for knowledge representation. Figure 1 shows a triple composed of 3 components, which means Bob has a friend named Alice.</p>
+<ul>
+<li>
+<p><code>Bob</code> is the subject</p>
+</li>
+<li>
+<p><code>Alice</code> is the object</p>
+</li>
+<li>
+<p><code>hasFriend</code> is the predicate that connects them</p>
+</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/rdf.png" alt="">
+    <figcaption>Figure 1: A triple-based data model</figcaption>
+  </figure>
+
+</p>
+<p>The above model is an abstract framework. Subjects and predicates can be anything. To describe the specific subjects and the relationship between them, we need to find a way to identify them explicitly. We also need a data format that defines and parses this model.</p>
+<h3 id="uri">URI</h3>
+<p>In the World Wide Web, URI is used to define a unique object. Here are some examples,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mailto</span><span style="color:#f92672">:</span><span style="color:#a6e22e">aaa</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">xxx</span>.<span style="color:#a6e22e">com</span>
+<span style="color:#a6e22e">urn</span><span style="color:#f92672">:</span><span style="color:#a6e22e">isbn</span><span style="color:#f92672">:</span><span style="color:#ae81ff">123456</span>
+</code></pre></div><p>Well, URI can also be followed by an optional fragment identifier like this,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com/index.html#introduction
+</span></code></pre></div><h3 id="namespace">Namespace</h3>
+<p>The above method has one problem. A term may have different meanings in different domains. If we include them all in a file, it will cause name conflicts. We can solve it using namespace. Specifically, a resource can be represented by a namespace, a colon and a local name.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt;
+
+// is equivalent to
+
+@prefix d: &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span>&gt; .
+d:hasFriend 
+</code></pre></div><h3 id="turtle">Turtle</h3>
+<p>The last thing is to define a data structure so that machines can parse and serialize. One of the popular data  formats is Turtle. The following are some syntaxes defined by Turtle,</p>
+<ul>
+<li>Resource URI are written in angle brackets</li>
+<li>Literal values  are written in double quotes</li>
+<li>Triples end with a full stop</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Bob</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Alice</span>&gt; .
+
+</code></pre></div><h3 id="rdfxml">RDF/XML</h3>
+<p>Apart from Turtle, we can also express RDF using RDF/XML, which is similar to XML. But it&rsquo;s not easy for humans to read compared to Turtle.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
+&lt;<span style="color:#f92672">rdf:RDF</span> <span style="color:#a6e22e">xmlns:rdf</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34;</span>
+         <span style="color:#a6e22e">xmlns:ns0</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.org/ontology#&#34;</span>&gt;
+
+  &lt;<span style="color:#f92672">rdf:Description</span> <span style="color:#a6e22e">rdf:about</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.org/data#Bob&#34;</span>&gt;
+    &lt;<span style="color:#f92672">ns0:hasFriend</span> <span style="color:#a6e22e">rdf:resource</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.org/data#Alice&#34;</span>/&gt;
+  &lt;/<span style="color:#f92672">rdf:Description</span>&gt;
+
+&lt;/<span style="color:#f92672">rdf:RDF</span>&gt;
+</code></pre></div><h3 id="tools">Tools</h3>
+<p>The following are some useful tools for understanding RDF.</p>
+<ul>
+<li><a href="https://www.easyrdf.org/converter">EasyRDF Converter</a>
+<ul>
+<li>Tool for converting between different RDF syntaxes</li>
+</ul>
+</li>
+<li><a href="http://www.w3.org/RDF/Validator/">W3C RDF Validator</a>
+<ul>
+<li>Validator for RDF/XML, which can also visualise RDF as a graph</li>
+</ul>
+</li>
+</ul>
+<p>Generally, we are only required to know how to read them and write some simple statements in this module.</p>
+<h2 id="rdfs">RDFS</h2>
+<p>RDF only tells us some specific instances. For example, Bob knows Alice, Bob works for Google, etc. However, they don&rsquo;t define the vocabulary used in those triples. From the perspective of object-oriented programming, we want to define the classes that generate these instances. Strictly speaking, we want to define the ontology of a domain. Moreover, if we define some rules in this domain, say  <code>Person worksFor Company</code>, then we can infer that Bob is a person and Google is a company under the defined rule.</p>
+<p>RDFS and OWL are two common ontology languages to do this. We will talk RDFS first in this section. RDFS allows us to define classes and properties as well as the characteristics of classes and properties.</p>
+<h3 id="class-definition">class definition</h3>
+<p>In OOP, we use keyword <code>class</code> to declare a class, for example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {}
+</code></pre></div><p>In RDFS, we use predefined classes, such as <code>rdfs:Class</code>, <code>rdfs:Property</code>, to declare the corresponding object.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> .
+</code></pre></div><p>
+  <figure>
+    <img src="/blog/post/images/rdfs-class.png" alt="">
+    <figcaption>Figure 2: Declare a class</figcaption>
+  </figure>
+
+</p>
+<p>Furthermore, we use <code>rdfs:subClassOf</code> to declare that a class is a subclass of another class. It&rsquo;s clear that <code>rdfs:subClassOf</code> is transitive. For example, if  <code>Teacher</code> is a subclass of <code>UniStaff</code> and <code>UniStaff</code> is a subclass of <code>Person</code> , then <code>Teacher</code> is a subclass of <code>Person</code>, as shown in Figure 3.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Teacher</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
+		   <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">subClassOf</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">UniStaff</span> .
+
+<span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">UniStaff</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
+		   <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">subClassOf</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> .
+</code></pre></div><p>
+  <figure>
+    <img src="/blog/post/images/rdfs-superclass.png#half" alt="">
+    <figcaption>Figure 3: RDFS class semantics </figcaption>
+  </figure>
+
+</p>
+<p>On the other hand, <code>rdf:type</code> distributes over <code>rdf:subClassOf</code>. This means that if  <code>C rdf:type A</code> and <code>A rdfs:subClassOf B</code> , then <code>C rdf:type B</code>. For instance, Figure 4 illustrates that  if Bob is an instance of <code>Teacher</code>, then Bob is also an instance of <code>Unistaff</code> and <code>Person</code>.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/rdfs-type.png#half" alt="">
+    <figcaption>Figure 4: rdf:type distributes over rdfs:subClassOf</figcaption>
+  </figure>
+
+</p>
+<h3 id="property-definition">property definition</h3>
+<p>Property declaration is similar to class declaration. The following code declares a property named <code>ex:hasStreet</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> .
+</code></pre></div><p>But not every object has an addresss. Besides, we sometimes want to limit the domain and range of a property. In this case, we would say, only people can have an address.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
+             <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">domain</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> .
+</code></pre></div><p>We also notice that <code>ex:hasStreet</code> is a more specific attribute of <code>ex:hasAddress</code> since addresses are usually composed of several components like towns and streets. So we define <code>ex:hasStreet</code> as a subproperty of <code>ex:hasAddress</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
+             <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">domain</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> ;
+             <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">subPropertyOf</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasAddress</span> .
+</code></pre></div><p>Figure 5 illustrates that if Bob lives in a street named West Road, it implies that West Road is Bob&rsquo;s address. Furthermore, we have already stated that only <strong>Person</strong> can have street names, which means Bob must be a  person under this semantics.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/rdfs-superpropery.png" alt="">
+    <figcaption>Figure 5: RDF Schema property semantics </figcaption>
+  </figure>
+
+</p>
+<h2 id="sparql">SPARQL</h2>
+<p>So far, we are able to represent data. But how do we retrieve it from databases? Well, SPARQL is a SQL-like query language that allows us to make a query.</p>
+<h3 id="basic-syntax">basic syntax</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">variable</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">FROM</span> <span style="color:#f92672">&lt;</span>graph<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#f92672">&lt;</span>triple patterns<span style="color:#f92672">&gt;</span> <span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><ul>
+<li>variables are prefixed with <code>?</code></li>
+<li>triple patterns are expressed in Turtle</li>
+</ul>
+<p>For example, the following codes return the names of the people who have street addresses.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
+	<span style="color:#f92672">?</span>name ex:hasStreet <span style="color:#f92672">?</span>street .
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><h3 id="filter">FILTER</h3>
+<p>We can also query the names of the people who live on the streets only containing &lsquo;Baker&rsquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
+	<span style="color:#f92672">?</span>person ex:hasStreet <span style="color:#f92672">?</span>street .
+	FILTER regex(<span style="color:#f92672">?</span>street, <span style="color:#e6db74">&#34;Baker&#34;</span>) 
+	<span style="color:#f92672">?</span>person ex:hasName <span style="color:#f92672">?</span>name .
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><p>Another example is to filter all the items whose prices are lower than 5 pounds.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
+	<span style="color:#f92672">?</span>item ex:hasPrice <span style="color:#f92672">?</span>price .
+	FILTER (<span style="color:#f92672">?</span>price <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>)
+	<span style="color:#f92672">?</span>item ex:hasName <span style="color:#f92672">?</span>name .
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><h3 id="union">UNION</h3>
+<p><code>UNION</code> allows us to either match this condition or that one, which is equivalent to the operation of <code>OR</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
+	<span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#f92672">?</span>person ex:hasStreet <span style="color:#e6db74">&#34;Baker Street&#34;</span> . <span style="color:#960050;background-color:#1e0010">}</span>
+	<span style="color:#66d9ef">UNION</span>
+	<span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#f92672">?</span>person ex:hasStreet <span style="color:#e6db74">&#34;West Road&#34;</span> . <span style="color:#960050;background-color:#1e0010">}</span>
+
+	<span style="color:#f92672">?</span>person ex:hasName <span style="color:#f92672">?</span>name .
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><p>We won&rsquo;t dive into SPARQL deeper because SPARQL has quite similar syntaxes to SQL. If you are familiar with SQL, you&rsquo;ll know how to use SPARQL instantly.</p>
+<h2 id="description-logic-dl">Description Logic (DL)</h2>
+<p>TODO</p>
+
+
+
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#web-for-machine">Web for machine</a></li>
+    <li><a href="#rdf">RDF</a>
+      <ul>
+        <li><a href="#uri">URI</a></li>
+        <li><a href="#namespace">Namespace</a></li>
+        <li><a href="#turtle">Turtle</a></li>
+        <li><a href="#rdfxml">RDF/XML</a></li>
+        <li><a href="#tools">Tools</a></li>
+      </ul>
+    </li>
+    <li><a href="#rdfs">RDFS</a>
+      <ul>
+        <li><a href="#class-definition">class definition</a></li>
+        <li><a href="#property-definition">property definition</a></li>
+      </ul>
+    </li>
+    <li><a href="#sparql">SPARQL</a>
+      <ul>
+        <li><a href="#basic-syntax">basic syntax</a></li>
+        <li><a href="#filter">FILTER</a></li>
+        <li><a href="#union">UNION</a></li>
+      </ul>
+    </li>
+    <li><a href="#description-logic-dl">Description Logic (DL)</a></li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
