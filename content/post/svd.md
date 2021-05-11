@@ -33,7 +33,7 @@ In Figure 1, the position of the red point is `(-4, 1)` when using the standard 
 
 
 
-![](/blog/post/images/change-basis-example.png#half "Figure 1: The same point in two different coordinate spaces")
+![](/blog/post/images/change-basis-example.png "Figure 1: The same point in two different coordinate spaces")
 
 
 

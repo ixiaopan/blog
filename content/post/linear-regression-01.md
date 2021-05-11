@@ -37,7 +37,7 @@ How to make a prediction? Since there are only two variables, let's plot them to
 
 
 
-![scatter-plot](/blog/post/images/simple-linear-grade.png#half "Figure 1: A scatter plot of hours and grade")
+![scatter-plot](/blog/post/images/simple-linear-grade.png "Figure 1: A scatter plot of hours and grade")
 
 
 
@@ -63,11 +63,11 @@ In this example, $x$ is the variable `hours ` and $y$ is the variable `grade`, w
 
 
 
-## Loss
+## Residual
 
 
 
-What is the loss? It's the difference between the estimated value and our true value, also known as the residual. Minimising the loss is to make the estimated value as close to the true value as possible.
+The residual is the difference between the estimated value and our true value. Minimising the residual is to make the estimated value as close to the true value as possible.
 
 
 
@@ -75,7 +75,7 @@ What is the loss? It's the difference between the estimated value and our true v
 
 
 
-For a single data point, the loss function is defined below, 
+For a single data point, the residual is defined as below, 
 
 
 
@@ -85,7 +85,7 @@ $$
 
 
 
-where $y_i$ is the true value and $y_i'$ is our predictedd value.  Since we have many data points, we need to sum them up to evaluate the overall errors. 
+where $y_i$ is the true value and $y_i'$ is our predicted value.  Since we have many data points, we need to sum them up to evaluate the overall errors. 
 
 
 
@@ -121,7 +121,7 @@ $$
 
 
 
-Instead of taking the absolute value, we will square all the errors, which is known as **Residual Sum of Squares(RSS)**  or **Sum of Squared Error (SSE)**. 
+Instead of taking the absolute value, we will square all the errors, which is known as the **Residual Sum of Squares(RSS)**  or **Sum of Squared Error (SSE)**. 
 
 
 
@@ -131,9 +131,7 @@ $$
 
 
 
-PS: We will revisit the squared error later from the perspective of MLE.
-
-
+PS: We will revisit SSE later from the perspective of MLE.
 
 
 

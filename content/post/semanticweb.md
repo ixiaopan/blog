@@ -221,7 +221,7 @@ ex:UniStaff rdf:type rdfs:Class ;
 
 
 
-![](/blog/post/images/rdfs-superclass.png#half "Figure 3: RDFS class semantics ")
+![](/blog/post/images/rdfs-superclass.png "Figure 3: RDFS class semantics ")
 
 
 
@@ -229,7 +229,7 @@ On the other hand, `rdf:type` distributes over `rdf:subClassOf`. This means that
 
 
 
-![](/blog/post/images/rdfs-type.png#half "Figure 4: rdf:type distributes over rdfs:subClassOf")
+![](/blog/post/images/rdfs-type.png "Figure 4: rdf:type distributes over rdfs:subClassOf")
 
 
 

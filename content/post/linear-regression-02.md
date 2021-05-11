@@ -81,7 +81,8 @@ However, this equation is unlikely to work if  $\bold X^T\bold X$ is not inverti
 
 ### pseudoinverse
 
-SVD technique can decompose any matrix $A$ into the matrix multiplication of  three matrices $U\Sigma V^T$. Thus the above equation can be written in the following form 
+SVD technique can decompose any matrix $A$ into the matrix multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,
+
 
 
 $$
@@ -95,7 +96,14 @@ A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
 $$
 
 
+
 In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$
+
+
+
+### QR factorisation
+
+TODO
 
 
 
@@ -109,7 +117,12 @@ TODO
 
 
 
-It's inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be $\epsilon_i$ for each observation. 
+### Assumption
+
+
+
+It's inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We define the error to be $\epsilon_i$ for each observation. 
+
 
 
 $$
@@ -117,12 +130,15 @@ y_i = a + bx_i + \epsilon_i
 $$
 
 
+
 The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of $\sigma^2$.
+
 
 
 $$
 \epsilon_i \sim N(0, \sigma^2)
 $$
+
 
 
 Thus, the probability of $y_i$ is defined by the predictors $x_i$ and the paramters $a, b, \sigma^2$.
@@ -189,13 +205,40 @@ $$
 $$
 
 
+
+
+
+## Non-linear Data
+
+
+
+### Fitting Polynomials
+
+
+
+### Transformation
+
+
+
+## Dependent Data
+
+
+
+TODO
+
+
+
+## Multicollinearity
+
+
+
+
+
 ## References
 
 
 
 [1] C. Bishop, *Pattern Recognition and Machine Learning*. 2006.
 
-
-
-
+[2] "Interaction Effects in Regression", *Stattrek.com*, 2021. [Online]. Available: https://stattrek.com/multiple-regression/interaction.aspx?tutorial=reg. [Accessed: 11- May- 2021].
 

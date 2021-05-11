@@ -185,7 +185,7 @@
 <p>How to make a prediction? Since there are only two variables, let&rsquo;s plot them to see if there is a  relation between <code>grade</code> and <code>hours</code>.</p>
 <p>
   <figure>
-    <img src="/blog/post/images/simple-linear-grade.png#half" alt="scatter-plot">
+    <img src="/blog/post/images/simple-linear-grade.png" alt="scatter-plot">
     <figcaption>Figure 1: A scatter plot of hours and grade</figcaption>
   </figure>
 
@@ -197,8 +197,8 @@
 y = ax + b
 $$</p>
 <p>In this example, $x$ is the variable <code>hours </code> and $y$ is the variable <code>grade</code>, which we&rsquo;ve already known. So the problem is how to calculate the parameter $a, b$. Technically, this is called <strong>parameter estimation</strong>. Usually, there are two ways to do this: minimising the loss and maximising the likelihood. Now we focus on the former.</p>
-<h2 id="loss">Loss</h2>
-<p>What is the loss? It&rsquo;s the difference between the estimated value and our true value, also known as the residual. Minimising the loss is to make the estimated value as close to the true value as possible.</p>
+<h2 id="residual">Residual</h2>
+<p>The residual is the difference between the estimated value and our true value. Minimising the residual is to make the estimated value as close to the true value as possible.</p>
 <p>
   <figure>
     <img src="/blog/post/images/linear-regression-residual.png" alt="simple-linear-grade">
@@ -206,11 +206,11 @@ $$</p>
   </figure>
 
 </p>
-<p>For a single data point, the loss function is defined below,</p>
+<p>For a single data point, the residual is defined as below,</p>
 <p>$$
 error = y_i - y'_i = y_i - ax_i - b
 $$</p>
-<p>where $y_i$ is the true value and $y_i'$ is our predictedd value.  Since we have many data points, we need to sum them up to evaluate the overall errors.</p>
+<p>where $y_i$ is the true value and $y_i'$ is our predicted value.  Since we have many data points, we need to sum them up to evaluate the overall errors.</p>
 <h3 id="error">error</h3>
 <p>Unfortunately, some error terms will cancel out when you do this calculation directly.</p>
 <p>$$
@@ -222,11 +222,11 @@ $$</p>
 L =  \sum_i^n |y_i - y_i'|
 $$</p>
 <h3 id="the-squared-value-of-error">the squared value of error</h3>
-<p>Instead of taking the absolute value, we will square all the errors, which is known as <strong>Residual Sum of Squares(RSS)</strong>  or <strong>Sum of Squared Error (SSE)</strong>.</p>
+<p>Instead of taking the absolute value, we will square all the errors, which is known as the <strong>Residual Sum of Squares(RSS)</strong>  or <strong>Sum of Squared Error (SSE)</strong>.</p>
 <p>$$
 L =  \sum_i^n (y_i - y_i')^2
 $$</p>
-<p>PS: We will revisit the squared error later from the perspective of MLE.</p>
+<p>PS: We will revisit SSE later from the perspective of MLE.</p>
 <h2 id="closed-form-solution">Closed-form solution</h2>
 <p>Finally, we find a function to measure the loss. Next, we need to find the parameters that minimize the squared error. The good news is that our loss function is differentiable and convex! It means that we have the global minimum value and can be calculated directly by taking derivatives.</p>
 <p>Let&rsquo;s take the first derivatve w.r.t $b$</p>
@@ -315,7 +315,7 @@ $$</p>
   <ul>
     <li><a href="#problem-statement">Problem Statement</a></li>
     <li><a href="#simple-linear-regression">Simple Linear Regression</a></li>
-    <li><a href="#loss">Loss</a>
+    <li><a href="#residual">Residual</a>
       <ul>
         <li><a href="#error">error</a></li>
         <li><a href="#the-absolute-value-of-error">the absolute value of error</a></li>

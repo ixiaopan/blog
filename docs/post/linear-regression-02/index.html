@@ -186,7 +186,7 @@ $$</p>
 $$</p>
 <p>However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible(singular), such as if the number of features are more than the number of observations($n &lt; d$). One way to solve this equation is to use SVD.</p>
 <h3 id="pseudoinverse">pseudoinverse</h3>
-<p>SVD technique can decompose any matrix $A$ into the matrix multiplication of  three matrices $U\Sigma V^T$. Thus the above equation can be written in the following form</p>
+<p>SVD technique can decompose any matrix $A$ into the matrix multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,</p>
 <p>$$
 \bold w = A^+y
 $$</p>
@@ -194,10 +194,13 @@ $$</p>
 A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
 $$</p>
 <p>In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$</p>
+<h3 id="qr-factorisation">QR factorisation</h3>
+<p>TODO</p>
 <h3 id="comparison-of-algorithms">comparison of algorithms</h3>
 <p>TODO</p>
 <h2 id="probabilistic-interpretation">Probabilistic Interpretation</h2>
-<p>It&rsquo;s inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be $\epsilon_i$ for each observation.</p>
+<h3 id="assumption">Assumption</h3>
+<p>It&rsquo;s inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We define the error to be $\epsilon_i$ for each observation.</p>
 <p>$$
 y_i = a + bx_i + \epsilon_i
 $$</p>
@@ -236,8 +239,15 @@ $$</p>
 \begin{bmatrix}w_0\\ w_1\\ w_2\\ &hellip;\\ w_d \end{bmatrix}
 }
 $$</p>
+<h2 id="non-linear-data">Non-linear Data</h2>
+<h3 id="fitting-polynomials">Fitting Polynomials</h3>
+<h3 id="transformation">Transformation</h3>
+<h2 id="dependent-data">Dependent Data</h2>
+<p>TODO</p>
+<h2 id="multicollinearity">Multicollinearity</h2>
 <h2 id="references">References</h2>
 <p>[1] C. Bishop, <em>Pattern Recognition and Machine Learning</em>. 2006.</p>
+<p>[2] &ldquo;Interaction Effects in Regression&rdquo;, <em>Stattrek.com</em>, 2021. [Online]. Available: <a href="https://stattrek.com/multiple-regression/interaction.aspx?tutorial=reg">https://stattrek.com/multiple-regression/interaction.aspx?tutorial=reg</a>. [Accessed: 11- May- 2021].</p>
 
 
 
@@ -250,15 +260,25 @@ $$</p>
     <li><a href="#multiple-linear-regression">Multiple Linear Regression</a>
       <ul>
         <li><a href="#pseudoinverse">pseudoinverse</a></li>
+        <li><a href="#qr-factorisation">QR factorisation</a></li>
         <li><a href="#comparison-of-algorithms">comparison of algorithms</a></li>
       </ul>
     </li>
     <li><a href="#probabilistic-interpretation">Probabilistic Interpretation</a>
       <ul>
+        <li><a href="#assumption">Assumption</a></li>
         <li><a href="#mle">MLE</a></li>
       </ul>
     </li>
     <li><a href="#geometry-of-linear-regression">Geometry of Linear Regression</a></li>
+    <li><a href="#non-linear-data">Non-linear Data</a>
+      <ul>
+        <li><a href="#fitting-polynomials">Fitting Polynomials</a></li>
+        <li><a href="#transformation">Transformation</a></li>
+      </ul>
+    </li>
+    <li><a href="#dependent-data">Dependent Data</a></li>
+    <li><a href="#multicollinearity">Multicollinearity</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>

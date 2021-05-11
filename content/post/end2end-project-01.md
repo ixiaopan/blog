@@ -167,7 +167,7 @@ Heatmap enables us to identify the distribution of missing values visually.
 
 
 
-![A heatmap](/blog/post/images/used-car-heatmap-missing.png#half "Figure 2: A heatmap for visualising the distribution of null values")
+![A heatmap](/blog/post/images/used-car-heatmap-missing.png "Figure 2: A heatmap for visualising the distribution of null values")
 
 
 
@@ -175,7 +175,7 @@ Figure 2 shows that `size`, `condition`, `VIN`, `cylinders`, `drive` and `paint_
 
 
 
-![A table that shows the percentage of null values](/blog/post/images/used-car-missing-table.png#half "Figure 3: A table that shows the percentage of null values")
+![A table that shows the percentage of null values](/blog/post/images/used-car-missing-table.png "Figure 3: A table that shows the percentage of null values")
 
 
 
