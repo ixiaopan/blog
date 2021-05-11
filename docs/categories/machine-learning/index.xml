@@ -26,7 +26,7 @@
 			<link>https://ixiaopan.github.io/blog/post/svd/</link>
 			<pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
-			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -58,7 +58,7 @@
 			<link>https://ixiaopan.github.io/blog/post/linear-regression-02/</link>
 			<pubDate>Sat, 17 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/linear-regression-02/</guid>
-			<description>&lt;p&gt;In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&amp;rsquo;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.&lt;/p&gt;</description>
+			<description>&lt;p&gt;In &lt;a href=&#34;https://ixiaopan.github.io/blog/post/linear-regression-01/&#34;&gt;the previous post&lt;/a&gt;, we talked about simple linear regression. However, we only considered one predictor. It&amp;rsquo;s quite common to have multiple predictors for real-world problems. For example, if we want to predict car prices, we should consider many factors like car sizes, manufacturers and fuel types. The simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate the multiple predictors.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -66,7 +66,7 @@
 			<link>https://ixiaopan.github.io/blog/post/bias-variance-dilemma/</link>
 			<pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/bias-variance-dilemma/</guid>
-			<description>&lt;p&gt;When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by &amp;lsquo;high bias&amp;rsquo; or &amp;lsquo;high variance&amp;rsquo;?&lt;/p&gt;</description>
+			<description>&lt;p&gt;When you learn more about machine learning, you must  hear people talking about high bias, high variance or something like that. What do they mean by &amp;lsquo;high bias&amp;rsquo; or &amp;lsquo;high variance&amp;rsquo;?&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -74,7 +74,7 @@
 			<link>https://ixiaopan.github.io/blog/post/linear-regression-01/</link>
 			<pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/linear-regression-01/</guid>
-			<description>&lt;p&gt;There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and possibly the first algorithm that most people learn in the world of machine learning. So let&amp;rsquo;s go!&lt;/p&gt;</description>
+			<description>&lt;p&gt;There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people first learn in the world of machine learning. So let&amp;rsquo;s go!&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -82,7 +82,7 @@
 			<link>https://ixiaopan.github.io/blog/post/descriptive-statistics/</link>
 			<pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/descriptive-statistics/</guid>
-			<description>&lt;p&gt;In this post , I&amp;rsquo;m going to go through some basic concepts of  statistics required in Data Science.&lt;/p&gt;</description>
+			<description>&lt;p&gt;In this post, I&amp;rsquo;m going to go through some basic concepts of  statistics required in Data Science.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

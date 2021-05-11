@@ -19,7 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Singular Value Decomposition"/>
-<meta name="twitter:description" content="Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post."/>
+<meta name="twitter:description" content="Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post."/>
 
 
 
@@ -157,9 +157,9 @@
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post.</p>
+  <p>Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.</p>
 <h2 id="change-of-basis">Change of Basis</h2>
-<p>Suppose there is a point in the 2D space, how do you describe it? The common way is to use Cartesian coordinate system, which is composed of two fixed perpendicular oriented axes, measured in the same unit of length. The two perpendicular axes are just a special set of vectors servered as the basis of the 2D space. Actually, there are many other sets of vectors that can be the basis for the 2D space.</p>
+<p>Suppose there is a point in the 2D space, how do you describe it? The common way is to use the Cartesian coordinate system, which is composed of two fixed perpendicular oriented axes, measured in the same unit of length. The two perpendicular axes are just a special set of vectors served as the basis of the 2D space. Actually, there are many other sets of vectors that can be the basis for the 2D space.</p>
 <p>In Figure 1, the position of the red point is <code>(-4, 1)</code> when using the standard basis <code>(1, 0), (0, 1)</code> (colored in grey). If we change the basis to <code>(2, 1), (-1, 1)</code> (colored in blue), the position of the same point is <code>(-1, 2)</code>.</p>
 <p>
   <figure>
@@ -168,8 +168,7 @@
   </figure>
 
 </p>
-<p>From Figure 1, we can see that the absolute position of the red point always stay the same, however, the relative position to the basis can be changed.</p>
-<p>Mathematically, the red point can be described from the view of a coordinate system as follows,</p>
+<p>From Figure 1, we can see that the absolute position of the red point always stay the same. However, the relative positions to the different bases are different. Mathematically, the red point can be described from the view of a coordinate system as follows,</p>
 <p>$$
 x = P_b[x]_b
 $$</p>
@@ -183,7 +182,7 @@ $$</p>
 <p>$$
 [x]_b = [c_1, c_2, &hellip; c_n]
 $$</p>
-<p>where $[x]_b$ is a set of scalars which represent the length along each axis of the coordinate system, and $P_b$ is the <strong>change of coordinate matrix from the current basis to the basis which we want switch to</strong>.</p>
+<p>where $[x]_b$ is a set of scalars which represent the length along each axis of the coordinate system, and $P_b$ is the <strong>change of coordinate matrix from the current basis to the basis to which we are going to switch</strong>.</p>
 <p>Let&rsquo;s plug the above point and  the basis <code>(1, 0), (0, 1)</code>  (colored in grey) into this equation,</p>
 <p>$$
 P_b = [ (1, 0), (0, 1)]
@@ -204,15 +203,15 @@ $$</p>
 <p>$$
 x_b = -1 \begin{bmatrix}2\\ 1 \end{bmatrix} + 2 \begin{bmatrix}-1\\ 1 \end{bmatrix} = \begin{bmatrix}-4\\ 1 \end{bmatrix}
 $$
-From the above equations, we can see that $x_b$ is simply a combination of a set vectors consisting of the basis for a vector space.</p>
-<p>Moreover, if we want to know the position of the red point in the standard basis when we are currently using another basis (colored in blue), we must know the matrix $P_b$ ( $[x]_b$ is already known). On the contrary, if we&rsquo;ve already known the coordinates of the red point in our standard coordinate system, i.e. <code>(-4, 1)</code>,  we must know the inverse of $P_b$ ( $[x]_b$ is already known).</p>
+From the above equations, we can see that $x_b$ is simply a combination of a set of vectors consisting of the basis for a vector space.</p>
+<p>Moreover, if we want to know the position of the red point under the standard basis when we are currently using another basis (colored in blue), we must know the matrix $P_b$ ( $[x]_b$ is already known). On the contrary, if we&rsquo;ve already known the coordinates of the red point in our standard coordinate system, i.e. <code>(-4, 1)</code>,  we must know the inverse of $P_b$ ( $[x]_b$ is already known).</p>
 <p>$$
 x_c = P_{cb} x_b
 $$</p>
 <p>$$
 (P_{cb})^{-1}x_c = x_b
 $$</p>
-<p>We can generalize this to any number of points and dimensions</p>
+<p>We can generalize this to any number of points and dimensions.</p>
 <p>$$
 A=US\\(D,N)= (D, M) \times (M, N)
 $$</p>
@@ -226,7 +225,7 @@ $$</p>
 <li>$U$ is the the change of coordinate matrix from $S$ to $A$</li>
 <li>$U^{-1}$ is the the change of coordinate matrix from $A$ to $S$</li>
 </ul>
-<p>If we do some transformation in the standard coordinate system, what&rsquo;s the new coordinates in another system? This can be solved by the following equation,</p>
+<p>If we do some transformation for a point in the standard coordinate system, what&rsquo;re the new coordinates of the same point in another system? This problem can be solved by the following equation,</p>
 <p>$$
 x_s' = U^{-1}TUx_s
 $$</p>

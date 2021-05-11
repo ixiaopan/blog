@@ -210,6 +210,10 @@ All of these parameters can be tuned with cross-validation.
 
 
 
+TODO
+
+
+
 ### Post-pruning
 
 Though pre-pruning is straightforward, it is a bit short-sighted since it doesn't build a full tree and there might be some splits works better later on. Therefore, it would be better to have a large and full-size tree and then we trim some less important branches to avoid overfitting. Cost complexity pruning, also known as weakest link pruning, is one way to achieve this.

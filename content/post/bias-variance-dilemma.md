@@ -1,7 +1,7 @@
 ---
 title: "Bias-Variance dilemma"
 date: "2021-04-15"
-description: "When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by 'high bias' or 'high variance'?"
+description: "When you learn more about machine learning, you must  hear people talking about high bias, high variance or something like that. What do they mean by 'high bias' or 'high variance'?"
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ katex: true
 
 
 
-When you learn more about machine learning, you must  hear people talking about high bias or high variance something like that. What does they mean by 'high bias' or 'high variance'? 
+When you learn more about machine learning, you must  hear people talking about high bias, high variance or something like that. What do they mean by 'high bias' or 'high variance'? 
 
 
 
@@ -21,7 +21,7 @@ When you learn more about machine learning, you must  hear people talking about 
 
 
 
-Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I'm writing this post to try to explain this. I hope this post can help people who are still struggling with them understand the two most important concepts clearly.
+Actually, when I first heard these terms, I was completely confused. Even though I tried to find the answer on Google, I still had no idea until I took the Advanced Machine Learning module in semester 2. Therefore, I'm writing this post to try to explain this. I hope this post can help people who are still struggling with them to understand the two most important concepts clearly.
 
 
 

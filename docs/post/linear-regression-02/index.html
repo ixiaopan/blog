@@ -157,7 +157,7 @@
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it&rsquo;s quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.</p>
+  <p>In <a href="https://ixiaopan.github.io/blog/post/linear-regression-01/">the previous post</a>, we talked about simple linear regression. However, we only considered one predictor. It&rsquo;s quite common to have multiple predictors for real-world problems. For example, if we want to predict car prices, we should consider many factors like car sizes, manufacturers and fuel types. The simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate the multiple predictors.</p>
 <h2 id="multiple-linear-regression">Multiple Linear Regression</h2>
 <p>Suppose we have a data set with the size of $n$,  and each data point has $d$ dimensions. Then the input data is denoted by  $X \in R^{n \times d}$, and the parameters and targets are denoted by $\bold w \in R^d$, $\bold y \in R^n$ respectively. Thus, the loss function can be written by the following equation:</p>
 <p>$$
@@ -194,6 +194,8 @@ $$</p>
 A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
 $$</p>
 <p>In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$</p>
+<h3 id="comparison-of-algorithms">comparison of algorithms</h3>
+<p>TODO</p>
 <h2 id="probabilistic-interpretation">Probabilistic Interpretation</h2>
 <p>It&rsquo;s inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We can define the error to be $\epsilon_i$ for each observation.</p>
 <p>$$
@@ -248,6 +250,7 @@ $$</p>
     <li><a href="#multiple-linear-regression">Multiple Linear Regression</a>
       <ul>
         <li><a href="#pseudoinverse">pseudoinverse</a></li>
+        <li><a href="#comparison-of-algorithms">comparison of algorithms</a></li>
       </ul>
     </li>
     <li><a href="#probabilistic-interpretation">Probabilistic Interpretation</a>

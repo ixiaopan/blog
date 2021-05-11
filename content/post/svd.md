@@ -1,7 +1,7 @@
 ---
 title: "Singular Value Decomposition"
 date: "2021-05-04"
-description: "Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post."
+description: "Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post."
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ katex: true
 
 
 
-Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed using SVD. In machine learning, SVD are typically used to reduce dimensionality. Another  popular dimension reduction technique is PCA. We will cover both of them in this post.
+Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.
 
 
 
@@ -25,7 +25,7 @@ Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any
 
 
 
-Suppose there is a point in the 2D space, how do you describe it? The common way is to use Cartesian coordinate system, which is composed of two fixed perpendicular oriented axes, measured in the same unit of length. The two perpendicular axes are just a special set of vectors servered as the basis of the 2D space. Actually, there are many other sets of vectors that can be the basis for the 2D space.
+Suppose there is a point in the 2D space, how do you describe it? The common way is to use the Cartesian coordinate system, which is composed of two fixed perpendicular oriented axes, measured in the same unit of length. The two perpendicular axes are just a special set of vectors served as the basis of the 2D space. Actually, there are many other sets of vectors that can be the basis for the 2D space.
 
 
 
@@ -37,9 +37,7 @@ In Figure 1, the position of the red point is `(-4, 1)` when using the standard 
 
 
 
-From Figure 1, we can see that the absolute position of the red point always stay the same, however, the relative position to the basis can be changed. 
-
-Mathematically, the red point can be described from the view of a coordinate system as follows,
+From Figure 1, we can see that the absolute position of the red point always stay the same. However, the relative positions to the different bases are different. Mathematically, the red point can be described from the view of a coordinate system as follows,
 
 $$
 x = P_b[x]_b
@@ -64,7 +62,7 @@ $$
 
 
 
-where $[x]_b$ is a set of scalars which represent the length along each axis of the coordinate system, and $P_b$ is the **change of coordinate matrix from the current basis to the basis which we want switch to**. 
+where $[x]_b$ is a set of scalars which represent the length along each axis of the coordinate system, and $P_b$ is the **change of coordinate matrix from the current basis to the basis to which we are going to switch**. 
 
 
 
@@ -99,11 +97,11 @@ $$
 $$
 x_b = -1 \begin{bmatrix}2\\\\ 1 \end{bmatrix} + 2 \begin{bmatrix}-1\\\\ 1 \end{bmatrix} = \begin{bmatrix}-4\\\\ 1 \end{bmatrix}
 $$
-From the above equations, we can see that $x_b$ is simply a combination of a set vectors consisting of the basis for a vector space. 
+From the above equations, we can see that $x_b$ is simply a combination of a set of vectors consisting of the basis for a vector space. 
 
 
 
-Moreover, if we want to know the position of the red point in the standard basis when we are currently using another basis (colored in blue), we must know the matrix $P_b$ ( $[x]_b$ is already known). On the contrary, if we've already known the coordinates of the red point in our standard coordinate system, i.e. `(-4, 1)`,  we must know the inverse of $P_b$ ( $[x]_b$ is already known).
+Moreover, if we want to know the position of the red point under the standard basis when we are currently using another basis (colored in blue), we must know the matrix $P_b$ ( $[x]_b$ is already known). On the contrary, if we've already known the coordinates of the red point in our standard coordinate system, i.e. `(-4, 1)`,  we must know the inverse of $P_b$ ( $[x]_b$ is already known).
 
 
 $$
@@ -117,7 +115,7 @@ $$
 
 
 
-We can generalize this to any number of points and dimensions
+We can generalize this to any number of points and dimensions.
 
 
 
@@ -142,7 +140,7 @@ where
 
 
 
-If we do some transformation in the standard coordinate system, what's the new coordinates in another system? This can be solved by the following equation, 
+If we do some transformation for a point in the standard coordinate system, what're the new coordinates of the same point in another system? This problem can be solved by the following equation,
 
 
 

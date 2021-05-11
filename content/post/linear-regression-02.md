@@ -13,7 +13,7 @@ katex: true
 
 
 
-In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it's quite common to have mulitple attributes in real-world problems. For example, if we want to predict the price of a car, we have to consider many factors like car size, manufacturer and fuel type. Clearly, the simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate multiple predictors.
+In [the previous post](https://ixiaopan.github.io/blog/post/linear-regression-01/), we talked about simple linear regression. However, we only considered one predictor. It's quite common to have multiple predictors for real-world problems. For example, if we want to predict car prices, we should consider many factors like car sizes, manufacturers and fuel types. The simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate the multiple predictors.
 
 
 
@@ -96,6 +96,12 @@ $$
 
 
 In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$
+
+
+
+### comparison of algorithms
+
+TODO
 
 
 
