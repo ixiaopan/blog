@@ -1,7 +1,7 @@
 ---
 title: "Descriptive Statistics"
 date: "2021-04-13"
-description: "In this series, I'm going to go through the basic concepts of statistics required in Data Science."
+description: "Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:"
 # tags: []
 categories: [
     "Machine Learning",
@@ -21,7 +21,7 @@ Statistics is one of the most important skills required to be a data scientist. 
 
 
 
-- descriptive statistics tell us the statistics about the data like mean, mode and standard deviation, which you've learned in high school. 
+- descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you've learned in high school. 
 
 - inferential statistics, on the other hand, uses a random dataset sampled from the population to make inferences about the population. 
 
@@ -41,16 +41,13 @@ Central tendency measures the center of the data. Mean, mode, and median are thr
 
 ### Mean
 
-Mean is the average of the data and calculated by summing up all data values and then dividing them by the number of data.
+Mean is the average of data and calculated by summing up all data values and then dividing them by the number of data. For instance, say we have data `1,2,3,4,5,6`, the mean is `3.5`.
+
 
 
 $$
 \overline x = \frac{\sum_i^nx_i}{n}
 $$
-
-
-
-For instance, say we have a group of data `1,2,3,4,5,6`, the mean is `3.5`.
 
 
 
@@ -126,7 +123,7 @@ The deviation is the distance between a given data point and the mean. Since the
 
 
 $$
-\frac{1}{N}\sum_i^n d_i = \frac{1}{N}\sum_i^n (x_i - \overline x) = \frac{1}{N}\sum_i^nx_i - n\overline x = \frac{1}{N} (n\overline x - n\overline x)  = 0
+\frac{1}{n}\sum_i^n d_i = \frac{1}{n}\sum_i^n (x_i - \overline x) = \frac{1}{n}\sum_i^nx_i - n\overline x = \frac{1}{n} (n\overline x - n\overline x)  = 0
 $$
 
 
@@ -136,7 +133,7 @@ Let's try to ignore the sign and use the absolute value of the deviation.
 
 
 $$
-d_i = |x - \overline x|
+\frac{1}{n-1} \sum_i^n d_i = \frac{1}{n-1} \sum_i^n |x - \overline x|
 $$
 
 
@@ -146,12 +143,12 @@ Though it works, the most widely used method is to calculate the square of the d
 
 
 $$
-s^2 = \frac{\sum_i^n (x_i - \overline x)^2}{n-1}
+s^2 = \frac{1}{n-1} \sum_i^n (x_i - \overline x)^2
 $$
 
 
 
-However, the squared value is a bit hard to interpret. For instance, we have 15 records of fish size measured in kilogram,
+However, the squared value is a bit hard to interpret. For instance, below are 15 records of fish size measured in kilogram, and the variance is `30.97`.  It means that if we randomly catch a fish, its weight would be `30.97 squared kilograms` far away from the average weight. Emm..., a squared kilogram is an odd unit.
 
 ```javascript
  2.1, 2.4, 2.4, 2.4, 2.4, 2.6, 2.9, 3.2, 3.2, 3.9, 4.5, 6.3, 8.2, 12.8, 23.5
@@ -159,13 +156,9 @@ However, the squared value is a bit hard to interpret. For instance, we have 15 
 
 
 
-The variance is `30.97`.  It means that if we randomly catch a fish, its weight would be `30.97 squared kilograms` far away from the average weight. Emm..., a squared kilogram is an odd unit.
-
-
-
 ### Standard Deviation
 
-It's simple to solve this problem by taking the square root of the variance, which is the standard deviation.
+It's simple to solve this problem by taking the square root of the variance, which is the standard deviation.  The standard deviation in the previous example is `5.56kg`, which makes much sense.
 
 
 
@@ -174,8 +167,6 @@ s = \sqrt{\frac{\sum (x - \overline x)^2}{n-1}}
 $$
 
 
-
- So the standard deviation in the previous example is `5.56kg`. Now it makes much sense.
 
 
 
@@ -225,7 +216,7 @@ Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We c
 
 So far we have introduced different methods of characterizing the distribution of a single variable. But what about two or more variables? You might want to find the relationships between them. An intuitive way is to visualise data using a scatterplot. For example, you might find that car prices tend to increase as car ages decrease.
 
-Statistically, we can measure both the direction and the strength of this tendency by correlation coefficients. And Pearson correlation coefficients is widely used to measure the strength of a linear relationship. It can be calculated as follows,
+Statistically, we can measure both the direction and the strength of this tendency using correlation coefficients. And Pearson correlation coefficients is widely used to measure the strength of a linear relationship. It can be calculated as follows,
 
 
 $$
@@ -241,7 +232,7 @@ where $Cov(X, Y)$ is the covariance between $X$ and $Y$, and $V(X), V(Y)$ are th
 
 
 
-But to what extent is the value of $r$ is large means a strong relationship? Below are some values that could give you a insight into how strong your correlation $r$ is.
+But to what extent is the value of $r$ large means a strong relationship? Below are some values that could give you an insight into how strong your correlation $r$ is.
 
 - 0 - 0.3: weak relationship
 - 0.3 - 0.6: moderate relationship
@@ -254,14 +245,14 @@ But to what extent is the value of $r$ is large means a strong relationship? Bel
 
 
 
-Roughly, we classify data into one of the two categories:
+Now let's look at some characteristics of data. Roughly, we classify data into two categories:
 
 - numerical/quantitative data
 - categorical/qualitative data
 
 
 
-Categorical data refers to data that cannot be measured, for example, the color of car or the quality of service. There are two subcategories, namely nominal data and ordinal data. The difference between them is that ordinal data can have order, such as `0=bad, 1=good, 2=better, 3=excellent`.
+Categorical data refers to data that cannot be measured, for example, the color of car or the quality of service. There are two subcategories, namely nominal data and ordinal data. The difference between them is that ordinal data can have order, such as 0=bad, 1=good, 2=better, 3=excellent.
 
 
 
@@ -273,7 +264,16 @@ Numerical data refers to data that can be measured.  There are also two subcateg
 
 
 
-At a lower level, we can also classify data from the perspective of measurement scales, which capture the characteristics of data used to determine the types of variables. There are four main levels of measurement scales: nominal, ordinal, interval, and ratio scales. Each of them satisfies one or more of the following properties of measurement.
+At a lower level, we can also classify data from the perspective of measurement scales, which capture the characteristics of data used to determine the types of variables. There are four main levels of measurement scales: 
+
+- nominal
+- ordinal
+- interval
+- ratio
+
+
+
+Each of them satisfies one or more of the following properties of measurement.
 
 
 
@@ -290,7 +290,7 @@ At a lower level, we can also classify data from the perspective of measurement 
   - $+, -$
   - interval scale, e.g. time
 - A minimum value of zero
-  - The scale has a true zero point, below which no value exists
+  - the scale has a true zero point, below which no value exists
   - ratio scale, e.g. height
 
 

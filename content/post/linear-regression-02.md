@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 02"
 date: "2021-04-17"
-description: "In the last post, we talked about simple linear regression. However, we only considered one predictor. In fact, it's quite common to have mulitple attributes in real-world problems."
+description: "In the previous post, we talked about simple linear regression. However, we only considered one predictor. It's quite common to have mulitple predictors for real-world problems."
 # tags: []
 categories: [
     "Machine Learning",
@@ -228,7 +228,21 @@ TODO
 
 
 
+## Outliers
+
+
+
+TODO
+
+
+
 ## Multicollinearity
+
+
+
+
+
+## Dummy Variables
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 01"
 date: "2021-04-14"
-description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand and possibly the first algorithm that most of people learn in the world of machine learning."
+description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. "
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ katex: true
 
 
 
-There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people first learn in the world of machine learning. So let's go!
+There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in the world of machine learning. So let's go!
 
 
 
@@ -33,7 +33,7 @@ Suppose you are a teacher, and you recorded some data about the hours students s
 
 
 
-How to make a prediction? Since there are only two variables, let's plot them to see if there is a  relation between `grade` and `hours`.
+How to make a prediction? Since there are only two variables, let's plot them to see if there is a  relation betwee grade and hours.
 
 
 
@@ -41,7 +41,7 @@ How to make a prediction? Since there are only two variables, let's plot them to
 
 
 
-Figure 1 shows that  `grade` is positively related to `hours`. For simplicity, we can use a straight line(the red line)  to approximate this relation. And this is exactly our first linear model.
+Figure 1 shows that grade is positively related to hours. For simplicity, we can use a straight line(the red line)  to approximate this relation. And this is exactly our first linear model.
 
 
 
@@ -59,7 +59,7 @@ $$
 
 
 
-In this example, $x$ is the variable `hours ` and $y$ is the variable `grade`, which we've already known. So the problem is how to calculate the parameter $a, b$. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising the likelihood. Now we focus on the former.
+In this example, $x$ is the variable hours and $y$ is the variable grade, which we've already known. So the problem is to find the parameter $a, b$ such that **the red line is as close as possible to the blue data points**. Technically, this is called **parameter estimation**. Usually, there are two ways to do this: minimising the loss and maximising the likelihood. Now we focus on the former.
 
 
 
@@ -67,7 +67,13 @@ In this example, $x$ is the variable `hours ` and $y$ is the variable `grade`, w
 
 
 
-The residual is the difference between the estimated value and our true value. Minimising the residual is to make the estimated value as close to the true value as possible.
+So how to measure the closeness mentioned above? The most common way is to measure the residual, which is the difference between the estimated value and our true value shown in Figure 2.  For a single data point, the residual is defined as below, where $y_i$ is the true value and $y_i'$ is our predicted value.  
+
+
+
+$$
+e = y_i - y'_i = y_i - ax_i - b
+$$
 
 
 
@@ -75,25 +81,11 @@ The residual is the difference between the estimated value and our true value. M
 
 
 
-For a single data point, the residual is defined as below, 
-
-
-
-$$
-error = y_i - y'_i = y_i - ax_i - b
-$$
-
-
-
-where $y_i$ is the true value and $y_i'$ is our predicted value.  Since we have many data points, we need to sum them up to evaluate the overall errors. 
-
-
-
 ### error
 
 
 
-Unfortunately, some error terms will cancel out when you do this calculation directly.
+Since we have many data points, we need to sum them up to evaluate the overall errors. Unfortunately, some error terms will cancel out when you do the this calculation directly.
 
 
 
@@ -121,17 +113,13 @@ $$
 
 
 
-Instead of taking the absolute value, we will square all the errors, which is known as the **Residual Sum of Squares(RSS)**  or **Sum of Squared Error (SSE)**. 
+Instead of taking the absolute value, we square all the errors and sum them up, which is known as the **Residual Sum of Squares(RSS)** or **Sum of Squared Error (SSE)**. 
 
 
 
 $$
 L =  \sum_i^n (y_i - y_i')^2
 $$
-
-
-
-PS: We will revisit SSE later from the perspective of MLE.
 
 
 
@@ -165,12 +153,12 @@ $$
 $$
 
 $$
-b = \overline y - a\overline x
+\hat b = \overline y - \hat a \overline x
 $$
 
 
 
-Let's take the first derivatve w.r.t $a$
+Similarly, let's take the first derivatve w.r.t $a$
 
 
 
@@ -189,7 +177,7 @@ $$
 $$
 
 $$
-a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)}
+\hat a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)}
 $$
 
 
@@ -199,7 +187,7 @@ Here, we use a slight algebra trick,
 
 
 $$
-a\sum_i^n(x_i - \overline x_i) = 0
+c\sum_i^n(x_i - \overline x_i) = 0
 $$
 
 
@@ -209,7 +197,7 @@ plug the above equation into the previous equation
 
 
 $$
-a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}
+\hat a = \frac{\sum_i^nx_i(y_i-\overline y)}{\sum_i^nx_i(x_i -\overline x)} = \frac{\sum_i^nx_i(y_i-\overline y) - \sum_i^n\overline x(y_i - \overline y)}{\sum_i^nx_i(x_i -\overline x) - \sum_i^n\overline x(x_i - \overline x)}
 $$
 
 $$
@@ -221,17 +209,157 @@ $$
 $$
 
 
-Finally, we find the best estimators for simple linear regression.
+Finally, we find the best estimators for our simple linear regression.
+
+
+
+## Test statistics
+
+
+
+The above formulas give us the best estimation for the parameters $a, b$ of the linear regression model. If we generate different data sets from the population, we will have different linear models and different values of dependent variable. If we average these values, we'll find that the average value is pretty close to the true value. Mathematically, this can be expressed as follows,
+
+
+$$
+E(\hat y_i) = E(\hat ax_i + \hat b) = E(Y_i) = E(ax_i+b)
+$$
+
+
+The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us they are equal, and that the distribution of the sample mean follows the Gaussian Distribution as the sample size gets larger.
+
+
+
+### Standard error
+
+
+
+But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent this deviation is? We use **the standard error** of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size. 
+
+
+
+$$
+SE(\hat {\overline x}) = Var(\hat {\overline x}) = \frac{\sigma}{\sqrt n}
+$$
+
+
+
+Similarly, we can calculate the standard error associated with the parameters $a$ and $b$.
+
+$$
+SE(\hat a)^2 = Var(\frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}) = Var(\frac{\sum_i^n(x_i-\overline x)y_i - \sum_i^n(x_i-\overline x)\overline y}{\sum_i^n(x_i -\overline x)^2})
+$$
+
+$$
+= Var(\frac{\sum_i^n(x_i-\overline x)(ax_i + b + \epsilon_i)}{\sum_i^n(x_i -\overline x)^2})
+$$
+
+$$
+= \frac{\sum_i^n(x_i-\overline x)^2}{(\sum_i^n(x_i -\overline x)^2)^2} Var(ax_i + b + \epsilon_i) = \frac{\sum_i^n(x_i-\overline x)^2}{(\sum_i^n(x_i -\overline x)^2)^2} Var(\epsilon_i)
+$$
+
+$$
+= \frac{Var(\epsilon_i)}{\sum_i^n(x_i -\overline x)^2}
+$$
+
+
+
+Since $x_i, y_i$ are known and $a, b$ are the true parameters, the only thing unknown is $\epsilon_i$. In other words, they are all indepentdent of $\epsilon_i$. In addition, we use a bit tricks to derive the above formula,
+
+
+
+$$
+Var(c) = 0
+$$
+
+
+
+$$
+Var(cX) = c^2Var(X)
+$$
+
+
+
+$$
+Var(c + X) = Var(X)
+$$
+
+
+
+In summary, what we should know is that **the standard error of $\hat a$ tells us how far away this estimate $\hat a$ is from the true value $a$** or how far away the predicated value $\hat y$ is from the observed value $y$.
+
+
+
+Furthermore, since the predicted value obtained from a given sample is different from the true value, we cannot say we are sure that the estimated value is exactly the true value. But we could say we are 90% confident that the true value lies somewhere around the predicted value. And this 'somewhere' can be computed by confident intervals.
+
+
+
+### p-value
+
+
+
+To investigate whether the estimated parameters are statistically significant, we perform hypothesis tests. A statistical significant result means it's unlikely to happen by chance. In the simple linear regression, the null  and alternative hypotheses are defined as
+
+
+
+$H_0$: There is no relationship between $X$ and $Y$
+
+$H_a$: There is some relationship between $X$ and $Y$
+
+
+
+Mathematically, it is equvalent to testing
+
+
+
+$H_0$: $a=0$
+
+$H_a$: $a\ne0$
+
+
+
+So in order to test the null hypothesis, we need to demonstrate that $\hat a$ is sufficiently far away from $0$. Thus, we can be confident that $a$ is not equal to $0$ and reject the null hypothesis. To quantify the distance between $\hat a$ and $0$, we calculate t-score
+
+
+$$
+t = \frac{\hat a - 0}{SE(\hat a)}
+$$
+
+
+The higher the $t$ is, the farther the distance is. But wait, what's the probability of getting this estimate $\hat a$ or more extreme? In other words, what's the p-value? How to interpret this probability? A higher p-value doesn't provide much information. In contrast, a smaller p-value means it's unlikely to observe this t-score due to chance under the assumption that $H_0$ is true. You can interpret that a small p-value indicates a strong evidence against the null hypothesis. But how small is enough? Typically, we set the threshold value of $0.05$. If p-value is smaller than $0.05$, we reject $H_0$, otherwise we accept it.
+
+
+
+## Model Evaluation
+
+
+
+Next question is how to evaluate our model? How good is it? There are two common metrics to measure the quality of a linear regression model: RSE and $R^2$.
 
 
 
 
 
-## $R^2$
+### RSE
 
 
 
-So how to evaluate our model? In other words, how good is it? We can use $R^2$ to measure our model. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
+Residual standard error measures the average deviation between the estimated value and the true value, which is calculated using the following fomula, where n-2 is the degree of freedom(df) of the residual. Why n-2? We know that 2 points decide a line, which means there is no other line fitting the data and the residual of each data point is fixed. If we add a third point, there could be many lines fitting these points and thus different residuals. That means the third point increases the flexiblity of the value of residuals. We say we have one free observation. Therefore the degree of freedom of the residual is $n-2$ in simple linear regression. But why do we divide by $n-2$ not $n$? This is because the latter tends to underestimate variance. Rememer we divide by $n-1$ when calculating the sample variance. This is the same reason here.
+
+
+
+
+$$
+RSE = \sqrt{\frac{1}{n-2} RSS} = \sqrt{\frac{1}{n-2} \sum_{i=1}^n (y_i - y_i')^2}
+$$
+
+
+
+
+### $R^2$
+
+
+
+We can use coefficient of determination($R^2$) to measure our model. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
 
 
 
@@ -307,8 +435,15 @@ Therefore, $R^2$ tells us how much the variance of $y$ has been explained by our
 
 
 
+
+
+
+
 ## References
 
 [1] *Bradthiessen.com*, 2021. [Online]. Available: https://www.bradthiessen.com/html5/docs/ols.pdf. [Accessed: 14- Apr- 2021].
 
 [2] “Linear Regression - ML Wiki,” Mlwiki.org. [Online]. Available: http://mlwiki.org/index.php/Linear_Regression. [Accessed: 14-Apr-2021].
+
+[3] K. Base and S. statistics, "Standard Error | What It Is, Why It Matters, and How to Calculate", *Scribbr*, 2021. [Online]. Available: https://www.scribbr.com/statistics/standard-error/. [Accessed: 12- May- 2021].
+

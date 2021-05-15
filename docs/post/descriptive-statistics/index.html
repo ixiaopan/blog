@@ -19,7 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Descriptive Statistics"/>
-<meta name="twitter:description" content="In this series, I&#39;m going to go through the basic concepts of statistics required in Data Science."/>
+<meta name="twitter:description" content="Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:"/>
 
 
 
@@ -160,7 +160,7 @@
   <p>Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:</p>
 <ul>
 <li>
-<p>descriptive statistics tell us the statistics about the data like mean, mode and standard deviation, which you&rsquo;ve learned in high school.</p>
+<p>descriptive statistics tells us the statistics about data like mean, mode and standard deviation, which you&rsquo;ve learned in high school.</p>
 </li>
 <li>
 <p>inferential statistics, on the other hand, uses a random dataset sampled from the population to make inferences about the population.</p>
@@ -170,11 +170,10 @@
 <h2 id="central-tendency">Central tendency</h2>
 <p>Central tendency measures the center of the data. Mean, mode, and median are three mainly used measures of central tendency.</p>
 <h3 id="mean">Mean</h3>
-<p>Mean is the average of the data and calculated by summing up all data values and then dividing them by the number of data.</p>
+<p>Mean is the average of data and calculated by summing up all data values and then dividing them by the number of data. For instance, say we have data <code>1,2,3,4,5,6</code>, the mean is <code>3.5</code>.</p>
 <p>$$
 \overline x = \frac{\sum_i^nx_i}{n}
 $$</p>
-<p>For instance, say we have a group of data <code>1,2,3,4,5,6</code>, the mean is <code>3.5</code>.</p>
 <h3 id="median">Median</h3>
 <p>Though mean is widely used, it&rsquo;s sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems a bit strange since most of the data values are less than <code>10</code> except for one extreme value <code>100</code>, which stretches the distribution of the whole data set to the right. This is why the median comes.</p>
 <p>To get the median, firstly we need to sort the data in ascending order and then find the middle number that separates the data into two groups of the same size. In this example, the median is <code>4</code>.</p>
@@ -203,25 +202,23 @@ $$</p>
 <h3 id="variance">Variance</h3>
 <p>The deviation is the distance between a given data point and the mean. Since there are many data points, the variance calculates the average deviation from the mean. But when you do this, you will always get a zero due to the definition of the mean.</p>
 <p>$$
-\frac{1}{N}\sum_i^n d_i = \frac{1}{N}\sum_i^n (x_i - \overline x) = \frac{1}{N}\sum_i^nx_i - n\overline x = \frac{1}{N} (n\overline x - n\overline x)  = 0
+\frac{1}{n}\sum_i^n d_i = \frac{1}{n}\sum_i^n (x_i - \overline x) = \frac{1}{n}\sum_i^nx_i - n\overline x = \frac{1}{n} (n\overline x - n\overline x)  = 0
 $$</p>
 <p>Let&rsquo;s try to ignore the sign and use the absolute value of the deviation.</p>
 <p>$$
-d_i = |x - \overline x|
+\frac{1}{n-1} \sum_i^n d_i = \frac{1}{n-1} \sum_i^n |x - \overline x|
 $$</p>
 <p>Though it works, the most widely used method is to calculate the square of the deviation.</p>
 <p>$$
-s^2 = \frac{\sum_i^n (x_i - \overline x)^2}{n-1}
+s^2 = \frac{1}{n-1} \sum_i^n (x_i - \overline x)^2
 $$</p>
-<p>However, the squared value is a bit hard to interpret. For instance, we have 15 records of fish size measured in kilogram,</p>
+<p>However, the squared value is a bit hard to interpret. For instance, below are 15 records of fish size measured in kilogram, and the variance is <code>30.97</code>.  It means that if we randomly catch a fish, its weight would be <code>30.97 squared kilograms</code> far away from the average weight. Emm&hellip;, a squared kilogram is an odd unit.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.6</span>, <span style="color:#ae81ff">2.9</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.9</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">6.3</span>, <span style="color:#ae81ff">8.2</span>, <span style="color:#ae81ff">12.8</span>, <span style="color:#ae81ff">23.5</span>
-</code></pre></div><p>The variance is <code>30.97</code>.  It means that if we randomly catch a fish, its weight would be <code>30.97 squared kilograms</code> far away from the average weight. Emm&hellip;, a squared kilogram is an odd unit.</p>
-<h3 id="standard-deviation">Standard Deviation</h3>
-<p>It&rsquo;s simple to solve this problem by taking the square root of the variance, which is the standard deviation.</p>
+</code></pre></div><h3 id="standard-deviation">Standard Deviation</h3>
+<p>It&rsquo;s simple to solve this problem by taking the square root of the variance, which is the standard deviation.  The standard deviation in the previous example is <code>5.56kg</code>, which makes much sense.</p>
 <p>$$
 s = \sqrt{\frac{\sum (x - \overline x)^2}{n-1}}
 $$</p>
-<p>So the standard deviation in the previous example is <code>5.56kg</code>. Now it makes much sense.</p>
 <h2 id="distribution">Distribution</h2>
 <h3 id="skewness">Skewness</h3>
 <p>Skewness measures the symmetry of a distribution.  It&rsquo;s quite common to have non-symmetric distributions shown in Figure 1.</p>
@@ -250,7 +247,7 @@ $$</p>
 <p>Figure 3.2 shows the histogram of the fish sizes gathered from a fisherman. We can see that this distribution is right-skewed. The majority of fish sizes are between 0 and 3kg, but a few fishes weigh over 3.5kg. It also can be seen that the average weight(1.67kg) is a bit higher than the median(1.62kg) shown in Table 3.2.</p>
 <h2 id="correlation">Correlation</h2>
 <p>So far we have introduced different methods of characterizing the distribution of a single variable. But what about two or more variables? You might want to find the relationships between them. An intuitive way is to visualise data using a scatterplot. For example, you might find that car prices tend to increase as car ages decrease.</p>
-<p>Statistically, we can measure both the direction and the strength of this tendency by correlation coefficients. And Pearson correlation coefficients is widely used to measure the strength of a linear relationship. It can be calculated as follows,</p>
+<p>Statistically, we can measure both the direction and the strength of this tendency using correlation coefficients. And Pearson correlation coefficients is widely used to measure the strength of a linear relationship. It can be calculated as follows,</p>
 <p>$$
 r = \frac{Cov(X, Y)}{\sqrt{V(X)}\sqrt{V(Y)} }
 $$</p>
@@ -260,7 +257,7 @@ $$</p>
 <li>a positive value  represents a positive relationship</li>
 <li>$0$ means there is no relationship between $X$ and $Y$</li>
 </ul>
-<p>But to what extent is the value of $r$ is large means a strong relationship? Below are some values that could give you a insight into how strong your correlation $r$ is.</p>
+<p>But to what extent is the value of $r$ large means a strong relationship? Below are some values that could give you an insight into how strong your correlation $r$ is.</p>
 <ul>
 <li>0 - 0.3: weak relationship</li>
 <li>0.3 - 0.6: moderate relationship</li>
@@ -268,15 +265,22 @@ $$</p>
 <li>0.9 - 1.0: very relationship</li>
 </ul>
 <h2 id="data-types">Data Types</h2>
-<p>Roughly, we classify data into one of the two categories:</p>
+<p>Now let&rsquo;s look at some characteristics of data. Roughly, we classify data into two categories:</p>
 <ul>
 <li>numerical/quantitative data</li>
 <li>categorical/qualitative data</li>
 </ul>
-<p>Categorical data refers to data that cannot be measured, for example, the color of car or the quality of service. There are two subcategories, namely nominal data and ordinal data. The difference between them is that ordinal data can have order, such as <code>0=bad, 1=good, 2=better, 3=excellent</code>.</p>
+<p>Categorical data refers to data that cannot be measured, for example, the color of car or the quality of service. There are two subcategories, namely nominal data and ordinal data. The difference between them is that ordinal data can have order, such as 0=bad, 1=good, 2=better, 3=excellent.</p>
 <p>Numerical data refers to data that can be measured.  There are also two subcategories, namely discrete and continuous. Discrete data describes values that cannot be divided into smaller individual parts, e.g. the number of people. You cannot say, &lsquo;There are 1.5 people&rsquo;. However, we can say, &lsquo;He is 1.87 meters tall&rsquo;. So height is a continuous variable.</p>
 <h2 id="measurement-scales">Measurement Scales</h2>
-<p>At a lower level, we can also classify data from the perspective of measurement scales, which capture the characteristics of data used to determine the types of variables. There are four main levels of measurement scales: nominal, ordinal, interval, and ratio scales. Each of them satisfies one or more of the following properties of measurement.</p>
+<p>At a lower level, we can also classify data from the perspective of measurement scales, which capture the characteristics of data used to determine the types of variables. There are four main levels of measurement scales:</p>
+<ul>
+<li>nominal</li>
+<li>ordinal</li>
+<li>interval</li>
+<li>ratio</li>
+</ul>
+<p>Each of them satisfies one or more of the following properties of measurement.</p>
 <ul>
 <li>Identity
 <ul>
@@ -301,7 +305,7 @@ $$</p>
 </li>
 <li>A minimum value of zero
 <ul>
-<li>The scale has a true zero point, below which no value exists</li>
+<li>the scale has a true zero point, below which no value exists</li>
 <li>ratio scale, e.g. height</li>
 </ul>
 </li>

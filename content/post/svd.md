@@ -162,6 +162,8 @@ where $T$ represents the transformation matrix. If $T=I$,  $x_s'$ is exactly $x_
 
 
 
+
+
 ### Principal Component
 
 

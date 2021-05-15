@@ -1,7 +1,7 @@
 ---
 title: "Semantic Web"
 date: "2021-05-08"
-description: "In semester 2, I took a module called **Semantic Web Technologies**. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it's still on my shortlist because I've been working on the web for many years and I wondered what the semantic web is. "
+description: "In semester 2, I took a module called Semantic Web Technologies. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it's still on my shortlist because I've been working on the web for many years and I wondered what the semantic web is. "
 # tags: []
 categories: [
     "Machine Learning",
