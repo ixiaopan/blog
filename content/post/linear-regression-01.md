@@ -355,11 +355,15 @@ $$
 
 
 
+Therefore, a smaller RSE indicates that our model fit the data well. However, RSE is measured in the unit of $Y$. For some data sets, RSE would be small, e.g $3.2$. But for other data sets, it would be very large, e.g $1200$. So it's a bit confusing. That's why $R^2$ comes. $R^2$ measures the fraction of variance explained, so it's independent of the unit of $Y$.
+
+
+
 ### $R^2$
 
 
 
-We can use coefficient of determination($R^2$) to measure our model. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
+Coefficient of determination or $R^2$ is another metric to measure the goodness of fit in linear regression. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
 
 
 

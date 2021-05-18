@@ -12,6 +12,14 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Data Mining</title>
+			<link>https://ixiaopan.github.io/blog/post/data-mining/</link>
+			<pubDate>Mon, 17 May 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/data-mining/</guid>
+			<description>I am not sure what I learnt from this module is truly helpful for me because the content of this module is a hodgepodge of everything. The lecturers indeed taught some useful things, but the knowledge is more isolated, less integrate. It seems that they tried to cover everything, but it only scratched the surface due to time limits. Anyway, I gained some insights from this module, and I will talk about them in this post.</description>
+		</item>
+      	
+		<item>
 			<title>Semantic Web</title>
 			<link>https://ixiaopan.github.io/blog/post/semanticweb/</link>
 			<pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
@@ -24,7 +32,7 @@
 			<link>https://ixiaopan.github.io/blog/post/svd/</link>
 			<pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
-			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into the multiplication of three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

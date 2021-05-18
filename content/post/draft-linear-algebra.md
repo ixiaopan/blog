@@ -1,5 +1,5 @@
 ---
-title: "Linear Algebra"
+title: ""
 date: "2021-05-11"
 description: ""
 # tags: []
@@ -13,21 +13,9 @@ draft: true
 
 
 
-Ax=b
-
-
-
-Vector Space
-
-
-
-Symmetric Matrix
-
-
-
-Eigenvalue
-
-
-
-SVD
+- Classification
+- Clustering/EM/GMM
+- Distribution(Bernoulli, Gaussian,... )
+- Dimension Reduction
+- Model Selection/Distance/Sampling/Metrcis
 

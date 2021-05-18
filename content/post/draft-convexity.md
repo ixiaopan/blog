@@ -1,5 +1,5 @@
 ---
-title: "Information Theory"
+title: "Convexity"
 date: "2021-05-11"
 description: ""
 # tags: []
@@ -10,6 +10,8 @@ series: ["Machine Learning"]
 katex: true
 draft: true
 
+
+
 ---
 
 
@@ -17,8 +19,4 @@ draft: true
 
 
 ## References
-
-
-
-- http://www.inf.ed.ac.uk/teaching/courses/fmcs1/slides/lecture25.pdf
 
