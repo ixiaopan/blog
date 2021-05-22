@@ -131,7 +131,7 @@ Finally, we find a function to measure the loss. Next, we need to find the param
 
 
 
-Let's take the first derivatve w.r.t $b$
+Let's take the first derivative w.r.t $b$
 
 
 
@@ -158,7 +158,7 @@ $$
 
 
 
-Similarly, let's take the first derivatve w.r.t $a$
+Similarly, let's take the first derivative w.r.t $a$
 
 
 
@@ -220,9 +220,11 @@ Finally, we find the best estimators for our simple linear regression.
 The above formulas give us the best estimation for the parameters $a, b$ of the linear regression model. If we generate different data sets from the population, we will have different linear models and different values of dependent variable. If we average these values, we'll find that the average value is pretty close to the true value. Mathematically, this can be expressed as follows,
 
 
+
 $$
 E(\hat y_i) = E(\hat ax_i + \hat b) = E(Y_i) = E(ax_i+b)
 $$
+
 
 
 The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us they are equal, and that the distribution of the sample mean follows the Gaussian Distribution as the sample size gets larger.
@@ -233,7 +235,7 @@ The idea behind the above equation is analogous to the Central Limit Theorem for
 
 
 
-But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent this deviation is? We use **the standard error** of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size. 
+But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent is this deviation? We use **the standard error** of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size. 
 
 
 
@@ -320,9 +322,11 @@ $H_a$: $a\ne0$
 So in order to test the null hypothesis, we need to demonstrate that $\hat a$ is sufficiently far away from $0$. Thus, we can be confident that $a$ is not equal to $0$ and reject the null hypothesis. To quantify the distance between $\hat a$ and $0$, we calculate t-score
 
 
+
 $$
 t = \frac{\hat a - 0}{SE(\hat a)}
 $$
+
 
 
 The higher the $t$ is, the farther the distance is. But wait, what's the probability of getting this estimate $\hat a$ or more extreme? In other words, what's the p-value? How to interpret this probability? A higher p-value doesn't provide much information. In contrast, a smaller p-value means it's unlikely to observe this t-score due to chance under the assumption that $H_0$ is true. You can interpret that a small p-value indicates a strong evidence against the null hypothesis. But how small is enough? Typically, we set the threshold value of $0.05$. If p-value is smaller than $0.05$, we reject $H_0$, otherwise we accept it.
@@ -343,7 +347,15 @@ Next question is how to evaluate our model? How good is it? There are two common
 
 
 
-Residual standard error measures the average deviation between the estimated value and the true value, which is calculated using the following fomula, where n-2 is the degree of freedom(df) of the residual. Why n-2? We know that 2 points decide a line, which means there is no other line fitting the data and the residual of each data point is fixed. If we add a third point, there could be many lines fitting these points and thus different residuals. That means the third point increases the flexiblity of the value of residuals. We say we have one free observation. Therefore the degree of freedom of the residual is $n-2$ in simple linear regression. But why do we divide by $n-2$ not $n$? This is because the latter tends to underestimate variance. Rememer we divide by $n-1$ when calculating the sample variance. This is the same reason here.
+Residual standard error measures the average deviation between the estimated value and the true value. It can be calculated using the following fomula, where n-2 is the degree of freedom(df) of the residual. 
+
+Q: Why do we divide by $n-2$ not $n$? 
+
+A: This is because the latter tends to underestimate variance. Rememer we divide by $n-1$ when calculating the sample variance. This is the same reason here.
+
+Q: But why n-2? 
+
+A: We know that 2 points determine a line, which means there is no other line fitting the data and the residual of each data point is fixed. If we add a third point, there could be many lines fitting these points and thus different residuals. That means the third point increases the flexiblity of the value of residuals. We say we have one free observation. Therefore, the degree of freedom of the residual is $n-2$ in simple linear regression. 
 
 
 
@@ -355,7 +367,7 @@ $$
 
 
 
-Therefore, a smaller RSE indicates that our model fit the data well. However, RSE is measured in the unit of $Y$. For some data sets, RSE would be small, e.g $3.2$. But for other data sets, it would be very large, e.g $1200$. So it's a bit confusing. That's why $R^2$ comes. $R^2$ measures the fraction of variance explained, so it's independent of the unit of $Y$.
+A smaller RSE indicates that our model fit the data well. However, RSE is measured in the unit of $Y$. For some data sets, RSE would be small, e.g $3.2$. But for other data sets, it would be very large, e.g $1200$. So it's a bit confusing. That's why $R^2$ comes. $R^2$ measures the fraction of variance explained, which is independent of the unit of $Y$.
 
 
 
@@ -363,7 +375,7 @@ Therefore, a smaller RSE indicates that our model fit the data well. However, RS
 
 
 
-Coefficient of determination or $R^2$ is another metric to measure the goodness of fit in linear regression. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
+Coefficient of determination or $R^2$ is another metric to measure the goodness of a linear regression model. Let's rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$
 
 
 

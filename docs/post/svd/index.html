@@ -128,7 +128,7 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;May 4, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -223,7 +223,7 @@ $$</p>
 <ul>
 <li>$A$ is a $D\times N$ matrix with $D$ dimensions and $N$ points</li>
 <li>$S$ is a  $M\times N$ matrix with $M$ dimensions and $N$ points described in a new vector space decided by another basis</li>
-<li>$U$ is the the change of coordinate matrix from $S$ to $A$</li>
+<li>$U$ is the change of coordinate matrix from $S$ to $A$</li>
 <li>$U^{-1}$ is the the change of coordinate matrix from $A$ to $S$</li>
 </ul>
 <p>If we do some transformation for a point in the standard coordinate system, what&rsquo;re the new coordinates of the same point in another system? This problem can be solved by the following equation,</p>
@@ -232,8 +232,79 @@ x_s' = U^{-1}TUx_s
 $$</p>
 <p>where $T$ represents the transformation matrix. If $T=I$,  $x_s'$ is exactly $x_s$.</p>
 <h2 id="svd">SVD</h2>
-<h3 id="linear-regression">Linear Regression</h3>
-<h3 id="principal-component">Principal Component</h3>
+<p>SVD is a technique in linear algebra that can be used to decompose <strong>any</strong> $N \times P$ matrix</p>
+<p>$$
+X = U S V^T
+$$</p>
+<ul>
+<li>$U$ is an $N \times N$ orthogonal matrix, where the columns of $U$ are the eigenvectors of $XX^T$</li>
+<li>$S$ is an $N \times P$ diagonal matrix whose diagonal entries are the sorted singluar values, which are square roots of eigenvalues of $XX^T$ or $X^TX$</li>
+<li>$V$ is a $P \times P$ orthogonal matrix, where the columns of $V$ are the eigenvectors of $X^TX$</li>
+</ul>
+<p>$$
+C = X^TX =  (USV^T )^T USV^T = VS^TU^T  USV^T = VSS^TV^T
+$$</p>
+<p>$$
+D = XX^T =   USV^T  (USV^T )^T = USS^TU^T
+$$</p>
+<p>$$
+=&gt;  C [\bold v_1, \bold v_2, &hellip;, \bold v_p] = [\lambda_1 \bold v_1, \lambda_2\bold v_2, &hellip;, \lambda_p \bold v_p]
+$$</p>
+<p>$$
+=&gt;  D [\bold u_1, \bold u_2, &hellip;, \bold u_n] = [\lambda_1 \bold u_1, \lambda_2\bold u_2, &hellip;, \lambda_n \bold u_n]
+$$</p>
+<p>Therefore, $V$ and $U$ are matrices of eigenvectors for $X^TX$ and $XX^T$.</p>
+<p>If we look at the formula of SVD from the view of &lsquo;the change of basis&rsquo; discussed above, we will find that</p>
+<ul>
+<li>$V^T$ is the change of matrix from, say basis A, to the standard basis</li>
+<li>$S$ is a scaling matrix</li>
+<li>$U$ is another change of matrix from the standard basis to basis A</li>
+</ul>
+<p>Geometrally, the multiplication between a matrix $A$ and a vector $x$ represents a linear transformation, where we using another basis of $R^n$ to represent the same point and $A$ is the change of matrix between bases. By decomposing $A$, we can clearly see that this transformation is composed of three transformations:</p>
+<ul>
+<li>$ V^T$: rotation</li>
+<li>$S$: scaling</li>
+<li>$U$:  rotation</li>
+</ul>
+<h3 id="economical-forms-of-svd">Economical Forms of SVD</h3>
+<p>Since $S$ is an $r \times r$ diagonal matrix for some $r$ not exceeding the smaller of $N$ and $P$, we could simplify $S$ and the correspoding $V$ and $U$. Specifically, for $X$ with more samples than features $N &gt; P$ (tall and thin), we ignore the last $N - P$ columns of U</p>
+<p>
+  <img src="/blog/post/images/economical-form-svd-2.png" alt="">
+
+</p>
+<p>and for $X$ with more features than examples $N &lt; P$ (short and fat), we ignore the last $P - N$ rows of $V^T$</p>
+<p>
+  <img src="/blog/post/images/economical-form-svd-1.png" alt="">
+
+</p>
+<h3 id="linear-regression-revisited">Linear Regression Revisited</h3>
+<p>In the previous post <a href="https://ixiaopan.github.io/blog/post/linear-regression-02/">Linear Regression 02</a>, we introduced pseudo-inverse $A^+$</p>
+<p>$$
+\bold {\hat w} = A^+ \bold y = (\bold X^T\bold X)^{-1} \bold X^T \bold y = V (S^TS)^{-1}S^TU^T \bold y = VS^+U^T \bold y
+$$</p>
+<p>where the elements of $S^+$ are the reciprocal of the singular values,</p>
+<p>$$
+S^+ = (S^TS)^{-1}S^T = \begin{bmatrix}s_1^{-1}&amp;0 &amp; 0 &amp; &hellip; &amp; 0 &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\\ 0&amp;s_2^{-1} &amp; 0 &amp; &hellip; &amp; 0 &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\\ &hellip; \\ 0&amp;0 &amp; 0 &amp; &hellip; &amp; s_p^{-1} &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\end{bmatrix}
+$$</p>
+<p>This means if any of the singular values of $X$ are small, then $S^{-1}$ will magnify component in that direction. Thus, little change in $\bold y$  will lead to a greatly different model and eventually a poor generalization.</p>
+<p>One way to tackle this is regularisation. Ridge Regression is one variant of linear regression by adding a regulariser $\lambda ||\bold  w||^2$ to the loss function,</p>
+<p>$$
+L = ||\bold X \bold w - \bold y||^2 + \lambda ||\bold  w||^2
+$$</p>
+<p>The estimate $\bold w$ is given by</p>
+<p>$$
+\bold {\hat w} = V(S^TS + \lambda I)^{-1} S^TU^T \bold y
+$$</p>
+<p>where</p>
+<p>$$
+(S^TS + \lambda I)^{-1} S^T = \begin{bmatrix}\frac{s_1}{s_1^2+\lambda}&amp;0 &amp; 0 &amp; &hellip; &amp; 0 &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\\ 0&amp;\frac{s_2}{s_2^2+\lambda} &amp; 0 &amp; &hellip; &amp; 0 &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\\ &hellip; \\ 0&amp;0 &amp; 0 &amp; &hellip; &amp; \frac{s_p}{s_p^2+\lambda} &amp; 0 &amp; 0 &amp; &hellip; &amp; 0\end{bmatrix}
+$$</p>
+<ul>
+<li>if $s_i = 0$, then $\frac{s_i}{s_i^2 + \lambda} =0$ and the &lsquo;inverse&rsquo; is defined</li>
+<li>if $s_i &laquo; \lambda$, then $\frac{s_i}{s_i^2 + \lambda} \simeq \frac{1}{\lambda }$</li>
+<li>if $si &raquo; \lambda$, then $\frac{s_i}{s_i^2 + \lambda}\simeq s_i^{-1}$</li>
+</ul>
+<p>Therefore, adding a regulariser can make our model much more stable.</p>
 <h2 id="pca">PCA</h2>
 <p>Principal component analysis(PCA) is  often used to reduce dimentionality. The idea of PCA is to find directions along which data has the largest variation. The variation can be computed by projecting data onto that direction. Mathematically, we want to find a vector $v$ with $||v||=1$ to maximise</p>
 <p>$$
@@ -263,7 +334,7 @@ $$</p>
 \sigma^2 = \frac{1}{n-1}\sum_i^n(\bold v^T (\bold x_i - \bold \mu))^2 = \bold v^T \bold C \bold v = \lambda \bold v^T  \bold v = \lambda
 $$</p>
 <h3 id="properties-of-covariance-matrix">Properties of Covariance Matrix</h3>
-<p>we know that the quadratic form of a vector and a matrix is defined as</p>
+<p>We know that the quadratic form of a vector and a matrix is defined as</p>
 <p>$$
 x^T M x
 $$</p>
@@ -271,19 +342,25 @@ $$</p>
 <p>$$
 x^TCx = x^T XX^Tx=u^Tu \ge 0
 $$</p>
-<p>which is also known as positive semi-definite. What does this mean? Well, it tells us that all eigenvalues of $C$ are greater than or equal to zero. Suppose $\mu$ is an eigenvector of $C$, since $\mu^TC\mu\ge0$ and $||\mu||&gt;0$, then we have</p>
+<p>so $C$ is <strong>positive semi-definite</strong>, which means <strong>all eigenvalues of $C$ are greater than or equal to zero</strong>. Why? Suppose $\mu$ is an eigenvector of $C$, since $\mu^TC\mu\ge0$ and $||\mu||&gt;0$, then we have</p>
 <p>$$
 \mu^TC\mu = \mu^T \lambda \mu =&gt; \lambda = \frac{\mu^TC\mu }{||\mu||^2 } \ge 0
 $$</p>
+<h4 id="zero-eigenvalue">zero eigenvalue</h4>
+<p>What if $C$ has a zero eigenvalue? Well, a zero eigenvalue means that there is no variation in the direction of the corresponding eigenvector. So when will we have zero eigenvalues? Based on the definition of eigenvalue, we have</p>
+<p>$$
+Cx = 0x = 0
+$$</p>
+<p>Since $x$ is nonzero vector, $C$ is singular or non-invertible. And this will inevitably happen if the number of features is much more than the number of examples. Conversely, if $C$ is invertible, it has no zero eigenvalues and is said to be <strong>positive definite</strong> (since all eigenvalues are greater than 0).</p>
 <h3 id="geometry-of-pca">Geometry of PCA</h3>
-<p>Since $C$ is a $p \times p$ symmetric matrix, it can be orthogonally diagonalized as $C = P^TDP$, where $P$ is an orthogonal matrix and $D$ is a diagonal matrix. Thus, the above formula can also be written as follows,</p>
+<p>Since $C$ is a $p \times p$ symmetric matrix, it can be orthogonally diagonalized as $C = PDP^T$, where $P$ is an orthogonal matrix and $D$ is a diagonal matrix. Thus, the above formula can also be written as follows,</p>
 <p>$$
 \sum_i^n(\bold v^T (\bold x_i - \bold \mu))^2 = \sum_i^n \bold v^T (\bold x_i - \bold \mu)(\bold x_i - \bold \mu)^T\bold v = \bold v^T C \bold v
 $$</p>
 <p>$$
-= \bold v^T P^TDP \bold v = y^TDy
+= \bold v^T PDP^T \bold v = \bold y^T D \bold y
 $$</p>
-<p>where $y = Pv$. Mathematically, $\bold v^T C \bold v$ and $y^TDy$ yield the same result.  They both compute the length of projection of each data point onto some vector, which is also the deviation of each data point from the original point along the direction determined by this vector, as shown in Figure 2.</p>
+<p>where $\bold  y = P^T \bold v$. Mathematically, $\bold v^T C \bold v$ and $\bold y^T D \bold y$ yield the same result, which represents the sum of deviation of each sample from the original point along the direction determined by this vector as shown in Figure 2.</p>
 <p>
   <figure>
     <img src="/blog/post/images/change-variable.png" alt="">
@@ -291,7 +368,7 @@ $$</p>
   </figure>
 
 </p>
-<p>Geometrically,  $P_{y \larr v}$ is the change coordinate matrix from $v$ to $y$, which finally transform the shape of the quadratic form $\bold v^TC\bold v$ into the standard position because $D$ is a diagonal matrix, such as in the figure below.</p>
+<p>Geometrically,  $P^T_{y \larr v}$ is the change coordinate matrix from $v$ to $y$, which finally transform the shape of the quadratic form $\bold v^TC\bold v$ into the standard position, such as the shapes in the figure below.</p>
 <p>
   <figure>
     <img src="/blog/post/images/ellipse-standard.png" alt="">
@@ -302,15 +379,59 @@ $$</p>
 <h3 id="projection">Projection</h3>
 <p>For a data set with $p$ features, we want to reduce its dimension to $k$, there are a few steps to follow</p>
 <ul>
-<li>Construct a covariance matrix $C$ using centralized data</li>
-<li>Find  all the eigenvectors $v_i$ and eigenvalues $\lambda_i$ of $C$</li>
-<li>Keep $k$ eigenvectors with the $k$ largest eigenvalues (principal components)</li>
-<li>Project the original data into the space spanned by the principal components</li>
+<li>
+<p>Construct a $p\times p$ covariance matrix $C$ using centralized data</p>
+</li>
+<li>
+<p>Find all the eigenvectors $v_i$ and eigenvalues $\lambda_i$ of $C$</p>
+</li>
+<li>
+<p>Construct a $p \times k$ projection matrix $P$ with $k$ eigenvectors determined by the $k$ largest eigenvalues (principal components)</p>
+</li>
+<li>
+<p>Project the original data into the space spanned by the principal components</p>
+</li>
 </ul>
 <p>$$
-\bold  z = P(\bold  x - \bold \mu)
+\bold  z = P^T(\bold  x - \bold \mu)
 $$</p>
-<p>where $z$ is our new inputs.</p>
+<p>where $\bold z$ is our new inputs.</p>
+<p>Usually, there are two common ways to find the eigenvalues:</p>
+<ul>
+<li>eigendecomposition</li>
+<li>SVD</li>
+</ul>
+<p>Eigen-decomposition follows the above steps, and we can see it from the following code,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pca</span>(X):
+    <span style="color:#75715e"># Data matrix X, assumes 0-centered</span>
+    P, N <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>shape
+
+    <span style="color:#75715e"># Compute covariance matrix, where X is a P by N matrix</span>
+    C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(X, X<span style="color:#f92672">.</span>T) <span style="color:#f92672">/</span> (N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    
+    <span style="color:#75715e"># Eigen decomposition</span>
+    eigen_vals, eigen_vecs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>eig(C)
+    
+    <span style="color:#75715e"># Project X onto eigen space</span>
+    X_pca <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(eigen_vecs<span style="color:#f92672">.</span>T, X)
+
+    <span style="color:#66d9ef">return</span> X_pca, eigen_vals, eigen_vecs
+</code></pre></div><p>Instead, SVD decomposes $X$ directly. Besides, we don&rsquo;t need to centralize data first in SVD, though most people will do.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">svd</span>(X):
+  N, P <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>shape
+  
+  <span style="color:#75715e"># In practice, we usually subtract the mean from data and then perform SVD</span>
+  X_c <span style="color:#f92672">=</span> X <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>mean(X, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+	
+	<span style="color:#75715e"># the columns of Vt are the eigenvalues of X^TX</span>
+  U, Sigma, Vt <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>svd(X_c)
+  
+	<span style="color:#75715e"># Project X onto eigen space</span>
+  X_pca <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(X, Vt<span style="color:#f92672">.</span>T)
+
+  <span style="color:#66d9ef">return</span> U, Sigma, Vt
+	 
+</code></pre></div><p>So why do we use SVD? Simply put,  If the number of features are much more than the number of example, i.e. $P&raquo;N$, it&rsquo;s not easy to compute eigenvalues using eigen-decomposition. But in SVD, the algorithm will compute eigenvalues by choosing the smaller of two matrice $X^TX$ and $XX^T$.  In this case,  $X^TX$ has less elements( $N * N$ ) than $XX^T$($ P * P$). More details can be found in the following section &lsquo;PCA for image&rsquo;.</p>
 <h3 id="reconstruction">Reconstruction</h3>
 <p>From the perspective of projection, the projection onto a vector $\bold v_j$ can be seen as approximating the inputs by</p>
 <p>$$
@@ -334,8 +455,53 @@ $$</p>
 $$</p>
 <p>We can see that the error is exactly the sum of the eigenvalues in the directions that are discarded.</p>
 <h3 id="pca-for-images">PCA for images</h3>
+<p>Suppose we have an image with the size of $256 \times 256$, so it has nearly $64K$ pixels or features. Then we could create a covariance matrix $C$ with more than $4\times10^9$ elements using PCA. However, this huge matrix is not easy to compute eigenvalues. To make this problem tractable, we usually work in a dual space instead of a feature space. The dual space we choose is spanned by $n$ vectors, which are exactly the sample images. Specifically, if we have $n$ images, the subpace of $R^n$ has at most $n-1$ dimensions, and usually $n$ is much smaller than $p$. But how do we find the eigenvalues of $C$ in this dual space?</p>
+<p>We&rsquo;ve known that $C = XX^T$ is a $p\times p$ matrix, where $X$ is a $p \times n $ matrix. Now we construct another matrix $D=X^TX$ with $n \times n$ elements, which is also a symmetric matrix. Suppose $v$ is the eigenvalue of $D$, then we have</p>
+<p>$$
+Dv = \lambda v
+$$</p>
+<p>$$
+XX^TXv = \lambda Xv
+$$</p>
+<p>$$
+CXv = \lambda Xv
+$$</p>
+<p>$$
+Cu = \lambda u
+$$</p>
+<p>where $u = Xv$. We find that $C$ and $D$ has the same eigenvalues. Thus, we can use the dual $n \times n$ matrix $D$ to find eigenvalues and eigenvectors of $C$.</p>
+<h3 id="find-k-components">Find K Components</h3>
+<p>The last question is how to decide the number of components. Instead of guessing the number of dimensions that we want to keep, we choose the right $k$ components along which the sum of the explained variance ratio is greater than a threshold. The explained variance ratio of each component indicates how much the variance explained along component. In Sklearn, it can be accessed via <code>explained_variance_ratio_</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
+
+pca <span style="color:#f92672">=</span> PCA(n_components<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+X2D <span style="color:#f92672">=</span> pca<span style="color:#f92672">.</span>fit_transform(X)
+pca<span style="color:#f92672">.</span>explained_variance_ratio_
+
+</code></pre></div><p>The following code shows how to find $k$ components with a variance ratio of $0.95$ using Sklearn.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
+
+pca <span style="color:#f92672">=</span> PCA()
+pca<span style="color:#f92672">.</span>fit(X_train)
+cumsum <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(pca<span style="color:#f92672">.</span>explained_variance_ratio_)
+d <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argmax(cumsum<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0.95</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># or simply</span>
+pca <span style="color:#f92672">=</span> PCA(n_components<span style="color:#f92672">=</span><span style="color:#ae81ff">0.95</span>)
+X_reduced <span style="color:#f92672">=</span> pca<span style="color:#f92672">.</span>fit_transform(X_train)
+pca<span style="color:#f92672">.</span>n_components_
+
+</code></pre></div><p>Also, we can plot the explained variance ratio as a function of the number of dimensions, and the elbow in the curve is where the appropriate $k$ lies.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/explained-variance-ratio-pca.png" alt="">
+    <figcaption>Figure 4: Explained variance as a function of k (Hands-on machine learning, 2019)</figcaption>
+  </figure>
+
+</p>
 <h2 id="references">References</h2>
 <p>[1]	G. Strang, Introduction to Linear Algebra, 5th ed. Wellesley, MA: Wellesley-Cambridge Press, 2016.</p>
+<p>[2] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
 
 
 
@@ -348,8 +514,8 @@ $$</p>
     <li><a href="#change-of-basis">Change of Basis</a></li>
     <li><a href="#svd">SVD</a>
       <ul>
-        <li><a href="#linear-regression">Linear Regression</a></li>
-        <li><a href="#principal-component">Principal Component</a></li>
+        <li><a href="#economical-forms-of-svd">Economical Forms of SVD</a></li>
+        <li><a href="#linear-regression-revisited">Linear Regression Revisited</a></li>
       </ul>
     </li>
     <li><a href="#pca">PCA</a>
@@ -359,6 +525,7 @@ $$</p>
         <li><a href="#projection">Projection</a></li>
         <li><a href="#reconstruction">Reconstruction</a></li>
         <li><a href="#pca-for-images">PCA for images</a></li>
+        <li><a href="#find-k-components">Find K Components</a></li>
       </ul>
     </li>
     <li><a href="#references">References</a></li>

@@ -13,9 +13,16 @@ draft: true
 
 
 
-- Classification
-- Clustering/EM/GMM
+- Convexity
+- Gaussian Process
+- LDA
+- SVM
+- Bayesian Inference
+- Probabilistic Inference
+- MCMC
 - Distribution(Bernoulli, Gaussian,... )
-- Dimension Reduction
+- Classification
+- Wasserstein GANs
+- Clustering/EM/GMM
 - Model Selection/Distance/Sampling/Metrcis
 

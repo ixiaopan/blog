@@ -1,5 +1,5 @@
 ---
-title: "Convexity"
+title: "LDA"
 date: "2021-05-11"
 description: ""
 # tags: []
@@ -11,6 +11,8 @@ katex: true
 draft: true
 
 ---
+
+
 
 
 

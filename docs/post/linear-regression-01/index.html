@@ -226,7 +226,7 @@ L =  \sum_i^n (y_i - y_i')^2
 $$</p>
 <h2 id="closed-form-solution">Closed-form solution</h2>
 <p>Finally, we find a function to measure the loss. Next, we need to find the parameters that minimize the squared error. The good news is that our loss function is differentiable and convex! It means that we have the global minimum value and can be calculated directly by taking derivatives.</p>
-<p>Let&rsquo;s take the first derivatve w.r.t $b$</p>
+<p>Let&rsquo;s take the first derivative w.r.t $b$</p>
 <p>$$
 \frac{\partial L}{\partial b} = \sum_i^n -2(y_i - ax_i-b)
 $$</p>
@@ -237,7 +237,7 @@ $$</p>
 <p>$$
 \hat b = \overline y - \hat a \overline x
 $$</p>
-<p>Similarly, let&rsquo;s take the first derivatve w.r.t $a$</p>
+<p>Similarly, let&rsquo;s take the first derivative w.r.t $a$</p>
 <p>$$
 \frac{\partial L}{\partial a} = \sum_i^n -2x_i(y_i - ax_i-b)
 $$</p>
@@ -270,7 +270,7 @@ E(\hat y_i) = E(\hat ax_i + \hat b) = E(Y_i) = E(ax_i+b)
 $$</p>
 <p>The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us they are equal, and that the distribution of the sample mean follows the Gaussian Distribution as the sample size gets larger.</p>
 <h3 id="standard-error">Standard error</h3>
-<p>But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent this deviation is? We use <strong>the standard error</strong> of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size.</p>
+<p>But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent is this deviation? We use <strong>the standard error</strong> of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size.</p>
 <p>$$
 SE(\hat {\overline x}) = Var(\hat {\overline x}) = \frac{\sigma}{\sqrt n}
 $$</p>
@@ -314,13 +314,17 @@ $$</p>
 <h2 id="model-evaluation">Model Evaluation</h2>
 <p>Next question is how to evaluate our model? How good is it? There are two common metrics to measure the quality of a linear regression model: RSE and $R^2$.</p>
 <h3 id="rse">RSE</h3>
-<p>Residual standard error measures the average deviation between the estimated value and the true value, which is calculated using the following fomula, where n-2 is the degree of freedom(df) of the residual. Why n-2? We know that 2 points decide a line, which means there is no other line fitting the data and the residual of each data point is fixed. If we add a third point, there could be many lines fitting these points and thus different residuals. That means the third point increases the flexiblity of the value of residuals. We say we have one free observation. Therefore the degree of freedom of the residual is $n-2$ in simple linear regression. But why do we divide by $n-2$ not $n$? This is because the latter tends to underestimate variance. Rememer we divide by $n-1$ when calculating the sample variance. This is the same reason here.</p>
+<p>Residual standard error measures the average deviation between the estimated value and the true value. It can be calculated using the following fomula, where n-2 is the degree of freedom(df) of the residual.</p>
+<p>Q: Why do we divide by $n-2$ not $n$?</p>
+<p>A: This is because the latter tends to underestimate variance. Rememer we divide by $n-1$ when calculating the sample variance. This is the same reason here.</p>
+<p>Q: But why n-2?</p>
+<p>A: We know that 2 points determine a line, which means there is no other line fitting the data and the residual of each data point is fixed. If we add a third point, there could be many lines fitting these points and thus different residuals. That means the third point increases the flexiblity of the value of residuals. We say we have one free observation. Therefore, the degree of freedom of the residual is $n-2$ in simple linear regression.</p>
 <p>$$
 RSE = \sqrt{\frac{1}{n-2} RSS} = \sqrt{\frac{1}{n-2} \sum_{i=1}^n (y_i - y_i')^2}
 $$</p>
-<p>Therefore, a smaller RSE indicates that our model fit the data well. However, RSE is measured in the unit of $Y$. For some data sets, RSE would be small, e.g $3.2$. But for other data sets, it would be very large, e.g $1200$. So it&rsquo;s a bit confusing. That&rsquo;s why $R^2$ comes. $R^2$ measures the fraction of variance explained, so it&rsquo;s independent of the unit of $Y$.</p>
+<p>A smaller RSE indicates that our model fit the data well. However, RSE is measured in the unit of $Y$. For some data sets, RSE would be small, e.g $3.2$. But for other data sets, it would be very large, e.g $1200$. So it&rsquo;s a bit confusing. That&rsquo;s why $R^2$ comes. $R^2$ measures the fraction of variance explained, which is independent of the unit of $Y$.</p>
 <h3 id="r2">$R^2$</h3>
-<p>Coefficient of determination or $R^2$ is another metric to measure the goodness of fit in linear regression. Let&rsquo;s rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$</p>
+<p>Coefficient of determination or $R^2$ is another metric to measure the goodness of a linear regression model. Let&rsquo;s rewrite the previous equation by multiplying both the denominator and numerator by $\sqrt {\sum_i^n(y_i-\overline y)^2}$</p>
 <p>$$
 a = \frac{\sum_i^n (x_i - \overline x)(y_i - \overline y) \sqrt {\sum_i^n(y_i-\overline y)^2}}{\sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(x_i-\overline x)^2} \sqrt {\sum_i^n(y_i-\overline y)^2}}
 $$</p>

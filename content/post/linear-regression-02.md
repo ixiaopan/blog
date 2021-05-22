@@ -81,7 +81,7 @@ However, this equation is unlikely to work if  $\bold X^T\bold X$ is not inverti
 
 ### pseudoinverse
 
-SVD technique can decompose any matrix $A$ into the matrix multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,
+SVD technique can decompose any matrix $A$ into the multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,
 
 
 
