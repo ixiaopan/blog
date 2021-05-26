@@ -1,6 +1,6 @@
 ---
 title: "Support Vector Machine"
-date: "2021-05-11"
+date: "2021-05-22"
 description: ""
 # tags: []
 categories: [
@@ -9,10 +9,35 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
-
-
-
 ---
+
+
+
+
+
+## Extended Feature Space
+
+
+
+
+
+
+
+## Maximising Margin
+
+
+
+
+
+
+
+## Soft Margin
+
+
+
+
+
+## Kernel Trick
 
 
 

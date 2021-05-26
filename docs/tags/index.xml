@@ -12,11 +12,11 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Data Mining</title>
-			<link>https://ixiaopan.github.io/blog/post/data-mining/</link>
-			<pubDate>Mon, 17 May 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/data-mining/</guid>
-			<description>I am not sure what I&amp;rsquo;ve learned from this module is truly helpful for me because the content of this module is a hodgepodge of many subjects. The lecturers indeed delivered something useful, but the knowledge is rather scattered and less integrated. It seems that they tried to cover everything, but in fact, they only scratched the surface due to time limits. Anyway, I gained some insights from this module, and I will talk about some topics I found interesting and useful in this post.</description>
+			<title>Probabilistic Model</title>
+			<link>https://ixiaopan.github.io/blog/post/probabilistic-model/</link>
+			<pubDate>Wed, 26 May 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/probabilistic-model/</guid>
+			<description>In the previous post Descriptive Statistics, we focused on summary statistics on a particular data set rather than inference. However, in machine learning, we are usually attempting to make inference. For instance, given the training images with 2 categories, say &amp;lsquo;Cat&amp;rsquo; and &amp;lsquo;Dog&amp;rsquo;, which one does a new unseen image belong to? Typically, we compare the probability of being classified into &amp;lsquo;Cat&amp;rsquo; or &amp;lsquo;Dog&amp;rsquo;. Here, we use probability to describe uncertainty and Bayes&#39; theorem to make a classification.</description>
 		</item>
       	
 		<item>

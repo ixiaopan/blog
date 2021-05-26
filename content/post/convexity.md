@@ -1,6 +1,6 @@
 ---
-title: "LDA"
-date: "2021-05-11"
+title: "Convexity"
+date: "2021-05-23"
 description: ""
 # tags: []
 categories: [
@@ -9,10 +9,7 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
-
 ---
-
-
 
 
 

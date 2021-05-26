@@ -266,17 +266,17 @@ $$</p>
 <h2 id="test-statistics">Test statistics</h2>
 <p>The above formulas give us the best estimation for the parameters $a, b$ of the linear regression model. If we generate different data sets from the population, we will have different linear models and different values of dependent variable. If we average these values, we&rsquo;ll find that the average value is pretty close to the true value. Mathematically, this can be expressed as follows,</p>
 <p>$$
-E(\hat y_i) = E(\hat ax_i + \hat b) = E(Y_i) = E(ax_i+b)
+E_D(\hat ax_i + \hat b|D) \simeq  ax_i+b
 $$</p>
-<p>The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us they are equal, and that the distribution of the sample mean follows the Gaussian Distribution as the sample size gets larger.</p>
+<p>The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us the distribution of the sample mean follows the Gaussian Distribution with the mean of the population mean as the sample size gets larger.</p>
 <h3 id="standard-error">Standard error</h3>
 <p>But in practice, we can only have one data set, so how accurate is the parameters $a, b$ calculated from the above equations? In other words, a single sample mean may overestimate or underestimate the population mean, but to what extent is this deviation? We use <strong>the standard error</strong> of sample mean to measure it, which can be obtained by the following equation, where $\sigma$ is the population standard deviation and $n$ is the sample size.</p>
 <p>$$
-SE(\hat {\overline x}) = Var(\hat {\overline x}) = \frac{\sigma}{\sqrt n}
+SE^2(\hat {\overline \mu}) = Var(\hat {\overline \mu}) = \frac{\sigma^2}{n}
 $$</p>
 <p>Similarly, we can calculate the standard error associated with the parameters $a$ and $b$.</p>
 <p>$$
-SE(\hat a)^2 = Var(\frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}) = Var(\frac{\sum_i^n(x_i-\overline x)y_i - \sum_i^n(x_i-\overline x)\overline y}{\sum_i^n(x_i -\overline x)^2})
+SE^2(\hat a) = Var(\frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}) = Var(\frac{\sum_i^n(x_i-\overline x)y_i - \sum_i^n(x_i-\overline x)\overline y}{\sum_i^n(x_i -\overline x)^2})
 $$</p>
 <p>$$
 = Var(\frac{\sum_i^n(x_i-\overline x)(ax_i + b + \epsilon_i)}{\sum_i^n(x_i -\overline x)^2})

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Probabilistic Model</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Probabilistic Model"/>
+<meta name="twitter:description" content="In the previous post [Descriptive Statistics](https://ixiaopan.github.io/blog/post/descriptive-statistics/), we focused on summary statistics on a particular data set rather than inference. However, in machine learning, we are usually attempting to make inference. For instance, given the training images with 2 categories, say &#39;Cat&#39; and &#39;Dog&#39;, which one does a new unseen image belong to? Typically, we compare the probability of being classified into &#39;Cat&#39; or &#39;Dog&#39;."/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Probabilistic Model</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;May 26, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>In the previous post <a href="https://ixiaopan.github.io/blog/post/descriptive-statistics/">Descriptive Statistics</a>, we focused on summary statistics on a particular data set rather than inference. However, in machine learning, we are usually attempting to make inference. For instance, given the training images with 2 categories, say &lsquo;Cat&rsquo; and &lsquo;Dog&rsquo;, which one does a new unseen image belong to? Typically, we compare the probability of being classified into &lsquo;Cat&rsquo; or &lsquo;Dog&rsquo;. Here, we use <strong>probability</strong> to describe uncertainty and Bayes' theorem to make a classification. Perhaps you&rsquo;ve already been familiar with them when you were in college, but today we will revisit them from the aspect of the application in machine learning. Hopefully you can gain a new sight from this.</p>
+<h2 id="probability">Probability</h2>
+<p>At the beginning, let&rsquo;s have a quick refresh on probability. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable. Suppose we have two random variables of interest, $X$ and $Y$,</p>
+<ul>
+<li>
+<p>The joint probability of $X$ that takes the value of $x$ and $Y$ that takes the value of $y$ is written as $P(X = x, Y=y)$, which means that the probability of $x$ and $y$ happening at the same time</p>
+</li>
+<li>
+<p>Given $Y=y$, the conditional probability of $X$ given $Y=y$ is denoted by $P(X|Y=y)$</p>
+</li>
+</ul>
+<p>There are two major rules of probability that we should remember,</p>
+<ul>
+<li>the sum rule, i.e. the marginal probability of $X$ that takes the value of $x$, irrespective of the value of $Y$</li>
+</ul>
+<p>$$
+P(X=x) = \sum_{y \in Y} P(X=x, Y=y)
+$$</p>
+<ul>
+<li>the product rule, i.e. the joint probability of $X$ and $Y$ can be written as the product of the conditional probability and the marginal probability</li>
+</ul>
+<p>$$
+P(X, Y) = P(Y|X) P(X) = P(X|Y)P(Y)
+$$</p>
+<p>From the above formula, we can deduce the following equation, which is also known as Bayes' Rule,</p>
+<p>$$
+P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}
+$$</p>
+<h2 id="bayes-inference">Bayes' Inference</h2>
+<p>In machine learning, our goal is to learn $\Theta$ from a given $D$, but $\Theta$ is uncertain. One way to measure uncertainty is probability, so the question becomes how to compute the probablity of $\Theta$ given the data $D$, i.e. $P(\Theta|D)$.  But the only thing we know is the observed data, so how can we do it? The answer is the Bayes' Rule, which helps us convert this into a forward problem, where parameters are known and thus we can draw data from the distribution determined by that paramaters. The formula is defined as follows,</p>
+<p>$$
+P(\Theta|D) = \frac{P(D|\Theta)P(\Theta)}{P(D)}
+$$</p>
+<ul>
+<li>$P(\Theta)$ is called the prior probability, i.e. the best guess about $\Theta$ before we see the data. You might have a good estimate on it or simply have no idea at all</li>
+<li>$P(D|\Theta)$ is the likelihood of the data given the parameters $\Theta$</li>
+<li>$P(D)$ is the evidence or marginal probability denoted by $P(D) = \sum_{\theta \in \Theta }P(D, \theta)$</li>
+<li>$P(\Theta|D)$ is the posterior probability, i.e. the updated probability of $\theta_i$ after we see the data</li>
+</ul>
+<h3 id="pros-and-cons">Pros and cons</h3>
+<p>Pros</p>
+<ul>
+<li>Bayes' rule provides us a full probabilistic description of the parameters</li>
+<li>It doesn&rsquo;t overfit since we are not choosing the best parameters that fit the data perfectly</li>
+<li>In some cases, the prior and the likelihood can be easy to be defined</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>However, we need to compute $P(D)$, which is not reasonable sometimes, e.g. there are too many possible values of $\Theta$</li>
+<li>Posterior might not be described as a nice probability function</li>
+</ul>
+<h3 id="map">MAP</h3>
+<p>If we ignore the evidence $P(D)$ (after all, it&rsquo;s just a constant for any $\theta$), we are only left with the numerator. An easy way to compute $P(\Theta|D$) is to find the maximum value, though it&rsquo;s not a strictly probability</p>
+<p>$$
+{\argmax}_{\Theta} log (P(D|\Theta)) + log (P(\Theta))
+$$</p>
+<p>This method is called Maximum a Posterior. However, it can overfit because we are finding the parameters that maximising the likelihood of the observed data, which means we will get a model that fit the data with no errors.</p>
+<h3 id="mle">MLE</h3>
+<h2 id="conjugate-prior">Conjugate Prior</h2>
+<h3 id="bernoulli-distribution">Bernoulli Distribution</h3>
+<h4 id="beta">Beta</h4>
+<h3 id="poisson-distribution">Poisson Distribution</h3>
+<h4 id="gamma">Gamma</h4>
+<h3 id="incremental-updates">Incremental Updates</h3>
+<h2 id="discriminal-vs-generative">Discriminal vs Generative</h2>
+<h2 id="graphical-models">Graphical Models</h2>
+<h2 id="latent-dirichlet-allocation">Latent Dirichlet Allocation</h2>
+<h3 id="latent-variable">Latent Variable</h3>
+
+
+
+
+        
+      </article>
+
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#probability">Probability</a></li>
+    <li><a href="#bayes-inference">Bayes' Inference</a>
+      <ul>
+        <li><a href="#pros-and-cons">Pros and cons</a></li>
+        <li><a href="#map">MAP</a></li>
+        <li><a href="#mle">MLE</a></li>
+      </ul>
+    </li>
+    <li><a href="#conjugate-prior">Conjugate Prior</a>
+      <ul>
+        <li><a href="#bernoulli-distribution">Bernoulli Distribution</a></li>
+        <li><a href="#poisson-distribution">Poisson Distribution</a></li>
+        <li><a href="#incremental-updates">Incremental Updates</a></li>
+      </ul>
+    </li>
+    <li><a href="#discriminal-vs-generative">Discriminal vs Generative</a></li>
+    <li><a href="#graphical-models">Graphical Models</a></li>
+    <li><a href="#latent-dirichlet-allocation">Latent Dirichlet Allocation</a>
+      <ul>
+        <li><a href="#latent-variable">Latent Variable</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </aside>
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

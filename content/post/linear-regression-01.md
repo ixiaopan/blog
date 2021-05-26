@@ -222,12 +222,12 @@ The above formulas give us the best estimation for the parameters $a, b$ of the 
 
 
 $$
-E(\hat y_i) = E(\hat ax_i + \hat b) = E(Y_i) = E(ax_i+b)
+E_D(\hat ax_i + \hat b|D) \simeq  ax_i+b
 $$
 
 
 
-The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us they are equal, and that the distribution of the sample mean follows the Gaussian Distribution as the sample size gets larger.
+The idea behind the above equation is analogous to the Central Limit Theorem for Sample Mean. The population mean of the random variable $Y_i$ (the true line) can be estimated by the expected value of the sample mean(the estimated line). CLT tells us the distribution of the sample mean follows the Gaussian Distribution with the mean of the population mean as the sample size gets larger.
 
 
 
@@ -240,15 +240,16 @@ But in practice, we can only have one data set, so how accurate is the parameter
 
 
 $$
-SE(\hat {\overline x}) = Var(\hat {\overline x}) = \frac{\sigma}{\sqrt n}
+SE^2(\hat {\overline \mu}) = Var(\hat {\overline \mu}) = \frac{\sigma^2}{n}
 $$
 
 
 
 Similarly, we can calculate the standard error associated with the parameters $a$ and $b$.
 
+
 $$
-SE(\hat a)^2 = Var(\frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}) = Var(\frac{\sum_i^n(x_i-\overline x)y_i - \sum_i^n(x_i-\overline x)\overline y}{\sum_i^n(x_i -\overline x)^2})
+SE^2(\hat a) = Var(\frac{\sum_i^n(x_i-\overline x)(y_i-\overline y)}{\sum_i^n(x_i -\overline x)^2}) = Var(\frac{\sum_i^n(x_i-\overline x)y_i - \sum_i^n(x_i-\overline x)\overline y}{\sum_i^n(x_i -\overline x)^2})
 $$
 
 $$
@@ -338,8 +339,6 @@ The higher the $t$ is, the farther the distance is. But wait, what's the probabi
 
 
 Next question is how to evaluate our model? How good is it? There are two common metrics to measure the quality of a linear regression model: RSE and $R^2$.
-
-
 
 
 
