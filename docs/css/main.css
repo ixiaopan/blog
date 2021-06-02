@@ -64,7 +64,7 @@ strong {
 .nav {
   top: 0;
   position: relative;
-  max-width: 760px;
+  max-width: 860px;
   margin: 20px auto;
   padding: 0 10px;
   text-align: right;
@@ -123,7 +123,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .container[role=main] {
-  max-width: 760px;
+  max-width: 860px;
   font-size: 16px;
   line-height: 1.7;
   color: #333333;
@@ -161,21 +161,22 @@ img[src*='#full'] {
 /* layouts */
 .inner {
   display: flex;
-  margin-right: -200px;
+  padding: 0 10px;
 }
 .article {
   text-align: justify;
   flex: 1;
 }
 .article-aside {
-  transform: translateX(30%);
+  margin-left: 40px;
+  margin-right: -160px;
 }
 .article-aside nav {
   position: sticky;
   top: 2em;
 }
 #TableOfContents {
-  width: 200px;
+  width: 210px;
   box-sizing: border-box;
   border: 2px dotted #cccccc;
   margin: 1.2em 0 0;

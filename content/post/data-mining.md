@@ -1,6 +1,6 @@
 ---
 title: "Data Mining"
-date: "2021-05-17"
+date: "2021-06-01"
 description: ""
 # tags: []
 categories: [

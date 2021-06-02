@@ -1,6 +1,6 @@
 ---
 title: "Support Vector Machine"
-date: "2021-05-22"
+date: "2021-06-01"
 description: ""
 # tags: []
 categories: [

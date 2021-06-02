@@ -16,7 +16,8 @@
 			<link>https://ixiaopan.github.io/blog/post/probabilistic-model/</link>
 			<pubDate>Wed, 26 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/probabilistic-model/</guid>
-			<description>In the previous post Descriptive Statistics, we focused on summary statistics on a particular data set rather than inference. However, in machine learning, we are usually attempting to make inference. For instance, given the training images with 2 categories, say &amp;lsquo;Cat&amp;rsquo; and &amp;lsquo;Dog&amp;rsquo;, which one does a new unseen image belong to? Typically, we compare the probability of being classified into &amp;lsquo;Cat&amp;rsquo; or &amp;lsquo;Dog&amp;rsquo;. Here, we use probability to describe uncertainty and Bayes&#39; theorem to make a classification.</description>
+			<description>In the previous post Descriptive Statistics, we focused on summary statistics on a particular data set. However, in machine learning, we usually attempt to make inference, i.e. infer the unknown parameters from the given data. For unknown things, we use probability to describe its uncertainty. For inference, we use Bayes&#39; rule to invert it into a forward process.
+Probability At the beginning, let&amp;rsquo;s have a quick refresh on probability. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable.</description>
 		</item>
       	
 		<item>
