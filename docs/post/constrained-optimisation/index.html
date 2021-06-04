@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Constrained Optimisation</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Constrained Optimisation"/>
+<meta name="twitter:description" content="When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I&#39;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key."/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Constrained Optimisation</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 3, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I&rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key.</p>
+<p>As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And today we will talk about all of them in detail.</p>
+<h2 id="unconstrained-optimisation">Unconstrained Optimisation</h2>
+<p>TODO</p>
+<h2 id="equality-constraints">Equality Constraints</h2>
+<p>Suppose we want to minimise a function $f(x)$ subject to an equality constraint, $g(x) = 0$. This can be solved by introducing Lagrange multiplier $\alpha$</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
+$$</p>
+<p>Then set the gradient of $\mathcal{L}$ equal to the zero vector</p>
+<p>$$
+\nabla_x \mathcal{L} = \nabla_x f(x) - \alpha \nabla_xg(x) = 0
+$$</p>
+<p>$$
+\frac{\partial \mathcal L}{\partial \alpha}  = -g(x) = 0
+$$</p>
+<p>Finally, solving the above equations will give us the minimum point we are seeking.</p>
+<h3 id="multiple-constraints">Multiple Constraints</h3>
+<p>If we have multiple constraints, then multiple Lagrange multipliers are introduced,</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \sum_i^m \alpha_i g_i(x)
+$$
+And the corresponding solutions are given by,</p>
+<p>$$
+\nabla_x f(x) = \sum_i^m \alpha_i \nabla_xg_i(x)
+$$</p>
+<p>$$
+\frac{\partial \mathcal L}{\partial \alpha_i}  = -g_i(x) = 0
+$$</p>
+<h3 id="lagrange">Lagrange</h3>
+<p>But what&rsquo;s the rationale behind these formulas? Though we are not required to know everything, basic understanding of Lagrange is still needed. Remember that the question is to find a point $x^*$ that satisfies both $g(x^*) = 0$ and $f(x^*) =m $, where $m$ is the minimum value of $f(x)$ given the constraint.</p>
+<p>The line represented by $f(x) = c$ is known as a contour line. Since $f(x)$ can have many values, we can plot many contour lines with equal intervals between lines in ascending or descending order from inner to outer. Graphically, we want to find a point that lies on the line of $g(x) = 0$ and the line of $f(x)$ with the minimum value simultaneously as shown in Figure 1. The green point is the point we are looking for.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/lagrange.png" alt="">
+    <figcaption>Figure 1: Illustration of equality constraints</figcaption>
+  </figure>
+
+</p>
+<p>But we still need to figure out equations to calculate the position of the gree point. Let&rsquo;s start from $x_0$, the magenta point in Figure 1. Mathematically, the above process of finding $x^*$ can be described as follows,</p>
+<p>$$
+f(x_0 + \delta x) &lt; f(x_0)
+$$</p>
+<p>$$
+g(x_0) = g(x_0 + \delta x) = 0
+$$</p>
+<p>So in which direction should we move at $x_0$? With the aid of Taylor expansion, we have
+$$
+g(x_0 + \delta x) = g(x_1) = g(x_0) + (x_1 - x_0)^T\nabla_xg(x_0) + \frac{1}{2} (x_1 - x_0)^T H (x_1 - x_0)
+$$</p>
+<p>$$
+= g(x_0) + (x_1 - x_0)^T\nabla_xg(x_0) + O(||x_1 - x_0||^2)
+$$</p>
+<p>where $x_1 = x_0 + \delta x$ and $H$ is a matrix of second derivative of $g(x)$ known as Hessian. The third term tends to be zero if $\delta x$ is small enough, then we are left with</p>
+<p>$$
+g(x_0 + \delta x) = g(x_0) + (x_1 - x_0)^T\nabla_xg(x_0) = g(x_0)
+$$</p>
+<p>Thus,</p>
+<p>$$
+(x_1 - x_0)^T\nabla_xg(x_0) = 0
+$$</p>
+<p>which means that the moving direction from $x_0$ should be perpedicular to $\nabla_xg(x_0)$. But we are not done, because not all $(\delta x = x_1 - x_0)$ point to the right direction along which $f(x)$ decreases. In order to ensure this, we require that  $\delta x$ must satisfy</p>
+<p>$$
+(x_1 - x_0)^T ( - \nabla_x f(x)) &gt; 0
+$$</p>
+<p>where $- \nabla_x f(x)$ indicates the descent direction. Therefore, as long as the value of the dot product is greater than zero, the moving of point will continue unless the value becomes zero. If so, it means that the direction of $\nabla_x f(x)$ is parallel to $\nabla_x g(x)$, i.e.</p>
+<p>$$
+-\nabla_x f(x) = \lambda \nabla_x g(x)
+$$</p>
+<p>We can rewrite this by replacing $\lambda$ with $\alpha = -\lambda $</p>
+<p>$$
+\nabla_x f(x) = \alpha \nabla_x g(x)
+$$</p>
+<p>Finally, we come to the method of Lagrange multipliers.</p>
+<h2 id="inequality-constraints">Inequality Constraints</h2>
+<p>Now we consider another situation where we have inequality constraints, i.e. $g(x) \ge 0$. It looks a little complicated, but if we think about it for a while, we can find that only two things could happen, as shown in Figure 2,</p>
+<ul>
+<li>either the optimum point satisfies $g(x) \gt 0$ or</li>
+<li>the (local) optimum point lies on the boundary, $g(x) = 0$</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/inequality.png#full" alt="">
+    <figcaption>Figure 2: Two possible outcomes of inequality constraints</figcaption>
+  </figure>
+
+</p>
+<p>Again, we use Lagrange to solve it,</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
+$$</p>
+<p>In the first case where the optimum point lies in the interior of the constraint, i.e. $g(x) &gt; 0$, which is filled in red in Figure 2 a). We set $\alpha = 0$, which means the constrains has no influence on $f(x)$.</p>
+<p>As for the second case, it is exactly the same as the equality constraints, i.e.</p>
+<p>$$
+\nabla_x f(x) = \alpha \nabla_xg(x)
+$$</p>
+<p>but with an additional constraint $\alpha &gt; 0$. So why do we set $\alpha &gt; 0$ here?</p>
+<h3 id="alpha-ge-0">$\alpha \ge 0$</h3>
+<p>Visually, it can be seen From Figure 2 b) that both the magenta and blue points seem to be the right point we are seeking. But in fact, only the bule one is in a lower position. And we find that $\nabla_x f(x) $ and $\nabla_x g(x)$ point to the same direction at the blue point. Thus, $\alpha$ is positive.</p>
+<p>In theory, the area defined by $g(x) &gt; 0$ is known as feasible region, i.e. any value of $x$ inside this region is valid. Besides, We can see that $\nabla_x f(x)$ (colored in blue) points in towards the interior of the region. Conversely, the negative gradient $-\nabla_x f(x)$, which is the direction along which $f(x)$ decreases the most quickly, points away from the feasible region(I don&rsquo;t plot it).</p>
+<p>If we are at a point where $-\nabla_x f(x)$ points to the feasible region, it means that a point with smaller value of $f(x)$ can be found in the feasible region, which is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point.</p>
+<p>If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further.</p>
+<p>It is noticeable that $\nabla_x g(x)$ points in towards the feasible region. Therefore, we conclude that $\nabla_x f(x)$ and $\nabla_x g(x)$ have the same direction. Thus, $\alpha$ is positive.</p>
+<p>From above, we can also draw another conclusion shown below</p>
+<p>$$
+\alpha \nabla_x g(x) = 0
+$$</p>
+<h3 id="kkt-conditions">KKT Conditions</h3>
+<p>To sum up, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
+$$</p>
+<p>Then we can find a local mininum $x^*$ s.t.</p>
+<ul>
+<li>$\nabla_x f(x) = \alpha \nabla_xg(x)$</li>
+<li>$\alpha \ge 0$
+<ul>
+<li>$\alpha = 0$, the solution is in the interior or</li>
+<li>$\alpha \gt 0$ and $g(x) = 0$, i.e. the solution is on the boundary</li>
+</ul>
+</li>
+<li>$\alpha \nabla_x g(x) = 0$</li>
+</ul>
+<p>These are the Karush-Kuhn-Tucker (KKT) conditions.</p>
+<h3 id="many-inequalities">Many Inequalities</h3>
+<p>Once again, if we have many ineuqality constraints, then Lagrangian function is given by,</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \sum_i^m \alpha_i g_i(x)
+$$</p>
+<p>And the corresponding solutions are given by,</p>
+<p>$$
+\nabla_x f(x) = \sum_i^m \alpha_i \nabla_xg_i(x)
+$$</p>
+<p>plus the constraints that</p>
+<ul>
+<li>either $\alpha_i = 0$ or</li>
+<li>$\alpha_i \gt 0$ and $g_i(x) = 0$</li>
+</ul>
+<h2 id="duality">Duality</h2>
+<h2 id="convex">Convex</h2>
+<h2 id="jensens-inequality">Jensen’s inequality</h2>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf">https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#unconstrained-optimisation">Unconstrained Optimisation</a></li>
+    <li><a href="#equality-constraints">Equality Constraints</a>
+      <ul>
+        <li><a href="#multiple-constraints">Multiple Constraints</a></li>
+        <li><a href="#lagrange">Lagrange</a></li>
+      </ul>
+    </li>
+    <li><a href="#inequality-constraints">Inequality Constraints</a>
+      <ul>
+        <li><a href="#alpha-ge-0">$\alpha \ge 0$</a></li>
+        <li><a href="#kkt-conditions">KKT Conditions</a></li>
+        <li><a href="#many-inequalities">Many Inequalities</a></li>
+      </ul>
+    </li>
+    <li><a href="#duality">Duality</a></li>
+    <li><a href="#convex">Convex</a></li>
+    <li><a href="#jensens-inequality">Jensen’s inequality</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+      
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

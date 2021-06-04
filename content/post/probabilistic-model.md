@@ -458,7 +458,7 @@ TODO
 
 
 
-### ariational inference
+### Variational inference
 
 TODO
 

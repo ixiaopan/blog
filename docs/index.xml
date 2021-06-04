@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Wed, 26 May 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Thu, 03 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Constrained Optimisation</title>
+			<link>https://ixiaopan.github.io/blog/post/constrained-optimisation/</link>
+			<pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/constrained-optimisation/</guid>
+			<description>&lt;p&gt;When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I&amp;rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Probabilistic Model</title>
 			<link>https://ixiaopan.github.io/blog/post/probabilistic-model/</link>
@@ -84,14 +92,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/linear-regression-01/</guid>
 			<description>&lt;p&gt;There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in the world of machine learning. So let&amp;rsquo;s go!&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Descriptive Statistics</title>
-			<link>https://ixiaopan.github.io/blog/post/descriptive-statistics/</link>
-			<pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/descriptive-statistics/</guid>
-			<description>&lt;p&gt;Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
