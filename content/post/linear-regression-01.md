@@ -13,7 +13,7 @@ katex: true
 
 
 
-There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in the world of machine learning. So let's go!
+There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in machine learning. So let's go!
 
 
 

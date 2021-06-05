@@ -21,17 +21,7 @@ When I first learned machine learning, I was scared by the complicated formulas.
 
 
 
-As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And today we will talk about all of them in detail.
-
-
-
-## Unconstrained Optimisation
-
-
-
-TODO
-
-
+As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And we will focus on constrained optimisation in this article.
 
 
 
@@ -204,11 +194,9 @@ but with an additional constraint $\alpha > 0$. So why do we set $\alpha > 0$ he
 
 Visually, it can be seen From Figure 2 b) that both the magenta and blue points seem to be the right point we are seeking. But in fact, only the bule one is in a lower position. And we find that $\nabla_x f(x) $ and $\nabla_x g(x)$ point to the same direction at the blue point. Thus, $\alpha$ is positive. 
 
-In theory, the area defined by $g(x) > 0$ is known as feasible region, i.e. any value of $x$ inside this region is valid. Besides, We can see that $\nabla_x f(x)$ (colored in blue) points in towards the interior of the region. Conversely, the negative gradient $-\nabla_x f(x)$, which is the direction along which $f(x)$ decreases the most quickly, points away from the feasible region(I don't plot it). 
+In theory, if we are at a point where $-\nabla_x f(x)$ points to the feasible region, which is the area defined by $g(x) > 0$, i.e. any value of $x$ inside this region is valid, it means that a point with a smaller value of $f(x)$ could be found in the feasible region. But it is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point. 
 
-If we are at a point where $-\nabla_x f(x)$ points to the feasible region, it means that a point with smaller value of $f(x)$ can be found in the feasible region, which is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point. 
-
-If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further.
+If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further(we are already on the border of the region).
 
 It is noticeable that $\nabla_x g(x)$ points in towards the feasible region. Therefore, we conclude that $\nabla_x f(x)$ and $\nabla_x g(x)$ have the same direction. Thus, $\alpha$ is positive. 
 
@@ -228,7 +216,7 @@ $$
 
 
 
-To sum up, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,
+Putting it together, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,
 
 
 $$
@@ -276,6 +264,7 @@ plus the constraints that
 
 - either $\alpha_i = 0$ or
 - $\alpha_i \gt 0$ and $g_i(x) = 0$
+- $\alpha_i \nabla_x g_i(x) = 0$
 
 
 
@@ -283,9 +272,298 @@ plus the constraints that
 
 
 
+Let's revisit the above problem again. Consider minimising a function $f(x)$ subject to $g(x) \ge 0$, the lagrangian function is given by
 
 
-## Convex
+$$
+\mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
+$$
+
+
+### Primal Problem
+
+
+
+Now consider maximising $\mathcal{L}(x, \alpha)$ w.r.t $\alpha$, 
+
+
+$$
+\text{max}_\alpha  \mathcal{L}(x, \alpha) = \begin{cases} f(x) & \text{if $g(x) \ge 0$} \\\\ \infin & \text{otherwise}\end{cases}
+$$
+
+
+
+
+- For any $x'$ that satisfies the constraint $g(x) \ge 0$, we conclude that
+
+  
+  $$
+  f(x') \ge \mathcal{L}(x', \alpha)
+  $$
+  
+
+  i.e. the upper bound of  $\mathcal{L}(x, \alpha)$ is $f(x)$. Thus, the maximum value of $\mathcal{L}$ we can obtain is to set $\alpha = 0$ 
+
+- On the contratry, if the constraint is not satisfied, then there exists some $x'$ that satisfies $g(x) \lt 0$. If so, then we can make $\mathcal{L}$ infinite by taking $\alpha \rarr \infin$.
+
+
+
+Next we take the minimum of the maximum of $\mathcal{L}$, i.e.
+
+
+$$
+\text{min}\_\text{x} \text{max}_\alpha \mathcal{L}(x, \alpha)
+$$
+
+
+which is equivalent to the problem of minimising $f(x)$ subject to $g(x) \ge 0$. We call the original problem as **primal problem**.
+
+
+
+### Dual Problem
+
+Yet we still don't find a solution to $x$. How about reversing the order of max and min like the below formula?
+
+
+$$
+\text{max}_\alpha \text{min}\_\text{x} \mathcal{L}(x, \alpha)
+$$
+
+
+We solve $\text{min}\_\text{x} \mathcal{L}(x, \alpha)$ using the method of Lagrange, and find that $x$ is a function of $\alpha$. Then we plug $x$ into $ \mathcal{L}(x, \alpha)$ and obtain a new function of $\alpha$, say $h(\alpha)$. So the problem becomes to maximise $h(\alpha$), also known as **dual problem**,
+
+
+$$
+\text{max}_\alpha  h(\alpha)
+$$
+
+
+However, is the solution to dual problem the same as the primal problem? Why do we bother solving a dual problem rather than the original problem?
+
+
+
+Since $\alpha \ge 0$  and $g(x) \ge 0$, we have,
+
+
+$$
+\text{min}\_\text{x} \mathcal{L}(x, \alpha) \le \text{min}_x f(x) = p^*
+$$
+
+$$
+d^* = \text{max}_\alpha \text{min}\_\text{x} \mathcal{L}(x, \alpha) \le p^*
+$$
+
+
+where $p^\*$ and $d^\*$ are the optima of the primal and dual problem respectively. 
+
+It can be seen that the solution of dual problem gives us a lower bound on the primal  problem. If possible, we can also have the same solution.
+
+The reason why we solve the dual problem is that the primal problem works in a feature space that may have high dimensions while the dual problems depends on the number of constraints, which is much smaller than the dimensitionality of $x$.
+
+
+
+### Linear Programming
+
+In linear programming, we minimise a linear function $c^Tx$ subject to a series of linear constraints $g(x) = Mx - b \ge 0$. The primal problem is described as follows,
+
+
+$$
+\mathcal{L} (x, \alpha) =  c^Tx - \alpha^T(Mx - b)
+$$
+
+$$
+\text{minimise } c^T x
+$$
+
+$$
+\text{subject to } Mx \ge b
+$$
+
+
+and the dual problem is defined as,
+
+
+$$
+\mathcal{L} (x, \alpha) =  b^T\alpha - x^T(M^T \alpha - c)
+$$
+
+$$
+\text{maximise } b^T \alpha
+$$
+
+$$
+\text{subject to } M^T \alpha\le c
+$$
+
+
+Let's see and example.
+
+Primal problem
+
+
+$$
+\text{minimise } z = 15x_1 + 12x_2\\\\ \text{subject to } x_1 + 2x_2 \ge 3, 2x_1 - 4 x_2 \ge 5
+$$
+
+
+Dual problem
+
+
+$$
+\text{maximise } w = 3y_1 + 5y_2\\\\ \text{subject to } y_1 + 2y_2 \le 15, 2y_1 - 4 y_2 \le 12
+$$
+
+
+
+
+### Quadratic Programming
+
+In quadratic programming, we minimise a quadratic function $x^TQx$ subject to a series of linear constraints $g(x) = Mx - b \ge 0$. The primal problem is described as follows,
+
+
+$$
+\text{max}_\alpha  \text{min}\_\text{x} \mathcal{L} (x, \alpha) =  x^TQx - \alpha^T(Mx - b)
+$$
+
+
+Using the method of Lagrange, we have $x^* = \frac{1}{2}Q^{-1}M^T\alpha$, and we substitue it into $\mathcal{L}$
+
+
+$$
+\text{max}_\alpha  -\frac{1}{4} \alpha^TMQ^{-1}M^T\alpha + \alpha^Tb
+$$
+
+
+## Convexity
+
+
+
+### Quadratic Form
+
+
+
+> Quadratic form is a polynominal function with terms all of degree of two. For example, $4x^2 + 2xy - 3y^2$ 
+>
+>  —Wikipedia.
+
+
+
+For simplicity, we often write it in matrix notation, as shown below
+
+
+$$
+Q(\bold  x) = \bold x^T \bold  M \bold x = \sum_{i,j}^d \bold  M_{ij} \bold x_i \bold x_j
+$$
+
+
+In this example $4x^2 + 2xy - 3y^2$, the quadratic form is given by,
+
+
+$$
+Q(\bold x) = \bold x^TM\bold x = \displaystyle{\begin{bmatrix}x&y\end{bmatrix}
+\begin{bmatrix}4&2\\\\0&3 \end{bmatrix}\begin{bmatrix}x\\\\y\end{bmatrix}
+}
+$$
+
+
+From this we can see that quadratic form is a mapping from $R^d$ to $R$, so its value could be one of the following cases,
+
+- $Q(\bold x) \gt0$, 
+  - Q is positive definite
+- $Q(\bold x) \ge 0$, 
+  - Q is positive semi-definite
+- $Q(\bold x) \lt 0$ , 
+  - Q is negative definite
+- $Q(\bold x) \le 0$, 
+  - Q is negative semi-definite
+- $Q(\bold x)$ could be both positive and negative
+  - Q is idefinite
+
+
+
+Furthermore, quadratic form can also be characterised in terms of eigenvalues. Let $A$ be an $n \times n$ symmetric matrix. Then a quadratic form $x^TAx$ is:
+
+- positive definite if and only if the eigenvalues of $A$ are positive,
+- negative definite if and only if the eigenvalues of $A$ are negative, 
+- indefinite if and only if A has bothe positive and negative eigenvalues
+
+
+
+Here are some proofs. First, we should know that any two eigenvectors from different eigenspaces of a symmetric matrix are orthogonal and any symmetric matrix can be orthogonally diagonalizable. Let $\bold P = [\bold v1, \bold v2, ..., \bold v_n]$ be eigenvectors that correspond to different eigenvalues $\Lambda= \lambda_1, \lambda_2, ..., \lambda_n$ of a symmetric matrix $A$. To show that $v_1 \cdot v_2 = 0$, compute
+
+
+$$
+\lambda_1 v_1 \cdot v_2 = (A v_1)^T v_2 = v_1^T A v_2 = \lambda_2 v_1^Tv_2
+$$
+
+$$
+(\lambda_1 - \lambda_2) v_1^T v_2 = 0
+$$
+
+
+But $ \lambda_1 \ne \lambda_2$, so $v1 \cdot v2=0$. Furthermore, $\bold P ^T \bold P = I$, so $P^{-1} = P^T$. Then we have
+
+
+$$
+AP = PD\\\\A = PDP^{-1} = PDP^T
+$$
+
+
+ The quadratic form of $A$ can be written as follows,
+
+
+$$
+x^T A x= x^T PDP^Tx = (P^Tx)^T D (P^Tx) = y^TDy = \lambda_1y_1^2 + \lambda_2y_2^2 + ... + \lambda_ny_n^2
+$$
+
+
+If the eigenvalues of $A$ are positive, then $x^TAx > 0$ and $A$ is positive definite. On the other hand, if $A$ is positive definite, then $x^TAx > 0$ for any $x \ne 0$. If we substitute $x$ with an eigenvector $v_1$, we have
+
+
+$$
+v_1^T A v_1 = v_1^T \lambda v_1 = \lambda v_1^Tv_1 = \lambda ||v_1||^2 \gt 0
+$$
+
+
+Thus, $\lambda  > 0$.
+
+
+
+
+
+### Convex Set
+
+Before we talk about convex function, let's start with convex region and convex set. 
+
+A region $R$  is said to be a convex region if any two points $x$ and $y$ in that region plus any $a \in [0, 1]$ satisfy,
+
+
+$$
+z = a x + ( 1 - a )y \in R
+$$
+
+
+![](/blog/post/images/convex-region.png "Figure 3: Convex region and non-convex region")
+
+
+
+Similarly, for any set of points $S$, if for any two points $x, y \in S$ and any $a \in [0, 1]$ satisfy
+$$
+z = a x + ( 1 - a )y \in S
+$$
+then $S$ is a convex set. We can prove that the set of positive semi-definite matrices form a convex set. Let $A_1, A_2 \in S$, compute
+
+
+$$
+x^T z x = x^T (a A_1 + ( 1 - a)A_2)x = x^TaA_1x + x^T ( 1-a) A_2 x \ge 0
+$$
+
+
+Thus, $z$ is positive semi-definite and $z \in S$.
+
+
+
+### Convex Function
 
 
 
@@ -300,4 +578,7 @@ plus the constraints that
 ## References
 
 - https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf
+- https://www-cs.stanford.edu/people/davidknowles/lagrangian_duality.pdf
+
+
 

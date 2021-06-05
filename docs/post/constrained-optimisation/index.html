@@ -128,7 +128,7 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 3, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -158,9 +158,7 @@
       <article class="article" class="blog-post">
         
   <p>When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I&rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key.</p>
-<p>As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And today we will talk about all of them in detail.</p>
-<h2 id="unconstrained-optimisation">Unconstrained Optimisation</h2>
-<p>TODO</p>
+<p>As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And we will focus on constrained optimisation in this article.</p>
 <h2 id="equality-constraints">Equality Constraints</h2>
 <p>Suppose we want to minimise a function $f(x)$ subject to an equality constraint, $g(x) = 0$. This can be solved by introducing Lagrange multiplier $\alpha$</p>
 <p>$$
@@ -256,16 +254,15 @@ $$</p>
 <p>but with an additional constraint $\alpha &gt; 0$. So why do we set $\alpha &gt; 0$ here?</p>
 <h3 id="alpha-ge-0">$\alpha \ge 0$</h3>
 <p>Visually, it can be seen From Figure 2 b) that both the magenta and blue points seem to be the right point we are seeking. But in fact, only the bule one is in a lower position. And we find that $\nabla_x f(x) $ and $\nabla_x g(x)$ point to the same direction at the blue point. Thus, $\alpha$ is positive.</p>
-<p>In theory, the area defined by $g(x) &gt; 0$ is known as feasible region, i.e. any value of $x$ inside this region is valid. Besides, We can see that $\nabla_x f(x)$ (colored in blue) points in towards the interior of the region. Conversely, the negative gradient $-\nabla_x f(x)$, which is the direction along which $f(x)$ decreases the most quickly, points away from the feasible region(I don&rsquo;t plot it).</p>
-<p>If we are at a point where $-\nabla_x f(x)$ points to the feasible region, it means that a point with smaller value of $f(x)$ can be found in the feasible region, which is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point.</p>
-<p>If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further.</p>
+<p>In theory, if we are at a point where $-\nabla_x f(x)$ points to the feasible region, which is the area defined by $g(x) &gt; 0$, i.e. any value of $x$ inside this region is valid, it means that a point with a smaller value of $f(x)$ could be found in the feasible region. But it is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point.</p>
+<p>If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further(we are already on the border of the region).</p>
 <p>It is noticeable that $\nabla_x g(x)$ points in towards the feasible region. Therefore, we conclude that $\nabla_x f(x)$ and $\nabla_x g(x)$ have the same direction. Thus, $\alpha$ is positive.</p>
 <p>From above, we can also draw another conclusion shown below</p>
 <p>$$
 \alpha \nabla_x g(x) = 0
 $$</p>
 <h3 id="kkt-conditions">KKT Conditions</h3>
-<p>To sum up, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,</p>
+<p>Putting it together, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,</p>
 <p>$$
 \mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
 $$</p>
@@ -294,13 +291,192 @@ $$</p>
 <ul>
 <li>either $\alpha_i = 0$ or</li>
 <li>$\alpha_i \gt 0$ and $g_i(x) = 0$</li>
+<li>$\alpha_i \nabla_x g_i(x) = 0$</li>
 </ul>
 <h2 id="duality">Duality</h2>
-<h2 id="convex">Convex</h2>
+<p>Let&rsquo;s revisit the above problem again. Consider minimising a function $f(x)$ subject to $g(x) \ge 0$, the lagrangian function is given by</p>
+<p>$$
+\mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
+$$</p>
+<h3 id="primal-problem">Primal Problem</h3>
+<p>Now consider maximising $\mathcal{L}(x, \alpha)$ w.r.t $\alpha$,</p>
+<p>$$
+\text{max}_\alpha  \mathcal{L}(x, \alpha) = \begin{cases} f(x) &amp; \text{if $g(x) \ge 0$} \\ \infin &amp; \text{otherwise}\end{cases}
+$$</p>
+<ul>
+<li>
+<p>For any $x'$ that satisfies the constraint $g(x) \ge 0$, we conclude that</p>
+<p>$$
+f(x') \ge \mathcal{L}(x', \alpha)
+$$</p>
+<p>i.e. the upper bound of  $\mathcal{L}(x, \alpha)$ is $f(x)$. Thus, the maximum value of $\mathcal{L}$ we can obtain is to set $\alpha = 0$</p>
+</li>
+<li>
+<p>On the contratry, if the constraint is not satisfied, then there exists some $x'$ that satisfies $g(x) \lt 0$. If so, then we can make $\mathcal{L}$ infinite by taking $\alpha \rarr \infin$.</p>
+</li>
+</ul>
+<p>Next we take the minimum of the maximum of $\mathcal{L}$, i.e.</p>
+<p>$$
+\text{min}_\text{x} \text{max}_\alpha \mathcal{L}(x, \alpha)
+$$</p>
+<p>which is equivalent to the problem of minimising $f(x)$ subject to $g(x) \ge 0$. We call the original problem as <strong>primal problem</strong>.</p>
+<h3 id="dual-problem">Dual Problem</h3>
+<p>Yet we still don&rsquo;t find a solution to $x$. How about reversing the order of max and min like the below formula?</p>
+<p>$$
+\text{max}_\alpha \text{min}_\text{x} \mathcal{L}(x, \alpha)
+$$</p>
+<p>We solve $\text{min}_\text{x} \mathcal{L}(x, \alpha)$ using the method of Lagrange, and find that $x$ is a function of $\alpha$. Then we plug $x$ into $ \mathcal{L}(x, \alpha)$ and obtain a new function of $\alpha$, say $h(\alpha)$. So the problem becomes to maximise $h(\alpha$), also known as <strong>dual problem</strong>,</p>
+<p>$$
+\text{max}_\alpha  h(\alpha)
+$$</p>
+<p>However, is the solution to dual problem the same as the primal problem? Why do we bother solving a dual problem rather than the original problem?</p>
+<p>Since $\alpha \ge 0$  and $g(x) \ge 0$, we have,</p>
+<p>$$
+\text{min}_\text{x} \mathcal{L}(x, \alpha) \le \text{min}_x f(x) = p^*
+$$</p>
+<p>$$
+d^* = \text{max}_\alpha \text{min}_\text{x} \mathcal{L}(x, \alpha) \le p^*
+$$</p>
+<p>where $p^*$ and $d^*$ are the optima of the primal and dual problem respectively.</p>
+<p>It can be seen that the solution of dual problem gives us a lower bound on the primal  problem. If possible, we can also have the same solution.</p>
+<p>The reason why we solve the dual problem is that the primal problem works in a feature space that may have high dimensions while the dual problems depends on the number of constraints, which is much smaller than the dimensitionality of $x$.</p>
+<h3 id="linear-programming">Linear Programming</h3>
+<p>In linear programming, we minimise a linear function $c^Tx$ subject to a series of linear constraints $g(x) = Mx - b \ge 0$. The primal problem is described as follows,</p>
+<p>$$
+\mathcal{L} (x, \alpha) =  c^Tx - \alpha^T(Mx - b)
+$$</p>
+<p>$$
+\text{minimise } c^T x
+$$</p>
+<p>$$
+\text{subject to } Mx \ge b
+$$</p>
+<p>and the dual problem is defined as,</p>
+<p>$$
+\mathcal{L} (x, \alpha) =  b^T\alpha - x^T(M^T \alpha - c)
+$$</p>
+<p>$$
+\text{maximise } b^T \alpha
+$$</p>
+<p>$$
+\text{subject to } M^T \alpha\le c
+$$</p>
+<p>Let&rsquo;s see and example.</p>
+<p>Primal problem</p>
+<p>$$
+\text{minimise } z = 15x_1 + 12x_2\\ \text{subject to } x_1 + 2x_2 \ge 3, 2x_1 - 4 x_2 \ge 5
+$$</p>
+<p>Dual problem</p>
+<p>$$
+\text{maximise } w = 3y_1 + 5y_2\\ \text{subject to } y_1 + 2y_2 \le 15, 2y_1 - 4 y_2 \le 12
+$$</p>
+<h3 id="quadratic-programming">Quadratic Programming</h3>
+<p>In quadratic programming, we minimise a quadratic function $x^TQx$ subject to a series of linear constraints $g(x) = Mx - b \ge 0$. The primal problem is described as follows,</p>
+<p>$$
+\text{max}_\alpha  \text{min}_\text{x} \mathcal{L} (x, \alpha) =  x^TQx - \alpha^T(Mx - b)
+$$</p>
+<p>Using the method of Lagrange, we have $x^* = \frac{1}{2}Q^{-1}M^T\alpha$, and we substitue it into $\mathcal{L}$</p>
+<p>$$
+\text{max}_\alpha  -\frac{1}{4} \alpha^TMQ^{-1}M^T\alpha + \alpha^Tb
+$$</p>
+<h2 id="convexity">Convexity</h2>
+<h3 id="quadratic-form">Quadratic Form</h3>
+<blockquote>
+<p>Quadratic form is a polynominal function with terms all of degree of two. For example, $4x^2 + 2xy - 3y^2$</p>
+<p>—Wikipedia.</p>
+</blockquote>
+<p>For simplicity, we often write it in matrix notation, as shown below</p>
+<p>$$
+Q(\bold  x) = \bold x^T \bold  M \bold x = \sum_{i,j}^d \bold  M_{ij} \bold x_i \bold x_j
+$$</p>
+<p>In this example $4x^2 + 2xy - 3y^2$, the quadratic form is given by,</p>
+<p>$$
+Q(\bold x) = \bold x^TM\bold x = \displaystyle{\begin{bmatrix}x&amp;y\end{bmatrix}
+\begin{bmatrix}4&amp;2\\0&amp;3 \end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}
+}
+$$</p>
+<p>From this we can see that quadratic form is a mapping from $R^d$ to $R$, so its value could be one of the following cases,</p>
+<ul>
+<li>$Q(\bold x) \gt0$,
+<ul>
+<li>Q is positive definite</li>
+</ul>
+</li>
+<li>$Q(\bold x) \ge 0$,
+<ul>
+<li>Q is positive semi-definite</li>
+</ul>
+</li>
+<li>$Q(\bold x) \lt 0$ ,
+<ul>
+<li>Q is negative definite</li>
+</ul>
+</li>
+<li>$Q(\bold x) \le 0$,
+<ul>
+<li>Q is negative semi-definite</li>
+</ul>
+</li>
+<li>$Q(\bold x)$ could be both positive and negative
+<ul>
+<li>Q is idefinite</li>
+</ul>
+</li>
+</ul>
+<p>Furthermore, quadratic form can also be characterised in terms of eigenvalues. Let $A$ be an $n \times n$ symmetric matrix. Then a quadratic form $x^TAx$ is:</p>
+<ul>
+<li>positive definite if and only if the eigenvalues of $A$ are positive,</li>
+<li>negative definite if and only if the eigenvalues of $A$ are negative,</li>
+<li>indefinite if and only if A has bothe positive and negative eigenvalues</li>
+</ul>
+<p>Here are some proofs. First, we should know that any two eigenvectors from different eigenspaces of a symmetric matrix are orthogonal and any symmetric matrix can be orthogonally diagonalizable. Let $\bold P = [\bold v1, \bold v2, &hellip;, \bold v_n]$ be eigenvectors that correspond to different eigenvalues $\Lambda= \lambda_1, \lambda_2, &hellip;, \lambda_n$ of a symmetric matrix $A$. To show that $v_1 \cdot v_2 = 0$, compute</p>
+<p>$$
+\lambda_1 v_1 \cdot v_2 = (A v_1)^T v_2 = v_1^T A v_2 = \lambda_2 v_1^Tv_2
+$$</p>
+<p>$$
+(\lambda_1 - \lambda_2) v_1^T v_2 = 0
+$$</p>
+<p>But $ \lambda_1 \ne \lambda_2$, so $v1 \cdot v2=0$. Furthermore, $\bold P ^T \bold P = I$, so $P^{-1} = P^T$. Then we have</p>
+<p>$$
+AP = PD\\A = PDP^{-1} = PDP^T
+$$</p>
+<p>The quadratic form of $A$ can be written as follows,</p>
+<p>$$
+x^T A x= x^T PDP^Tx = (P^Tx)^T D (P^Tx) = y^TDy = \lambda_1y_1^2 + \lambda_2y_2^2 + &hellip; + \lambda_ny_n^2
+$$</p>
+<p>If the eigenvalues of $A$ are positive, then $x^TAx &gt; 0$ and $A$ is positive definite. On the other hand, if $A$ is positive definite, then $x^TAx &gt; 0$ for any $x \ne 0$. If we substitute $x$ with an eigenvector $v_1$, we have</p>
+<p>$$
+v_1^T A v_1 = v_1^T \lambda v_1 = \lambda v_1^Tv_1 = \lambda ||v_1||^2 \gt 0
+$$</p>
+<p>Thus, $\lambda  &gt; 0$.</p>
+<h3 id="convex-set">Convex Set</h3>
+<p>Before we talk about convex function, let&rsquo;s start with convex region and convex set.</p>
+<p>A region $R$  is said to be a convex region if any two points $x$ and $y$ in that region plus any $a \in [0, 1]$ satisfy,</p>
+<p>$$
+z = a x + ( 1 - a )y \in R
+$$</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/convex-region.png" alt="">
+    <figcaption>Figure 3: Convex region and non-convex region</figcaption>
+  </figure>
+
+</p>
+<p>Similarly, for any set of points $S$, if for any two points $x, y \in S$ and any $a \in [0, 1]$ satisfy
+$$
+z = a x + ( 1 - a )y \in S
+$$
+then $S$ is a convex set. We can prove that the set of positive semi-definite matrices form a convex set. Let $A_1, A_2 \in S$, compute</p>
+<p>$$
+x^T z x = x^T (a A_1 + ( 1 - a)A_2)x = x^TaA_1x + x^T ( 1-a) A_2 x \ge 0
+$$</p>
+<p>Thus, $z$ is positive semi-definite and $z \in S$.</p>
+<h3 id="convex-function">Convex Function</h3>
 <h2 id="jensens-inequality">Jensen’s inequality</h2>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf">https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf</a></li>
+<li><a href="https://www-cs.stanford.edu/people/davidknowles/lagrangian_duality.pdf">https://www-cs.stanford.edu/people/davidknowles/lagrangian_duality.pdf</a></li>
 </ul>
 
 
@@ -312,7 +488,6 @@ $$</p>
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#unconstrained-optimisation">Unconstrained Optimisation</a></li>
     <li><a href="#equality-constraints">Equality Constraints</a>
       <ul>
         <li><a href="#multiple-constraints">Multiple Constraints</a></li>
@@ -326,8 +501,21 @@ $$</p>
         <li><a href="#many-inequalities">Many Inequalities</a></li>
       </ul>
     </li>
-    <li><a href="#duality">Duality</a></li>
-    <li><a href="#convex">Convex</a></li>
+    <li><a href="#duality">Duality</a>
+      <ul>
+        <li><a href="#primal-problem">Primal Problem</a></li>
+        <li><a href="#dual-problem">Dual Problem</a></li>
+        <li><a href="#linear-programming">Linear Programming</a></li>
+        <li><a href="#quadratic-programming">Quadratic Programming</a></li>
+      </ul>
+    </li>
+    <li><a href="#convexity">Convexity</a>
+      <ul>
+        <li><a href="#quadratic-form">Quadratic Form</a></li>
+        <li><a href="#convex-set">Convex Set</a></li>
+        <li><a href="#convex-function">Convex Function</a></li>
+      </ul>
+    </li>
     <li><a href="#jensens-inequality">Jensen’s inequality</a></li>
     <li><a href="#references">References</a></li>
   </ul>
