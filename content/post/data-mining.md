@@ -12,7 +12,7 @@ katex: true
 
 
 
-I am not sure what I've learned from the module 'Data Mining' is truly useful to me. It seems that the lecturers tried to cover everything, but in fact, they only scratched the surface due to time limits. Besides, the content they taught were less integrated. Half of the lectures revolve around the graph theory, the left are a mix of various techniques of machine learning. I am not going to do works related to graph, so I won't bother to learn such stuff. What I found really practical are information theory, association analysis, regression and recommender systems. And the first two are the main topics of this article.
+I am not sure what I've learned from the module 'Data Mining' is truly useful to me. It seems that the lecturers tried to cover everything, but in fact, they only scratched the surface due to time limits. Besides, the content they taught were less integrated. Half of the lectures revolved around the graph theory, the left were a mix of various techniques of machine learning. I am not going to do works related to graph, so I won't bother to learn such stuff. What I found really practical are information theory, association analysis, regression and recommender systems. And the first two are the main topics of this article.
 
 
 
@@ -22,7 +22,9 @@ I am not sure what I've learned from the module 'Data Mining' is truly useful to
 
 ## Information Theory
 
-I remembered that I would have learned a little stuff about information when I was at my undergraduate. Well, I am not sure...It's been almost 10 years. But as a CS student, I know that when it comes to information theory, we will definitely talk about a person — Shannon. So what's the information theory? What problems does it help to solve?
+
+
+I remembered that I'd learned a little stuff about information when I was at my undergraduate. Well, I am not sure...It's been almost 10 years. But as a CS student, I know that when it comes to information theory, we will definitely talk about a person — Shannon. So what's the information theory? What problems does it help to solve?
 
 
 
@@ -32,9 +34,7 @@ First, let's understand what information is. Consider a guessing game, Alice ran
 
 If we know that Alice has some preferences for some particular numbers, say she likes 88 most. Then the first question we ask at this time would be 'is it 88?'. If we are luckly enough, we will get the number once.
 
-
-
-Alternately, since 88 is the number that Alice likes most, there is no doubt that she chooses 88 as the riddle. On the contratry, if Alice is going to suprise us, she is likely to use numbers that she doesn't like very much.
+On the other hand, since 88 is the number that Alice likes most, there is no doubt that she chooses 88 as the riddle. Conversely, if Alice is going to suprise us, she is likely to use numbers that she doesn't like very much. If so, it would also take us many guesses.
 
 
 
