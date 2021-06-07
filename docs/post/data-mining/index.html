@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>Data Mining</title>
+<title>Information Theory</title>
 
 
   
@@ -18,8 +18,8 @@
   title=""
 />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Data Mining"/>
-<meta name="twitter:description" content="I am not sure what I&rsquo;ve learned from this module is truly helpful for me because the content of this module is a hodgepodge of many subjects. The lecturers indeed delivered something useful, but the knowledge is rather scattered and less integrated. It seems that they tried to cover everything, but in fact, they only scratched the surface due to time limits. Anyway, I gained some insights from this module, and I will talk about some topics I found interesting and useful in this post."/>
+<meta name="twitter:title" content="Information Theory"/>
+<meta name="twitter:description" content="I am not sure what I&rsquo;ve learned from the module &lsquo;Data Mining&rsquo; is truly useful to me. It seems that the lecturers tried to cover everything, but in fact, they only scratched the surface due to time limits. Besides, the content they taught were less integrated. Half of the lectures revolve around the graph theory, the left are a mix of various techniques of machine learning. I am not going to do works related to graph, so I won&rsquo;t bother to learn such stuff. What I found really practical are information theory, association analysis, regression and recommender systems. And the first two are the main topics of this article."/>
 
 
 
@@ -120,15 +120,15 @@
     <div class="container">
       <div class="post-heading">
         
-          <h1>Data Mining</h1>
+          <h1>Information Theory</h1>
         
         
         
           <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;May 17, 2021
+  >&nbsp;Jun 7, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;1 1 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -157,32 +157,45 @@
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>I am not sure what I&rsquo;ve learned from this module is truly helpful for me because the content of this module is a hodgepodge of many subjects. The lecturers indeed delivered something useful, but the knowledge is rather scattered and less integrated. It seems that they tried to cover everything, but in fact, they only scratched the surface due to time limits. Anyway, I gained some insights from this module, and I will talk about some topics I found interesting and useful in this post.</p>
+  <p>I am not sure what I&rsquo;ve learned from the module &lsquo;Data Mining&rsquo; is truly useful to me. It seems that the lecturers tried to cover everything, but in fact, they only scratched the surface due to time limits. Besides, the content they taught were less integrated. Half of the lectures revolve around the graph theory, the left are a mix of various techniques of machine learning. I am not going to do works related to graph, so I won&rsquo;t bother to learn such stuff. What I found really practical are information theory, association analysis, regression and recommender systems. And the first two are the main topics of this article.</p>
 <h2 id="information-theory">Information Theory</h2>
+<p>I remembered that I would have learned a little stuff about information when I was at my undergraduate. Well, I am not sure&hellip;It&rsquo;s been almost 10 years. But as a CS student, I know that when it comes to information theory, we will definitely talk about a person — Shannon. So what&rsquo;s the information theory? What problems does it help to solve?</p>
+<h3 id="information">Information</h3>
+<p>First, let&rsquo;s understand what information is. Consider a guessing game, Alice randomly chooses a number between 1 and 100, then we need to make a guess what that number is. An intuitive method is to use dichotomy search. We may ask &lsquo;is it larger or smaller than 50?&rsquo;. If it&rsquo;s less than 50, we continue to ask &lsquo;is it larger or smaller than 25?&rsquo; We do this iteratively until we find the right number. Mathematically, the number of searches is $log_2(100)$. If the number Alice chooses is small, say 3, then it would take many steps to get the correct answer.</p>
+<p>If we know that Alice has some preferences for some particular numbers, say she likes 88 most. Then the first question we ask at this time would be &lsquo;is it 88?&rsquo;. If we are luckly enough, we will get the number once.</p>
+<p>Alternately, since 88 is the number that Alice likes most, there is no doubt that she chooses 88 as the riddle. On the contratry, if Alice is going to suprise us, she is likely to use numbers that she doesn&rsquo;t like very much.</p>
+<p>The number of questions we ask or the degree of surprise is information, which is measured by</p>
+<p>$$
+I(x) = -log(p(x))
+$$</p>
+<p>where $p(x)$ is a probablity distribution of a random variable $x$. It&rsquo;s clear that a rare event will cause much surprise and consequently contain much information.</p>
+<h3 id="entropy">Entropy</h3>
+<h3 id="cross-entropy">Cross-entropy</h3>
 <h2 id="market-basket-analysis">Market Basket Analysis</h2>
-<h2 id="network">Network</h2>
-<h2 id="community-detection">Community Detection</h2>
-<h2 id="link-prediction">Link Prediction</h2>
-<h2 id="pagerank">Pagerank</h2>
-
+<h2 id="references">References</h2>
 
 
 
         
       </article>
 
+      
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#information-theory">Information Theory</a></li>
+    <li><a href="#information-theory">Information Theory</a>
+      <ul>
+        <li><a href="#information">Information</a></li>
+        <li><a href="#entropy">Entropy</a></li>
+        <li><a href="#cross-entropy">Cross-entropy</a></li>
+      </ul>
+    </li>
     <li><a href="#market-basket-analysis">Market Basket Analysis</a></li>
-    <li><a href="#network">Network</a></li>
-    <li><a href="#community-detection">Community Detection</a></li>
-    <li><a href="#link-prediction">Link Prediction</a></li>
-    <li><a href="#pagerank">Pagerank</a></li>
+    <li><a href="#references">References</a></li>
   </ul>
 </nav>
       </aside>
+      
     </div>
 
     

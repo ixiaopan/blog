@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Thu, 03 Jun 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Information Theory</title>
+			<link>https://ixiaopan.github.io/blog/post/data-mining/</link>
+			<pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/data-mining/</guid>
+			<description>&lt;p&gt;I am not sure what I&amp;rsquo;ve learned from the module &amp;lsquo;Data Mining&amp;rsquo; is truly useful to me. It seems that the lecturers tried to cover everything, but in fact, they only scratched the surface due to time limits. Besides, the content they taught were less integrated. Half of the lectures revolve around the graph theory, the left are a mix of various techniques of machine learning. I am not going to do works related to graph, so I won&amp;rsquo;t bother to learn such stuff. What I found really practical are information theory, association analysis, regression and recommender systems. And the first two are the main topics of this article.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Constrained Optimisation</title>
 			<link>https://ixiaopan.github.io/blog/post/constrained-optimisation/</link>
@@ -84,14 +92,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/bias-variance-dilemma/</guid>
 			<description>&lt;p&gt;When you learn more about machine learning, you must  hear people talking about high bias, high variance or something like that. What do they mean by &amp;lsquo;high bias&amp;rsquo; or &amp;lsquo;high variance&amp;rsquo;?&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Linear Regression 01</title>
-			<link>https://ixiaopan.github.io/blog/post/linear-regression-01/</link>
-			<pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/linear-regression-01/</guid>
-			<description>&lt;p&gt;There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in machine learning. So let&amp;rsquo;s go!&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
