@@ -1,7 +1,7 @@
 ---
 title: "Constrained Optimisation"
 date: "2021-06-03"
-description: "When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I'd already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key."
+description: "When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I'd already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key. "
 # tags: []
 categories: [
     "Machine Learning",
@@ -13,7 +13,7 @@ katex: true
 
 
 
-When I first learned machine learning, I was scared by the complicated formulas. Actually, I spent much time going over subjects like Linear Algebra and Calculus since I'd already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-wold problems is the key. 
+When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I'd already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key. 
 
 
 
@@ -21,7 +21,9 @@ When I first learned machine learning, I was scared by the complicated formulas.
 
 
 
-As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the miminum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still chance that we can reach local optimisation only. From this, we can see that there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. Furthermore, constrained optimisation can be divided into two parts: euqality constraints and inequality constraints. And we will focus on constrained optimisation in this article.
+As we all know, the main effort in machine learning is to find a loss function and optimise it, i.e. find the minimum or maximum point, and this is the question of optimisation. However, we may only find local optimisation because of some constraints. Even without constraints, there is still a chance that we would reach local optimisation only. In short, there are two main situations we need to consider: unconstrained optimisation and constrained optimisation. And constrained optimisation further falls into two categories, equality constraints or inequality constraints. 
+
+On the other hand, the extreme value of a function typically relates to some property of that function. That means if we know a function has some particular property, then we know that it must have an extreme value or not. This property can be characterised by convexity. As you can see, this post will be very mathematical. Seems a bit scary, ummm...
 
 
 
@@ -194,7 +196,7 @@ but with an additional constraint $\alpha > 0$. So why do we set $\alpha > 0$ he
 
 Visually, it can be seen From Figure 2 b) that both the magenta and blue points seem to be the right point we are seeking. But in fact, only the bule one is in a lower position. And we find that $\nabla_x f(x) $ and $\nabla_x g(x)$ point to the same direction at the blue point. Thus, $\alpha$ is positive. 
 
-In theory, if we are at a point where $-\nabla_x f(x)$ points to the feasible region, which is the area defined by $g(x) > 0$, i.e. any value of $x$ inside this region is valid, it means that a point with a smaller value of $f(x)$ could be found in the feasible region. But it is contradictory to the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point. 
+In theory, if we are at a point where $-\nabla_x f(x)$ points to the feasible region, which is the area defined by $g(x) > 0$, i.e. any value of $x$ inside this region is valid, it means that a point with a smaller value of $f(x)$ could be found in the feasible region. But it contradicts the assumption that we can only move along the boundary of the region. In other words, this is not the optimal point. 
 
 If $-\nabla_x f(x)$ at some point points to the exterior of the feasible region, then we are in the right position because the outer of the feasible region is invalid and we cannot move forward any further(we are already on the border of the region).
 
@@ -442,13 +444,11 @@ $$
 
 
 
-> Quadratic form is a polynominal function with terms all of degree of two. For example, $4x^2 + 2xy - 3y^2$ 
->
->  —Wikipedia.
+> Quadratic form is a polynominal function with terms all of degree of two. For example, $4x^2 + 2xy - 3y^2$.  — Wikipedia
 
 
 
-For simplicity, we often write it in matrix notation, as shown below
+Here "the degree of two" means that the sum of exponents for each term is 2. A general quadratic form of $n$ variables is defined below, where $M$ could be chosen symmetric.
 
 
 $$
@@ -461,35 +461,42 @@ In this example $4x^2 + 2xy - 3y^2$, the quadratic form is given by,
 
 $$
 Q(\bold x) = \bold x^TM\bold x = \displaystyle{\begin{bmatrix}x&y\end{bmatrix}
-\begin{bmatrix}4&2\\\\0&3 \end{bmatrix}\begin{bmatrix}x\\\\y\end{bmatrix}
+\begin{bmatrix}4&1\\\\1&-3 \end{bmatrix}\begin{bmatrix}x\\\\y\end{bmatrix}
 }
 $$
 
 
-From this we can see that quadratic form is a mapping from $R^d$ to $R$, so its value could be one of the following cases,
+Basically, quadratic form is a mapping from $R^d$ to $R$. Without doubtness, for any quadratic form, we have $Q(\bold 0) = 0$. But is $x=\bold 0$ is the minimum or maximum point for $Q$ ? The answer is determined by the **definiteness** of $Q$ described below,
 
 - $Q(\bold x) \gt0$, 
-  - Q is positive definite
+  - positive definite
 - $Q(\bold x) \ge 0$, 
-  - Q is positive semi-definite
+  - positive semi-definite
 - $Q(\bold x) \lt 0$ , 
-  - Q is negative definite
+  - negative definite
 - $Q(\bold x) \le 0$, 
-  - Q is negative semi-definite
+  - negative semi-definite
 - $Q(\bold x)$ could be both positive and negative
-  - Q is idefinite
+  - indefinite
+
+Clearly,
+
+- if $Q$ is positive definite, then $x = 0$ is global minimum
+- if $Q$  is negative definite, then $x = 0$ is global maximum
 
 
 
-Furthermore, quadratic form can also be characterised in terms of eigenvalues. Let $A$ be an $n \times n$ symmetric matrix. Then a quadratic form $x^TAx$ is:
+Furthermore, quadratic form can also be characterised in terms of eigenvalues:
 
-- positive definite if and only if the eigenvalues of $A$ are positive,
-- negative definite if and only if the eigenvalues of $A$ are negative, 
-- indefinite if and only if A has bothe positive and negative eigenvalues
+- positive definite if and only if the eigenvalues of $M$ are positive,
+- negative definite if and only if the eigenvalues of $M$ are negative, 
+- indefinite if and only if $M$ has bothe positive and negative eigenvalues
 
 
 
-Here are some proofs. First, we should know that any two eigenvectors from different eigenspaces of a symmetric matrix are orthogonal and any symmetric matrix can be orthogonally diagonalizable. Let $\bold P = [\bold v1, \bold v2, ..., \bold v_n]$ be eigenvectors that correspond to different eigenvalues $\Lambda= \lambda_1, \lambda_2, ..., \lambda_n$ of a symmetric matrix $A$. To show that $v_1 \cdot v_2 = 0$, compute
+Here are some proofs. First, we should know that any two eigenvectors from different eigenspaces of a symmetric matrix are orthogonal and any symmetric matrix can be orthogonally diagonalizable. 
+
+Let $\bold P = [\bold v1, \bold v2, ..., \bold v_n]$ be eigenvectors that correspond to different eigenvalues $\Lambda= \lambda_1, \lambda_2, ..., \lambda_n$ of a symmetric matrix $A$. To show that $v_1 \cdot v_2 = 0$, compute
 
 
 $$
@@ -531,7 +538,7 @@ Thus, $\lambda  > 0$.
 
 
 
-### Convex Set
+### Convex Region
 
 Before we talk about convex function, let's start with convex region and convex set. 
 
@@ -544,6 +551,10 @@ $$
 
 
 ![](/blog/post/images/convex-region.png "Figure 3: Convex region and non-convex region")
+
+
+
+### Convex Set
 
 
 
@@ -564,6 +575,181 @@ Thus, $z$ is positive semi-definite and $z \in S$.
 
 
 ### Convex Function
+
+Any function is said to be **convex** if any two points $x$ and $y$ plus $a \in [0, 1]$ satisfy
+
+
+$$
+af(x) + (1 - a) f(y) \ge f(a x + (1 -a ) y)
+$$
+
+
+![](/blog/post/images/convex-func.png "Figure 4: Convex function")
+
+
+
+Conversely, if the condition doesn't meet, the function then is said to be a **convex-down or concave** function. These two functions are symmetric — everything true for convex functions is also true for concave functions.
+
+At the beginning, I often mixed up them. I couldn't tell which figure is convex or concave. But later, I found a simple way to distinguish them correctly. First we find the lowest point or the highest point of a figure. Then we observe the direction along which the curve expands. If the direction is toward down, the function is concave. Otherwise, it's convex. By the way, the area enclosed by the curve (lies on or above the curve ) is defined as **epigraph**. The epigraph of a convex function forms a convex region, and if the epigraph of a function forms a convex region then the function is convex.
+
+
+
+#### Linear Functions
+
+
+
+Now let's take a look at a special case — equality. A function that we are quite familar with satisfies the equality, which is linear function.
+
+
+$$
+f(x) = mx + c
+$$
+It's easy to proove it.
+
+
+$$
+m(ax + (1 - a)y) + c = max + my - may + c = af(x) - ac  + my(1 -a) + c
+\\\\= af(x) + my(1-a) + c(1-a) = af(x) + (1-a)f(y)
+$$
+
+
+So is it a convex or concave function? The answer is both.
+
+#### Strictly Convex
+
+What about the condition without euqality? Well, such a condition is called strict inequality and functions that satisfy the strict inequality is said to be **strictly convex/concave**.
+
+
+
+#### Second derivative
+
+
+
+One thing we should remember is that any tangent line of a convex funtion lies on or below the function. Let $t, z$ be two points on the graph of a convex function, then we can derive the following conditions,
+
+- $ t  \lt z$
+
+
+$$
+f(t) + f'(x) (z - t)\le f(z)
+$$
+
+$$
+f'(t) \le \frac{f(z) - f(t)}{z - t}
+$$
+
+
+- $ t  \gt z$
+
+$$
+f(t) - f'(t)(t - z) \le f(z)
+$$
+
+$$
+\frac{f(t) - f(z)}{(t - z)}  \le f'(t)
+$$
+
+
+
+
+
+The two conditions can be combined as a single condition for any two points $a, b$ that satisfies $a < b$ as follows,
+
+
+$$
+f'(a) \le \frac{f(a) - f(b)}{b-a}  \le f'(b)
+$$
+
+
+Hence, $f''(a) \ge 0$. 
+
+In high dimension, the second derivative of a function is known as Hessian. And a necessary and sufficient condition for that function to be convex is that its Hesssian must be positive semi-positive at all points.
+
+
+
+#### Sums of Convex functions
+
+
+
+If we have a set of convex functions, then it's easy to prove that the sum of the multiplication of positive factors and these functions is also a convex function using the property that the second derivative is equal or greater than zero. Below is the proof.
+
+
+$$
+g(x) = \sum_i \alpha_i f_i(x)
+$$
+
+$$
+g''(x) = \sum_i \alpha_i f''_i(x) \ge 0
+$$
+
+
+
+### Unique Minimum
+
+
+
+As said early, convexity can help to find the extreme value of a function. How does it work? Let $x^\*$ be a local minimum of a function, suppose there exists another points $\hat x$ such that $f(\hat x) < f(x^\*)$. By the definition of convexity, we have
+
+
+$$
+f(a \hat x + (1-a)x^\*) \le af(\hat x) + (1-a) f(x^\*) \le af(x^\*) + (1-a) f(x^\*) = f(x^\*)
+$$
+
+
+If we set $ a \rarr 0 $, it means that there exist points around $x^\*$ with a smaller value than $f(x\*)$, which is a contradiction to the definition of local minimum. 
+
+Thus, we can see that any local minimum of a convex funtion is a global minimum. Besides, 
+
+- there could be many local minimum for a convex function. In other words, the minimum of a convex function will form a convex set.
+- a strictly convex function has at most one global minimum
+
+
+
+Putting it together, the whole process of determining whether a function would have a minimum is shown in Figure 5 
+
+
+
+![](/blog/post/images/find-minimum.png#full "Figure 5: Using Hessian to determine whether a function is a convex function ")
+
+
+
+### Inverse of Convex Funtions
+
+Let $f(x)$ be a convex function, how about the convexity of the inverse of it, i.e. $g(x) = f^{-1}(x)$? 
+
+First, the second derivative of a composite function is given by
+
+
+$$
+\frac{d^2f(g(x))}{dx^2} = \frac{d f'(g(x)) g'(x)}{dx} = f''(g(x)) [g'(x)]^2 + f'(x) g''(x)
+$$
+
+
+Besides, if $f^{-1}(x)$ is the invese of $(x)$, we have
+
+
+$$
+f(f^{-1}(x)) = x
+$$
+
+$$
+f''(f^{-1}(x)) = 0
+$$
+
+
+Thus, we conclude that
+
+
+$$
+g''(x) = - \frac{f''(g(x)) [g'(x)]^2}{f'(g(x))}
+$$
+
+
+Since $f''(x) \ge 0$ and $[g'(x)]^2 \ge 0$, the sign of $g''(x)$ is determined by $-f'(g(x))$.
+
+
+
+Here is an example. Let $f(x) = x^2$ , so that $f''(x) = 2 \gt 0$ and $f'(x) = 2x$. Since  $g(y) = f^{-1}(y) = \sqrt y \ge 0$, $f'(g(x)) \ge 0$ and consequently $\sqrt x$ is concave.
 
 
 
