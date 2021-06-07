@@ -128,7 +128,7 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 3, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;17 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;18 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -578,6 +578,33 @@ $$</p>
 <p>Since $f''(x) \ge 0$ and $[g'(x)]^2 \ge 0$, the sign of $g''(x)$ is determined by $-f'(g(x))$.</p>
 <p>Here is an example. Let $f(x) = x^2$ , so that $f''(x) = 2 \gt 0$ and $f'(x) = 2x$. Since  $g(y) = f^{-1}(y) = \sqrt y \ge 0$, $f'(g(x)) \ge 0$ and consequently $\sqrt x$ is concave.</p>
 <h2 id="jensens-inequality">Jensen’s inequality</h2>
+<p>Jensen’s inequality involves inequality of convex function, which states that for any convex function $f(x)$,</p>
+<p>$$
+E[f(x)] \ge f(E[x])
+$$</p>
+<p>and for any concave function,</p>
+<p>$$
+E[f(x)] \le f(E[x])
+$$</p>
+<p>It&rsquo;s easy to prove using the fact that a convex function must lie on or above its tangent line at any point $x'$</p>
+<p>$$
+f(\hat x) \ge f(x') + (\hat x - x')^T \nabla f(x)
+$$</p>
+<p>so this is true for $x' = E[x]$</p>
+<p>$$
+f(\hat x) \ge f(E[x]) + (\hat x - E[x])^T \nabla f(x)
+$$</p>
+<p>then taking expectations of both sides</p>
+<p>$$
+E[f(\hat x)] \ge f(E[x]) + (E[\hat x] - E[x])^T \nabla f(x) = f(E[x])
+$$</p>
+<p>A typical example is $f(x) = x^2$, Jensen&rsquo;s inequality shows that</p>
+<p>$$
+E[x^2] - E^2[x] \ge 0
+$$</p>
+<p>Well, it&rsquo;s the formula of variance, and variance are non-negative.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Finally, we&rsquo;re here. I spent several days to write up this article. To be honest, I am not a math person, and it was a struggle to explain these mathematical concepts and formulas. But in doing so, I had a better understanding about optimisation. But knowing these equations only is not enough, the key point is to learn to apply them in machine learning to solve real-world problems. Anyway, we are done for now.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf">https://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf</a></li>
@@ -625,6 +652,7 @@ $$</p>
       </ul>
     </li>
     <li><a href="#jensens-inequality">Jensen’s inequality</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>

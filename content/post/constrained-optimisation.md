@@ -759,6 +759,66 @@ Here is an example. Let $f(x) = x^2$ , so that $f''(x) = 2 \gt 0$ and $f'(x) = 2
 
 
 
+Jensen’s inequality involves inequality of convex function, which states that for any convex function $f(x)$, 
+
+
+$$
+E[f(x)] \ge f(E[x])
+$$
+
+
+and for any concave function,
+
+
+$$
+E[f(x)] \le f(E[x])
+$$
+
+
+It's easy to prove using the fact that a convex function must lie on or above its tangent line at any point $x'$
+
+
+$$
+f(\hat x) \ge f(x') + (\hat x - x')^T \nabla f(x)
+$$
+
+
+so this is true for $x' = E[x]$
+
+
+$$
+f(\hat x) \ge f(E[x]) + (\hat x - E[x])^T \nabla f(x)
+$$
+
+
+then taking expectations of both sides
+
+
+$$
+E[f(\hat x)] \ge f(E[x]) + (E[\hat x] - E[x])^T \nabla f(x) = f(E[x])
+$$
+
+
+
+
+A typical example is $f(x) = x^2$, Jensen's inequality shows that 
+
+
+$$
+E[x^2] - E^2[x] \ge 0
+$$
+
+
+Well, it's the formula of variance, and variance are non-negative.
+
+
+
+## Conclusion
+
+
+
+Finally, we're here. I spent several days to write up this article. To be honest, I am not a math person, and it was a struggle to explain these mathematical concepts and formulas. But in doing so, I had a better understanding about optimisation. But knowing these equations only is not enough, the key point is to learn to apply them in machine learning to solve real-world problems. Anyway, we are done for now.
+
 
 
 ## References
