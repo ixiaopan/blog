@@ -817,7 +817,7 @@ Well, it's the formula of variance, and variance are non-negative.
 
 
 
-Finally, we're here. I spent several days to write up this article. To be honest, I am not a math person, and it was a struggle to explain these mathematical concepts and formulas. But in doing so, I had a better understanding about optimisation. But knowing these equations only is not enough, the key point is to learn to apply them in machine learning to solve real-world problems. Anyway, we are done for now.
+Finally, we're here. I spent several days writing up this article. To be honest, I am not a math person, and it was a struggle to explain these mathematical concepts and formulas clearly and accurately. But in doing so, I had a better understanding about optimisation. But knowing these equations only is not enough, the key point is to learn to apply them in machine learning to solve real-world problems. Anyway, we are done for now.
 
 
 

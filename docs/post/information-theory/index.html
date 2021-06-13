@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Information Theory</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Information Theory"/>
+<meta name="twitter:description" content="I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?"/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Information Theory</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 7, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?</p>
+<h2 id="information">Information</h2>
+<p>First, let&rsquo;s understand what information is. Consider a guessing game where Alice randomly chooses a number between 1 and 100, and then we need to guess what that number is. An intuitive method is to use a dichotomy search. We may ask, &lsquo;is it larger or smaller than 50?&rsquo;. If it&rsquo;s less than 50, we continue to ask, &lsquo;is it larger or smaller than 25?&rsquo; We do this iteratively until we find the right number. Mathematically, the number of searches is $log_2(100)$. If the number Alice chooses is small, say 3, then it would take many steps to get the correct answer.</p>
+<p>If we know that Alice has some preferences for some particular numbers, say she likes 88 most. Then the first question we ask at this time would be &lsquo;is it 88?&rsquo;. If we are lucky enough, we will get the number once. On the other hand, since 88 is the number that Alice likes most, there is no doubt that she is likely to choose 88 as the riddle. Conversely, if Alice is going to surprise us, she would choose a number that she doesn&rsquo;t like very much. If so, it increases the uncertainty of our guess, i.e. we would need to ask more questions.</p>
+<p>The number of questions we ask or the degree of surprise is information, which is measured by</p>
+<p>$$
+I(X=x) = -log(p(X=x))
+$$</p>
+<p>where $p(x)$ is a probability of occurence of x. So information quantifies how uncertain an event is. A rare event will cause much surprise and consequently contain much information.</p>
+<h2 id="entropy">Entropy</h2>
+<p>Suppose we have a probability distribution $p(x)$ over a random variable $X$, and the value of each outcome represents information associated with it. The entropy of $X$ is then defined as the expectation of information,</p>
+<p>$$
+H(X) = -\sum_{x \in X} P(X=x) \text{log} P(X=x)
+$$</p>
+<p>If a random variable $X$ follows binominal distribution with probability $p$, then its entropy is computed as follows,</p>
+<p>$$
+H(X) = -p\text{In}p - (1-p)\text{In}(1-p)
+$$</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/Binary_entropy_plot.png" alt="">
+    <figcaption>Figure 1: Plot of binary entropy (Wikipedia)</figcaption>
+  </figure>
+
+</p>
+<p>Figure 1 shows how $H(X)$ changes as $p$ changes. We can see that $H(X)$ tends to be zero if $p$ lies on the end of x-axis, which means that it tells us rare information since we know what to expect. On the contrary, $H(X)$ reaches the highest point if $p=0.5$, this is because we don&rsquo;t know what to expect and anything could happen. From this view, entropy is also a measure of how uncertain $X$ is. The higher the entropy is, the higher the uncertainty is.</p>
+<h2 id="kl-divergence">KL Divergence</h2>
+<p>Given two probability distribution $f(x)$ and $g(x)$ for a random variable $x$, the difference between them is defined as KL divergence, which is sometimes called relative entropy</p>
+<p>$$
+D(f||g) = \sum_{x \in X} f(x) \text{log} \frac{f(x)}{g(x)} = -\sum_{x \in X} f(x) \text{log} g(x) + f(x) \text{log} f(x)
+$$</p>
+<h2 id="cross-entropy">Cross-entropy</h2>
+<p>Combing the definition of entropy, we have</p>
+<p>$$
+H(f)= -\sum_{x \in X} f(x) \text{log} f(x)
+$$</p>
+<p>$$
+H(f, g) = -\sum_{x \in X} f(x) \text{log} g(x)
+$$</p>
+<p>$$
+D(f||g) = H(f, g) - H(f)
+$$</p>
+<p>where $H(f, g)$ is cross-entropy, which is the expected information of $X$ sampled from a probability distribution $f(x)$ with outcomes encoded using another distribution $g(x)$. We can find that KL divergence can be decomposed into two parts: cross-entropy and the entropy of $X$ sampled from $f(x)$. Usually $f(x)$ is considered as &lsquo;true&rsquo; probability distribution, so miniming KL divergence against a fixed reference distribution $f$ is equivalent to minimising cross-entropy.</p>
+<p>Cross-entropy is a common loss function used in classification tasks. Suppose there are 3 classes, the class distribution for a given $x$ is $0, 1, 0$ and our model might give us a predicted class distribution, say $0.2, 0.5, 0.3$. Then, we calculate entropy for this observation, $H(f, g) = -(0 + 1 *\text{log}0.5 + 0) = 1$. After a period of learning, the model could give us a better predicted label distribution say $0.05,0.9,0.05$, and this time, we find that the entropy decreases to $0.15$. It shows that the difference between our model and true distribution is decreasing.</p>
+<h2 id="conditional-entropy">Conditional Entropy</h2>
+<p>Like conditional probability, we define conditional entropy as the uncertainty about a random variable $C$ after we observe one feature $x$ in $X$</p>
+<p>$$
+H(C|X=x) = -\sum_{c \in C} p(c|X=x) \text{log} p(c|X=x)
+$$</p>
+<p>The difference between the entropy $H(C)$ and the conditional entropy $H(C|X=x)$ is realized information</p>
+<p>$$
+I[C; X=x] = H(C) - H(C|X=x)
+$$</p>
+<p>Hence, $I(C;X=x)$ measures how much uncertainty of $C$ changes due to observering $x$. Here, we use &lsquo;change&rsquo; because realized information is not always reduced.</p>
+<h2 id="mutual-information">Mutual Information</h2>
+<p>Mutual information defined below tells us the expected reduction in uncertainty of $C$ that a feature gives us</p>
+<p>$$
+I(C; X) = H(C) - \sum_x p(X=x) H(C|X=x)
+$$
+Here are some important notes about mutual information:</p>
+<ul>
+<li>it is always positive</li>
+<li>it is zero if $C$ and $X$ are statistically independent</li>
+<li>it is symmetric in X and C</li>
+</ul>
+<p>In fact, we have met mutual information before — information gain in decision trees.</p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#information">Information</a></li>
+    <li><a href="#entropy">Entropy</a></li>
+    <li><a href="#kl-divergence">KL Divergence</a></li>
+    <li><a href="#cross-entropy">Cross-entropy</a></li>
+    <li><a href="#conditional-entropy">Conditional Entropy</a></li>
+    <li><a href="#mutual-information">Mutual Information</a></li>
+  </ul>
+</nav>
+      </aside>
+      
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

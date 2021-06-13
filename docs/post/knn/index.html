@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>K-nearest neighbours</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K-nearest neighbours"/>
+<meta name="twitter:description" content="K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It&#39;s simple and intutive to understand because it doesn&#39;t require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works."/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>K-nearest neighbours</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 12, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It&rsquo;s simple and intutive to understand because it doesn&rsquo;t require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works.</p>
+<h2 id="how-knn-works">How KNN works</h2>
+<p>Suppose we have a dataset and a new data point, we want to know which class this new example belong to or what the predicted value is if it&rsquo;s a regression task. KNN woks in this way,</p>
+<ul>
+<li>Choose a value for $K$</li>
+<li>Calculate distances between the new point and each sample of the training data</li>
+<li>Sort the distances from the nearest to farthest and get the first $K$ nearest samples</li>
+<li>For classification
+<ul>
+<li>Majority vote among the $K$ observations. The new data belongs to class that has the highest votes.</li>
+</ul>
+</li>
+<li>For regression
+<ul>
+<li>Average the value of the $K$ observations</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">majority_vote</span>(labels):
+	votes <span style="color:#f92672">=</span> Counter(labels)
+	
+	label, _ <span style="color:#f92672">=</span> votes<span style="color:#f92672">.</span>most_common(<span style="color:#ae81ff">1</span>)[<span style="color:#ae81ff">0</span>]
+
+	<span style="color:#66d9ef">return</span> label
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">knn_classify</span>(inputs, labels, x, k, distance):
+	distances <span style="color:#f92672">=</span> sorted([ (distance(x, point), label) 
+                     <span style="color:#66d9ef">for</span> point, label <span style="color:#f92672">in</span> zip(inputs, labels)], 
+		key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span>: lp:lp[<span style="color:#ae81ff">0</span>])
+		
+	k_nearest_labels <span style="color:#f92672">=</span> [ lp[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">for</span> lp <span style="color:#f92672">in</span> distances[:k] ]
+	
+	<span style="color:#66d9ef">return</span> majority_vote(k_nearest_labels)
+
+</code></pre></div><p>What if we have the same votes for two different categories?</p>
+<ul>
+<li>Pick one of them randomly</li>
+<li>Calculate weighted voting</li>
+<li>Reduce k until we find a unique answer</li>
+</ul>
+<h2 id="distance">Distance</h2>
+<p>From above, we can see that the main problems are how to find an appropriate $K$ and how to measure distance. There are several common distance measures in machine learning, such as Euclidean and Manhattan. They are applied in different situations, so knowing how and when they can be best used is important to improve our model performance.</p>
+<h3 id="euclidean-distance">Euclidean Distance</h3>
+<p>Euclidean distance is defined as follows,</p>
+<p>$$
+D = \sqrt{\sum_i^d (x_i - y_i)^2}
+$$</p>
+<p>It&rsquo;s simply the length of the straight line connecting two points. We should be careful with it because it&rsquo;s sensitve to the scale of features. So we need to normalize data first. Besides, it is not suitable for high-dimensional space. Anyway, it&rsquo;s still the most common and straightforward distance measure.</p>
+<h3 id="cosine-distance">Cosine Distance</h3>
+<p>Cosine distance measures the closeness between two points by calculating the angle between them.</p>
+<p>$$
+D = \text{cos}\theta = \frac{x \cdot y}{||x|| \text{ } ||y||}
+$$</p>
+<p>So this method doesn&rsquo;t care about the length of a vector. If we are more interested in the direction of a vector rather than the length, it would be a better choice. For example, two documents represented by word-document vector could be similar even they vary in the number of the same words. This might be because one document is just much longer than another one, but they are all related to the same topic.</p>
+<h3 id="manhattan-distance">Manhattan Distance</h3>
+<p>Manhattan distance is defined as the sum of steps moving from one point to another point. You can only move along the horizontal direction or vertical direction. Imagine you stand on a chess board, how many cells do you need to move?</p>
+<p>$$
+D = \sum_i^d |x_i - y_i|
+$$</p>
+<p>This method originated from how to calculate the distance between source and destination in a city. You cannot always walk through a building or something, so Euclidean distance is not helpful. Instead, a distance based on streets would be optimal.</p>
+<p>Through Manhattan distance could work well in a high-dimensional space, it&rsquo;s less intutive than Euclidean distance. Also, the distance measured by Manhattan is a bit larger than Euclidean because of the Triangle Inequality Theorem.</p>
+<h2 id="finding-the-best-k">Finding the best K</h2>
+<p>How do we find the optimal value for $K$? If $K$ is too small, the model would have a high variance and a poor generalization. If $K$ is too large, the model would have a high bias.</p>
+<ul>
+<li>If we have some domain knowledge, for example, we want to classify whether a new flower belong to a specific species among given all species. $K$ could be the number of that specific species.</li>
+<li>Typically, we may have little domain knowledge, one way to find the best $K$ is cross-validation. We choose the &lsquo;elbow&rsquo; point as the optimal $K$ from all these scores returned by cross-validation, as shown below.</li>
+<li>As a rule of thumb, we could choose $k = \sqrt N$, where $N$ is the number of samples</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/knn.png" alt="">
+    <figcaption>Figure 1: The red point in the figure represents the &#39;elbow&#39; point. In this example, the best k is 13. </figcaption>
+  </figure>
+
+</p>
+<h2 id="pros-and-cons">Pros and Cons</h2>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Easy, simple and straightforward to understand</li>
+<li>no need to train, it&rsquo;s a non-parametric method</li>
+<li>Suitable for both classification and regression</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>More suitable for a small number of samples because distance is computed throughout nearly every data in the training set. Thus computation might be a matter if the dataset is large.</li>
+<li>Sensitive to outliers. If one category has some outliers, a new sample might be classified into this catogory since they are more close even if this sample should belong to another category.</li>
+<li>Tends to be biased if samples are unbalanced. One category would dominate the majority voting of the new sample because it has a great number of samples.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa">https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa</a></li>
+<li><a href="https://medium.com/machine-learning-101/k-nearest-neighbors-classifier-1c1ff404d265">https://medium.com/machine-learning-101/k-nearest-neighbors-classifier-1c1ff404d265</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#how-knn-works">How KNN works</a></li>
+    <li><a href="#distance">Distance</a>
+      <ul>
+        <li><a href="#euclidean-distance">Euclidean Distance</a></li>
+        <li><a href="#cosine-distance">Cosine Distance</a></li>
+        <li><a href="#manhattan-distance">Manhattan Distance</a></li>
+      </ul>
+    </li>
+    <li><a href="#finding-the-best-k">Finding the best K</a></li>
+    <li><a href="#pros-and-cons">Pros and Cons</a>
+      <ul>
+        <li><a href="#pros">Pros</a></li>
+        <li><a href="#cons">Cons</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+      
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
