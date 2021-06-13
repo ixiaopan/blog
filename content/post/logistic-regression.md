@@ -1,6 +1,6 @@
 ---
 title: "Logistic Regression"
-date: "2021-05-11"
+date: "2021-06-13"
 description: ""
 # tags: []
 categories: [
@@ -9,10 +9,7 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
-
 ---
-
-
 
 
 

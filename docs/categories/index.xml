@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 12 Jun 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 13 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Perceptron</title>
+			<link>https://ixiaopan.github.io/blog/post/perceptron/</link>
+			<pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/perceptron/</guid>
+			<description>&lt;p&gt;Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it&amp;rsquo;s out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>K-nearest neighbours</title>
 			<link>https://ixiaopan.github.io/blog/post/knn/</link>
@@ -84,14 +92,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/decision-tree/</guid>
 			<description>&lt;p&gt;The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &amp;lsquo;Is it a fiction movie? Is it directed by David Fincher?&amp;rsquo;&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Linear Regression 02</title>
-			<link>https://ixiaopan.github.io/blog/post/linear-regression-02/</link>
-			<pubDate>Sat, 17 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/linear-regression-02/</guid>
-			<description>&lt;p&gt;In &lt;a href=&#34;https://ixiaopan.github.io/blog/post/linear-regression-01/&#34;&gt;the previous post&lt;/a&gt;, we talked about simple linear regression. However, we only considered one predictor. It&amp;rsquo;s quite common to have multiple predictors for real-world problems. For example, if we want to predict car prices, we should consider many factors like car sizes, manufacturers and fuel types. The simple linear regression is not suitable for this case. Therefore, we need to extend it to accommodate the multiple predictors.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

@@ -31,7 +31,7 @@ Suppose we have a dataset and a new data point, we want to know which class this
 - Calculate distances between the new point and each sample of the training data
 - Sort the distances from the nearest to farthest and get the first $K$ nearest samples
 - For classification
-  - Majority vote among the $K$ observations. The new data belongs to class that has the highest votes.
+  - Majority vote among the $K$ observations. The new sample belongs to class that has the highest votes.
 - For regression
   - Average the value of the $K$ observations
 
@@ -159,10 +159,8 @@ How do we find the optimal value for $K$? If $K$ is too small, the model would h
 ### Cons
 
 - More suitable for a small number of samples because distance is computed throughout nearly every data in the training set. Thus computation might be a matter if the dataset is large.
-- Sensitive to outliers. If one category has some outliers, a new sample might be classified into this catogory since they are more close even if this sample should belong to another category.
+- Sensitive to outliers. If one category has some outliers, a new sample might be classified into this category since they might be more close to the new sample even if the new sample should belong to another category.
 - Tends to be biased if samples are unbalanced. One category would dominate the majority voting of the new sample because it has a great number of samples.
-
-
 
 
 

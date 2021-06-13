@@ -128,7 +128,7 @@
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 12, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min  read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -166,7 +166,7 @@
 <li>Sort the distances from the nearest to farthest and get the first $K$ nearest samples</li>
 <li>For classification
 <ul>
-<li>Majority vote among the $K$ observations. The new data belongs to class that has the highest votes.</li>
+<li>Majority vote among the $K$ observations. The new sample belongs to class that has the highest votes.</li>
 </ul>
 </li>
 <li>For regression
@@ -242,7 +242,7 @@ $$</p>
 <h3 id="cons">Cons</h3>
 <ul>
 <li>More suitable for a small number of samples because distance is computed throughout nearly every data in the training set. Thus computation might be a matter if the dataset is large.</li>
-<li>Sensitive to outliers. If one category has some outliers, a new sample might be classified into this catogory since they are more close even if this sample should belong to another category.</li>
+<li>Sensitive to outliers. If one category has some outliers, a new sample might be classified into this category since they might be more close to the new sample even if the new sample should belong to another category.</li>
 <li>Tends to be biased if samples are unbalanced. One category would dominate the majority voting of the new sample because it has a great number of samples.</li>
 </ul>
 <h2 id="references">References</h2>
