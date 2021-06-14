@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories/machine-learning) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sun, 13 Jun 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>K-means</title>
+			<link>https://ixiaopan.github.io/blog/post/kmeans/</link>
+			<pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/kmeans/</guid>
+			<description>&lt;p&gt;So far, we&amp;rsquo;ve talked much about supervised learning. Aside from it, there exist many other learning types such as unspervised learning, semi-supervised learning and so on. This post will introduce one of the most widely used unsupervised clustering algorithms — K-means. We will cover the implementation of K-means algorithm, the limitation of this algorithm as well as its applications.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Perceptron</title>
 			<link>https://ixiaopan.github.io/blog/post/perceptron/</link>
@@ -84,14 +92,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/ensemble-methods/</guid>
 			<description>&lt;p&gt;Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Decision Tree</title>
-			<link>https://ixiaopan.github.io/blog/post/decision-tree/</link>
-			<pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/decision-tree/</guid>
-			<description>&lt;p&gt;The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as &amp;lsquo;Is it a fiction movie? Is it directed by David Fincher?&amp;rsquo;&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
