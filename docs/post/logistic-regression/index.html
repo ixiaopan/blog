@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Logistic Regression</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Logistic Regression"/>
+<meta name="twitter:description" content="We&rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&rsquo;s also a linear classifier. PS: Don&rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm."/>
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.81.0" />
+   
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+          ]
+      });
+  });
+</script>
+
+    
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  
+  <div class="intro-header">
+    <div class="container">
+      <div class="post-heading">
+        
+          <h1>Logistic Regression</h1>
+        
+        
+        
+          <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 14, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min  read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+  
+</span>
+
+        
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>We&rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&rsquo;s also a linear classifier. PS: Don&rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm.</p>
+<h2 id="logistic-function">Logistic Function</h2>
+<p>Given an input dataset $D = [x_1, x_2, &hellip;, x_n]$ with the corresponding lable $Y = [y_1, y_2, &hellip;, y_n]$ where $x_i \in R^d$ and $y_i \in {0, 1}$, we want to construct a linear classifer that gives us a value $z_i$ as a weighted sum of all features</p>
+<p>$$
+z_i = w^T x_i + b
+$$</p>
+<h3 id="range-issue">Range issue</h3>
+<p>Now the question is how $z_i$ relate to $y_i$ since the range of $z_i$ is from $-\infin$ to $\infin$ while $y_i$ is either 0 or 1. Any value that is larger then 1 or lower than 0 has no meaning because we interpret $y_i$ as probability.</p>
+<h3 id="log-odds">Log-odds</h3>
+<p>Obviously, we need to come up with a way to transform $z_i$ so as to obtain a value that lies between 0 and 1. But how? What about $f(x) = \text{log} x$ ? No, it fails since the domain of the log function can only be positive. Maybe we could make a modification about the log function like this,</p>
+<p>$$
+z_i = \text{log } \frac{p_i}{1 - p_i}
+$$</p>
+<p>where $p/(1-p)$ is called odds and $z$ is often called the logit. The inverse of the log-odds function, also known as <strong>sigmoid function</strong>, is defined as follows,</p>
+<p>$$
+\hat y_i = p_i = \frac{1}{1 + e^{-z_i}}
+$$</p>
+<p>Figure 1 shows what sigmoid function looks like. We can see that log-odds helps us to solve the range problem.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/log-odds.png" alt="">
+    <figcaption>Figure 1: sigmoid activation function</figcaption>
+  </figure>
+
+</p>
+<h2 id="parameter-estimation">Parameter Estimation</h2>
+<p>We&rsquo;ve defined the logistic model, the next step is to estimate the parameters, i.e. $w$. Minimising the loss function and MLE are two common ways to solve this. In fact, minimising the loss is equivalent to MLE in logistic regression.</p>
+<h3 id="binominal">Binominal</h3>
+<p>In the case of binary classification, $y_i$ follows Bernoulli Distribution, i.e. $y_i \sim Bern(n, p_i)$</p>
+<p>$$
+p(y_i = 1 |x_i) = p_i
+$$</p>
+<p>$$
+p(y_i = 0 |x_i) = 1 - p_i
+$$</p>
+<p>The likelihood of a single sample is,</p>
+<p>$$
+p(y_i|x_i) = p_i^{y_i} (1-p_i)^{1-y_i}
+$$</p>
+<p>So the likelihood function of the whole training data is,</p>
+<p>$$
+L = \prod_{i=1}^N p(y_i|x_i)
+$$</p>
+<p>The log likelihood function is given by</p>
+<p>$$
+\text{log} L = \sum_{i=1}^N \text{ log } p(y_i|x_i) = \sum_{i=1}^N  y_i\text{log} p_i + (1-y_i) \text{log} (1-p_i)
+$$</p>
+<p>$$
+= \sum_{i=1}^N \text{log} (1-p_i) + \sum_{i=1}^N y_i \text{log} \frac{p_i}{1-p_i}
+$$</p>
+<p>$$
+= \sum_{i=1}^N \text{log} (1-p_i) + \sum_{i=1}^N y_i  (w^Tx_i + b)
+$$</p>
+<p>$$
+= \sum_{i=1}^N \text{log} (1- \frac{1}{1 + e^{-z_i}}) + \sum_{i=1}^N y_i  (w^Tx_i + b)
+$$</p>
+<p>$$
+= \sum_{i=1}^N -\text{log} (1 + e^{(w^Tx_i + b)}) + \sum_{i=1}^N y_i  (w^Tx_i + b)
+$$</p>
+<p>Our goal is to maximise the log likelihood function, so we take the derivative of $L$ w.r.t $w$</p>
+<p>$$
+\frac{\partial L}{\partial w_j} = -\sum_{i=1}^N \frac{e^{(w \cdot x_i)}}{1+e^{(w \cdot x_i)}}  x_{ij} + \sum_{i=1}^N y_i  x_{ij}
+$$</p>
+<p>$$
+= \sum_{i=1}^N  (y_i - z_i)  x_{ij}
+$$</p>
+<p>However, this is a transcendental equation(an equation containing the variables being solved for), which means we cannot solve analytically, and thus there is no closed-form solution. But we can still find the estimation of $w$ through gradient descent using the above derivative.</p>
+<p>The loss function used in logistic function is defined as follows,</p>
+<p>$$
+L = - \sum_{i=1}^N y_i \text{log} p_i - (1-y_i) \text{log} (1-p_i)
+$$</p>
+<p>which is often called the &lsquo;Binary Cross Entropy&rsquo;. Obviously, the loss function is exactly the negative log likelihood function. Thus, maximising likelihood is equal to minimising the loss.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">crossEntropyLoss</span>(X, y, theta):
+  epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-12</span>
+
+  p <span style="color:#f92672">=</span> logistic(X <span style="color:#960050;background-color:#1e0010">@</span> theta)
+
+  cost <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>mean(y <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>log(p <span style="color:#f92672">+</span> epsilon) <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> y) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p <span style="color:#f92672">+</span> epsilon))
+
+  <span style="color:#66d9ef">return</span> cost
+</code></pre></div><h3 id="multinominal">Multinominal</h3>
+<p>What if we have more than one target category? It&rsquo;s not a simple yes or no classification since now we have many possible classes.  Suppose there are $k$ classes, and each sample must belong to one class, so we have</p>
+<p>$$
+\sum_{j=1}^k p_{i, j} = 1
+$$</p>
+<p>Just like the binominal case, we choose one class as the reference model and estimate the &lsquo;odds&rsquo;</p>
+<p>$$
+z_{i,j} = \text{log } \frac{p_{i, j}}{p_{i, J}} = \bold w_j ^Txx_i + b_j
+$$</p>
+<p>$$
+p_{i, j} = p_{i, J} e^{z_{i, j}} = p_{i, J} e^{\bold w_j ^Tx + b_j}
+$$</p>
+<p>To obtain $p_{i, j}$, we need to eliminate $p_{i, J}$. Combing the two equations, we have</p>
+<p>$$
+\sum_{j=1}^k p_{i, j} = p_{i, J} \sum_{j=1}^k  e^{z_{i, j}}  = 1
+$$</p>
+<p>$$
+\text{=&gt; } p_{i, J}  = \frac{1}{\sum_{j=1}^k  e^{z_{i, j}} }
+$$</p>
+<p>plug $p_{i, J}$ into $p_{i,j}$, we have</p>
+<p>$$
+p_{i, j} = \frac{ e^{\bold w_j ^Tx + b_j} }{\sum_{j=1}^k  e^{z_{i, j}} }
+$$</p>
+<p>which is known as <strong>softmax function</strong>.</p>
+<p>Again, we use MLE to estimate $\bold w$. The difference from binominal case is that now there are $k$ estimates we need to calculate. The likelihood of a single sample is,</p>
+<p>$$
+p(y_i|x_i) = \prod_{j=1}^{k} p_{ij}^{I_{ij}}
+$$</p>
+<p>where $I_{ij} = 1$ if $x_i$ belong to class $j$, otherwise $I_{ij}=0$. The likelihood function of the whole training data is,</p>
+<p>$$
+L = \prod_{i=1}^N \prod^k_{j=1} p_{ij}^{I_{ij}}
+$$</p>
+<p>The log likelihood function is given by</p>
+<p>$$
+\text{log } L = \sum_{i=1}^N \sum_{j=1}^k I_{ij} \text{log }(p_{ij})= \sum_{i=1}^N \sum_{j=1}^k I_{ij} \text{log } \frac{ e^{\bold w_j ^Tx_i + b_j} }{\sum_{m=1}^k  e^{z_{i, m}} }
+$$</p>
+<p>$$
+= \sum_{i=1}^N \sum_{j=1}^k I_{ij} (z_{ij} - \text{log } \sum_{m=1}^k e^{z_{i,m}})
+$$</p>
+<p>Now let&rsquo;s take the derivative of $L$ w.r.t the coefficients from the $j\text{th}$ class $\bold w_j$</p>
+<p>$$
+\frac{\partial L}{\partial \bold w_j} = \sum_{i=1}^N (I_{ij} x_i -\sum_{j=1}^k I_{ij}\frac{e^{z_{ij}} x_i}{\sum_{m=1}^k e^{z_{i,m}}}) = \sum_{i=1}^N (I_{ij} - p_{i, j}) x_i
+$$</p>
+<p>The matrix form can be written as</p>
+<p>$$
+\frac{\partial L}{\partial \bold w_j} = \bold X^T (I_j - p_j)
+$$</p>
+<p>where $\bold X  = [x_1, x_2, &hellip; x_N]^T $ is a $N \times D$ matrix and</p>
+<p>$$
+I_j = \begin{bmatrix}I_{1j}\\ I_{2j}\\ &hellip;\\ I_{nj} \end{bmatrix},
+p_j = \begin{bmatrix}p_{1j}\\ p_{2j}\\ &hellip;\\ p_{nj} \end{bmatrix}
+$$</p>
+<p>Therefore,</p>
+<p>$$
+\frac{\partial L}{\partial \bold W} = \bold X^T (\bold I - \bold P) \in R^{D \times K}
+$$</p>
+<p>where $\bold I = [I_1, I_2, &hellip;, I_k] \in R^{N \times K}, \bold P = [p_1, p_2, &hellip;, p_k] \in R^{N \times K}$</p>
+<h2 id="comments">Comments</h2>
+<p>Logistic regression is a traditional classification model that often works effectively. However, it is problematic if data are linearly separable. If $w, b$ perfectly separates data linearly, so does cb, cw with $c \gt 0$, so there is no parameter vector that maximises likelihood.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://towardsdatascience.com/why-not-mse-as-a-loss-function-for-logistic-regression-589816b5e03c">https://towardsdatascience.com/why-not-mse-as-a-loss-function-for-logistic-regression-589816b5e03c</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#logistic-function">Logistic Function</a>
+      <ul>
+        <li><a href="#range-issue">Range issue</a></li>
+        <li><a href="#log-odds">Log-odds</a></li>
+      </ul>
+    </li>
+    <li><a href="#parameter-estimation">Parameter Estimation</a>
+      <ul>
+        <li><a href="#binominal">Binominal</a></li>
+        <li><a href="#multinominal">Multinominal</a></li>
+      </ul>
+    </li>
+    <li><a href="#comments">Comments</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      </aside>
+      
+    </div>
+
+    
+
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=wxp201013@163.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://github.com/ixiaopan/" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp; &nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

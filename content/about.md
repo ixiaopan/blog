@@ -6,7 +6,7 @@ weight: 2
 
 ## PROFILE
 
-MSc Data Science student with more than 5 years of work experience in Front-End development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+MSc Data Science student with more than 5 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 <style>
 .timeline p {
@@ -79,6 +79,7 @@ li {
     <p class="degree">MSc Data Science, University of Southampton</p>
   </div>
 </div>
+
 
 <div class="timeline edu-item">
   <p class="time">09/2010 - 07/2014</p>

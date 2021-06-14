@@ -25,7 +25,7 @@ K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used 
 
 
 
-Suppose we have a dataset and a new data point, we want to know which class this new example belong to or what the predicted value is if it's a regression task. KNN woks in this way,
+Suppose we have a dataset and a new data point, we want to know which class this new example belong to or what the predicted value is if it's a regression task. KNN works in this way,
 
 - Choose a value for $K$
 - Calculate distances between the new point and each sample of the training data

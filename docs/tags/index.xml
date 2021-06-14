@@ -20,6 +20,14 @@
 		</item>
       	
 		<item>
+			<title>Logistic Regression</title>
+			<link>https://ixiaopan.github.io/blog/post/logistic-regression/</link>
+			<pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/logistic-regression/</guid>
+			<description>&lt;p&gt;We&amp;rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&amp;rsquo;s also a linear classifier. PS: Don&amp;rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Perceptron</title>
 			<link>https://ixiaopan.github.io/blog/post/perceptron/</link>
 			<pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
@@ -82,14 +90,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/end2end-project-01/</guid>
 			<description>&lt;p&gt;So far, we have discussed many algorithms, such as linear regression and ensemble methods. It&amp;rsquo;s time to kick off a project from scratch to learn how a real machine learning project works.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Ensemble Methods</title>
-			<link>https://ixiaopan.github.io/blog/post/ensemble-methods/</link>
-			<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/ensemble-methods/</guid>
-			<description>&lt;p&gt;Ensemble means a group of people or a collection of things.Thus, ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods often outperform other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
