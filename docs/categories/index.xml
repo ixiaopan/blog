@@ -9,16 +9,24 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Naive Bayes Classification</title>
+			<link>https://ixiaopan.github.io/blog/post/naive-bayes/</link>
+			<pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/naive-bayes/</guid>
+			<description>&lt;p&gt;A Naive Bayes classifier is a probabilistic model that is used for classification, which is based on the Bayes&#39; Theorem.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Support Vector Machine</title>
 			<link>https://ixiaopan.github.io/blog/post/svm/</link>
 			<pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/svm/</guid>
-			<description>Maximise Margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
+			<description>Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
 $$ y_i d_i \ge \Delta $$
 where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin.</description>
 		</item>
@@ -86,14 +94,6 @@ Probability At the beginning, let&amp;rsquo;s have a quick refresh on probabilit
 			<pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/semanticweb/</guid>
 			<description>&lt;p&gt;In semester 2, I took a module called &lt;strong&gt;Semantic Web Technologies&lt;/strong&gt;. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it&amp;rsquo;s still on my shortlist because I&amp;rsquo;ve been working on the web for many years and I wondered what the semantic web was.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Singular Value Decomposition</title>
-			<link>https://ixiaopan.github.io/blog/post/svd/</link>
-			<pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/svd/</guid>
-			<description>&lt;p&gt;Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into the multiplication of three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

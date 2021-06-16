@@ -171,6 +171,14 @@
 J = \sum^N_n\sum^K_k r_{nk} || x_n - \mu_k ||^2
 $$</p>
 <p>where $\mu_k$ is the center of the cluster that a sample $x_n$ belongs to.</p>
+<p>We should notice that this objective also limits the ability of K-means somehow. You can imageine $\mu_k$ as the center of a circle, and the average within cluster variation is the maximum radius of that circle. Any point outside that circle doesn&rsquo;t belong to this cluster. So K-means works better for circular clusters.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/k-means-shape.png#full" alt="">
+    <figcaption>Figure 1: K-means works better for data with circular clusters (Ref[2])</figcaption>
+  </figure>
+
+</p>
 <h2 id="approach">Approach</h2>
 <p>Since  $\mu_k$ and $r_{nk}$ are both unknown, how to solve it? Well, we solve this by repeating the following two steps,</p>
 <ul>
@@ -201,33 +209,27 @@ $$</p>
 <p>
   <figure>
     <img src="/blog/post/images/kmeans-k.png#full" alt="">
-    <figcaption>Figure 1: The optimal K lies at the elbow point (Hands-on machine learning)</figcaption>
+    <figcaption>Figure 2: The optimal K lies at the elbow point (Hands-on machine learning)</figcaption>
   </figure>
 
 </p>
 <p>We can see that inertia decreases greatly as k increases up to 4, after that, it decreases slowly. On the other hand, increasing k indeed decrease the sum of squared distance from each sample to its closest centroid. This is because the more clusters k there are, the more cohesive each cluster is, and therefore the lower the within cluster variation is.</p>
 <h2 id="limits-of-k-means">Limits of K-means</h2>
-<p>Although K-means algorithm is guaranteed to converge, it might not coverge to the right solution. And this depends on the initialization of the centroids, as shown in Figure 2.</p>
-<p>
-  <figure>
-    <img src="/blog/post/images/k-means.png#full" alt="">
-    <figcaption>Figure 2: The green points are the tracking of moving centroids and the magenta points are the final centroids</figcaption>
-  </figure>
-
-</p>
-<p>To avoid a case like this, we&rsquo;d better run the algorithm a few times and select the solution that has the minimum within cluster variation.</p>
-<p>Apart from this shortcoming, K-means also has other limitations such as</p>
-<ul>
-<li>we have to explicitly specify the value of $K$</li>
-<li>it performs poorly when the clusters vary in sizes or densities, or have nonspherical shape</li>
-</ul>
+<h3 id="specify-k-explicitly">Specify K explicitly</h3>
+<p>Obvisously, we have to explicitly specify $K$. But more often, we don&rsquo;t what the right $K$ is.</p>
+<h3 id="sensitive-to-shape">Sensitive to shape</h3>
+<p>As said earlier, K-means performs poorly when the clusters vary in sizes or densities, or have nonspherical shape. Figure below shows how K-means deals with a data set containing three ellipsoida clusters with different densities and orientation. Though the solution on the right has a lower inertia, it obviously breaks the inner structure of real clusters. Mabybe we could try Gaussian mixture models for this case.</p>
 <p>
   <img src="/blog/post/images/kmeans-failure.png#full" alt="">
 
 </p>
-<p>The above figure shows how K-means deals with a data set containing three ellipsoida clusters with different densities and orientation. Though the solution on the right has a lower inertia, it obviously breaks the inner structure of real clusters. Mabybe we could try Gaussian mixture models for this case.</p>
+<h3 id="centroids-initialization">Centroids initialization</h3>
+<p>Although K-means algorithm is guaranteed to converge, it might not coverge to the right solution. And this depends on the initialization of the centroids, which can also be seen in above Figure. To avoid this, we&rsquo;d better run the algorithm several times and select the solution that has the minimum within cluster variation.</p>
+<h3 id="hard-classification">Hard classification</h3>
+<p>Clustering assignment used in K-means is called hard classification since each sample is assigned to a cluster indicator. But sometimes we would expect probability to estimate uncertainty in clustering assignment. For example, if two clusters overlap, it&rsquo;s hard to have 100% confidence to say that some sample belongs to one of the two clusters.</p>
 <h2 id="references">References</h2>
 <p>[1] A. Géron, <em>Hands-on machine learning with Scikit-Learn and TensorFlow</em>. Sebastopol (CA): O&rsquo;Reilly Media, 2019.</p>
+<p>[2]	J. VanderPlas, Python Data Science Handbook. Sebastopol, CA: O’Reilly Media, 2016.</p>
 
 
 
@@ -242,7 +244,14 @@ $$</p>
     <li><a href="#objective-function">Objective Function</a></li>
     <li><a href="#approach">Approach</a></li>
     <li><a href="#choosing-the-optimal-k">Choosing the optimal K</a></li>
-    <li><a href="#limits-of-k-means">Limits of K-means</a></li>
+    <li><a href="#limits-of-k-means">Limits of K-means</a>
+      <ul>
+        <li><a href="#specify-k-explicitly">Specify K explicitly</a></li>
+        <li><a href="#sensitive-to-shape">Sensitive to shape</a></li>
+        <li><a href="#centroids-initialization">Centroids initialization</a></li>
+        <li><a href="#hard-classification">Hard classification</a></li>
+      </ul>
+    </li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>

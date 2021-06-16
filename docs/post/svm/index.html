@@ -19,7 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Support Vector Machine"/>
-<meta name="twitter:description" content="Maximise Margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
+<meta name="twitter:description" content="Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
 $$ y_i d_i \ge \Delta $$
 where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin."/>
 
@@ -159,7 +159,7 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <h2 id="maximise-margin">Maximise Margin</h2>
+  <h2 id="maximise-the-margin">Maximise the margin</h2>
 <p>Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,</p>
 <p>$$
 y_i d_i \ge \Delta
@@ -292,7 +292,7 @@ $$</p>
 <li>For $0 \lt s_i \le 1$, there exist some samples that lie between margin and on the correct side of hyperplane</li>
 <li>For $s_i \gt 1$, samples are misclassified</li>
 </ul>
-<h3 id="c">C</h3>
+<h3 id="objective">Objective</h3>
 <p>The objective function becomes</p>
 <p>$$
 \text{min}_{(w',b')} \frac{||w'||^2}{2}  + C\sum_{i=1}^N s_i
@@ -487,8 +487,8 @@ $$</p>
 <h3 id="quadratic">Quadratic</h3>
 <h2 id="comments">Comments</h2>
 <ul>
-<li>SVM relys on distances between data points, so it would be better to normalise data if we don&rsquo;t know what features are important</li>
-<li>Different C can make a great difference in performance. We can use cross-validation to choose the optimal C</li>
+<li>SVM relys on distances between data points, so it would be better to normalise data if we don&rsquo;t know what features are important.</li>
+<li>Different C can make a great difference in performance. We can use cross-validation to choose the optimal C.</li>
 <li>A linear decision boundary doesn&rsquo;t always exist, especially we obtain a poor performance. If so, we might try a non-linear boundary with Kernel. There are many kernel functions designed for particular data types. Often, Kernel comes with its parameters, so fine-tunining them is also important to improve model&rsquo;s performance.</li>
 <li>We don&rsquo;t need to explicitly know what $\phi(x)$ are. All we need to know is that there exist a hyperplane that can separate the data linearly in a higher dimensional space. Though we are in the extended feature space, we do computation of the inner product in the original feature space.</li>
 </ul>
@@ -507,7 +507,7 @@ $$</p>
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#maximise-margin">Maximise Margin</a>
+    <li><a href="#maximise-the-margin">Maximise the margin</a>
       <ul>
         <li><a href="#distance-to-hyperplanes">Distance to hyperplanes</a></li>
         <li><a href="#primal-problem">Primal Problem</a></li>
@@ -517,7 +517,7 @@ $$</p>
     </li>
     <li><a href="#soft-margin">Soft Margin</a>
       <ul>
-        <li><a href="#c">C</a></li>
+        <li><a href="#objective">Objective</a></li>
         <li><a href="#hinge-loss">Hinge Loss</a></li>
       </ul>
     </li>

@@ -45,7 +45,17 @@ J = \sum^N_n\sum^K_k r_{nk} || x_n - \mu_k ||^2
 $$
 
 
-where $\mu_k$ is the center of the cluster that a sample $x_n$ belongs to.
+where $\mu_k$ is the center of the cluster that a sample $x_n$ belongs to. 
+
+
+
+We should notice that this objective also limits the ability of K-means somehow. You can imageine $\mu_k$ as the center of a circle, and the average within cluster variation is the maximum radius of that circle. Any point outside that circle doesn't belong to this cluster. So K-means works better for circular clusters.
+
+
+
+![](/blog/post/images/k-means-shape.png#full "Figure 1: K-means works better for data with circular clusters (Ref[2])")
+
+
 
 
 
@@ -91,7 +101,7 @@ Like the method used in K-NN, we plot the metric as a function of $k$ shown belo
 
 
 
-![](/blog/post/images/kmeans-k.png#full "Figure 1: The optimal K lies at the elbow point (Hands-on machine learning)")
+![](/blog/post/images/kmeans-k.png#full "Figure 2: The optimal K lies at the elbow point (Hands-on machine learning)")
 
 
 
@@ -101,20 +111,19 @@ We can see that inertia decreases greatly as k increases up to 4, after that, it
 
 ## Limits of K-means
 
-Although K-means algorithm is guaranteed to converge, it might not coverge to the right solution. And this depends on the initialization of the centroids, as shown in Figure 2.
+
+
+### Specify K explicitly
+
+Obvisously, we have to explicitly specify $K$. But more often, we don't what the right $K$ is.
 
 
 
-![](/blog/post/images/k-means.png#full "Figure 2: The green points are the tracking of moving centroids and the magenta points are the final centroids")
+### Sensitive to shape
 
 
 
-To avoid a case like this, we'd better run the algorithm a few times and select the solution that has the minimum within cluster variation.
-
-Apart from this shortcoming, K-means also has other limitations such as
-
-- we have to explicitly specify the value of $K$
-- it performs poorly when the clusters vary in sizes or densities, or have nonspherical shape
+As said earlier, K-means performs poorly when the clusters vary in sizes or densities, or have nonspherical shape. Figure below shows how K-means deals with a data set containing three ellipsoida clusters with different densities and orientation. Though the solution on the right has a lower inertia, it obviously breaks the inner structure of real clusters. Mabybe we could try Gaussian mixture models for this case.
 
 
 
@@ -122,11 +131,25 @@ Apart from this shortcoming, K-means also has other limitations such as
 
 
 
-The above figure shows how K-means deals with a data set containing three ellipsoida clusters with different densities and orientation. Though the solution on the right has a lower inertia, it obviously breaks the inner structure of real clusters. Mabybe we could try Gaussian mixture models for this case.
+
+
+### Centroids initialization
+
+Although K-means algorithm is guaranteed to converge, it might not coverge to the right solution. And this depends on the initialization of the centroids, which can also be seen in above Figure. To avoid this, we'd better run the algorithm several times and select the solution that has the minimum within cluster variation.
+
+
+
+### Hard classification
+
+Clustering assignment used in K-means is called hard classification since each sample is assigned to a cluster indicator. But sometimes we would expect probability to estimate uncertainty in clustering assignment. For example, if two clusters overlap, it's hard to have 100% confidence to say that some sample belongs to one of the two clusters.
+
+
 
 
 
 ## References
 
 [1] A. Géron, *Hands-on machine learning with Scikit-Learn and TensorFlow*. Sebastopol (CA): O'Reilly Media, 2019.
+
+[2]	J. VanderPlas, Python Data Science Handbook. Sebastopol, CA: O’Reilly Media, 2016.
 

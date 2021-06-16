@@ -13,7 +13,9 @@ katex: true
 
 
 
-## Maximise Margin
+## Maximise the margin
+
+
 
 Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
 
@@ -260,7 +262,7 @@ where $s_k \ge 0$. Obviously, the value of $s_i$ includes three situations
 
 
 
-### C
+### Objective
 
 
 
@@ -623,8 +625,8 @@ TODO
 
 ## Comments
 
-- SVM relys on distances between data points, so it would be better to normalise data if we don't know what features are important
-- Different C can make a great difference in performance. We can use cross-validation to choose the optimal C
+- SVM relys on distances between data points, so it would be better to normalise data if we don't know what features are important.
+- Different C can make a great difference in performance. We can use cross-validation to choose the optimal C.
 - A linear decision boundary doesn't always exist, especially we obtain a poor performance. If so, we might try a non-linear boundary with Kernel. There are many kernel functions designed for particular data types. Often, Kernel comes with its parameters, so fine-tunining them is also important to improve model's performance.
 - We don't need to explicitly know what $\phi(x)$ are. All we need to know is that there exist a hyperplane that can separate the data linearly in a higher dimensional space. Though we are in the extended feature space, we do computation of the inner product in the original feature space.
 
