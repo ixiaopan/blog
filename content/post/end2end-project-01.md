@@ -1,7 +1,7 @@
 ---
 title: "An E2E Project - EDA"
 date: "2021-04-25"
-description: "So far, we have discussed many algorithms, such as linear regression and ensemble methods. It's time to kick off a project from scratch to learn how a real machine learning project works."
+description: "So far, we have discussed many algorithms, such as linear regression and ensemble methods. It's time to learn how to build a real machine learning project to enhance our understanding of these models."
 # tags: []
 categories: [
     "Machine Learning",
@@ -12,7 +12,7 @@ katex: true
 
 
 
-So far, we have discussed many algorithms, such as linear regression and ensemble methods. It's time to kick off a project from scratch to learn how a real machine learning project works.
+So far, we have discussed many algorithms, such as linear regression and ensemble methods. It's time to learn how to build a real machine learning project to enhance our understanding of these models.
 
 
 
@@ -24,7 +24,7 @@ So far, we have discussed many algorithms, such as linear regression and ensembl
 
 
 
-The book "Hands-on Machine Learning" has summarised the below 8 steps as a guidance to do an end-to-end machine learning project,
+The book "Hands-on Machine Learning" has summarised the below 7 steps as a guidance to do an end-to-end machine learning project,
 
 - Frame the problem
 - Get the data
@@ -44,7 +44,7 @@ In this post, we will cover the first 3 parts. The complete code can be found [h
 
 
 
-The first step is to define you problem. People are unlikely to do things without reasons, right?. So ask yourself, what problem do you want to solve? Why are you interested in them? What's your objective? Are there any solutions out there?
+The first step is to define you problem. People are unlikely to do things without reasons, right? So ask yourself, what problem do you want to solve? Why are you interested in them? What's your objective? Are there any solutions out there?
 
 As an example, we are going to predict used car prices because accurate prices prediction can help both buyers and sellers. For buyers, it can ensure the money that customers invest on used cars to be worthy. For used car dealers, they might want to know which factors influence car prices most so as to adjust sales strategy and offer a better prediction to customers. Therefore, there is a necessity for building a used car price prediction system.
 
@@ -52,11 +52,11 @@ As an example, we are going to predict used car prices because accurate prices p
 
 ## Get the data
 
-There are many ways to get the desired data. You can write a web crawler to download the data from related websites or you can get data freely from some public data platforms. Among them, Kaggle is one of the most popular platforms that enables us to achieve our data science goals. In this example project, the data is downloaded from [Used Cars Dataset - Kaggle](https://www.kaggle.com/austinreese/craigslist-carstrucks-data).
+There are many ways to get the desired data. You can write a web crawler to download the data from related websites or you can get data freely from some public data platforms. Among them, Kaggle is one of the most popular data platforms. In this toy project, the data is downloaded from [Used Cars Dataset - Kaggle](https://www.kaggle.com/austinreese/craigslist-carstrucks-data).
 
 
 
-```python
+```shell
 !kaggle datasets download -d austinreese/craigslist-carstrucks-data -p data
 
 !unzip data/craigslist-carstrucks-data.zip -d data
@@ -65,14 +65,14 @@ There are many ways to get the desired data. You can write a web crawler to down
 
 
 
-## EDA
+## Explore the data
 
 
 
-EDA stands for Exploratory Data Analysis, which is an important part throughout the project. The goal of EDA is to get insights from the data so as to clean and prepare data for building models. Generally speaking, it involves the following steps,
+Exploring the data or EDA is the very first and important step when doing a machine learning project. The goal of EDA is to get insights from the data so as to clean and prepare data for building models. Generally, it involves the following steps,
 
 - Identify variables
-- Examine the quality of the data
+- Examine data quality
 - Univariate analysis
 - Bivariate analysis
 
@@ -80,19 +80,18 @@ EDA stands for Exploratory Data Analysis, which is an important part throughout 
 
 ### Identify variables
 
+After getting data, we should have a peek at data first. Specifically, we need to answer the following questions,
+
+- How many observations and variables do we have?
+
+- What variables are your predictors and target?
+
+- How about data types and memory usage?
+
+- What's the descriptive statistics about data?
 
 
-Before any further analysis, we need to have a look at the data generally. More specifically, you need to answer the following questions,
 
-- How many observations and variables do you have?
-
-- Which variables are your predictors and target?
-
-- What's the data type and memory usage?
-
-- What's the descriptive statistics about the data?
-
-  
 
 Luckily, Pandas provides convenient functions to answer these questions.
 
@@ -111,28 +110,33 @@ df_vehicles.head()
 
 
 
-The following table shows the distribution of data types and Figure 1 shows some example data.
+The following tables shows the distribution of data types and some toy data.
 
 
 
 | Data Type     | Variable Name                                                |
 | ------------- | ------------------------------------------------------------ |
-| Numerical (5) | id, price, odometer, lat, long                               |
-| Object (20)   | 'url', image_url, region_url, 'manufacturer',  model, 'condition', 'cylinders',   'fuel', 'title_status', 'transmission',    'drive',  'type', 'paint_color', 'region', 'state',posting_date, description, image_url, size, VIN, |
+| Numerical (6) | id, year, price, odometer, lat, long                         |
+| Object (19)   | url, image_url, region_url, manufacturer,  model, condition, cylinders,  fuel, title_status, transmission, drive, type, paint_color, region, state, posting_date, description, size, VIN |
 
 
 
-![Example Data](/blog/post/images/used-car-toydata.png#full "Figure 1: Some example data")
+![Example Data](/blog/post/images/used-car-toydata.png#full "Table 1: Some example data")
 
 
 
-In our example, we have `458,213` rows and `25` attributes. The variable `price` is our target variable and the remaining are our predictors. However, not all of them are related to car prices. For instance, `url`, `image_url`, `region_url`, `id`, `post_date`, and `VIN` have nothing to do with car prices. Thus, we need to remove them.
+Comments:
+
+- There are 426,880 rows and 25 attributes.
+- The variable `price` is our target variable and the remaining are our predictors.
+-  `id`, `url`, `region_url`, `image_url`, `post_date`, and `VIN` have nothing to do with car prices. Thus, we need to remove them.
+- There are numerous categorical variables plus 6 numerical variables.
 
 
 
 ### Examine data quality
 
-The raw data is unlikely to use directly because it's inevitable to introduce errors like duplication, null values and extreme values when collecting data. The higher the data quality is, the better the model performance is. So we need to identify and solve these problems to obtain a clean data set. Below are some common techniques to check whether we have redundant data, missing values and outliers.
+The raw data is unlikely to use directly because it's inevitable to introduce errors like duplication, null values or extreme values when collecting data. The higher the data quality is, the better model's performance is. So we need to identify and solve these problems to obtain a clean data set. Below are some common techniques to check whether we have redundant data, missing values or outliers.
 
 
 
@@ -151,7 +155,7 @@ df.drop_duplicates()
 
 
 
-Fortunately, there are no duplicated rows for now. But it depends.
+Fortunately, there are no duplicated rows. But it depends.
 
 
 
@@ -161,21 +165,23 @@ Fortunately, there are no duplicated rows for now. But it depends.
 
 Heatmap enables us to identify the distribution of missing values visually. 
 
+
+
 ```python
  sns.heatmap(df.isna())
 ```
 
 
 
-![A heatmap](/blog/post/images/used-car-heatmap-missing.png "Figure 2: A heatmap for visualising the distribution of null values")
+![A heatmap](/blog/post/images/used-car-heatmap-missing.png "Figure 1: A heatmap for visualising the distribution of null values")
 
 
 
-Figure 2 shows that `size`, `condition`, `VIN`, `cylinders`, `drive` and `paint_color` have a significant number of null values. To quantify the number of missing values, we can use tables shown below.
+Figure 1 shows that `size`, `condition`, `VIN`, `cylinders`, `drive` and `paint_color` have a significant number of null values. To quantify the number of missing values, we can use a table shown below.
 
 
 
-![A table that shows the percentage of null values](/blog/post/images/used-car-missing-table.png "Figure 3: A table that shows the percentage of null values")
+![A table that shows the percentage of null values](/blog/post/images/used-car-missing-table.png "Table 2: A table that shows the percentage of null values")
 
 
 
@@ -195,24 +201,26 @@ df_vehicles.describe()
 
 
 
-![](/blog/post/images/used-car-outliers.png "Figure 4: A table that shows descriptive statistics")
+![](/blog/post/images/used-car-outliers.png#full "Table 3: A table that shows descriptive statistics")
 
 
 
-From Figure 4, it can be seen that the lowest car price is `0` while the highest car price is up to `3,600,000,000`.  The mean of the car prices is greater than the median, which means the distribution of prices is not symmetrical and there are abnormal values in prices. And the same goes for odometer. To verify our belief further, we can plot boxplots for `year` and `odometer` shown in Figure 5.
+From above table, we can see that the lowest car price is `0` while the highest car price is up to `3,600,000,000`.  The mean of the car prices is greater than the median, which means the distribution of prices is not symmetrical and there are abnormal values in prices. And the same goes for odometer. To verify our belief further, we can plot boxplots for `year` and `odometer` shown in Figure 2.
 
 
 
-![](/blog/post/images/used-car-price-odometer-boxplot.png "Figure 5: Boxplots for year and odometer")
+![](/blog/post/images/used-car-price-odometer-boxplot.png "Figure 2: Boxplots for year and odometer")
 
 
 
 Okay, let's put it all together. From the above initial examination, we can conclude that,
 
-- There are `458,213` rows and `25` attributes in our data set, and `price` is our target variable.
-- There are some useless columns to be dropped, such as `url`, `image_url`, `region_url`, `id`, `post_date`, and `VIN` .
-- So far, there are no redundant rows.
-- But we have many variables like `size` that contain a great deal of missing values and two variables ( `price` and `odometer` ) that have extreme values.
+- There are 426,880 rows and 25 attributes in our data set, and `price` is our target variable.
+- A great deal of categorical variables need to be encoded.
+- There are no redundant rows.
+- There are some useless columns to be dropped, such as `url`, `image_url`, `region_url`, `id`, `post_date`, and `VIN` . 
+- Nearly all features contain a great deal of missing values. We can remove features directly or find ways to impute them.
+-  `price` and  `odometer` have extreme values.
 
 
 
@@ -236,21 +244,21 @@ For numerical variables, we measure the central tendency and dispersion of the d
 
 
 
-For example, Figure 6 shows the distribution of the variable `year`. It can be seen that most cars were made after 2000. Besides, this distribution has a long left tail, which means the mean is lower than the median. From Figure 4, we can find that the mean is `2010` while the median is `2013`. This is because the feature `year` contains some extreme small values.
+For example, Figure 3 shows the distribution of the variable `year`. It can be seen that most cars were made after 2000. Besides, this distribution has a long left tail, which means the mean is lower than the median. From Figure 4, we can find that the mean is `2010` while the median is `2013`. This is because the feature `year` contains some extreme small values.
 
 
 
-![The distribution of the year](/blog/post/images/used-car-year-hist.png "Figure 6: The distribution of the year")
+![The distribution of the year](/blog/post/images/used-car-year-hist.png "Figure 3: The distribution of the year")
 
 
 
 #### 2) categorical variables
 
-For categorical variables, we usually plot bar charts to understand the distribution of each category, as shown in Figure 7.
+For categorical variables, we usually plot bar charts to understand the distribution of each category, as shown in Figure 4.
 
 
 
-![Bar charts for some categorical variables](/blog/post/images/used-car-categorical.png#full "Figure 7: Bar charts for some categorical variables")
+![Bar charts for some categorical variables](/blog/post/images/used-car-categorical.png#full "Figure 4: Bar charts for some categorical variables")
 
 
 
@@ -270,31 +278,31 @@ Analyzing one predictor seems a bit monotonous. In fact, we are more interested 
 
 
 
-Scatter plots provide a nice way to find the relationships between continuous variables. It's easy to plot them with the help of seaborn. From Figure 8, we can see that there is a negative relationship between odometer and car prices, which means the car prices will decrease as the odometer increases.
+Scatter plots provide a nice way to find the relationships between continuous variables. It's easy to plot them with the help of seaborn. From Figure 5, we can see that there is a negative relationship between odometer and car prices, which means the car prices will decrease as the odometer increases.
 
 
 
-![](/blog/post/images/used-car-odometer-scatter.png "Figure 8: The relationship between odometer and price")
+![](/blog/post/images/used-car-odometer-scatter.png "Figure 5: The relationship between odometer and price")
 
 
 
-However, scatter plot cannot tell us how strong this relationship is. The solution is to calculate correlation.  Figure 9 shows that the car prices have a moderate positive relation with `year` and a negative relation with `odometer`. On the contrary, `latitude` and `longitude` have a weak relation with car prices.
+However, scatter plot cannot tell us how strong this relationship is. The solution is to calculate correlation.  Figure 6 shows that the car prices have a moderate positive relation with `year` and a negative relation with `odometer`. On the contrary, `latitude` and `longitude` have a weak relation with car prices.
 
 
 
-![](/blog/post/images/used-car-correlation.png "Figure 9: The correlation among continuous variables")
+![](/blog/post/images/used-car-correlation.png "Figure 6: The correlation among continuous variables")
 
 
 
 #### 2) categorical vs numerical
 
-
-
 For categorical features, we group data by category and compare them side by side using boxplot or line chart. Basically, we just divide the whole data into several groups and the following analysis is the same as we did before.
 
 
 
-PS: Aside from visualisation methods talked above, we can also do a statistic test like Chi-square test to find out whether there is a statistically significant relationship between variables. We will talk about this later.
+#### 3) categorical vs categorical
+
+
 
 
 
