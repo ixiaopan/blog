@@ -12,7 +12,9 @@ katex: true
 
 
 
-A Naive Bayes classifier is a probabilistic model that is used for classification, which is based on the Bayes' Theorem. 
+
+
+In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating $P(Y|X)$ directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification. 
 
 
 

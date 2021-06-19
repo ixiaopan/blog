@@ -16,7 +16,7 @@
 			<link>https://ixiaopan.github.io/blog/post/naive-bayes/</link>
 			<pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/naive-bayes/</guid>
-			<description>&lt;p&gt;A Naive Bayes classifier is a probabilistic model that is used for classification, which is based on the Bayes&#39; Theorem.&lt;/p&gt;</description>
+			<description>&lt;p&gt;In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating $P(Y|X)$ directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
