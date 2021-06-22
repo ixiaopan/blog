@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title></title>
-		<link>https://ixiaopan.github.io/blog/</link>
-		<description>Recent content </description>
+		<title>NLP on </title>
+		<link>https://ixiaopan.github.io/blog/categories/nlp/</link>
+		<description>Recent content in NLP </description>
 		<generator>Hugo -- gohugo.io</generator>
 		
   		<language>en</language>
 		
-		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
+		<managingEditor>Page(/categories/nlp) (ixiaopan)</managingEditor>
     	
   		<lastBuildDate>Tue, 22 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
+		<atom:link href="/blog/categories/nlp/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>NLP - Text preprocessing</title>
