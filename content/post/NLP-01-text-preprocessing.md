@@ -64,7 +64,7 @@ From the above code, we can see some issues,
 
 
 
-Maybe we can write some specific rules for a corpus to remove particular punctuaitons, but it will be time-consuming and not inflexible.
+Maybe we can write some specific rules for a corpus to remove particular punctuations, but it will be time-consuming and inflexible.
 
 
 
@@ -80,7 +80,7 @@ Tokenization is a technique to split a piece of text into a smaller unit. The un
 
 Why do we tokenize text? The answer is that the ultimate goal of tokenization is to build vocabulary for a corpus. After all, words in each sentence are ultimately from the vocabulary. 
 
-Then, how do we perform tokenization to get a sequence of words? A naive way is to split a string by whitespace shown below.
+Okay, so how do we perform tokenization to get a sequence of words? A naive way is to split a string by whitespace shown below.
 
 
 
@@ -159,7 +159,7 @@ for word in words:
 
 
 
-We can see that the result of stemming may not be a word, e.g. `easili`, and some special tense forms like `ran, saw` are not processed correctly.
+We can see that the result of stemming may not be a word, e.g. `easili`, and that the tense forms of some special words like `ran, saw` are not processed correctly.
 
 
 

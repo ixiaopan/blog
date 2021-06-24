@@ -64,22 +64,27 @@ publishDir = "docs"
 
 
 # copy paste this block and change for each social media to add how many ever social media
-# acounts/links you want
+# acounts/links you want, add icon from https://fontawesome.com/
 [[params.social]]
   name= "Email"
-  url="mailto:?to=wxp201013@163.com"
+  url="mailto:?to=xiaopan.wpp@outlook.com"
   icon="fas fa-envelope"
 
 [[params.social]]
   name= "GitHub"
-  url="https://github.com/ixiaopan/"
+  url="https://github.com/ixiaopan"
   icon="fab fa-github"
+
+[[params.social]]
+  name= "Linkedin"
+  url="https://www.linkedin.com/in/ixiaopan"
+  icon="fab fa-linkedin"
+
 
 [[params.social]]
   name= "Bilibili"
   url="https://space.bilibili.com/22910840"
   icon="fab fa-youtube"
-
 
 [params.logo]
   url = "icon.JPG" # static/images/icon.JPG

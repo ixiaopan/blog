@@ -12,10 +12,18 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Deep Learning - Introduction</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-01-intro/</link>
+			<pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-01-intro/</guid>
+			<description>&lt;p&gt;So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. I am afraid that I don&amp;rsquo;t have time to do this because I have to do my summer project, which requires me to dive into deep learning.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>NLP - Text preprocessing</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-text-preprocessing-01/</link>
+			<link>https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/</link>
 			<pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-text-preprocessing-01/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/</guid>
 			<description>&lt;p&gt;From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.&lt;/p&gt;</description>
 		</item>
       	
@@ -83,15 +91,6 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 			<pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/constrained-optimisation/</guid>
 			<description>&lt;p&gt;When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I&amp;rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Probabilistic Model</title>
-			<link>https://ixiaopan.github.io/blog/post/probabilistic-model/</link>
-			<pubDate>Wed, 26 May 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/probabilistic-model/</guid>
-			<description>In the previous post Descriptive Statistics, we focused on summary statistics on a particular data set. However, in machine learning, we usually attempt to make inference, i.e. infer the unknown parameters from the given data. For unknown things, we use probability to describe its uncertainty. For inference, we use Bayes&#39; rule to invert it into a forward process.
-Probability At the beginning, let&amp;rsquo;s have a quick refresh on probability. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable.</description>
 		</item>
       	
 	</channel>

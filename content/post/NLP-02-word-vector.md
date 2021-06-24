@@ -1,6 +1,6 @@
 ---
 title: "NLP - Word representation"
-date: "2021-06-21"
+date: "2021-06-24"
 description: ""
 # tags: []
 categories: [
@@ -17,13 +17,11 @@ draft: true
 
 
 
-## Frequency-Based
+## Basic vectorization
 
 ### One-hot
 
 #### character-level
-
-
 
 ```python
 line = '“Impossible, Mr. Bennet, impossible, when I am not acquainted with him'
@@ -68,13 +66,25 @@ word_vector.shape
 
 ### Bag-of-Word
 
+#### Frequency
+
+
+
+#### Occurence
+
+
+
+### Bag of N-Grams
+
 
 
 ### TF-IDF
 
 
 
-## Context-Based
+
+
+## Distributed Representation
 
 
 
@@ -82,5 +92,19 @@ word_vector.shape
 
 
 
+
+
 ### Skip-gram
+
+
+
+
+
+## Pre-trained embedding
+
+
+
+### GloVe
+
+
 

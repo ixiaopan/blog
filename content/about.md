@@ -6,7 +6,11 @@ weight: 2
 
 ## PROFILE
 
+
+
 MSc Data Science student with more than 5 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+
+
 
 <style>
 .timeline p {
@@ -25,72 +29,46 @@ MSc Data Science student with more than 5 years of work experience in frontend d
 .timeline+.timeline {
   margin-top: 8px;
 }
-
-ul, li, ol {
-  margin: 0;
-  padding: 0;
-}
 li {
-  list-style: none;
+  margin-left: -20px
 }
-.bullet li {
-  position: relative;
-  margin-bottom: 6px;
-  margin-top: 6px;
-  margin-left: 16px;
-}
-.bullet li a {
-  color: #000;
-  text-decoration: none;
-}
-.bullet li::before {
-  content: '\25CF\0020';
-  font-size: .8em;
-  position: absolute;
-  left: -16px;
-  top: 2px;
-}
+
 </style>
 
-## RELEVANT SKILLS
 
-<section class="skill">
-<ul class="bullet">
-  <li>
-    Confident user of various Python libraries including NumPy and Pandas.
-  </li>
 
-  <li>
-  Experienced user of JavaScript and familiar with database including SQL and MongoDB. Able to build a web application from front-end to back-end effectively and independently.
-  </li>
+## PROFESSIONAL SKILLS
 
-  <li>
-    Familiar with Git and good at data visualisation and Sketch.
-  </li>
-</ul>
-</section>
+
+
+- Strong understanding of machine learning algorithms and good hands-on experience with Scikit-Learn and Pytorch
+- Good knowledge of Deep Learning and NLP 
+- Procient in JavaScript and familiar with SQL and MongoDB
+- Able to build a web application from frontend to backend independently and effectively
+- Familiar with Git and good at data visualisation and Sketch
+- Led a group of 3 stas for one year at Ant Group
+
+
 
 ## EDUCATION
 
-<section class="edu">
-<div class="timeline edu-item">
+
+
+<section >
+<div class="timeline">
   <p class="time">09/2020 - present</p>
-  <div class="edu-right">
-    <p class="degree">MSc Data Science, University of Southampton</p>
-  </div>
+  <p>MSc Data Science, University of Southampton</p>
 </div>
-
-
-<div class="timeline edu-item">
+<div class="timeline">
   <p class="time">09/2010 - 07/2014</p>
-  <div class="edu-right">
-    <p class="degree">BSc Computer Science and Technology, </p>
-    <p class="uni">University of Electronic Science and Technology of China</p>
-  </div>
+  <p>BSc Computer Science and Technology,University of Electronic Science and Technology of China </p>
 </div>
 </section>
 
+
+
 ## EMPLOYMENT HISTORY
+
 <section>
 <div class="timeline work-item">
   <p class="time">07/2017 - 04/2020</p>
@@ -101,7 +79,3 @@ li {
   <p class="work-title">Front-end Engineer, Baidu, Beijing & Shanghai</p>
 </div>
 </section>
-
-## INTERESTS
-
-Ukulele, Reading, Running

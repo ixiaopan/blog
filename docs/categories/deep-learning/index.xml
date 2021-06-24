@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Machine Learning on </title>
-		<link>https://ixiaopan.github.io/blog/categories/machine-learning/</link>
-		<description>Recent content in Machine Learning </description>
+		<title>Deep Learning on </title>
+		<link>https://ixiaopan.github.io/blog/categories/deep-learning/</link>
+		<description>Recent content in Deep Learning </description>
 		<generator>Hugo -- gohugo.io</generator>
 		
   		<language>en</language>
 		
-		<managingEditor>Page(/categories/machine-learning) (ixiaopan)</managingEditor>
+		<managingEditor>Page(/categories/deep-learning) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
+		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Deep Learning - Introduction</title>
