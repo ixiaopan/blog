@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>Deep Learning - Introduction</title>
+<title>NLP - Word representation</title>
 
 
   
@@ -18,8 +18,8 @@
   title=""
 />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Deep Learning - Introduction"/>
-<meta name="twitter:description" content="So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. I am afraid that I don&rsquo;t have time to do this because I have to do my summer project, which requires me to dive into deep learning."/>
+<meta name="twitter:title" content="NLP - Word representation"/>
+<meta name="twitter:description" content=""/>
 
 
 
@@ -120,7 +120,7 @@
     <div class="container">
       <div class="post-heading">
         
-          <h1>Deep Learning - Introduction</h1>
+          <h1>NLP - Word representation</h1>
         
         
         
@@ -134,8 +134,8 @@
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
-        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
-        >Deep Learning</a
+        href="https://ixiaopan.github.io/blog/categories/nlp/"
+        >NLP</a
       >&nbsp;
     
   
@@ -157,8 +157,47 @@
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. I am afraid that I don&rsquo;t have time to do this because I have to do my summer project, which requires me to dive into deep learning.</p>
-<p>To this end, I am going to write something about deep learning, which I hope could improve my understanding of it, particularly RNN. In the first article of this series, we will learn how a neural network works by implementing two machine learning models, linear regression and logistic regression, and revisit the loss function cross-entropy.</p>
+  <h2 id="basic-vectorization">Basic vectorization</h2>
+<h3 id="one-hot">One-hot</h3>
+<h4 id="character-level">character-level</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;“Impossible, Mr. Bennet, impossible, when I am not acquainted with him&#39;</span>
+
+cleaned_line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(clean_text(line))
+cleaned_line, len(cleaned_line)
+<span style="color:#75715e"># (&#39;impossiblemrbennetimpossiblewheniamnotacquaintedwithhim&#39;, 55)</span>
+
+<span style="color:#75715e"># each row represent a character in the sentence</span>
+letter_tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(len(cleaned_line), <span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">for</span> i, letter <span style="color:#f92672">in</span> enumerate(cleaned_line):
+    idx <span style="color:#f92672">=</span> ord(letter) <span style="color:#66d9ef">if</span> ord(letter) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">128</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+    letter_tensor[i][idx] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+
+</code></pre></div><h4 id="word-level">word-level</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># build vocabulary</span>
+vocabulary <span style="color:#f92672">=</span> set(clean_text(corpus))
+word2idx <span style="color:#f92672">=</span> {w: idx <span style="color:#66d9ef">for</span> idx, w <span style="color:#f92672">in</span> enumerate(vocabulary)}
+len(vocabulary), word2idx[<span style="color:#e6db74">&#39;impossible&#39;</span>]
+<span style="color:#75715e"># (7265, 5746)</span>
+
+<span style="color:#75715e"># each row represent a word in the sentence</span>
+words_in_line <span style="color:#f92672">=</span> clean_text(line)
+word_vector <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(len(words_in_line), len(vocabulary))
+<span style="color:#66d9ef">for</span> idx, w <span style="color:#f92672">in</span> enumerate(words_in_line):
+    j <span style="color:#f92672">=</span> word2idx[w]
+    word_vector[idx][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+
+word_vector<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([11, 7265])</span>
+</code></pre></div><h3 id="bag-of-word">Bag-of-Word</h3>
+<h4 id="frequency">Frequency</h4>
+<h4 id="occurence">Occurence</h4>
+<h3 id="bag-of-n-grams">Bag of N-Grams</h3>
+<h3 id="tf-idf">TF-IDF</h3>
+<h2 id="distributed-representation">Distributed Representation</h2>
+<h3 id="cbow">CBOW</h3>
+<h3 id="skip-gram">Skip-gram</h3>
+<h2 id="pre-trained-embedding">Pre-trained embedding</h2>
+<h3 id="glove">GloVe</h3>
 
 
 
@@ -167,7 +206,29 @@
 
       
       <aside class="article-aside">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-vectorization">Basic vectorization</a>
+      <ul>
+        <li><a href="#one-hot">One-hot</a></li>
+        <li><a href="#bag-of-word">Bag-of-Word</a></li>
+        <li><a href="#bag-of-n-grams">Bag of N-Grams</a></li>
+        <li><a href="#tf-idf">TF-IDF</a></li>
+      </ul>
+    </li>
+    <li><a href="#distributed-representation">Distributed Representation</a>
+      <ul>
+        <li><a href="#cbow">CBOW</a></li>
+        <li><a href="#skip-gram">Skip-gram</a></li>
+      </ul>
+    </li>
+    <li><a href="#pre-trained-embedding">Pre-trained embedding</a>
+      <ul>
+        <li><a href="#glove">GloVe</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
       </aside>
       
     </div>

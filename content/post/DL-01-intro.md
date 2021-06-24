@@ -21,6 +21,7 @@ So far, we've covered most of the things that we should know about machine learn
 
 
 
-However, I don't think I learned deep learning well. To this end, I am going to write something about deep learning, which I hope could improve my understanding of it, particularly RNN. In the first article of this series, we will learn how a neural network works by implementing two machine learning models, linear regression and logistic regression, and revisit the loss function cross-entropy.
+To this end, I am going to write something about deep learning, which I hope could improve my understanding of it, particularly RNN. In the first article of this series, we will learn how a neural network works by implementing two machine learning models, linear regression and logistic regression, and revisit the loss function cross-entropy.
+
 
 
