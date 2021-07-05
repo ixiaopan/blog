@@ -9,6 +9,10 @@ enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 publishDir = "docs"
 
+[params]
+  customCSS = ["css/main.css"]
+
+
 [markup]
   defaultMarkdownHandler = "goldmark"
   [markup.goldmark]
@@ -87,7 +91,7 @@ publishDir = "docs"
   icon="fab fa-youtube"
 
 [params.logo]
-  url = "icon.JPG" # static/images/icon.JPG
+  url = "me.JPG" # static/images/icon.JPG
   width = 50
   height = 50
   alt = "Logo"
