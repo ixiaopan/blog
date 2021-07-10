@@ -364,7 +364,7 @@ Now let's learn a topic modeling method that utilises the knowledge we've talked
 
 
 
-In LDA, documents are represented as a fixed group of topics, which are unknown as latent variables. And these topics are characterized by a small specific words. For example, words like 'teacher, student, school, exam, marks' should occur more frequently in the area of Education than topics like Sports. This means **different topics have different word distribution**, as shown in Figure 2.
+In LDA, documents are represented as a fixed group of topics, which are unknown as latent variables. And these topics are characterized by a small specific set of words. For example, words like 'teacher, student, school, exam, marks' should occur more frequently in the area of Education than topics like Sports. This means **different topics have different word distribution**, as shown in Figure 2.
 
 
 

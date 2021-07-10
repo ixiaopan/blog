@@ -5,7 +5,9 @@
 <title>Support Vector Machine</title>
 
 
+
   
+
 
 
 
@@ -17,6 +19,7 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Support Vector Machine"/>
 <meta name="twitter:description" content="Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
@@ -25,13 +28,14 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -43,26 +47,36 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -71,13 +85,13 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -116,21 +130,21 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>Support Vector Machine</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Support Vector Machine
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 15, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;10 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -141,18 +155,14 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -172,7 +182,6 @@ $$</p>
     <img src="/blog/post/images/distance2plane.png" alt="">
     <figcaption>Figure 1: Distance from a point to a hyperplane.</figcaption>
   </figure>
-
 </p>
 <p>The black line in Figure 1 represents a hyperplane defined by an orthogonal vector $w$ and a bias $b$</p>
 <p>$$
@@ -214,7 +223,6 @@ $$</p>
     <img src="/blog/post/images/non-linearly-separable.png" alt="">
     <figcaption>Figure 2: Non-linearly separable data</figcaption>
   </figure>
-
 </p>
 <p>Maybe we could do some data transformation and work in a new feature space where data are linearly speparable. Yea, in fact, SVM maps all feature vectors to an extended feature space by defining a special $\phi(x)$, which is a function of $x$</p>
 <p>$$
@@ -280,7 +288,6 @@ $$</p>
     <img src="/blog/post/images/svm-slack.png" alt="">
     <figcaption>Figure 3: Soft margin </figcaption>
   </figure>
-
 </p>
 <p>Now the constraint is</p>
 <p>$$
@@ -392,7 +399,6 @@ $$</p>
     <img src="/blog/post/images/kernel-infinite.png" alt="">
     <figcaption>Figure 4: G could have infinite dimension (Ref[3])</figcaption>
   </figure>
-
 </p>
 <p>Then we define an <strong>eigenfunciton</strong> $\psi(x)$, which is a real funtion of $x$</p>
 <p>$$
@@ -548,12 +554,12 @@ $$</p>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -572,17 +578,17 @@ $$</p>
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -600,7 +606,7 @@ $$</p>
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

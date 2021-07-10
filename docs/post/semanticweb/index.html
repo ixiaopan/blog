@@ -5,7 +5,9 @@
 <title>Semantic Web</title>
 
 
+
   
+
 
 
 
@@ -17,19 +19,21 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Semantic Web"/>
 <meta name="twitter:description" content="In semester 2, I took a module called Semantic Web Technologies. There are some reasons why I choose this module. At first glance, the name itself sounds not appealing. Actually, it does. But it&#39;s still on my shortlist because I&#39;ve been working on the web for many years and I wondered what the semantic web was. "/>
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -41,26 +45,36 @@
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -69,13 +83,13 @@
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -114,21 +128,21 @@
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>Semantic Web</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Semantic Web
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;May 8, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -139,18 +153,14 @@
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -185,7 +195,6 @@
     <img src="/blog/post/images/rdf.png" alt="">
     <figcaption>Figure 1: A triple-based data model</figcaption>
   </figure>
-
 </p>
 <p>The above model is an abstract framework. Subjects and predicates can be anything. To describe the specific subjects and the relationship between them, we need to find a way to identify them explicitly. We also need a data format that defines and parses this model.</p>
 <h3 id="uri">URI</h3>
@@ -251,7 +260,6 @@ d:hasFriend
     <img src="/blog/post/images/rdfs-class.png" alt="">
     <figcaption>Figure 2: Declare a class</figcaption>
   </figure>
-
 </p>
 <p>Furthermore, we use <code>rdfs:subClassOf</code> to declare that a class is a subclass of another class. It&rsquo;s clear that <code>rdfs:subClassOf</code> is transitive. For example, if  <code>Teacher</code> is a subclass of <code>UniStaff</code> and <code>UniStaff</code> is a subclass of <code>Person</code> , then <code>Teacher</code> is a subclass of <code>Person</code>, as shown in Figure 3.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Teacher</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
@@ -264,7 +272,6 @@ d:hasFriend
     <img src="/blog/post/images/rdfs-superclass.png" alt="">
     <figcaption>Figure 3: RDFS class semantics </figcaption>
   </figure>
-
 </p>
 <p>On the other hand, <code>rdf:type</code> distributes over <code>rdf:subClassOf</code>. This means that if  <code>C rdf:type A</code> and <code>A rdfs:subClassOf B</code> , then <code>C rdf:type B</code>. For instance, Figure 4 illustrates that  if Bob is an instance of <code>Teacher</code>, then Bob is also an instance of <code>Unistaff</code> and <code>Person</code>.</p>
 <p>
@@ -272,7 +279,6 @@ d:hasFriend
     <img src="/blog/post/images/rdfs-type.png" alt="">
     <figcaption>Figure 4: rdf:type distributes over rdfs:subClassOf</figcaption>
   </figure>
-
 </p>
 <h3 id="property-definition">property definition</h3>
 <p>Property declaration is similar to class declaration. The following code declares a property named <code>ex:hasStreet</code>.</p>
@@ -290,7 +296,6 @@ d:hasFriend
     <img src="/blog/post/images/rdfs-superpropery.png" alt="">
     <figcaption>Figure 5: RDF Schema property semantics </figcaption>
   </figure>
-
 </p>
 <h2 id="sparql">SPARQL</h2>
 <p>So far, we are able to represent data. But how do we retrieve it from databases? Well, SPARQL is a SQL-like query language that allows us to make a query.</p>
@@ -371,12 +376,12 @@ d:hasFriend
     <li><a href="#description-logic-dl">Description Logic (DL)</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -395,17 +400,17 @@ d:hasFriend
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -423,7 +428,7 @@ d:hasFriend
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

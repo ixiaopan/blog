@@ -5,7 +5,9 @@
 <title>Ensemble Methods</title>
 
 
+
   
+
 
 
 
@@ -17,19 +19,21 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ensemble Methods"/>
 <meta name="twitter:description" content="Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting."/>
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -41,26 +45,36 @@
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -69,13 +83,13 @@
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -114,21 +128,21 @@
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>Ensemble Methods</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Ensemble Methods
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 20, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;11 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -139,18 +153,14 @@
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -173,7 +183,6 @@
     <img src="/blog/post/images/ensemble-voting.png" alt="Ensemble Voting">
     <figcaption>Figure 1: Hard voting classifier predicitons (Hands-on machine learning, 2019)</figcaption>
   </figure>
-
 </p>
 <p>Figure 1 can also be illustrated  in a mathematical way,</p>
 <p>$$
@@ -216,7 +225,6 @@ $$</p>
     <img src="/blog/post/images/bootstrap.png" alt="The process of bagging">
     <figcaption>Figure 2: The process of bagging  (Hands-on machine learning, 2019)</figcaption>
   </figure>
-
 </p>
 <p>Specifically, given a training data set $D=(x_i, y_i)_i^n$ of the size $N$, we build an ensemble model of size $m$ according to the following steps:</p>
 <ul>
@@ -247,7 +255,6 @@ ensemble_clf <span style="color:#f92672">=</span> BaggingClassifier(DecisionTree
     <img src="/blog/post/images/random-forest.jpeg" alt="">
     <figcaption>Figure 3: A random subset of features at each split for each tree (Reference [2])</figcaption>
   </figure>
-
 </p>
 <p>Specifically, it randomly choose a subset of $m'$ of the features at each split instead of using all features shown in Figure 3. By doing so, all trees can have much different training data set further, so they are <strong>less similar</strong> to each other, which results in more significant predictions.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
@@ -330,7 +337,6 @@ $$</p>
     <img src="/blog/post/images/exp-loss-adaboost.png" alt="Exponential loss">
     <figcaption>Figure 4: Exponential loss in AdaBoost</figcaption>
   </figure>
-
 </p>
 <h3 id="intuition">Intuition</h3>
 <p>To minimize the loss, we plug the previous $C_n(x)$ into the loss function</p>
@@ -397,7 +403,6 @@ $$</p>
     <img src="/blog/post/images/ada-example-df.png" alt="Toy data for AdaBoost">
     <figcaption>Figure 5: Toy data from &#39;StatQuest with Josh Starmer&#39;</figcaption>
   </figure>
-
 </p>
 <p>Step 2: Find the weak learner</p>
 <p>Here, we use stump as our weak learner and Figure 6 shows the first optimal tree where we only misclassified one observation.</p>
@@ -417,7 +422,6 @@ plt<span style="color:#f92672">.</span>show()
     <img src="/blog/post/images/ada-stump.png" alt="">
     <figcaption>Figure 6: The first stump</figcaption>
   </figure>
-
 </p>
 <p>Step 3: Update weights</p>
 <p>Since we have only one misclassification, the error rate is <code>1/8</code> and $\alpha_1$ is 0.97. Then we update weights for each data point using $\alpha_1$.</p>
@@ -439,7 +443,6 @@ df<span style="color:#f92672">.</span>loc[clf<span style="color:#f92672">.</span
     <img src="/blog/post/images/ada-example-stump1.png" alt="">
     <figcaption>Figure 7: Updated weigts after training the first stump</figcaption>
   </figure>
-
 </p>
 <p>Step 4: Go back to Step 2 until the desired number of learners is reached.</p>
 <h3 id="adjusted-impurity">Adjusted impurity</h3>
@@ -505,12 +508,12 @@ $$</p>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -529,17 +532,17 @@ $$</p>
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -557,7 +560,7 @@ $$</p>
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

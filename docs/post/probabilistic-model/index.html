@@ -5,7 +5,9 @@
 <title>Probabilistic Model</title>
 
 
+
   
+
 
 
 
@@ -17,19 +19,21 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Probabilistic Model"/>
 <meta name="twitter:description" content="In the previous post [Descriptive Statistics](https://ixiaopan.github.io/blog/post/descriptive-statistics/), we focused on summary statistics on a particular data set. However, in machine learning, we usually attempt to make inference, i.e. infer the unknown parameters from the given data. For unknown things, we use **probability** to describe its uncertainty. For inference, we use Bayes&#39; rule to invert it into a forward process"/>
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -41,26 +45,36 @@
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -69,13 +83,13 @@
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -114,21 +128,21 @@
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>Probabilistic Model</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Probabilistic Model
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;May 26, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -139,18 +153,14 @@
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -315,7 +325,6 @@ $$</p>
     <img src="/blog/post/images/bayesian-network.png" alt="">
     <figcaption>Figure 1: Directed graphical models representing the above three conditions </figcaption>
   </figure>
-
 </p>
 <p>Such a graph is known as Bayesian networks where we use a directed graph to show causal relationships between random variables. Specifically, we add directed links between $X$ and $Y$ if $X$ directly influences $Y$ shown in the left graph of Figure 1.</p>
 <h3 id="conditional-independence">Conditional Independence</h3>
@@ -331,13 +340,12 @@ $$</p>
 <h2 id="latent-dirichlet-allocation">Latent Dirichlet Allocation</h2>
 <p>Now let&rsquo;s learn a topic modeling method that utilises the knowledge we&rsquo;ve talked about so far, Latent Dirichlet Allocation(LDA). Note this is not linear discriminant analysis, which is also abbrivated to LDA. Here, LDA is an unsupervised learning method that is used to model topics within a set of documents. Speaking of &lsquo;topic&rsquo;, it means that when you find a group of words occuring many times in an article, such as &lsquo;banana, apple, fruit, vegetable&rsquo;, you will relate them to an area, like &lsquo;Food&rsquo; in this case.</p>
 <h3 id="latent">Latent</h3>
-<p>In LDA, documents are represented as a fixed group of topics, which are unknown as latent variables. And these topics are characterized by a small specific words. For example, words like &lsquo;teacher, student, school, exam, marks&rsquo; should occur more frequently in the area of Education than topics like Sports. This means <strong>different topics have different word distribution</strong>, as shown in Figure 2.</p>
+<p>In LDA, documents are represented as a fixed group of topics, which are unknown as latent variables. And these topics are characterized by a small specific set of words. For example, words like &lsquo;teacher, student, school, exam, marks&rsquo; should occur more frequently in the area of Education than topics like Sports. This means <strong>different topics have different word distribution</strong>, as shown in Figure 2.</p>
 <p>
   <figure>
     <img src="/blog/post/images/topic-word.png" alt="">
     <figcaption>Figure 2: Word distribution varies in different topics</figcaption>
   </figure>
-
 </p>
 <p>If a document contains more words like &lsquo;teacher, school&rsquo;, it&rsquo;s likely to be identified as &lsquo;Education&rsquo;. But it could contain other topics. For example, if this is a document regarding a sports contest held in a school, then it&rsquo;s much likely to be associated with &lsquo;Sports&rsquo; rather than &lsquo;Education&rsquo;. Thus, we can see that a document can also contain different topics with different weights, i.e. each document has its own topic distribution.</p>
 <p>From above, we know that a document consists of a group of topics, and each topic has its special words.   To generate a document, we can randomly choose N topics for N words in a document and then randomly choose a word from the corresponding topic. Of course, such an article contains little meaning since we ignore the order and semantics of words. But it&rsquo;s reasonable for LDA since LDA treats documents just as a bag of words(BOW).</p>
@@ -355,7 +363,6 @@ $$</p>
     <img src="/blog/post/images/LDA.png" alt="">
     <figcaption>Figure 3: Graphical model for LDA</figcaption>
   </figure>
-
 </p>
 <p>The figure looks a bit scary, well, let&rsquo;s start with some notations first,</p>
 <ul>
@@ -463,12 +470,12 @@ $$</p>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -487,17 +494,17 @@ $$</p>
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -515,7 +522,7 @@ $$</p>
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

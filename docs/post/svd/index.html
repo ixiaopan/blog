@@ -5,7 +5,9 @@
 <title>Singular Value Decomposition</title>
 
 
+
   
+
 
 
 
@@ -17,19 +19,21 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Singular Value Decomposition"/>
 <meta name="twitter:description" content="Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post."/>
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -41,26 +45,36 @@
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -69,13 +83,13 @@
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -114,21 +128,21 @@
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>Singular Value Decomposition</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Singular Value Decomposition
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;May 4, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;13 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -139,18 +153,14 @@
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -165,7 +175,6 @@
     <img src="/blog/post/images/change-basis-example.png" alt="">
     <figcaption>Figure 1: The same point with different coordinates in two different coordinate spaces</figcaption>
   </figure>
-
 </p>
 <p>From Figure 1, we can see that the absolute position of the red point always stay the same. However, the relative positions to the different bases are different. Mathematically, the red point can be described from the perspective of basis as follows,</p>
 <p>$$
@@ -270,12 +279,10 @@ $$</p>
 <p>Since $S$ is an $r \times r$ diagonal matrix for some $r$ not exceeding the smaller of $N$ and $P$, we could simplify $S$ and the correspoding $V$ and $U$. Specifically, for $X$ with more samples than features $N &gt; P$ (tall and thin), we ignore the last $N - P$ columns of U</p>
 <p>
   <img src="/blog/post/images/economical-form-svd-2.png" alt="">
-
 </p>
 <p>and for $X$ with more features than examples $N &lt; P$ (short and fat), we ignore the last $P - N$ rows of $V^T$</p>
 <p>
   <img src="/blog/post/images/economical-form-svd-1.png" alt="">
-
 </p>
 <h3 id="linear-regression-revisited">Linear Regression Revisited</h3>
 <p>In the previous post <a href="https://ixiaopan.github.io/blog/post/linear-regression-02/">Linear Regression 02</a>, we introduced pseudo-inverse $A^+$</p>
@@ -366,7 +373,6 @@ $$</p>
     <img src="/blog/post/images/change-variable.png" alt="">
     <figcaption>Figure 2: Change of variable in $x^T A x$ (Introduction to Linear Algebra[1])</figcaption>
   </figure>
-
 </p>
 <p>Geometrically,  $P^T_{y \larr v}$ is the change coordinate matrix from $v$ to $y$, which finally transform the shape of the quadratic form $\bold v^TC\bold v$ into the standard position, such as the shapes in the figure below.</p>
 <p>
@@ -374,7 +380,6 @@ $$</p>
     <img src="/blog/post/images/ellipse-standard.png" alt="">
     <figcaption>Figure 3: An ellipse and a hyperbola in standard position (Introduction to Linear Algebra[1])</figcaption>
   </figure>
-
 </p>
 <h3 id="projection">Projection</h3>
 <p>For a data set with $p$ features, we want to reduce its dimension to $k$, there are a few steps to follow</p>
@@ -497,7 +502,6 @@ pca<span style="color:#f92672">.</span>n_components_
     <img src="/blog/post/images/explained-variance-ratio-pca.png" alt="">
     <figcaption>Figure 4: Explained variance as a function of k (Hands-on machine learning, 2019)</figcaption>
   </figure>
-
 </p>
 <h2 id="references">References</h2>
 <p>[1]	G. Strang, Introduction to Linear Algebra, 5th ed. Wellesley, MA: Wellesley-Cambridge Press, 2016.</p>
@@ -532,12 +536,12 @@ pca<span style="color:#f92672">.</span>n_components_
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -556,17 +560,17 @@ pca<span style="color:#f92672">.</span>n_components_
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -584,7 +588,7 @@ pca<span style="color:#f92672">.</span>n_components_
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

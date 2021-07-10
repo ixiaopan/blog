@@ -5,7 +5,9 @@
 <title>An E2E Project - EDA</title>
 
 
+
   
+
 
 
 
@@ -17,19 +19,21 @@
   href="https://ixiaopan.github.io/blog/index.xml"
   title=""
 />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="An E2E Project - EDA"/>
 <meta name="twitter:description" content="So far, we have discussed many algorithms, such as linear regression and ensemble methods. It&#39;s time to learn how to build a real machine learning project to enhance our understanding of these models."/>
 
 
 
-<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
 <link
   id="dark-mode-theme"
   rel="stylesheet"
   href="https://ixiaopan.github.io/blog/css/dark.css"
 />
+
 
 <script>
   var darkTheme = document.getElementById('dark-mode-theme')
@@ -41,26 +45,36 @@
   }
 </script>
 
+
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.81.0" />
-   
-    
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body, {
-          delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-          ]
-      });
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
 </script>
 
-    
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -69,13 +83,13 @@
 
 
 
-<header>
-  <nav class="navbar">
+  <header>
+    <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
         <img
-          src="https://ixiaopan.github.io/blog/images/icon.JPG"
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
           width="50"
           height="50"
           alt="Logo"
@@ -114,21 +128,21 @@
 </nav>
 
 
-  
-  
-  <div class="intro-header">
-    <div class="container">
-      <div class="post-heading">
-        
-          <h1>An E2E Project - EDA</h1>
-        
-        
-        
-          <span class="meta-post">
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              An E2E Project - EDA
+            </h1>
+          
+          
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 25, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min  read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -139,18 +153,14 @@
       >&nbsp;
     
   
-  
 </span>
 
-        
+          
+        </div>
       </div>
     </div>
-  </div>
-  
-</header>
-
-
-
+    
+  </header>
 
     
   <div class="container" role="main">
@@ -236,7 +246,6 @@ df_vehicles<span style="color:#f92672">.</span>head()
     <img src="/blog/post/images/used-car-toydata.png#full" alt="Example Data">
     <figcaption>Table 1: Some example data</figcaption>
   </figure>
-
 </p>
 <p>Comments:</p>
 <ul>
@@ -263,7 +272,6 @@ df<span style="color:#f92672">.</span>drop_duplicates()
     <img src="/blog/post/images/used-car-heatmap-missing.png" alt="A heatmap">
     <figcaption>Figure 1: A heatmap for visualising the distribution of null values</figcaption>
   </figure>
-
 </p>
 <p>Figure 1 shows that <code>size</code>, <code>condition</code>, <code>VIN</code>, <code>cylinders</code>, <code>drive</code> and <code>paint_color</code> have a significant number of null values. To quantify the number of missing values, we can use a table shown below.</p>
 <p>
@@ -271,7 +279,6 @@ df<span style="color:#f92672">.</span>drop_duplicates()
     <img src="/blog/post/images/used-car-missing-table.png" alt="A table that shows the percentage of null values">
     <figcaption>Table 2: A table that shows the percentage of null values</figcaption>
   </figure>
-
 </p>
 <h4 id="3-outlier">3) outlier</h4>
 <p>In the previous post <a href="/blog/post/descriptive-statistics/">Descriptive Statistics</a>, we talked about the descriptive statistics like mean, variance, and range. These values can be obtained easily using the following code,</p>
@@ -283,7 +290,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-outliers.png#full" alt="">
     <figcaption>Table 3: A table that shows descriptive statistics</figcaption>
   </figure>
-
 </p>
 <p>From above table, we can see that the lowest car price is <code>0</code> while the highest car price is up to <code>3,600,000,000</code>.  The mean of the car prices is greater than the median, which means the distribution of prices is not symmetrical and there are abnormal values in prices. And the same goes for odometer. To verify our belief further, we can plot boxplots for <code>year</code> and <code>odometer</code> shown in Figure 2.</p>
 <p>
@@ -291,7 +297,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-price-odometer-boxplot.png" alt="">
     <figcaption>Figure 2: Boxplots for year and odometer</figcaption>
   </figure>
-
 </p>
 <p>Okay, let&rsquo;s put it all together. From the above initial examination, we can conclude that,</p>
 <ul>
@@ -334,7 +339,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-year-hist.png" alt="The distribution of the year">
     <figcaption>Figure 3: The distribution of the year</figcaption>
   </figure>
-
 </p>
 <h4 id="2-categorical-variables">2) categorical variables</h4>
 <p>For categorical variables, we usually plot bar charts to understand the distribution of each category, as shown in Figure 4.</p>
@@ -343,7 +347,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-categorical.png#full" alt="Bar charts for some categorical variables">
     <figcaption>Figure 4: Bar charts for some categorical variables</figcaption>
   </figure>
-
 </p>
 <h3 id="bivariate-analysis">Bivariate analysis</h3>
 <p>Analyzing one predictor seems a bit monotonous. In fact, we are more interested in the relationships between predictors and our goal. Generally speaking, we can do conduct an analysis</p>
@@ -359,7 +362,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-odometer-scatter.png" alt="">
     <figcaption>Figure 5: The relationship between odometer and price</figcaption>
   </figure>
-
 </p>
 <p>However, scatter plot cannot tell us how strong this relationship is. The solution is to calculate correlation.  Figure 6 shows that the car prices have a moderate positive relation with <code>year</code> and a negative relation with <code>odometer</code>. On the contrary, <code>latitude</code> and <code>longitude</code> have a weak relation with car prices.</p>
 <p>
@@ -367,7 +369,6 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <img src="/blog/post/images/used-car-correlation.png" alt="">
     <figcaption>Figure 6: The correlation among continuous variables</figcaption>
   </figure>
-
 </p>
 <h4 id="2-categorical-vs-numerical">2) categorical vs numerical</h4>
 <p>For categorical features, we group data by category and compare them side by side using boxplot or line chart. Basically, we just divide the whole data into several groups and the following analysis is the same as we did before.</p>
@@ -403,12 +404,12 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
-      </aside>
       
+      </aside>
     </div>
-
     
-
+    
+    
     
       
 
@@ -427,17 +428,17 @@ df_vehicles<span style="color:#f92672">.</span>describe()
         <em class="fas fa-envelope"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://github.com/ixiaopan" name="GitHub">
         <em class="fab fa-github"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
         <em class="fab fa-linkedin"></em>
       </a>
     
-       &nbsp; &nbsp;
+       &nbsp;&nbsp;&nbsp;
       <a href="https://space.bilibili.com/22910840" name="Bilibili">
         <em class="fab fa-youtube"></em>
       </a>
@@ -455,7 +456,7 @@ df_vehicles<span style="color:#f92672">.</span>describe()
       &nbsp;&copy;
       2021
       
-      &nbsp;&nbsp;
+      &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
     </p>
 

@@ -14,6 +14,14 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>NLP - Word representation</title>
+			<link>https://ixiaopan.github.io/blog/post/nlp-02-word-vector/</link>
+			<pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/nlp-02-word-vector/</guid>
+			<description>&lt;p&gt;In the last post, we talked about some text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&amp;rsquo;t answered the question: how to covert text into numbers? There are two aspects to consider: the definition of the term &amp;ldquo;word&amp;rdquo; and where the numbers come from.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Deep Learning - Introduction</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-01-intro/</link>
 			<pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
@@ -85,14 +93,6 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 			<pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/information-theory/</guid>
 			<description>&lt;p&gt;I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Constrained Optimisation</title>
-			<link>https://ixiaopan.github.io/blog/post/constrained-optimisation/</link>
-			<pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/constrained-optimisation/</guid>
-			<description>&lt;p&gt;When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I&amp;rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
