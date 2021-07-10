@@ -25,19 +25,19 @@ In the last post, we talked about some text preprocessing techniques. However, e
 
 
 
-First, we know that a sentence is composed of words and each word consists of a set of characters. This means we can think about words at sentence level, character-level, or both. As for numbers, the straightforward way to is calculate the occurrency or frequency of each word. The most common methods based on this idea includes one-hot representation, bag-of-word and TF-IDF.
+First, we know that a sentence is composed of words and each word consists of a set of characters. This means we can think about words at sentence level, character-level, or both. As for numbers, the straightforward way to is calculate the presence or frequency of each word. The most common methods based on this idea includes one-hot encoding, bag-of-word and TF-IDF.
 
 
 
 ### One-hot
 
-One-hot representation indicates whether the word/character is presented in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.
+One-hot representation indicates whether the word/character is present in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.
 
 
 
 #### character-level
 
-Figure 1 shows a simple word representation at character level. The whole vocabulary are the 26 English letters. For each word, for example, the word `impossible`, each row represents a character in `impossible`, so there are 10 rows. The corresponding value of each row is a vector whose element value is either 0 or 1 since we only care about occurrence of each letter. Thus, we will get a `10 x 26` matrix for the word `impossible`.
+Figure 1 shows a simple word representation at character level. The whole vocabulary are the 26 English letters. For each word, for example, the word `impossible`, each row represents a character in `impossible`, so there are 10 rows. The corresponding value of each row is a vector whose element value is either 0 or 1 since we only care about the occurrence of each letter. Thus, we will get a `10 x 26` matrix for the word `impossible`.
 
 
 
@@ -115,11 +115,7 @@ Bennet     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
 
 ### Bag-of-word
 
-The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of `|V|` dimensions, where the element value of this vector is the frequency of the corresponding word in the corpus.  
-
-
-
-Say we have the following corpus,
+The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of `|V|` dimensions, where the element value of this vector is the frequency of the word in the corresponding doc. Say we have the following corpus,
 
 
 
@@ -151,7 +147,7 @@ dog eats bones [0, 1, 0, 1, 1, 0, 0]
 
 #### one-hot
 
-Sometimes, we don't care about the number of occurrence of words. Instead, just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that's easy to implement using Sklearn
+Sometimes, we don't care about the number of occurrence of words. Just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that's easy to implement using Sklearn
 
 
 
@@ -227,14 +223,6 @@ Putting it together, the TF-IDF is defined as
 $$
 TF\\_IDF = TF(w_i, d_j) * IDF(w_i)
 $$
-
-
-
-
-
-
-
-
 
 
 ## Distributed Representation

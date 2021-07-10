@@ -169,11 +169,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
   <p>In the last post, we talked about some text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&rsquo;t answered the question: how to covert text into numbers? There are two aspects to consider: the definition of the term &ldquo;word&rdquo; and where the numbers come from.</p>
 <h2 id="frequency-based">Frequency-Based</h2>
-<p>First, we know that a sentence is composed of words and each word consists of a set of characters. This means we can think about words at sentence level, character-level, or both. As for numbers, the straightforward way to is calculate the occurrency or frequency of each word. The most common methods based on this idea includes one-hot representation, bag-of-word and TF-IDF.</p>
+<p>First, we know that a sentence is composed of words and each word consists of a set of characters. This means we can think about words at sentence level, character-level, or both. As for numbers, the straightforward way to is calculate the presence or frequency of each word. The most common methods based on this idea includes one-hot encoding, bag-of-word and TF-IDF.</p>
 <h3 id="one-hot">One-hot</h3>
-<p>One-hot representation indicates whether the word/character is presented in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.</p>
+<p>One-hot representation indicates whether the word/character is present in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.</p>
 <h4 id="character-level">character-level</h4>
-<p>Figure 1 shows a simple word representation at character level. The whole vocabulary are the 26 English letters. For each word, for example, the word <code>impossible</code>, each row represents a character in <code>impossible</code>, so there are 10 rows. The corresponding value of each row is a vector whose element value is either 0 or 1 since we only care about occurrence of each letter. Thus, we will get a <code>10 x 26</code> matrix for the word <code>impossible</code>.</p>
+<p>Figure 1 shows a simple word representation at character level. The whole vocabulary are the 26 English letters. For each word, for example, the word <code>impossible</code>, each row represents a character in <code>impossible</code>, so there are 10 rows. The corresponding value of each row is a vector whose element value is either 0 or 1 since we only care about the occurrence of each letter. Thus, we will get a <code>10 x 26</code> matrix for the word <code>impossible</code>.</p>
 <p>
   <figure>
     <img src="/blog/post/images/word-vocab-matrix.png#full" alt="">
@@ -228,8 +228,7 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
 <li>It cannot deal with out-of-vocabulary(OOV) words</li>
 </ul>
 <h3 id="bag-of-word">Bag-of-word</h3>
-<p>The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of <code>|V|</code> dimensions, where the element value of this vector is the frequency of the corresponding word in the corpus.</p>
-<p>Say we have the following corpus,</p>
+<p>The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of <code>|V|</code> dimensions, where the element value of this vector is the frequency of the word in the corresponding doc. Say we have the following corpus,</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
   <span style="color:#e6db74">&#39;cat eats meat and dog eats meat&#39;</span>,
   <span style="color:#e6db74">&#39;cat eats fish&#39;</span>,
@@ -244,7 +243,7 @@ dog eats bones [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff
 
 
 </code></pre></div><h4 id="one-hot-1">one-hot</h4>
-<p>Sometimes, we don&rsquo;t care about the number of occurrence of words. Instead, just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that&rsquo;s easy to implement using Sklearn</p>
+<p>Sometimes, we don&rsquo;t care about the number of occurrence of words. Just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that&rsquo;s easy to implement using Sklearn</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># occurrence</span>
 vectorizer <span style="color:#f92672">=</span> CountVectorizer(binary<span style="color:#f92672">=</span>True)
 
