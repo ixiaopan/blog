@@ -13,7 +13,9 @@ katex: true
 
 
 
-Data structure and algorithm are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Today, I will introduce four common sorting algorithms. Well, I am not going to repeat things we've known, so this is simply a quick note to help refresh my knowledge for future reference.
+Data structure and algorithms are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Well, this series of articles are simply quick notes to help refresh my knowledge for future reference. So let's start from sorting.
+
+
 
 <!--more-->
 
@@ -35,11 +37,15 @@ Bubble sort is the first sorting algorithm I learned in the module 'Data Structu
 
 
 
-Say we have $n = 6$ numbers  `9, 4, 2, 16, 10, 12`, 
+Say we have $n = 6$ numbers shown in Figure 1,
 
 
 
-In the first iteration, there are `n = 6 ` items left to sort, we need to compare `n - 1 = 5` pairs of elements
+![](/blog/post/images/sort_toy_data.png "Figure 1: Toy data used throughout this post")
+
+
+
+For the first iteration, there are `n = 6 ` items left to sort, so we need to compare `n - 1 = 5` pairs of elements consecutively.
 
 
 
@@ -53,25 +59,25 @@ In the first iteration, there are `n = 6 ` items left to sort, we need to compar
 
 
 
-Similarly, for the second loop, there are `n - 1 = 5` items left to sort, we need to compare `n - 2 = 4` pairs of elements
+Similarly, for the second loop, there are `n - 1 = 5` items left to sort, and we need to compare `n - 2 = 4` pairs of elements.
 
 
 
 ```python
-(4, 2), 9, 10, 12, 16
-2, (4, 9), 10, 12, 16
-2, 4, (9, 10), 12, 16
-2, 4, 9, (10, 12), 16
+(4, 2), 9, 10, 12,   16
+2, (4, 9), 10, 12,   16
+2, 4, (9, 10), 12,   16
+2, 4, 9, (10, 12),   16
 ```
 
 
 
-From this we can conlude that, for the $i\text{th}$ loop, 
+From this,  we can conclude that, for the $i\text{th}$ loop, 
 
 - there are $n - i$ items left to sort
 - consequently, we need to compare $n - i - 1$ times
 
-Since we place the largest number at the rightmost position each loop, so there are $ n - 1$ loops in total. The above procedure are shown in the following table.
+Since we place the largest number at the rightmost position for each loop, so there are $n-1$  loops in total. The following table shows the above procedure.
 
 | iterations | times we need to compare |
 | ---------- | ------------------------ |
@@ -79,7 +85,7 @@ Since we place the largest number at the rightmost position each loop, so there 
 | 1          | n - 2                    |
 | 2          | n - 3                    |
 | ...        |                          |
-| n - 1      | 1                        |
+| n - 2      | 1                        |
 
 
 
@@ -108,7 +114,7 @@ bubbleSort([9, 4, 2, 16, 10, 12])
 
 **Stable - Yes**
 
-Since we swap values only when the previous item is greater than the latter one, the same value won't swap each other.
+Since we only swap values when the previous item is greater than the latter item, the items with the same values will keep their order.
 
 
 
@@ -121,7 +127,7 @@ From the table above, we can see that,
 
 
 
-In the given example, we notice that `2, (4, 9), 10, 12, 16` has been sorted, but the comparison still continues. One way is to set a flag to notice it. We can do this because Bubble Sort is an inplace sorting, which means the list has sorted in an ascending order while comparing.
+In this example, we notice that `2, (4, 9), 10, 12, 16` have been in order, but the comparison continues. One way is to set a flag to notice it. We can do this because Bubble Sort is an in-place sorting, which means the list has sorted in ascending order while comparing.
 
 
 
@@ -157,11 +163,149 @@ Now the complexity of the enhanced Bubble Sort for the bset case is $O(n)$ while
 
 
 
+### Idea
+
+Selection sort is similar to Bubble sort. It first finds the index of the largest value in the remaining list, then makes an exchange between the largest item and the rightmost item for each loop. Therefore, the exchange happens only once in each iteration.
+
+Like Bubble sort, there are $n - 1$ iterations. For each iteration, we need to find the largest value from the remaining $n -i$ items.
+
+
+
+### Code
+
+
+
+```python
+def selectionSort(nums):
+    n = len(nums)
+    for i in range(n - 1):
+        max_index = 0
+        for j in range(1, n - i):
+            if nums[j] > nums[max_index]:
+                max_index = j
+
+        nums[n-i-1], nums[max_index] = nums[max_index], nums[n-i-1]
+
+    return nums
+
+```
+
+
+
+### Analysis
+
+
+
+**Stable - No**
+
+After each iteration, we swap two items, so the order of the items are not ensured.
+
+
+
+**Complexity**
+
+Obviously, no matter the best case or the worst case, we need $O(n^2)$ comparisons.
+
+
+
 ## Insertion Sort
+
+### Idea
+
+As the name suggests, we insert an item into the proper position of the well-sorted sublist each time. In other words, we maintain the sublist sorted in each iteration.
+
+But how? For each $x_i$ in the sorted list, we compare $x_i$ with the being sorted item $x'$,
+
+- if $x' >= x_i$, 
+  - simply put $x'$ behind $x_i$
+  - end
+- if $x' < x_i$, 
+  - move $x_i$ a step forward (in the right direction)
+  - then move on to the next $x_i$ in the sorted list
+  - repeat the above comparison
+- or we reach the start point, then we know that $x'$ is the smallest number so far. For example, $2$ is placed at the beginning of the list during the third iteration shown in Figure 2.
+
+
+
+![](/blog/post/images/insert_sort.png "Figure 2: Insertion sort")
+
+
+
+### Code
+
+```python
+def insertionSort(nums):
+    n = len(nums)
+
+    for i in range(1, n):
+        cur_elem = nums[i]
+        cur_index = i
+        
+        while cur_index > 0 and cur_elem < nums[cur_index - 1]:
+            nums[cur_index] = nums[cur_index - 1]
+            cur_index -= 1
+
+        nums[cur_index] = cur_elem
+    
+    return nums
+
+```
+
+
+
+### Analysis
+
+**Stable - Yes**
+
+
+
+**Complexity**
+
+For the best case where all items are sorted well and the corresponding sublist is sorted, there is no need to do a move operation. Therefore, the complexity is $O(n)$.
+
+For the worst case, we still need $O(n^2$) comparisons.
 
 
 
 ## Quick Sort
+
+
+
+### Idea
+
+Quick sort adopts the idea of divide and conquer. The main strategy is that we do a partition at the pivot value, dividing the list into two parts
+
+- the left part contains items that are smaller than the pivot value 
+- the right part contains items that are greater than the pivot value 
+
+
+
+How? Well, we use two pointers: the left pointer and the right pointer that point to the first and the last of the remaining list respectively.
+
+- Move the left pointer forward(towards the right direction) until the pointed element is greater than the pivot value
+- Move the right pointer backward(towards the left direction) until the pointed element is smaller than the pivot value
+
+
+
+But how to choose the pivot? Well, you could use the first element of a list. 
+
+
+
+Let's take an example. In Figure 3, we choose 9 as our pivot, after some steps we stop at the second row. We do a swap between pointers and then continue moving on until the two pointers pass by each other (the forth row). Well, since the two pointers have met, we cannot move further towards either the right or the left direction, which means that we are done. Obviously, the pivot value should be between the right pointer and the left pointer, so we do an exchange again.
+
+
+
+![](/blog/post/images/quick_sort_2.png "Figure 3: Quick Sort")
+
+
+
+### Analysis
+
+**Stable - No**
+
+We do a swap between pointers, so the order of elements are not maintained.
+
+
 
 
 
