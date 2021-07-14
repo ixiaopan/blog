@@ -39,14 +39,12 @@ li {
 
 ## PROFESSIONAL SKILLS
 
-
-
-- Strong understanding of machine learning algorithms and good hands-on experience with Scikit-Learn and Pytorch
-- Good knowledge of Deep Learning and NLP 
-- Procient in JavaScript and familiar with SQL and MongoDB
-- Able to build a web application from frontend to backend independently and effectively
-- Familiar with Git and good at data visualisation and Sketch
-- Led a group of 3 stas for one year at Ant Group
+- Strong understanding of machine learning algorithms and good knowledge of NLP 
+- Excellent hands-on experience with Python, Scikit-Learn, and Pytorch
+- Proficient in JavaScript, React, CSS3 and able to build a web application from frontend to backend independently and effectively
+- Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
+- Rich experience in the agile software development workflow using Git and CI/CD
+- Good at data visualisation and UI design tools like Sketch
 
 
 

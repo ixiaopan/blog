@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Sorting</title>
+			<link>https://ixiaopan.github.io/blog/post/sort/</link>
+			<pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/sort/</guid>
+			<description>&lt;p&gt;Data structure and algorithm are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Today, I will introduce four common sorting algorithms. Well, I am not going to repeat things we&amp;rsquo;ve known, so this is simply a quick note to help refresh my knowledge for future reference.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>NLP - Word representation</title>
 			<link>https://ixiaopan.github.io/blog/post/nlp-02-word-vector/</link>
@@ -85,14 +93,6 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 			<pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/knn/</guid>
 			<description>&lt;p&gt;K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It&amp;rsquo;s simple and intutive to understand because it doesn&amp;rsquo;t require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Information Theory</title>
-			<link>https://ixiaopan.github.io/blog/post/information-theory/</link>
-			<pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/information-theory/</guid>
-			<description>&lt;p&gt;I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
