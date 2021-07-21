@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Deep Learning - PyTorch</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-00-pre/</link>
+			<pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-00-pre/</guid>
+			<description>&lt;p&gt;The most popular deep learning frameworks so far are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&amp;rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&amp;rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Sorting</title>
 			<link>https://ixiaopan.github.io/blog/post/sort/</link>
@@ -85,14 +93,6 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 			<pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/perceptron/</guid>
 			<description>&lt;p&gt;Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it&amp;rsquo;s out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>K-nearest neighbours</title>
-			<link>https://ixiaopan.github.io/blog/post/knn/</link>
-			<pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/knn/</guid>
-			<description>&lt;p&gt;K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It&amp;rsquo;s simple and intutive to understand because it doesn&amp;rsquo;t require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
