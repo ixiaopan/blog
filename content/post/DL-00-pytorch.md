@@ -524,6 +524,83 @@ From the above examples, we conclude that
 
 ### torch.gather()
 
+I happened to meet this function when building BiLSTM+CRF NER models. It was hard to implement batch training for CRF layers until I found `torch.gather()`. Well, it's a bit similar to `torch.scatter_()` except that `torch.gather()` aims to fetch data while `toch.scatter_()` is used to write values.
+
+
+
+For BilSTM+CRF models, we need to calculate the sentence score as follows,
+
+
+$$
+\text{Score} (D_j) = \sum_{i=0}^{|D_j|} T(y^{w_i} \rarr y^{w_{(i+1)}}) + E(w_{i+i}|y^{w_{(i+1)}})
+$$
+
+
+where emission scores are the outputs of BiLSTM and the transition scores are the parameters of the CRF layer. For each batch training, we need to calculate each sentence score in this batch.
+
+```python
+emission score: 
+	(batch_size, max_seq_len, num_of_tag)
+	[
+		[
+                   O   B   I
+            [ w00 0.1 0.2 0.7 ]
+            [ w01 0.2 0.4 0.4 ]
+            ...
+		], # sentence 1
+
+		[
+                  O   B   I
+            [ w10 0.1 0.2 0.7 ]
+            [ w11 0.2 0.4 0.4 ]
+            ...
+		] # sentence 2
+	]
+tags: (batch_size, max_seq_len)
+	[ 
+		[ w00=>B, w01=>I, ...], # sentence 1
+		[ w10=>B, w11=>O, ...], # sentence 2
+            ...
+	]
+```
+
+It's easy to fetch data from the specified index along the desired dimension using `torch.gather()`. In this case, we want to fetch data from the index that the true tag of each word belongs to along the innermost dimension of emission_score. For example, sentence 1 has two words with the labels `B` and `I`, so the corresponding scores in the emission score are `emission_score[0][0][1]` and `emission_score[0][1][2]`.
+
+
+
+```python
+emission_score = torch.tensor([
+    [
+
+        [  0.1, 0.2, 0.7 ],
+        [  0.2, 0.3, 0.5 ]
+
+    ], 
+
+    [
+
+        [ 0.35, 0.25, 0.4 ],
+        [ 0.6, 0.25, 0.15 ]
+
+    ]
+])
+true_labels = torch.tensor([ 
+    [ 1, 2],
+    [ 1, 0],
+    
+])
+
+torch.gather(emission_score, 2, true_labels.unsqueeze(-1)).squeeze(-1).sum(-1)
+'''
+tensor([[0.2000, 0.5000],
+        [0.2500, 0.6000]]) => tensor([0.7000, 0.8500])
+'''
+```
+
+
+
+which is exactly the second term of $\text{Score} (D_j) $.
+
 
 
 ## References

@@ -1,5 +1,5 @@
 ---
-title: "NLP - Word representation"
+title: "NLP - Text representation"
 date: "2021-07-10"
 description: ""
 # tags: []
@@ -13,7 +13,7 @@ draft: false
 
 
 
-In the last post, we talked about some text preprocessing techniques. However, even the data is clean now, they are still text. We still haven't answered the question: how to covert text into numbers? There are two aspects to consider: the definition of the term "word" and where the numbers come from. 
+In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven't answered the question: how to covert text into numbers? In NLP parlance, this is called **text representation**. 
 
 
 
@@ -21,27 +21,34 @@ In the last post, we talked about some text preprocessing techniques. However, e
 
 
 
+There are two aspects to consider: the level of representation and the meaning of numbers. We know that a sentence is composed of words and each word consists of a group of characters. This means we can represent text at sentence level, character-level, or both. As for numbers, the simplest way is to count the number of occurrences of each word. The most common methods based on this idea includes one-hot encoding, bag-of-word and TF-IDF.
+
+
+
 ## Frequency-Based
 
 
-
-First, we know that a sentence is composed of words and each word consists of a set of characters. This means we can think about words at sentence level, character-level, or both. As for numbers, the straightforward way to is calculate the presence or frequency of each word. The most common methods based on this idea includes one-hot encoding, bag-of-word and TF-IDF.
 
 
 
 ### One-hot
 
-One-hot representation indicates whether the word/character is present in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.
+One-hot representation indicates whether a word/character is present in a sentence/word. If true, we assign the value of 1 to that word, otherwise 0.
 
 
 
 #### character-level
 
-Figure 1 shows a simple word representation at character level. The whole vocabulary are the 26 English letters. For each word, for example, the word `impossible`, each row represents a character in `impossible`, so there are 10 rows. The corresponding value of each row is a vector whose element value is either 0 or 1 since we only care about the occurrence of each letter. Thus, we will get a `10 x 26` matrix for the word `impossible`.
+Figure 1 shows a simple word representation at character level. The whole vocabulary contains 26 English letters. For each word, for example, the word `impossible`
+
+- each row represents a character in `impossible`, so there are 10 rows
+- The corresponding value of each row is a vector whose element value is either 0 or 1, indicating whether the corresponding letter is present in the given word
+
+ Thus, we will get a `(10, 26)` matrix for the word `impossible`.
 
 
 
-![](/blog/post/images/word-vocab-matrix.png#full "Figure 1: character-vocabulary occurrence matrix")
+![](/blog/post/images/word-vocab-matrix.png#full "Figure 1: character-vocabulary occurrence matrix with the shape of (|word|, |vocabulary|)")
 
 
 
@@ -90,9 +97,12 @@ word_vector.shape
 # (11, 10)
 ```
 
+
+
 The results are shown below, we can see that this sentence can be represented as a  `11 x 10` matrix.
 
 ```python
+# (|sentence|, |vocabulary|)
 Impossible [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 Mr         [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 Bennet     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
@@ -103,13 +113,14 @@ Bennet     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
 
 #### Pros
 
-- simple and intutive to understand and implement
+- simple and intuitive to understand and implement
 
 #### Cons
 
-- The size of the matrix is proportional to the size of vocabulary. Thus, the matrix is rather sparse when we have a large corpus
+- The size of a ont-hot vector is proportional to the size of vocabulary, resulting in a sparse representation when we have a large corpus
+- The representation matrix doesn't have fixed size. The dimension varies in sentences or words with different lengths.
 - Too naive to capture the similarity between words
-- It cannot deal with out-of-vocabulary(OOV) words
+- It cannot deal with out-of-vocabulary(OOV) problem
 
 
 
@@ -164,15 +175,16 @@ X_test_dtm = vectorizer.transform(X_test)
 
 #### Pros
 
-- simple and intutive to understand and implement
-- captures the semantics of documents, if two docs have similar words, they will be close to each other in the word space
+- Simple and intutive to understand and implement
+- Captures the semantics of documents, if two docs have similar words, they will be close to each other in the word space
+- Fixed matrix representation no matter how long a sentence is
 
 #### cons
 
-- It ignores the word order(context)
+- It ignores the word order(context), so `Cat bites man` and `Man bites cat` have the same representation
 - The size of the matrix is proportional to the size of vocabulary
-- It doesn't deal with out-of-vocabulary(OOV) words
-- It doesn't capture the similarity between different words that have the same meaning e.g `cat eats, cat ate`
+- It doesn't deal with out-of-vocabulary(OOV) problem
+- It doesn't capture the similarity between different words that have the same meaning, e.g `cat eats, cat ate`, BOW will treat them as different vectors though they convey the same semantics.
 - As mentioned earlier, the most frequent words are often function words like pronouns, determiners and conjuctions. However, they are of no help for classification.
 
 
