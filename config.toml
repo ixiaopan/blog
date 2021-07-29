@@ -8,6 +8,8 @@ DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 publishDir = "docs"
+googleAnalytics = "UA-203640627-1"
+
 
 [params]
   customCSS = ["css/main.css"]
@@ -21,6 +23,8 @@ publishDir = "docs"
 
 [Author]
   name = "ixiaopan"
+
+
 
 
 # [permalinks]
