@@ -14,6 +14,22 @@
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Interview - Software Engineer</title>
+			<link>https://ixiaopan.github.io/blog/post/interview/</link>
+			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/interview/</guid>
+			<description>&lt;p&gt;From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>NLP - Related work on NER</title>
+			<link>https://ixiaopan.github.io/blog/post/nlp-03-rnn/</link>
+			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/nlp-03-rnn/</guid>
+			<description>&lt;p&gt;I am going to write several articles to go through my MSc project briefly (Hopefully I can do it). To be honest, it&amp;rsquo;s a bit hard for me to complete this research. Perhaps I should choose another topic about NER, such as NER in fake news. Anyway, I have to complete it in the next month. Well, this post will cover the related work on NER including models, data and domain adaption, which is the initial work of my research.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Deep Learning - PyTorch</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-00-pytorch/</link>
 			<pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
@@ -77,22 +93,6 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 			<pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/kmeans/</guid>
 			<description>&lt;p&gt;So far, we&amp;rsquo;ve talked much about supervised learning. Aside from it, there exist many other learning types such as unspervised learning, semi-supervised learning and so on. This post will introduce one of the most widely used unsupervised clustering algorithms — K-means. We will cover the implementation of K-means algorithm, the limitation of this algorithm as well as its applications.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Logistic Regression</title>
-			<link>https://ixiaopan.github.io/blog/post/logistic-regression/</link>
-			<pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/logistic-regression/</guid>
-			<description>&lt;p&gt;We&amp;rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&amp;rsquo;s also a linear classifier. PS: Don&amp;rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Perceptron</title>
-			<link>https://ixiaopan.github.io/blog/post/perceptron/</link>
-			<pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/perceptron/</guid>
-			<description>&lt;p&gt;Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it&amp;rsquo;s out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

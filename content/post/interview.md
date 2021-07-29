@@ -1,0 +1,100 @@
+---
+title: "Interview - Software Engineer"
+date: "2021-07-29"
+description: ""
+# tags: []
+categories: [
+    "Interview",
+]
+series: ["Misc"]
+katex: true
+---
+
+
+
+From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.
+
+
+
+<!--more-->
+
+
+
+## What I learned
+
+Just a moment ago, I finished my final technical interview, which should have gone well, but it didn’t. I failed at the code part. The reason is that I was too confident in my coding skills, but the fact is that my mind was blank when I wrote code. So what happened? There are several reasons leading to this.
+
+
+
+### Overconfident
+
+I have to admit that my programming skills have indeed become poorer.
+
+The prime reason is that I was overconfident in my programming skills. In fact, I have not written codes for almost one year. ( I mean writing code every day ) I have been accustomed to googling and looking up official docs so that I cannot remember some common APIs. In short, I focus more on utilising previous work experience to solve problems, instead of paying too much attention to specific functions. Anyway, anyone can write these functions from scratch.
+
+Another reason is that I’m a bit evasive in programming. Why? Because of the heavy workload. So I somewhat avoid programming subconsciously. I hope I could have a life without work-related things during my study, totally relaxing myself.
+
+
+
+### English
+
+Poor English listening and communication skills. That's the hard part. On the one hand, I am not familiar with some technical terms in English, though I always read technical documents in English. Well, that's another thing, you know. On the other hand, I am not able to express my thoughts completely and fluently due to poor vocabulary. Sounds very frustrating.
+
+
+
+### Lack of preparation
+
+The last reason is that I was not fully prepared. In part because I was not familiar with the interview pattern/process. Well, I had never attended a video interview before. I didn't know how it runs. But basically, I was blindly confident in myself.
+
+On the other hand, I applied for a new position (software engineer), which is a mix of frontend, machine learning and database. To be honest, SQL is not my cup of tea. I rarely use it during my work. I am not sure what questions will be asked to me in the interview. I had no previous interview experience to learn from.
+
+
+
+## What to do
+
+- Strengthen the understanding of basic machine learning concepts
+  - Some concepts e.g. FP, FN are still not clear. I know the definition, but I am still confused when/how to use it and express it clearly. I need more hands-on experience.
+- Enhance programming skills
+  - SQL
+  - Python, NumPy and Pandas ( I often mixed the syntax of Python and JavaScript, oppps...)
+- English?? 
+  - no idea, since I am not sure whether I will stay abroad
+
+
+
+## Why Data Science
+
+
+
+At first, I was afraid to answer motivation questions since it was my first time to encounter such a question. Strictly speaking, this was my first time to think about this question seriously. Why this job? Why data science? I think the reason is that I had been working on frontend, consequently I take frontend for granted. But now I am switching to data science, I have to revisit it and find an answer for myself.
+
+
+
+### short answer
+
+So why data science? The short answer is.
+
+
+
+> Do what I want  to do - experience different jobs
+
+
+
+I am still interested in frontend, but I would like to try something new. Life has no boundaries. Just do what you want to do if you are able to.
+
+
+
+### long answer
+
+
+
+The long answer is
+
+> First, I had a strong desire to study last year. Meanwhile, I became interested in data, so data science was on my shortlist for the future degree.
+>
+> Second, I believe that machining learning and AI are the future trends of technology development since many companies have realised the importance and value of data. Big data applications are everywhere. So I think it's an exciting job which could bring big changes to the world and has a bright career prospect.
+>
+> Third, as a developer, I want to be a full-stack developer, not limited to front-end or backend. In other words, I desire to improve my competitiveness. Specifically speaking, any product needs a UI interface, which requires the knowledge of frontend. On the other hand, machine learning can help companies find value and inspire insights from data.
+>
+> As a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.
+

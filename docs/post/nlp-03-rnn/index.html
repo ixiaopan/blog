@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>NLP</title>
+<title>NLP - Related work on NER</title>
 
 
 
@@ -21,8 +21,8 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="NLP"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="NLP - Related work on NER"/>
+<meta name="twitter:description" content="I am going to write several articles to go through my MSc project briefly (Hopefully I can do it). To be honest, it&rsquo;s a bit hard for me to complete this research. Perhaps I should choose another topic about NER, such as NER in fake news. Anyway, I have to complete it in the next month. Well, this post will cover the related work on NER including models, data and domain adaption, which is the initial work of my research."/>
 
 
 
@@ -49,6 +49,24 @@
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
 
 
 
@@ -113,42 +131,14 @@
     
     <div class="intro-header">
       <div class="container">
-        <div class="categories-heading">
+        <div class="post-heading">
           
             <h1>
-              NLP
+              NLP - Related work on NER
             </h1>
           
           
-        </div>
-      </div>
-    </div>
-    
-  </header>
-
-    
-  <div class="container" role="main">
-    <div class="posts-list">
-      
-        
-      
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-03-rnn/">
-    <h2 class="post-title">NLP - Related work on NER</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>I am going to write several articles to go through my MSc project briefly (Hopefully I can do it). To be honest, it&rsquo;s a bit hard for me to complete this research. Perhaps I should choose another topic about NER, such as NER in fake news. Anyway, I have to complete it in the next month. Well, this post will cover the related work on NER including models, data and domain adaption, which is the initial work of my research.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-03-rnn/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 29, 2021
   
@@ -165,81 +155,54 @@
   
 </span>
 
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-02-text-representation/">
-    <h2 class="post-title">NLP - Text representation</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called <strong>text representation</strong>.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-02-text-representation/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jul 10, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/">
-    <h2 class="post-title">NLP - Text preprocessing</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 22, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
+          
+        </div>
+      </div>
     </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>I am going to write several articles to go through my MSc project briefly (Hopefully I can do it). To be honest, it&rsquo;s a bit hard for me to complete this research. Perhaps I should choose another topic about NER, such as NER in fake news. Anyway, I have to complete it in the next month. Well, this post will cover the related work on NER including models, data and domain adaption, which is the initial work of my research.</p>
+<h2 id="ner">NER</h2>
+<p>Named entity recognition (NER) is a classic natural language processing (NLP) task that identifies important chunks such as name and organization in a given text. The output labels can be used for a wide range of downstream tasks. For instance, many headhunting companies embed NER models into their softwares to extract candidates' information such as name and email from their resumes.</p>
+<h2 id="ner-models">NER Models</h2>
+<h3 id="earlier-models">Earlier Models</h3>
+<h2 id="data-for-ner">Data For NER</h2>
+<h2 id="domain-adaption-for-ner">Domain Adaption for NER</h2>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ner">NER</a></li>
+    <li><a href="#ner-models">NER Models</a>
+      <ul>
+        <li><a href="#earlier-models">Earlier Models</a></li>
+      </ul>
+    </li>
+    <li><a href="#data-for-ner">Data For NER</a></li>
+    <li><a href="#domain-adaption-for-ner">Domain Adaption for NER</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
     
   </div>
 
