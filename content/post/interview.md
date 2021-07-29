@@ -36,17 +36,17 @@ Another reason is that I’m a bit evasive in programming. Why? Because of the h
 
 
 
-### English
-
-Poor English listening and communication skills. That's the hard part. On the one hand, I am not familiar with some technical terms in English, though I always read technical documents in English. Well, that's another thing, you know. On the other hand, I am not able to express my thoughts completely and fluently due to poor vocabulary. Sounds very frustrating.
-
-
-
 ### Lack of preparation
 
 The last reason is that I was not fully prepared. In part because I was not familiar with the interview pattern/process. Well, I had never attended a video interview before. I didn't know how it runs. But basically, I was blindly confident in myself.
 
 On the other hand, I applied for a new position (software engineer), which is a mix of frontend, machine learning and database. To be honest, SQL is not my cup of tea. I rarely use it during my work. I am not sure what questions will be asked to me in the interview. I had no previous interview experience to learn from.
+
+
+
+### English
+
+Poor English listening and communication skills. That's the hard part. On the one hand, I am not familiar with some technical terms in English (Machine Learning is okay, but some frontend terms are different from my understandings), though I am always reading technical documents in English. Well, that's another thing, you know. On the other hand, I am not able to express my thoughts completely and fluently due to poor vocabulary. Sounds very frustrating.
 
 
 
