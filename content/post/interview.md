@@ -38,7 +38,7 @@ Another reason is that I’m a bit evasive in programming. Why? Because of the h
 
 ### Lack of preparation
 
-The last reason is that I was not fully prepared. In part because I was not familiar with the interview pattern/process. Well, I had never attended a video interview before. I didn't know how it runs. But basically, I was blindly confident in myself.
+The second reason is that I was not fully prepared. In part because I was not familiar with the interview pattern/process. Well, I had never attended a video interview before. I didn't know how it runs. But basically, I was blindly confident in myself.
 
 On the other hand, I applied for a new position (software engineer), which is a mix of frontend, machine learning and database. To be honest, SQL is not my cup of tea. I rarely use it during my work. I am not sure what questions will be asked to me in the interview. I had no previous interview experience to learn from.
 
@@ -66,7 +66,7 @@ Poor English listening and communication skills. That's the hard part. On the on
 
 
 
-At first, I was afraid to answer motivation questions since it was my first time to encounter such a question. Strictly speaking, this was my first time to think about this question seriously. Why this job? Why data science? I think the reason is that I had been working on frontend, consequently I take frontend for granted. But now I am switching to data science, I have to revisit it and find an answer for myself.
+At first, I was afraid to answer motivation questions since it was my first time to encounter such a question. Strictly speaking, this was my first time to think about this question seriously. I think the reason is that I had been working on frontend, consequently I take frontend for granted. But now I am switching to data science, I have to revisit it and find an answer for myself.
 
 
 
@@ -92,9 +92,12 @@ The long answer is
 
 > First, I had a strong desire to study last year. Meanwhile, I became interested in data, so data science was on my shortlist for the future degree.
 >
-> Second, I believe that machining learning and AI are the future trends of technology development since many companies have realised the importance and value of data. Big data applications are everywhere. So I think it's an exciting job which could bring big changes to the world and has a bright career prospect.
+> Second, I believe that machine learning and AI are the future trends of technology since many companies have realised the importance and value of data. Big data applications are everywhere. So I think it's an exciting job which could bring big changes to the world and has a bright career prospect.
 >
-> Third, as a developer, I want to be a full-stack developer, not limited to front-end or backend. In other words, I desire to improve my competitiveness. Specifically speaking, any product needs a UI interface, which requires the knowledge of frontend. On the other hand, machine learning can help companies find value and inspire insights from data.
+> Third, as a developer, I want to be a full-stack developer, not limited to frontend or backend. In other words, I desire to improve my competitiveness. 
 >
-> As a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.
+> - Any product needs a UI interface, which requires the knowledge of frontend. 
+> - Any application creates data, which requires machine learning to inspire insights from data. 
+>
+> Thus, as a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.
 
