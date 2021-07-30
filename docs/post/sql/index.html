@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 30, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -187,9 +187,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>order by</li>
 <li>limit</li>
 </ul>
-<h2 id="questions">Questions</h2>
+<h2 id="leetcode">Leetcode</h2>
+<h2 id="hackerrank">Hackerrank</h2>
 <p>Q1 <a href="https://www.hackerrank.com/challenges/weather-observation-station-5/problem">weather-observation-station-5</a></p>
+<blockquote>
 <p>Query the two cities in <strong>STATION</strong> with the shortest and longest <em>CITY</em> names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.</p>
+</blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">/*
 </span><span style="color:#75715e">CITY: DEF, ABC, PQRS and WXY.
 </span><span style="color:#75715e">outputs:
@@ -245,7 +248,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>Q2 <a href="https://www.hackerrank.com/challenges/weather-observation-station-6/problem">weather-observation-station-6</a></p>
+<blockquote>
 <p>Query the list of <em>CITY</em> names starting with vowels (i.e., <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, or <code>u</code>) from <strong>STATION</strong>.</p>
+</blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">-- v1
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">distinct</span> city
 <span style="color:#66d9ef">from</span> station
@@ -282,7 +287,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>Q3 <a href="https://www.hackerrank.com/challenges/the-blunder/problem">The Blunder</a></p>
+<blockquote>
 <p>Write a query calculating the amount of error (i.e.: average monthly salaries), and round it up to the next integer.</p>
+</blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> CEIL(<span style="color:#66d9ef">AVG</span>(o.salary) <span style="color:#f92672">-</span> <span style="color:#66d9ef">AVG</span>(t.salary_wo_zero))
 <span style="color:#66d9ef">from</span> 
     (<span style="color:#66d9ef">SELECT</span> id, <span style="color:#66d9ef">REPLACE</span>(salary, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#66d9ef">as</span> salary_wo_zero <span style="color:#66d9ef">from</span> employees) t
@@ -299,6 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>Specify table name when two tables have the same columns</li>
 </ul>
 <p>Q4 <a href="https://www.hackerrank.com/challenges/the-report/problem?isFullScreen=true&amp;h_r=next-challenge&amp;h_v=zen&amp;h_r=next-challenge&amp;h_v=zen">The Score Report</a></p>
+<blockquote>
 <p>Generate a report containing three columns: <em>Name</em>, <em>Grade</em> and <em>Mark</em>.</p>
 <ul>
 <li>in descending order by grade</li>
@@ -306,6 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>Print &ldquo;NULL&rdquo; as the name if the grade is less than 8 (1-7)</li>
 <li>oder by marks if there is more than one students with the same grade (1-7)</li>
 </ul>
+</blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> 
 <span style="color:#66d9ef">CASE</span> 
     <span style="color:#66d9ef">WHEN</span> grade <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">7</span> <span style="color:#66d9ef">THEN</span> name
@@ -330,9 +339,122 @@ grade, marks
 </ul>
 </li>
 </ul>
+<p>Q5 <a href="https://www.hackerrank.com/challenges/earnings-of-employees/problem?isFullScreen=true">earnings-of-employees</a></p>
+<blockquote>
+<p>find the <em>maximum total earnings</em> for all employees as well as the total number of employees who have maximum total earnings.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> months <span style="color:#f92672">*</span> salary <span style="color:#66d9ef">as</span> earnings, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>)
+<span style="color:#66d9ef">from</span> employee
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">desc</span>
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>What I learned</p>
+<ul>
+<li>In MySQL, you can use the column alias in the <code>group by/order by/having</code> to refer to that column</li>
+</ul>
+<p>Q6 <a href="https://www.hackerrank.com/challenges/draw-the-triangle-1/problem?isFullScreen=true">draw-the-triangle</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
+<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
+<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
+<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
+<span style="color:#f92672">*</span>
+
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> Test(id integer, title varchar(<span style="color:#ae81ff">10</span>));
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=@</span>NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">FROM</span> Test, (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>) t ;
+
+<span style="color:#f92672">#</span> id	title	<span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=@</span>NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">4</span>
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">2</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">3</span>
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">3</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">4</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">5</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">0</span>
+
+<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">FROM</span> Test
+<span style="color:#66d9ef">WHERE</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>;
+
+
+<span style="color:#f92672">#</span> id	title	REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>number :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>number <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>	Hello	<span style="color:#f92672">*</span> <span style="color:#f92672">*</span>
+
+<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">FROM</span> Test
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">3</span>
+<span style="color:#66d9ef">SELECT</span> REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>NUMBER :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>NUMBER <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) 
+<span style="color:#66d9ef">FROM</span> 
+  information_schema.tables, 
+  (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">21</span>) t 
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">20</span>;
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>SELECT</code> a number or string without <code>FROM</code> clause, the query will return one row with that value</li>
+<li><code>SELECT</code> a number or string from a table, the query will return that value for every row in the table</li>
+<li><code>:=</code> is an assignment operator</li>
+<li><code>SET @var = val</code> declar a variable</li>
+</ul>
+<p>Q7 <a href="https://www.hackerrank.com/challenges/weather-observation-station-20">median</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> ROUND(<span style="color:#66d9ef">AVG</span>(lat_n), <span style="color:#ae81ff">4</span>)
+<span style="color:#66d9ef">from</span> (
+    <span style="color:#66d9ef">SELECT</span> 
+      lat_n, 
+      ROW_NUMBER() OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> lat_n) <span style="color:#66d9ef">AS</span> row_num,
+      <span style="color:#66d9ef">COUNT</span>(lat_n) OVER() <span style="color:#66d9ef">AS</span> t_row_num
+    <span style="color:#66d9ef">from</span> station
+) t2
+<span style="color:#66d9ef">WHERE</span> row_num <span style="color:#66d9ef">in</span> (FLOOR((t_row_num<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), CEIL((t_row_num<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>median = ( floor(N/2) + ceil(N/2) ) / 2</code> where <code>N</code> is a <code>0-based</code> counter</li>
+<li><code>OVER()</code>
+<ul>
+<li><code>ROW_NUMBER()</code> to obtain the positional index for each row</li>
+<li><code>COUNT()</code> to calculate total number of a subset</li>
+</ul>
+</li>
+</ul>
+<p>Q8 <a href="https://www.hackerrank.com/challenges/symmetric-pairs/problem">symmetric-pairs</a></p>
+<blockquote>
+<p>Two pairs <em>(X1, Y1)</em> and <em>(X2, Y2)</em> are said to be <em>symmetric</em> <em>pairs</em> if <em>X1 = Y2</em> and <em>X2 = Y1</em>.</p>
+<p>Write a query to output all such <em>symmetric</em> <em>pairs</em> in ascending order by the value of <em>X</em>. List the rows such that <em>X1 ≤ Y1</em>.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">
+<span style="color:#66d9ef">SELECT</span> f1.X, f1.Y
+<span style="color:#66d9ef">from</span> Functions f1
+<span style="color:#66d9ef">JOIN</span> Functions f2 <span style="color:#66d9ef">on</span> f1.Y <span style="color:#f92672">=</span> f2.X <span style="color:#66d9ef">and</span> f1.X <span style="color:#f92672">=</span> f2.Y
+
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> f1.X, f1.Y
+<span style="color:#66d9ef">HAVING</span> <span style="color:#66d9ef">COUNT</span>(f1.X) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">or</span> f1.X <span style="color:#f92672">&lt;</span> f1.Y
+
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> f1.X
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>HAVING COUNT(f1.X) &gt; 1</code> to filter own mirrored pairs - there is only one row <code>(2, 2)</code>, which should be excluded</li>
+<li><code>f1.X &lt; f1.Y</code> to filter duplicated pairs - <code>(2, 5), (5, 2)</code>, then <code>(5, 2)</code> should be discarded</li>
+</ul>
 <h2 id="references">References</h2>
 <ul>
-<li><a href="https://stackoverflow.com/questions/16470942/how-to-use-mysql-join-without-on-condition/16471286">https://stackoverflow.com/questions/16470942/how-to-use-mysql-join-without-on-condition/16471286</a></li>
+<li><a href="https://stackoverflow.com/questions/16470942/how-to-use-mysql-join-without-on-condition/16471286">join without on</a></li>
+<li><a href="https://www.mysqltutorial.org/mysql-alias/#:~:text=In%20MySQL%2C%20you%20can%20use,to%20refer%20to%20the%20column.&amp;text=The%20following%20statement%20selects%20the,GROUP%20BY%20and%20HAVING%20clauses.&amp;text=Notice%20that%20you%20cannot%20use%20a%20column%20alias%20in%20the%20WHERE%20clause.">SQL Alias</a></li>
+<li><a href="https://stackoverflow.com/questions/3841295/sql-using-alias-in-group-by">sql-using-alias-in-group-by</a></li>
+<li><a href="https://nifannn.github.io/2017/10/24/SQL-Notes-Hackerrank-Draw-The-Triangle-1/">SQL-Hackerrank-Draw-the-triangle</a></li>
+<li><a href="https://discuss.codecademy.com/t/could-someone-explain-me-why-this-code-creates-automatic-20-lines/558795">SQL :=</a></li>
 </ul>
 
 
@@ -345,7 +467,8 @@ grade, marks
         <nav id="TableOfContents">
   <ul>
     <li><a href="#order-of-execution">Order of execution</a></li>
-    <li><a href="#questions">Questions</a></li>
+    <li><a href="#leetcode">Leetcode</a></li>
+    <li><a href="#hackerrank">Hackerrank</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
