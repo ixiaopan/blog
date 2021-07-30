@@ -14,6 +14,14 @@
 		<atom:link href="/blog/categories/nlp/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Daily SQL Practice</title>
+			<link>https://ixiaopan.github.io/blog/post/sql/</link>
+			<pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/sql/</guid>
+			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Interview - Software Engineer</title>
 			<link>https://ixiaopan.github.io/blog/post/interview/</link>
 			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
@@ -85,14 +93,6 @@
 			<description>Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
 $$ y_i d_i \ge \Delta $$
 where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin.</description>
-		</item>
-      	
-		<item>
-			<title>K-means</title>
-			<link>https://ixiaopan.github.io/blog/post/kmeans/</link>
-			<pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/kmeans/</guid>
-			<description>&lt;p&gt;So far, we&amp;rsquo;ve talked much about supervised learning. Aside from it, there exist many other learning types such as unspervised learning, semi-supervised learning and so on. This post will introduce one of the most widely used unsupervised clustering algorithms — K-means. We will cover the implementation of K-means algorithm, the limitation of this algorithm as well as its applications.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

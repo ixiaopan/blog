@@ -4,7 +4,7 @@ date: "2021-07-11"
 description: ""
 # tags: []
 categories: [
-    "Algorithm",
+    "Computer Science",
 ]
 series: ["Computer Science"]
 katex: true

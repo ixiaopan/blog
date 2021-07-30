@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Deep Learning on </title>
-		<link>https://ixiaopan.github.io/blog/categories/deep-learning/</link>
-		<description>Recent content in Deep Learning </description>
+		<title>Computer Science on </title>
+		<link>https://ixiaopan.github.io/blog/categories/computer-science/</link>
+		<description>Recent content in Computer Science </description>
 		<generator>Hugo -- gohugo.io</generator>
 		
   		<language>en</language>
 		
-		<managingEditor>Page(/categories/deep-learning) (ixiaopan)</managingEditor>
+		<managingEditor>Page(/categories/computer-science) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
+		<atom:link href="/blog/categories/computer-science/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Daily SQL Practice</title>
