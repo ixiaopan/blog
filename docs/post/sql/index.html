@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 30, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <ul>
 <li><code>UNION</code>
 <ul>
-<li>combine multiple result sets</li>
+<li>combine multiple result sets, the selected columns must have the same size, data type, and order</li>
 <li>removes one duplicate row; To retain the duplicate row, use <code>UNION ALL</code></li>
 </ul>
 </li>
@@ -353,12 +353,12 @@ grade, marks
 <li>In MySQL, you can use the column alias in the <code>group by/order by/having</code> to refer to that column</li>
 </ul>
 <p>Q6 <a href="https://www.hackerrank.com/challenges/draw-the-triangle-1/problem?isFullScreen=true">draw-the-triangle</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
-<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
-<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
-<span style="color:#f92672">*</span> <span style="color:#f92672">*</span> 
-<span style="color:#f92672">*</span>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- * * * * * 
+</span><span style="color:#75715e">--- * * * * 
+</span><span style="color:#75715e">--- * * * 
+</span><span style="color:#75715e">--- * * 
+</span><span style="color:#75715e">--- *
+</span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> Test(id integer, title varchar(<span style="color:#ae81ff">10</span>));
 <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
 <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
@@ -369,33 +369,33 @@ grade, marks
 <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=@</span>NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 <span style="color:#66d9ef">FROM</span> Test, (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>) t ;
 
-<span style="color:#f92672">#</span> id	title	<span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=@</span>NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">4</span>
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">2</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">3</span>
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">3</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">2</span>
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">4</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">5</span>	  Hello	  <span style="color:#ae81ff">5</span>          <span style="color:#ae81ff">0</span>
-
-<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+<span style="color:#75715e">--- id	title	@NUMBER:=5 @NUMBER:=@NUMBER-1
+</span><span style="color:#75715e">--- 1	  Hello	  5          4
+</span><span style="color:#75715e">--- 2	  Hello	  5          3
+</span><span style="color:#75715e">--- 3	  Hello	  5          2
+</span><span style="color:#75715e">--- 4	  Hello	  5          1
+</span><span style="color:#75715e">--- 5	  Hello	  5          0
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">--- solution 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
 
 <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
 <span style="color:#66d9ef">FROM</span> Test
 <span style="color:#66d9ef">WHERE</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>;
 
 
-<span style="color:#f92672">#</span> id	title	REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>number :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>number <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>	Hello	<span style="color:#f92672">*</span> <span style="color:#f92672">*</span>
-
-<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">2</span>
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+<span style="color:#75715e">--- id	title	REPEAT(&#39;* &#39;, @number := @number - 1)
+</span><span style="color:#75715e">--- 1	Hello	* *
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">--- solution 2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
 
 <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
 <span style="color:#66d9ef">FROM</span> Test
 <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
 
-<span style="color:#f92672">#</span> solution <span style="color:#ae81ff">3</span>
-<span style="color:#66d9ef">SELECT</span> REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>NUMBER :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>NUMBER <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) 
+<span style="color:#75715e">--- solution 3
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>NUMBER :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>NUMBER <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) 
 <span style="color:#66d9ef">FROM</span> 
   information_schema.tables, 
   (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">21</span>) t 
@@ -447,6 +447,41 @@ grade, marks
 <ul>
 <li><code>HAVING COUNT(f1.X) &gt; 1</code> to filter own mirrored pairs - there is only one row <code>(2, 2)</code>, which should be excluded</li>
 <li><code>f1.X &lt; f1.Y</code> to filter duplicated pairs - <code>(2, 5), (5, 2)</code>, then <code>(5, 2)</code> should be discarded</li>
+</ul>
+<p>Q9 <a href="https://www.hackerrank.com/challenges/occupations/problem">Pivot</a></p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Pivot_table">Pivot</a> the <em>Occupation</em> column in <strong>OCCUPATIONS</strong> so that each <em>Name</em> is sorted alphabetically and displayed underneath its corresponding <em>Occupation</em>. The output column headers should be <em>Doctor</em>, <em>Professor</em>, <em>Singer</em>, and <em>Actor</em>, respectively.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- Doctor,  Professor  Singer, Actor
+</span><span style="color:#75715e">--- Jenny    Ashley     Meera  Jane
+</span><span style="color:#75715e">--- Samantha Christeen  Priya  Julia
+</span><span style="color:#75715e">--- NULL     Ketty      NULL   Maria
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Doctor), <span style="color:#66d9ef">MIN</span>(Professor), <span style="color:#66d9ef">MIN</span>(Singer), <span style="color:#66d9ef">MIN</span>(Actor)
+<span style="color:#66d9ef">FROM</span> (<span style="color:#66d9ef">SELECT</span> Name, Occupation,
+       RANK() OVER(PARTITION <span style="color:#66d9ef">BY</span> Occupation <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> Name) <span style="color:#66d9ef">AS</span> row_num,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Doctor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Doctor,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Professor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Professor,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Singer&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Singer,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Actor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Actor
+      <span style="color:#66d9ef">FROM</span> OCCUPATIONS) t
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> row_num
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>MIN(expr)</code> can be used with numeric, <strong>char</strong>, datetime datatypes, ignoring <code>NULL</code>
+<ul>
+<li>e.g. <code>MIN(['AA', 'AB', 'AC']) = 'AA'</code></li>
+</ul>
+</li>
+<li>The idea is to
+<ul>
+<li>construct a one-hot encoding table</li>
+<li>group by occupation and rank by name within each group</li>
+<li>aggregate each row by grouping by within-group row number using <code>MIN(str)</code></li>
+</ul>
+</li>
 </ul>
 <h2 id="references">References</h2>
 <ul>

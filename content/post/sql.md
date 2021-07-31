@@ -93,7 +93,7 @@ LIMIT 1);
 What I learned
 
 - `UNION`
-  - combine multiple result sets
+  - combine multiple result sets, the selected columns must have the same size, data type, and order
   - removes one duplicate row; To retain the duplicate row, use `UNION ALL`
 - `CHAR_LENGTH()` 
   - return the length of a string, measured in characters
@@ -238,11 +238,11 @@ Q6 [draw-the-triangle](https://www.hackerrank.com/challenges/draw-the-triangle-1
 
 
 ```SQL
-* * * * * 
-* * * * 
-* * * 
-* * 
-*
+--- * * * * * 
+--- * * * * 
+--- * * * 
+--- * * 
+--- *
 
 create table Test(id integer, title varchar(10));
 insert into Test(id, title) values(1, "Hello");
@@ -254,14 +254,14 @@ insert into Test(id, title) values(5, "Hello");
 SELECT *, @NUMBER:=@NUMBER-1
 FROM Test, (SELECT @NUMBER:=5) t ;
 
-# id	title	@NUMBER:=5 @NUMBER:=@NUMBER-1
-# 1	  Hello	  5          4
-# 2	  Hello	  5          3
-# 3	  Hello	  5          2
-# 4	  Hello	  5          1
-# 5	  Hello	  5          0
+--- id	title	@NUMBER:=5 @NUMBER:=@NUMBER-1
+--- 1	  Hello	  5          4
+--- 2	  Hello	  5          3
+--- 3	  Hello	  5          2
+--- 4	  Hello	  5          1
+--- 5	  Hello	  5          0
 
-# solution 1
+--- solution 1
 SET @counter = 3;
 
 SELECT *, REPEAT('* ', @counter := @counter - 1)
@@ -269,17 +269,17 @@ FROM Test
 WHERE @counter > 2;
 
 
-# id	title	REPEAT('* ', @number := @number - 1)
-# 1	Hello	* *
+--- id	title	REPEAT('* ', @number := @number - 1)
+--- 1	Hello	* *
 
-# solution 2
+--- solution 2
 SET @counter = 3;
 
 SELECT *, REPEAT('* ', @counter := @counter - 1)
 FROM Test
 LIMIT 1
 
-# solution 3
+--- solution 3
 SELECT REPEAT('* ', @NUMBER := @NUMBER - 1) 
 FROM 
   information_schema.tables, 
@@ -353,6 +353,46 @@ What I learned
 
 - `HAVING COUNT(f1.X) > 1` to filter own mirrored pairs - there is only one row `(2, 2)`, which should be excluded
 - `f1.X < f1.Y` to filter duplicated pairs - `(2, 5), (5, 2)`, then `(5, 2)` should be discarded
+
+
+
+Q9 [Pivot](https://www.hackerrank.com/challenges/occupations/problem)
+
+
+
+> [Pivot](https://en.wikipedia.org/wiki/Pivot_table) the *Occupation* column in **OCCUPATIONS** so that each *Name* is sorted alphabetically and displayed underneath its corresponding *Occupation*. The output column headers should be *Doctor*, *Professor*, *Singer*, and *Actor*, respectively.
+
+
+
+```SQL
+--- Doctor,  Professor  Singer, Actor
+--- Jenny    Ashley     Meera  Jane
+--- Samantha Christeen  Priya  Julia
+--- NULL     Ketty      NULL   Maria
+
+
+SELECT MIN(Doctor), MIN(Professor), MIN(Singer), MIN(Actor)
+FROM (SELECT Name, Occupation,
+       RANK() OVER(PARTITION BY Occupation ORDER BY Name) AS row_num,
+       CASE WHEN Occupation = 'Doctor' THEN Name ELSE NULL END AS Doctor,
+       CASE WHEN Occupation = 'Professor' THEN Name ELSE NULL END AS Professor,
+       CASE WHEN Occupation = 'Singer' THEN Name ELSE NULL END AS Singer,
+       CASE WHEN Occupation = 'Actor' THEN Name ELSE NULL END AS Actor
+      FROM OCCUPATIONS) t
+GROUP BY row_num
+
+```
+
+
+
+What I learned
+
+- `MIN(expr)` can be used with numeric, **char**, datetime datatypes, ignoring `NULL` 
+  - e.g. `MIN(['AA', 'AB', 'AC']) = 'AA'`
+- The idea is to 
+  - construct a one-hot encoding table
+  - group by occupation and rank by name within each group
+  - aggregate each row by grouping by within-group row number using `MIN(str)`
 
 
 
