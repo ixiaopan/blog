@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 30, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -188,6 +188,57 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>limit</li>
 </ul>
 <h2 id="leetcode">Leetcode</h2>
+<p>Q1 <a href="https://leetcode.com/problems/delete-duplicate-emails/">Delete Duplicated Emails</a></p>
+<blockquote>
+<p><strong>delete</strong> all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its <em>smallest</em> <strong>Id</strong>.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- query all duplicated emails
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> email
+<span style="color:#66d9ef">FROM</span> Person 
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> email
+<span style="color:#66d9ef">HAVING</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e">-- solution 1: 1414ms
+</span><span style="color:#75715e">-- got an error: You can&#39;t specify target table &#39;Person&#39; for update in FROM clause
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> Person
+<span style="color:#66d9ef">WHERE</span> Id <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Id) uid <span style="color:#66d9ef">FROM</span> Person <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> Email)
+
+<span style="color:#75715e">-- fixed - delete duplicated emails
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> Person
+<span style="color:#66d9ef">WHERE</span> Id <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> 
+(<span style="color:#66d9ef">SELECT</span> a.uid <span style="color:#66d9ef">FROM</span> 
+    (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Id) uid <span style="color:#66d9ef">FROM</span> Person <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> Email) a
+)
+
+<span style="color:#75715e">-- solution 2: 1719ms
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> p1
+<span style="color:#66d9ef">FROM</span> Person p1, Person p2
+<span style="color:#66d9ef">WHERE</span> p1.Email <span style="color:#f92672">=</span> p2.Email <span style="color:#66d9ef">and</span> p1.Id <span style="color:#f92672">&gt;</span> p2.id
+</code></pre></div><p>What I learned</p>
+<ul>
+<li>
+<p><code>You can't specify target table 'Person' for update in FROM clause</code></p>
+<blockquote>
+<p>You cannot update a table and select directly from the same table in a subquery. You can work around this by using a multi-table update in which one of the tables is derived from the table that you actually wish to update, and referring to the derived table using an alias.  <a href="https://dev.mysql.com/doc/refman/8.0/en/update.html">More detail</a></p>
+</blockquote>
+</li>
+<li>
+<p><code>DELETE</code> statement can specify which table to delete from combining <code>JOIN</code> <a href="https://sodocumentation.net/mysql/topic/1487/delete">see here</a></p>
+</li>
+</ul>
+<p>Q2 <a href="https://leetcode.com/problems/rising-temperature/">Rising Temperature</a></p>
+<blockquote>
+<p>find all dates' <code>id</code> with higher temperature compared to its previous dates (yesterday).</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> w2.id
+
+<span style="color:#66d9ef">FROM</span> Weather w1,Weather w2
+
+<span style="color:#66d9ef">WHERE</span> DATEDIFF(w2.recordDate, w1.recordDate) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> w2.Temperature <span style="color:#f92672">&gt;</span> w1.Temperature
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_datediff">MySQL - DATEDIFF</a></li>
+</ul>
 <h2 id="hackerrank">Hackerrank</h2>
 <p>Q1 <a href="https://www.hackerrank.com/challenges/weather-observation-station-5/problem">weather-observation-station-5</a></p>
 <blockquote>

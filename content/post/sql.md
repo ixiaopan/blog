@@ -36,6 +36,77 @@ Practice! Practice! Practice!
 
 
 
+Q1 [Delete Duplicated Emails](https://leetcode.com/problems/delete-duplicate-emails/)
+
+
+
+> **delete** all duplicate email entries in a table named `Person`, keeping only unique emails based on its *smallest* **Id**.
+
+
+
+```sql
+-- query all duplicated emails
+SELECT email
+FROM Person 
+GROUP BY email
+HAVING COUNT(*) > 1
+
+-- solution 1: 1414ms
+-- got an error: You can't specify target table 'Person' for update in FROM clause
+DELETE FROM Person
+WHERE Id NOT IN (SELECT MIN(Id) uid FROM Person GROUP BY Email)
+
+-- fixed - delete duplicated emails
+DELETE FROM Person
+WHERE Id NOT IN 
+(SELECT a.uid FROM 
+    (SELECT MIN(Id) uid FROM Person GROUP BY Email) a
+)
+
+-- solution 2: 1719ms
+DELETE p1
+FROM Person p1, Person p2
+WHERE p1.Email = p2.Email and p1.Id > p2.id
+```
+
+
+
+What I learned
+
+- `You can't specify target table 'Person' for update in FROM clause`
+
+  > You cannot update a table and select directly from the same table in a subquery. You can work around this by using a multi-table update in which one of the tables is derived from the table that you actually wish to update, and referring to the derived table using an alias.  [More detail](https://dev.mysql.com/doc/refman/8.0/en/update.html)
+
+- `DELETE` statement can specify which table to delete from combining `JOIN` [see here](https://sodocumentation.net/mysql/topic/1487/delete)
+
+
+
+Q2 [Rising Temperature](https://leetcode.com/problems/rising-temperature/)
+
+
+
+> find all dates' `id` with higher temperature compared to its previous dates (yesterday).
+
+
+
+```sql
+SELECT w2.id
+
+FROM Weather w1,Weather w2
+
+WHERE DATEDIFF(w2.recordDate, w1.recordDate) = 1 and w2.Temperature > w1.Temperature
+```
+
+
+
+What I learned
+
+- [MySQL - DATEDIFF](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_datediff)
+
+
+
+
+
 
 
 ## Hackerrank
