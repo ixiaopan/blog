@@ -9,10 +9,20 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 06 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Leetcode-101</title>
+			<link>https://ixiaopan.github.io/blog/post/leetcode-01/</link>
+			<pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/leetcode-01/</guid>
+			<description>Math Reverse an integer $x$
+ the key is to multiply each remainder by 10 in each division $a*10*10+b*10+c$  reverse_x = 0 while x &amp;gt; 0: mod_x = x % 10 # mod operation x = x // 10 # floor division  # reverse reverse_x = reverse_x * 10 + mod_x Plus one
+ if $d==9$ ( $v==0$ ), we need to increment 1 for the next digit otherwise we are done  def plusOne(digits): d = digits[-1] v = (d + 1) % 10 if v == 0: return self.</description>
+		</item>
+      	
 		<item>
 			<title>Daily SQL Practice</title>
 			<link>https://ixiaopan.github.io/blog/post/sql/</link>
@@ -27,14 +37,6 @@
 			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/interview/</guid>
 			<description>&lt;p&gt;From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>NLP - Related work on NER</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-03-rnn/</link>
-			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-03-rnn/</guid>
-			<description>&lt;p&gt;I am going to write several articles to go through my MSc project briefly (Hopefully I can do it). To be honest, it&amp;rsquo;s a bit hard for me to complete this research. Perhaps I should choose another topic about NER, such as NER in fake news. Anyway, I have to complete it in the next month. Well, this post will cover the related work on NER including models, data and domain adaption, which is the initial work of my research.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

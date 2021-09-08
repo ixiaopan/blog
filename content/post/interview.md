@@ -4,9 +4,9 @@ date: "2021-07-29"
 description: ""
 # tags: []
 categories: [
-    "Interview",
+    "Computer Science",
 ]
-series: ["Misc"]
+series: ["Computer Science"]
 katex: true
 ---
 
