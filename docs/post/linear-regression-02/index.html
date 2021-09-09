@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 17, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -213,6 +213,11 @@ $$</p>
 A^+ = (\bold X^T\bold X)^{-1} \bold X^T = V\Sigma^{-1}U^T
 $$</p>
 <p>In practice, the algorithm will set the elements of $\Sigma$ that less than a smaller threshold to zero, then take the inverse of all nozero values, and finally transpose the resulting matrix i.e. $(U\Sigma V^T)^{-1}$</p>
+<blockquote>
+<p>When A has more columns than rows, then solving a linear equation using the pseudoinverse provides one of the many possible solutions. Speciﬁcally, it provides the solution $x = A^+ y$ with minimal Euclidean norm $||x||_ 2$ among all possible solutions.</p>
+<p>When A has more rows than columns, it is possible for there to be no solution. In this case, using the pseudoinverse gives us the x for which Ax is as close as possible to y in terms of Euclidean norm $|| Ax − y ||_ 2$ .</p>
+<p>— Deep Learning, p44</p>
+</blockquote>
 <h3 id="qr-factorisation">QR factorisation</h3>
 <p>TODO</p>
 <h3 id="comparison-of-algorithms">comparison of algorithms</h3>

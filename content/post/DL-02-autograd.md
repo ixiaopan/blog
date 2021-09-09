@@ -1,6 +1,6 @@
 ---
-title: "Deep Learning - backpropagation"
-date: "2021-06-24"
+title: "Deep Learning - Backpropagation"
+date: "2021-09-09"
 description: ""
 # tags: []
 categories: [

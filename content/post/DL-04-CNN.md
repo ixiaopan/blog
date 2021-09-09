@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning - CNN"
-date: "2021-06-24"
+date: "2021-09-09"
 description: ""
 # tags: []
 categories: [

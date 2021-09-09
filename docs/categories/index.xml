@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Mon, 06 Sep 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Leetcode - 102</title>
+			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
+			<pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/leetcode-02/</guid>
+			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Leetcode - 101</title>
 			<link>https://ixiaopan.github.io/blog/post/leetcode-01/</link>
@@ -59,14 +67,6 @@
 			<pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/nlp-02-text-representation/</guid>
 			<description>&lt;p&gt;In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&amp;rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called &lt;strong&gt;text representation&lt;/strong&gt;.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Introduction</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-01-intro/</link>
-			<pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-01-intro/</guid>
-			<description>&lt;p&gt;So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. I am afraid that I don&amp;rsquo;t have time to do this because I have to do my summer project, which requires me to dive into deep learning.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

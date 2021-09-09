@@ -101,6 +101,16 @@ In practice, the algorithm will set the elements of $\Sigma$ that less than a sm
 
 
 
+> When A has more columns than rows, then solving a linear equation using the pseudoinverse provides one of the many possible solutions. Speciﬁcally, it provides the solution $x = A^+ y$ with minimal Euclidean norm $||x||_ 2$ among all possible solutions.
+>
+> When A has more rows than columns, it is possible for there to be no solution. In this case, using the pseudoinverse gives us the x for which Ax is as close as possible to y in terms of Euclidean norm $|| Ax − y ||_ 2$ .
+>
+> — Deep Learning, p44
+
+
+
+
+
 ### QR factorisation
 
 TODO
