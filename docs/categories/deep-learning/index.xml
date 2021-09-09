@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories/deep-learning) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Deep Learning - Preliminary</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-01-pre/</link>
+			<pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-01-pre/</guid>
+			<description>&lt;p&gt;So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Leetcode - 102</title>
 			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
@@ -83,16 +91,6 @@
 			<pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/naive-bayes/</guid>
 			<description>&lt;p&gt;In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating $P(Y|X)$ directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Support Vector Machine</title>
-			<link>https://ixiaopan.github.io/blog/post/svm/</link>
-			<pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/svm/</guid>
-			<description>Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
-$$ y_i d_i \ge \Delta $$
-where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin.</description>
 		</item>
       	
 	</channel>
