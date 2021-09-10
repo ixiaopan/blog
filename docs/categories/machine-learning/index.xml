@@ -14,19 +14,19 @@
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Leetcode - 102</title>
+			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
+			<pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/leetcode-02/</guid>
+			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Deep Learning - Preliminary</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-01-pre/</link>
 			<pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-01-pre/</guid>
 			<description>&lt;p&gt;So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Leetcode - 102</title>
-			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
-			<pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/leetcode-02/</guid>
-			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
 		</item>
       	
 		<item>
