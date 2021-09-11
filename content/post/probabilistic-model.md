@@ -12,7 +12,7 @@ katex: true
 
 
 
-In the previous post [Descriptive Statistics](https://ixiaopan.github.io/blog/post/descriptive-statistics/), we focused on summary statistics on a particular data set. However, in machine learning, we usually attempt to make inference, i.e. infer the unknown parameters from the given data. For unknown things, we use **probability** to describe its uncertainty. For inference, we use Bayes' rule to invert it into a forward process.
+The goal of machine learning is to infer an unknown pattern from data. However, both parameters and predictions are estimated values, so how confident are we in these values? To measure uncertainty, we use probability. On the other hand, Bayes' theorem provides a framework for us to invert the problem into a forward process, where we observe data from parameters instead of making inferences from data.
 
 
 
@@ -20,7 +20,23 @@ In the previous post [Descriptive Statistics](https://ixiaopan.github.io/blog/po
 
 
 
-At the beginning, let's have a quick refresh on probability. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable. Suppose we have two random variables of interest, $X$ and $Y$,
+At the beginning, let's have a quick refresh on probability. 
+
+
+
+> A random variable is variable that can take on different values randomly. 
+>
+> 
+>
+> On its own, it is a description the states that are possible; it must be coupled with a probability distribution that specifies how likely each of these states are.
+>
+> 
+>
+> — Deep Learning, p54
+
+
+
+In short, a random variable covers two aspects: possible value and the likelihood of taking that value. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable. Suppose we have two random variables of interest, $X$ and $Y$,
 
 - The joint probability of $X$ that takes the value of $x$ and $Y$ that takes the value of $y$ is written as $P(X = x, Y=y)$, which means that the probability of $x$ and $y$ happening at the same time
 

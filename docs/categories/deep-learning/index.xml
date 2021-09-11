@@ -14,6 +14,14 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Data Visualisation</title>
+			<link>https://ixiaopan.github.io/blog/post/dataviz/</link>
+			<pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dataviz/</guid>
+			<description>&lt;p&gt;Data visualisation is one of the modules in the first semester. Though I worked with web design and UI for several years, I&amp;rsquo;d never think about them deeply. As I learned more about design principles and the use of different charts, my aesthetic sense improved greatly. Here I listed some useful resources just for future reference.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Leetcode - 102</title>
 			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
 			<pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
@@ -83,14 +91,6 @@
 			<pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/</guid>
 			<description>&lt;p&gt;From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Naive Bayes Classification</title>
-			<link>https://ixiaopan.github.io/blog/post/naive-bayes/</link>
-			<pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/naive-bayes/</guid>
-			<description>&lt;p&gt;In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating $P(Y|X)$ directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
