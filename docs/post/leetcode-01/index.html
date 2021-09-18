@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Leetcode - 101</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode - 101"/>
+<meta name="twitter:description" content="Practice! Practice! Practice!"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Leetcode - 101
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Sep 6, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/computer-science/"
+        >Computer Science</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Practice! Practice! Practice!</p>
+<h2 id="math">Math</h2>
+<h3 id="reverse-an-integer">Reverse an integer</h3>
+<ul>
+<li>the key is to multiply each remainder by 10 in each division</li>
+<li>$a*10*10+b*10+c$</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reverse_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">while</span> x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+  mod_x <span style="color:#f92672">=</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># mod operation</span>
+  x <span style="color:#f92672">=</span> x <span style="color:#f92672">//</span> <span style="color:#ae81ff">10</span>  <span style="color:#75715e"># floor division  </span>
+  <span style="color:#75715e"># reverse</span>
+  reverse_x <span style="color:#f92672">=</span> reverse_x <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> mod_x
+</code></pre></div><h3 id="plus-one">Plus one</h3>
+<ul>
+<li>if $d==9$  ( $v==0$ ), we need to increment 1 for the next digit</li>
+<li>otherwise we are done</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plusOne</span>(digits):
+  d <span style="color:#f92672">=</span> digits[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+  v <span style="color:#f92672">=</span> (d <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> 
+  <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>plusOne(digits[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">+</span> v
+  <span style="color:#66d9ef">else</span>:
+    digits[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> v
+    <span style="color:#66d9ef">return</span> digits
+</code></pre></div><h3 id="binary-addition">Binary addition</h3>
+<ul>
+<li>elementwise addition between numbers with variable length</li>
+<li>addition starts from right to left</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">while</span> l <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> r <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>: <span style="color:#75715e"># a,b should have the same length</span>
+  t <span style="color:#f92672">=</span> a[l] <span style="color:#f92672">+</span> b[r] <span style="color:#f92672">+</span> inc
+  v <span style="color:#f92672">=</span> t <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e"># the result of the current position</span>
+  <span style="color:#66d9ef">if</span> t <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">2</span>:
+    inc <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">else</span>:
+    inc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  l <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+  r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># which is equivalent to </span>
+inc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">while</span> l <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> r <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> inc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+  <span style="color:#66d9ef">if</span> l <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>: <span style="color:#75715e"># no need to ensure that len(a) == len(b)</span>
+    inc <span style="color:#f92672">+=</span>a[l]
+    l <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>:
+    inc <span style="color:#f92672">+=</span> b[r]
+    r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+  v <span style="color:#f92672">=</span> inc <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>
+  inc <span style="color:#f92672">=</span> inc <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</code></pre></div><h3 id="the-euclidean-algorithm">The Euclidean Algorithm</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># find the greatest common divider of A and B</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">findGCD</span>(A, B):
+  <span style="color:#66d9ef">while</span> B <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+    A, B <span style="color:#f92672">=</span> B, A <span style="color:#f92672">%</span> B
+  <span style="color:#66d9ef">return</span> A
+</code></pre></div><h2 id="array">Array</h2>
+<h3 id="the-second-largest-number">The second largest number</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># the largest number is unique</span>
+max_v, sec_max_v <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">999</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">999</span>
+<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> nums:
+	<span style="color:#66d9ef">if</span> n <span style="color:#f92672">&gt;</span> max_v:
+		sec_max_v <span style="color:#f92672">=</span> max_v
+		max_v <span style="color:#f92672">=</span> n
+	
+	<span style="color:#66d9ef">elif</span> n <span style="color:#f92672">&gt;</span> sec_max_v:
+		sec_max_v <span style="color:#f92672">=</span> n
+</code></pre></div><h2 id="string">String</h2>
+<h2 id="two-pointer-approach">Two pointer approach</h2>
+<h3 id="the-same-direction">The same direction</h3>
+<ul>
+<li>one slow-runner and one fast-runner, $+=1$</li>
+<li>the slow-runner points at the placeholders</li>
+<li>the fast-runner is used to loop each element</li>
+<li>the key is to determine the movement strategy</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">removeDuplicate</span>(nums):
+  start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  end <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">while</span> end <span style="color:#f92672">&lt;</span> len(nums):
+    <span style="color:#66d9ef">if</span> nums[end] <span style="color:#f92672">==</span> nums[start]:
+      end <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">else</span>:
+      <span style="color:#66d9ef">if</span> end <span style="color:#f92672">-</span> start <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
+        nums[start <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>], nums[ end ] <span style="color:#f92672">=</span> nums[ end ], nums[start <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+
+      start <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+      end <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">return</span> start <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+
+</code></pre></div><h3 id="the-opposite-direction">The opposite direction</h3>
+<ul>
+<li>the left pointer $+=1$</li>
+<li>the right pointer $-=1$</li>
+<li>This technique is often used in a sorted array</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reverseString</span>(s):
+  l, r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(s) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;</span> r:
+    s[l], s[r] <span style="color:#f92672">=</span> s[r], s[l]
+    l <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">return</span> s
+</code></pre></div><p>Two sum (sorted array)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twoSum</span>(nums):
+	l, r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(nums) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;</span> r:
+		t <span style="color:#f92672">=</span> nums[l] <span style="color:#f92672">+</span> nums[r]
+		<span style="color:#66d9ef">if</span> t <span style="color:#f92672">&gt;</span> target:
+			r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#66d9ef">elif</span> t <span style="color:#f92672">&lt;</span> target:
+			l <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#66d9ef">else</span>:
+			<span style="color:#66d9ef">return</span> [l, r]
+</code></pre></div><h2 id="binary-search">Binary Search</h2>
+<p>An effective way to find an element in a <strong>sorted array</strong>.</p>
+<ul>
+<li>if not sorted, we can always sort the collection and apply binary search</li>
+<li>divide search space in two spaces each time</li>
+<li>converge at some position</li>
+</ul>
+<h3 id="template-1">Template 1</h3>
+<ul>
+<li>basic form of binary search</li>
+<li>Loop ends when the two pointers meet</li>
+<li>$ \text{left} &lt;= \text{right} $</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">findElement</span>(nums, target):
+  i, j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(nums) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;=</span> j:
+    mid <span style="color:#f92672">=</span> (i <span style="color:#f92672">+</span> j) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">if</span> target <span style="color:#f92672">&gt;</span> nums[mid]:
+      i <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+     <span style="color:#66d9ef">elif</span> target <span style="color:#f92672">&lt;</span> nums[mid]:
+      j <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+     <span style="color:#66d9ef">else</span>:
+      <span style="color:#66d9ef">return</span> mid
+
+  <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</code></pre></div><h3 id="template-2">Template 2</h3>
+<ul>
+<li>Loop ends when there is only one element left</li>
+<li>search left: $right = mid$</li>
+<li>search right: $ left =  mid + 1$</li>
+<li>$ \text{left} &lt; \text{right}$</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">firstBadVersion</span>(self, n, pick):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        :type n: int
+</span><span style="color:#e6db74">        :rtype: int
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        l, r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, n
+        <span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;</span> r:
+          mid <span style="color:#f92672">=</span> (l<span style="color:#f92672">+</span>r)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>
+          <span style="color:#66d9ef">if</span> isBadVersion(mid, pick) <span style="color:#f92672">is</span> False: <span style="color:#75715e"># search right</span>
+            l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+          <span style="color:#66d9ef">else</span>: <span style="color:#75715e"># search left</span>
+            r <span style="color:#f92672">=</span> mid
+
+        <span style="color:#75715e"># if l &lt;= n and isBadVersion(l, pick) is True:</span>
+        <span style="color:#66d9ef">return</span> l
+
+        <span style="color:#75715e"># return -1</span>
+</code></pre></div><h3 id="template-3">Template 3</h3>
+<h2 id="hash-table">Hash Table</h2>
+<p>Keep the corresponding value of a specified key in advance</p>
+<p>Two sum</p>
+<ul>
+<li>if the next value is the desired value, then it must be in the dict</li>
+<li>otherwise, we update the dict</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">hashmap <span style="color:#f92672">=</span> {}
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range( len(nums) ):
+	<span style="color:#66d9ef">if</span> nums[i] <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> hashmap:
+		hashmap[  target <span style="color:#f92672">-</span> nums[i] ] <span style="color:#f92672">=</span> i
+	<span style="color:#66d9ef">else</span>:
+		<span style="color:#66d9ef">return</span> [ hashmap[ nums[i] ], i ]
+</code></pre></div><h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://leetcode.com/explore/learn/card/array-and-string/">Array and String - LeetCode</a></li>
+<li><a href="https://leetcode.com/explore/learn/card/binary-search/138/background/974/">Binary Search - LeetCode</a></li>
+<li><a href="https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm">The Euclidean Algorithm</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#math">Math</a>
+      <ul>
+        <li><a href="#reverse-an-integer">Reverse an integer</a></li>
+        <li><a href="#plus-one">Plus one</a></li>
+        <li><a href="#binary-addition">Binary addition</a></li>
+        <li><a href="#the-euclidean-algorithm">The Euclidean Algorithm</a></li>
+      </ul>
+    </li>
+    <li><a href="#array">Array</a>
+      <ul>
+        <li><a href="#the-second-largest-number">The second largest number</a></li>
+      </ul>
+    </li>
+    <li><a href="#string">String</a></li>
+    <li><a href="#two-pointer-approach">Two pointer approach</a>
+      <ul>
+        <li><a href="#the-same-direction">The same direction</a></li>
+        <li><a href="#the-opposite-direction">The opposite direction</a></li>
+      </ul>
+    </li>
+    <li><a href="#binary-search">Binary Search</a>
+      <ul>
+        <li><a href="#template-1">Template 1</a></li>
+        <li><a href="#template-2">Template 2</a></li>
+        <li><a href="#template-3">Template 3</a></li>
+      </ul>
+    </li>
+    <li><a href="#hash-table">Hash Table</a></li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

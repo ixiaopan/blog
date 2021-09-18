@@ -1,7 +1,7 @@
 ---
 title: "Probabilistic Model"
 date: "2021-05-26"
-description: "In the previous post [Descriptive Statistics](https://ixiaopan.github.io/blog/post/descriptive-statistics/), we focused on summary statistics on a particular data set. However, in machine learning, we usually attempt to make inference, i.e. infer the unknown parameters from the given data. For unknown things, we use **probability** to describe its uncertainty. For inference, we use Bayes' rule to invert it into a forward process"
+description: "The goal of machine learning is to infer an unknown pattern from data. However, both parameters and predictions are estimated values, so how confident are we in these values? To measure uncertainty, we use probability. On the other hand, Bayes' theorem provides a framework for us to invert the problem into a forward process, where we observe data from parameters instead of making inferences from data."
 # tags: []
 categories: [
     "Machine Learning",
@@ -17,6 +17,10 @@ The goal of machine learning is to infer an unknown pattern from data. However, 
 
 
 ## Probability
+
+
+
+### Random Variable
 
 
 
@@ -36,7 +40,15 @@ At the beginning, let's have a quick refresh on probability.
 
 
 
-In short, a random variable covers two aspects: possible value and the likelihood of taking that value. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable. Suppose we have two random variables of interest, $X$ and $Y$,
+In short, a random variable covers two aspects: possible value and the likelihood of taking that value. Conventionly, we use a capital letter, such as $X$ or $Y$, to represent a random variable. 
+
+
+
+### Conditional Probability
+
+
+
+Suppose we have two random variables of interest, $X$ and $Y$,
 
 - The joint probability of $X$ that takes the value of $x$ and $Y$ that takes the value of $y$ is written as $P(X = x, Y=y)$, which means that the probability of $x$ and $y$ happening at the same time
 
@@ -70,6 +82,26 @@ From the above formula, we can deduce the following equation, which is also know
 $$
 P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}
 $$
+
+
+
+### Expectation
+
+The expectation of the function $f(x)$ of a random variable $x$ is the mean value of $f(x)$
+
+
+$$
+E_{x \sim P(x) } f(x) = \sum_x P(x) f(x)
+$$
+
+
+The variance measures how much a new sample drawn from $P(x)$ deviate from the mean value
+
+
+$$
+\text{Var(x)} = E[  (f(x) - E[f(x)])^2 ]
+$$
+
 
 
 
@@ -291,6 +323,140 @@ where  $m_k=\sum_n^Nx_n^k$ represents the number of $x_n^k = 1$.
 #### Dirichlet 
 
 TODO
+
+
+
+### Gaussian Distribution
+
+
+
+In the case of a single variable $x$, the Gaussian distribution is defined as,
+
+
+$$
+N(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}
+$$
+
+
+
+For a vector-valued random variable $\bold x \in R^d$ , We can extend it to the Multivariate Gaussian distribution
+
+
+$$
+N(\bold x|\mu, \sigma^2) = \frac{1}{\sqrt{(2\pi)^d}\sigma_1\sigma_2...\sigma_d} e^{\frac{1}{-2{\sigma_1}^2}(x_1 - \mu_1)^2 + \frac{1}{-2{\sigma_2}^2}(x_2 - \mu_2)^2 + ... + \frac{1}{-2{\sigma_d}^2}(x_d - \mu_d)^2}
+$$
+
+
+
+
+The exponential part of $e$ can be re-written in a matrix form, as shown below, where 
+
+
+$$
+\begin{bmatrix} x_1 &x_2 & ... & x_d \end{bmatrix} \begin{bmatrix} \sigma_1^2 \\\\ & \sigma_2^2 & \\\\ & ... \\\\ & & \sigma_d^2 \end{bmatrix}^{-1} \begin{bmatrix} x_1 \\\\x_2 \\\\ ... \\\\ x_d \end{bmatrix}
+\\\\ = (x - \mu)^T {\sum}^{-1}(x-\mu)
+$$
+
+
+
+Thus,
+
+
+$$
+N(\bold x; \mu, \sum) = \frac{1}{\sqrt {(2 \pi)^d |\sum}|} e^{-\frac{1}{2} (x - \mu)^T\sum^{-1}(x-\mu)}
+$$
+
+
+#### The number of free parameters 
+
+A general symmetric covariance matrix has $ 1 + 2 + 3 + ... + D = D(D+1)/2$ independent parameters, and there are another $D$ independent parameters in $\mu$ , giving $D(D+3)/2$ parameters in total.
+
+
+
+If we consider diagonal covariance matrix $\sum = diag(\sigma_i^2)$, then we have a total of $D + D = 2D$ independent parameters.
+
+
+
+If we restrict the covariance matrix to be proportional to the identity matrix, $\sum=\sigma^2I$, giving $D + 1 $ independent parameters, in this case, the $PDF$ is $\frac{1}{\sqrt{2\pi}^D\sigma^D} e^{\frac{1}{-2{\sigma}^2}\sum_{i=1}^D(x_i - \mu_i)^2}$, which means the density is only related to the distance to the mean from the $x$ (different $x$ with the same distance to the mean has equal density)
+
+
+
+
+
+![](/blog/post/images/multi-gaussion.png#full)
+
+
+
+
+
+#### Maximum likelihood Estimate
+
+Given a data set $\bold  X = (\bold x_1 , . . . , \bold x_N )^T $ in which the observations ${ x_n }$ are assumed to be drawn independently from a multivariate Gaussian distribution,
+
+
+
+#### Esimation for $\mu$
+
+Step 1: construct the likelihood function
+$$
+L(\mu,\sum|D) = \prod_{i=1}^N N(\mu, \sum)
+$$
+
+
+Step 2: The log likelihood function is given by
+$$
+\text{In} L =  \sum_{i=1}^N \{\frac{-D}{2} \text{In}2\pi - \frac{1}{2} \text{In}\sum - \frac{1}{2}(x_i-\mu)^T{\sum}^{-1} (x_i-\mu)\}
+$$
+
+
+
+Step 3: the derivative of the log likelihood with respect to $\mu$  is given by
+
+
+$$
+\frac{ \partial L }{\partial \mu} = \sum_{i=1}^N{\sum}^{-1}(x_i - \mu)
+$$
+Here, we use a bit trick
+
+
+$$
+x^TMx = 2Mx
+$$
+Since the element of $\sum^{-1}$ is positive，we have
+
+
+
+
+$$
+\mu_{ML} = \frac{1}{N} \sum^Nx_n
+$$
+
+
+#### Estimation for $\Sigma^{-1}$
+
+
+$$
+trace[ABC] = trace[BAC] = trace[CAB] \\\\ x^TAx = tr[x^TAx] = tr[xx^TA] \\\\ \frac{\partial}{\partial A} tr[AB] = B^T \\\\ \frac{\partial}{\partial A} log |A| = A^{-T} \\\\ \frac{\partial}{\partial A} x^TAx = xx^T
+$$
+
+
+
+
+
+
+The derivative of the log likelihood with respect to $\sum^{-1}$  is given by
+
+
+$$
+\frac{ \partial L }{\partial \sum^{-1}} =  \sum_{i=1}^N \frac{1}{2} \sum - \frac{1}{2} (x_i - \mu) (x_i - \mu)^T
+$$
+Thus,
+
+
+$$
+\sum_{ML} = \frac{1}{N} \sum_{i=1}^N (x_i - \mu) (x_i - \mu)^T
+$$
+
 
 
 

@@ -182,11 +182,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>If we know that Alice has some preferences for some particular numbers, say she likes 88 most. Then the first question we ask at this time would be &lsquo;is it 88?&rsquo;. If we are lucky enough, we will get the number once. On the other hand, since 88 is the number that Alice likes most, there is no doubt that she is likely to choose 88 as the riddle. Conversely, if Alice is going to surprise us, she would choose a number that she doesn&rsquo;t like very much. If so, it increases the uncertainty of our guess, i.e. we would need to ask more questions.</p>
 <p>The number of questions we ask or the degree of surprise is information, which is measured by</p>
 <p>$$
-I(X=x) = -log(p(X=x))
+I(X=x) = -\text{log}P(X=x)
 $$</p>
-<p>where $p(x)$ is a probability of occurence of x. So information quantifies how uncertain an event is. A rare event will cause much surprise and consequently contain much information.</p>
+<p>where $P(x)$ is a probability of occurence of x. When using the natural logarithm, the information unit is nat. One nat is the amount of infomration gained from the event with the probability of $\frac{1}{e}$. Besides, we also use bit as the unit if the log base is 2.</p>
+<p>In short, information quantifies how uncertain an event is. A rare event will cause much surprise and consequently contain much information.</p>
 <h2 id="entropy">Entropy</h2>
-<p>Suppose we have a probability distribution $p(x)$ over a random variable $X$, and the value of each outcome represents information associated with it. The entropy of $X$ is then defined as the expectation of information,</p>
+<p>Suppose we have a probability distribution $P(x)$ over a random variable $X$, and the value of each outcome represents information associated with it. The entropy of $X$ is then defined as the expectation of information,</p>
 <p>$$
 H(X) = -\sum_{x \in X} P(X=x) \text{log} P(X=x)
 $$</p>

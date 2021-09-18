@@ -35,12 +35,16 @@ The number of questions we ask or the degree of surprise is information, which i
 
 
 $$
-I(X=x) = -log(p(X=x))
+I(X=x) = -\text{log}P(X=x)
 $$
 
 
 
-where $p(x)$ is a probability of occurence of x. So information quantifies how uncertain an event is. A rare event will cause much surprise and consequently contain much information. 
+where $P(x)$ is a probability of occurence of x. When using the natural logarithm, the information unit is nat. One nat is the amount of infomration gained from the event with the probability of $\frac{1}{e}$. Besides, we also use bit as the unit if the log base is 2.
+
+
+
+In short, information quantifies how uncertain an event is. A rare event will cause much surprise and consequently contain much information. 
 
 
 
@@ -48,7 +52,7 @@ where $p(x)$ is a probability of occurence of x. So information quantifies how u
 
 
 
-Suppose we have a probability distribution $p(x)$ over a random variable $X$, and the value of each outcome represents information associated with it. The entropy of $X$ is then defined as the expectation of information,
+Suppose we have a probability distribution $P(x)$ over a random variable $X$, and the value of each outcome represents information associated with it. The entropy of $X$ is then defined as the expectation of information,
 
 
 $$

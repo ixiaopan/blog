@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Deep Learning - Preliminary</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deep Learning - Preliminary"/>
+<meta name="twitter:description" content="So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Deep Learning - Preliminary
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Sep 9, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.</p>
+<h2 id="linear-algebra">Linear Algebra</h2>
+<h3 id="tensor">Tensor</h3>
+<p>We introduced tensors in the previous article. A tensor is a n-dimensional array of numbers.</p>
+<ul>
+<li>If $n=0$, it&rsquo;s a scalar &lt;=&gt; a number mathmatically</li>
+<li>If $n =1$, it&rsquo;s a vector &lt;=&gt; a list of numbers</li>
+<li>If $n=2$, it&rsquo;s a matrix &lt;=&gt; a 2-dimensional array with two axises</li>
+<li>If $n&gt;2$, it&rsquo;s a tensor &lt;=&gt; an array with more than two axises</li>
+</ul>
+<p>In linear algebra, we can add vectors, multiply a vector by a scalar, or do both of them.</p>
+<h4 id="vector-addition">Vector Addition</h4>
+<p>$$
+\bold v=\begin{bmatrix}v_1\\ v_2\end{bmatrix}
+\bold w=\begin{bmatrix}w_1\\ w_2\end{bmatrix}
+\bold v+\bold w=\begin{bmatrix}v_1+w_1\\ v_2+w_2\end{bmatrix}
+$$</p>
+<h4 id="scalar-multiplication">Scalar multiplication</h4>
+<p>$$
+a \bold v=\begin{bmatrix}av_1\\ av_2\end{bmatrix}
+$$</p>
+<h4 id="linear-combination">Linear Combination</h4>
+<p>$$
+c\bold v + d\bold w
+$$</p>
+<h4 id="unit-vector">Unit Vector</h4>
+<p>Vectors have both directions and length. The length is defined as follows,</p>
+<p>$$
+|| \bold v|| = \sqrt{\bold v^T\bold v}
+$$
+The vector whose length equals one is known as the unit vector,</p>
+<p>$$
+\bold v^T \bold v = 1
+$$</p>
+<p>Here are some unit vectors,</p>
+<p>$$
+\bold i=\begin{bmatrix}1\\ 0\end{bmatrix}
+\bold j=\begin{bmatrix}0\\ 1\end{bmatrix}
+\bold u=\begin{bmatrix}cos\theta\\ sin\theta\end{bmatrix}
+$$</p>
+<p>A vector can be transformed into a unit vector by dividing it by its length, as shown below.</p>
+<p>$$
+\bold u = \frac{\bold v}{ || \bold v ||}
+$$</p>
+<h4 id="dot-product">Dot product</h4>
+<p>$$
+&lt;v, w&gt; = v \cdot w = v^Tw =  v_1 * w_1 + v_2 * w_2 + &hellip; + v_n * w_n
+$$</p>
+<ul>
+<li>The order of $v$ and $w$ makes no difference.</li>
+<li>$v \cdot w$  is zero when $v$ and $w$ are prependicular.</li>
+</ul>
+<p>For any real matrix 𝐴 and any vectors 𝐱 and 𝐲 , we have</p>
+<p>$$
+⟨𝐴𝐱,𝐲⟩=⟨𝐱,𝐴^T𝐲⟩
+$$</p>
+<h3 id="ax--b">Ax = b</h3>
+<p>Mathematically, machine learning is all about $\bold A \bold x= \bold  b$, where $A, b$ are known, and $x$ is unknown. We can interpret $Ax=b$ from two aspects</p>
+<ul>
+<li>$\bold A \bold x$ is a linear combination of the columns of A ( column picture )
+<ul>
+<li>The system has solution only if the target $b$ lies in the column space of $A$</li>
+</ul>
+</li>
+<li>$\bold A \bold x$ is dot products ( row picture )
+<ul>
+<li>$m$ equations</li>
+</ul>
+</li>
+</ul>
+<h4 id="rank">Rank</h4>
+<p>To solve $x$ or to solve $m$ equations, we need $m$ pivots ($\bold A$ is an $m \times n$ matrix). Pivots are the diagnoal elements of $\bold A$. To find the pivots, we transform $A$ to an upper triangle matrix. Besides, we define the number of pivots of $A$ as the rank. In fact, rank contains the following meanings:</p>
+<ul>
+<li>the number of pivots</li>
+<li>$r$ independent rows or columns</li>
+<li>$r$ is the dimension of the column space or row space</li>
+</ul>
+<p>However, it is not always lucky to obtain $m$ non-zero pivots. The possible solution could be either of the following cases</p>
+<ul>
+<li>no solution</li>
+</ul>
+<p>$$
+x - 2y = 1 \\ 0y = 8
+$$</p>
+<ul>
+<li>infinitely many solutions</li>
+</ul>
+<p>$$
+x - 2y = 1 \\ 0y = 0
+$$</p>
+<ul>
+<li>exactly one solution</li>
+</ul>
+<p>$$
+3x - 2y = 5 \\ 2y = 4
+$$</p>
+<p>$\bold A$ in case 1 and 2 is called <strong>singular</strong> —— there is no second pivot.</p>
+<ul>
+<li>Singular equations have no solution or infinitely many solutions.</li>
+<li>Pivots must be non-zero becaue we have to divide by them.</li>
+</ul>
+<h4 id="inverse-matrix">Inverse Matrix</h4>
+<p>It is also possible to multiply the inverse of $\bold A$ to obtain $\bold x$ directly (closed-form solution), as shown below.
+$$
+x = A^{-1}b
+$$
+However, $A^{-1}$ is not always exist.</p>
+<p>Is A invertible?</p>
+<ul>
+<li>$A$ must have $m$ non-zero pivots</li>
+<li>$A$ has $m$ linearly independent columns</li>
+<li>$det A \neq 0$</li>
+</ul>
+<p>If $A$ is invertible,</p>
+<ul>
+<li>
+<p>the only solution to $Ax=b$ is $x=A^{-1}b$</p>
+</li>
+<li>
+<p>$x=0$ must be the only solution for $Ax = 0$</p>
+</li>
+</ul>
+<h4 id="n--m">n &gt;= m</h4>
+<p>In conclusion, there are two ways to determine whether the system has a solution. If $A$ is invertible, there is only one solution. Otherwise, it depends on the rank of A.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/rank.png#full" alt="">
+    <figcaption>Figure 1: The four possibilities for linear equations depned on the rnak (Introduction to Linear Algebra, Chapter 3)</figcaption>
+  </figure>
+</p>
+<p>In order to ensure that the system has a solution for all values of $b \in R^m$,  $A$ must contain $m$ linearly independent columns and $n \ge m$, as shown in  Figure 1.</p>
+<h4 id="matrix-multiplication">Matrix Multiplication</h4>
+<p>$$
+AB = A \begin{bmatrix}b_1 &amp;b_2&amp; b_3\end{bmatrix} = \begin{bmatrix} Ab_1 &amp;Ab_2&amp; Ab_3\end{bmatrix}
+$$
+Associative Law is true</p>
+<p>$$
+A(BC) = (AB)C \\ A(B + C) = AB + AC \\\ (A + B)C = AC + BC
+$$</p>
+<p>However, Commulative Law is not always true</p>
+<p>$$
+AB \neq BA
+$$</p>
+<h3 id="norms">Norms</h3>
+<p>In the previous section, we introduced how to compute the length of a vector. In fact, it is a kind of  $L^p$ norm, which is used to measure the size of vectors, as defined below.</p>
+<p>$$
+|| \bold x||_p = ( \sum_i |x_i|^p)^{\frac{1}{p}}
+$$</p>
+<p>Thus, the previous measurement of the size of a vector is called $L^2$ norm, which is also known as the Euclidean norm. Intuitively, it is the distance from the origin to the point $x$.</p>
+<blockquote>
+<p>It is also common to use the squared $L^2$ norm, which equals to $x^Tx$. However, the squared  $L^2$ norm increases slowly near the origin. In several machine learning applications, it is important to discriminate between elements that are exactly zero and elements that are small but nonzero. In these cases, we turn to a function that grows at the same rate in all locations, but that retains mathematical simplicity: the L 1norm.</p>
+<p>&ndash; Deep Learning, p37</p>
+</blockquote>
+<p>$L^1$ norm is defined as follows,</p>
+<p>$$
+|| \bold x||_1 = \sum_{i}|x_i|
+$$</p>
+<p>Another commonly used norm is the max norm, which returns the largest absolute value of the component of $x$</p>
+<p>$$
+||x||_{\infin} = \text{max}_i |x_i|
+$$</p>
+<p>The size of a matrix is known as Frobenius norm, which is similar to the $L^2$ norm of a vector. We sum up the squared value of each element, as shown below</p>
+<p>$$
+||A||_F = \sqrt{\sum_{i,j}A_{ij}^2}
+$$</p>
+<h3 id="determinant">Determinant</h3>
+<p>Mathematially, the determinant is a scalar value calculated from a square matrix. Geometrically, it indicates the scale factor by which the unit space changed by $A$.  The unit space is determined by the basis of a space.</p>
+<p>For example, the determinant of $\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}$ is 1. We know that each column of the matrix is the basis of the 2D space. The area of the parallelogram defined by the two columns is 1. Similarly, the determinant indicates the volume of the parallelepiped in the 3D space.</p>
+<p>When multiplying by $A$, we are using another basis of the same space. The corresponding change in the area of the unit space is measured by determinant. Specifically, if determinant is 0, then the unit space is contracted completely along at least one dimension. In other words, the new unit space could be a plane instead of parallelepiped if we are in 3D space. Since anything multiplies 0 is 0, we are not able to cancel the transformation from zero. Thus, $A$ is invertible if and only if the determinant is not zero.</p>
+<h2 id="calculus">Calculus</h2>
+<h3 id="derivative">Derivative</h3>
+<p>The derivative of $f(x)$ with respect to $x$ is defined as</p>
+<p>$$
+f'(x) = \text{lim}_{h\rarr0} \frac{f(x+h) - f(x)}{h}
+$$</p>
+<p>The python implementation of numerical differentiation is shown below</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numericala_diff</span>(f,x):
+	h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-10</span>
+	<span style="color:#66d9ef">return</span> ( f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x) ) <span style="color:#f92672">/</span> h
+</code></pre></div><h3 id="gradient">Gradient</h3>
+<p>The previous equation involves only one variable, what if we have multiple variables? For example, $f(x, y) = x^2 + 2y$. In this case, we calculate the partial derivative of $f$ with respect to each variable while keeping other variables as constants</p>
+<p>$$
+\frac{\partial f} {\partial x_i} = \text{lim}_{h \rarr 0} \frac{f(x_1,&hellip;,x_i+h,&hellip;,x_n) - f(x_1,&hellip;,x_i,&hellip;,x_n)}{h}
+$$</p>
+<p>The vector of partial derivative of $f$ at a point ($\bold x = x_1, x_2,&hellip;,x_n$) is the gradient of $f$ at $\bold x$</p>
+<p>$$
+\nabla_x f(x) = [\frac{\partial f(x)}{x_1}, \frac{\partial f(x)}{x_2}, &hellip;, \frac{\partial f(x)}{x_n}]^T
+$$</p>
+<p>The python implementation of the gradient of $f$ at $x$ is shown below</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numerical_gradient</span>(f, x):
+
+  h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-4</span> <span style="color:#75715e"># 0.0001</span>
+  grad <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(x)
+  
+  <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> range(x<span style="color:#f92672">.</span>size):
+    tmp_val <span style="color:#f92672">=</span> x[idx]
+    
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#f92672">+</span> h
+    fxh1 <span style="color:#f92672">=</span> f(x)
+    
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#f92672">-</span> h
+    fxh2 <span style="color:#f92672">=</span> f(x)
+    
+    grad[idx] <span style="color:#f92672">=</span> (fxh1 <span style="color:#f92672">-</span> fxh2) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>h) 
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#75715e"># revert </span>
+    
+    <span style="color:#66d9ef">return</span> grad
+</code></pre></div><h3 id="chain-rule">Chain Rule</h3>
+<p>Consider a function $f$ that relys on $z$ which depends on $x$,  for instance, $y = f(g(x))$, where $z =g(x)$. Then the derivative of $f$ w.r.t $x$ is defined as</p>
+<p>$$
+\frac{dy}{dx} = \frac{dy}{dz}\frac{dz}{dx}
+$$</p>
+<ul>
+<li>$dz/dx$ means how much $z$ will change due to the unit change in $x$</li>
+<li>$dy/dz$ means how much $y$ will change due to the tiny change in $z$</li>
+</ul>
+<p>Therefore, the total change in $f$ due to the change in $x$ equals the product of all these changes. This is known as the &ldquo;chain rule.&rdquo;</p>
+<p>What if we have a vector-valued function?  Suppose we have</p>
+<p>$$
+\bold z = g(\bold  x) \text{ and } y = f(\bold z)
+$$</p>
+<p>where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $f$ with respect to $x_i$, For a specific $x_i$, it will cause change in $y_1, y_2, &hellip; , y_n$, and then the change in $\bold y$ will cause change in z in the end. Therefore, we have</p>
+<p>$$
+\frac{\partial z}{\partial x_i} = \sum_{j}^n\frac{\partial z}{\partial y_j} \frac{\partial y_j}{\partial x_i}
+$$</p>
+<ul>
+<li>$\frac{\partial y_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $y_j$</li>
+<li>$\frac{\partial z}{\partial y_j}$ represents how a small change in $y_j$ influences the output $z$</li>
+</ul>
+<p>We can rewrite it in vector notation</p>
+<p>$$
+\nabla_{\bold x} z = (\frac{\partial \bold y}{\partial \bold x})^T \nabla_{\bold y} z
+$$</p>
+<p>where $\frac{\partial \bold y}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below</p>
+<p>$$
+\begin{bmatrix}
+\frac{y_1}{x_1} &amp; \frac{y_1}{x_x} &amp; &hellip; &amp; \frac{y_1}{x_m} \\  \\ \frac{y_2}{x_1} &amp; \frac{y_2}{x_2} &amp; &hellip; &amp; \frac{y_2}{x_m} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{y_n}{x_m} &amp; \frac{y_n}{x_m} &amp; &hellip; &amp; \frac{y_n}{x_m}
+\end{bmatrix}^T \begin{bmatrix} \frac{z}{y_1} \\ \frac{z}{y_2} \\ &hellip; \\ \frac{z}{y_n} \end{bmatrix}
+$$</p>
+<h2 id="probability">Probability</h2>
+<p>Since we have already talked about <a href="/blog/post/probabilistic-model/">Probabilistic Model</a>, we will skip this section.</p>
+<h2 id="numerical-computation">Numerical Computation</h2>
+<p>Underflow occurs when numbers are very close to zero. Overflow, on the other hand, occurs when numbers are so large that computers return infinity or negative infinity. Both are due to the limited precision of numerical representation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># underflow and overflow in Python</span>
+math<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span>)
+<span style="color:#75715e"># 0.0</span>
+math<span style="color:#f92672">.</span>exp(<span style="color:#ae81ff">10000</span>)
+<span style="color:#75715e"># OverflowError: math range error</span>
+</code></pre></div><p>Rounding errors can easily happen when dealing with softmax function, which is defined as</p>
+<p>$$
+\sigma(z_i) = \frac{e^{z_i}}{\sum^K_{j=1}e^{z_j}}
+$$</p>
+<ul>
+<li>$z_i &raquo; 0$ , then $\text{exp}(z_i) \approx \infin $, =&gt; overflow</li>
+<li>$z_i &laquo; 0$ , then $\sigma(z) \approx 0$  =&gt;  underflow =&gt; $\text{log }\sigma(z) = -\infin$</li>
+</ul>
+<p>How to solve this to obtain a stable value? The trick is the log-sum-exp.</p>
+<p>$$
+y = \text{ log } \sum^K_{j=1}e^{z_j} \\ e^y =  \sum^K_{j=1}e^{z_j} \\ e^{-a}e^y =  \sum^K_{j=1}e^{z_j}e^{-a} \\ y-a = \text{log} \sum^K_{j=1}e^{z_j-a} \\ y = a + \text{log} \sum^K_{j=1}e^{z_j-a}
+$$</p>
+<p>Typically, we set $a$ to the maximum value of $z$. Thus,</p>
+<p>$$
+\text{ log} \frac{e^{z_i}}{\sum^K_{j=1}e^{z_j}} = z_i - \text{ log } \sum^K_{j=1}e^{z_j} \\ = z_i - a - \text{log} \sum^K_{j=1}e^{z_j-a}
+$$</p>
+<p>For example, suppose we have $z=[10000, 10000]$, then $\sigma(z_0) = 0.5$. If we compute the softmax function directly, it will cause overflow error. Instead, let&rsquo;s plug $10000$ into the above equation using the log-sum-exp trick, and we have</p>
+<p>$$
+\text{log} \sigma(z_0) = 10000 - 10000 - \text{log}2 = \text{log}0.5
+$$</p>
+<h2 id="automatic-differentiation">Automatic Differentiation</h2>
+<h3 id="computation-graph">Computation Graph</h3>
+<h4 id="sum">Sum</h4>
+<p>
+  <img src="/blog/post/images/sum-back.png" alt="">
+</p>
+<h4 id="multiplication">Multiplication</h4>
+<p>
+  <img src="/blog/post/images/mult-back.png" alt="">
+</p>
+<h4 id="heading"></h4>
+<h3 id="forward-ad">Forward AD</h3>
+<p>There are three ways to compute gradient. The simplest one is to apply common rules directly, for example,</p>
+<p>$$
+f(x) = x^2 \\ f'(x) = 2x
+$$</p>
+<p>For composite functions, the gradient is computed step by step, for instance,</p>
+<p>$$
+f(x) = g(x) + h(x) \\ f'(x) = g'(x) + h'(x), \\ f(x) = g(x)\cdot  h(x) \\f'(x) = h(x) g'(x) + h'(x) g(x)
+$$</p>
+<p>However, it is difficult for complex functions to obtain such an equation. In this case, we solve it by applying numerical differentiation</p>
+<p>$$
+f'(x) = \text{lim}_{h\rarr0} \frac{f(x+h) - f(x)}{h}
+$$</p>
+<p>Well, it seems perfect, but in practice, we do not know exactly what a function is composed of and the input variable could be dynamic. Ideally, we&rsquo;d like to obtain the value of a function and the corresponding gradient simultaneously. This technique is known as automatic differentiation.</p>
+<p>Forward mode AD is an intuive and simple way to accomplish this, which is similar to  how computer works the equations out. For example, we have a funciton $z = xy + sin(x)$, and then computers will compute step by step as follows,</p>
+<p>$$
+x = ? \\ y = ?\\ a = xy \\ b = sin(x) \\ z = a + b
+$$</p>
+<p>Let&rsquo;s differentiate the each expression w.r.t some variable $t$</p>
+<p>$$
+\frac{dx}{dt} = ? \\ \frac{dy}{dt} = ? \\ \frac{\partial a}{\partial t} = x \frac{dy}{dt} + y \frac{dx}{dt} \\ \frac{\partial b}{\partial t} = cos(x) \frac{dx}{dt} \\ \frac{\partial z}{\partial t} = \frac{ \partial a }{\partial t}  + \frac{ \partial b }{\partial t}
+$$</p>
+<p>To get the derivative of $f$ w.r.t a specific variable, we simply set $t$ as the given varaible. For example, we set $t = x$ to compute $\frac{\partial z}{\partial x}$. Besides, we can see that the operation of excuating the function and computing the derivative can be done at the same time. Dual numbers is one way to achieve this concisely.</p>
+<h4 id="dual-number">Dual number</h4>
+<p>Dual number is similar to complex number, which is defined as,</p>
+<p>$$
+a + b\epsilon
+$$</p>
+<p>where $\epsilon^2 = 0$. Below are some basic rules of dual number</p>
+<p>$$
+(a + b\epsilon) + ( c + d\epsilon ) = a + c + (b + d)\epsilon \\ (a + b\epsilon)(c+d\epsilon) = ac + bc\epsilon + ad\epsilon
+$$</p>
+<p>So&hellip; what is the use of dual number? We&rsquo;ve known that Talyer expansion around a point $a$ is defined as</p>
+<p>$$
+f(x) = f(a) + f'(a) (x - a) + \sum_{n=2} \frac{f^n(a)}{n!} (x - a)^n
+$$</p>
+<p>Let&rsquo;s replace $x = a + b\epsilon$, then we have</p>
+<p>$$
+f(x) = f(a) + f'(a) b\epsilon + \epsilon^2  \sum_{n=2} \frac{f^n(a)}{n!}  b^n\epsilon^{n-2} =  f(a) + f'(a) b\epsilon
+$$</p>
+<p>From this, we see that by calculating $x = a + b\epsilon$, we can obtain the value of the function $f(x)$ and the derivative at $x$ simultaneously. The implementation of  forward mode AD by dual numbers is shown below,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DualNumber</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, value, dvalue):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+        self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">=</span> dvalue
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> repr(self<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; + &#39;</span> <span style="color:#f92672">+</span> repr(self<span style="color:#f92672">.</span>dvalue)  <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ε&#34;</span>
+    
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> str(self<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; + &#34;</span> <span style="color:#f92672">+</span> str(self<span style="color:#f92672">.</span>dvalue) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ε&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __mul__(self, other):
+        <span style="color:#66d9ef">if</span> isinstance(other, DualNumber):
+            <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value,
+                self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>value)
+
+        <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other, self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> other)
+     
+    <span style="color:#66d9ef">def</span> __add__(self, other):
+        <span style="color:#66d9ef">if</span> isinstance(other, DualNumber):
+            <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>value, self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>dvalue)
+
+        <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other, self<span style="color:#f92672">.</span>dvalue)
+      
+
+<span style="color:#75715e"># test</span>
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+y <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+a<span style="color:#f92672">=</span>DualNumber(x, <span style="color:#ae81ff">1</span>)
+b<span style="color:#f92672">=</span>DualNumber(y, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># w.r.t y</span>
+z <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b <span style="color:#f92672">+</span> a  <span style="color:#75715e"># df/da = b + 1</span>
+<span style="color:#66d9ef">print</span>(z) <span style="color:#75715e"># it should be 6</span>
+<span style="color:#75715e"># 12 + 6ε</span>
+</code></pre></div><h3 id="reverse-adbackprop">Reverse AD(backprop)</h3>
+<p>Forward mode AD is intutive and simple, but we need to repeat $n$ times if there are $n$ variables. In other words, for each variable $x_i$, we need to set $t = x_i$ while keep others constant. If the process of computing deriative is complex and the number of parameters is huge (which is often the case in deep learning), it would take much time to obtain the whole derivatives. A solution is reverse mode AD, which enables us to obtain the derivatives of all variables in one go.</p>
+<p>As previously mentioned, the chain rule is defined as</p>
+<p>$$
+\frac{\partial z}{\partial x_i} = \sum_{j}^n\frac{\partial z}{\partial y_j} \frac{\partial y_j}{\partial x_i}
+$$</p>
+<p>We first consider each component $y_j$ that influence $z$, and then the change in each $y_i$ due of the  change in an input variable $x_i$. Thus, $\frac{\partial y_j}{\partial x_i}$ could be zero for any $y_j$ that does not invovle $x_i$.</p>
+<p>However, the chain rule can also be expressed as</p>
+<p>$$
+\frac{\partial z}{\partial x_i} = \sum_{j}^n \frac{\partial y_j}{\partial x_i} \frac{\partial z}{\partial y_j}
+$$</p>
+<p>In this case, we first consider what output variables a given input variable $x_i$ can affect, and then how each output variable influence $z$. If $y_i$ has no contribution to $z$, $\frac{\partial z}{\partial y_j}$ is zero.</p>
+<p>Therefore, suppose the yet-to-be-given output variable is $s$, we have</p>
+<p>$$
+\frac{\partial s}{\partial z} = ? \\ \frac{\partial s}{\partial b} =  \frac{\partial z}{\partial b} \frac{\partial s}{\partial z} \\ \frac{\partial s}{\partial a} = \frac{\partial z}{\partial z} \frac{\partial s}{\partial z} \\ \frac{\partial s}{\partial y} = \frac{\partial a}{\partial y} \frac{\partial s}{\partial a} \\ \frac{\partial s}{\partial x} = \frac{\partial a}{\partial x} \frac{\partial s}{\partial a} + \frac{\partial b}{\partial x} \frac{\partial s}{\partial b} = (y + cos(x)) \frac{\partial s}{\partial z}
+$$</p>
+<p>We can see the dependency between variables by drawing a tree, as shown in Figure 2. Besides, we also see that backprop follows breadth-depth first strategy. In other words, we compute gradients level by level.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/visual-back-ad.png" alt="">
+    <figcaption>Figure 2: Visualisation of reverse mode AD.</figcaption>
+  </figure>
+</p>
+<p>When implementing reversel mode AD, we need to track the children nodes for each input variable and the derivative w.r.t each input input variable at this step, which are used to apply chain rule. Some example codes are shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Var</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, value):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+        self<span style="color:#f92672">.</span>children <span style="color:#f92672">=</span> []
+        self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> None
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">grad</span>(self):
+      <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">is</span> None:
+          self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> sum(weight <span style="color:#f92672">*</span> var<span style="color:#f92672">.</span>grad() <span style="color:#66d9ef">for</span> weight, var <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>children)
+      <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>grad_value
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> repr(self<span style="color:#f92672">.</span>value)
+    
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> str(self<span style="color:#f92672">.</span>value)
+    
+    <span style="color:#66d9ef">def</span> __mul__(self, other):
+      z <span style="color:#f92672">=</span> Var(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value)
+      self<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((other<span style="color:#f92672">.</span>value, z)) <span style="color:#75715e"># (derivative, output)</span>
+      other<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((self<span style="color:#f92672">.</span>value, z))
+      <span style="color:#66d9ef">return</span> z
+
+    <span style="color:#66d9ef">def</span> __add__(self, other):
+        z <span style="color:#f92672">=</span> Var(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>value)
+        self<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">1</span>, z))
+        other<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">1</span>, z))
+        <span style="color:#66d9ef">return</span> z
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sin</span>(x):
+  z <span style="color:#f92672">=</span> Var(math<span style="color:#f92672">.</span>sin(x<span style="color:#f92672">.</span>value))
+  x<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((math<span style="color:#f92672">.</span>cos(x<span style="color:#f92672">.</span>value), z))
+  <span style="color:#66d9ef">return</span> z
+
+
+x <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">2.0</span>)
+y <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">3.0</span>)
+z <span style="color:#f92672">=</span> x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> sin(x)
+z<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#75715e"># see the gradient of z to 1</span>
+<span style="color:#66d9ef">print</span>(x<span style="color:#f92672">.</span>grad())
+
+</code></pre></div><h2 id="references">References</h2>
+<ul>
+<li><a href="https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/">Dual Numbers &amp; Automatic Differentiation</a></li>
+<li><a href="https://sidsite.com/posts/autodiff/">Reverse-mode automatic differentiation from scratch, in Python</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#linear-algebra">Linear Algebra</a>
+      <ul>
+        <li><a href="#tensor">Tensor</a></li>
+        <li><a href="#ax--b">Ax = b</a></li>
+        <li><a href="#norms">Norms</a></li>
+        <li><a href="#determinant">Determinant</a></li>
+      </ul>
+    </li>
+    <li><a href="#calculus">Calculus</a>
+      <ul>
+        <li><a href="#derivative">Derivative</a></li>
+        <li><a href="#gradient">Gradient</a></li>
+        <li><a href="#chain-rule">Chain Rule</a></li>
+      </ul>
+    </li>
+    <li><a href="#probability">Probability</a></li>
+    <li><a href="#numerical-computation">Numerical Computation</a></li>
+    <li><a href="#automatic-differentiation">Automatic Differentiation</a>
+      <ul>
+        <li><a href="#computation-graph">Computation Graph</a></li>
+        <li><a href="#forward-ad">Forward AD</a></li>
+        <li><a href="#reverse-adbackprop">Reverse AD(backprop)</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
