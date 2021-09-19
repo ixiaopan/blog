@@ -1,5 +1,5 @@
 ---
-title: "Deep Learning - CNN"
+title: "Deep Learning - Seq2seq"
 date: "2021-09-20"
 description: ""
 # tags: []
@@ -9,5 +9,6 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
+
 ---
 

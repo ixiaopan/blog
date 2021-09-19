@@ -9,10 +9,22 @@
 		
 		<managingEditor>Page(/categories/deep-learning) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sat, 18 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Deep Learning - Neural Networks</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-02-architecture/</link>
+			<pubDate>Sat, 18 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-02-architecture/</guid>
+			<description>Neural Networks Neural networks are simply function compositions.
+ Feedforward networks  $$ y = f(g(x, \theta_g), \theta_f) $$
+ Recurrent networks  $$ y_t = f(y_{t-1}, x_t, \theta) $$
+Generally, you can think of neural networks as function approximation machines, where we want to find appropriate $\theta$ to make $f^{*}$ as similar as possible to the true function $f$.
+In practice, there are lots of things to consider when designing a neural network.</description>
+		</item>
+      	
 		<item>
 			<title>Data Visualisation</title>
 			<link>https://ixiaopan.github.io/blog/post/dataviz/</link>
@@ -83,14 +95,6 @@
 			<pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/nlp-02-text-representation/</guid>
 			<description>&lt;p&gt;In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&amp;rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called &lt;strong&gt;text representation&lt;/strong&gt;.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>NLP - Text preprocessing</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/</link>
-			<pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/</guid>
-			<description>&lt;p&gt;From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
