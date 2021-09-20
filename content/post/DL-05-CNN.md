@@ -9,7 +9,5 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
-
-
 ---
 

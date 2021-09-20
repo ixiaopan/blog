@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Sep 9, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;16 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -397,27 +397,49 @@ $$</p>
 <p>$$
 \bold z = g(\bold  x) \text{ and } y = f(\bold z)
 $$</p>
-<p>where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $f$ with respect to $x_i$, For a specific $x_i$, it will cause change in $y_1, y_2, &hellip; , y_n$, and then the change in $\bold y$ will cause change in z in the end. Therefore, we have</p>
+<p>where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $g$ with respect to $x_i$, for a specific $x_i$, it will cause change in $z_1, z_2, &hellip; , z_n$, and then the change in $\bold z$ will cause change in $y$ in the end. Therefore, we have</p>
 <p>$$
-\frac{\partial z}{\partial x_i} = \sum_{j}^n\frac{\partial z}{\partial y_j} \frac{\partial y_j}{\partial x_i}
+\frac{\partial y}{\partial x_i} = \sum_{j}^n\frac{\partial y}{\partial z_j} \frac{\partial z_j}{\partial x_i}
 $$</p>
 <ul>
-<li>$\frac{\partial y_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $y_j$</li>
-<li>$\frac{\partial z}{\partial y_j}$ represents how a small change in $y_j$ influences the output $z$</li>
+<li>$\frac{\partial z_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $z_j$</li>
+<li>$\frac{\partial y}{\partial z_j}$ represents how a small change in $z_j$ influences the output $y$</li>
 </ul>
 <p>We can rewrite it in vector notation</p>
 <p>$$
-\nabla_{\bold x} z = (\frac{\partial \bold y}{\partial \bold x})^T \nabla_{\bold y} z
+\nabla_{\bold x} y = (\frac{\partial \bold z}{\partial \bold x})^T \nabla_{\bold z} y
 $$</p>
-<p>where $\frac{\partial \bold y}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below</p>
+<p>where $\frac{\partial \bold z}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below</p>
 <p>$$
 \begin{bmatrix}
-\frac{y_1}{x_1} &amp; \frac{y_1}{x_x} &amp; &hellip; &amp; \frac{y_1}{x_m} \\  \\ \frac{y_2}{x_1} &amp; \frac{y_2}{x_2} &amp; &hellip; &amp; \frac{y_2}{x_m} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{y_n}{x_m} &amp; \frac{y_n}{x_m} &amp; &hellip; &amp; \frac{y_n}{x_m}
-\end{bmatrix}^T \begin{bmatrix} \frac{z}{y_1} \\ \frac{z}{y_2} \\ &hellip; \\ \frac{z}{y_n} \end{bmatrix}
+\frac{z_1}{x_1} &amp; \frac{z_1}{x_2} &amp; &hellip; &amp; \frac{z_1}{x_m} \\  \\ \frac{z_2}{x_1} &amp; \frac{z_2}{x_2} &amp; &hellip; &amp; \frac{z_2}{x_m} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{z_n}{x_1} &amp; \frac{z_n}{x_2} &amp; &hellip; &amp; \frac{z_n}{x_m}
+\end{bmatrix}^T \begin{bmatrix} \frac{y}{z_1} \\ \frac{y}{z_2} \\ &hellip; \\ \frac{y}{z_n} \end{bmatrix}
 $$</p>
+<h3 id="d--xw">D = XW</h3>
+<p>In a one-layer-hidden network, suppose we have $N$ examples  with $M$ features defined as $X \in R^{n \times m}$ and $H$ hidden neurons defined as $W \in R^{m\times h}$, the objective function $L = f(D) = f(XW)$ is some scalar function of $D$ that we want to optimise. So, what are the derivatives of $L$ w.r.t. $W$?</p>
+<p>If we are familiar with matrix derivatives, it&rsquo;s easy to find the answer, which is $\bold X^T \frac{\partial L}{\partial D}$. But how do we derive it step by step? The derivative of $f(\bold X) \in R$ w.r.t $\bold X \in R^{m\times n}$ is defined as</p>
+<p>$$
+\frac{\partial f}{\partial \bold X} = \begin{bmatrix}
+\frac{\partial f}{x_{11}} &amp; \frac{\partial f}{x_{12}} &amp; &hellip; &amp; \frac{\partial f}{x_{1n}} \\  \\ \frac{\partial f}{x_{21}} &amp; \frac{\partial f}{x_{22}} &amp; &hellip; &amp; \frac{\partial f}{x_{2n}} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{\partial f}{x_{m1}} &amp; \frac{\partial f}{x_{m2}} &amp; &hellip; &amp; \frac{\partial f}{x_{mn}}
+\end{bmatrix}  = \sum_{i,j}E_{ij} \frac{\partial f}{\partial x_{ij}}
+$$</p>
+<p>Let&rsquo;s start by considering a specific weight $W_{uv}$, the derivative of $L$ w.r.t $W_{uv}$ is given as</p>
+<p>$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{ij}\frac{\partial D_{ij}}{\partial W_{uv}} \frac{\partial L}{\partial D_{ij}}
+$$</p>
+<p>where $D_{ij}$ is the output of the $j_{th}$ neuron for the $i_{th}$ example, and $W_{uv}$ is the $u_{th}$ weight of the $v_{th}$ neuron. Thus, if $j \neq v$, $D_{ij}$ has nothing to do with $W_{uv}$, so $\frac{\partial D_{ij}}{\partial W_{uv}} = 0$. Therefore, we can simply the summation</p>
+<p>$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{i}\frac{\partial D_{iv}}{\partial W_{uv}} \frac{\partial L}{\partial D_{iv}} = \sum_{i} \frac{\partial L}{\partial D_{iv}} X_{iu}
+$$</p>
+<p>Since $W$ is an $m \times h$ matrix, $\frac{\partial L}{\partial \bold D}$ is an $n \times h$ matrix, and $X$ is an $n \times m$ matrix, we have</p>
+<p>$$
+\frac{\partial L}{\partial \bold W} = X^T \frac{\partial L}{\partial \bold D}
+$$</p>
+<p>So what does it mean? Well, the gradient of the loss with respect to a parameter tells you how much the loss will change with a small perturbation to that parameter.</p>
 <h2 id="probability">Probability</h2>
 <p>Since we have already talked about <a href="/blog/post/probabilistic-model/">Probabilistic Model</a>, we will skip this section.</p>
 <h2 id="numerical-computation">Numerical Computation</h2>
+<h3 id="rounding-errors">Rounding Errors</h3>
 <p>Underflow occurs when numbers are very close to zero. Overflow, on the other hand, occurs when numbers are so large that computers return infinity or negative infinity. Both are due to the limited precision of numerical representation.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># underflow and overflow in Python</span>
 math<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span>)
@@ -432,6 +454,7 @@ $$</p>
 <li>$z_i &raquo; 0$ , then $\text{exp}(z_i) \approx \infin $, =&gt; overflow</li>
 <li>$z_i &laquo; 0$ , then $\sigma(z) \approx 0$  =&gt;  underflow =&gt; $\text{log }\sigma(z) = -\infin$</li>
 </ul>
+<h3 id="log-sum-exp">Log-sum-exp</h3>
 <p>How to solve this to obtain a stable value? The trick is the log-sum-exp.</p>
 <p>$$
 y = \text{ log } \sum^K_{j=1}e^{z_j} \\ e^y =  \sum^K_{j=1}e^{z_j} \\ e^{-a}e^y =  \sum^K_{j=1}e^{z_j}e^{-a} \\ y-a = \text{log} \sum^K_{j=1}e^{z_j-a} \\ y = a + \text{log} \sum^K_{j=1}e^{z_j-a}
@@ -444,6 +467,12 @@ $$</p>
 <p>$$
 \text{log} \sigma(z_0) = 10000 - 10000 - \text{log}2 = \text{log}0.5
 $$</p>
+<h3 id="overparameterisation">Overparameterisation</h3>
+<p>One interesting characteristic of the softmax function is overparameterisation — subtracting $\psi$ from every weight $\theta^k$ does not affect the final result, as shown in the following equation. This means that there are multiple parameter settings that satisfy the same function.</p>
+<p>$$
+\sigma(x^{i}) = \frac{\exp((\theta^{k}-\psi)^\top x^{i})}{\sum_{j=1}^K \exp( (\theta^{j}-\psi)^\top x^{i})}  \\ = \frac{\exp(\theta^{(k)\top} x^{(i)}) \exp(-\psi^\top x^{(i)})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i}) \exp(-\psi^\top x^{i})} \\ = \frac{\exp(\theta^{(k)\top} x^{i})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i})}.
+$$</p>
+<p>On the other hand, we can eliminate $\theta^k$ by replace $\theta^k$ with $\theta^k - \psi = 0$ without affecting prediction. In doing so, we only need to optimise over $(K - 1)*n$ parameters rather than $Kn$ parameters ($\theta^1, \theta^2, &hellip;, \theta^K, \text{where } \theta^i \in R^n$).</p>
 <h2 id="automatic-differentiation">Automatic Differentiation</h2>
 <h3 id="computation-graph">Computation Graph</h3>
 <h4 id="sum">Sum</h4>
@@ -599,6 +628,7 @@ z<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</s
 <ul>
 <li><a href="https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/">Dual Numbers &amp; Automatic Differentiation</a></li>
 <li><a href="https://sidsite.com/posts/autodiff/">Reverse-mode automatic differentiation from scratch, in Python</a></li>
+<li><a href="http://www.doc.ic.ac.uk/~ahanda/referencepdfs/MatrixCalculus.pdf">Matrix Calculus</a></li>
 </ul>
 
 
@@ -623,10 +653,17 @@ z<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</s
         <li><a href="#derivative">Derivative</a></li>
         <li><a href="#gradient">Gradient</a></li>
         <li><a href="#chain-rule">Chain Rule</a></li>
+        <li><a href="#d--xw">D = XW</a></li>
       </ul>
     </li>
     <li><a href="#probability">Probability</a></li>
-    <li><a href="#numerical-computation">Numerical Computation</a></li>
+    <li><a href="#numerical-computation">Numerical Computation</a>
+      <ul>
+        <li><a href="#rounding-errors">Rounding Errors</a></li>
+        <li><a href="#log-sum-exp">Log-sum-exp</a></li>
+        <li><a href="#overparameterisation">Overparameterisation</a></li>
+      </ul>
+    </li>
     <li><a href="#automatic-differentiation">Automatic Differentiation</a>
       <ul>
         <li><a href="#computation-graph">Computation Graph</a></li>

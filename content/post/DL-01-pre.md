@@ -409,16 +409,16 @@ $$
 $$
 
 
-where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $f$ with respect to $x_i$, For a specific $x_i$, it will cause change in $y_1, y_2, ... , y_n$, and then the change in $\bold y$ will cause change in z in the end. Therefore, we have
+where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $g$ with respect to $x_i$, for a specific $x_i$, it will cause change in $z_1, z_2, ... , z_n$, and then the change in $\bold z$ will cause change in $y$ in the end. Therefore, we have
 
 
 $$
-\frac{\partial z}{\partial x_i} = \sum_{j}^n\frac{\partial z}{\partial y_j} \frac{\partial y_j}{\partial x_i}
+\frac{\partial y}{\partial x_i} = \sum_{j}^n\frac{\partial y}{\partial z_j} \frac{\partial z_j}{\partial x_i}
 $$
 
 
-- $\frac{\partial y_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $y_j$
-- $\frac{\partial z}{\partial y_j}$ represents how a small change in $y_j$ influences the output $z$
+- $\frac{\partial z_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $z_j$
+- $\frac{\partial y}{\partial z_j}$ represents how a small change in $z_j$ influences the output $y$
 
 
 
@@ -426,18 +426,60 @@ We can rewrite it in vector notation
 
 
 $$
-\nabla_{\bold x} z = (\frac{\partial \bold y}{\partial \bold x})^T \nabla_{\bold y} z
+\nabla_{\bold x} y = (\frac{\partial \bold z}{\partial \bold x})^T \nabla_{\bold z} y
 $$
 
 
-where $\frac{\partial \bold y}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below
+where $\frac{\partial \bold z}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below
 
 
 $$
 \begin{bmatrix} 
-\frac{y_1}{x_1} & \frac{y_1}{x_x} & ... & \frac{y_1}{x_m} \\\\  \\\\ \frac{y_2}{x_1} & \frac{y_2}{x_2} & ... & \frac{y_2}{x_m} \\\\  \\\\ & & ...  & \\\\ \frac{y_n}{x_m} & \frac{y_n}{x_m} & ... & \frac{y_n}{x_m}
-\end{bmatrix}^T \begin{bmatrix} \frac{z}{y_1} \\\\ \frac{z}{y_2} \\\\ ... \\\\ \frac{z}{y_n} \end{bmatrix}
+\frac{z_1}{x_1} & \frac{z_1}{x_2} & ... & \frac{z_1}{x_m} \\\\  \\\\ \frac{z_2}{x_1} & \frac{z_2}{x_2} & ... & \frac{z_2}{x_m} \\\\  \\\\ & & ...  & \\\\ \frac{z_n}{x_1} & \frac{z_n}{x_2} & ... & \frac{z_n}{x_m}
+\end{bmatrix}^T \begin{bmatrix} \frac{y}{z_1} \\\\ \frac{y}{z_2} \\\\ ... \\\\ \frac{y}{z_n} \end{bmatrix}
 $$
+
+
+### D = XW
+
+In a one-layer-hidden network, suppose we have $N$ examples  with $M$ features defined as $X \in R^{n \times m}$ and $H$ hidden neurons defined as $W \in R^{m\times h}$, the objective function $L = f(D) = f(XW)$ is some scalar function of $D$ that we want to optimise. So, what are the derivatives of $L$ w.r.t. $W$?
+
+If we are familiar with matrix derivatives, it's easy to find the answer, which is $\bold X^T \frac{\partial L}{\partial D}$. But how do we derive it step by step? The derivative of $f(\bold X) \in R$ w.r.t $\bold X \in R^{m\times n}$ is defined as
+
+
+$$
+\frac{\partial f}{\partial \bold X} = \begin{bmatrix} 
+\frac{\partial f}{x_{11}} & \frac{\partial f}{x_{12}} & ... & \frac{\partial f}{x_{1n}} \\\\  \\\\ \frac{\partial f}{x_{21}} & \frac{\partial f}{x_{22}} & ... & \frac{\partial f}{x_{2n}} \\\\  \\\\ & & ...  & \\\\ \frac{\partial f}{x_{m1}} & \frac{\partial f}{x_{m2}} & ... & \frac{\partial f}{x_{mn}}
+\end{bmatrix}  = \sum_{i,j}E_{ij} \frac{\partial f}{\partial x_{ij}}
+$$
+
+
+Let's start by considering a specific weight $W_{uv}$, the derivative of $L$ w.r.t $W_{uv}$ is given as
+
+
+$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{ij}\frac{\partial D_{ij}}{\partial W_{uv}} \frac{\partial L}{\partial D_{ij}}
+$$
+
+
+where $D_{ij}$ is the output of the $j_{th}$ neuron for the $i_{th}$ example, and $W_{uv}$ is the $u_{th}$ weight of the $v_{th}$ neuron. Thus, if $j \neq v$, $D_{ij}$ has nothing to do with $W_{uv}$, so $\frac{\partial D_{ij}}{\partial W_{uv}} = 0$. Therefore, we can simply the summation
+
+
+$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{i}\frac{\partial D_{iv}}{\partial W_{uv}} \frac{\partial L}{\partial D_{iv}} = \sum_{i} \frac{\partial L}{\partial D_{iv}} X_{iu}
+$$
+
+
+Since $W$ is an $m \times h$ matrix, $\frac{\partial L}{\partial \bold D}$ is an $n \times h$ matrix, and $X$ is an $n \times m$ matrix, we have
+
+
+$$
+\frac{\partial L}{\partial \bold W} = X^T \frac{\partial L}{\partial \bold D}
+$$
+
+
+So what does it mean? Well, the gradient of the loss with respect to a parameter tells you how much the loss will change with a small perturbation to that parameter.
+
 
 
 ## Probability
@@ -447,6 +489,10 @@ Since we have already talked about [Probabilistic Model](/blog/post/probabilisti
 
 
 ## Numerical Computation
+
+
+
+### Rounding Errors
 
 
 
@@ -477,6 +523,10 @@ $$
 
 
 
+### Log-sum-exp
+
+
+
 How to solve this to obtain a stable value? The trick is the log-sum-exp.
 
 
@@ -502,6 +552,20 @@ $$
 \text{log} \sigma(z_0) = 10000 - 10000 - \text{log}2 = \text{log}0.5
 $$
 
+
+### Overparameterisation
+
+
+
+One interesting characteristic of the softmax function is overparameterisation — subtracting $\psi$ from every weight $\theta^k$ does not affect the final result, as shown in the following equation. This means that there are multiple parameter settings that satisfy the same function.
+
+
+$$
+\sigma(x^{i}) = \frac{\exp((\theta^{k}-\psi)^\top x^{i})}{\sum_{j=1}^K \exp( (\theta^{j}-\psi)^\top x^{i})}  \\\\ = \frac{\exp(\theta^{(k)\top} x^{(i)}) \exp(-\psi^\top x^{(i)})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i}) \exp(-\psi^\top x^{i})} \\\\ = \frac{\exp(\theta^{(k)\top} x^{i})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i})}.
+$$
+
+
+On the other hand, we can eliminate $\theta^k$ by replace $\theta^k$ with $\theta^k - \psi = 0$ without affecting prediction. In doing so, we only need to optimise over $(K - 1)*n$ parameters rather than $Kn$ parameters ($\theta^1, \theta^2, ..., \theta^K, \text{where } \theta^i \in R^n$).
 
 
 
@@ -760,3 +824,4 @@ print(x.grad())
 
 - [Dual Numbers & Automatic Differentiation](https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/)
 - [Reverse-mode automatic differentiation from scratch, in Python](https://sidsite.com/posts/autodiff/)
+- [Matrix Calculus](http://www.doc.ic.ac.uk/~ahanda/referencepdfs/MatrixCalculus.pdf)

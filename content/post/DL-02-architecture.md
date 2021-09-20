@@ -56,7 +56,7 @@ In practice, there are lots of things to consider when designing a neural networ
 
 
 
-In classification tasks, target variables are categorical, so we need find to a method to transform them into numerical values. Typically, we use one-hot encoding to encode each category into a binary value. If an example belongs to class $j$, then the true target value is $C_j = 1$, otherwise $C_j = 0$. When we make predictions, we'd like to predict the probability of an example belonging to a class. For example, we may have such an prediction $(0.1,0.7,0.2)$. Since class 2 has the highest probability, we say that this example is classified as class 2. 
+In classification tasks, target variables are categorical, so we need to find a method to transform them into numerical values. Typically, we use one-hot encoding to encode each category into a binary value. If an example belongs to class $j$, then the true target value is $C_j = 1$, otherwise $C_j = 0$. When we make predictions, we'd like to predict the probability of an example belonging to a class. For example, we may have such a prediction $(0.1,0.7,0.2)$. Since class 2 has the highest probability, we say that this example is classified as class 2. 
 
 But how to quantify the difference between predictions and the ground truth so as to find the best parameters? In Machine Learning, we have learned mean squared error (MSE) and cross-entropy as the loss functions. So, which one to use?
 
@@ -64,7 +64,7 @@ But how to quantify the difference between predictions and the ground truth so a
 
 ### MSE
 
-Let's  take the derivative of MSE w.r.t $w$, the equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value and predicted value and the gradient of the activation function.
+Let's take the derivative of MSE w.r.t $w$. The equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value and predicted value and the gradient of the activation function.
 
 
 
@@ -74,7 +74,7 @@ $$
 $$
 
 
-A widely used activation function in binary classification is sigmoid function. From Figure 1, we see that when predicted value is close to 1/0, the curve gets very flat, indicating $\sigma'(z)$ becomes very small. If the ground truth is opposite to the predicted value, our machine will learn slowly as the  gradient of MSE w.r.t. $w$ is small. 
+A widely used activation function in binary classification is the sigmoid function. From Figure 1, we see that when the predicted value is close to 1/0, the curve gets very flat, indicating $\sigma'(z)$ becomes very small. If the ground truth is opposite to the predicted value, our machine will learn slowly as the  gradient of MSE w.r.t. $w$ is small. 
 
 
 
@@ -86,7 +86,7 @@ A widely used activation function in binary classification is sigmoid function. 
 
 
 
-Entropy is an important concept in information theory. Basically, it tells us the average information a random variable conveys. Cross-entropy measures the difference between two distributions, where $f(x)$ is considered as the ground truth. Thus, a smaller cross-entropy indicates a better learning.
+Entropy is an important concept in information theory. Basically, it tells us the average information a random variable conveys. Cross-entropy measures the difference between two distributions, where $f(x)$ is considered as the ground truth. Thus, a smaller cross-entropy indicates better learning.
 
 
 $$
@@ -116,9 +116,15 @@ We see that the gradient of $w_j$ is determined by the error in the output. In o
 
 ### Why
 
+
+
 Why do we need an activation function?
 
-Deep learning works by mimicking how a human brain learns. Every second, our brain reveives much information, but not all of them are useful. Some informaiton will be ignored, otherwise our brain will be overloaded. In deep learning, we need to find a method to do the same thing. Activation functions, as its name suggests, decide whether to fire neurons or not.
+
+
+Deep learning works by mimicking how a human brain learns. Every second, our brains receive a lot of information, but not all of them are useful. Some information will be ignored, otherwise our brains will be overloaded. In deep learning, we need to find a method to do the same thing. Activation functions, as their name suggests, decide whether to fire neurons or not.
+
+
 
 On the other hand, since neural networks are composed of multiple layers and each layer can be expressed as $Y = XW$, the final output is given as $ y = XW_1 W_2..W_n = XW$, where $W = W_1W_2...W_n$. If all functions are linear, there is no need to add the depth of the network as we can just use a single layer to achieve this. To capture the features, we must use a nonlinear function, also known as an activation function, which is applied to each hidden unit following an affine transformation controlled by parameters.
 
@@ -129,7 +135,7 @@ On the other hand, since neural networks are composed of multiple layers and eac
 So, what should a valid activation function look like?
 
 - differentiable
-  - because deep learninig is gradient-based learning, we need to know in which direction and how much to move in the parameter space
+  - because deep learning is gradient-based learning, we need to know in which direction and how much to move in the parameter space
 - monotonic
 
 

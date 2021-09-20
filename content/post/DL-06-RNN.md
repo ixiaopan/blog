@@ -1,5 +1,5 @@
 ---
-title: "Deep Learning - CNN"
+title: "Deep Learning - RNN"
 date: "2021-09-20"
 description: ""
 # tags: []

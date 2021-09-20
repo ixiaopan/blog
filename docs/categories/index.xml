@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 18 Sep 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 19 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Model Selection</title>
+			<link>https://ixiaopan.github.io/blog/post/model-selection/</link>
+			<pubDate>Sun, 19 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/model-selection/</guid>
+			<description>Model Complexity What is model complexity? Perhaps it mainly refers to the number of parameters that the model has. However, it does not mean that a model is complex if it has more parameters, although it is often the case. Generally, a simple model could result in underfitting, while a complex model could lead to overfitting. So, what factors affect the complexity of a model? Well, it is hard to say.</description>
+		</item>
+      	
 		<item>
 			<title>Deep Learning - Neural Networks</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-02-architecture/</link>
@@ -87,14 +95,6 @@ In practice, there are lots of things to consider when designing a neural networ
 			<pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/sort/</guid>
 			<description>&lt;p&gt;Data structure and algorithms are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Well, this series of articles are simply quick notes to help refresh my knowledge for future reference. So let&amp;rsquo;s start from sorting.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>NLP - Text representation</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-02-text-representation/</link>
-			<pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-02-text-representation/</guid>
-			<description>&lt;p&gt;In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&amp;rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called &lt;strong&gt;text representation&lt;/strong&gt;.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
