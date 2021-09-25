@@ -34,15 +34,12 @@ As its name suggests, CNN employes a special mathematical operation called convo
 $$
 s(t) = (x \ast w)(t) = \int x(a) w(t - a)da
 $$
-where $x$ is the real valued function of $t$, $w$ is a weighting function that measures the weight of $x$ at the point of $t$. For example, $x$ returns the real-time position of a plane, but the returned positions have some noises. A solution is to average the positions of recent moments. Obviously, the most recent moment has the highest weight. For functions that return discrete values, the discrete convolution operation is defined as
+where $x$ is the real valued function of $t$, $w$ is a weighting function that measures the weight of $x$ at the point of $t$. So, convolution is a weighted average operation. For example, $x$ returns the real-time position of a plane, but the returned positions have some noises. A solution is to average the positions of recent moments. Obviously, the most recent moment has the highest weight. For functions that return discrete values, the discrete convolution operation is defined as
 
 
 $$
 s(t) = (x \ast w)(t) = \sum_{a = -\infin}^{\infin} x(a) w(t - a)
 $$
-In short, convolution is a weighted average operation. In CNN, $x$ and $w$ are often referred to as the input and the kernel, respectively. The output is often referred to as the feature map.
-
-
 
 ### Cross-correlation
 
@@ -62,6 +59,8 @@ In deep learning, flipping a kernel or not is unnecessary, since the kernel is o
 $$
 S(i, j) = (I \ast K)(i, j) = \sum_{m}\sum_{n} I(i+m, j+n)K(m, n)
 $$
+In CNN, $I$ and $K$ are often referred to as the input and the kernel, respectively. The output is often referred to as the feature map.
+
 
 
 ### Why CNN
@@ -138,11 +137,17 @@ where $I$ is the input size, and $K$ is the size of the kernel. In this example,
 
 
 
-#### Why
+#### Why padding
+
+Padding and stride are two commonly used techniques in CNN. But why?
+
+If we further apply another kernel to the output, we will get a scalar in the end, which is not always the desired result. Sometimes we want to preserve the shape of the input. Besies, each time we perform convolution operation, we will lose pixels on the boundaries of the image as we only scan the border only once. In the above example, we can see that pixels on the top and bottom border of the image ($1, 3, 7, 9$) appear only once in the convolution operation, while the inner part of the image (2,4,5,6,8) present twice. 
 
 
 
-If we further apply another kernel to the output, we will get a scalar in the end, which is not always the desired result. Sometimes we want to preserve the shape of the input. Besies, each time we perform convolution operation, we will lose pixels on the boundaries of the image as we only scan the border only once. In the above example, we can see that pixels on the top and bottom border of the image ($1, 3, 7, 9$) appear only once in the convolution operation, while the inner part of the image (2,4,5,6,8) present twice. On the other hand, the step that the kernel moves each time either horizontally or vertically is 1. Sometimes we might want to quickly obtain a reduced output, a solution to this is to increase step. Padding and stride are two commonly used techniques in CNN to address the above issues.
+#### Why stride
+
+On the other hand, the step that the kernel moves each time either horizontally or vertically is 1. Sometimes we might want to quickly obtain a reduced output, a solution to this is to increase step. 
 
 
 
@@ -170,11 +175,35 @@ That's why you often see odd kernels in CNN (stride is 1 by default). Besides, i
 
 
 
+### Multiple Channels
 
 
-### 1 x 1 Convolution Layer
+
+So far, we only considered a single-layer input. As we know, an image has three channels —— R, G, B. That is, we need to perform convolution at each channel and then add the respective feature map together to obtain the final output, which is depicted in Figure 2.
 
 
+
+![](/blog/post/images/conv-input-channel.png#full "Figure 2: Convolution with multi-layer inputs")
+
+
+
+Figure 2 shows that the number of kernels are the same as the number of channels in the input data. To make a clear distinction between one kernel and multiple kernels, we note that a kernel is a two-dimensional array (a slice of a filter) while a set of kernels are called a filter. In fact, many articles use them interchangeably. So far so good. But we still get one output. How do we get multiple outputs? —— The answer is to use multiple filters.
+
+
+
+Now let's focus on the number of parameters. Let $C_I$ and $C_O$ be the number of input and output channels, and $K_w$ and $K_h$ be the width and height of each kernel, the total number of parameter needed in convolution layer is given as (bias is ignored)
+
+
+$$
+C_O * C_I * K_w * K_w
+$$
+
+
+
+
+### 1 x 1 Kernel
+
+The minimum size of a kernel is $1 \times 1$. It seems meaningless to use it as such a kernel does not correlate neighbouring pixels. Well, perhaps the only reason we'd like to use it is to change the dimension of the input channel. $1 \times 1$ kernel will map each input element, so the output size is the same as the size of the input. However, the number of feature map depends on the number of filters we apply.
 
 
 
@@ -182,11 +211,30 @@ That's why you often see odd kernels in CNN (stride is 1 by default). Besides, i
 
 
 
-### Invariance
+A typical CNN contains three layers
 
-Invariance means being insensitive to change.
+- convolution layer
+- activation layer
+- pooling layer
 
 
+
+We have introduced the previous two layers, so what does pooling do? The function of pooling is more like a window, through which we summarize the most important values from the corresponding window. Unlike kernels, the pooling layer does not contain any parameter, since it just reports some statistics from a group of data, such as the maximum value or the average value.
+
+
+
+So, why Pooling?
+
+- decrease output dimension
+  - reduce memory space for storing parameters
+  - improve computational efficiency
+- make feature representation approximately invariant to small translations of the input
+
+
+
+> In all cases, pooling helps to make the representation approximately invariant to small translations of the input. Invariance to translation means that if we translate the input by a small amount, the values of most of the pooled outputs do not change. 
+>
+> — Deep Learning, P336
 
 
 
@@ -196,15 +244,35 @@ Invariance means being insensitive to change.
 
 ### LeNet
 
-[GradientBased Learning Applied to Document Recognition](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)
+[LeNet](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) was the earliest CNN proposed for handwriting digits recognition, which was published in 1998. As the oldest CNN architecture, it is a good starting point to learn how CNNs work before we move on to more complex networks.
+
+
 
 
 
 #### Architecture
 
+![](/blog/post/images/leNet-5.png#full "Figure 3: Architecture of LeNet-5. Source: GradientBased Learning Applied to Document Recognition")
 
 
-#### Parameters
+
+Figure 3 shows that LeNet has 7 layers consisting of 3 convolutional layers, 2 sub-sampling layers and 2 fully-connected layers, which are denoted by $C_x$,  $S_x$, $F_x$, respectively. Based on the formulas discussed above, we can derive the shape of the intermediate ouputs and learning parameters in LeNet, which is shown below.
+
+
+
+| Layer  | Kernel/Padding/Pooling | Output          | Num of Paramaters           |
+| ------ | ---------------------- | --------------- | --------------------------- |
+| C1     | 6@5 $\times$ 5         | 6@28$\times$28  | 5\*5\*6+6 = 156             |
+| S2     | 2$\times$2 + 2         | 6@14$\times$14  | 0                           |
+| C3     | 16@5 $\times$ 5        | 16@10$\times$10 | 5\*5\*6*16 + 16 = 2416      |
+| S4     | 2$\times$2 + 2         | 16@5$\times$5   | 0                           |
+| C5     | 120@5 $\times$ 5       | 120             | 5\*5\*16\*120 + 150 = 48120 |
+| F6     | NaN                    | 84              | 120\*84+84 = 10164          |
+| Output | NaN                    | 10              | 84 \* 10 + 10 = 850         |
+
+<p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
+
+
 
 
 
@@ -231,6 +299,7 @@ Invariance means being insensitive to change.
 ## References
 
 - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
+- [Chapeter 9 Convolutional Networks - Deep Learning](https://www.deeplearningbook.org/contents/convnets.html)
 - [Simple Introduction to Convolutional Neural Networks](https://towardsdatascience.com/simple-introduction-to-convolutional-neural-networks-cdf8d3077bac)
 - [An Intuitive Explanation of Convolutional Neural Networks](https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/)
 - [CNNs and Equivariance](https://fabianfuchsml.github.io/equivariance1of2/)
