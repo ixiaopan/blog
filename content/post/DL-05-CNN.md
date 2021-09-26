@@ -12,7 +12,7 @@ katex: true
 
 
 
-Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how does a CNN work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several traditional ConvNets to develop a big picture of CNN.
+Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how do CNNs work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several ConvNets to develop a big picture of CNN.
 
 
 
@@ -43,7 +43,7 @@ $$
 
 ### Cross-correlation
 
-The above equation considers only one variable. However, in machine learning, we often deal with multi-dimensional arrays. In this case, the convolution is simply the sum of the products from all dimensions,
+The above equation considers only one variable. However, in machine learning, we often deal with multi-dimensional data. In this case, the convolution is simply the sum of the products from all dimensions,
 
 
 $$
@@ -53,6 +53,8 @@ $$
 
 where $I$ is a two-dimensional input array, and $K$ is a two-dimensional weighting matrix, also known as a kernel. Careful people will notice that $K$ is flipped when multiplying $I$. Suppose $I$ represents an image whose width is $m$ and height is $n$, as $m$ increases, the index of $I$ increases while the index of $K$ decreases. That is, the left part of the image multiplies the right part of the kernel.
 
+
+
 In deep learning, flipping a kernel or not is unnecessary, since the kernel is obtained through learning. If it should be flipped, then the learned kernel is flipped. Thus, there is no need to explicitly specify a flipped kernel, let alone we do not know what it is exactly. In fact, many deep learning frameworks implement a similar function and call it as convolution. This function is cross-correlation, which is the same as convolution but without flippling
 
 
@@ -60,6 +62,18 @@ $$
 S(i, j) = (I \ast K)(i, j) = \sum_{m}\sum_{n} I(i+m, j+n)K(m, n)
 $$
 In CNN, $I$ and $K$ are often referred to as the input and the kernel, respectively. The output is often referred to as the feature map.
+
+
+
+### Receptive Field
+
+
+
+In CNN, the scalar obtained from the cross correlation is referred to a neuron. The area enclosed by relevant inputs is called the receptive field of that neuron. So, convolution is simply an element-wise multiplication of learned weights (kernel) across a receptive field, which is repeated at various positions across the input. Normally, we also add a bias term for each filter.
+
+
+
+![](/blog/post/images/receptive-field.png "Figure 1: Receptive Field of a neuron")
 
 
 
@@ -107,11 +121,11 @@ This works based on assumption that we want to detect a specific pattern in an i
 
 ### Padding and Stride
 
-Now let's see how a kernel really works. Figure 1 depicts the convolution operation between a two-dimensional array and a kernel with the size of $2 \times 2$ .
+Now let's see how a kernel really works. Figure 2 depicts the convolution operation between a two-dimensional array and a kernel with the size of $2 \times 2$ .
 
 
 
-![](/blog/post/images/conv-example.png "Figure 1: Convolution Operation")
+![](/blog/post/images/conv-example.png "Figure 2: Convolution Operation")
 
 
 
@@ -141,21 +155,23 @@ where $I$ is the input size, and $K$ is the size of the kernel. In this example,
 
 Padding and stride are two commonly used techniques in CNN. But why?
 
-If we further apply another kernel to the output, we will get a scalar in the end, which is not always the desired result. Sometimes we want to preserve the shape of the input. Besies, each time we perform convolution operation, we will lose pixels on the boundaries of the image as we only scan the border only once. In the above example, we can see that pixels on the top and bottom border of the image ($1, 3, 7, 9$) appear only once in the convolution operation, while the inner part of the image (2,4,5,6,8) present twice. 
+
+
+If we further apply another kernel to the output, we will get a scalar in the end, which is not always the desired result. Sometimes we want to preserve the shape of the input. So, we often use zero-padding to retain the size.
+
+
+
+Besides, each time we perform convolution operation, we will lose pixels on the boundaries of the image as we only scan the border only once. In the above example, we can see that pixels on the top and bottom border of the image ($1, 3, 7, 9$) appear only once in the convolution operation, while the inner part of the image (2,4,5,6,8) present twice. 
 
 
 
 #### Why stride
 
-On the other hand, the step that the kernel moves each time either horizontally or vertically is 1. Sometimes we might want to quickly obtain a reduced output, a solution to this is to increase step. 
-
-
+On the other hand, the step that the kernel moves each time either horizontally or vertically is 1, which is expensive. Sometimes we might want to quickly obtain a reduced output, a solution is to increase step. 
 
 
 
 With padding and stride, the output shape is given as
-
-
 
 
 $$
@@ -179,15 +195,15 @@ That's why you often see odd kernels in CNN (stride is 1 by default). Besides, i
 
 
 
-So far, we only considered a single-layer input. As we know, an image has three channels —— R, G, B. That is, we need to perform convolution at each channel and then add the respective feature map together to obtain the final output, which is depicted in Figure 2.
+So far, we only considered a single-layer input. As we know, an image has three channels —— R, G, B. That is, we need to perform convolution at each channel and then add the respective feature map together to obtain the final output, which is depicted in Figure 3.
 
 
 
-![](/blog/post/images/conv-input-channel.png#full "Figure 2: Convolution with multi-layer inputs")
+![](/blog/post/images/conv-input-channel.png#full "Figure 3: Convolution with multi-layer inputs")
 
 
 
-Figure 2 shows that the number of kernels are the same as the number of channels in the input data. To make a clear distinction between one kernel and multiple kernels, we note that a kernel is a two-dimensional array (a slice of a filter) while a set of kernels are called a filter. In fact, many articles use them interchangeably. So far so good. But we still get one output. How do we get multiple outputs? —— The answer is to use multiple filters.
+Figure 3 shows that the number of kernels are the same as the number of channels in the input data. To make a clear distinction between one kernel and multiple kernels, we note that a kernel is a two-dimensional array (a slice of a filter) while a set of kernels are called a filter. In fact, many articles use them interchangeably. So far so good. But we still get one output. How do we get multiple outputs? —— The answer is to use multiple filters.
 
 
 
@@ -201,9 +217,37 @@ $$
 
 
 
+In summary, the core parameters of a convolution layer are
+
+- the dimensionality of the input
+- the spatial extent of the kernel
+- the number of kernels ( output channels )
+
+
+
+### Data Types
+
+Convolution can be applied to many dimensionalities and types of data, for example
+
+
+
+|      | Single Channel   | Multiple Channels              |
+| ---- | ---------------- | ------------------------------ |
+| 1D   | Audio            | multiple sensor data over time |
+| 2D   | greyscale images | Colour image data              |
+| 3D   | Volumetric data  | Colour Video Data              |
+
+
+
+
+
+
+
 ### 1 x 1 Kernel
 
-The minimum size of a kernel is $1 \times 1$. It seems meaningless to use it as such a kernel does not correlate neighbouring pixels. Well, perhaps the only reason we'd like to use it is to change the dimension of the input channel. $1 \times 1$ kernel will map each input element, so the output size is the same as the size of the input. However, the number of feature map depends on the number of filters we apply.
+The minimum size of a kernel is $1 \times 1$. It seems meaningless at first, since such a kernel does not correlate neighbouring pixels (capture local spatial information). Well, perhaps the only reason we'd like to use it is to change the dimension of the input channel ( the number of feature maps ).
+
+$1 \times 1$ kernel will map each input element, so the output size is the same as the size of the input. However, the number of feature map depends on the number of filters we apply.
 
 
 
@@ -219,11 +263,27 @@ A typical CNN contains three layers
 
 
 
-We have introduced the previous two layers, so what does pooling do? The function of pooling is more like a window, through which we summarize the most important values from the corresponding window. Unlike kernels, the pooling layer does not contain any parameter, since it just reports some statistics from a group of data, such as the maximum value or the average value.
+### Max/Avg Pooling
 
 
 
-So, why Pooling?
+We have introduced the previous two layers, so what does pooling do? Pooling acts more like a window, where it reports some statistics from a group of data enclosed by that window, such as the maximum value or the average value, as shown in Figure 4 and Figure 5.
+
+
+
+![](/blog/post/images/max-pooling.png "Figure 4: Max Pooling")
+
+
+
+
+
+![](/blog/post/images/avg-pooling.png "Figure 5: Average Pooling")
+
+
+
+
+
+Unlike kernels, the pooling layer does not contain any parameter. But, why Pooling?
 
 - decrease output dimension
   - reduce memory space for storing parameters
@@ -235,6 +295,16 @@ So, why Pooling?
 > In all cases, pooling helps to make the representation approximately invariant to small translations of the input. Invariance to translation means that if we translate the input by a small amount, the values of most of the pooled outputs do not change. 
 >
 > — Deep Learning, P336
+
+
+
+### Local VS Global Pooling
+
+
+
+The above pooling operations are local pooling, because they result in a smaller feature map. On the contrary, global pooling reduces a feature map to a scalar, which often used near the end of networks to flatten feature mapts into a feature vector that can be fed into a MLP.
+
+
 
 
 
@@ -314,6 +384,8 @@ class LeNet(nn.Module):
 
 
 ### AlexNet
+
+[ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)
 
 
 

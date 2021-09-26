@@ -16,7 +16,7 @@
 			<link>https://ixiaopan.github.io/blog/post/dl-05-cnn/</link>
 			<pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-05-cnn/</guid>
-			<description>&lt;p&gt;Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how does a CNN work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several traditional ConvNets to develop a big picture of CNN.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how do CNNs work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several ConvNets to develop a big picture of CNN.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
