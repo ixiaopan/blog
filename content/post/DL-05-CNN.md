@@ -262,7 +262,8 @@ Figure 3 shows that LeNet has 7 layers consisting of 3 convolutional layers, 2 s
 
 | Layer  | Kernel/Padding/Pooling | Output          | Num of Paramaters           |
 | ------ | ---------------------- | --------------- | --------------------------- |
-| C1     | 6@5 $\times$ 5         | 6@28$\times$28  | 5\*5\*6+6 = 156             |
+|        |                        | 1@32$\times$32  |                             |
+| C1     | 6@5 $\times$ 5         | 6@28$\times$28  | 5\*5\*1\*6+6 = 156          |
 | S2     | 2$\times$2 + 2         | 6@14$\times$14  | 0                           |
 | C3     | 16@5 $\times$ 5        | 16@10$\times$10 | 5\*5\*6*16 + 16 = 2416      |
 | S4     | 2$\times$2 + 2         | 16@5$\times$5   | 0                           |
@@ -277,6 +278,38 @@ Figure 3 shows that LeNet has 7 layers consisting of 3 convolutional layers, 2 s
 
 
 #### Implementation
+
+```python
+class LeNet(nn.Module):
+    def __init__(self, num_class):
+        super(LeNet, self).__init__()
+   
+        # in_channel, output_channel, kernel_size, stride, padding
+        self.conv1 = nn.Conv2d(1,6,5)
+        self.conv2 = nn.Conv2d(6,16,5)
+        
+        # self.conv3 = nn.Conv2d(16, 120, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120) 
+        
+        self.fc2 = nn.Linear(120, 84) 
+        self.fc3 = nn.Linear(84, num_class) 
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = F.max_pool2d(x, 2)
+        
+        x = F.relu(self.conv2(x))
+        x = F.max_pool2d(x, 2)
+
+        x = torch.flatten(x, 1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        logits = self.fc3(x)
+
+        probs = F.softmax(logits, dim=1)
+
+        return logits, probs
+```
 
 
 
