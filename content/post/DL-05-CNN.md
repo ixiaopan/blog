@@ -314,7 +314,7 @@ The above pooling operations are local pooling, because they result in a smaller
 
 ### LeNet
 
-[LeNet](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) was the earliest CNN proposed for handwriting digits recognition, which was published in 1998. As the oldest CNN architecture, it is a good starting point to learn how CNNs work before we move on to more complex networks.
+[LeNet](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) was the earliest CNN proposed for handwritten digit recognition in 1998. As the oldest CNN architecture, it is a good starting point to learn how CNNs work before we move on to more complex networks.
 
 
 
@@ -322,28 +322,40 @@ The above pooling operations are local pooling, because they result in a smaller
 
 #### Architecture
 
-![](/blog/post/images/leNet-5.png#full "Figure 3: Architecture of LeNet-5. Source: GradientBased Learning Applied to Document Recognition")
+![](/blog/post/images/leNet-5.png#full "Figure 6: Architecture of LeNet-5. Source: GradientBased Learning Applied to Document Recognition")
 
 
 
-Figure 3 shows that LeNet has 7 layers consisting of 3 convolutional layers, 2 sub-sampling layers and 2 fully-connected layers, which are denoted by $C_x$,  $S_x$, $F_x$, respectively. Based on the formulas discussed above, we can derive the shape of the intermediate ouputs and learning parameters in LeNet, which is shown below.
+Figure 6 shows that LeNet has 7 layers consisting of 
+
+- 3 convolutional layers
+- 2 sub-sampling layers
+-  2 fully-connected layers
+
+which are denoted by $C_x$,  $S_x$, and $F_x$, respectively. Based on the formulas discussed above, we can derive the shape of the intermediate ouputs and learning parameters in each layer in LeNet, which is shown below.
 
 
 
-| Layer  | Kernel/Padding/Pooling | Output          | Num of Paramaters           |
-| ------ | ---------------------- | --------------- | --------------------------- |
-|        |                        | 1@32$\times$32  |                             |
-| C1     | 6@5 $\times$ 5         | 6@28$\times$28  | 5\*5\*1\*6+6 = 156          |
-| S2     | 2$\times$2 + 2         | 6@14$\times$14  | 0                           |
-| C3     | 16@5 $\times$ 5        | 16@10$\times$10 | 5\*5\*6*16 + 16 = 2416      |
-| S4     | 2$\times$2 + 2         | 16@5$\times$5   | 0                           |
-| C5     | 120@5 $\times$ 5       | 120             | 5\*5\*16\*120 + 150 = 48120 |
-| F6     | NaN                    | 84              | 120\*84+84 = 10164          |
-| Output | NaN                    | 10              | 84 \* 10 + 10 = 850         |
+| Layer  | Kernel/Padding/Pooling | Output          | Num of Paramaters                                           |
+| ------ | ---------------------- | --------------- | ----------------------------------------------------------- |
+|        |                        | 1@32$\times$32  |                                                             |
+| C1     | 6@5 $\times$ 5, 0,1    | 6@28$\times$28  | 5\*5\*1\*6+6 = 156                                          |
+| S2     | 2$\times$2,0,2         | 6@14$\times$14  | 6*2=12                                                      |
+| C3     | 16@5 $\times$ 5,0,1    | 16@10$\times$10 | (5\*5\*3\*6 + 6) + (5\*5\*4\*9 + 9)+(5\*5\*6\*1 + 1)  =1516 |
+| S4     | 2$\times$2, 0, 2       | 16@5$\times$5   | 16*2=32                                                     |
+| C5     | 120@5 $\times$ 5       | 120             | 5\*5\*16\*120 + 120 = 48120                                 |
+| F6     | NaN                    | 84              | 120\*84+84 = 10164                                          |
+| Output | NaN                    | 10              | 84 \* 10 + 10 = 850                                         |
+|        |                        |                 | 60,850                                                      |
 
 <p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
 
 
+
+LeNet differs from modern CNNs in several ways
+
+- the activation function is sigmoid function rather than reLU
+- LeNet used subsampling (similar to average pooling) to reduce output dimentionality while modern CNNs use max pooling
 
 
 
@@ -365,15 +377,15 @@ class LeNet(nn.Module):
         self.fc3 = nn.Linear(84, num_class) 
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2)
+        x = F.sigmoid(self.conv1(x))
+        x = F.avg_pool2d(x, 2)
         
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)
+        x = F.sigmoid(self.conv2(x))
+        x = F.avg_pool2d(x, 2)
 
         x = torch.flatten(x, 1)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        x = F.sigmoid(self.fc1(x))
+        x = F.sigmoid(self.fc2(x))
         logits = self.fc3(x)
 
         probs = F.softmax(logits, dim=1)
@@ -385,7 +397,70 @@ class LeNet(nn.Module):
 
 ### AlexNet
 
-[ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)
+
+
+[ImageNet](https://image-net.org/challenges/LSVRC/index.php) is a publicly large image database for computer vision and deep learning research. The ImageNet Large Scale Visual Recognition Challenge (ILSVRC) was an annual image classification competition held from 2010 to 2017 using 1.3 million images in 1000 classes from the ImageNet dataset. AlexNet was the winner of ILSVRC 2012, achieving a top-5 error rate of 15.3%.
+
+
+
+#### Architecture
+
+
+
+![](/blog/post/images/AlexNet.png#full "Figure 7: Architecture of AlexNet. Source:  [ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)")
+
+
+
+As shown in Figure 7, AlexNet consists of 8 layers
+
+- 5 convolutional layers
+- 3 fully connected layers
+
+
+
+Each layer and the corresponding number of learning parameters are shown below,
+
+
+
+| Layer  | Kernel/Padding/Pooling | Output                               | Num of Paramaters      |
+| ------ | ---------------------- | ------------------------------------ | ---------------------- |
+|        |                        | 3@227$\times$227                     |                        |
+| C1     | 96@11 $\times$11, 0, 4 | 96@55$\times$55 (=(227-11)/4+1)      | 11\*11\*3\*96+96 =     |
+| P2     | 3$\times$3, 0, 2       | 96@27$\times$27 (=(55-3)/2+1)        | 0                      |
+| C3     | 256@5 $\times$ 5,2,1   | 256@27$\times$27 (=(27-5+2*2)/1 + 1) | 5\*5\*96*256 + 256 =   |
+| P4     | 3$\times$3, 0, 2       | 256@13$\times$13 (=(27-3)/2+1)       | 0                      |
+| C5     | 384@3 $\times$ 3, 1, 1 | 384@13$\times$13 (=(13-3+1*2)/1+1)   | 3\*3\*256\*384 + 384 = |
+| C6     | 384@3 $\times$ 3, 1, 1 | 384@13$\times$13 (=(13-3+1*2)/1+1)   | 3\*3\*384\*384 + 384 = |
+| C7     | 256@3 $\times$ 3, 1, 1 | 256@13$\times$13 (=(13-3+1*2)/1+1)   | 3\*3\*384\*256 + 256 = |
+| P8     | 3$\times$3, 0, 2       | 256@6$\times$6 (=(13-3)/2+1)         | 0                      |
+| F9     | NaN                    | 4096                                 | 6\*6\*256\*4096 + 4096 |
+| F10    | NaN                    | 4096                                 | 4096\*4096 +4096       |
+| Output | NaN                    | 1000                                 | 4096\*1000 + 1000      |
+|        |                        |                                      | 62,378,344             |
+
+<p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
+
+The main differences with LeNet are
+
+- reLU is used as the activation function
+- overlapping max pooling is used to downsample the output
+
+
+
+#### Avoid overfitting
+
+- Data Augmentation
+- Dropout
+
+
+
+#### Implementation
+
+
+
+[PyTorch AlexNet - Github](https://github.com/pytorch/vision/blob/main/torchvision/models/alexnet.py)
+
+
 
 
 
@@ -397,10 +472,6 @@ class LeNet(nn.Module):
 
 
 
-### DenseNet
-
-
-
 ## References
 
 - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
@@ -409,4 +480,5 @@ class LeNet(nn.Module):
 - [An Intuitive Explanation of Convolutional Neural Networks](https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/)
 - [CNNs and Equivariance](https://fabianfuchsml.github.io/equivariance1of2/)
 - [Translation Invariance in Convolutional Neural Networks](https://divsoni2012.medium.com/translation-invariance-in-convolutional-neural-networks-61d9b6fa03df)
+- [Understanding AlexNet](https://learnopencv.com/understanding-alexnet/)
 

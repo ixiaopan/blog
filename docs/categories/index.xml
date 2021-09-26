@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(/categories) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Thu, 23 Sep 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 26 Sep 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Deep Learning - RNN</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-06-rnn/</link>
+			<pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-06-rnn/</guid>
+			<description>Sequence Modeling RNN LSTM GRU </description>
+		</item>
+      	
 		<item>
 			<title>Deep Learning - CNN</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-05-cnn/</link>
@@ -87,14 +95,6 @@ In practice, there are lots of things to consider when designing a neural networ
 			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/interview/</guid>
 			<description>&lt;p&gt;From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - PyTorch</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-00-pytorch/</link>
-			<pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-00-pytorch/</guid>
-			<description>&lt;p&gt;The most popular deep learning frameworks so far are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&amp;rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&amp;rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

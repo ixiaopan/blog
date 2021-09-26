@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning - RNN"
-date: "2021-09-20"
+date: "2021-09-26"
 description: ""
 # tags: []
 categories: [
@@ -8,6 +8,27 @@ categories: [
 ]
 series: ["Machine Learning"]
 katex: true
-draft: true
 ---
+
+
+
+## Sequence Modeling 
+
+
+
+
+
+## RNN
+
+
+
+
+
+## LSTM
+
+
+
+
+
+## GRU
 
