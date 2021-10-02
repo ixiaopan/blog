@@ -407,7 +407,7 @@ class LeNet(nn.Module):
 
 
 
-![](/blog/post/images/AlexNet.png#full "Figure 7: Architecture of AlexNet. Source:  [ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)")
+![](/blog/post/images/AlexNet.png#full "Figure 7: Architecture of AlexNet. Source: [ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)")
 
 
 
@@ -440,10 +440,11 @@ Each layer and the corresponding number of learning parameters are shown below,
 
 <p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
 
-The main differences with LeNet are
+The main differences with LeNet includes
 
 - reLU is used as the activation function
 - overlapping max pooling is used to downsample the output
+- GPU optimization
 
 
 
@@ -465,6 +466,45 @@ The main differences with LeNet are
 
 
 ### VGG
+
+VGG is short for Visual Geometry Group, which aimed to investigate the effect of convolutional network depth on large-scale image recognition. They increased the depth of network by using a small filter (3 $\times$ 3) instead of 5 $\times$ 5 or 7 $\times$ 7, showing significant improvements by adding the depth to 16-19. Typically, when we speak of VGG, we are talking about VGG-16 or VGG-19. The configurations of CovNet experimented in the paper named [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556) are shown in Figure 8.
+
+
+
+![](/blog/post/images/vgg.png#full "Figure 8: Architecture of VGG. Source: Very Deep Convolutional Networks for Large-Scale Image Recognition")
+
+
+
+The major difference to the previous networks is that the authors employed a stack of 3 $\times$ 3 filters to have receptive fields of 5 $\times$ 5, 7 $\times$ 7 or 11 $\times$ 11 rather than using larger filters that were the same size as the receptive fields. So, there are two questions, 
+
+- How it works?
+- Why do we use it this way?
+
+
+
+Figure 9 shows that we can use two 3 $\times$ 3 filters instead of a 5 $\times$ 5 filter to have the same receptive field. Similarly, three such filters will have a 7 × 7 effective receptive field.
+
+
+
+![](/blog/post/images/vgg-33cov.png#full "Figure 9: Replacing the 5X5 filter with a small 3X3 conv filter. ")
+
+
+
+What do we gain from the smaller filters?
+
+- more non-linear activations
+  - each filter is followed by a non-linear activation function, which makes the decision function more discriminative
+- decrease the number of parameters
+  - suppose both the input and output have $C$ channels, a single 5 $\times$ 5 filter has $5\*5\*C^2= 25C^2$ while the stacked two 3$\times$3 filters has $2\*3\*3\*C^2=18C^2$
+
+
+
+Though VGG outperfoms other networks in ILSVRC, it's difficult to train VGG from scratch because of
+
+- long traning time
+- huge number of weights
+  - much deeper network depth
+  - more fully-connected layers
 
 
 
