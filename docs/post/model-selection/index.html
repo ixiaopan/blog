@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Model Selection</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Model Selection"/>
+<meta name="twitter:description" content="Model Complexity What is model complexity? Perhaps it mainly refers to the number of parameters that the model has. However, it does not mean that a model is complex if it has more parameters, although it is often the case. Generally, a simple model could result in underfitting, while a complex model could lead to overfitting. So, what factors affect the complexity of a model? Well, it is hard to say."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Model Selection
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Sep 19, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <h2 id="model-complexity">Model Complexity</h2>
+<p>What is model complexity? Perhaps it mainly refers to the number of parameters that the model has. However, it does not mean that a model is complex if it has more parameters, although it is often the case. Generally, a simple model could result in underfitting, while a complex model could lead to overfitting. So, what factors affect the complexity of a model? Well, it is hard to say. Often,</p>
+<ul>
+<li>a model with more parameters</li>
+<li>a model whose parameters take a wider range of values</li>
+<li>a model that takes more training iterations</li>
+</ul>
+<h2 id="model-selection">Model Selection</h2>
+<p>In machine learning, we care about two factors that affect model performance</p>
+<ul>
+<li>model</li>
+<li>training data</li>
+</ul>
+<p>The process of selecting the best model is known as model selection. In practice, it includes two parts</p>
+<ul>
+<li>select the best model from a list of candicate models</li>
+<li>search the best parameters for the best model</li>
+</ul>
+<h3 id="validation-dataset">Validation Dataset</h3>
+<p>To select the best model, we need another dataset to validate our hypothesis, which is the validation dataset. Why? Training data are used for training models, and test data are used to measure the performance of generalisation, which can only be used once. If we use test data to do model selection and then test the generalizability of the best model, we face data leakage since the selected model has already seen test data. Thus, we need to hold out a new dataset for validation only. In practice, data will be split into 70% for training, 10% for validation, and 20% for testing.</p>
+<h3 id="k-fold-cross-validation">K-Fold Cross-validation</h3>
+<p>But what if we have scarce data? Taking out some data for validation and testing will further result in fewer training data. To tackle this, we employ cross-validation to resample data. Specifically, we split data into several equal-sized groups, and leave out one group as validation dataset once a time. That is, if there are $K$ groups, we will repeat $K$ times. Then, we take the average of the $K$ validation scores. In doing so, we can make the most of training data.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/cross-validation.png" alt="">
+    <figcaption>Figure 1: Cross-validation</figcaption>
+  </figure>
+</p>
+<h2 id="learning-curve">Learning Curve</h2>
+<h2 id="validation-curve">Validation Curve</h2>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/">How to use Learning Curves to Diagnose Machine Learning Model Performance</a></li>
+<li><a href="https://rstudio-conf-2020.github.io/dl-keras-tf/notebooks/learning-curve-diagnostics.nb.html">Diagnosing Model Performance with Learning Curves</a></li>
+<li><a href="https://link.springer.com/content/pdf/10.1007%2F978-3-662-04323-3_7.pdf">Model Complexity Optimization</a></li>
+</ul>
+
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#model-complexity">Model Complexity</a></li>
+    <li><a href="#model-selection">Model Selection</a>
+      <ul>
+        <li><a href="#validation-dataset">Validation Dataset</a></li>
+        <li><a href="#k-fold-cross-validation">K-Fold Cross-validation</a></li>
+      </ul>
+    </li>
+    <li><a href="#learning-curve">Learning Curve</a></li>
+    <li><a href="#validation-curve">Validation Curve</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Deep Learning - CNN</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deep Learning - CNN"/>
+<meta name="twitter:description" content="Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how do CNNs work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several ConvNets to develop a big picture of CNN."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Deep Learning - CNN
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Sep 23, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;13 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how do CNNs work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several ConvNets to develop a big picture of CNN.</p>
+<h2 id="convolution">Convolution</h2>
+<h3 id="convolution-operation">Convolution Operation</h3>
+<p>As its name suggests, CNN employes a special mathematical operation called convolution rather than matrix multiplication in the networks. So, what&rsquo;s the convolution? Mathematically, the convolution operation is defined as</p>
+<p>$$
+s(t) = (x \ast w)(t) = \int x(a) w(t - a)da
+$$
+where $x$ is the real valued function of $t$, $w$ is a weighting function that measures the weight of $x$ at the point of $t$. So, convolution is a weighted average operation. For example, $x$ returns the real-time position of a plane, but the returned positions have some noises. A solution is to average the positions of recent moments. Obviously, the most recent moment has the highest weight. For functions that return discrete values, the discrete convolution operation is defined as</p>
+<p>$$
+s(t) = (x \ast w)(t) = \sum_{a = -\infin}^{\infin} x(a) w(t - a)
+$$</p>
+<h3 id="cross-correlation">Cross-correlation</h3>
+<p>The above equation considers only one variable. However, in machine learning, we often deal with multi-dimensional data. In this case, the convolution is simply the sum of the products from all dimensions,</p>
+<p>$$
+S(i, j) = (I \ast K)(i, j) = \sum_{m}\sum_{n} I(m, n)K(i - m, j - n)
+$$</p>
+<p>where $I$ is a two-dimensional input array, and $K$ is a two-dimensional weighting matrix, also known as a kernel. Careful people will notice that $K$ is flipped when multiplying $I$. Suppose $I$ represents an image whose width is $m$ and height is $n$, as $m$ increases, the index of $I$ increases while the index of $K$ decreases. That is, the left part of the image multiplies the right part of the kernel.</p>
+<p>In deep learning, flipping a kernel or not is unnecessary, since the kernel is obtained through learning. If it should be flipped, then the learned kernel is flipped. Thus, there is no need to explicitly specify a flipped kernel, let alone we do not know what it is exactly. In fact, many deep learning frameworks implement a similar function and call it as convolution. This function is cross-correlation, which is the same as convolution but without flippling</p>
+<p>$$
+S(i, j) = (I \ast K)(i, j) = \sum_{m}\sum_{n} I(i+m, j+n)K(m, n)
+$$
+In CNN, $I$ and $K$ are often referred to as the input and the kernel, respectively. The output is often referred to as the feature map.</p>
+<h3 id="receptive-field">Receptive Field</h3>
+<p>In CNN, the scalar obtained from the cross correlation is referred to a neuron. The area enclosed by relevant inputs is called the receptive field of that neuron. So, convolution is simply an element-wise multiplication of learned weights (kernel) across a receptive field, which is repeated at various positions across the input. Normally, we also add a bias term for each filter.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/receptive-field.png" alt="">
+    <figcaption>Figure 1: Receptive Field of a neuron</figcaption>
+  </figure>
+</p>
+<h3 id="why-cnn">Why CNN</h3>
+<p>Okay, but we still do not know why to use CNN instead?</p>
+<h4 id="sparse-connectivity">Sparse connectivity</h4>
+<p>In MLP, all input variables are connected to a hidden neuron. Suppose there are $m$ features and $h$ hidden units, we have $m * h$ parameters to learn. If we restrict the number of connections, say $k$, then there are only $k * h$ parameters. Generally, $k$ is far smaller than $m$, which greatly improves the efficiency of learning. This technique can be easily achieved in CNN through a kernel whose size is smaller than the input. So, sparse connectivity in CNN means</p>
+<ul>
+<li>reduce memory space to store the parameters</li>
+<li>reduce the number of computation operations</li>
+<li>increase the efficiency of learning</li>
+</ul>
+<h4 id="parameter-sharing">Parameter sharing</h4>
+<p>Another difference is that kernels in CNN are shared. Instead of different $k$ parameters for each hidden neuron in the traditional neural networks, there are only $k$ shared parameters for each element in each feature map (for now, we only consider one channel).</p>
+<h4 id="translation-equivariance">Translation equivariance</h4>
+<p>Translation equivariance indicates that CNN should get the same result from the same pattern, no matter where the pattern is. Mathematically, it can be expressed as,</p>
+<p>$$
+I(T(x)) = T(I(x))
+$$
+where $T$ represents a transformation function, and $I$ is the mapping function. If the object of interest in the inputs moves, the corresponding representation should move the same amount in the feature map due to parameter sharing.</p>
+<p>This works based on assumption that we want to detect a specific pattern in an image, irrelevant to locations. Suppose there are two of the same cats but in different positions in an image, it is redundant to learn the same parameters to classify them as cats. As a human, we know the second one is also a cat, because we see that it has whiskers, furs, ears, tails and other characters of being a cat. Thus, we hope the kernels or convolutions will also be able to extract these features, regardless of positions. As long as an area contains these features, it will be classified as cats.</p>
+<h3 id="padding-and-stride">Padding and Stride</h3>
+<p>Now let&rsquo;s see how a kernel really works. Figure 2 depicts the convolution operation between a two-dimensional array and a kernel with the size of $2 \times 2$ .</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/conv-example.png" alt="">
+    <figcaption>Figure 2: Convolution Operation</figcaption>
+  </figure>
+</p>
+<p>The output tensor is derived as follows</p>
+<p>$$
+1 * 1 + 2 * 3 + 4 * 2 + 5 * 4 = 35 \\ 2 * 1 + 3 * 3 + 5 * 2 + 6 * 4 = 45 \\ 4 * 1 + 5 * 3 + 7 * 2 + 8 * 4 = 36 \\ 5 * 1 + 6 * 3 + 8 * 2 + 9 * 4 = 75
+$$</p>
+<p>We also noticed that the size of the output tensor is $2 \times 2$, which is smaller than the input size ($3 \times 3$). In fact, the output size is determined by the shape of the input and kernel, as shown below</p>
+<p>$$
+( I_h - K_h + 1 ) \times ( I_w - K_w + 1 )
+$$</p>
+<p>where $I$ is the input size, and $K$ is the size of the kernel. In this example, the output size is $ (3 - 2 + 1) \times ( 3 - 2  + 1) = 2 \times 2 $.</p>
+<h4 id="why-padding">Why padding</h4>
+<p>Padding and stride are two commonly used techniques in CNN. But why?</p>
+<p>If we further apply another kernel to the output, we will get a scalar in the end, which is not always the desired result. Sometimes we want to preserve the shape of the input. So, we often use zero-padding to retain the size.</p>
+<p>Besides, each time we perform convolution operation, we will lose pixels on the boundaries of the image as we only scan the border only once. In the above example, we can see that pixels on the top and bottom border of the image ($1, 3, 7, 9$) appear only once in the convolution operation, while the inner part of the image (2,4,5,6,8) present twice.</p>
+<h4 id="why-stride">Why stride</h4>
+<p>On the other hand, the step that the kernel moves each time either horizontally or vertically is 1, which is expensive. Sometimes we might want to quickly obtain a reduced output, a solution is to increase step.</p>
+<p>With padding and stride, the output shape is given as</p>
+<p>$$
+\lfloor (I_h + P_h - K_h) / S_h + 1 \rfloor \times \lfloor (I_w + P_w - K_w) / S_w + 1 \rfloor
+$$</p>
+<p>where $P$ and $S$ indicates the padding and stride, respectively. From the above equation, we can see that</p>
+<ul>
+<li>the output size increases as $P_h$ and $P_w$ increases when $S$ stays the same</li>
+<li>if $P_h = K_h - S_h$ and $P_w = K_w - S_h$, the shape of output is $I_h/S_h \times I_w / S_w$</li>
+<li>if $S_h = 1$ and $S_w = 1$
+<ul>
+<li>an odd value of $K_h$ will pad the same rows in both sides of the height;</li>
+<li>an even value of $K_h$, well, one solution is to pad $\lfloor P_h/2 \rfloor$ rows on the top of the image and $\lceil P_h/2 \rceil$ rows on the bottom</li>
+</ul>
+</li>
+</ul>
+<p>That&rsquo;s why you often see odd kernels in CNN (stride is 1 by default). Besides, in practice, we often set $P_h = P_w$ and $S_h = S_w$.</p>
+<h3 id="multiple-channels">Multiple Channels</h3>
+<p>So far, we only considered a single-layer input. As we know, an image has three channels —— R, G, B. That is, we need to perform convolution at each channel and then add the respective feature map together to obtain the final output, which is depicted in Figure 3.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/conv-input-channel.png#full" alt="">
+    <figcaption>Figure 3: Convolution with multi-layer inputs</figcaption>
+  </figure>
+</p>
+<p>Figure 3 shows that the number of kernels are the same as the number of channels in the input data. To make a clear distinction between one kernel and multiple kernels, we note that a kernel is a two-dimensional array (a slice of a filter) while a set of kernels are called a filter. In fact, many articles use them interchangeably. So far so good. But we still get one output. How do we get multiple outputs? —— The answer is to use multiple filters.</p>
+<p>Now let&rsquo;s focus on the number of parameters. Let $C_I$ and $C_O$ be the number of input and output channels, and $K_w$ and $K_h$ be the width and height of each kernel, the total number of parameter needed in convolution layer is given as (bias is ignored)</p>
+<p>$$
+C_O * C_I * K_w * K_w
+$$</p>
+<p>In summary, the core parameters of a convolution layer are</p>
+<ul>
+<li>the dimensionality of the input</li>
+<li>the spatial extent of the kernel</li>
+<li>the number of kernels ( output channels )</li>
+</ul>
+<h3 id="data-types">Data Types</h3>
+<p>Convolution can be applied to many dimensionalities and types of data, for example</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Single Channel</th>
+<th>Multiple Channels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1D</td>
+<td>Audio</td>
+<td>multiple sensor data over time</td>
+</tr>
+<tr>
+<td>2D</td>
+<td>greyscale images</td>
+<td>Colour image data</td>
+</tr>
+<tr>
+<td>3D</td>
+<td>Volumetric data</td>
+<td>Colour Video Data</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-x-1-kernel">1 x 1 Kernel</h3>
+<p>The minimum size of a kernel is $1 \times 1$. It seems meaningless at first, since such a kernel does not correlate neighbouring pixels (capture local spatial information). Well, perhaps the only reason we&rsquo;d like to use it is to change the dimension of the input channel ( the number of feature maps ).</p>
+<p>$1 \times 1$ kernel will map each input element, so the output size is the same as the size of the input. However, the number of feature map depends on the number of filters we apply.</p>
+<h2 id="pooling">Pooling</h2>
+<p>A typical CNN contains three layers</p>
+<ul>
+<li>convolution layer</li>
+<li>activation layer</li>
+<li>pooling layer</li>
+</ul>
+<h3 id="maxavg-pooling">Max/Avg Pooling</h3>
+<p>We have introduced the previous two layers, so what does pooling do? Pooling acts more like a window, where it reports some statistics from a group of data enclosed by that window, such as the maximum value or the average value, as shown in Figure 4 and Figure 5.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/max-pooling.png" alt="">
+    <figcaption>Figure 4: Max Pooling</figcaption>
+  </figure>
+</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/avg-pooling.png" alt="">
+    <figcaption>Figure 5: Average Pooling</figcaption>
+  </figure>
+</p>
+<p>Unlike kernels, the pooling layer does not contain any parameter. But, why Pooling?</p>
+<ul>
+<li>decrease output dimension
+<ul>
+<li>reduce memory space for storing parameters</li>
+<li>improve computational efficiency</li>
+</ul>
+</li>
+<li>make feature representation approximately invariant to small translations of the input</li>
+</ul>
+<blockquote>
+<p>In all cases, pooling helps to make the representation approximately invariant to small translations of the input. Invariance to translation means that if we translate the input by a small amount, the values of most of the pooled outputs do not change.</p>
+<p>— Deep Learning, P336</p>
+</blockquote>
+<h3 id="local-vs-global-pooling">Local VS Global Pooling</h3>
+<p>The above pooling operations are local pooling, because they result in a smaller feature map. On the contrary, global pooling reduces a feature map to a scalar, which often used near the end of networks to flatten feature mapts into a feature vector that can be fed into a MLP.</p>
+<h2 id="convnet">ConvNet</h2>
+<h3 id="lenet">LeNet</h3>
+<p><a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf">LeNet</a> was the earliest CNN proposed for handwritten digit recognition in 1998. As the oldest CNN architecture, it is a good starting point to learn how CNNs work before we move on to more complex networks.</p>
+<h4 id="architecture">Architecture</h4>
+<p>
+  <figure>
+    <img src="/blog/post/images/leNet-5.png#full" alt="">
+    <figcaption>Figure 6: Architecture of LeNet-5. Source: GradientBased Learning Applied to Document Recognition</figcaption>
+  </figure>
+</p>
+<p>Figure 6 shows that LeNet has 7 layers consisting of</p>
+<ul>
+<li>3 convolutional layers</li>
+<li>2 sub-sampling layers</li>
+<li>2 fully-connected layers</li>
+</ul>
+<p>which are denoted by $C_x$,  $S_x$, and $F_x$, respectively. Based on the formulas discussed above, we can derive the shape of the intermediate ouputs and learning parameters in each layer in LeNet, which is shown below.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Kernel/Padding/Pooling</th>
+<th>Output</th>
+<th>Num of Paramaters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>1@32$\times$32</td>
+<td></td>
+</tr>
+<tr>
+<td>C1</td>
+<td>6@5 $\times$ 5, 0,1</td>
+<td>6@28$\times$28</td>
+<td>5*5*1*6+6 = 156</td>
+</tr>
+<tr>
+<td>S2</td>
+<td>2$\times$2,0,2</td>
+<td>6@14$\times$14</td>
+<td>6*2=12</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>16@5 $\times$ 5,0,1</td>
+<td>16@10$\times$10</td>
+<td>(5*5*3*6 + 6) + (5*5*4*9 + 9)+(5*5*6*1 + 1)  =1516</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>2$\times$2, 0, 2</td>
+<td>16@5$\times$5</td>
+<td>16*2=32</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>120@5 $\times$ 5</td>
+<td>120</td>
+<td>5*5*16*120 + 120 = 48120</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>NaN</td>
+<td>84</td>
+<td>120*84+84 = 10164</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>NaN</td>
+<td>10</td>
+<td>84 * 10 + 10 = 850</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>60,850</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
+<p>LeNet differs from modern CNNs in several ways</p>
+<ul>
+<li>the activation function is sigmoid function rather than reLU</li>
+<li>LeNet used subsampling (similar to average pooling) to reduce output dimentionality while modern CNNs use max pooling</li>
+</ul>
+<h4 id="implementation">Implementation</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self, num_class):
+        super(LeNet, self)<span style="color:#f92672">.</span>__init__()
+   
+        <span style="color:#75715e"># in_channel, output_channel, kernel_size, stride, padding</span>
+        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>)
+        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">5</span>)
+        
+        <span style="color:#75715e"># self.conv3 = nn.Conv2d(16, 120, 5)</span>
+        self<span style="color:#f92672">.</span>fc1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">120</span>) 
+        
+        self<span style="color:#f92672">.</span>fc2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">120</span>, <span style="color:#ae81ff">84</span>) 
+        self<span style="color:#f92672">.</span>fc3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">84</span>, num_class) 
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>sigmoid(self<span style="color:#f92672">.</span>conv1(x))
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>avg_pool2d(x, <span style="color:#ae81ff">2</span>)
+        
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>sigmoid(self<span style="color:#f92672">.</span>conv2(x))
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>avg_pool2d(x, <span style="color:#ae81ff">2</span>)
+
+        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>flatten(x, <span style="color:#ae81ff">1</span>)
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>sigmoid(self<span style="color:#f92672">.</span>fc1(x))
+        x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>sigmoid(self<span style="color:#f92672">.</span>fc2(x))
+        logits <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc3(x)
+
+        probs <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(logits, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+
+        <span style="color:#66d9ef">return</span> logits, probs
+</code></pre></div><h3 id="alexnet">AlexNet</h3>
+<p><a href="https://image-net.org/challenges/LSVRC/index.php">ImageNet</a> is a publicly large image database for computer vision and deep learning research. The ImageNet Large Scale Visual Recognition Challenge (ILSVRC) was an annual image classification competition held from 2010 to 2017 using 1.3 million images in 1000 classes from the ImageNet dataset. AlexNet was the winner of ILSVRC 2012, achieving a top-5 error rate of 15.3%.</p>
+<h4 id="architecture-1">Architecture</h4>
+<p>
+  <figure>
+    <img src="/blog/post/images/AlexNet.png#full" alt="">
+    <figcaption>Figure 7: Architecture of AlexNet. Source: [ImageNet Classification with Deep Convolutional Neural Networks](https://dl.acm.org/doi/pdf/10.1145/3065386)</figcaption>
+  </figure>
+</p>
+<p>As shown in Figure 7, AlexNet consists of 8 layers</p>
+<ul>
+<li>5 convolutional layers</li>
+<li>3 fully connected layers</li>
+</ul>
+<p>Each layer and the corresponding number of learning parameters are shown below,</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Kernel/Padding/Pooling</th>
+<th>Output</th>
+<th>Num of Paramaters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>3@227$\times$227</td>
+<td></td>
+</tr>
+<tr>
+<td>C1</td>
+<td>96@11 $\times$11, 0, 4</td>
+<td>96@55$\times$55 (=(227-11)/4+1)</td>
+<td>11*11*3*96+96 =</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>3$\times$3, 0, 2</td>
+<td>96@27$\times$27 (=(55-3)/2+1)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>256@5 $\times$ 5,2,1</td>
+<td>256@27$\times$27 (=(27-5+2*2)/1 + 1)</td>
+<td>5*5*96*256 + 256 =</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3$\times$3, 0, 2</td>
+<td>256@13$\times$13 (=(27-3)/2+1)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>384@3 $\times$ 3, 1, 1</td>
+<td>384@13$\times$13 (=(13-3+1*2)/1+1)</td>
+<td>3*3*256*384 + 384 =</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>384@3 $\times$ 3, 1, 1</td>
+<td>384@13$\times$13 (=(13-3+1*2)/1+1)</td>
+<td>3*3*384*384 + 384 =</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>256@3 $\times$ 3, 1, 1</td>
+<td>256@13$\times$13 (=(13-3+1*2)/1+1)</td>
+<td>3*3*384*256 + 256 =</td>
+</tr>
+<tr>
+<td>P8</td>
+<td>3$\times$3, 0, 2</td>
+<td>256@6$\times$6 (=(13-3)/2+1)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F9</td>
+<td>NaN</td>
+<td>4096</td>
+<td>6*6*256*4096 + 4096</td>
+</tr>
+<tr>
+<td>F10</td>
+<td>NaN</td>
+<td>4096</td>
+<td>4096*4096 +4096</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>NaN</td>
+<td>1000</td>
+<td>4096*1000 + 1000</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>62,378,344</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align:center">Table 1: The shape of the output and learning parameters in LeNet.</p>
+<p>The main differences with LeNet includes</p>
+<ul>
+<li>reLU is used as the activation function</li>
+<li>overlapping max pooling is used to downsample the output</li>
+<li>GPU optimization</li>
+</ul>
+<h4 id="avoid-overfitting">Avoid overfitting</h4>
+<ul>
+<li>Data Augmentation</li>
+<li>Dropout</li>
+</ul>
+<h4 id="implementation-1">Implementation</h4>
+<p><a href="https://github.com/pytorch/vision/blob/main/torchvision/models/alexnet.py">PyTorch AlexNet - Github</a></p>
+<h3 id="vgg">VGG</h3>
+<p>VGG is short for Visual Geometry Group, which aimed to investigate the effect of convolutional network depth on large-scale image recognition. They increased the depth of network by using a small filter (3 $\times$ 3) instead of 5 $\times$ 5 or 7 $\times$ 7, showing significant improvements by adding the depth to 16-19. Typically, when we speak of VGG, we are talking about VGG-16 or VGG-19. The configurations of CovNet experimented in the paper named <a href="https://arxiv.org/abs/1409.1556">Very Deep Convolutional Networks for Large-Scale Image Recognition</a> are shown in Figure 8.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/vgg.png#full" alt="">
+    <figcaption>Figure 8: Architecture of VGG. Source: Very Deep Convolutional Networks for Large-Scale Image Recognition</figcaption>
+  </figure>
+</p>
+<p>The major difference to the previous networks is that the authors employed a stack of 3 $\times$ 3 filters to have receptive fields of 5 $\times$ 5, 7 $\times$ 7 or 11 $\times$ 11 rather than using larger filters that were the same size as the receptive fields. So, there are two questions,</p>
+<ul>
+<li>How it works?</li>
+<li>Why do we use it this way?</li>
+</ul>
+<p>Figure 9 shows that we can use two 3 $\times$ 3 filters instead of a 5 $\times$ 5 filter to have the same receptive field. Similarly, three such filters will have a 7 × 7 effective receptive field.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/vgg-33cov.png#full" alt="">
+    <figcaption>Figure 9: Replacing the 5X5 filter with a small 3X3 conv filter. </figcaption>
+  </figure>
+</p>
+<p>What do we gain from the smaller filters?</p>
+<ul>
+<li>more non-linear activations
+<ul>
+<li>each filter is followed by a non-linear activation function, which makes the decision function more discriminative</li>
+</ul>
+</li>
+<li>decrease the number of parameters
+<ul>
+<li>suppose both the input and output have $C$ channels, a single 5 $\times$ 5 filter has $5*5*C^2= 25C^2$ while the stacked two 3$\times$3 filters has $2*3*3*C^2=18C^2$</li>
+</ul>
+</li>
+</ul>
+<p>Though VGG outperfoms other networks in ILSVRC, it&rsquo;s difficult to train VGG from scratch because of</p>
+<ul>
+<li>long traning time</li>
+<li>huge number of weights
+<ul>
+<li>much deeper network depth</li>
+<li>more fully-connected layers</li>
+</ul>
+</li>
+</ul>
+<h3 id="resnet">ResNet</h3>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></li>
+<li><a href="https://www.deeplearningbook.org/contents/convnets.html">Chapeter 9 Convolutional Networks - Deep Learning</a></li>
+<li><a href="https://towardsdatascience.com/simple-introduction-to-convolutional-neural-networks-cdf8d3077bac">Simple Introduction to Convolutional Neural Networks</a></li>
+<li><a href="https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/">An Intuitive Explanation of Convolutional Neural Networks</a></li>
+<li><a href="https://fabianfuchsml.github.io/equivariance1of2/">CNNs and Equivariance</a></li>
+<li><a href="https://divsoni2012.medium.com/translation-invariance-in-convolutional-neural-networks-61d9b6fa03df">Translation Invariance in Convolutional Neural Networks</a></li>
+<li><a href="https://learnopencv.com/understanding-alexnet/">Understanding AlexNet</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#convolution">Convolution</a>
+      <ul>
+        <li><a href="#convolution-operation">Convolution Operation</a></li>
+        <li><a href="#cross-correlation">Cross-correlation</a></li>
+        <li><a href="#receptive-field">Receptive Field</a></li>
+        <li><a href="#why-cnn">Why CNN</a></li>
+        <li><a href="#padding-and-stride">Padding and Stride</a></li>
+        <li><a href="#multiple-channels">Multiple Channels</a></li>
+        <li><a href="#data-types">Data Types</a></li>
+        <li><a href="#1-x-1-kernel">1 x 1 Kernel</a></li>
+      </ul>
+    </li>
+    <li><a href="#pooling">Pooling</a>
+      <ul>
+        <li><a href="#maxavg-pooling">Max/Avg Pooling</a></li>
+        <li><a href="#local-vs-global-pooling">Local VS Global Pooling</a></li>
+      </ul>
+    </li>
+    <li><a href="#convnet">ConvNet</a>
+      <ul>
+        <li><a href="#lenet">LeNet</a></li>
+        <li><a href="#alexnet">AlexNet</a></li>
+        <li><a href="#vgg">VGG</a></li>
+        <li><a href="#resnet">ResNet</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
