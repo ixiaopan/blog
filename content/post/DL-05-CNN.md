@@ -467,7 +467,11 @@ The main differences with LeNet includes
 
 ### VGG
 
-VGG is short for Visual Geometry Group, which aimed to investigate the effect of convolutional network depth on large-scale image recognition. They increased the depth of network by using a small filter (3 $\times$ 3) instead of 5 $\times$ 5 or 7 $\times$ 7, showing significant improvements by adding the depth to 16-19. Typically, when we speak of VGG, we are talking about VGG-16 or VGG-19. The configurations of CovNet experimented in the paper named [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556) are shown in Figure 8.
+[VGG](https://arxiv.org/abs/1409.1556) is short for Visual Geometry Group, which aimed to investigate the effect of convolutional network depth on large-scale image recognition. They increased the depth of network by using a small filter (3 $\times$ 3) instead of 5 $\times$ 5 or 7 $\times$ 7, showing significant improvements by adding the depth to 16-19. Typically, when we speak of VGG, we are talking about VGG-16 or VGG-19. The complete experimental ConvNet configurations are shown in Figure 8.
+
+
+
+#### Architecture
 
 
 
@@ -499,6 +503,10 @@ What do we gain from the smaller filters?
 
 
 
+#### Drawbacks
+
+
+
 Though VGG outperfoms other networks in ILSVRC, it's difficult to train VGG from scratch because of
 
 - long traning time
@@ -510,6 +518,52 @@ Though VGG outperfoms other networks in ILSVRC, it's difficult to train VGG from
 
 ### ResNet
 
+[ResNet](https://arxiv.org/abs/1512.03385), short for Residual Network, was the winner of the ILSVRC 2015 classification challenge. Like VGG, there are many variants of ResNet, such as ResNet-18, ResNet-34, ResNet-50 and so on. Similar to other ConvNets, ResNet also has Conv layer, pooling, activation and FC layers. The difference is that ResNet introduced the identity connection, which is shown in Figure 10.
+
+
+
+![](/blog/post/images/resnet-identity.png "Figure 10: The core block of ResNet.")
+
+
+
+#### Motivation
+
+ In my opinion, the main idea of ResNet is similar to gradient boosting. We know that the idea of gradient boosting is to learn residuals. Similarly, ResNet tries to learn the residual function rather than the mapping function directly. What does this mean? First, neural networks are function approximators. Normally, we build a neural network to learn a specific function, say $h(x)$. Now, we suppose that $h(x)$ can be decomposed into two parts
+
+
+$$
+f(x) + x = h(x)
+$$
+
+
+From Figure 10, we see that $f(x)$ is the target function that we want to learn while $x$ is the identity connection, If the output is $x$ ($h(x) =x$), then $f(x) = 0$. In other words, as learning progresses, $f(x)$ should approach $0$. That's why $f(x)$ is called the residual function.
+
+
+
+#### The effect of Identity Connection
+
+VGG has demenstrated that as the depth of networks increases, the generalisation becomes better. However, the gradients are prone to shrink to zero if the network is too deep due to the chain rule, so some weights are never updated during learning. This is known as vanishing gradients. With ResNet, gradients can flow directly through the identity connection to the previous layers because of the addition operation, even if the graident in the residual block is very small.
+
+
+
+#### Architecture
+
+![](/blog/post/images/resnet.png "Figure 11: ResNet 34 from original paper[Deep Residual Learning for Image Recognition]")
+
+
+
+![](/blog/post/images/resnet-size.png#full "Figure 12: The size of building blocks in different layers of ResNet. Source: Deep Residual Learning for Image Recognition")
+
+ 
+
+One problem is that $f(x)$ might have different shape with $x$. In this case, we employ 1 $\times$ 1 kernel to change the input shape, which is depicted by the dotted line in Figure 11. Mathematically, it can be expressed as
+
+
+$$
+f(x) + Wx = h(x)
+$$
+
+
 
 
 ## References
@@ -517,8 +571,13 @@ Though VGG outperfoms other networks in ILSVRC, it's difficult to train VGG from
 - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
 - [Chapeter 9 Convolutional Networks - Deep Learning](https://www.deeplearningbook.org/contents/convnets.html)
 - [Simple Introduction to Convolutional Neural Networks](https://towardsdatascience.com/simple-introduction-to-convolutional-neural-networks-cdf8d3077bac)
+- [A Gentle Introduction to 1×1 Convolutions to Manage Model Complexity](https://machinelearningmastery.com/introduction-to-1x1-convolutions-to-reduce-the-complexity-of-convolutional-neural-networks/)
 - [An Intuitive Explanation of Convolutional Neural Networks](https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/)
 - [CNNs and Equivariance](https://fabianfuchsml.github.io/equivariance1of2/)
 - [Translation Invariance in Convolutional Neural Networks](https://divsoni2012.medium.com/translation-invariance-in-convolutional-neural-networks-61d9b6fa03df)
 - [Understanding AlexNet](https://learnopencv.com/understanding-alexnet/)
+- [VGG-16 Architecture: A Complete Guide](https://www.kaggle.com/blurredmachine/vggnet-16-architecture-a-complete-guide)
+- [Understading and visualizing ResNets](https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8)
+- [ResNets](http://pabloruizruiz10.com/resources/CNNs/ResNets.pdf)
+- K. He, X. Zhang, S. Ren and J. Sun, “Deep Residual Learning for Image Recognition,” in *CVPR*, 2016. https://arxiv.org/abs/1512.03385
 

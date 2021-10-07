@@ -17,7 +17,7 @@ MSc Data Science student with more than 5 years of work experience in frontend d
   margin: 0;
 }
 .timeline .time {
-  margin-right: 32px;
+  margin-right: 28px;
   color: rgba(0,0,0,0.6);
   min-width: 133px;
 }
@@ -33,18 +33,19 @@ li {
   margin-left: -20px
 }
 
+
 </style>
 
 
 
 ## PROFESSIONAL SKILLS
 
-- Strong understanding of machine learning algorithms and good knowledge of NLP 
-- Excellent hands-on experience with Python, Scikit-Learn, and Pytorch
+- Strong understanding of Machine Learning and Deep Learning 
+- Excellent hands-on experience with Python, Scikit-Learn, and PyTorch
 - Proficient in JavaScript, React, CSS3 and able to build a web application from frontend to backend independently and effectively
 - Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
 - Rich experience in the agile software development workflow using Git and CI/CD
-- Good at data visualisation and UI design tools like Sketch
+- Good at data visualisation and UI design tools
 
 
 
@@ -54,14 +55,15 @@ li {
 
 <section >
 <div class="timeline">
-  <p class="time">09/2020 - present</p>
+  <p class="time">09/2020 - 09/2021</p>
   <p>MSc Data Science, University of Southampton</p>
 </div>
 <div class="timeline">
   <p class="time">09/2010 - 07/2014</p>
-  <p>BSc Computer Science and Technology,University of Electronic Science and Technology of China </p>
+  <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China </p>
 </div>
 </section>
+
 
 
 
