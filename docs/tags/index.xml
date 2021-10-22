@@ -16,7 +16,7 @@
 			<link>https://ixiaopan.github.io/blog/post/dl-06-rnn/</link>
 			<pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-06-rnn/</guid>
-			<description>&lt;p&gt;When I first learned RNN, I found lots of articles about it, that&amp;rsquo;s good. But most of them focus on the design of the architecture. Well, the network itself is not difficult to understand, the real problem is why. What&amp;rsquo;s the intuition behind it? Why do we need &amp;ldquo;recurrence&amp;rdquo;? Unfortunately, few people explain it clearly. Luckily, the book &lt;a href=&#34;https://www.amazon.co.uk/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618&#34;&gt;Deep Learning&lt;/a&gt; gives the answers.&lt;/p&gt;</description>
+			<description>&lt;p&gt;When I first learned RNN, I found lots of articles about it. That&amp;rsquo;s good news, but most of them focus on the design of the architecture.The network itself is not difficult to understand, the real problem is why it works. What&amp;rsquo;s the intuition behind it? Why do we need &amp;ldquo;recurrence&amp;rdquo;? Unfortunately, few articles explain it clearly. Luckily, the book &lt;a href=&#34;https://www.amazon.co.uk/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618&#34;&gt;Deep Learning&lt;/a&gt; gives the answers.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
