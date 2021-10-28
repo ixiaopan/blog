@@ -5,10 +5,25 @@
     <loc>https://ixiaopan.github.io/blog/about/</loc>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/</loc>
-    <lastmod>2021-09-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/categories/</loc>
-    <lastmod>2021-09-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/remove-splash/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/categories/utilities/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/categories/machine-learning/</loc>
+    <lastmod>2021-10-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/metrics-classification/</loc>
+    <lastmod>2021-10-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/categories/deep-learning/</loc>
     <lastmod>2021-09-26T00:00:00+00:00</lastmod>
@@ -16,14 +31,8 @@
     <loc>https://ixiaopan.github.io/blog/post/dl-06-rnn/</loc>
     <lastmod>2021-09-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/</loc>
-    <lastmod>2021-09-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://ixiaopan.github.io/blog/post/dl-05-cnn/</loc>
     <lastmod>2021-09-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/categories/machine-learning/</loc>
-    <lastmod>2021-09-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/model-selection/</loc>
     <lastmod>2021-09-19T00:00:00+00:00</lastmod>

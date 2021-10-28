@@ -14,6 +14,22 @@
 		<atom:link href="/blog/categories/computer-science/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>REMOVING ANNOYING SPLASH ADs!!!</title>
+			<link>https://ixiaopan.github.io/blog/post/remove-splash/</link>
+			<pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/remove-splash/</guid>
+			<description>What and Why I don&amp;rsquo;t know when it happened, but without a doubt, you will see a statistic or dynamic image on your screen when you launch some APPs nowadays (especially if you are somewhere on the Earth). The picture looks like the figure below with a small button to enable people to skip ads. Generally, the showing time of ads lasts at least 3 seconds. The most disgusting thing is that there is no upper bound for this, so you have to suffer from this unless you don&amp;rsquo;t use any app at all.</description>
+		</item>
+      	
+		<item>
+			<title>Metrics for classification</title>
+			<link>https://ixiaopan.github.io/blog/post/metrics-classification/</link>
+			<pubDate>Tue, 26 Oct 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/metrics-classification/</guid>
+			<description>&lt;p&gt;In linear regression, we choose $R^2$ as our metrics to measure how good our algorithms are. But how about classification? In this post, we are going to talk about several commonly used metrics for classification.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Deep Learning - RNN</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-06-rnn/</link>
 			<pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
@@ -79,22 +95,6 @@ In practice, there are lots of things to consider when designing a neural networ
 			<pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/leetcode-01/</guid>
 			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Daily SQL Practice</title>
-			<link>https://ixiaopan.github.io/blog/post/sql/</link>
-			<pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/sql/</guid>
-			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Interview - Software Engineer</title>
-			<link>https://ixiaopan.github.io/blog/post/interview/</link>
-			<pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/interview/</guid>
-			<description>&lt;p&gt;From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
