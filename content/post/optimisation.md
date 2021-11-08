@@ -1,14 +1,13 @@
 ---
-title: "Deep Learning - Optimization"
-date: "2021-09-20"
+title: "Optimisation"
+date: "2021-11-03"
 description: ""
 # tags: []
 categories: [
-    "Deep Learning",
+    "Machine Learning",
 ]
 series: ["Machine Learning"]
 katex: true
 draft: true
-
 ---
 

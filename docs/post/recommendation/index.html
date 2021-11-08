@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Recommender Systems</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Recommender Systems"/>
+<meta name="twitter:description" content="Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations to people based on their preferences."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Recommender Systems
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 7, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations to people based on their preferences.</p>
+<h2 id="overview">Overview</h2>
+<p>Recommendations can be classified as two categories, as Figure 1 shows,</p>
+<ul>
+<li>non-personalised
+<ul>
+<li>recommendations are the same for all users</li>
+<li>e.g. the most popular movies, the top ten hotels, &hellip;</li>
+</ul>
+</li>
+<li>personalised
+<ul>
+<li>recommendations vary by users</li>
+</ul>
+</li>
+</ul>
+<p>Obviously, we focus on the latter one. The mainstream algorithms includes</p>
+<ul>
+<li>content-based filtering
+<ul>
+<li>recommend items based on the attribtues of items, users, or both (feature engineering)</li>
+<li>e.g. when you buy the novel &ldquo;The ABC Murders &ldquo;, the system will also recommend other novels written by Agatha Christie to you.</li>
+</ul>
+</li>
+<li>collaborative filtering
+<ul>
+<li>employ the wisdom of the crowd instead of extracting good attributes manually</li>
+</ul>
+</li>
+</ul>
+<p>There are three main types of collaborative algorithms, namely,</p>
+<ul>
+<li>user-based filtering</li>
+<li>item-based filtering</li>
+<li>matrix factorisation</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/recom.png#full" alt="">
+    <figcaption>Figure 1: Different algorithms for recommender systems.</figcaption>
+  </figure>
+</p>
+<h2 id="data">Data</h2>
+<p>Data is all we need. Figure 2 shows that a recommender system needs three types of data,</p>
+<ul>
+<li>items data</li>
+<li>user data</li>
+<li>the interaction between items and users</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/input-recom.png#full" alt="">
+    <figcaption>Figure 2: Data involved in recommender systems.</figcaption>
+  </figure>
+</p>
+<p>Each type of data has its own properties. Items like clothes have attributes of size and colour. Users have age and gender. The interactions between items and users include contextual attributes, such as weather, geographical location, day of the week, and so on.</p>
+<h3 id="item-content-matrix-icm">Item Content Matrix (ICM)</h3>
+<p>As mentioned earlier, items have attributes. Mathematically, we can describe that relation using Item Content Matrix or ICM, where each row indicates an item and each column represent an attribute. The value of ICM is either 1 or 0. If an item contains a specific attribute listed in ICM, the corresponding cell will be set to one, zero otherwise. But you can also set a value between 0 and 1 to describe the importance of that attribute.</p>
+<h3 id="user-rating-matrix-urm">User Rating Matrix (URM)</h3>
+<p>Similarly, the opinion of users on items can also be described mathematically through the User Rating Matrix or URM. Each row represents a user, and each column represents an item. If we have no idea the opinion of someone on an item, the corresponding value is zero.</p>
+<h4 id="implict-ratings">Implict Ratings</h4>
+<p>Ratings can be implicit or explicit. Implicit ratings deduce your taste by looking at how you interact with the system, for instance, the time-on-page, the viewing time of a movie, clicks, purchases, and so on. If one stops watching a movie after 10 minutes, we assume that that user does not like that movie. However, one may have to stop watching a film because of an important call.</p>
+<h4 id="explict-ratings">Explict Ratings</h4>
+<p>Explicit ratings are done by asking users to rate items on a rating scale, for example, five stars for Educated.</p>
+<table>
+<thead>
+<tr>
+<th>Large rating scale</th>
+<th>Smaller rating scale</th>
+<th>Even rating scale</th>
+<th>Odd rating scale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>complex and requires more effort</td>
+<td>easy to understand</td>
+<td>either negative or positive ratings, forcing people to express their opinions</td>
+<td>introduces the neutral rating, which makes people feel more comfortable</td>
+</tr>
+<tr>
+<td>fewer ratings</td>
+<td>more ratings</td>
+<td>fewer ratings</td>
+<td>people tend to choose the neutral rating unless they have a strong positive or negative opinion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="user-behavior-collection">User Behavior Collection</h2>
+<h2 id="ratings-collection">Ratings Collection</h2>
+<h2 id="users-from-the-cold">Users From the Cold</h2>
+<h2 id="non-personalised-recs">Non-personalised recs</h2>
+<h3 id="top-10">Top 10</h3>
+<p>As we said before, the top 10 perhaps is the most common type of non-personalised recs. You can see Top 10 everywhere on the Internet.</p>
+<h4 id="method-1-top-popular">Method 1: Top Popular</h4>
+<p>An intuitive method to get the top 10 items is to order items by the number of users that have bought, seen, or given their opinions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># top 10 movies</span>
+movies_has_seen <span style="color:#f92672">=</span> Log<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>values(<span style="color:#e6db74">&#39;content_id&#39;</span>)<span style="color:#f92672">.</span>filter(event<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;seen&#39;</span>)<span style="color:#f92672">.</span>annotate(Count(<span style="color:#e6db74">&#39;user_id&#39;</span>))
+
+sorted_items <span style="color:#f92672">=</span> sorted(movies_has_seen, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> item: <span style="color:#f92672">-</span>float(item[<span style="color:#e6db74">&#39;user_id__count&#39;</span>]))
+
+sorted_items[:<span style="color:#ae81ff">10</span>]
+</code></pre></div><h4 id="method-2-the-best-rated-items">Method 2: The Best Rated Items</h4>
+<p>Another technique is to calculate the average rating for each item and retrieve the top 10 items ranked by the average rating in descending order.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">movies_avg_rated <span style="color:#f92672">=</span> Rating<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>values(<span style="color:#e6db74">&#39;movie_id&#39;</span>)<span style="color:#f92672">.</span>annotate(Avg(<span style="color:#e6db74">&#39;rating&#39;</span>))
+
+sorted(movies_avg_rated, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> item: <span style="color:#f92672">-</span>float(item[<span style="color:#e6db74">&#39;rating__avg&#39;</span>]))[:<span style="color:#ae81ff">10</span>]
+</code></pre></div><p>To calculate the average rating, we need the help of URM. Let $r_{ui}$ be the non-zero rating given by user $u$ to item $i$, and $N_i$ be the number of users who rated item $i$,  then the average rating of item $i$ is given as</p>
+<p>$$
+b_i = \frac{\sum_u r_{ui} }{N_i}
+$$</p>
+<h3 id="market-basket-analysis">Market Basket Analysis</h3>
+<p>Apart from the &ldquo;Top 10&rdquo;, another type of recommendations also appears often when you look at an item at Amazon. That is &ldquo;Frequently Bought Together (People who bought this item also bought)&rdquo;. Basically, this kind of recommendations are based on association rule analysis (market basket analysis), which is a technique widely used by retailers to discover associations between items. They want to know what items are frequently bought together so that they can   place them in a similar manner.</p>
+<p>Let $I = { I_1, I_2, &hellip;, I_m }$ be the items and $T = { t_1, t_2, .., t_N }$ a list of transactions.</p>
+<h4 id="rule">Rule</h4>
+<p>Association rules can be written in the form of &ldquo;IF-THEN&rdquo;,
+$$
+\{{ A \}} \rarr \{{ B \}}
+$$
+where $A \sub I$, $ B \sub I$, and $A \cap B = \empty$. The above rules means that if a customer buys $A$, then he is likely to buy $B$. A and B can include many items,
+$$
+\{{\text{bread},\text{milk}\}}\rarr\{{\text{carrots},\text{yogurt}\}}
+$$</p>
+<h4 id="support">Support</h4>
+<p>Support tells us how frequently A and B appear together by calculating the fraction of transactions that contains A and B.</p>
+<p>$$
+\text {supp} (A \rarr B) = \frac{|A \cup B|}{|T|}
+$$
+Thus, we can filter out the item sets that occur less frequently by setting a minimum support.</p>
+<h4 id="confidence">Confidence</h4>
+<p>Confidence shows the percentage in which B is bought with A.</p>
+<p>$$
+\text {conf} (A \rarr B) = \frac{\text{supp}(A \rarr B)}{\text{supp}(A)}
+$$</p>
+<h4 id="lift">Lift</h4>
+<p>Lift indicates the strength of a rule.</p>
+<p>$$
+\text {list} (A \rarr B) = \frac{\text{supp}(A \rarr B)}{\text{supp}(A)\text{supp}(B)}
+$$</p>
+<p>With these terms, now we can make an association analysis using the Apriori algorithm.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;1&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
+    <span style="color:#e6db74">&#39;2&#39;</span>: [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>],
+    <span style="color:#e6db74">&#39;3&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
+    <span style="color:#e6db74">&#39;4&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+    <span style="color:#e6db74">&#39;5&#39;</span>: [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>]
+}
+index <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#39;InvoiceNo_&#39;</span> <span style="color:#f92672">+</span> str(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>) ]
+basket_set <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data<span style="color:#f92672">=</span>data, index<span style="color:#f92672">=</span>index)
+
+freq_itemsets <span style="color:#f92672">=</span> apriori(basket_set, min_support<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, use_colnames<span style="color:#f92672">=</span>True)
+freq_itemsets[<span style="color:#e6db74">&#39;length&#39;</span>] <span style="color:#f92672">=</span> freq_itemsets[<span style="color:#e6db74">&#39;itemsets&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: len(x))
+freq_itemsets
+
+<span style="color:#75715e"># 0.25 (4) 1 # since 0.25 &lt; 0.5, so it&#39;s not included.</span>
+support	itemsets	length
+<span style="color:#ae81ff">0</span>	<span style="color:#ae81ff">0.50</span>	(<span style="color:#ae81ff">1</span>)	        <span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">1</span>	<span style="color:#ae81ff">0.75</span>	(<span style="color:#ae81ff">2</span>)       	<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>	<span style="color:#ae81ff">0.75</span>	(<span style="color:#ae81ff">3</span>)       	<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">3</span>	<span style="color:#ae81ff">0.75</span>	(<span style="color:#ae81ff">5</span>)	        <span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">4</span>	<span style="color:#ae81ff">0.50</span>	(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>)     	<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">5</span>	<span style="color:#ae81ff">0.50</span>	(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)    	<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">6</span>	<span style="color:#ae81ff">0.75</span>	(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>)    	<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">7</span>	<span style="color:#ae81ff">0.50</span>	(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)    	<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">8</span>	<span style="color:#ae81ff">0.50</span>	(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)	<span style="color:#ae81ff">3</span>
+
+association_rules(freq_itemsets, metric<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;confidence&#39;</span>, min_threshold<span style="color:#f92672">=</span><span style="color:#ae81ff">0.75</span>)
+
+antecedents	consequents	antecedent_support	consequent_support	support confidence	lift
+(<span style="color:#ae81ff">1</span>)	         (<span style="color:#ae81ff">3</span>)	       <span style="color:#ae81ff">0.50</span>	                <span style="color:#ae81ff">0.75</span>	               <span style="color:#ae81ff">0.50</span>	   <span style="color:#ae81ff">1.0</span>	<span style="color:#ae81ff">1.333333</span>
+(<span style="color:#ae81ff">2</span>)	         (<span style="color:#ae81ff">5</span>)	       <span style="color:#ae81ff">0.75</span>	                <span style="color:#ae81ff">0.75</span>	               <span style="color:#ae81ff">0.75</span>	   <span style="color:#ae81ff">1.0</span>	<span style="color:#ae81ff">1.333333</span>
+(<span style="color:#ae81ff">5</span>)	         (<span style="color:#ae81ff">2</span>)	       <span style="color:#ae81ff">0.75</span>	                <span style="color:#ae81ff">0.75</span>	               <span style="color:#ae81ff">0.75</span>	   <span style="color:#ae81ff">1.0</span>	<span style="color:#ae81ff">1.333333</span>
+(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)	     (<span style="color:#ae81ff">5</span>)	       <span style="color:#ae81ff">0.50</span>	                <span style="color:#ae81ff">0.75</span>	               <span style="color:#ae81ff">0.50</span>	   <span style="color:#ae81ff">1.0</span>	<span style="color:#ae81ff">1.333333</span>
+(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)	     (<span style="color:#ae81ff">2</span>)	       <span style="color:#ae81ff">0.50</span>	                <span style="color:#ae81ff">0.75</span>	               <span style="color:#ae81ff">0.50</span>	   <span style="color:#ae81ff">1.0</span>	<span style="color:#ae81ff">1.333333</span>
+</code></pre></div><p>PS: <a href="https://github.com/ixiaopan/DataScience/blob/master/MachineLearning/15-MarketBasketAnalysis.ipynb">Here</a> is the complete code.</p>
+<h2 id="evaluation">Evaluation</h2>
+<h3 id="quality-indicators">Quality Indicators</h3>
+<p>Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendipity</p>
+<h3 id="online-evaluation">Online Evaluation</h3>
+<h4 id="direct-user-feedback">Direct user feedback</h4>
+<ul>
+<li>ques should be meaningful and non&ndash;biased</li>
+<li>opinion not reliable</li>
+</ul>
+<h4 id="ab-test">A/B test</h4>
+<ul>
+<li>monitoring user behavior</li>
+<li>difficult to set up</li>
+<li>result might be difficult to interpret</li>
+</ul>
+<h4 id="controlled-experiments">Controlled experiments</h4>
+<h4 id="crowdsourcing">Crowdsourcing</h4>
+<h3 id="offline-evaluation">Offline evaluation</h3>
+<h2 id="content-based-filtering">Content-based Filtering</h2>
+<h2 id="collaborative-filtering">Collaborative Filtering</h2>
+<h2 id="matrix-factorisation">Matrix Factorisation</h2>
+<h2 id="ranking">Ranking</h2>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.edureka.co/blog/apriori-algorithm/">Apriori Algorithm: Know How to Find Frequent Itemsets</a></li>
+<li><a href="https://www.kaggle.com/xvivancos/market-basket-analysis">Market Basket Analysis</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#data">Data</a>
+      <ul>
+        <li><a href="#item-content-matrix-icm">Item Content Matrix (ICM)</a></li>
+        <li><a href="#user-rating-matrix-urm">User Rating Matrix (URM)</a></li>
+      </ul>
+    </li>
+    <li><a href="#user-behavior-collection">User Behavior Collection</a></li>
+    <li><a href="#ratings-collection">Ratings Collection</a></li>
+    <li><a href="#users-from-the-cold">Users From the Cold</a></li>
+    <li><a href="#non-personalised-recs">Non-personalised recs</a>
+      <ul>
+        <li><a href="#top-10">Top 10</a></li>
+        <li><a href="#market-basket-analysis">Market Basket Analysis</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#quality-indicators">Quality Indicators</a></li>
+        <li><a href="#online-evaluation">Online Evaluation</a></li>
+        <li><a href="#offline-evaluation">Offline evaluation</a></li>
+      </ul>
+    </li>
+    <li><a href="#content-based-filtering">Content-based Filtering</a></li>
+    <li><a href="#collaborative-filtering">Collaborative Filtering</a></li>
+    <li><a href="#matrix-factorisation">Matrix Factorisation</a></li>
+    <li><a href="#ranking">Ranking</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

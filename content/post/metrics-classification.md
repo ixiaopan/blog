@@ -217,7 +217,7 @@ AUC (Area Under Curve) is the area under the ROC curve. The value is between 0 a
 
 
 
-In the case of the multiclass classification, we have the corresponding confusion matrix each metric for each class based on the one-vs-all methodology, as Figure 2 shows. Then, there are two choices we're facing
+In the case of the multiclass classification, we have the corresponding confusion matrix for each class based on the one-vs-all methodology, as Figure 2 shows. Then, there are two choices we're facing
 
 - macro-averaging
   - combine all classes and average them

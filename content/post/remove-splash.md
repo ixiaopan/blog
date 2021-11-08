@@ -55,7 +55,7 @@ Since they are both URIs, we simply reject these requests or response with an em
 
 
 
-Furthermore, we can even modify responses. `script-response-body` enables us to write javascripts to decide what content to show. It's very useful to filter misc data appearing on the page, such as promotions, egg hunts or ads. For example, I wrote a simple `Zhihu.js` to change the page mode from mobile to PC and remove the annoying login modal since you cannot use Zhihu unless you download their app.
+Furthermore, we can even modify responses. `script-response-body` enables us to write javascripts to decide what content to show. It's very useful to filter misc data appearing on the page, such as promotions, egg hunts or ads. For example, I wrote a simple `Zhihu.js` to change the page mode from mobile to PC and remove the annoying login modal, since you cannot use Zhihu unless you download their app.
 
 ```js
 // PC version of zhihu: remove login modal and guidance for downloading app
@@ -63,10 +63,10 @@ let body = $response.body
 
 identifier = '</script></head>'
 insert_pos = body.indexOf(identifier)
-
-work = 'setTimeout(function(){ const openInAppButton = document.querySelector(".OpenInAppButton"); if (openInAppButton) { openInAppButton.style.display = "none"; } const closeBtn = document.querySelector(".Modal-closeButton"); if (closeBtn) { closeBtn.click() }; const btns = document.querySelectorAll(".ModalExp-modalShow .ModalWrap-itemBtn"); if (btns && btns.length && btns[1]) { btns[1].click(); }}, 2500)';
-body = body.slice(0, insert_pos) + work + body.slice(insert_pos)
-
+if (insert_post>-1){
+  work = 'setTimeout(function(){ const openInAppButton = document.querySelector(".OpenInAppButton"); if (openInAppButton) { openInAppButton.style.display = "none"; } const closeBtn = document.querySelector(".Modal-closeButton"); if (closeBtn) { closeBtn.click() }; const btns = document.querySelectorAll(".ModalExp-modalShow .ModalWrap-itemBtn"); if (btns && btns.length && btns[1]) { btns[1].click(); }}, 2500)';
+  body = body.slice(0, insert_pos) + work + body.slice(insert_pos)
+}
 $done({ body: body })
 
 ```
@@ -77,61 +77,6 @@ $done({ body: body })
 
 
 
-I have sort out several rules for commonly used APPs, well, just for my personal use. Hopefully, it can help you to get free from the annoying splash ads.
+I have sort out several rules for commonly used APPs — just for personal use  (You can find it on my [Github](https://github.com/ixiaopan/DataScience/tree/master/Utilities/quantumult)). Hopefully, it can help you get free from the annoying splash ads.
 
-
-
-```bash
-# Keep
-^https://api\.gotokeep\.com/(op-engine-webapp|ads)/v\d/ads?/preload url reject-dict
-^https?://api\.gotokeep\.com/op-engine-webapp/v\d/ads? url reject-dict
-^https://store\.gotokeep\.com/api/v\d/mypage/egg url reject-dict
-^https?://api\.gotokeep\.com/homepage/v\d/tab\? url script-response-body Keep.js
-^https://api\.gotokeep\.com/athena/v\d/people/my$ url script-response-body Keep.js
-^https://api\.gotokeep\.com/config/v\d/basic url script-response-body Keep.js
-
-# Bilibili
-^https://api\.bilibili\.com/x/v\d/dm/ad url reject-dict
-^https://app\.bilibili\.com/x/v\d/splash/ url reject
-^https?://manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/Flash url reject
-# keep '?' to distinguish 'index/story/'
-^https?://app\.bilibili\.com/x/v\d/feed/index\? url script-response-body bili_feed.js
-^https?://app\.bilibili\.com/x/resource/show/tab/ url script-response-body bili_feed.js
-^https?://app\.bilibili\.com/x/v\d/splash/list url script-response-body bili_feed.js
-^https://app\.bilibili\.com/x/v\d/account/mine url script-response-body bili_feed.js
-
-
-# Douban
-^https?:\/\/api\.douban\.com\/v\d\/app_ads\/ url reject
-
-# zhihu
-^https://www.zhihu.com/api/v\d/market/rhea/questions/.+/qa_related url reject
-^https?:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/question_down_sticky url reject-dict
-^https?:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/question_up url reject-dict
-^https://www\.zhihu\.com/ url request-header (\r\n)User-Agent:.+(\r\n) request-header $1User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36$2
-^https://.+?\.zhihu\.com/ url script-response-body zhihu.js
-
-
-# Baidu Tieba
-^https?:\/\/c\.tieba\.baidu\.com\/\w+\/\w+\/(sync|newRnSync|mlog) url reject
-^https?:\/\/c\.tieba\.baidu\.com\/c\/p\/img\?src= url reject-img
-^https?:\/\/c\.tieba\.baidu\.com\/c\/s\/logtogether\?cmd= url reject-img
-^https?:\/\/c\.tieba\.baidu\.com\/c\/s\/splashSchedule url reject
-
-# renren
-^https?:\/\/api\.rr\.tv\/ad\/ url reject
-^https?:\/\/api\.rr\.tv\/.*?(getAll|Version) url reject
-^https://api\.rr\.tv/v3plus/index/channel\?pageNum=1&position=CHANNEL_MY url script-response-body rr.js
-^https?://.+?\.pglstatp-toutiao\.com/ url reject
-^https?://pgdt\.ugdtimg\.com/ url reject
-^https?://blink-upload\.bayescom\.com/ url reject
-
-# ctrip
-^https://m\.ctrip\.com/restapi/soa2/13916/scjson/tripAds url reject-dict
-
-
-# netease mail
-^https?://.+?\.ws.126.net/ url reject
-
-```
 

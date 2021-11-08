@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Oct 28, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -196,72 +196,21 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span><span style="color:#f92672">^</span><span style="color:#a6e22e">https</span><span style="color:#f92672">?:</span><span style="color:#75715e">//api\.gotokeep\.com/homepage/v\d/tab url script-response-body Keep.js
 </span><span style="color:#75715e"></span><span style="color:#f92672">^</span><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//api\.gotokeep\.com/athena/v\d/people/my url script-response-body Keep.js
 </span><span style="color:#75715e"></span>
-</code></pre></div><p>Furthermore, we can even modify responses. <code>script-response-body</code> enables us to write javascripts to decide what content to show. It&rsquo;s very useful to filter misc data appearing on the page, such as promotions, egg hunts or ads. For example, I wrote a simple <code>Zhihu.js</code> to change the page mode from mobile to PC and remove the annoying login modal since you cannot use Zhihu unless you download their app.</p>
+</code></pre></div><p>Furthermore, we can even modify responses. <code>script-response-body</code> enables us to write javascripts to decide what content to show. It&rsquo;s very useful to filter misc data appearing on the page, such as promotions, egg hunts or ads. For example, I wrote a simple <code>Zhihu.js</code> to change the page mode from mobile to PC and remove the annoying login modal, since you cannot use Zhihu unless you download their app.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// PC version of zhihu: remove login modal and guidance for downloading app
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$response</span>.<span style="color:#a6e22e">body</span>
 
 <span style="color:#a6e22e">identifier</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;/script&gt;&lt;/head&gt;&#39;</span>
 <span style="color:#a6e22e">insert_pos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">identifier</span>)
-
-<span style="color:#a6e22e">work</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;setTimeout(function(){ const openInAppButton = document.querySelector(&#34;.OpenInAppButton&#34;); if (openInAppButton) { openInAppButton.style.display = &#34;none&#34;; } const closeBtn = document.querySelector(&#34;.Modal-closeButton&#34;); if (closeBtn) { closeBtn.click() }; const btns = document.querySelectorAll(&#34;.ModalExp-modalShow .ModalWrap-itemBtn&#34;); if (btns &amp;&amp; btns.length &amp;&amp; btns[1]) { btns[1].click(); }}, 2500)&#39;</span>;
-<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">insert_pos</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">work</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">insert_pos</span>)
-
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">insert_post</span><span style="color:#f92672">&gt;-</span><span style="color:#ae81ff">1</span>){
+  <span style="color:#a6e22e">work</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;setTimeout(function(){ const openInAppButton = document.querySelector(&#34;.OpenInAppButton&#34;); if (openInAppButton) { openInAppButton.style.display = &#34;none&#34;; } const closeBtn = document.querySelector(&#34;.Modal-closeButton&#34;); if (closeBtn) { closeBtn.click() }; const btns = document.querySelectorAll(&#34;.ModalExp-modalShow .ModalWrap-itemBtn&#34;); if (btns &amp;&amp; btns.length &amp;&amp; btns[1]) { btns[1].click(); }}, 2500)&#39;</span>;
+  <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">insert_pos</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">work</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">insert_pos</span>)
+}
 <span style="color:#a6e22e">$done</span>({ <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">body</span> })
 
 </code></pre></div><h2 id="get-free-from-it">Get Free From it</h2>
-<p>I have sort out several rules for commonly used APPs, well, just for my personal use. Hopefully, it can help you to get free from the annoying splash ads.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Keep</span>
-^https://api<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/<span style="color:#f92672">(</span>op-engine-webapp|ads<span style="color:#f92672">)</span>/v<span style="color:#ae81ff">\d</span>/ads?/preload url reject-dict
-^https?://api<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/op-engine-webapp/v<span style="color:#ae81ff">\d</span>/ads? url reject-dict
-^https://store<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/api/v<span style="color:#ae81ff">\d</span>/mypage/egg url reject-dict
-^https?://api<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/homepage/v<span style="color:#ae81ff">\d</span>/tab<span style="color:#ae81ff">\?</span> url script-response-body Keep.js
-^https://api<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/athena/v<span style="color:#ae81ff">\d</span>/people/my$ url script-response-body Keep.js
-^https://api<span style="color:#ae81ff">\.</span>gotokeep<span style="color:#ae81ff">\.</span>com/config/v<span style="color:#ae81ff">\d</span>/basic url script-response-body Keep.js
+<p>I have sort out several rules for commonly used APPs — just for personal use  (You can find it on my <a href="https://github.com/ixiaopan/DataScience/tree/master/Utilities/quantumult">Github</a>). Hopefully, it can help you get free from the annoying splash ads.</p>
 
-<span style="color:#75715e"># Bilibili</span>
-^https://api<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/v<span style="color:#ae81ff">\d</span>/dm/ad url reject-dict
-^https://app<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/v<span style="color:#ae81ff">\d</span>/splash/ url reject
-^https?://manga<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>twirp<span style="color:#ae81ff">\/</span>comic<span style="color:#ae81ff">\.</span>v<span style="color:#ae81ff">\d\.</span>Comic<span style="color:#ae81ff">\/</span>Flash url reject
-<span style="color:#75715e"># keep &#39;?&#39; to distinguish &#39;index/story/&#39;</span>
-^https?://app<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/v<span style="color:#ae81ff">\d</span>/feed/index<span style="color:#ae81ff">\?</span> url script-response-body bili_feed.js
-^https?://app<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/resource/show/tab/ url script-response-body bili_feed.js
-^https?://app<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/v<span style="color:#ae81ff">\d</span>/splash/list url script-response-body bili_feed.js
-^https://app<span style="color:#ae81ff">\.</span>bilibili<span style="color:#ae81ff">\.</span>com/x/v<span style="color:#ae81ff">\d</span>/account/mine url script-response-body bili_feed.js
-
-
-<span style="color:#75715e"># Douban</span>
-^https?:<span style="color:#ae81ff">\/\/</span>api<span style="color:#ae81ff">\.</span>douban<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>v<span style="color:#ae81ff">\d\/</span>app_ads<span style="color:#ae81ff">\/</span> url reject
-
-<span style="color:#75715e"># zhihu</span>
-^https://www.zhihu.com/api/v<span style="color:#ae81ff">\d</span>/market/rhea/questions/.+/qa_related url reject
-^https?:<span style="color:#ae81ff">\/\/</span>www<span style="color:#ae81ff">\.</span>zhihu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>commercial_api<span style="color:#ae81ff">\/</span>banners_v3<span style="color:#ae81ff">\/</span>question_down_sticky url reject-dict
-^https?:<span style="color:#ae81ff">\/\/</span>www<span style="color:#ae81ff">\.</span>zhihu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>commercial_api<span style="color:#ae81ff">\/</span>banners_v3<span style="color:#ae81ff">\/</span>question_up url reject-dict
-^https://www<span style="color:#ae81ff">\.</span>zhihu<span style="color:#ae81ff">\.</span>com/ url request-header <span style="color:#f92672">(</span><span style="color:#ae81ff">\r\n</span><span style="color:#f92672">)</span>User-Agent:.+<span style="color:#f92672">(</span><span style="color:#ae81ff">\r\n</span><span style="color:#f92672">)</span> request-header $1User-Agent: Mozilla/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10_15_7<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/94.0.4606.81 Safari/537.36$2
-^https://.+?<span style="color:#ae81ff">\.</span>zhihu<span style="color:#ae81ff">\.</span>com/ url script-response-body zhihu.js
-
-
-<span style="color:#75715e"># Baidu Tieba</span>
-^https?:<span style="color:#ae81ff">\/\/</span>c<span style="color:#ae81ff">\.</span>tieba<span style="color:#ae81ff">\.</span>baidu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/\w</span>+<span style="color:#ae81ff">\/\w</span>+<span style="color:#ae81ff">\/</span><span style="color:#f92672">(</span>sync|newRnSync|mlog<span style="color:#f92672">)</span> url reject
-^https?:<span style="color:#ae81ff">\/\/</span>c<span style="color:#ae81ff">\.</span>tieba<span style="color:#ae81ff">\.</span>baidu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>c<span style="color:#ae81ff">\/</span>p<span style="color:#ae81ff">\/</span>img<span style="color:#ae81ff">\?</span>src<span style="color:#f92672">=</span> url reject-img
-^https?:<span style="color:#ae81ff">\/\/</span>c<span style="color:#ae81ff">\.</span>tieba<span style="color:#ae81ff">\.</span>baidu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>c<span style="color:#ae81ff">\/</span>s<span style="color:#ae81ff">\/</span>logtogether<span style="color:#ae81ff">\?</span>cmd<span style="color:#f92672">=</span> url reject-img
-^https?:<span style="color:#ae81ff">\/\/</span>c<span style="color:#ae81ff">\.</span>tieba<span style="color:#ae81ff">\.</span>baidu<span style="color:#ae81ff">\.</span>com<span style="color:#ae81ff">\/</span>c<span style="color:#ae81ff">\/</span>s<span style="color:#ae81ff">\/</span>splashSchedule url reject
-
-<span style="color:#75715e"># renren</span>
-^https?:<span style="color:#ae81ff">\/\/</span>api<span style="color:#ae81ff">\.</span>rr<span style="color:#ae81ff">\.</span>tv<span style="color:#ae81ff">\/</span>ad<span style="color:#ae81ff">\/</span> url reject
-^https?:<span style="color:#ae81ff">\/\/</span>api<span style="color:#ae81ff">\.</span>rr<span style="color:#ae81ff">\.</span>tv<span style="color:#ae81ff">\/</span>.*?<span style="color:#f92672">(</span>getAll|Version<span style="color:#f92672">)</span> url reject
-^https://api<span style="color:#ae81ff">\.</span>rr<span style="color:#ae81ff">\.</span>tv/v3plus/index/channel<span style="color:#ae81ff">\?</span>pageNum<span style="color:#f92672">=</span>1&amp;position<span style="color:#f92672">=</span>CHANNEL_MY url script-response-body rr.js
-^https?://.+?<span style="color:#ae81ff">\.</span>pglstatp-toutiao<span style="color:#ae81ff">\.</span>com/ url reject
-^https?://pgdt<span style="color:#ae81ff">\.</span>ugdtimg<span style="color:#ae81ff">\.</span>com/ url reject
-^https?://blink-upload<span style="color:#ae81ff">\.</span>bayescom<span style="color:#ae81ff">\.</span>com/ url reject
-
-<span style="color:#75715e"># ctrip</span>
-^https://m<span style="color:#ae81ff">\.</span>ctrip<span style="color:#ae81ff">\.</span>com/restapi/soa2/13916/scjson/tripAds url reject-dict
-
-
-<span style="color:#75715e"># netease mail</span>
-^https?://.+?<span style="color:#ae81ff">\.</span>ws.126.net/ url reject
-
-</code></pre></div>
 
 
 
