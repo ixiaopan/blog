@@ -56,8 +56,6 @@ There are three main types of collaborative algorithms, namely,
 
 
 
-
-
 ## Data
 
 
@@ -264,36 +262,161 @@ PS: [Here](https://github.com/ixiaopan/DataScience/blob/master/MachineLearning/1
 
 
 
-## Evaluation
 
-### Quality Indicators
 
-Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendipity
+## Similarity
 
 
 
-### Online Evaluation
+Before introducing the personalised recs, we should be familiar with similarity. There are many ways to measure similarity or distance between two vectors, for example,
 
-#### Direct user feedback
-
-- ques should be meaningful and non--biased
-- opinion not reliable
-
-#### A/B test
-
-- monitoring user behavior
-- difficult to set up
-- result might be difficult to interpret
-
-#### Controlled experiments
+- Jaccard Distance
+- Mahantan Distance
+- Euclidean Distance
+- Cosine Similarity
+- Pearson Correlation Coefficient
+- K-means clustering
 
 
 
-#### Crowdsourcing
+### Cosine Similarity
 
- 
+Cosine similarity between users is defined as,
 
-### Offline evaluation
+
+$$
+S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v||}
+$$
+
+
+where $r_u$ is the $u_{th}$ row of URM.
+
+### Adjusted Cosine Similarity
+
+On the other hand, we should notice is that people use different rating scales. For example, Alice is generous to rating while Bob is a bit harsh on it, so a rating of 3 in Bob is equivalent to 5 in Alice. To deal with this, we normalise the ratings by subtracting the user's average rating, denoted by $\overline r_u$, as follows,
+
+
+$$
+S_{uv} = \frac{(r_u - \overline r_u) \cdot (r_v - \overline r_v)}{||r_u - \overline r_u|| * ||r_v - \overline r_v||}
+$$
+
+
+where $\overline r_u$ is also known as **user bias**. 
+
+
+
+### Pearson Correlation Coefficient
+
+
+
+The above formula is the same as Pearson Correlation Coefficient. The only difference between them is that the Pearson only works for vectors with the same size (the rated items in common between users), while the adjusted cosine similarity considers all items by treating missing values as zero.
+
+
+
+For instance, below are the ratings of Alice and Bob for six films.
+
+```
+Alice: [4, 5, 4, NaN, 3, 3]
+Bob:   [3, 3, 3, 2, 4, 5]
+```
+
+
+
+Step 1: calculating the average rating
+
+- Alice: $(4+5+4+3+3)/5 = 3.8$
+- Bob: $(3+3+3+2+4+5)/6= 3.33$
+
+
+
+Step 2: Normalising ratings
+
+- Adjusted Cosine
+
+```
+Alice: [0.2, 1.2, 0.2, -3.8, -0.8, -0.8]
+Bob:   [-0.33, -0.33, -0.33, -1.33, 0.67, 1.67]
+```
+
+Notice that we treat $NaN$ as $0$.
+
+- Pearson
+
+```
+Alice: [0.2, 1.2, 0.2, NaN, -0.8, -0.8]
+Bob:   [-0.33, -0.33, -0.33, -1.33, 0.67, 1.67]
+```
+
+
+
+Step 3: Calculating similarity
+
+- Adjusted Cosine
+  $$
+  \frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+ -3.8*-1.33 +-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+ (-3.8)^2+ (-0.8)^2+(-0.8)^2  \sqrt{-0.33^2 + -0.33^2+-0.33^2 + (-1.33)^2 + 0.67^2+1.67^2}}} \\\\ = -0.62
+  $$
+  
+
+- Pearson
+  $$
+  \frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+(-0.8)^2+(-0.8)^2  \sqrt{-0.33^2 + -0.33^2+-0.33^2+0.67^2+1.67^2}}} \\\\ = -0.75
+  $$
+
+
+
+
+
+### Shrink Term
+
+However, the cosine similarity is not perfect enough. Figure 6 shows that the similarity between the users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user. 
+
+
+
+![](/blog/post/images/shirnk-similarity.png "Figure 6: Small support would lead to seemingly greater similarity.")
+
+
+
+So how to solve it? We add a shrink term $C$ to the denominator of the cosine to reduce the magnitude of the cosine similarity
+
+
+$$
+S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v|| + C}
+$$
+Alternatively, you can also set a threshold for the minimum support to filter out the users who have rated only one or two items. On the contrary, if there are too many overlapping users, users are so alike that it's difficult to recommend special items (the recommendations are too general).
+
+
+
+### Neighborhood
+
+In practice, we only consider a small set of similar users or items, which is called as the neighborhood of the target user or item.
+
+#### Cluster
+
+TODO
+
+
+
+#### KNN
+
+
+
+We have introduced KNN before. In the case of recs, for example, $K=2$ means that we only keep the most two similar items for each column.
+
+
+
+![](/blog/post/images/knn-similarity.png "Figure 5: Reduced similarity matrix after applying KNN (K=2).")
+
+
+
+#### Threshold
+
+Another simple way is to set a threshold for similarity. The figure below illustrates the difference between KNN and threshold. 
+
+
+
+![](/blog/post/images/topn-threshold.png#full "Source: Practical Recommender Systems")
+
+
 
 
 
@@ -307,17 +430,13 @@ Now we focus on personalised recs. We first look at content-based filtering, whi
 
 
 
-The core of content-based filtering is to find the top-N nearest items that are similar based on the attributes of the content. However, not all attributes are useful and equally important. Besides, some features may not be explicitly visible to us. Thus, we need to extract knowledge from the content and select features carefully.
+The core of content-based filtering is to make recommendations based on the attributes of the content. However, not all attributes are useful and equally important. Besides, some features may not be explicitly visible to us. Thus, we need to extract knowledge from the content and select features carefully. 
 
 
 
-### Similarity Matrix
+### Similarity
 
-To measure the similarity between items, we apply cosine similarity to ICM, as shown in Figure 4. The cosine similarity is defined as
-$$
-S_{ij} = \frac{\overrightarrow I_i \cdot \overrightarrow I_j}{||\overrightarrow I_i|| * || \overrightarrow I_j||}
-$$
-where $I_j$ indicates the $j_{th}$ item (row) in ICM. We can see that the similarity matrix (denoed by $S$) is symmetrical and contains many tiny values less than $0.1$. That makes sense because we have lots of attributes, and ICM tends to be sparse.
+We first find similarity between items by applying cosine similarity to ICM, as shown in Figure 4. 
 
 
 
@@ -325,32 +444,19 @@ where $I_j$ indicates the $j_{th}$ item (row) in ICM. We can see that the simila
 
 
 
-With the similarity matrix, we can get the estimated rating given by the user $u$ for the item $i$ as follows,
-
-
+The cosine similarity is defined as,
 $$
-\hat r_{ui} = \frac{\sum_j r_{uj} S_{ji} }{\sum_j {S_{ji}}}
+S_{ij} = \frac{\overrightarrow I_i \cdot \overrightarrow I_j}{||\overrightarrow I_i|| * || \overrightarrow I_j||}
 $$
-or in the matrix notation
-$$
-\hat r_u = r_u \cdot S
-$$
-
-### KNN
-
-
-
-Furthermore, we can apply KNN to choose the K most similar items, since $S$ is a dense matrix but with lots of tiny values (noises). For example, $K=2$ means that we keep the first two most similar items for each column.
-
-
-
-![](/blog/post/images/knn-similarity.png "Figure 5: Reduced similarity matrix after applying KNN (K=2).")
+where $I_j$ indicates the $j_{th}$ item (row) in ICM. 
 
 
 
 ### TF-IDF
 
 As mentioned previously, attributes are not of equal importance, so it's essential to know what features are more important and do feature selections to improve performance. TF-IDF is a technique used to analyse the importance of something like a word in NLP. In the case of ICM, we consider each item as a document and each column as a word. 
+
+
 
 Suppose we want to know the importance of an attribute, say $a$, then TF and IDF are calculated as follows,
 
@@ -393,88 +499,42 @@ Cons
 
 User-based filtering works on the idea that we look for users with a similar taste and recommend the items they like most. So there are two questions here
 
-- How to measure similarity between users?
-- What to recommend to the target user?
+- How to measure similarity between users? (We have fixed.)
+- What to recommend to the target user? Two common ways,
+  - Average
+  - Vote
 
 
-
-Like the similarity matrix obtained from ICM, we measure similarity between users by comparing their ratings in URM as follows,
-
-
-$$
-S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v||}
-$$
-
-
-![](/blog/post/images/shirnk-similarity.png "Figure 6: Small support would lead to seemingly greater similarity.")
-
-
-
-#### Shrink Term
-
-However, the cosine similarity is not perfect enough. Figure 6 shows that the similarity between users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user. So how to solve  it? We add a shrink term $C$ to the denominator of the cosine, and that is,
-
-
-$$
-S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v|| + C}
-$$
-
-
-Why it works? — $C$ will punish the small support so as to reduce the magnitude of the cosine similarity.
-
-
-
-#### Adjusted Cosine Similarity
-
-On the other hand, we should notice is that people use different rating scales. For example, Alice is generous to rating while Bob is a bit harsh on it, so a rating of 3 in Bob is equivalent to 5 in Alice. 
-
-
-
-To deal with this, we normalise the ratings by subtracting the user's average rating, denoted by $\overline r_u$, as follows,
-
-
-$$
-S_{uv} = \frac{(r_u - \overline r_u) \cdot (r_v - \overline r_v)}{||r_u - \overline r_u|| * ||r_v - \overline r_v|| + C}
-$$
-
-
-where $\overline r_u$ is also known as **user bias**. 
-
-
-
-#### Pearson Correlation Coefficient
-
-The above formula is the same as Pearson Correlation Coefficient. The only difference between them is that the Pearson's function only works for vectors with the same size (the rated items in common between users), while the adjusted cosine similarity considers all items by treating missing values as zero.
-
-
-
-#### Predictions
 
 With similarity matrix, we make a prediction for item $i$, given the user $u$
 
 
 $$
-\hat r_{ui} = \frac{\sum_{v \in KNN(u)} S_{uv} (r_{vi} - \overline r_v)}{\sum_{v \in KNN(u)} S_{uv}}
+\hat r_{ui} = \overline r_u + \frac{\sum_{v \in KNN(u)} S_{uv} (r_{vi} - \overline r_v)}{\sum_{v \in KNN(u)} S_{uv}}
 $$
 
 
-So, user-based CF calculates a weighted average rating of the most K nearest users from the neighbourhood of the user $u$ for the item $i$.
+So, user-based CF calculates a weighted average rating of several nearest neighbours of user $u$ for item $i$.
 
 
 
 ### Item-based
 
 
-$$
-S_{ij} = \frac{(I_i - \overline r_i) \cdot (I_j - \overline r_j)}{||I_i - \overline r_i|| * ||I_j - \overline r_j|| + C}
-$$
 
-
-where $r_i$ is the average rating of the item $i$ across all users.
+Likewise, the prediction using item-based CF is given as,
 
 
 $$
-\hat r_{ui} = \frac{\sum_{j \in KNN(i)} S_{ij} (r_{uj} - \overline r_j)}{\sum_{j \in KNN(i)} S_{ij}}
+\hat r_{ui} =  \overline r_u + \frac{\sum_{j \in KNN(i)} S_{ij} (r_{uj} - \overline r_u)}{\sum_{j \in KNN(i)} S_{ij}}
+$$
+
+
+where the adjusted $S_{ij}$ is defined as
+
+
+$$
+S_{ij} = \frac{\sum_u (r_{ui} - \overline r_u) (r_{uj} - \overline r_u)  }{ \sqrt{\sum_u(r_{ui} - \overline r_u) ^2} \sqrt{\sum_u(r_{uj} - \overline r_u) ^2}}
 $$
 
 
@@ -495,11 +555,8 @@ Cons
   $$
   \text {sparsity} = 1 - \frac{|R|}{|U||I|}
   $$
-  
 
-
-
-## Memory-based or Model-based
+- scaling can be challenging for growing datasets.
 
 
 
@@ -511,8 +568,49 @@ Cons
 
 
 
+## Memory-based or Model-based
+
+
+
+
+
+## Evaluation
+
+### Quality Indicators
+
+Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendipity
+
+
+
+### Online Evaluation
+
+#### Direct user feedback
+
+- ques should be meaningful and non--biased
+- opinion not reliable
+
+#### A/B test
+
+- monitoring user behavior
+- difficult to set up
+- result might be difficult to interpret
+
+#### Controlled experiments
+
+
+
+#### Crowdsourcing
+
+ 
+
+### Offline evaluation
+
+
+
 ## References
 
 - [Apriori Algorithm: Know How to Find Frequent Itemsets](https://www.edureka.co/blog/apriori-algorithm/)
 - [Market Basket Analysis](https://www.kaggle.com/xvivancos/market-basket-analysis)
+- [Recommender Systems Specialization](https://www.coursera.org/specializations/recommender-systems)
+- [Singular Value Decomposition vs. Matrix Factorization in Recommender Systems](https://www.freecodecamp.org/news/singular-value-decomposition-vs-matrix-factorization-in-recommender-systems-b1e99bc73599/)
 
