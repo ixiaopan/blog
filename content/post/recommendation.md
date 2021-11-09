@@ -22,6 +22,12 @@ Recommender system is one of the most popular studying fields in machine learnin
 
 ## Overview
 
+
+
+![](/blog/post/images/recom.png#full "Figure 1: Different algorithms for recommender systems.")
+
+
+
 Recommendations can be classified as two categories, as Figure 1 shows,
 
 - non-personalised
@@ -50,8 +56,6 @@ There are three main types of collaborative algorithms, namely,
 
 
 
-![](/blog/post/images/recom.png#full "Figure 1: Different algorithms for recommender systems.")
-
 
 
 ## Data
@@ -74,25 +78,27 @@ Each type of data has its own properties. Items like clothes have attributes of 
 
 ### Item Content Matrix (ICM)
 
-As mentioned earlier, items have attributes. Mathematically, we can describe that relation using Item Content Matrix or ICM, where each row indicates an item and each column represent an attribute. The value of ICM is either 1 or 0. If an item contains a specific attribute listed in ICM, the corresponding cell will be set to one, zero otherwise. But you can also set a value between 0 and 1 to describe the importance of that attribute.
+As mentioned earlier, items have attributes. Mathematically, we can describe that relation using Item Content Matrix or ICM, where each row indicates an item and each column represents an attribute. The value of ICM usually is 1 or 0. If an item contains a specific attribute listed in ICM, the corresponding cell will be set to one, zero otherwise. But you can also set a value between 0 and 1 to describe the importance of that attribute or other numerical values for quantitative variables like year.
 
 
 
 ### User Rating Matrix (URM)
 
-Similarly, the opinion of users on items can also be described mathematically through the User Rating Matrix or URM. Each row represents a user, and each column represents an item. If we have no idea the opinion of someone on an item, the corresponding value is zero. 
+Similarly, the opinions of users on items are described mathematically through the User Rating Matrix or URM. Each row represents a user, and each column represents an item. If we have no idea the opinion of someone on an item, the corresponding value is missing (when computing, you can treat it as zero). 
 
 
 
 #### Implict Ratings
 
-Ratings can be implicit or explicit. Implicit ratings deduce your taste by looking at how you interact with the system, for instance, the time-on-page, the viewing time of a movie, clicks, purchases, and so on. If one stops watching a movie after 10 minutes, we assume that that user does not like that movie. However, one may have to stop watching a film because of an important call. 
+Ratings can be implicit or explicit. Implicit ratings are deduced by looking at how you interact with the system, for instance, the time-on-page, the viewing time of a movie, clicks, purchases, and so on. If one stops watching a movie after 10 minutes, we assume that that user does not like that movie. However, one may have to stop watching a film because of an important call. 
 
 
 
 #### Explict Ratings
 
-Explicit ratings are done by asking users to rate items on a rating scale, for example, five stars for Educated.
+Explicit ratings are done by asking users to rate items on a rating scale, for example, five stars for Educated.  However, designing a rating scale is not an easy thing. It depends on your application, customers, and so on. As shown in the following table, a smaller and odd rating scale is generally preferable due to its simplicity and variety. In practice, we always see a one-to-five rating or 'like/dislike' buttons at almost every website that needs to collect users' opinions.
+
+
 
 | Large rating scale               | Smaller rating scale | Even rating scale                                            | Odd rating scale                                             |
 | -------------------------------- | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -293,23 +299,213 @@ Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendi
 
 ## Content-based Filtering
 
+Now we focus on personalised recs. We first look at content-based filtering, which is the first strategy applied in recommendations. As its name suggests, it relies on the metadata of the items without using any opinion of others, as Figure 3 shows.
 
+
+
+![](/blog/post/images/example-content-filter.png#full "Figure 3: Example of content-based recommendation pipeline. [Source: Practical Recommender Systems]")
+
+
+
+The core of content-based filtering is to find the top-N nearest items that are similar based on the attributes of the content. However, not all attributes are useful and equally important. Besides, some features may not be explicitly visible to us. Thus, we need to extract knowledge from the content and select features carefully.
+
+
+
+### Similarity Matrix
+
+To measure the similarity between items, we apply cosine similarity to ICM, as shown in Figure 4. The cosine similarity is defined as
+$$
+S_{ij} = \frac{\overrightarrow I_i \cdot \overrightarrow I_j}{||\overrightarrow I_i|| * || \overrightarrow I_j||}
+$$
+where $I_j$ indicates the $j_{th}$ item (row) in ICM. We can see that the similarity matrix (denoed by $S$) is symmetrical and contains many tiny values less than $0.1$. That makes sense because we have lots of attributes, and ICM tends to be sparse.
+
+
+
+![](/blog/post/images/icm-similarity.png "Figure 4: The similarity matrix calculated from ICM.")
+
+
+
+With the similarity matrix, we can get the estimated rating given by the user $u$ for the item $i$ as follows,
+
+
+$$
+\hat r_{ui} = \frac{\sum_j r_{uj} S_{ji} }{\sum_j {S_{ji}}}
+$$
+or in the matrix notation
+$$
+\hat r_u = r_u \cdot S
+$$
+
+### KNN
+
+
+
+Furthermore, we can apply KNN to choose the K most similar items, since $S$ is a dense matrix but with lots of tiny values (noises). For example, $K=2$ means that we keep the first two most similar items for each column.
+
+
+
+![](/blog/post/images/knn-similarity.png "Figure 5: Reduced similarity matrix after applying KNN (K=2).")
+
+
+
+### TF-IDF
+
+As mentioned previously, attributes are not of equal importance, so it's essential to know what features are more important and do feature selections to improve performance. TF-IDF is a technique used to analyse the importance of something like a word in NLP. In the case of ICM, we consider each item as a document and each column as a word. 
+
+Suppose we want to know the importance of an attribute, say $a$, then TF and IDF are calculated as follows,
+
+
+$$
+TF_{a, i} = \frac{|I_{ai}|}{|I_i|} \\\\ IDF_{a} = - \text{log} \frac{|a \in I|}{|I|}
+$$
+
+
+where 
+
+- $I_{ai}$ is the number of $a$ appearing in the item $i$; often equal to 1
+- $I_i$ represents the number of attributes of item $i$
+- $|a \in I|$ is the number of items containing attribue $a$
+- $|I|$ is the total number of items
+
+
+
+### LDA
+
+
+
+### Pros and Cons
+
+Pros
+
+- You can always get recommendations even if it's your first visit
+- It recommends across popularity; that is, it does not care about the popular items now
+
+Cons
+
+- The system is less likely to recommend new or surprising items 
+- Limited understanding of content; it's likely to misunderstand what the customers like
 
 
 
 ## Collaborative Filtering
+
+### User-based 
+
+User-based filtering works on the idea that we look for users with a similar taste and recommend the items they like most. So there are two questions here
+
+- How to measure similarity between users?
+- What to recommend to the target user?
+
+
+
+Like the similarity matrix obtained from ICM, we measure similarity between users by comparing their ratings in URM as follows,
+
+
+$$
+S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v||}
+$$
+
+
+![](/blog/post/images/shirnk-similarity.png "Figure 6: Small support would lead to seemingly greater similarity.")
+
+
+
+#### Shrink Term
+
+However, the cosine similarity is not perfect enough. Figure 6 shows that the similarity between users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user. So how to solve  it? We add a shrink term $C$ to the denominator of the cosine, and that is,
+
+
+$$
+S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v|| + C}
+$$
+
+
+Why it works? — $C$ will punish the small support so as to reduce the magnitude of the cosine similarity.
+
+
+
+#### Adjusted Cosine Similarity
+
+On the other hand, we should notice is that people use different rating scales. For example, Alice is generous to rating while Bob is a bit harsh on it, so a rating of 3 in Bob is equivalent to 5 in Alice. 
+
+
+
+To deal with this, we normalise the ratings by subtracting the user's average rating, denoted by $\overline r_u$, as follows,
+
+
+$$
+S_{uv} = \frac{(r_u - \overline r_u) \cdot (r_v - \overline r_v)}{||r_u - \overline r_u|| * ||r_v - \overline r_v|| + C}
+$$
+
+
+where $\overline r_u$ is also known as **user bias**. 
+
+
+
+#### Pearson Correlation Coefficient
+
+The above formula is the same as Pearson Correlation Coefficient. The only difference between them is that the Pearson's function only works for vectors with the same size (the rated items in common between users), while the adjusted cosine similarity considers all items by treating missing values as zero.
+
+
+
+#### Predictions
+
+With similarity matrix, we make a prediction for item $i$, given the user $u$
+
+
+$$
+\hat r_{ui} = \frac{\sum_{v \in KNN(u)} S_{uv} (r_{vi} - \overline r_v)}{\sum_{v \in KNN(u)} S_{uv}}
+$$
+
+
+So, user-based CF calculates a weighted average rating of the most K nearest users from the neighbourhood of the user $u$ for the item $i$.
+
+
+
+### Item-based
+
+
+$$
+S_{ij} = \frac{(I_i - \overline r_i) \cdot (I_j - \overline r_j)}{||I_i - \overline r_i|| * ||I_j - \overline r_j|| + C}
+$$
+
+
+where $r_i$ is the average rating of the item $i$ across all users.
+
+
+$$
+\hat r_{ui} = \frac{\sum_{j \in KNN(i)} S_{ij} (r_{uj} - \overline r_j)}{\sum_{j \in KNN(i)} S_{ij}}
+$$
+
+
+### Pros and Cons
+
+Pros
+
+- It does not need metadata about the content
+
+Cons
+
+- cold start
+
+  - What items to recommend to a new user?
+  - How to recommend a new item to users?
+
+- sparse URM
+  $$
+  \text {sparsity} = 1 - \frac{|R|}{|U||I|}
+  $$
+  
+
+
+
+## Memory-based or Model-based
 
 
 
 
 
 ## Matrix Factorisation
-
-
-
-
-
-## Ranking
 
 
 
