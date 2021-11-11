@@ -12,7 +12,7 @@ katex: true
 
 
 
-Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations to people based on their preferences.
+Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user's taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.
 
 
 
@@ -102,18 +102,6 @@ Explicit ratings are done by asking users to rate items on a rating scale, for e
 | -------------------------------- | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | complex and requires more effort | easy to understand   | either negative or positive ratings, forcing people to express their opinions | introduces the neutral rating, which makes people feel more comfortable |
 | fewer ratings                    | more ratings         | fewer ratings                                                | people tend to choose the neutral rating unless they have a strong positive or negative opinion |
-
-
-
-## User Behavior Collection
-
-
-
-## Ratings Collection
-
-
-
-## Users From the Cold
 
 
 
@@ -301,10 +289,6 @@ S_{uv} = \frac{(r_u - \overline r_u) \cdot (r_v - \overline r_v)}{||r_u - \overl
 $$
 
 
-where $\overline r_u$ is also known as **user bias**. 
-
-
-
 ### Pearson Correlation Coefficient
 
 
@@ -352,27 +336,28 @@ Bob:   [-0.33, -0.33, -0.33, -1.33, 0.67, 1.67]
 Step 3: Calculating similarity
 
 - Adjusted Cosine
-  $$
-  \frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+ -3.8*-1.33 +-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+ (-3.8)^2+ (-0.8)^2+(-0.8)^2  \sqrt{-0.33^2 + -0.33^2+-0.33^2 + (-1.33)^2 + 0.67^2+1.67^2}}} \\\\ = -0.62
-  $$
-  
+
+$$
+\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+ -3.8*-1.33 +-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+ -3.8^2+-0.8^2*2} \sqrt{-0.33^2*3+-1.33^2 + 0.67^2+1.67^2}} \\\\ = -0.62
+$$
+
+
 
 - Pearson
-  $$
-  \frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+(-0.8)^2+(-0.8)^2  \sqrt{-0.33^2 + -0.33^2+-0.33^2+0.67^2+1.67^2}}} \\\\ = -0.75
-  $$
+
+$$
+\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+(-0.8)^2+(-0.8)^2}  \sqrt{-0.33^2 + -0.33^2+-0.33^2+0.67^2+1.67^2}} \\\\ = -0.75
+$$
 
 
 
+### Overlapping
 
-
-### Shrink Term
-
-However, the cosine similarity is not perfect enough. Figure 6 shows that the similarity between the users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user. 
+However, the cosine similarity is not perfect enough. Figure 3 shows that the similarity between the users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user. 
 
 
 
-![](/blog/post/images/shirnk-similarity.png "Figure 6: Small support would lead to seemingly greater similarity.")
+3![](/blog/post/images/shirnk-similarity.png "Figure 6: Small support would lead to seemingly greater similarity.")
 
 
 
@@ -382,7 +367,16 @@ So how to solve it? We add a shrink term $C$ to the denominator of the cosine to
 $$
 S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v|| + C}
 $$
-Alternatively, you can also set a threshold for the minimum support to filter out the users who have rated only one or two items. On the contrary, if there are too many overlapping users, users are so alike that it's difficult to recommend special items (the recommendations are too general).
+
+
+Alternatively, you can also set a threshold for the minimum support to filter out the users who have rated only one or two items. The codes below return the number of overlapping elements between users. On the contrary, if there are too many overlapping users, users are so alike that it's difficult to recommend special items (the recommendations are too general). 
+
+
+
+```python
+overlap_matrix = URM.astype(bool).astype(int)
+overlap_matrix = overlap_matrix @ overlap_matrix.T
+```
 
 
 
@@ -392,19 +386,17 @@ In practice, we only consider a small set of similar users or items, which is ca
 
 #### Cluster
 
-TODO
+Clustering is one technique to divide data into several similar groups, so the neighborhood of a user is the group that he belongs to. However, clustering has some drawsbacks, e.g. sensitive to the shape of data.
 
 
 
 #### KNN
 
-
-
 We have introduced KNN before. In the case of recs, for example, $K=2$ means that we only keep the most two similar items for each column.
 
 
 
-![](/blog/post/images/knn-similarity.png "Figure 5: Reduced similarity matrix after applying KNN (K=2).")
+![](/blog/post/images/knn-similarity.png "Figure 4: Reduced similarity matrix after applying KNN (K=2).")
 
 
 
@@ -414,19 +406,17 @@ Another simple way is to set a threshold for similarity. The figure below illust
 
 
 
-![](/blog/post/images/topn-threshold.png#full "Source: Practical Recommender Systems")
-
-
+![](/blog/post/images/topn-threshold.png#full "[Source: Practical Recommender Systems]")
 
 
 
 ## Content-based Filtering
 
-Now we focus on personalised recs. We first look at content-based filtering, which is the first strategy applied in recommendations. As its name suggests, it relies on the metadata of the items without using any opinion of others, as Figure 3 shows.
+Now we focus on personalised recs. We first look at content-based filtering, which is the first strategy applied in recommendations. As its name suggests, it relies on the metadata of the items without using any opinion of others, as Figure 5 shows.
 
 
 
-![](/blog/post/images/example-content-filter.png#full "Figure 3: Example of content-based recommendation pipeline. [Source: Practical Recommender Systems]")
+![](/blog/post/images/example-content-filter.png#full "Figure 5: Example of content-based recommendation pipeline. [Source: Practical Recommender Systems]")
 
 
 
@@ -436,7 +426,7 @@ The core of content-based filtering is to make recommendations based on the attr
 
 ### Similarity
 
-We first find similarity between items by applying cosine similarity to ICM, as shown in Figure 4. 
+We first find similarity between items by applying cosine similarity to ICM, as shown in Figure 6. 
 
 
 
@@ -454,11 +444,7 @@ where $I_j$ indicates the $j_{th}$ item (row) in ICM.
 
 ### TF-IDF
 
-As mentioned previously, attributes are not of equal importance, so it's essential to know what features are more important and do feature selections to improve performance. TF-IDF is a technique used to analyse the importance of something like a word in NLP. In the case of ICM, we consider each item as a document and each column as a word. 
-
-
-
-Suppose we want to know the importance of an attribute, say $a$, then TF and IDF are calculated as follows,
+As mentioned previously, attributes are not of equal importance, so it's essential to know what features are more important and do feature selections to improve performance. TF-IDF is a technique used to analyse the importance of something like a word in NLP. In the case of ICM, we consider each item as a document and each column as a word. Suppose we want to know the importance of an attribute, say $a$, then TF and IDF are calculated as follows,
 
 
 $$
@@ -499,7 +485,7 @@ Cons
 
 User-based filtering works on the idea that we look for users with a similar taste and recommend the items they like most. So there are two questions here
 
-- How to measure similarity between users? (We have fixed.)
+- How to measure similarity between users? (See above)
 - What to recommend to the target user? Two common ways,
   - Average
   - Vote
@@ -560,15 +546,139 @@ Cons
 
 
 
-
-
 ## Matrix Factorisation
 
+Unlike user-based CF and item-based CF, matrix factorisation aims to factorise URM into two matrices. Basically, this technique tries to find the latent factors underlying the interactions between users and items. Technically speaking, SVD and Funk SVD are two common methods to achieve this goal. They look alike at first sight but are different things.
 
 
 
+### SVD
 
-## Memory-based or Model-based
+We've known that any matrix can be decomposed into three matrices as shown below,
+
+
+$$
+A = U\Sigma V^T
+$$
+where
+
+- $U^{m \times k}$ - User factor matrix
+- $\Sigma^{k \times k}$ - Diagnoal matrix
+- $V^{n\times k}$ - Item factor matrix
+
+
+
+As we know, $\Sigma$ contains singular values, which are sorted from the largest to the smallest. These values indicate the weight of the factor $k_i$, so we can remove some unimportant features by setting the corresponding singular value to zero. That's called truncated SVD. Besides, reducing the matrix also saves memory space. From Figure 7 we can see that zero sigular values will remove the right-most columns of $U$ and the bottom-most rows of $V^T$.
+
+
+
+![](/blog/post/images/truncated-svd.png#full "Figure 7: The illustration of truncated SVD.")
+
+
+
+For coders, below are PyTorch implementation of SVD.
+
+```python
+U, S, V = torch.svd(A)
+
+S[-1] = 0
+
+A_hat = U @ torch.diag(S) @ V.T
+```
+
+
+
+However, there are some obvious problems with SVD. First, it's time-consuming to calculate large matrixes. Second, we have to impute the missing values first. Usually, we impute zero cells with user's average rating. Nevertheless, SVD is not very computationally efficient.
+
+
+
+### Funk SVD
+
+The idea of Funk SVD proposed by Simon Funk is to compute the lower-rank approximation of a matrix by minimising the squared error loss. The difference wih SVD above is that Funk SVD only considers the known values, which means we discard the missing values in URM. Mathematically, the goal of Funk SVD is to minimise the following loss function,
+
+
+$$
+\text{min}\_{p, q} \sum_{(u, i) \in K} \epsilon_{ui}^2 = \text{min}\_{p, q} \sum_{(u, i) \in K} (r_{ui} - p_u q_i)^2
+$$
+
+
+where
+
+- $p_u$ is the $u_{th}$ row of the user factor matrix $U$ 
+- $q_i$ is the $i_{th}$ column of the iterm factor matrix $Q$ 
+- $r_{ui}$ is the rating of the item $i$ given by the user $u$
+- $K$ is the set of all known ratings
+
+
+
+To find the solution, we first compute the derivative of $L$ w.r.t $p_u$ and $q_i$, respectively, and then use stochastic gradient descent to arrive at the minimum point.
+$$
+p_u \larr p_u + lr * \epsilon_{ui} q_i\\\\ q_i \larr q_i + lr * \epsilon_{ui} p_u
+$$
+
+
+```python
+def sgd_factorise(A: torch.Tensor, rank: int, num_epochs=1000, lr=0.01) -> Tuple[torch.Tensor, torch.Tensor]:
+    m, n = A.shape
+
+    U = torch.rand((m, rank))
+    V = torch.rand((n, rank))
+
+    for i in range(num_epochs):
+        for r in range(m):
+            for c in range(n):
+                e = A[r, c] - U[r] @ V[c].T
+                U[r] = U[r] + lr * e * V[c]
+                V[c] = V[c] + lr * e * U[r]
+
+    return U, V
+```
+
+
+
+### Regularization
+
+Alternatively, we can add regularization to Funk SVD to avoid large parameters (overfitting).
+
+
+$$
+\text{min}\_{p, q} \sum_{(u, i) \in K} \epsilon_{ui}^2  + \beta (||P||^2 + ||Q||^2)
+$$
+Now the updated rules are
+
+
+$$
+p_u \larr p_u + lr * (\epsilon_{ui} q_i - \beta p_u) \\\\ q_i \larr q_i + lr * (\epsilon_{ui} p_u - \beta q_i)
+$$
+
+
+### Bias
+
+Finally, we need to consider the bias or intercept. As mentioned earlier, people have their own criterions from rating (user bias) and some items are naturally highly expected (item bias). So, the new predicted rating is defined as
+
+
+$$
+\hat r_{ui} = p_u q_i + \mu + b_u + b_i
+$$
+
+
+where $\mu$ is the global average raing, $b_u$ is the user bias, and $b_i$ is the item bias. Thus, the final loss function is defined as follows,
+
+
+$$
+\text{min}\_{p, q} \sum_{(u, i) \in K} \epsilon_{ui}^2  + \beta (||P||^2 + ||Q||^2 + ||b_u||^2 + ||b_i||^2)
+$$
+
+
+The derivatives of $L$ w.r.t $b_u, b_i, p_u, q_i$ are
+
+
+$$
+b_u += \lambda (\epsilon_{ui} - \beta b_u) \\\\ b_i += \lambda (\epsilon_{ui} - \beta b_i) \\\\ p_u \larr p_u + lr * (\epsilon_{ui} q_i - \beta p_u) \\\\ q_i \larr q_i + lr * (\epsilon_{ui} p_u - \beta q_i)
+$$
+
+
+## Cold Start
 
 
 
@@ -576,9 +686,17 @@ Cons
 
 ## Evaluation
 
+### Baseline Predictors
+
+
+
 ### Quality Indicators
 
 Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendipity
+
+
+
+### Metrics
 
 
 
@@ -613,4 +731,6 @@ Relevance、 Coverage、Novelty、Diversity、Consistency、Confidence、Serendi
 - [Market Basket Analysis](https://www.kaggle.com/xvivancos/market-basket-analysis)
 - [Recommender Systems Specialization](https://www.coursera.org/specializations/recommender-systems)
 - [Singular Value Decomposition vs. Matrix Factorization in Recommender Systems](https://www.freecodecamp.org/news/singular-value-decomposition-vs-matrix-factorization-in-recommender-systems-b1e99bc73599/)
+- [Matrix Factorization: A Simple Tutorial and Implementation in Python](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/)
+- [Recommender system: Using singular value decomposition as a matrix factorization approach](https://robinwitte.com/wp-content/uploads/2019/10/RecommenderSystem.pdf)
 

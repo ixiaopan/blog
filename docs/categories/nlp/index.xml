@@ -18,7 +18,7 @@
 			<link>https://ixiaopan.github.io/blog/post/recommendation/</link>
 			<pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/recommendation/</guid>
-			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations to people based on their preferences.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
