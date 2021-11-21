@@ -621,7 +621,24 @@ What about the condition without euqality? Well, such a condition is called stri
 
 
 
-#### Second derivative
+#### Sums of Convex functions
+
+
+
+If we have a set of convex functions, then it's easy to prove that the sum of the multiplication of positive factors and these functions is also a convex function using the property that the second derivative is equal or greater than zero. Below is the proof.
+
+
+$$
+g(x) = \sum_i \alpha_i f_i(x)
+$$
+
+$$
+g''(x) = \sum_i \alpha_i f''_i(x) \ge 0
+$$
+
+
+
+### Second derivative
 
 
 
@@ -631,7 +648,7 @@ One thing we should remember is that any tangent line of a convex funtion lies o
 
 
 $$
-f(t) + f'(x) (z - t)\le f(z)
+f(t) + f'(t) (z - t)\le f(z)
 $$
 
 $$
@@ -664,23 +681,6 @@ $$
 Hence, $f''(a) \ge 0$. 
 
 In high dimension, the second derivative of a function is known as Hessian. And a necessary and sufficient condition for that function to be convex is that its Hesssian must be positive semi-positive at all points.
-
-
-
-#### Sums of Convex functions
-
-
-
-If we have a set of convex functions, then it's easy to prove that the sum of the multiplication of positive factors and these functions is also a convex function using the property that the second derivative is equal or greater than zero. Below is the proof.
-
-
-$$
-g(x) = \sum_i \alpha_i f_i(x)
-$$
-
-$$
-g''(x) = \sum_i \alpha_i f''_i(x) \ge 0
-$$
 
 
 

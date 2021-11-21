@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>NLP - Literature Review on NER</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="NLP - Literature Review on NER"/>
+<meta name="twitter:description" content="Named entity recognition (NER) is a classical task in NLP, which aims to identify meaningful chunks of text and classify them into appropriate entity types, such as PERSON or LOCATION. For instance, &ldquo;Tom&rdquo; is classified as &ldquo;PERSON&rdquo; while &ldquo;England&rdquo; is labelled as &ldquo;LOCATION&rdquo; in the sentence &ldquo;Tom comes from England&rdquo;. NER serves as the foundation for a range of downstream tasks such as information extraction. In practical applications, you may notice that some websites will autofill the application form from your resume. In this series of posts, we will explain NER in detail, from models, datasets to domain adaptation. First, let&rsquo;s do a brief literative review on NER."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              NLP - Literature Review on NER
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 17, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/nlp/"
+        >NLP</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Named entity recognition (NER) is a classical task in NLP, which aims to identify meaningful chunks of text and classify them into appropriate entity types, such as PERSON or LOCATION. For instance, &ldquo;Tom&rdquo; is classified as &ldquo;PERSON&rdquo; while &ldquo;England&rdquo; is labelled as &ldquo;LOCATION&rdquo; in the sentence &ldquo;Tom comes from England&rdquo;. NER serves as the foundation for a range of downstream tasks such as information extraction. In practical applications, you may notice that some websites will autofill the application form from your resume. In this series of posts, we will explain NER in detail, from models, datasets to domain adaptation. First, let&rsquo;s do a brief literative review on NER.</p>
+<h2 id="ner-models">NER Models</h2>
+<h3 id="traditional-method">Traditional Method</h3>
+<p>The earliest NER methods are rule-based and dictionary-based methods[1].</p>
+<h4 id="rule-based">Rule-based</h4>
+<p>How</p>
+<ul>
+<li>lexical patterns + domain knowledge + regular expressions</li>
+</ul>
+<p>Pros</p>
+<ul>
+<li>simple</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>mannually creating rule is time-consuming</li>
+<li>rules are language or domain dependent</li>
+</ul>
+<h4 id="dictionary-based">Dictionary-based</h4>
+<p>How</p>
+<ul>
+<li>look up a terminological dictionary</li>
+</ul>
+<p>Pros</p>
+<ul>
+<li>focus on the most important terms rather than all words in the field, e.g. biological field</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>only named entities occurred in dictionaries can be identified</li>
+<li>dictionaries need to be updated frequently</li>
+</ul>
+<h4 id="statistical-based">Statistical-based</h4>
+<p>How</p>
+<ul>
+<li>learn a statistical model composed of a set of rules derived from the annotated corpus</li>
+</ul>
+<p>popular methods</p>
+<ul>
+<li>HMM</li>
+<li>CRF</li>
+<li>SVM</li>
+</ul>
+<h3 id="neural-network">Neural Network</h3>
+<p>The contemporary NER models are based on neural networks and various combinations of pre-trained word embedding and character embedding [2].</p>
+<p>Pros</p>
+<ul>
+<li>do not require extensive feature engineering or domain-specific resources</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>a large amount of trainning data</li>
+</ul>
+<p>Based on word representation, neural architectures for NER can be classified into three types[3]</p>
+<ul>
+<li>
+<p>the word-based architecture</p>
+<ul>
+<li>word embedding (window approach) -&gt; CNN_CRF</li>
+<li>variants of LSTM_CRF -&gt; BiLSTM_CRF</li>
+</ul>
+</li>
+<li>
+<p>the character-based architecture</p>
+<ul>
+<li>character embedding (CNN)  -&gt; LSTM</li>
+</ul>
+</li>
+<li>
+<p>the hybrid architecture combining both word-level and character-level representation</p>
+<ul>
+<li>character (CNN) and word embedding -&gt; BiLSTM_Softmax</li>
+<li>character (CNN) and word embedding -&gt; BiLSTM_CRF</li>
+<li>character (BiLSTM) and word embedding (skip-N-gram) -&gt; BiLSTM_CRF</li>
+<li>character (GRU) and word embedding (GRU) -&gt; BiLSTM_CRF</li>
+</ul>
+</li>
+</ul>
+<h2 id="domain-adaptation">Domain Adaptation</h2>
+<p>Transfer learning in NLP[5] is broadly classified into four subcategories</p>
+<ul>
+<li>domain adaptation (our study area)
+<ul>
+<li>the source and target domain share the same language but have different word distributions</li>
+</ul>
+</li>
+<li>cross-lingual learning</li>
+<li>multi-task learning</li>
+<li>sequential transfer learning.</li>
+</ul>
+<h3 id="feature-based">Feature-based</h3>
+<p>mapping two domains into a low-dimensional space</p>
+<h3 id="parameter-based">Parameter-based</h3>
+<ul>
+<li>Fine-Tuning</li>
+<li>Multi-Task Learning</li>
+</ul>
+<h3 id="multi-source-domain-adaptation">Multi-source Domain Adaptation</h3>
+<p>The standard domain adaptation setting covers a single source domain and a single target domain with few or no labelled data. Extensions include multiple source domains and a single target domain or a single source domain and multiple target domains.</p>
+<ul>
+<li>pooling
+<ul>
+<li>pool all training data from all source domains and train a single model for the pooled data, ignoring the domain discrepancy.</li>
+</ul>
+</li>
+<li>Ensemble each model trained on each source domain</li>
+<li>MULT with shared CRF layer</li>
+<li>MUTL with private CRF layer</li>
+</ul>
+<h2 id="ner-datasets">NER Datasets</h2>
+<ul>
+<li><a href="https://www-nlpir.nist.gov/related_projects/muc/">MUC</a></li>
+<li><a href="https://www.clips.uantwerpen.be/conll2002/ner/">CoNLL-2002</a> and <a href="https://www.clips.uantwerpen.be/conll2003/ner/">CoNLL-2003</a>
+<ul>
+<li>a collection of newswire articles covering 4 languages: Spanish, Dutch, English, and German</li>
+<li>PER, LOC, ORG, and MISC</li>
+</ul>
+</li>
+<li>Twitter
+<ul>
+<li>collected from multiple English-speaking countries and social user from 2009 to 2019</li>
+<li>the same entity types as CoNLL-2003</li>
+</ul>
+</li>
+<li>OntoNotes
+<ul>
+<li>a large-scale multilingual annotated corpus with multi-layer linguis- tic information like predicate structure and word sense.</li>
+<li>3 languages (English, Arabic, and Chinese) and many genres:broadcast conversation (BC), broadcast news (BN), magazine (MZ), newswire(NW), telephone conversation (TC), and web data (WB)</li>
+</ul>
+</li>
+</ul>
+<p>Most NER datasets only contain flat entities, but there are particular datasets that contain nested entities.</p>
+<ul>
+<li><a href="https://catalog.ldc.upenn.edu/LDC2006T06">ACE</a>
+<ul>
+<li>a multilingual corpus composed of data selected from various sources, including broadcast and newswire</li>
+</ul>
+</li>
+<li>GENIA[4]
+<ul>
+<li>created for biology dut to the complicated naming conventions in biology, there are plenty of nested disease names or cell names</li>
+</ul>
+</li>
+</ul>
+<h2 id="summary-table">Summary Table</h2>
+<table>
+<thead>
+<tr>
+<th>Related work</th>
+<th>NER Model</th>
+<th>Results</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rau (1991)[@rauExtractingCompanyNames1991]</td>
+<td>Rule-based method</td>
+<td>The author designed the first NER system based on hand-designed rules.</td>
+</tr>
+<tr>
+<td>Zhou <strong>et al</strong>. (2006) [@zhouMaxMatcherBiologicalConcept2006]</td>
+<td>Dictionary-based method</td>
+<td>They proposed a new dictionary-based method that focused on important biological terms and achieved the best performance on GENIA corpus.</td>
+</tr>
+<tr>
+<td>Bikel <strong>et al</strong>. (1999) [@bikelAlgorithmThatLearns1999]</td>
+<td>HMM-based method</td>
+<td>They designed the first NER tagger based on HMM, outperforming the rule-based method on the MUC-6 dataset.</td>
+</tr>
+<tr>
+<td>Liu <strong>et al</strong>. (2015)[@liuEffectsSemanticFeatures2015]</td>
+<td>CRF-based method</td>
+<td>The authors implemented a drug name recognition system based on CRF, showing significant improvements compared to dictionary-based methods.</td>
+</tr>
+<tr>
+<td><strong>Neural Networks</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Collobert <strong>et al</strong>. (2011)[@collobertNaturalLanguageProcessing2011]</td>
+<td>CNN-CRF(word-level embedding)</td>
+<td>They were the first to employ word-level representation in the neural-based NER models and achieved 89.59 F1-scores on the CoNLL-2003 English dataset.</td>
+</tr>
+<tr>
+<td>Huang <strong>et al</strong>. (2015)[@huangBidirectionalLSTMCRFModels2015]</td>
+<td>LSTM-CRF(word-level embedding)</td>
+<td>They compared four variants of LSTM-based NER models combining pre-trained word embeddings and other hand-crafted features, and showed that BiLSTM performed the best.</td>
+</tr>
+<tr>
+<td>Kim <strong>et al</strong>. (2015)[@150806615CharacterAware]</td>
+<td>LSTM-CNN(char-level embedding)</td>
+<td>They used character-level embedding for word representation based on CNN and demonstrated that using character-level information only is sufficient for neural-based NER models.</td>
+</tr>
+<tr>
+<td>Chiu and Nichols (2016)[@chiuNamedEntityRecognition2016]</td>
+<td>BiLSTM-CNN(char- and word-level embedding)</td>
+<td>They concatenated char-level representation generated from CNN and pre-trained word-level embeddings as the inputs of BiLSTM, achieving 91.62 F1-scores on CoNLL-2003.</td>
+</tr>
+<tr>
+<td>Lample <strong>et al</strong>. (2016) [@lampleNeuralArchitecturesNamed2016]</td>
+<td>BiLSTM-CRF(char and word-level embedding)</td>
+<td>They used BiLSTM rather than CNN for char-level representation and CRF to make predictions, serving as the baseline model in recent research.</td>
+</tr>
+<tr>
+<td>Yang <strong>et al</strong>. (2016)[@yangMultiTaskCrossLingualSequence2016]</td>
+<td>GRU-CRF(char and word-level embedding)</td>
+<td>The authors replaced BiLSTM with GRU to study multi-task and cross-lingual learning, showing a slight improvement on the CoNLL-2003 English dataset.</td>
+</tr>
+<tr>
+<td><strong>Domain Adaptation</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lee <strong>et al</strong>. (2018)[@leeTransferLearningNamedEntity2018]</td>
+<td>INIT</td>
+<td>The INIT method based on fine-tuning was first applied in domain adaptation for NER.</td>
+</tr>
+<tr>
+<td>Yang <strong>et al</strong>. (2017)[@yangTransferLearningSequence2017]</td>
+<td>MULT</td>
+<td>They were the first to design parameter-sharing architectures following the multi-task learning strategy to study cross-domain NER.</td>
+</tr>
+<tr>
+<td>Lin and Lu (2018)[@lin2018neural]</td>
+<td>neural adaptation layer</td>
+<td>They directly modified the BiLSTM-CRF architecture by introducing three layers to perform domain adaptation for NER.</td>
+</tr>
+<tr>
+<td>Jia <strong>et al</strong>. (2019)[@jiaCrossDomainNERUsing2019]</td>
+<td>language modelling</td>
+<td>The authors introduced language modelling to deal with the target domain with no labelled data. Their results on CoNLL-2003 exhibited great improvements over supervised domain adaptation methods.</td>
+</tr>
+<tr>
+<td>Jia and Zhang (2020)[@jiaMultiCellCompositionalLSTM2020]</td>
+<td>the multi-cell structure</td>
+<td>They proposed a novel transfer method based on MULT from the aspect of the entity-type level instead of the entity-instance level. Their new model outperformed many BiLSTM models using MULT on Twitter dataset and others.</td>
+</tr>
+<tr>
+<td>Wang <strong>et al</strong>. (2020)[@MultiDomainNamedEntity]</td>
+<td>MultDomain–SP–Aux</td>
+<td>They employed various domain adaptation methods, including INIT and MULT, to investigate the robustness of NER models when data from multiple domains are available.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<p>[1] Yan Wen, Cong Fan, Geng Chen, Xin Chen, and Ming Chen. 2020. A survey on named entity recognition. In <em>Communications, signal processing, and systems</em>, Springer Singapore, Singapore, 1803–1810.</p>
+<p>[2] Arya Roy. 2021. Recent Trends in Named Entity Recognition (NER). <em>arXiv:2101.11420 [cs]</em> (January 2021). Retrieved from <a href="http://arxiv.org/abs/2101">http://arxiv.org/abs/2101</a>. 11420</p>
+<p>[3] Vikas Yadav and Steven Bethard. 2019. A survey on recent advances in named entity recognition from deep learning models. Retrieved from <a href="http://arxiv.org/abs/">http://arxiv.org/abs/</a> 1910.11470</p>
+<p>[4] J D. Kim, T. Ohta, Y. Tateisi, and J. Tsujii. 2003. GENIA corpus—a semantically annotated corpus for bio-textmining. <em>Bioinformatics</em> 19, (July 2003), i180–i182. DOI:https://doi.org/10.1093/bioinformatics/btg1023</p>
+<p>[5] Sebastian Ruder. 2019. Neural transfer learning for natural language processing. Thesis. NUI Galway.</p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ner-models">NER Models</a>
+      <ul>
+        <li><a href="#traditional-method">Traditional Method</a></li>
+        <li><a href="#neural-network">Neural Network</a></li>
+      </ul>
+    </li>
+    <li><a href="#domain-adaptation">Domain Adaptation</a>
+      <ul>
+        <li><a href="#feature-based">Feature-based</a></li>
+        <li><a href="#parameter-based">Parameter-based</a></li>
+        <li><a href="#multi-source-domain-adaptation">Multi-source Domain Adaptation</a></li>
+      </ul>
+    </li>
+    <li><a href="#ner-datasets">NER Datasets</a></li>
+    <li><a href="#summary-table">Summary Table</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -66,38 +66,37 @@ Poor English listening and communication skills. That's the hard part. On the on
 
 
 
-At first, I was afraid to answer motivation questions since it was my first time to encounter such a question. Strictly speaking, this was my first time to think about this question seriously. I think the reason is that I had been working on frontend, consequently I take frontend for granted. But now I am switching to data science, I have to revisit it and find an answer for myself.
+Almost everyone will ask me this question — Why data science? I'm still asking myself, too.
 
 
 
-### short answer
-
-So why data science? The short answer is.
+### Short answer
 
 
 
-> Do what I want  to do - experience different jobs
+> Do what I want - experience different jobs
 
 
 
-I am still interested in frontend, but I would like to try something new. Life has no boundaries. Just do what you want to do if you are able to.
+I am still interested in frontend, but I would like to try something new. Life has no boundaries. Just do what you want if you are able to. Maybe the worst case is that I would go back to Frontend. Well, it's not too bad, after all, I don't hate frontend at all.
 
 
 
-### long answer
+### Long answer
 
 
 
-The long answer is
+First, I had a strong desire to study last year. Meanwhile, I started to become interested in data, so after doing research, I chose data science as my master's degree.
 
-> First, I had a strong desire to study last year. Meanwhile, I became interested in data, so data science was on my shortlist for the future degree.
->
-> Second, I believe that machine learning and AI are the future trends of technology since many companies have realised the importance and value of data. Big data applications are everywhere. So I think it's an exciting job which could bring big changes to the world and has a bright career prospect.
->
-> Third, as a developer, I want to be a full-stack developer, not limited to frontend or backend. In other words, I desire to improve my competitiveness. 
->
-> - Any product needs a UI interface, which requires the knowledge of frontend. 
-> - Any application creates data, which requires machine learning to inspire insights from data. 
->
-> Thus, as a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.
+
+
+Second, I believe that machine learning and AI are the future trends of technology since we are generating more and more data and companies have realised the importance and value of data. Big data applications are everywhere. So I think it's an exciting job which could bring big changes to the world and have a bright career prospect.
+
+
+
+Third, as a developer, I dream to be a full-stack developer. At least I don't limit myself to frontend or backend only. As a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.
+
+
+
+Besides, I like to try something new. I also expect how far I can go.
 

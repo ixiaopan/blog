@@ -1,5 +1,5 @@
 ---
-title: "NLP - Text preprocessing"
+title: "NLP - Text Preprocessing"
 date: "2021-06-22"
 description: ""
 # tags: []

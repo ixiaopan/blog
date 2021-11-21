@@ -9,10 +9,26 @@
 		
 		<managingEditor>Page(/categories/nlp) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Wed, 17 Nov 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/nlp/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>NLP - Literature Review on NER</title>
+			<link>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</link>
+			<pubDate>Wed, 17 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</guid>
+			<description>&lt;p&gt;Named entity recognition (NER) is a classical task in NLP, which aims to identify meaningful chunks of text and classify them into appropriate entity types, such as PERSON or LOCATION. For instance, &amp;ldquo;Tom&amp;rdquo; is classified as &amp;ldquo;PERSON&amp;rdquo; while &amp;ldquo;England&amp;rdquo; is labelled as &amp;ldquo;LOCATION&amp;rdquo; in the sentence &amp;ldquo;Tom comes from England&amp;rdquo;. NER serves as the foundation for a range of downstream tasks such as information extraction. In practical applications, you may notice that some websites will autofill the application form from your resume. In this series of posts, we will explain NER in detail, from models, datasets to domain adaptation. First, let&amp;rsquo;s do a brief literative review on NER.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Optimization</title>
+			<link>https://ixiaopan.github.io/blog/post/optimization/</link>
+			<pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/optimization/</guid>
+			<description>&lt;p&gt;We&amp;rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization. It&amp;rsquo;s a bit different from the optimization in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Recommender Systems</title>
 			<link>https://ixiaopan.github.io/blog/post/recommendation/</link>
@@ -79,22 +95,6 @@ In practice, there are lots of things to consider when designing a neural networ
 			<pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dataviz/</guid>
 			<description>&lt;p&gt;Data visualisation is one of the modules in the first semester. Though I worked with web design and UI for several years, I&amp;rsquo;d never think about them deeply. As I learned more about design principles and the use of different charts, my aesthetic sense improved greatly. Here I listed some useful resources just for future reference.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Leetcode - 102</title>
-			<link>https://ixiaopan.github.io/blog/post/leetcode-02/</link>
-			<pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/leetcode-02/</guid>
-			<description>&lt;p&gt;Practice! Practice! Practice!&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Preliminary</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-01-pre/</link>
-			<pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-01-pre/</guid>
-			<description>&lt;p&gt;So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

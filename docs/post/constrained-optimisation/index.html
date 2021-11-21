@@ -520,13 +520,21 @@ $$</p>
 <p>So is it a convex or concave function? The answer is both.</p>
 <h4 id="strictly-convex">Strictly Convex</h4>
 <p>What about the condition without euqality? Well, such a condition is called strict inequality and functions that satisfy the strict inequality is said to be <strong>strictly convex/concave</strong>.</p>
-<h4 id="second-derivative">Second derivative</h4>
+<h4 id="sums-of-convex-functions">Sums of Convex functions</h4>
+<p>If we have a set of convex functions, then it&rsquo;s easy to prove that the sum of the multiplication of positive factors and these functions is also a convex function using the property that the second derivative is equal or greater than zero. Below is the proof.</p>
+<p>$$
+g(x) = \sum_i \alpha_i f_i(x)
+$$</p>
+<p>$$
+g''(x) = \sum_i \alpha_i f''_i(x) \ge 0
+$$</p>
+<h3 id="second-derivative">Second derivative</h3>
 <p>One thing we should remember is that any tangent line of a convex funtion lies on or below the function. Let $t, z$ be two points on the graph of a convex function, then we can derive the following conditions,</p>
 <ul>
 <li>$ t  \lt z$</li>
 </ul>
 <p>$$
-f(t) + f'(x) (z - t)\le f(z)
+f(t) + f'(t) (z - t)\le f(z)
 $$</p>
 <p>$$
 f'(t) \le \frac{f(z) - f(t)}{z - t}
@@ -546,14 +554,6 @@ f'(a) \le \frac{f(a) - f(b)}{b-a}  \le f'(b)
 $$</p>
 <p>Hence, $f''(a) \ge 0$.</p>
 <p>In high dimension, the second derivative of a function is known as Hessian. And a necessary and sufficient condition for that function to be convex is that its Hesssian must be positive semi-positive at all points.</p>
-<h4 id="sums-of-convex-functions">Sums of Convex functions</h4>
-<p>If we have a set of convex functions, then it&rsquo;s easy to prove that the sum of the multiplication of positive factors and these functions is also a convex function using the property that the second derivative is equal or greater than zero. Below is the proof.</p>
-<p>$$
-g(x) = \sum_i \alpha_i f_i(x)
-$$</p>
-<p>$$
-g''(x) = \sum_i \alpha_i f''_i(x) \ge 0
-$$</p>
 <h3 id="unique-minimum">Unique Minimum</h3>
 <p>As said early, convexity can help to find the extreme value of a function. How does it work? Let $x^*$ be a local minimum of a function, suppose there exists another points $\hat x$ such that $f(\hat x) &lt; f(x^*)$. By the definition of convexity, we have</p>
 <p>$$
@@ -661,6 +661,7 @@ $$</p>
         <li><a href="#convex-region">Convex Region</a></li>
         <li><a href="#convex-set">Convex Set</a></li>
         <li><a href="#convex-function">Convex Function</a></li>
+        <li><a href="#second-derivative">Second derivative</a></li>
         <li><a href="#unique-minimum">Unique Minimum</a></li>
         <li><a href="#inverse-of-convex-funtions">Inverse of Convex Funtions</a></li>
       </ul>

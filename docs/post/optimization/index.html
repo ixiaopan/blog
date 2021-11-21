@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Optimization</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Optimization"/>
+<meta name="twitter:description" content="We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization. It&rsquo;s a bit different from the optimization in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Optimization
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 12, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
+        >Machine Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization. It&rsquo;s a bit different from the optimization in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.</p>
+<h2 id="newtons-method">Newton&rsquo;s Method</h2>
+<p>Bascially, Newton&rsquo;s method is a root-finding method, for example, the root of $f(x) = x^2 - 8$. Assume that we start from the point $x_0$, and the intersection of the tangent line and the x-axis is the point $(x_1, 0)$, then we have</p>
+<p>$$
+\hat f(x_1) = f(x_0) + (x_1 - x_0) f'(x_0)
+$$</p>
+<p>let $\hat  f(x_1)=0$,</p>
+<p>$$
+x_1 = x_0 - \frac{ f(x_0)}{f'(x_0)}
+$$</p>
+<p>Similarly, we can repeat the above operation starting from $x_1$ until we think the precision is sufficient. Typically, we generalize these steps as follows,</p>
+<p>$$
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+Let&rsquo;s start from $x_0 = 4$, the results are shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x_0 <span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> 
+x_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+x_2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.833333</span>
+x_3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.828431</span>
+</code></pre></div><p>We see that $x_3$ is very close to the actual value $2\sqrt2$, so we can stop.</p>
+<p>Furthermore, we can also use this method to find the solution to $f'(x) = 0$. In this case, we end up with</p>
+<p>$$
+x_{n+1}  = x - \frac{f'(x)}{f''(x)}
+$$
+Actually, it is Newton&rsquo;s second-order strategy (We&rsquo;ll see later).</p>
+<h3 id="taylor-expression">Taylor Expression</h3>
+<p>In fact, the above linear approximation is the first order taylor expression, and it holds when $x_1 - x_0$ is really small. For a larger $x_1-x_0$, we can use the second-order taylor expression. Recall that Taylor expanding around $x^*$ is</p>
+<p>$$
+f(x) = f(x^*) + (x - x^*)f'(x^*) + \frac{1}{2}(x-x^*)^2f''(x^*) + &hellip;
+$$
+If $x - x^*$ is sufficiently small, the higher order terms are ignored. The derivative of $f(x)$ w.r.t $x - x^*$ is
+$$
+f'(x*) - (x - x^*)f''(x^*) = 0
+$$</p>
+<p>Thus,</p>
+<p>$$
+x^* = x - \frac{f'(x^*)}{f''(x^*)}
+$$</p>
+<p>We see that Newton&rsquo;s method would be very efficient when we are close to the minimum.</p>
+<h2 id="gradient-descent">Gradient Descent</h2>
+<h3 id="batch">Batch</h3>
+<h3 id="stochastic">Stochastic</h3>
+<h2 id="momentum">Momentum</h2>
+<h2 id="adam">Adam</h2>
+<h2 id="adagrad">AdaGrad</h2>
+<h2 id="rmsprop">RMSProp</h2>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://opentextbc.ca/calculusv1openstax/chapter/newtons-method/">Newton&rsquo;s Method</a></li>
+<li><a href="https://arxiv.org/abs/1412.6980">Adam: A Method for stochastic Opimization</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#newtons-method">Newton&rsquo;s Method</a>
+      <ul>
+        <li><a href="#taylor-expression">Taylor Expression</a></li>
+      </ul>
+    </li>
+    <li><a href="#gradient-descent">Gradient Descent</a>
+      <ul>
+        <li><a href="#batch">Batch</a></li>
+        <li><a href="#stochastic">Stochastic</a></li>
+      </ul>
+    </li>
+    <li><a href="#momentum">Momentum</a></li>
+    <li><a href="#adam">Adam</a></li>
+    <li><a href="#adagrad">AdaGrad</a></li>
+    <li><a href="#rmsprop">RMSProp</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

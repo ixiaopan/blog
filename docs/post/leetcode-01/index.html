@@ -315,7 +315,8 @@ max_v, sec_max_v <span style="color:#f92672">=</span> <span style="color:#f92672
   i, j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(nums) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 
   <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;=</span> j:
-    mid <span style="color:#f92672">=</span> (i <span style="color:#f92672">+</span> j) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#75715e"># mid = (i + j) // 2</span>
+    mid <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span> (j <span style="color:#f92672">-</span> i) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e"># better in this way due to overflow</span>
     <span style="color:#66d9ef">if</span> target <span style="color:#f92672">&gt;</span> nums[mid]:
       i <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
      <span style="color:#66d9ef">elif</span> target <span style="color:#f92672">&lt;</span> nums[mid]:

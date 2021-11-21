@@ -233,7 +233,8 @@ def findElement(nums, target):
   i, j = 0, len(nums) - 1
 
   while i <= j:
-    mid = (i + j) // 2
+    # mid = (i + j) // 2
+    mid = i+ (j - i) // 2 # better in this way due to overflow
     if target > nums[mid]:
       i = mid + 1
      elif target < nums[mid]:

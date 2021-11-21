@@ -1,5 +1,5 @@
 ---
-title: "NLP - Text representation"
+title: "NLP - Word Representation"
 date: "2021-07-10"
 description: ""
 # tags: []
