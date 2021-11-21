@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>NLP - Text representation</title>
+<title>NLP - Text Representation</title>
 
 
 
@@ -30,7 +30,7 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="NLP - Text representation"/>
+<meta name="twitter:title" content="NLP - Text Representation"/>
 <meta name="twitter:description" content="In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called text representation."/>
 
 
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="post-heading">
           
             <h1>
-              NLP - Text representation
+              NLP - Text Representation
             </h1>
           
           
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 10, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -243,7 +243,7 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
 <li>Too naive to capture the similarity between words</li>
 <li>It cannot deal with out-of-vocabulary(OOV) problem</li>
 </ul>
-<h3 id="bag-of-word">Bag-of-word</h3>
+<h3 id="bag-of-word">Bag of Word</h3>
 <p>The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of <code>|V|</code> dimensions, where the element value of this vector is the frequency of the word in the corresponding doc. Say we have the following corpus,</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
   <span style="color:#e6db74">&#39;cat eats meat and dog eats meat&#39;</span>,
@@ -251,13 +251,27 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
   <span style="color:#e6db74">&#39;dog eats bones&#39;</span>
 ]
 </code></pre></div><p>The vocabulary of this small corpus and the doc-term matrix are</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#e6db74">&#39;and&#39;</span> <span style="color:#e6db74">&#39;bones&#39;</span> <span style="color:#e6db74">&#39;cat&#39;</span> <span style="color:#e6db74">&#39;dog&#39;</span> <span style="color:#e6db74">&#39;eats&#39;</span> <span style="color:#e6db74">&#39;fish&#39;</span> <span style="color:#e6db74">&#39;meat&#39;</span>]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bagofWord</span>(corpus):
+    vocab <span style="color:#f92672">=</span> set(<span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(corpus)<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>split())
+    word2idx <span style="color:#f92672">=</span> {word: idx <span style="color:#66d9ef">for</span> idx, word <span style="color:#f92672">in</span> enumerate(vocab)}
 
-cat eats meat <span style="color:#f92672">and</span> dog eats meat [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>]
-cat eats fish [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]
-dog eats bones [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+    doc_term <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> doc <span style="color:#f92672">in</span> corpus:
+        doc_v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>len(vocab)
+        <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>split():
+            <span style="color:#66d9ef">if</span> word <span style="color:#f92672">in</span> vocab:
+                doc_v[ word2idx[word]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        doc_term<span style="color:#f92672">.</span>append(doc_v)
 
+    <span style="color:#66d9ef">print</span>(word2idx)
+    <span style="color:#66d9ef">for</span> i, doc_v <span style="color:#f92672">in</span> enumerate(doc_term):
+        <span style="color:#66d9ef">print</span>(corpus[i], list(doc_v))
 
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># {&#39;eats&#39;: 0, &#39;and&#39;: 1, &#39;dog&#39;: 2, &#39;fish&#39;: 3, &#39;cat&#39;: 4, &#39;meat&#39;: 5, &#39;bones&#39;: 6}</span>
+<span style="color:#75715e"># cat eats meat and dog eats meat [2, 1, 1, 0, 1, 2, 0]</span>
+<span style="color:#75715e"># cat eats fish [1, 0, 0, 1, 1, 0, 0]</span>
+<span style="color:#75715e"># dog eats bones [1, 0, 1, 0, 0, 0, 1]</span>
 </code></pre></div><h4 id="one-hot-1">one-hot</h4>
 <p>Sometimes, we don&rsquo;t care about the number of occurrence of words. Just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that&rsquo;s easy to implement using Sklearn</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># occurrence</span>
@@ -280,10 +294,43 @@ X_test_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f9
 <li>It doesn&rsquo;t capture the similarity between different words that have the same meaning, e.g <code>cat eats, cat ate</code>, BOW will treat them as different vectors though they convey the same semantics.</li>
 <li>As mentioned earlier, the most frequent words are often function words like pronouns, determiners and conjuctions. However, they are of no help for classification.</li>
 </ul>
+<h3 id="bag-of-n-gram">Bag of N-gram</h3>
+<p>Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth.</p>
+<p>So what&rsquo;s the use of n-gram?</p>
+<ul>
+<li>estimate the proability of the last word of an n-gram given the previous words</li>
+<li>assign probabilities to entire sequences</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
+  <span style="color:#e6db74">&#39;Dog bites man&#39;</span>,
+  <span style="color:#e6db74">&#39;Man bites dog&#39;</span>,
+  <span style="color:#e6db74">&#39;Dog eats meat&#39;</span>,
+  <span style="color:#e6db74">&#39;Man eats food&#39;</span>
+]
+
+count_vect <span style="color:#f92672">=</span> CountVectorizer(ngram_range<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>))
+bow_rep <span style="color:#f92672">=</span> count_vect<span style="color:#f92672">.</span>fit_transform(corpus)
+
+count_vect<span style="color:#f92672">.</span>vocabulary_
+<span style="color:#75715e"># {&#39;dog&#39;: 3, &#39;bites&#39;: 0, &#39;man&#39;: 10, &#39;dog bites&#39;: 4,</span>
+<span style="color:#75715e"># &#39;bites man&#39;: 2, &#39;man bites&#39;: 11, &#39;bites dog&#39;: 1, &#39;eats&#39;: 6, &#39;meat&#39;: 13,</span>
+<span style="color:#75715e"># &#39;dog eats&#39;: 5, &#39;eats meat&#39;: 8, &#39;food&#39;: 9, &#39;man eats&#39;: 12, &#39;eats food&#39;: 7}</span>
+</code></pre></div><p>Pros and Cons</p>
+<ul>
+<li>
+<p>captures word order and context in a way</p>
+</li>
+<li>
+<p>dimentionality increases as $n$ increases</p>
+</li>
+<li>
+<p>it still have OOV problem</p>
+</li>
+</ul>
 <h3 id="tf-idf">TF-IDF</h3>
-<p>So far, we have learned that one-hot encoding focuses more on the occurrence of words in text while BOW pays more attention to word frequency. In both cases, they consider each word in the corpus euqally(with the same weight).</p>
-<p>In contrast, TF-IDF or term frequency-inverse document frequency allows us to measure the importance of each word relative to other words in the doc and the corpus. This is useful for information retrieval systems, where we expect that the most relevant documents should appear first.</p>
-<p>So how does TF-IDF work? Well, as the name suggests, it calculates two things</p>
+<p>So far, we have learned that one-hot encoding focuses more on the occurrence of words in text while BOW pays more attention to word frequency. In both cases, they consider each word in the corpus euqally (with the same weight).</p>
+<p>In contrast, TF-IDF allows us to measure the importance of each word relative to other words in the doc and the corpus. This is useful for <strong>information retrieval systems</strong>, where we expect that the most relevant documents should appear first.</p>
+<p>How does TF-IDF work? As the name suggests, it calculates two quantities:</p>
 <ul>
 <li>
 <p>term frequency(TF), the normalized frequency of each token $w_i$ in a given doc $d_j$</p>
@@ -302,7 +349,7 @@ IDF(w_i) = \text {log} \frac{|D|}{|w_i^D|}
 $$</p>
 <ul>
 <li>
-<p>The intuiton is fair straightforward — if a word appears across all the docs, for instance, stop words like <code>a</code>, <code>is</code>, <code>and</code>, it&rsquo;s unlikely to capture the characteristics of the doc it belong to, indicating that it&rsquo;s a more common word relative to other words in the same doc. In other words, we need to reduce its importance, that&rsquo;s why we invert the calculation.</p>
+<p>The intuiton is fair straightforward — if a word appears across all the docs, for instance, stop words like <code>a</code>, <code>is</code>, <code>and</code>, it&rsquo;s unlikely to capture the characteristics of the doc it belong to. That is, they are more common compared to other less frequent words in the same doc. In other words, we need to reduce its importance, that&rsquo;s why we invert the calculation.</p>
 </li>
 <li>
 <p>we use logarithm to further punish terms that appear more frequently across all the docs</p>
@@ -315,9 +362,74 @@ $$</p>
 TF\_IDF = TF(w_i, d_j) * IDF(w_i)
 $$</p>
 <h2 id="distributed-representation">Distributed Representation</h2>
+<p>Continuous Bag Of Words (CBOW) uses context words to predict the center word while Skip-Gram use the current word to predict its neighbouring words. The number of context words is determined by a parameter called &ldquo;window size&rdquo;.</p>
 <h3 id="cbow">CBOW</h3>
-<h3 id="skip-gram">Skip-gram</h3>
-<h3 id="pre-trained">pre-trained</h3>
+<p>Basically, CBOW is a multi-class classification, which can be descibed as follows,</p>
+<ul>
+<li>words are encoded in one-hot format</li>
+<li>each one-hot encoded vector is fed into the first layer in order to get the embedding of that word</li>
+<li>combine the above real valued vectors in some way such that it captures the overall context</li>
+<li>finally, the linear layer and softmax layer are used to predict probability distribution over vocabulary. The largest prob indicates the most likely target word</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self, voc_size, embd_size):
+        super(CBOW, self)<span style="color:#f92672">.</span>__init__()
+        self<span style="color:#f92672">.</span>embedding <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Embedding(voc_size, embd_size)
+        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(embd_size, voc_size)
+        
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>embedding(x)<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>)
+        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(out)
+        out_prob <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(out)
+        <span style="color:#66d9ef">return</span> out_prob
+</code></pre></div><p>However, there are two serious problems as one-hot matrix becomes sparse due to increasing vocabulary increases</p>
+<ul>
+<li>the calculation between one-hot and Embedding layer</li>
+<li>the calculation between Embedding layer and the linear layer</li>
+<li>the calculation of softmax layer</li>
+</ul>
+<h4 id="vectorization">Vectorization</h4>
+<p>The first problem is easy to solve because there is no need to store the entire one-hot matrix. After all, it&rsquo;s just used to extract the embedding of the corresponding token, which corrsponds the row of the embdding matrix $E$. In other words, we can just store the row index of the words in one dimensional array.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#f92672">...</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">one_hot</span>(self, context):
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        context: &#39;thank very much&#39;
+</span><span style="color:#e6db74">        target: you
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        
+        indices <span style="color:#f92672">=</span> [ lookup[token] <span style="color:#66d9ef">for</span> token <span style="color:#f92672">in</span> context<span style="color:#f92672">.</span>split() ]
+        context_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(len(indices))
+
+        <span style="color:#75715e"># instead of one-hot (sparse matrix), we keep the row index of the embedding matrix</span>
+        context_vec[:len(indices)] <span style="color:#f92672">=</span> indices
+        context_vec[len(indices):] <span style="color:#f92672">=</span> mask <span style="color:#75715e"># in case of the number of tokens in the context is less than the window size</span>
+        
+        <span style="color:#66d9ef">return</span> context_vec
+
+</code></pre></div><p>One thing we should notice is that same word could occur many times. For example, &ldquo;Like&rdquo; occurs twice  in the sentence &ldquo;Like (Sunday) Like Rain&rdquo;. When performing backpropagation, we should accumulate the gradients for word &ldquo;Like&rdquo;. This is because that we aggerate the embeddings of all the context words for each instance, and then fed it into a linear layer to make a prediction in the forward process as shown below.</p>
+<p>$$
+E_{Like} * 2 + E_{Rain} = E_{aggerate} \\ Out = E_{aggerate} * W_{fc}
+$$
+where $E_{Like}$ is the embedding of word &ldquo;Like&rdquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>embedding(x)<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># (batch, |D|, |E|)</span>
+out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(out)
+</code></pre></div><h3 id="skip-gram">Skip-gram</h3>
+<h3 id="negative-sampling">Negative Sampling</h3>
+<p>The idea is to transform a multi-class problem into many binary classification problems by sampling the positive example and several negative examples (typically 10 ~ 50) according the frequency distribution of the vocabulary. Frequent words tend to be sampled and rare words is likely not to be sampled, since rare words barely occur in real life and more frequent words would lead to a better generalisation.</p>
+<h3 id="subsampling">Subsampling</h3>
+<p>The idea of subsampling is that the vecot representation of frequent words do not change significantly, so we do not need to include them all for each training example.  For example, &ldquo;the&rdquo; is frequently used in almost every sentence, so this is no need to train &ldquo;France&rdquo; and &quot; the&quot;.  Word $w_i$ in the training set will be discarded with a higher probability computed by the formula</p>
+<p>$$
+P(w_i) = 1 - \sqrt {\frac{t}{f(w_i)}}
+$$
+where $f(w_i)$ is the frequency of word $w_i$ and $t$ is a chosen threshold (typically around $10^{-5}$). If a word appears very frequently, then $P(w_i)$ is close to $1$, which means it will not be used as the context word and target word. This technique could also be applied to discard less frequent phrases, see <a href="https://medium.datadriveninvestor.com/skip-gram-model-broken-down-subsampling-n-grams-feab04a6f220#:~:text=In%20layman%E2%80%99s%20terms%2C%20subsampling%20is%20to%20sample%20the,to%20sample%20a%20word%20has%20to%20be%20defined.">this post</a>.</p>
+<h3 id="evaluation">Evaluation</h3>
+<p>King - man  + woman =  Queen</p>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://kelvinniu.com/posts/word2vec-and-negative-sampling/">https://kelvinniu.com/posts/word2vec-and-negative-sampling/</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2013/file/9aa42b31882ec039965f3c4923ce901b-Paper.pdf">Skip-Gram Paper</a></li>
+</ul>
 
 
 
@@ -331,7 +443,8 @@ $$</p>
     <li><a href="#frequency-based">Frequency-Based</a>
       <ul>
         <li><a href="#one-hot">One-hot</a></li>
-        <li><a href="#bag-of-word">Bag-of-word</a></li>
+        <li><a href="#bag-of-word">Bag of Word</a></li>
+        <li><a href="#bag-of-n-gram">Bag of N-gram</a></li>
         <li><a href="#tf-idf">TF-IDF</a></li>
       </ul>
     </li>
@@ -339,9 +452,12 @@ $$</p>
       <ul>
         <li><a href="#cbow">CBOW</a></li>
         <li><a href="#skip-gram">Skip-gram</a></li>
-        <li><a href="#pre-trained">pre-trained</a></li>
+        <li><a href="#negative-sampling">Negative Sampling</a></li>
+        <li><a href="#subsampling">Subsampling</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
       </ul>
     </li>
+    <li><a href="#refer">Refer</a></li>
   </ul>
 </nav>
       
