@@ -295,8 +295,11 @@ X_test_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f9
 <li>As mentioned earlier, the most frequent words are often function words like pronouns, determiners and conjuctions. However, they are of no help for classification.</li>
 </ul>
 <h3 id="bag-of-n-gram">Bag of N-gram</h3>
-<p>Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth.</p>
-<p>So what&rsquo;s the use of n-gram?</p>
+<p>Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth. A simple implementation is shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_ngrams</span>(tokens, n<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+	ngrams <span style="color:#f92672">=</span> zip(<span style="color:#f92672">*</span>[tokens[i:] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)])
+	<span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(gram) <span style="color:#66d9ef">for</span> gram <span style="color:#f92672">in</span> ngrams]
+</code></pre></div><p>So what&rsquo;s the use of n-gram?</p>
 <ul>
 <li>estimate the proability of the last word of an n-gram given the previous words</li>
 <li>assign probabilities to entire sequences</li>

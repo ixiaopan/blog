@@ -203,7 +203,15 @@ X_test_dtm = vectorizer.transform(X_test)
 
 ### Bag of N-gram
 
-Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth.
+Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth. A simple implementation is shown below.
+
+
+
+```python
+def create_ngrams(tokens, n=2):
+	ngrams = zip(*[tokens[i:] for i in range(n)])
+	return [' '.join(gram) for gram in ngrams]
+```
 
 
 

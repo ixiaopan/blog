@@ -825,3 +825,5 @@ print(x.grad())
 - [Dual Numbers & Automatic Differentiation](https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/)
 - [Reverse-mode automatic differentiation from scratch, in Python](https://sidsite.com/posts/autodiff/)
 - [Matrix Calculus](http://www.doc.ic.ac.uk/~ahanda/referencepdfs/MatrixCalculus.pdf)
+- [Deep Learning - Computation & Optimization](https://jhui.github.io/2017/01/05/Deep-learning-computation-and-optimization/)
+

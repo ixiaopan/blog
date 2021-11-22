@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Optimization"/>
-<meta name="twitter:description" content="We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization. It&rsquo;s a bit different from the optimization in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms."/>
+<meta name="twitter:description" content="We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms."/>
 
 
 
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Nov 12, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -176,9 +176,9 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization. It&rsquo;s a bit different from the optimization in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.</p>
+  <p>We&rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.</p>
 <h2 id="newtons-method">Newton&rsquo;s Method</h2>
-<p>Bascially, Newton&rsquo;s method is a root-finding method, for example, the root of $f(x) = x^2 - 8$. Assume that we start from the point $x_0$, and the intersection of the tangent line and the x-axis is the point $(x_1, 0)$, then we have</p>
+<p>Bascially, Newton&rsquo;s method is a root-finding method, for example, the root of $f(x) = x^2 - 8$. Assuming that we start from the point $x_0$, and the intersection of the tangent line and the x-axis is the point $(x_1, 0)$, then we have</p>
 <p>$$
 \hat f(x_1) = f(x_0) + (x_1 - x_0) f'(x_0)
 $$</p>
@@ -186,46 +186,160 @@ $$</p>
 <p>$$
 x_1 = x_0 - \frac{ f(x_0)}{f'(x_0)}
 $$</p>
-<p>Similarly, we can repeat the above operation starting from $x_1$ until we think the precision is sufficient. Typically, we generalize these steps as follows,</p>
+<p>We can repeat this operation starting from $x_1$ until we think the precision is sufficient. Typically, we generalize these steps as follows,</p>
 <p>$$
 x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
 $$
-Let&rsquo;s start from $x_0 = 4$, the results are shown below.</p>
+Let&rsquo;s start from $x_0 = 4$, the results are shown below. We see that $x_3$ is very close to the actual value $2\sqrt2$, so we can stop.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x_0 <span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> 
 x_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
 x_2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.833333</span>
 x_3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.828431</span>
-</code></pre></div><p>We see that $x_3$ is very close to the actual value $2\sqrt2$, so we can stop.</p>
-<p>Furthermore, we can also use this method to find the solution to $f'(x) = 0$. In this case, we end up with</p>
-<p>$$
-x_{n+1}  = x - \frac{f'(x)}{f''(x)}
-$$
-Actually, it is Newton&rsquo;s second-order strategy (We&rsquo;ll see later).</p>
-<h3 id="taylor-expression">Taylor Expression</h3>
-<p>In fact, the above linear approximation is the first order taylor expression, and it holds when $x_1 - x_0$ is really small. For a larger $x_1-x_0$, we can use the second-order taylor expression. Recall that Taylor expanding around $x^*$ is</p>
+</code></pre></div><p>The above linear approximation holds when $x_1 - x_0$ is really small. For a larger $x_1-x_0$, we can use the second-order taylor expression. Recall that Taylor expanding around $x^*$ is</p>
 <p>$$
 f(x) = f(x^*) + (x - x^*)f'(x^*) + \frac{1}{2}(x-x^*)^2f''(x^*) + &hellip;
 $$
 If $x - x^*$ is sufficiently small, the higher order terms are ignored. The derivative of $f(x)$ w.r.t $x - x^*$ is
 $$
-f'(x*) - (x - x^*)f''(x^*) = 0
+f'(x^*) + (x - x^*)f''(x^*) = 0
 $$</p>
 <p>Thus,</p>
 <p>$$
-x^* = x - \frac{f'(x^*)}{f''(x^*)}
+x = x^* - \frac{f'(x^*)}{f''(x^*)}
 $$</p>
-<p>We see that Newton&rsquo;s method would be very efficient when we are close to the minimum.</p>
+<h3 id="high-dimension">High Dimension</h3>
+<p>For high dimension, the Taylor expansion at $\bold x_0$ is</p>
+<p>$$
+f(\bold x) = f(\bold x_0) + (\bold x - \bold x_0)^T \nabla f(\bold x_0) + \frac{1}{2} (\bold x - \bold x_0)^T H (\bold x - \bold x_0) + &hellip;
+$$
+where $H$ is the Hessian matrix with elements
+$$
+H_{ij} = \frac{\partial^2 f(\bold x_0)}{\partial x_i \partial x_j}
+$$
+So, the minimum point can be found at</p>
+<p>$$
+\bold x = \bold x^* - H^{-1} \nabla f(x^* )
+$$</p>
+<h3 id="pros-and-cons">Pros and Cons</h3>
+<ul>
+<li>Efficient when we are close to the minimum.</li>
+<li>Computing Hessian matrix is time-consuming, $O(N^2)$</li>
+<li>Liable to arrive at saddle points</li>
+<li>Loss would increase for <strong>nonconvex</strong> problems because Hessian would be negative
+<ul>
+<li>take absolute value</li>
+<li>change learning rate</li>
+</ul>
+</li>
+</ul>
 <h2 id="gradient-descent">Gradient Descent</h2>
+<h3 id="intuition">Intuition</h3>
+<p>Suppose $x-x^* = \eta f'(x^*)$ and $\eta&gt;0$ is small enough, based on the first order Taylor expansion, we obtain</p>
+<p>$$
+f(x^* - \eta f'(x^*)) = f(x^*) - \eta f'^2(x^*) \le f(x^*)
+$$
+This means the loss would decrease when we move againt the direction of gradient.
+$$
+x \larr x - \eta f'(x)
+$$
+Pros and cons</p>
+<ul>
+<li>large learning rating would osillate; small and we make slow progress</li>
+<li>GD would get stuck at a local minimum</li>
+</ul>
 <h3 id="batch">Batch</h3>
+<p>It&rsquo;s vanilla gradient descent, which computes the gradient for all the training dataset.
+$$
+\theta = \theta - \eta \cdot \frac{1}{N} \sum_{i=1}^{|D|} \nabla_\theta J(\theta, x_i, y_i)
+$$</p>
 <h3 id="stochastic">Stochastic</h3>
+<p>SGD updates parameters for each example, so it has a high variance in the change in parameter values.
+$$
+\theta = \theta - \eta \cdot \nabla_\theta J( \theta; x_i; y_i)
+$$</p>
+<h3 id="mini-batch">Mini-batch</h3>
+<p>Mini-batch updates parameters for a small batch of training data.
+$$
+\theta = \theta - \eta \cdot \frac{1}{|B|} \sum_{i=1}^{|B|} \nabla_\theta J(\theta, x_i, y_i)
+$$</p>
+<ul>
+<li>reduce variance of the parameter updates and lead to stable convergence</li>
+<li>add noise (stochasic) as we are sampling data (might help escape local-minima)</li>
+<li>taking many smaller steps of gradients reduces likelihood of divergence</li>
+<li>make use of the matrix optimization</li>
+<li>Typically, mini-batch size is the power of $2$, like 64, 128, 256</li>
+</ul>
+<h3 id="dynamic-learning-rate">Dynamic Learning Rate</h3>
+<p>Replacing $\eta$ with a time-dependent $\eta$</p>
+<ul>
+<li>piecewise constant</li>
+</ul>
+<p>$$
+\eta(t) = \eta_i \text{ if } t_i \le t \le t_{i+1}
+$$</p>
+<ul>
+<li>exponential decay</li>
+</ul>
+<p>$$
+\eta(t) = \eta_0 e^{\lambda t}
+$$</p>
+<ul>
+<li>polynomial decay
+$$
+\eta(t) = \eta_0 (\beta t + 1)^{-\alpha}
+$$</li>
+</ul>
 <h2 id="momentum">Momentum</h2>
-<h2 id="adam">Adam</h2>
+<p>One problem with SGD is that it could take much time if the shape of loss function is anisotropic, as shown in Figure 1. This is because we are moving along the direction of gradient, but it doesn&rsquo;t point to the mnimum. In other words, in high dimension, we zig zag</p>
+<ul>
+<li>stepping consistently in directions with low curvature</li>
+<li>jumping backwards and forwards past the minimum in directions with high curvature</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/sgd-long.png" alt="">
+    <figcaption>Figure 1: In high dimenstion, sometimes you might move a long way in some direction.</figcaption>
+  </figure>
+</p>
+<p>Momentum is a method to increase steps in low curvature directions and decrease it in high curvature directions by adding the gradients of the past steps to the current gradient. $\beta$ is usually set to $0.9$.</p>
+<p>$$
+v_{t+1} = \beta v_t + g_t \\ \theta = \theta - \eta \cdot v_{t+1}
+$$</p>
+<h2 id="exponentially-weighted-average">Exponentially weighted average</h2>
+<p>$$
+v_{t} = \beta v_{t-1} + (1 - \beta) g_t
+$$
+correct bias</p>
+<p>$$
+v_{t} = \frac{v_t}{1-\beta^t}
+$$</p>
+<p>The exponentially weighted average allows us to obtain the average over a range of days ($\frac{1}{1-\beta}$) without explicitly storing the data of these data and calculting the numerical average.</p>
+<p>In the case of gradient, $v_t$ tells us the weighted average of the past $\frac{1}{1-\beta}$ gradients. Thus, a large $\beta$ will lead to a smooth change due to a long-range average.</p>
 <h2 id="adagrad">AdaGrad</h2>
+<p>The idea of learning rate decay is to decrease learning rate as the learning progresses, but different parameters have different gradient. We cannot reduce learning rate in the same level for all parameters. Instead, it would be better to adapt the learning rate to the parameters.</p>
+<p>AdaGrad is such a method that perform smaller updates for frequent updated parameters and large updates for less frequent updates parameters by accumulating the square of the gradients of the past steps.</p>
+<p>$$
+h \larr h + g\odot g \\ \bold w \larr \bold w - \frac{\eta}{\sqrt{h + \epsilon}} \odot g
+$$
+Pros and Cons</p>
+<ul>
+<li>it will shink the learning rate and no longer update at some point</li>
+</ul>
 <h2 id="rmsprop">RMSProp</h2>
+<p>$$
+h \larr \beta h + (1 - \beta) g\odot g \\ \bold w \larr \bold w - \frac{\eta}{\sqrt{h + \epsilon}} \odot g
+$$</p>
+<p>$\beta$ is usually set to $0.9$ and $\eta$ is $0.001$.</p>
+<h2 id="adam">Adam</h2>
+<p>Adam combines momentum and RMSprop to compute the adaptive learning rate.</p>
+<p>$$
+m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\ h_t = \beta_2 h_{t-1} + (1 - \beta_2) g_t \odot g_t \\ \theta \larr \theta - \frac{\eta}{\sqrt{h_t} + \epsilon} m_t
+$$</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://opentextbc.ca/calculusv1openstax/chapter/newtons-method/">Newton&rsquo;s Method</a></li>
 <li><a href="https://arxiv.org/abs/1412.6980">Adam: A Method for stochastic Opimization</a></li>
+<li><a href="https://www.cnblogs.com/jiaxblog/p/9695042.html">GD/Momentum/RMSprop/Adam</a></li>
 </ul>
 
 
@@ -239,19 +353,24 @@ $$</p>
   <ul>
     <li><a href="#newtons-method">Newton&rsquo;s Method</a>
       <ul>
-        <li><a href="#taylor-expression">Taylor Expression</a></li>
+        <li><a href="#high-dimension">High Dimension</a></li>
+        <li><a href="#pros-and-cons">Pros and Cons</a></li>
       </ul>
     </li>
     <li><a href="#gradient-descent">Gradient Descent</a>
       <ul>
+        <li><a href="#intuition">Intuition</a></li>
         <li><a href="#batch">Batch</a></li>
         <li><a href="#stochastic">Stochastic</a></li>
+        <li><a href="#mini-batch">Mini-batch</a></li>
+        <li><a href="#dynamic-learning-rate">Dynamic Learning Rate</a></li>
       </ul>
     </li>
     <li><a href="#momentum">Momentum</a></li>
-    <li><a href="#adam">Adam</a></li>
+    <li><a href="#exponentially-weighted-average">Exponentially weighted average</a></li>
     <li><a href="#adagrad">AdaGrad</a></li>
     <li><a href="#rmsprop">RMSProp</a></li>
+    <li><a href="#adam">Adam</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>
