@@ -8,7 +8,7 @@ categories: [
 ]
 series: ["Machine Learning"]
 katex: true
-draft: false
+draft: true
 ---
 
 

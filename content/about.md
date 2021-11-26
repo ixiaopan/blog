@@ -8,7 +8,7 @@ weight: 2
 
 
 
-MSc Data Science student with more than 5 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+MSc Data Science student with almost 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 
 
@@ -45,7 +45,7 @@ li {
 - Proficient in JavaScript, React, CSS3 and able to build a web application from frontend to backend independently and effectively
 - Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
 - Rich experience in the agile software development workflow using Git and CI/CD
-- Good at data visualisation and UI design tools
+- Good at data visualisation and UI design
 
 
 
@@ -55,14 +55,15 @@ li {
 
 <section >
 <div class="timeline">
-  <p class="time">09/2020 - 09/2021</p>
+  <p class="time">09/2020 - 11/2021</p>
   <p>MSc Data Science, University of Southampton</p>
 </div>
 <div class="timeline">
   <p class="time">09/2010 - 07/2014</p>
-  <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China </p>
+  <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </p>
 </div>
 </section>
+
 
 
 

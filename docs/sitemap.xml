@@ -5,19 +5,25 @@
     <loc>https://ixiaopan.github.io/blog/about/</loc>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/</loc>
-    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/categories/</loc>
+    <lastmod>2021-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/categories/deep-learning/</loc>
+    <lastmod>2021-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</loc>
+    <lastmod>2021-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/</loc>
+    <lastmod>2021-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/dl-03-regularization/</loc>
     <lastmod>2021-11-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/categories/nlp/</loc>
-    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/nlp-crf/</loc>
-    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/</loc>
-    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</loc>
     <lastmod>2021-11-17T00:00:00+00:00</lastmod>
@@ -39,9 +45,6 @@
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/metrics-classification/</loc>
     <lastmod>2021-10-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/categories/deep-learning/</loc>
-    <lastmod>2021-09-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/dl-06-rnn/</loc>
     <lastmod>2021-09-26T00:00:00+00:00</lastmod>

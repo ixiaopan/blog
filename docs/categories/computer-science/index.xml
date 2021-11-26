@@ -14,11 +14,20 @@
 		<atom:link href="/blog/categories/computer-science/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>NLP - CRF</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-crf/</link>
+			<title>Deep Learning - Weight Initialization</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</link>
+			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</guid>
+			<description>&lt;p&gt;The goal of machine learning is to find the best parameters. To train the model, we must start from some values. So, what do the initial parameters look like? Can we set all of them to the same value? Or we assign random values to the weights? In this post, we will talk about another important aspect of learning — weight initialization.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Deep Learning - Regularization</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-03-regularization/</link>
 			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-crf/</guid>
-			<description>Direced Graphical Model In a direction graph, if there is a link starting from a to b, we say a is the parent of b and b is the child of a. The joint distribution over all variables $\bold x={x_1, x_2, &amp;hellip;, x_N}$ in this graph is described as $$ p(\bold x) = \prod_i^N p(x_i|pa_i) $$ where $N$ is the number of nodes, and $pa_i$ indicates the set of parents of $x_i$.</description>
+			<guid>https://ixiaopan.github.io/blog/post/dl-03-regularization/</guid>
+			<description>L1 L2 Dropout  By dropping a unit out, we mean temporarily removing it from the network, along with all its incoming and outgoing connections.
+ Data Augmentation Early Stopping Refer  Dropout: a simple way to prevent neural networks from overfitting Regularization of neural networks using dropconnect Simplified Math Behind Dropout  </description>
 		</item>
       	
 		<item>
@@ -83,18 +92,6 @@
 			<pubDate>Sun, 19 Sep 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/model-selection/</guid>
 			<description>Model Complexity What is model complexity? Perhaps it mainly refers to the number of parameters that the model has. However, it does not mean that a model is complex if it has more parameters, although it is often the case. Generally, a simple model could result in underfitting, while a complex model could lead to overfitting. So, what factors affect the complexity of a model? Well, it is hard to say.</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Neural Networks</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-02-architecture/</link>
-			<pubDate>Sat, 18 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-02-architecture/</guid>
-			<description>Neural Networks Neural networks are simply function compositions.
- Feedforward networks  $$ y = f(g(x, \theta_g), \theta_f) $$
- Recurrent networks  $$ y_t = f(y_{t-1}, x_t, \theta) $$
-Generally, you can think of neural networks as function approximation machines, where we want to find appropriate $\theta$ to make $f^{*}$ as similar as possible to the true function $f$.
-In practice, there are lots of things to consider when designing a neural network.</description>
 		</item>
       	
 	</channel>

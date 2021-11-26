@@ -594,3 +594,4 @@ Thus, we are finding the best split that can correctly classify the examples tha
 
 [3]	J. Rocca, “Ensemble methods: bagging, boosting and stacking - Towards Data Science,” Towards Data Science, 23-Apr-2019. [Online]. Available: https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205. [Accessed: 23-Apr-2021].
 
+[4] Gradient Boosting Tutorial http://talks.albertauyeung.com/pycon2017-gradient-boosting/

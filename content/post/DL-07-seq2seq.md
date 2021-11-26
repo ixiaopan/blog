@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning - Seq2seq"
-date: "2021-09-20"
+date: "2021-11-24"
 description: ""
 # tags: []
 categories: [
@@ -9,6 +9,5 @@ categories: [
 series: ["Machine Learning"]
 katex: true
 draft: true
-
 ---
 

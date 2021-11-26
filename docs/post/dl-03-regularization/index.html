@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>NLP</title>
+<title>Deep Learning - Regularization</title>
 
 
 
@@ -30,8 +30,9 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="NLP"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="Deep Learning - Regularization"/>
+<meta name="twitter:description" content="L1 L2 Dropout  By dropping a unit out, we mean temporarily removing it from the network, along with all its incoming and outgoing connections.
+ Data Augmentation Early Stopping Refer  Dropout: a simple way to prevent neural networks from overfitting Regularization of neural networks using dropconnect Simplified Math Behind Dropout  "/>
 
 
 
@@ -58,6 +59,24 @@
 <script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
 
 
 
@@ -122,12 +141,30 @@
     
     <div class="intro-header">
       <div class="container">
-        <div class="categories-heading">
+        <div class="post-heading">
           
             <h1>
-              NLP
+              Deep Learning - Regularization
             </h1>
           
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 22, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
+      >&nbsp;
+    
+  
+</span>
+
           
         </div>
       </div>
@@ -137,118 +174,51 @@
 
     
   <div class="container" role="main">
-    <div class="posts-list">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
         
-      
+  <h2 id="l1">L1</h2>
+<h2 id="l2">L2</h2>
+<h2 id="dropout">Dropout</h2>
+<blockquote>
+<p><em>By dropping a unit out, we mean temporarily removing it from the network, along with all its incoming and outgoing connections</em>.</p>
+</blockquote>
+<h2 id="data-augmentation">Data Augmentation</h2>
+<h2 id="early-stopping">Early Stopping</h2>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf">Dropout: a simple way to prevent neural networks from overfitting</a></li>
+<li><a href="https://pdfs.semanticscholar.org/4336/6ffc751436a20b144b86cfa31b653cf906ff.pdf">Regularization of neural networks using dropconnect</a></li>
+<li><a href="https://towardsdatascience.com/simplified-math-behind-dropout-in-deep-learning-6d50f3f47275">Simplified Math Behind Dropout</a></li>
+</ul>
+
+
+
+
+        
+      </article>
 
       
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-ner-lr/">
-    <h2 class="post-title">NLP - Literature Review on NER</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>Named entity recognition (NER) is a classical task in NLP, which aims to identify meaningful chunks of text and classify them into appropriate entity types, such as PERSON or LOCATION. For instance, &ldquo;Tom&rdquo; is classified as &ldquo;PERSON&rdquo; while &ldquo;England&rdquo; is labelled as &ldquo;LOCATION&rdquo; in the sentence &ldquo;Tom comes from England&rdquo;. NER serves as the foundation for a range of downstream tasks such as information extraction. In practical applications, you may notice that some websites will autofill the application form from your resume. In this series of posts, we will explain NER in detail, from models, datasets to domain adaptation. First, let&rsquo;s do a brief literative review on NER.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-ner-lr/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Nov 17, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#l1">L1</a></li>
+    <li><a href="#l2">L2</a></li>
+    <li><a href="#dropout">Dropout</a></li>
+    <li><a href="#data-augmentation">Data Augmentation</a></li>
+    <li><a href="#early-stopping">Early Stopping</a></li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav>
       
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-02-text-representation/">
-    <h2 class="post-title">NLP - Text Representation</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>In the last post, we talked about text preprocessing techniques. However, even the data is clean now, they are still text. We still haven&rsquo;t answered the question: how to covert text into numbers? In NLP parlance, this is called <strong>text representation</strong>.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-02-text-representation/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jul 10, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/">
-    <h2 class="post-title">NLP - Text Preprocessing</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 22, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
+      </aside>
     </div>
+    
+    
+    
+    
+      
+
     
   </div>
 

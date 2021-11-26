@@ -185,28 +185,34 @@ document.addEventListener("DOMContentLoaded", function() {
 <ul>
 <li>lexical patterns + domain knowledge + regular expressions</li>
 </ul>
-<p>Pros</p>
+<p>Pros &amp; cons</p>
 <ul>
-<li>simple</li>
-</ul>
-<p>Cons</p>
-<ul>
-<li>mannually creating rule is time-consuming</li>
-<li>rules are language or domain dependent</li>
+<li>
+<p>simple</p>
+</li>
+<li>
+<p>mannually creating rule is time-consuming</p>
+</li>
+<li>
+<p>rules are language or domain dependent</p>
+</li>
 </ul>
 <h4 id="dictionary-based">Dictionary-based</h4>
 <p>How</p>
 <ul>
 <li>look up a terminological dictionary</li>
 </ul>
-<p>Pros</p>
+<p>Pros &amp; Cons</p>
 <ul>
-<li>focus on the most important terms rather than all words in the field, e.g. biological field</li>
-</ul>
-<p>Cons</p>
-<ul>
-<li>only named entities occurred in dictionaries can be identified</li>
-<li>dictionaries need to be updated frequently</li>
+<li>
+<p>focus on the most important terms rather than all words in the field, e.g. biological field</p>
+</li>
+<li>
+<p>only named entities occurred in dictionaries can be identified</p>
+</li>
+<li>
+<p>dictionaries need to be updated frequently</p>
+</li>
 </ul>
 <h4 id="statistical-based">Statistical-based</h4>
 <p>How</p>
@@ -221,13 +227,14 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h3 id="neural-network">Neural Network</h3>
 <p>The contemporary NER models are based on neural networks and various combinations of pre-trained word embedding and character embedding [2].</p>
-<p>Pros</p>
+<p>Pros &amp; Cons</p>
 <ul>
-<li>do not require extensive feature engineering or domain-specific resources</li>
-</ul>
-<p>Cons</p>
-<ul>
-<li>a large amount of trainning data</li>
+<li>
+<p>do not require extensive feature engineering or domain-specific resources</p>
+</li>
+<li>
+<p>a large amount of trainning data</p>
+</li>
 </ul>
 <p>Based on word representation, neural architectures for NER can be classified into three types[3]</p>
 <ul>
@@ -273,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>Fine-Tuning</li>
 <li>Multi-Task Learning</li>
 </ul>
-<h3 id="multi-source-domain-adaptation">Multi-source Domain Adaptation</h3>
+<h2 id="multi-source-domain-adaptation">Multi-source Domain Adaptation</h2>
 <p>The standard domain adaptation setting covers a single source domain and a single target domain with few or no labelled data. Extensions include multiple source domains and a single target domain or a single source domain and multiple target domains.</p>
 <ul>
 <li>pooling
@@ -448,9 +455,9 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul>
         <li><a href="#feature-based">Feature-based</a></li>
         <li><a href="#parameter-based">Parameter-based</a></li>
-        <li><a href="#multi-source-domain-adaptation">Multi-source Domain Adaptation</a></li>
       </ul>
     </li>
+    <li><a href="#multi-source-domain-adaptation">Multi-source Domain Adaptation</a></li>
     <li><a href="#ner-datasets">NER Datasets</a></li>
     <li><a href="#summary-table">Summary Table</a></li>
     <li><a href="#references">References</a></li>

@@ -34,11 +34,9 @@ How
 
 - lexical patterns + domain knowledge + regular expressions
 
-Pros
+Pros & cons
 
 - simple
-
-Cons
 
 - mannually creating rule is time-consuming
 - rules are language or domain dependent
@@ -51,11 +49,9 @@ How
 
 - look up a terminological dictionary
 
-Pros
+Pros & Cons
 
 - focus on the most important terms rather than all words in the field, e.g. biological field
-
-Cons
 
 - only named entities occurred in dictionaries can be identified
 - dictionaries need to be updated frequently
@@ -80,11 +76,9 @@ popular methods
 
 The contemporary NER models are based on neural networks and various combinations of pre-trained word embedding and character embedding [2].
 
-Pros
+Pros & Cons
 
 - do not require extensive feature engineering or domain-specific resources
-
-Cons
 
 - a large amount of trainning data
 
@@ -112,8 +106,6 @@ Based on word representation, neural architectures for NER can be classified int
 
 ## Domain Adaptation
 
-
-
 Transfer learning in NLP[5] is broadly classified into four subcategories
 
 - domain adaptation (our study area)
@@ -137,7 +129,9 @@ mapping two domains into a low-dimensional space
 
 
 
-### Multi-source Domain Adaptation
+## Multi-source Domain Adaptation
+
+
 
 The standard domain adaptation setting covers a single source domain and a single target domain with few or no labelled data. Extensions include multiple source domains and a single target domain or a single source domain and multiple target domains.
 
@@ -150,8 +144,6 @@ The standard domain adaptation setting covers a single source domain and a singl
 
 
 ## NER Datasets
-
-
 
 - [MUC]( https://www-nlpir.nist.gov/related_projects/muc/)
 - [CoNLL-2002]( https://www.clips.uantwerpen.be/conll2002/ner/) and [CoNLL-2003]( https://www.clips.uantwerpen.be/conll2003/ner/)
@@ -201,8 +193,6 @@ Most NER datasets only contain flat entities, but there are particular datasets 
 
 
 ## References
-
-
 
 [1] Yan Wen, Cong Fan, Geng Chen, Xin Chen, and Ming Chen. 2020. A survey on named entity recognition. In *Communications, signal processing, and systems*, Springer Singapore, Singapore, 1803–1810.
 

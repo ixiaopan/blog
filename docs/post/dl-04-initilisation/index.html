@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Deep Learning - Weight Initialization</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deep Learning - Weight Initialization"/>
+<meta name="twitter:description" content="The goal of machine learning is to find the best parameters. To train the model, we must start from some values. So, what do the initial parameters look like? Can we set all of them to the same value? Or we assign random values to the weights? In this post, we will talk about another important aspect of learning — weight initialization."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://ixiaopan.github.io/blog/css/dark.css"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+<script src="https://ixiaopan.github.io/blog/js/main.bundle.js"></script>
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Deep Learning - Weight Initialization
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 24, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>The goal of machine learning is to find the best parameters. To train the model, we must start from some values. So, what do the initial parameters look like? Can we set all of them to the same value? Or we assign random values to the weights? In this post, we will talk about another important aspect of learning — weight initialization.</p>
+<h2 id="constant-values">Constant Values</h2>
+<p>What if we set all parameters to the same values, say $c$? Assuming that all the biases are $0$, the $m_{th}$ hidden unit in the first layer is</p>
+<p>$$
+z_{1m} = \sigma (cx_1+cx_2+&hellip;+cx_n)
+$$
+and the $k_{th}$ hidden unit in the second layer is
+$$
+z_{2k} = \sigma ( cz_{11} + cz_{12} + .. cz_{1m}) = \sigma ( m \cdot c \cdot z_{1m})
+$$
+We find that the hidden units in the same layer are the same (the same structure, you can imagine that they are copies of one node), ultimately leading to the same gradient for weights belonging to the same hidden layer. Since both the weights and the gradients are the same, we learn nothing.</p>
+<h2 id="what-kind-of-weights">What kind of weights</h2>
+<ul>
+<li>too small $\rarr$ gradient vanishing, slow learning</li>
+<li>too large $\rarr$ gradient exploding</li>
+</ul>
+<p>So what kind of values should we use to initialize weights? According to [1], there are two rules of thumb:</p>
+<blockquote>
+<ul>
+<li>
+<p>The mean of the activations should be zero</p>
+</li>
+<li>
+<p>The variance of the activations should stay the same across every layer</p>
+</li>
+</ul>
+</blockquote>
+<p>Mathematically, they can be expressed as</p>
+<p>$$
+\text {E}(z_{n-1}) = \text {E}(z_n) = 0 \\  \text {Var} (z_{n-1}) = \text {Var}(z_n)
+$$</p>
+<p>where $n$ indicates the $n_{th}$ hidden layer and $z_n$ is the random variable representing the hidden node. Under the above two assumptions, it would avoid gradient exploding and gradient vanishing.</p>
+<p>But why should the variance stay the same?  Well, we find an explanation from [2]. Suppose</p>
+<ul>
+<li>all the inputs are $x_n = 1$</li>
+<li>and all the weights follows the Gaussian distribution with a mean of $0$ and a variance of 1, that is $w_i \sim N(0, 1)$</li>
+</ul>
+<p>the hidden nodes in the first layer is given as follows (we omit the activation function)
+$$
+h_{1m} = w_1 x_1 + w_2x_2 + .. w_nx_n = w_1 + w_2 + .. w_n
+$$</p>
+<p>Now, let&rsquo;s compute the mean and variance of this new variable $h_{1m}$,</p>
+<p>$$
+E(h_{1m}) = E(w_1 + w_2 + .. +w_n) = E(w_1) + E(w_2) + &hellip; +E(w_n) = 0 \\ \text{Var}(h_{1m}) = \text{Var}(w_1 + w_2 + .. +w_n) = \text{Var}(w_1) + \text{Var}(w_2) + &hellip; + \text{Var}(w_n) = n
+$$</p>
+<p>Generally, $n$ is quite large, say 100, then the standard deviation is $10$. This means, if we randomly obtain a hidden node, it will lie 10 units far away from the mean. After the activation function, say Sigmoid, the result is close to 1 or 0. As we discussed earlier, this will lead to gradient vanishing. Thus, to avoid this, we should shrink the variance.</p>
+<h2 id="xavier-initializaiton">Xavier Initializaiton</h2>
+<p>Xavier Initialization works on the assumption that the variance of the activations stays the same across layers, which lead to the following initialization.</p>
+<p>$$
+W_n \sim N(0, \frac{1}{m_{in}})
+$$
+where $m_{in}$ is the number of the input nodes. Why? Where does this value $\frac{1}{m_{in}}$ come from? Assuming again that all the biases are $0$, we&rsquo;re tring to find the variance of $W_n$ using the following equation.</p>
+<p>$$
+\text {Var} (z_{n+1} )= \text {Var} (z_{n} ) = \text {Var} ( \text{tanh} (\sum_{i=1}^m w_i z_i ))
+$$</p>
+<p>Since we&rsquo;re just starting training, the values are so small that they are in the liner regime of $tanh$. Thus, we have
+$$
+z = \text {tanh(y)} = y
+$$</p>
+<p>With this, we obtain</p>
+<p>$$
+\text {Var} (z_{n} ) = \text {Var} ( \text{tanh} (\sum_{i=1}^m w_i z_i )) = \text {Var} (\sum_{i=1}^m w_i z_i ) = \sum_{i=1}^m \text {Var} ( w_i z_i )
+$$</p>
+<p>Now we assume that</p>
+<ul>
+<li>$w_i$ is i.i.d</li>
+<li>$z_i$ is i.i.d</li>
+<li>$w_i$ is independent of $x_i$</li>
+<li>$E(z_i) =0$</li>
+<li>$E(w_i) = 0$</li>
+</ul>
+<p>then we can decompose the variance of a product into a product of variances, as shown below</p>
+<p>$$
+\text {Var} (z_{n+1} )= \text {Var} (z_{n} ) = \sum_{i=1}^m \text {Var} ( w_i z_i ) \\ = E^2[w_i] Var(z_i) + Var(w_i)E^2[z_i] + Var(w_i)Var(z_i) \\ = \sum_{i=1}^m Var(w_i)Var(z_i) = m \text{Var} (W_n) \text{Var} (z_n)
+$$</p>
+<p>We obtain</p>
+<p>$$
+\text{Var} (W_n) = \frac{1}{m}
+$$</p>
+<p>One thing worth noting is that the initial suggested variance was $\frac{2}{m_{in} + m_{out}}$, which is the harmonic mean of the input and the output,</p>
+<p>$$
+2 * (\frac{1}{m_{in}}* \frac{1}{m_{in}} ) / (\frac{1}{m_{in}} + \frac{1}{m_{out}})
+$$</p>
+<p>If we&rsquo;re using ReLu, the suggested value is $\frac{2}{m}$, yep, multiplying by 2 the variance of Xavier, also known as He initialization.</p>
+<h2 id="references">References</h2>
+<p>[1] <a href="https://www.deeplearning.ai/ai-notes/initialization/">Katanforoosh &amp; Kunin, &ldquo;Initializing neural networks&rdquo;, deeplearning.ai, 2019.</a></p>
+<p>[2] <a href="https://deeplizard.com/learn/video/8krd5qKVw-Q">Weight Initialization Explained | A Way To Reduce The Vanishing Gradient Problem</a></p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#constant-values">Constant Values</a></li>
+    <li><a href="#what-kind-of-weights">What kind of weights</a></li>
+    <li><a href="#xavier-initializaiton">Xavier Initializaiton</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2021
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
