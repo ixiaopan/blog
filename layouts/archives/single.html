@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{ partial "head.html" . }}
+    
+    <style>
+      ul, ol {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+      .cate-title {
+        font-size: 32px;
+      }
+      #blog-archives {
+        display: flex;
+        justify-content: center;
+      }
+      .cate-area li {
+        font-size: 14px;
+        margin: 8px 0;
+      }
+    </style>
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    <div class="container" id="main">
+      <article role="article" id="blog-archives">
+        <ul>
+            {{ range $key, $taxonomy := .Site.Taxonomies.categories }}
+            <li class="cate-title">{{ $key }}</li>
+            <ul class="cate-area">
+                {{ range $taxonomy.Pages }}
+                <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}">{{ .LinkTitle }}</a></li>
+                {{ end }}
+            </ul>
+            {{ end }}
+        </ul>
+
+        <!-- <table class="archives">
+          <tbody>
+            {{ range (where (where .Site.Pages ".Section" "post") "Kind" "page") }}
+              <tr>
+                <td>
+                  {{ .Date | dateFormat "2006" }}&nbsp;{{ .Date | dateFormat "Jan" }}&nbsp;{{ .Date | dateFormat "2" }}
+                </td>
+                <td>
+                  <p>
+                    <a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a>
+                  </p>
+                </td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table> -->
+
+
+      </article>
+    </div>
+    {{ partial "footer.html" . }}
+  </body>
+</html>

@@ -10,6 +10,10 @@ footnoteReturnLinkContents = "^"
 publishDir = "docs"
 googleAnalytics = "UA-203640627-1"
 
+[taxonomies]
+  # Use singular rather than plural for default taxonomies
+  tag = "tags"
+  category = "categories"
 
 [params]
   customCSS = ["css/main.css"]
