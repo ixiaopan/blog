@@ -12,15 +12,13 @@ katex: true
 
 
 
-In the previous post, we introduced how to initialize weights. However, weights could be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance; For smaller weights, it has little influence on model, which can be totally discarded. 
-
-
+In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded. 
 
 <!--more-->
 
 
 
-Regularization is such an technique to set an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another technique widely used in Deep Learning. In this post, we will explain how regularization works in detail.
+Regularization is such a technique to set an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another technique widely used in Deep Learning. In this post, we will explain how regularization works in detail.
 
 
 
@@ -40,7 +38,7 @@ L_{min} = \sum_{i=0}^m (y_i - \bold x_i^t \bold w)^2 \\\\ \text { subject to } \
 $$
 PS: $w_0$ is exclude in L2 regularization. It depends (I am not sure, but pls be careful.)
 
-Obviously, this is an inequality constraints optimization, and we can apply Lagrange to solve it,
+This is an inequality constraints optimization, and we can apply Lagrange to solve it,
 
 
 $$
@@ -71,7 +69,7 @@ $$
 
 ### L1 Lasso
 
-L1 is a bit different from L2. The regularization term is the sum of the absolute value of the weights, or L1 norm. Unfortunately, there is no closed-form solution, so we use gradient descent to find the estimate.
+L1 is a bit different from L2. The regularization term is the sum of the absolute value of the weights, also known as the L1 norm. Unfortunately, there is no closed-form solution, so we use gradient descent to find the estimate.
 
 
 $$
@@ -109,7 +107,7 @@ From the view of Lagrange, the solution is the intersection point between the lo
 
 
 
-Dropout means that we randomly drop out hidden/visible units during training a neural network. The dropout rate is denoted by $p$. When a node is dropped out, all connections including incoming and ougoing connections related to it are removed from the network temporarily (in each epoch, so it could be kept during next epoch.)
+Dropout means that we randomly drop out hidden/visible units during training a neural network. The dropout rate is denoted by $p$. When a node is dropped out, all connections, including incoming and outgoing connections, are removed from the network temporarily (in each epoch, so it could be kept during the next epoch.)
 
 
 
@@ -127,7 +125,7 @@ $$
 
 
 
-When testing, we do not drop out nodes, but we need to scale the network by $1-p$ because we train a sub-network with its weights scaled with $1-p$. From the below equation, we see that the expected hidden value at training time is $(1-p)h_i$ for each input node. Similary, at test time, we hope the same expected value, so we multiply by $1-p$ . In practice, many deep learning libraries will rescale the network by multiplying $\frac{1}{1-p}$ during training phrase, so there is no need to scale the network again during testing.
+At test time, we do not drop out nodes, but we scale the network by $1-p$. From the below equation, we see that the expected hidden value at training time is $(1-p)h_i$ for each input node. Similarly, at test time, we hope the expected value stay the same, so we multiply each node by $1-p$. In practice, many deep learning libraries will rescale the network by multiplying $\frac{1}{1-p}$ during training phrase, so there is no need to scale the network again when testing.
 
 
 $$
@@ -136,8 +134,6 @@ $$
 
 
 Intuitively, dropout is an ensemble method, we combine many different models to reduce variance and improve generalisation. Typically, $p$ is set to $0.5$ to achieve the best regularization.
-
-
 
 
 

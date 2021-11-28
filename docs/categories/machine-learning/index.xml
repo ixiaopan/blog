@@ -26,7 +26,7 @@
 			<link>https://ixiaopan.github.io/blog/post/dl-03-regularization/</link>
 			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-03-regularization/</guid>
-			<description>&lt;p&gt;In the previous post, we introduced how to initialize weights. However, weights could be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance; For smaller weights, it has little influence on model, which can be totally discarded.&lt;/p&gt;</description>
+			<description>&lt;p&gt;In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
