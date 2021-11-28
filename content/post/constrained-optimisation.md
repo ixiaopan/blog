@@ -1,7 +1,7 @@
 ---
 title: "Constrained Optimisation"
 date: "2021-06-03"
-description: "When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I'd already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key. "
+description: ""
 # tags: []
 categories: [
     "Machine Learning",
@@ -177,11 +177,17 @@ $$
 \mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
 $$
 
+### Case 1
 
 In the first case where the optimum point lies in the interior of the constraint, i.e. $g(x) > 0$, which is filled in red in Figure 2 a). We set $\alpha = 0$, which means the constrains has no influence on $f(x)$. 
 
-As for the second case, it is exactly the same as the equality constraints, i.e.
 
+
+
+
+### Case 2
+
+As for the second case, it is exactly the same as the equality constraints, i.e.
 
 $$
 \nabla_x f(x) = \alpha \nabla_xg(x)
@@ -208,7 +214,7 @@ From above, we can also draw another conclusion shown below
 
 
 $$
-\alpha \nabla_x g(x) = 0
+\alpha g(x) = 0
 $$
 
 
@@ -232,7 +238,7 @@ Then we can find a local mininum $x^*$ s.t.
 - $\alpha \ge 0$
   - $\alpha = 0$, the solution is in the interior or
   - $\alpha \gt 0$ and $g(x) = 0$, i.e. the solution is on the boundary
-- $\alpha \nabla_x g(x) = 0$
+- $\alpha g(x) = 0$
 
 
 

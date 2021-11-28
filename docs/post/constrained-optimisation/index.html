@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Constrained Optimisation"/>
-<meta name="twitter:description" content="When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I&#39;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key. "/>
+<meta name="twitter:description" content="When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I&rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key."/>
 
 
 
@@ -264,7 +264,9 @@ $$</p>
 <p>$$
 \mathcal{L}(x, \alpha) = f(x) - \alpha g(x)
 $$</p>
+<h3 id="case-1">Case 1</h3>
 <p>In the first case where the optimum point lies in the interior of the constraint, i.e. $g(x) &gt; 0$, which is filled in red in Figure 2 a). We set $\alpha = 0$, which means the constrains has no influence on $f(x)$.</p>
+<h3 id="case-2">Case 2</h3>
 <p>As for the second case, it is exactly the same as the equality constraints, i.e.</p>
 <p>$$
 \nabla_x f(x) = \alpha \nabla_xg(x)
@@ -277,7 +279,7 @@ $$</p>
 <p>It is noticeable that $\nabla_x g(x)$ points in towards the feasible region. Therefore, we conclude that $\nabla_x f(x)$ and $\nabla_x g(x)$ have the same direction. Thus, $\alpha$ is positive.</p>
 <p>From above, we can also draw another conclusion shown below</p>
 <p>$$
-\alpha \nabla_x g(x) = 0
+\alpha g(x) = 0
 $$</p>
 <h3 id="kkt-conditions">KKT Conditions</h3>
 <p>Putting it together, we want to minimise $f(x)$ subject $g(x) \ge 0$, and the Lagrangian function is defined as follows,</p>
@@ -293,7 +295,7 @@ $$</p>
 <li>$\alpha \gt 0$ and $g(x) = 0$, i.e. the solution is on the boundary</li>
 </ul>
 </li>
-<li>$\alpha \nabla_x g(x) = 0$</li>
+<li>$\alpha g(x) = 0$</li>
 </ul>
 <p>These are the Karush-Kuhn-Tucker (KKT) conditions.</p>
 <h3 id="many-inequalities">Many Inequalities</h3>
@@ -642,6 +644,8 @@ $$</p>
     </li>
     <li><a href="#inequality-constraints">Inequality Constraints</a>
       <ul>
+        <li><a href="#case-1">Case 1</a></li>
+        <li><a href="#case-2">Case 2</a></li>
         <li><a href="#alpha-ge-0">$\alpha \ge 0$</a></li>
         <li><a href="#kkt-conditions">KKT Conditions</a></li>
         <li><a href="#many-inequalities">Many Inequalities</a></li>
