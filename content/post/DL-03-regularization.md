@@ -34,10 +34,6 @@ katex: true
 
 
 
-## Data Augmentation
-
-
-
 
 
 ## Early Stopping

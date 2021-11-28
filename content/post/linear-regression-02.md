@@ -75,11 +75,11 @@ $$
 $$
 
 
-However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible(singular), such as if the number of features are more than the number of observations($n < d$). One way to solve this equation is to use SVD.
+However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible (singular), such as the number of features are more than the number of observations ($n < d$). One way to solve this equation is to use SVD.
 
 
 
-### pseudoinverse
+### Pseudoinverse
 
 SVD technique can decompose any matrix $A$ into the multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,
 
@@ -109,17 +109,20 @@ In practice, the algorithm will set the elements of $\Sigma$ that less than a sm
 
 
 
+### Comparison of algorithms
 
+Below are common methods to estimate LR.
 
-### QR factorisation
+- Analytical solution calculates $(X^TX)^{-1}$ directly, which is a $d \times d$ matrix, so larger $d$ causes slow computation
+- SVD is a dimension reduction method, again, smaller $d$  is fast
+- GD-based methods tend to be affected by the scale of features
 
-TODO
-
-
-
-### comparison of algorithms
-
-TODO
+|                        | Large N | Large D | Scaling Required |
+| ---------------------- | ------- | ------- | ---------------- |
+| Equation               | fast    | slow    | No               |
+| SVD                    | fast    | slow    | No               |
+| Batch Gradient Descent | slow    | fast    | Yes              |
+| SGD                    | fast    | fast    | Yes              |
 
 
 
@@ -129,29 +132,21 @@ TODO
 
 ### Assumption
 
+Linear Regression works based on the following assumptions
 
-
-It's inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We define the error to be $\epsilon_i$ for each observation. 
-
-
-
-$$
-y_i = a + bx_i + \epsilon_i
-$$
+- Y has a linear relationship to X. To check this, we can plot a scatterplot
+- Y values are independent
+- For each $x_i$, there is an error $\epsilon_i$ following Gaussian distribution $\epsilon_i \sim N(0, \sigma^2)$
 
 
 
-The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of $\sigma^2$.
+### Residual Plot
+
+A residual plot shown in Figure 1 is a graph that shows the relationship between residuals and $X$. If the residuals are randomly placed around the x axis, a linear model is appropriate. Otherwise, we would transform data to satisfy linearity.
 
 
 
-$$
-\epsilon_i \sim N(0, \sigma^2)
-$$
-
-
-
-Thus, the probability of $y_i$ is defined by the predictors $x_i$ and the paramters $a, b, \sigma^2$.
+![](/blog/post/images/residual-plot.png#full "Figure 1: Residual plots. [Source from [2]]")
 
 
 
@@ -165,23 +160,34 @@ The basic idea of MLE is that if the data were generated from some model, then w
 
 
 
-Suppose we have a data set of inputs $X={x^{(1)}, x^{(2)}, ..., x^{(N)}}$ and corresponding target variables ${y_1, y_2, .., y_N}$ with a Gaussian noise $\epsilon$. Then we can construct the likelihood of all data points,
+Suppose we have a data set of inputs $X={x^{(1)}, x^{(2)}, ..., x^{(N)}}$ and corresponding target variables ${y_1, y_2, .., y_N}$ with a Gaussian noise $\epsilon_i \sim N(0, \sigma^2)$, we obtain
 
+
+$$
+y'_i \sim N(b + ax_i, \sigma^2)
+$$
+ 
+
+
+
+Next we construct the likelihood of all data points,
 
 $$
 L(\theta|D) = \prod_{n=1}^N p(y_i|x_i, a, b, \sigma^2)
 $$
 
+For a target value $y_i$, the probability of $y_i$ given the parameters $a, b, \sigma$ is 
 
-Usually, we will take the log likelihood to make computation more simpler,
+
+$$
+p(y_i|x_i, a, b, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y_i - b - ax_i)^2}{2\sigma^2}}
+$$
+Our goal is to find the appropriate parameters $a, b, \sigma$ to maximise all the likelihood of $y_i$. Usually, we take the log likelihood to make computation more simpler,
+
 
 
 $$
-In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y - a - bx_i)^2}{2\sigma^2}})
-$$
-
-$$
-= \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - a - bx_i)^2
+In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y_i - b - ax_i)^2}{2\sigma^2}}) \\\\ = \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - b - ax_i)^2
 $$
 
 
@@ -189,7 +195,7 @@ From above equation, we can see that maximizing the likelihood is equivalent to 
 
 
 
-## Geometry of Linear Regression
+## Geometry of LR
 
 
 
@@ -197,7 +203,7 @@ In this section, we will look at the geometry of the linear regression. In $N$-d
 
 
 
-![Geometry interpretation of the least-squares solution](/blog/post/images/geometry-linear-regression.png "Figure 1: Geometry interpretation of the least-squares solution (PRML 2006)")
+![Geometry interpretation of the least-squares solution](/blog/post/images/geometry-linear-regression.png#full "Figure 1: Geometry interpretation of the least-squares solution (PRML 2006)")
 
 
 
@@ -216,9 +222,34 @@ $$
 
 
 
+## Weighted Least Square
+
+
+
+We assume $\epsilon_i$ share the same variance (homoskedasticity), however, it is not always the case (heteroskedasticity). In this case, we add a weight to each residual, as shown below
+
+
+$$
+L_{min} = \sum w_i(y_i - ax_i - b)^2
+$$
+
+
+We can see that large noise will be punished heavily, i.e. $w_i$ tends to small. The idea is that we'd like to pay more attention to data with little noise for estimation rather than to concerntrate all noisy part of the data.
+
 
 
 ## Non-linear Data
+
+
+
+### Transformation
+
+| Model             | Predicted Value             |
+| ----------------- | --------------------------- |
+| Logarithmic model | $y' = a \text{log} (x) + b$ |
+| Reciprocal model  | $y' = 1/(ax + b)$           |
+| Quadratic model   | $ y' = (ax + b)^2$          |
+| Exponential model | $y' = e^{ax+b}$             |
 
 
 
@@ -226,35 +257,20 @@ $$
 
 
 
-### Transformation
+### Model Selection
+
+AIC, Akaike's Information Criterion is an estimator for the K-L divergence.
 
 
-
-## Dependent Data
-
-
-
-TODO
+$$
+AIC = 2K - 2 \text{log}(L)
+$$
 
 
+where $K$ is the number of predictors and $L$ is the maximised likelihood value. The goal is to find the minimum AIC, so 
 
-## Outliers
-
-
-
-TODO
-
-
-
-## Multicollinearity
-
-
-
-
-
-## Dummy Variables
-
-
+- $K$ will punish models with many predictors
+- $L$ rewards good fit models
 
 
 

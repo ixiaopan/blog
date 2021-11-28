@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 17, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -203,8 +203,8 @@ $$</p>
 <p>$$
 \bold w= (\bold X^T\bold X)^{-1} \bold X^T \bold y
 $$</p>
-<p>However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible(singular), such as if the number of features are more than the number of observations($n &lt; d$). One way to solve this equation is to use SVD.</p>
-<h3 id="pseudoinverse">pseudoinverse</h3>
+<p>However, this equation is unlikely to work if  $\bold X^T\bold X$ is not invertible (singular), such as the number of features are more than the number of observations ($n &lt; d$). One way to solve this equation is to use SVD.</p>
+<h3 id="pseudoinverse">Pseudoinverse</h3>
 <p>SVD technique can decompose any matrix $A$ into the multiplication of three matrices, i.e.  $U\Sigma V^T$. Thus the above equation can be written in the following form,</p>
 <p>$$
 \bold w = A^+y
@@ -218,41 +218,90 @@ $$</p>
 <p>When A has more rows than columns, it is possible for there to be no solution. In this case, using the pseudoinverse gives us the x for which Ax is as close as possible to y in terms of Euclidean norm $|| Ax − y ||_ 2$ .</p>
 <p>— Deep Learning, p44</p>
 </blockquote>
-<h3 id="qr-factorisation">QR factorisation</h3>
-<p>TODO</p>
-<h3 id="comparison-of-algorithms">comparison of algorithms</h3>
-<p>TODO</p>
+<h3 id="comparison-of-algorithms">Comparison of algorithms</h3>
+<p>Below are common methods to estimate LR.</p>
+<ul>
+<li>Analytical solution calculates $(X^TX)^{-1}$ directly, which is a $d \times d$ matrix, so larger $d$ causes slow computation</li>
+<li>SVD is a dimension reduction method, again, smaller $d$  is fast</li>
+<li>GD-based methods tend to be affected by the scale of features</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Large N</th>
+<th>Large D</th>
+<th>Scaling Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equation</td>
+<td>fast</td>
+<td>slow</td>
+<td>No</td>
+</tr>
+<tr>
+<td>SVD</td>
+<td>fast</td>
+<td>slow</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Batch Gradient Descent</td>
+<td>slow</td>
+<td>fast</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SGD</td>
+<td>fast</td>
+<td>fast</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 <h2 id="probabilistic-interpretation">Probabilistic Interpretation</h2>
 <h3 id="assumption">Assumption</h3>
-<p>It&rsquo;s inevitable to introduce errors when we collect data. The error could be systematic errors, human errors or something else. We define the error to be $\epsilon_i$ for each observation.</p>
-<p>$$
-y_i = a + bx_i + \epsilon_i
-$$</p>
-<p>The assumption of linear regression is that the expected error is zero. Specifically, the error follows the Gaussian distribution with the mean of zero and variance of $\sigma^2$.</p>
-<p>$$
-\epsilon_i \sim N(0, \sigma^2)
-$$</p>
-<p>Thus, the probability of $y_i$ is defined by the predictors $x_i$ and the paramters $a, b, \sigma^2$.</p>
+<p>Linear Regression works based on the following assumptions</p>
+<ul>
+<li>Y has a linear relationship to X. To check this, we can plot a scatterplot</li>
+<li>Y values are independent</li>
+<li>For each $x_i$, there is an error $\epsilon_i$ following Gaussian distribution $\epsilon_i \sim N(0, \sigma^2)$</li>
+</ul>
+<h3 id="residual-plot">Residual Plot</h3>
+<p>A residual plot shown in Figure 1 is a graph that shows the relationship between residuals and $X$. If the residuals are randomly placed around the x axis, a linear model is appropriate. Otherwise, we would transform data to satisfy linearity.</p>
+<p>
+  <figure>
+    <img src="/blog/post/images/residual-plot.png#full" alt="">
+    <figcaption>Figure 1: Residual plots. [Source from [2]]</figcaption>
+  </figure>
+</p>
 <h3 id="mle">MLE</h3>
 <p>We have found the parameters by minimizing the loss, but now we are going to use another method to derive the same result, which is known as maximum likelihood estimation(MLE).</p>
 <p>The basic idea of MLE is that if the data were generated from some model, then what&rsquo;s the parameters of the model were most likely to make this happen? In other words, we are finding the parameters that maximize the probability of the data $D$ that we&rsquo;ve seen.</p>
-<p>Suppose we have a data set of inputs $X={x^{(1)}, x^{(2)}, &hellip;, x^{(N)}}$ and corresponding target variables ${y_1, y_2, .., y_N}$ with a Gaussian noise $\epsilon$. Then we can construct the likelihood of all data points,</p>
+<p>Suppose we have a data set of inputs $X={x^{(1)}, x^{(2)}, &hellip;, x^{(N)}}$ and corresponding target variables ${y_1, y_2, .., y_N}$ with a Gaussian noise $\epsilon_i \sim N(0, \sigma^2)$, we obtain</p>
+<p>$$
+y'_i \sim N(b + ax_i, \sigma^2)
+$$</p>
+<p>Next we construct the likelihood of all data points,</p>
 <p>$$
 L(\theta|D) = \prod_{n=1}^N p(y_i|x_i, a, b, \sigma^2)
 $$</p>
-<p>Usually, we will take the log likelihood to make computation more simpler,</p>
+<p>For a target value $y_i$, the probability of $y_i$ given the parameters $a, b, \sigma$ is</p>
 <p>$$
-In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y - a - bx_i)^2}{2\sigma^2}})
-$$</p>
+p(y_i|x_i, a, b, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y_i - b - ax_i)^2}{2\sigma^2}}
+$$
+Our goal is to find the appropriate parameters $a, b, \sigma$ to maximise all the likelihood of $y_i$. Usually, we take the log likelihood to make computation more simpler,</p>
 <p>$$
-= \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - a - bx_i)^2
+In(L(\theta|D)) =\sum_i^n In(\frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{(y_i - b - ax_i)^2}{2\sigma^2}}) \\ = \frac{N}{2}In\sigma - \frac{N}{2}In2\pi - \frac{1}{2\sigma^2}\sum_{n=1}^N(y_i - b - ax_i)^2
 $$</p>
 <p>From above equation, we can see that maximizing the likelihood is equivalent to minimizing the sum of squared error.</p>
-<h2 id="geometry-of-linear-regression">Geometry of Linear Regression</h2>
+<h2 id="geometry-of-lr">Geometry of LR</h2>
 <p>In this section, we will look at the geometry of the linear regression. In $N$-dimensional space whose axes are the values of $y_1, y_2, &hellip;, y_n$ , the least-squares solution is obtained by finding the orthogonal projection of the target vector $y$ onto the subspace spanned by the columns of $X$.</p>
 <p>
   <figure>
-    <img src="/blog/post/images/geometry-linear-regression.png" alt="Geometry interpretation of the least-squares solution">
+    <img src="/blog/post/images/geometry-linear-regression.png#full" alt="Geometry interpretation of the least-squares solution">
     <figcaption>Figure 1: Geometry interpretation of the least-squares solution (PRML 2006)</figcaption>
   </figure>
 </p>
@@ -262,15 +311,51 @@ $$</p>
 \begin{bmatrix}w_0\\ w_1\\ w_2\\ &hellip;\\ w_d \end{bmatrix}
 }
 $$</p>
+<h2 id="weighted-least-square">Weighted Least Square</h2>
+<p>We assume $\epsilon_i$ share the same variance (homoskedasticity), however, it is not always the case (heteroskedasticity). In this case, we add a weight to each residual, as shown below</p>
+<p>$$
+L_{min} = \sum w_i(y_i - ax_i - b)^2
+$$</p>
+<p>We can see that large noise will be punished heavily, i.e. $w_i$ tends to small. The idea is that we&rsquo;d like to pay more attention to data with little noise for estimation rather than to concerntrate all noisy part of the data.</p>
 <h2 id="non-linear-data">Non-linear Data</h2>
-<h3 id="fitting-polynomials">Fitting Polynomials</h3>
 <h3 id="transformation">Transformation</h3>
-<h2 id="dependent-data">Dependent Data</h2>
-<p>TODO</p>
-<h2 id="outliers">Outliers</h2>
-<p>TODO</p>
-<h2 id="multicollinearity">Multicollinearity</h2>
-<h2 id="dummy-variables">Dummy Variables</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Predicted Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logarithmic model</td>
+<td>$y' = a \text{log} (x) + b$</td>
+</tr>
+<tr>
+<td>Reciprocal model</td>
+<td>$y' = 1/(ax + b)$</td>
+</tr>
+<tr>
+<td>Quadratic model</td>
+<td>$ y' = (ax + b)^2$</td>
+</tr>
+<tr>
+<td>Exponential model</td>
+<td>$y' = e^{ax+b}$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fitting-polynomials">Fitting Polynomials</h3>
+<h3 id="model-selection">Model Selection</h3>
+<p>AIC, Akaike&rsquo;s Information Criterion is an estimator for the K-L divergence.</p>
+<p>$$
+AIC = 2K - 2 \text{log}(L)
+$$</p>
+<p>where $K$ is the number of predictors and $L$ is the maximised likelihood value. The goal is to find the minimum AIC, so</p>
+<ul>
+<li>$K$ will punish models with many predictors</li>
+<li>$L$ rewards good fit models</li>
+</ul>
 <h2 id="references">References</h2>
 <p>[1] C. Bishop, <em>Pattern Recognition and Machine Learning</em>. 2006.</p>
 <p>[2] &ldquo;Interaction Effects in Regression&rdquo;, <em>Stattrek.com</em>, 2021. [Online]. Available: <a href="https://stattrek.com/multiple-regression/interaction.aspx?tutorial=reg">https://stattrek.com/multiple-regression/interaction.aspx?tutorial=reg</a>. [Accessed: 11- May- 2021].</p>
@@ -286,28 +371,26 @@ $$</p>
   <ul>
     <li><a href="#multiple-linear-regression">Multiple Linear Regression</a>
       <ul>
-        <li><a href="#pseudoinverse">pseudoinverse</a></li>
-        <li><a href="#qr-factorisation">QR factorisation</a></li>
-        <li><a href="#comparison-of-algorithms">comparison of algorithms</a></li>
+        <li><a href="#pseudoinverse">Pseudoinverse</a></li>
+        <li><a href="#comparison-of-algorithms">Comparison of algorithms</a></li>
       </ul>
     </li>
     <li><a href="#probabilistic-interpretation">Probabilistic Interpretation</a>
       <ul>
         <li><a href="#assumption">Assumption</a></li>
+        <li><a href="#residual-plot">Residual Plot</a></li>
         <li><a href="#mle">MLE</a></li>
       </ul>
     </li>
-    <li><a href="#geometry-of-linear-regression">Geometry of Linear Regression</a></li>
+    <li><a href="#geometry-of-lr">Geometry of LR</a></li>
+    <li><a href="#weighted-least-square">Weighted Least Square</a></li>
     <li><a href="#non-linear-data">Non-linear Data</a>
       <ul>
-        <li><a href="#fitting-polynomials">Fitting Polynomials</a></li>
         <li><a href="#transformation">Transformation</a></li>
+        <li><a href="#fitting-polynomials">Fitting Polynomials</a></li>
+        <li><a href="#model-selection">Model Selection</a></li>
       </ul>
     </li>
-    <li><a href="#dependent-data">Dependent Data</a></li>
-    <li><a href="#outliers">Outliers</a></li>
-    <li><a href="#multicollinearity">Multicollinearity</a></li>
-    <li><a href="#dummy-variables">Dummy Variables</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav>

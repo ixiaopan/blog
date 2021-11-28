@@ -13,7 +13,7 @@ katex: true
 
 
 
-Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:
+Statistics is one of the most important skills for data scientists. There are two main branches:
 
 
 
@@ -27,7 +27,7 @@ Statistics is one of the most important skills required to be a data scientist. 
 
 
 
-In this post, we will focus on descriptive statistics and other basic concepts in statistics.
+In this post, we focus on descriptive statistics and other basic concepts in statistics.
 
 
 
@@ -35,7 +35,7 @@ In this post, we will focus on descriptive statistics and other basic concepts i
 
 
 
-Central tendency measures the center of the data. Mean, mode, and median are three mainly used measures of central tendency.
+Central tendency measures the centre of the data. Mean, mode, and median are three mainly used metrics.
 
 
 
@@ -49,19 +49,45 @@ $$
 \overline x = \frac{\sum_i^nx_i}{n}
 $$
 
+```python
+# vanilla python
+def mean(x):
+	return sum(x)/len(x)
+```
+
 
 
 ### Median
 
-Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data `1,2,3,4,5,6,100`, after some calculations, you find that the mean is `17.28`. However, it seems a bit strange since most of the data values are less than `10` except for one extreme value `100`, which stretches the distribution of the whole data set to the right. This is why the median comes.
+Though mean is widely used, it's sensitive to outliers.  Suppose you have a set of data `1,2,3,4,5,6,100`, after some calculations, you find that the mean is `17.28`. However, it seems not convincing as most of the data values are less than `10` except for one extreme value `100`. 
 
 To get the median, firstly we need to sort the data in ascending order and then find the middle number that separates the data into two groups of the same size. In this example, the median is `4`.
 
 
 
+```python
+def median(x):
+  mid_p = len(x) // 2
+  if len(x) % 2 == 0: # even
+    return (x[mid_p] + x[mid_p-1])/2
+  else: # odd
+    return x[mid_p]
+```
+
+
+
 ### Mode
 
-Mode is the most frequent value. There could be one, two or more data values with the same frequency, and that frequency is the largest.
+Mode is the most frequent value. There could be one, two or more data values with the same frequency, and that frequency is the largest. For instance, 
+
+
+
+```python
+from collections import Counter
+a = [1, 2, 4, 5, 6, 6, 7, 6, 4, 4, 3, 3, 3, 2, 2,2, 10, 2, 3, 3]
+Counter(a).most_common()
+# [(2, 5), (3, 5), (4, 3), (6, 3), (1, 1), (5, 1), (7, 1), (10, 1)]
+```
 
 
 
@@ -88,30 +114,26 @@ $$
 
 
 
-Quantiles are used to divide data into several equal-sized groups. The most widely used cut points are `0, 25, 50, 75, 100`, denoted by `min, Q1, Q2, Q3, max`, respectively.
-
-
-
-IQR or interquartile range measures where the central 50% of the data is.
+Quantiles are used to divide data into several equal-sized groups. The most widely used cut points are `0, 25, 50, 75, 100`, denoted by `min, Q1, Q2, Q3, max`, respectively. IQR (interquartile range) measures where the central 50% of the data is.
 
 
 
 $$
-IQR = Q3 - Q1
+\text{IQR} = Q3 - Q1
 $$
 
 
 
-IQR can be used to detect outliers. Data that is greater than the **upper boundary** or less than the **lower boundary** can be considered as an outlier.
+IQR can be used to detect outliers. Data that is greater than the **upper boundary** or less than the **lower boundary** can be considered as outliers.
 
 
 
 $$
-upper \ boundary = Q3 + 1.5*IQR
+\text{upper boundary }= Q3 + 1.5*IQR
 $$
 
 $$
-lower \ boundary = Q1 - 1.5*IQR
+\text{lower boundary} = Q1 - 1.5*IQR
 $$
 
 
@@ -158,7 +180,7 @@ However, the squared value is a bit hard to interpret. For instance, below are 1
 
 ### Standard Deviation
 
-It's simple to solve this problem by taking the square root of the variance, which is the standard deviation.  The standard deviation in the previous example is `5.56kg`, which makes much sense.
+It's simple to solve this problem by taking the square root of the variance, which is the standard deviation.  The standard deviation in the previous example is `5.56kg`, which makes more sense.
 
 
 
