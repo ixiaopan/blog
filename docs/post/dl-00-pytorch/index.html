@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Deep Learning - PyTorch"/>
-<meta name="twitter:description" content="The most popular deep learning frameworks so far are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references."/>
+<meta name="twitter:description" content="The most popular deep learning frameworks nowadays are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references."/>
 
 
 
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jul 19, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;10 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -176,15 +176,25 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>The most popular deep learning frameworks so far are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.</p>
+  <p>The most popular deep learning frameworks nowadays are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.</p>
 <h2 id="tensor">Tensor</h2>
-<p>Tensor is the basic data structure in PyTorch. Simply put, a tensor means a multi-dimensional array where you can access an individual element by indexing. The dimension could be zero, one, two, three and so on. The most common tensors are scalars, vectors, and matrices shown below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">1.</span>) <span style="color:#75715e"># scalar</span>
-
-torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]) <span style="color:#75715e"># vector</span>
-
-torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>) <span style="color:#75715e"># matrix</span>
-torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># matrix</span>
+<p>Tensor is the primary data structure in PyTorch. Simply put,</p>
+<ul>
+<li>A tensor refers to a multi-dimensional array where you can access an individual element by indexing</li>
+<li>A tensor&rsquo;s rank tells us how many indexes are needed to refer to a specific element within the tensor. It can be zero, one, two, three and so on. If we have a rank-2 tensor, it means that this tensor have 2 axes or it&rsquo;s a matrix.</li>
+<li>An axis of a tensor is a specific dimension of a tensor. In practice, we often do computation along a specifc axis.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">1.</span>)
+torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
+</code></pre></div><p>A tensor&rsquo;s shape is very important because it contains all the information about the tensor like rank and the length of each axis. For example, in image classification, the data typically have the following shape. It&rsquo;s common to see <code>NCHW</code> rather than <code>BCHW</code>, where <code>B</code> is replaced by <code>N</code>. Common orderings are show below.</p>
+<ul>
+<li><code>NCHW</code></li>
+<li><code>NHWC</code></li>
+<li><code>CHWN</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[Batch, Channels, Height, Width]
 </code></pre></div><h3 id="storage">storage</h3>
 <p>In fact, the tensor declared above is just a view of the underlying data. View means a kind of way to look at data. For example, you can look at an image from the top direction or the right direction. In the case of data, you could look at data in the original order or you could skip a fixed number of elements.</p>
 <p>No matter how you view it, the data in memory stay the same. In fact, the real values are stored in a contiguous block of memory. In PyTorch, we can access it by invoking <code>tensor.storage()</code>. For example,</p>
@@ -367,7 +377,115 @@ net <span style="color:#f92672">=</span> SimpleNet()
 </span><span style="color:#e6db74">  (out_layer): Linear(in_features=4, out_features=2, bias=True)
 </span><span style="color:#e6db74">)
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
-</code></pre></div><h2 id="advanced-techniques">Advanced Techniques</h2>
+</code></pre></div><h2 id="basic-techniques">Basic Techniques</h2>
+<h3 id="verify-torch">Verify torch</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;torch version:&#39;</span>, torch<span style="color:#f92672">.</span>__version__)
+
+<span style="color:#75715e"># verify GPU</span>
+cuda_enabled <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available()
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;GPU available:&#39;</span>, cuda_enabled)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;GPU version:&#39;</span>, torch<span style="color:#f92672">.</span>version<span style="color:#f92672">.</span>cuda)
+
+<span style="color:#75715e"># using CUDA</span>
+t <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+<span style="color:#66d9ef">if</span> cuda_enabled:
+  t <span style="color:#f92672">=</span> t<span style="color:#f92672">.</span>cuda()
+</code></pre></div><h3 id="creating-tensor">Creating Tensor</h3>
+<h4 id="with-data">With Data</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>Tensor(x)
+torch<span style="color:#f92672">.</span>tensor(x)
+torch<span style="color:#f92672">.</span>from_numpy(x)
+torch<span style="color:#f92672">.</span>as_tensor(x)
+</code></pre></div><p>What&rsquo;s the difference between them? Let&rsquo;s see an example.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">3</span>) <span style="color:#75715e"># construct a toy data using numpy</span>
+<span style="color:#66d9ef">print</span>(x, x<span style="color:#f92672">.</span>dtype)
+<span style="color:#75715e"># [0 1 2] int64</span>
+o1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(x)
+o2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(x)
+o3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>from_numpy(x)
+o4 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>as_tensor(x)
+<span style="color:#75715e"># tensor([0., 1., 2.]) torch.float32</span>
+<span style="color:#75715e"># tensor([0, 1, 2]) torch.int64</span>
+<span style="color:#75715e"># tensor([0, 1, 2]) torch.int64</span>
+<span style="color:#75715e"># tensor([0, 1, 2]) torch.int64</span>
+
+x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+<span style="color:#66d9ef">print</span>(o1)
+<span style="color:#66d9ef">print</span>(o2)
+<span style="color:#66d9ef">print</span>(o3)
+<span style="color:#66d9ef">print</span>(o4)
+<span style="color:#75715e"># tensor([0., 1., 2.])</span>
+<span style="color:#75715e"># tensor([0, 1, 2])</span>
+<span style="color:#75715e"># tensor([0, 5, 2])</span>
+<span style="color:#75715e"># tensor([0, 5, 2])</span>
+
+</code></pre></div><p>After running the above code, you might have the following questions,</p>
+<ul>
+<li>What&rsquo;s the difference between <code>torch.Tensor</code> and <code>torch.tensor</code>?</li>
+<li>inconsistent data type  — <code>torch.Tensor()</code> returns <code>float32</code> while others return <code>int</code>. Why?</li>
+<li>Why do different methods behave so weird after changing the original data?</li>
+</ul>
+<p>Q1 difference between  <code>torch.Tensor()</code> and <code>torch.tensor()</code></p>
+<ul>
+<li><code>torch.Tensor()</code> is the constructor of the  <code>torch.Tensor </code> class</li>
+<li><code>torch.tensor()</code> is a factory function that returns tensor object</li>
+</ul>
+<p>Q2 Why different dtypes?</p>
+<ul>
+<li><code>torch.Tensor()</code> uses the default dtype when creating the tensor. You can see the default dtype by invoking the following code.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>get_default_dtype() <span style="color:#75715e"># float32</span>
+</code></pre></div><ul>
+<li>
+<p>others use the dtype inferred from the input data.</p>
+</li>
+<li>
+<p>You cannot specify a dtype in the <code>torch.Tensor()</code> constructor, but <code>dtype</code> can be explicitly passed as an argument when using other methods</p>
+</li>
+</ul>
+<p>Q3 memory sharing</p>
+<p>This is because <code>torch.tensor()</code> and <code>torch.Tensor()</code> copy the input data while the latter ones use the same data in memory. We see that <code>x.numpy()</code> also shares the same memory with the original tensor.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">5</span>, (<span style="color:#ae81ff">3</span>,)) <span style="color:#75715e"># tensor([3, 2, 2])</span>
+a <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>numpy()
+
+x[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span>
+<span style="color:#66d9ef">print</span>(x) <span style="color:#75715e"># tensor([3, 9, 2])</span>
+<span style="color:#66d9ef">print</span>(a) <span style="color:#75715e"># array([3, 9, 2])</span>
+</code></pre></div><h4 id="without-data">Without Data</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>eye(<span style="color:#ae81ff">2</span>)
+torch<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</code></pre></div><h3 id="loss-function">Loss function</h3>
+<h4 id="mse">MSE</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+y_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+y_true <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
+
+F<span style="color:#f92672">.</span>mse_loss(y_pred, y_true) <span style="color:#75715e"># or</span>
+mse_loss <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MSELoss()
+mse_loss(y_pred, y_true)
+
+</code></pre></div><h4 id="cross-entropy">Cross Entropy</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Cross-entropy Loss</span>
+<span style="color:#75715e"># Example of target with class indices</span>
+input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+target <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">5</span>, (<span style="color:#ae81ff">3</span>,), dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>int64)
+loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(input, target) <span style="color:#75715e"># typically, either 1 or 0</span>
+loss<span style="color:#f92672">.</span>backward()
+
+<span style="color:#75715e"># Example of target with class probabilities</span>
+input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+target <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)<span style="color:#f92672">.</span>softmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(input, target)
+loss<span style="color:#f92672">.</span>backward()
+
+</code></pre></div><h4 id="bce">BCE</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#75715e"># Binary Cross-Entropy Loss (predicted prob, true prob [0,1])</span>
+bce_loss<span style="color:#f92672">=</span>nn<span style="color:#f92672">.</span>BCELoss()
+loss <span style="color:#f92672">=</span> bce_loss(torch<span style="color:#f92672">.</span>sigmoid(z), y_true)
+</code></pre></div><h3 id="reshape">Reshape</h3>
+<h2 id="advanced-techniques">Advanced Techniques</h2>
 <h3 id="torchscatter_">torch.scatter_</h3>
 <p>This function is often used to implement one-hot encoding. As its name suggests, <strong>scatter</strong> means to distribute a list of values over another tensor.</p>
 <p>In the case of one-hot encoding, the matrix is a parse matrix whose element value is either zero or one. So one is the scalar to be scattered at the corresponding column index for each observation.</p>
@@ -490,6 +608,7 @@ torch<span style="color:#f92672">.</span>gather(emission_score, <span style="col
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://zhang-yang.medium.com/explain-pytorch-tensor-stride-and-tensor-storage-with-code-examples-50e637f1076d">https://zhang-yang.medium.com/explain-pytorch-tensor-stride-and-tensor-storage-with-code-examples-50e637f1076d</a></li>
+<li><a href="https://deeplizard.com/learn/video/fCVuiW9AFzY">PyTorch - Deeplizard</a></li>
 </ul>
 
 
@@ -514,6 +633,14 @@ torch<span style="color:#f92672">.</span>gather(emission_score, <span style="col
         <li><a href="#forward">forward</a></li>
         <li><a href="#parameter">parameter</a></li>
         <li><a href="#sequential">sequential</a></li>
+      </ul>
+    </li>
+    <li><a href="#basic-techniques">Basic Techniques</a>
+      <ul>
+        <li><a href="#verify-torch">Verify torch</a></li>
+        <li><a href="#creating-tensor">Creating Tensor</a></li>
+        <li><a href="#loss-function">Loss function</a></li>
+        <li><a href="#reshape">Reshape</a></li>
       </ul>
     </li>
     <li><a href="#advanced-techniques">Advanced Techniques</a>

@@ -14,7 +14,9 @@ katex: true
 
 ## What and Why
 
-I don't know when it happened, but without a doubt, you will see a statistic or dynamic image on your screen when you launch some APPs nowadays (especially if you are somewhere on the Earth). The picture looks like the figure below with a small button to enable people to skip ads. Generally, the showing time of ads lasts at least 3 seconds. The most disgusting thing is that there is no upper bound for this, so you have to suffer from this unless you don't use any app at all.
+
+
+Nowadays, you will often see a statistic or dynamic image on your screen when you launch some APPs. The image looks like the figure below with a small button to enable people to skip ads. Generally, the showing time of ads lasts for at least 3 seconds. The most disgusting thing is that there is no upper bound for this, so you have to suffer from this unless you don't use any app at all.
 
 
 
@@ -56,6 +58,8 @@ Since they are both URIs, we simply reject these requests or response with an em
 
 
 Furthermore, we can even modify responses. `script-response-body` enables us to write javascripts to decide what content to show. It's very useful to filter misc data appearing on the page, such as promotions, egg hunts or ads. For example, I wrote a simple `Zhihu.js` to change the page mode from mobile to PC and remove the annoying login modal, since you cannot use Zhihu unless you download their app.
+
+
 
 ```js
 // PC version of zhihu: remove login modal and guidance for downloading app

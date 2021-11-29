@@ -12,7 +12,7 @@ katex: true
 
  
 
-The most popular deep learning frameworks so far are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It's a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it's necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.
+The most popular deep learning frameworks nowadays are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It's a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it's necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.
 
 
 
@@ -24,17 +24,31 @@ The most popular deep learning frameworks so far are Tensorflow and PyTorch. Wel
 
 
 
-Tensor is the basic data structure in PyTorch. Simply put, a tensor means a multi-dimensional array where you can access an individual element by indexing. The dimension could be zero, one, two, three and so on. The most common tensors are scalars, vectors, and matrices shown below.
+Tensor is the primary data structure in PyTorch. Simply put, 
+
+- A tensor refers to a multi-dimensional array where you can access an individual element by indexing
+- A tensor's rank tells us how many indexes are needed to refer to a specific element within the tensor. It can be zero, one, two, three and so on. If we have a rank-2 tensor, it means that this tensor have 2 axes or it's a matrix. 
+- An axis of a tensor is a specific dimension of a tensor. In practice, we often do computation along a specifc axis.
+
+```python
+torch.tensor(1.)
+torch.tensor([1, 2, 3])
+torch.arange(12).reshape(3, 4)
+torch.arange(12).reshape(2, 3, 2)
+```
+
+
+
+A tensor's shape is very important because it contains all the information about the tensor like rank and the length of each axis. For example, in image classification, the data typically have the following shape. It's common to see `NCHW` rather than `BCHW`, where `B` is replaced by `N`. Common orderings are show below.
+
+- `NCHW`
+- `NHWC`
+- `CHWN`
 
 
 
 ```python
-torch.tensor(1.) # scalar
-
-torch.tensor([1, 2, 3]) # vector
-
-torch.arange(12).reshape(3, 4) # matrix
-torch.arange(12).reshape(2, 3, 2) # matrix
+[Batch, Channels, Height, Width]
 ```
 
 
@@ -432,6 +446,174 @@ SimpleNet(
 '''
 ```
 
+## Basic Techniques
+
+### Verify torch
+
+```python
+print('torch version:', torch.__version__)
+
+# verify GPU
+cuda_enabled = torch.cuda.is_available()
+print('GPU available:', cuda_enabled)
+print('GPU version:', torch.version.cuda)
+
+# using CUDA
+t = torch.tensor([1, 2, 3])
+if cuda_enabled:
+  t = t.cuda()
+```
+
+
+
+### Creating Tensor
+
+#### With Data
+
+```python
+torch.Tensor(x)
+torch.tensor(x)
+torch.from_numpy(x)
+torch.as_tensor(x)
+```
+
+What's the difference between them? Let's see an example.
+
+```python
+x = np.arange(3) # construct a toy data using numpy
+print(x, x.dtype)
+# [0 1 2] int64
+o1 = torch.Tensor(x)
+o2 = torch.tensor(x)
+o3 = torch.from_numpy(x)
+o4 = torch.as_tensor(x)
+# tensor([0., 1., 2.]) torch.float32
+# tensor([0, 1, 2]) torch.int64
+# tensor([0, 1, 2]) torch.int64
+# tensor([0, 1, 2]) torch.int64
+
+x[1] = 5
+print(o1)
+print(o2)
+print(o3)
+print(o4)
+# tensor([0., 1., 2.])
+# tensor([0, 1, 2])
+# tensor([0, 5, 2])
+# tensor([0, 5, 2])
+
+```
+
+After running the above code, you might have the following questions,
+
+- What's the difference between `torch.Tensor` and `torch.tensor`?
+- inconsistent data type  — `torch.Tensor()` returns `float32` while others return `int`. Why? 
+- Why do different methods behave so weird after changing the original data?
+
+
+
+Q1 difference between  `torch.Tensor()` and `torch.tensor()`
+
+-  `torch.Tensor()` is the constructor of the  `torch.Tensor ` class
+-  `torch.tensor()` is a factory function that returns tensor object
+
+
+
+Q2 Why different dtypes?
+
+-  `torch.Tensor()` uses the default dtype when creating the tensor. You can see the default dtype by invoking the following code. 
+
+  ```python
+  torch.get_default_dtype() # float32
+  ```
+
+- others use the dtype inferred from the input data.
+
+- You cannot specify a dtype in the `torch.Tensor()` constructor, but `dtype` can be explicitly passed as an argument when using other methods
+
+
+
+Q3 memory sharing
+
+
+
+This is because `torch.tensor()` and `torch.Tensor()` copy the input data while the latter ones use the same data in memory. We see that `x.numpy()` also shares the same memory with the original tensor.
+
+
+
+```python
+x = torch.randint(5, (3,)) # tensor([3, 2, 2])
+a = x.numpy()
+
+x[1]=9
+print(x) # tensor([3, 9, 2])
+print(a) # array([3, 9, 2])
+```
+
+
+
+#### Without Data
+
+```python
+torch.eye(2)
+torch.zeros(3, 4)
+torch.ones(3, 4)
+```
+
+
+
+### Loss function
+
+#### MSE
+
+```python
+
+y_pred = torch.randn(3, 5, requires_grad=True)
+y_true = torch.randn(3, 5)
+
+F.mse_loss(y_pred, y_true) # or
+mse_loss = torch.nn.MSELoss()
+mse_loss(y_pred, y_true)
+
+```
+
+
+
+#### Cross Entropy
+
+````python
+# Cross-entropy Loss
+# Example of target with class indices
+input = torch.randn(3, 5, requires_grad=True)
+target = torch.randint(5, (3,), dtype=torch.int64)
+loss = F.cross_entropy(input, target) # typically, either 1 or 0
+loss.backward()
+
+# Example of target with class probabilities
+input = torch.randn(3, 5, requires_grad=True)
+target = torch.randn(3, 5).softmax(dim=1)
+loss = F.cross_entropy(input, target)
+loss.backward()
+
+````
+
+
+
+#### BCE
+
+```python
+
+# Binary Cross-Entropy Loss (predicted prob, true prob [0,1])
+bce_loss=nn.BCELoss()
+loss = bce_loss(torch.sigmoid(z), y_true)
+```
+
+
+
+### Reshape
+
+
+
 
 
 ## Advanced Techniques
@@ -606,6 +788,6 @@ which is exactly the second term of $\text{Score} (D_j) $.
 ## References
 
 - https://zhang-yang.medium.com/explain-pytorch-tensor-stride-and-tensor-storage-with-code-examples-50e637f1076d
-
+- [PyTorch - Deeplizard](https://deeplizard.com/learn/video/fCVuiW9AFzY)
 
 

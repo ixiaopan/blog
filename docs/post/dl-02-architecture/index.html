@@ -211,9 +211,9 @@ $$</p>
 <p>In classification tasks, target variables are categorical, so we need to find a method to transform them into numerical values. Typically, we use one-hot encoding to encode each category into a binary value. If an example belongs to class $j$, then the true target value is $C_j = 1$, otherwise $C_j = 0$. When we make predictions, we&rsquo;d like to predict the probability of an example belonging to a class. For example, we may have such a prediction $(0.1,0.7,0.2)$. Since class 2 has the highest probability, we say that this example is classified as class 2.</p>
 <p>But how to quantify the difference between predictions and the ground truth so as to find the best parameters? In Machine Learning, we have learned mean squared error (MSE) and cross-entropy as the loss functions. So, which one to use?</p>
 <h3 id="mse">MSE</h3>
-<p>Let&rsquo;s take the derivative of MSE w.r.t $w$. The equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value and predicted value and the gradient of the activation function.</p>
+<p>Let&rsquo;s take the derivative of MSE w.r.t $w$. The equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value $y$ and predicted value $\sigma(z)$ and the gradient of the activation function.</p>
 <p>$$
-\frac {\partial }{\partial  w}\frac{1}{2}(y - \sigma(z))^2 = (y' - \sigma(z))\sigma'(z)x
+\frac {\partial }{\partial  w}\frac{1}{2}(y - \sigma(z))^2 = (y - \sigma(z))\sigma'(z)x
 $$</p>
 <p>A widely used activation function in binary classification is the sigmoid function. From Figure 1, we see that when the predicted value is close to 1/0, the curve gets very flat, indicating $\sigma'(z)$ becomes very small. If the ground truth is opposite to the predicted value, our machine will learn slowly as the  gradient of MSE w.r.t. $w$ is small.</p>
 <p>
@@ -231,7 +231,7 @@ $$</p>
 <p>$$
 \frac{\partial L}{\partial w_j} = - \frac{1}{n} \sum_x (\frac{y}{\sigma(z)} - \frac{1 - y}{1 - \sigma(z)})\sigma'(z)x_j = - \frac{1}{n} \sum_x (\sigma(z) - y) x_j
 $$</p>
-<p>We see that the gradient of $w_j$ is determined by the error in the output. In other words, cross-entropy punishes the wrong classification heavily since $\sigma(z)$ becomes larger as $z$ moves close to zero, as shown in Figure 2.</p>
+<p>We see that the gradient of $w_j$ is determined by the error in the output. In other words, cross-entropy punishes the wrong classification heavily. Figure 2 also shows that misclassified point conveys much information.</p>
 <p>
   <figure>
     <img src="/blog/post/images/negative-log.png" alt="">
@@ -341,7 +341,11 @@ $$</p>
     <figcaption>Figure 5: Sigmoid function and its derivative</figcaption>
   </figure>
 </p>
-<h3 id="tanh">Tanh</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
+<span style="color:#75715e"># F.sigmoid is deprecated</span>
+y <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sigmoid(x)
+
+</code></pre></div><h3 id="tanh">Tanh</h3>
 <ul>
 <li>Equation</li>
 </ul>
@@ -372,7 +376,11 @@ $$</p>
     <figcaption>Figure 6: Tanh function</figcaption>
   </figure>
 </p>
-<h3 id="relu">ReLU</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
+<span style="color:#75715e"># F.tanh is deprecated</span>
+y <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(x)
+
+</code></pre></div><h3 id="relu">ReLU</h3>
 <ul>
 <li>Equation</li>
 </ul>
@@ -403,15 +411,23 @@ $$</p>
     <figcaption>Figure 6: ReLU function</figcaption>
   </figure>
 </p>
-<h3 id="leaky-relu">Leaky ReLU</h3>
-<p>A solution to solve dying ReLU problem is to make the horizontal line into non-horizaontal line.</p>
-<ul>
-<li>Equation
-$$
-f(x) = 0.01x, x &lt; 0 \\ = x, x &gt;= 0
-$$</li>
-</ul>
-<h2 id="reference">Reference</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
+y <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>relu(x)
+</code></pre></div><h3 id="leaky-relu">Leaky ReLU</h3>
+<p>A solution to solve dying ReLU problem is to make the horizontal line into non-horizaontal line. The leak coefficient that controls the slope, also known negative_slope in PyTorch, is a learned parameter, typically, it&rsquo;s $0.01$.</p>
+<p>$$
+f(x) = \text{max} (0, x) + \text{negative\_slope} * \text{min}(0, x)
+$$</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
+y <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>leaky_relu(x)
+</code></pre></div><h3 id="parametric-relu">Parametric ReLU</h3>
+<p>$$
+f(x) = \text{max} (0, x) + \text{a} * \text{min}(0, x)
+$$</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
+<span style="color:#75715e"># weight must be a tensor</span>
+y <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>prelu(x, torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">0.25</span>))
+</code></pre></div><h2 id="reference">Reference</h2>
 <ul>
 <li><a href="https://medium.com/the-theory-of-everything/understanding-activation-functions-in-neural-networks-9491262884e0">Understanding Activation Functions in Neural Networks</a></li>
 <li><a href="https://towardsdatascience.com/activation-functions-neural-networks-1cbd9f8d91d6">Activation Functions in Neural Networks</a></li>
@@ -444,6 +460,7 @@ $$</li>
         <li><a href="#tanh">Tanh</a></li>
         <li><a href="#relu">ReLU</a></li>
         <li><a href="#leaky-relu">Leaky ReLU</a></li>
+        <li><a href="#parametric-relu">Parametric ReLU</a></li>
       </ul>
     </li>
     <li><a href="#reference">Reference</a></li>

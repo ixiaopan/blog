@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <article class="article" class="blog-post">
         
   <p>In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded.</p>
-<p>Regularization is such a technique to set an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another technique widely used in Deep Learning. In this post, we will explain how regularization works in detail.</p>
+<p>Regularization is such a technique that sets an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another common technique used in Deep Learning. In this post, we will explain how regularization works in detail.</p>
 <h2 id="regularization">Regularization</h2>
 <h3 id="l2-ridge">L2 Ridge</h3>
 <p>Take linear regression as an example, our goal is to minimize the following loss function with L2 regularization</p>

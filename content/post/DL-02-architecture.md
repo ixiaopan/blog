@@ -64,14 +64,15 @@ But how to quantify the difference between predictions and the ground truth so a
 
 ### MSE
 
-Let's take the derivative of MSE w.r.t $w$. The equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value and predicted value and the gradient of the activation function.
+Let's take the derivative of MSE w.r.t $w$. The equation below shows that the gradient of MSE w.r.t $w$ is the product of the difference between the target value $y$ and predicted value $\sigma(z)$ and the gradient of the activation function.
 
 
 
 
 $$
-\frac {\partial }{\partial  w}\frac{1}{2}(y - \sigma(z))^2 = (y' - \sigma(z))\sigma'(z)x
+\frac {\partial }{\partial  w}\frac{1}{2}(y - \sigma(z))^2 = (y - \sigma(z))\sigma'(z)x
 $$
+
 
 
 A widely used activation function in binary classification is the sigmoid function. From Figure 1, we see that when the predicted value is close to 1/0, the curve gets very flat, indicating $\sigma'(z)$ becomes very small. If the ground truth is opposite to the predicted value, our machine will learn slowly as the  gradient of MSE w.r.t. $w$ is small. 
@@ -102,13 +103,11 @@ $$
 $$
 
 
-We see that the gradient of $w_j$ is determined by the error in the output. In other words, cross-entropy punishes the wrong classification heavily since $\sigma(z)$ becomes larger as $z$ moves close to zero, as shown in Figure 2.
+We see that the gradient of $w_j$ is determined by the error in the output. In other words, cross-entropy punishes the wrong classification heavily. Figure 2 also shows that misclassified point conveys much information.
 
 
 
 ![](/blog/post/images/negative-log.png "Figure 2: Negative logarithm between 0 and 1.")
-
-
 
 
 
@@ -227,6 +226,15 @@ $$
 
 
 
+```python
+x = torch.arange(-5, 5, 0.1)
+# F.sigmoid is deprecated
+y = torch.sigmoid(x)
+
+```
+
+
+
 ### Tanh
 
 
@@ -253,6 +261,15 @@ $$
 
 
 
+```python
+x = torch.arange(-5, 5, 0.1)
+# F.tanh is deprecated
+y = torch.tanh(x)
+
+```
+
+
+
 ### ReLU
 
 - Equation
@@ -276,18 +293,45 @@ $$
 
 
 
+```python
+x = torch.arange(-5, 5, 0.1)
+y = F.relu(x)
+```
+
+
+
 ### Leaky ReLU
 
 
 
-A solution to solve dying ReLU problem is to make the horizontal line into non-horizaontal line.
+A solution to solve dying ReLU problem is to make the horizontal line into non-horizaontal line. The leak coefficient that controls the slope, also known negative_slope in PyTorch, is a learned parameter, typically, it's $0.01$.
+
+
+$$
+f(x) = \text{max} (0, x) + \text{negative\\_slope} * \text{min}(0, x)
+$$
+
+
+```python
+x = torch.arange(-5, 5, 0.1)
+y = F.leaky_relu(x)
+```
 
 
 
-- Equation
-  $$
-  f(x) = 0.01x, x < 0 \\\\ = x, x >= 0
-  $$
+### Parametric ReLU
+
+$$
+f(x) = \text{max} (0, x) + \text{a} * \text{min}(0, x)
+$$
+
+
+
+```python
+x = torch.arange(-5, 5, 0.1)
+# weight must be a tensor
+y = F.prelu(x, torch.tensor(0.25))
+```
 
 
 

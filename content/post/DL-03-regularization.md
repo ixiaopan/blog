@@ -18,7 +18,7 @@ In the previous post, we introduced how to initialize weights. However, weights 
 
 
 
-Regularization is such a technique to set an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another technique widely used in Deep Learning. In this post, we will explain how regularization works in detail.
+Regularization is such a technique that sets an upper threshold for weights, thereby producing a set of weights with smaller variance. Ridge (L2) and Lasso (L1) are two widely used regularization methods, which can help alleviate overfitting and produce stable computation. Apart from this, dropout is another common technique used in Deep Learning. In this post, we will explain how regularization works in detail.
 
 
 
