@@ -6,8 +6,6 @@ weight: 2
 
 ## PROFILE
 
-
-
 MSc Data Science student with almost 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 
@@ -63,8 +61,6 @@ li {
   <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </p>
 </div>
 </section>
-
-
 
 
 

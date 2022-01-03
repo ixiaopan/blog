@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -247,10 +247,10 @@ $$</p>
 L = - \sum_{i=1}^N y_i \text{log} p_i - (1-y_i) \text{log} (1-p_i)
 $$</p>
 <p>which is often called the &lsquo;Binary Cross Entropy&rsquo;. Obviously, the loss function is exactly the negative log likelihood function. Thus, maximising likelihood is equal to minimising the loss.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">crossEntropyLoss</span>(X, y, theta):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">crossEntropyLoss</span>(X, y, theta):
   epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-12</span>
 
-  p <span style="color:#f92672">=</span> logistic(X <span style="color:#960050;background-color:#1e0010">@</span> theta)
+  p <span style="color:#f92672">=</span> logistic(X <span style="color:#f92672">@</span> theta)
 
   cost <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>mean(y <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>log(p <span style="color:#f92672">+</span> epsilon) <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> y) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p <span style="color:#f92672">+</span> epsilon))
 
@@ -394,7 +394,7 @@ $$</p>
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2021
+      2022
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

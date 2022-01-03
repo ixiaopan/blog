@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As an example, we are going to predict used car prices because accurate prices prediction can help both buyers and sellers. For buyers, it can ensure the money that customers invest on used cars to be worthy. For used car dealers, they might want to know which factors influence car prices most so as to adjust sales strategy and offer a better prediction to customers. Therefore, there is a necessity for building a used car price prediction system.</p>
 <h2 id="get-the-data">Get the data</h2>
 <p>There are many ways to get the desired data. You can write a web crawler to download the data from related websites or you can get data freely from some public data platforms. Among them, Kaggle is one of the most popular data platforms. In this toy project, the data is downloaded from <a href="https://www.kaggle.com/austinreese/craigslist-carstrucks-data">Used Cars Dataset - Kaggle</a>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">!kaggle datasets download -d austinreese/craigslist-carstrucks-data -p data
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">!kaggle datasets download -d austinreese/craigslist-carstrucks-data -p data
 
 !unzip data/craigslist-carstrucks-data.zip -d data
 
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>Luckily, Pandas provides convenient functions to answer these questions.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df_vehicles<span style="color:#f92672">.</span>shape
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df_vehicles<span style="color:#f92672">.</span>shape
 
 df_vehicles<span style="color:#f92672">.</span>info()
 
@@ -266,7 +266,7 @@ df_vehicles<span style="color:#f92672">.</span>head()
 <h3 id="examine-data-quality">Examine data quality</h3>
 <p>The raw data is unlikely to use directly because it&rsquo;s inevitable to introduce errors like duplication, null values or extreme values when collecting data. The higher the data quality is, the better model&rsquo;s performance is. So we need to identify and solve these problems to obtain a clean data set. Below are some common techniques to check whether we have redundant data, missing values or outliers.</p>
 <h4 id="1-duplication">1) duplication</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># return true if we have duplicate rows</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># return true if we have duplicate rows</span>
 df<span style="color:#f92672">.</span>duplicated()
 
 <span style="color:#75715e"># remove the duplicated rows, keep the first row by default</span>
@@ -275,7 +275,7 @@ df<span style="color:#f92672">.</span>drop_duplicates()
 </code></pre></div><p>Fortunately, there are no duplicated rows. But it depends.</p>
 <h4 id="2-missing-value">2) missing value</h4>
 <p>Heatmap enables us to identify the distribution of missing values visually.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> sns<span style="color:#f92672">.</span>heatmap(df<span style="color:#f92672">.</span>isna())
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> sns<span style="color:#f92672">.</span>heatmap(df<span style="color:#f92672">.</span>isna())
 </code></pre></div><p>
   <figure>
     <img src="/blog/post/images/used-car-heatmap-missing.png" alt="A heatmap">
@@ -291,7 +291,7 @@ df<span style="color:#f92672">.</span>drop_duplicates()
 </p>
 <h4 id="3-outlier">3) outlier</h4>
 <p>In the previous post <a href="/blog/post/descriptive-statistics/">Descriptive Statistics</a>, we talked about the descriptive statistics like mean, variance, and range. These values can be obtained easily using the following code,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 df_vehicles<span style="color:#f92672">.</span>describe()
 
 </code></pre></div><p>
@@ -463,7 +463,7 @@ df_vehicles<span style="color:#f92672">.</span>describe()
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2021
+      2022
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

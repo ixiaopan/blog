@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
 y' = mode(C_1(x), C_2(x), &hellip;, C_n(x))
 $$</p>
 <p>For example, <code>{0, 1, 0, 1, 1}</code> are the class labels predicted by our 5 different classifiers for a data point $x$. By hard voting, the final class label is <code>class 1</code> .</p>
-<pre><code>C1 -&gt; 0
+<pre tabindex="0"><code>C1 -&gt; 0
 C2 -&gt; 1
 C3 -&gt; 0
 C4 -&gt; 1
@@ -211,7 +211,7 @@ y' = \operatorname*{argmax}_i w_j\sum_j [C_j == i]
 $$</p>
 <p>where $[C_j == i] = 1$ if classifier $j$ predicts class label i and 0 otherwise.</p>
 <p>For example, if we assign the following weights to the previous 5 classifiers, then we will have <code>0.7</code> for class 0 and<code>0.5</code> for class 1. Thus, <code>class 0</code> wins because 0.7 is greater than 0.5.</p>
-<pre><code>0.4, C1 -&gt; 0
+<pre tabindex="0"><code>0.4, C1 -&gt; 0
 0.1, C2 -&gt; 1
 0.3, C3 -&gt; 0
 0.2, C4 -&gt; 1
@@ -219,7 +219,7 @@ $$</p>
 </code></pre><h3 id="soft-voting">Soft Voting</h3>
 <p>Instead of predicting the class label directly, some classifiers like logistic regression can predict the probability of each class label that $x$ belongs to. Then we simply average these probabilities for each class label. Certainly, you can assign weights to classifiers.</p>
 <p>$$
-y' = \operatorname*{argmax}_i \frac{1}{n} \sum_j^n w_j p_{ij}
+y' = \operatorname*{argmax}<em>i \frac{1}{n} \sum_j^n w_j p</em>{ij}
 $$</p>
 <p>where $p_{ij}$ is the probability of class label $i$ that $x$ belongs to when using classifier $C_j$.</p>
 <h3 id="average-for-regression">Average for Regression</h3>
@@ -252,10 +252,10 @@ $$</p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> BaggingClassifier 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> BaggingClassifier 
 <span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeClassifier
 
-ensemble_clf <span style="color:#f92672">=</span> BaggingClassifier(DecisionTreeClassifier(), n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span>True)
+ensemble_clf <span style="color:#f92672">=</span> BaggingClassifier(DecisionTreeClassifier(), n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 
 </code></pre></div><h3 id="random-forest">Random Forest</h3>
 <p>Bagging can be used for any models. Among them random forest is the special one. As its name suggests, it is exclusively designed for decision trees. Besides, it introduces extra randomness when growing trees.</p>
@@ -266,11 +266,11 @@ ensemble_clf <span style="color:#f92672">=</span> BaggingClassifier(DecisionTree
   </figure>
 </p>
 <p>Specifically, it randomly choose a subset of $m'$ of the features at each split instead of using all features shown in Figure 3. By doing so, all trees can have much different training data set further, so they are <strong>less similar</strong> to each other, which results in more significant predictions.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 <span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> RandomForestClassifier, BaggingClassifier 
 <span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeClassifier
 
-random_forest_clf <span style="color:#f92672">=</span> BaggingClassifier(splitter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;random&#39;</span>, DecisionTreeClassifier(), max_leaf_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span>True)
+random_forest_clf <span style="color:#f92672">=</span> BaggingClassifier(splitter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;random&#39;</span>, DecisionTreeClassifier(), max_leaf_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_sample<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, bootstrap<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 
 <span style="color:#75715e">## is equivalent to this</span>
 random_forest_clf<span style="color:#f92672">=</span>RandomForestClassifier(n_estimators<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, max_leaf_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
@@ -313,7 +313,7 @@ $$</p>
 <p><strong>Random forests do a good job because of both the randomness of training data sets sampled via bootstrapping and the randomness of features considered at each split.</strong> The algorithm results in much less correlated trees, which trades a higher bias for a lower variance, generally yielding better results.</p>
 <h3 id="feature-importance">Feature Importance</h3>
 <p>Like decision tree, random forests can tell us the relative importance of each feature. It is measured by calculating the sum of the reduction in impurity over all the nodes that are split on that feature.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 random_forest_clf<span style="color:#f92672">.</span>feature_importances_
 
 </code></pre></div><h2 id="boosting">Boosting</h2>
@@ -415,7 +415,7 @@ $$</p>
 </p>
 <p>Step 2: Find the weak learner</p>
 <p>Here, we use stump as our weak learner and Figure 6 shows the first optimal tree where we only misclassified one observation.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn <span style="color:#f92672">import</span> tree
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn <span style="color:#f92672">import</span> tree
 
 X <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>drop([<span style="color:#e6db74">&#39;heart_disease&#39;</span>, <span style="color:#e6db74">&#39;weights&#39;</span>], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 y <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;heart_disease&#39;</span>]
@@ -434,7 +434,7 @@ plt<span style="color:#f92672">.</span>show()
 </p>
 <p>Step 3: Update weights</p>
 <p>Since we have only one misclassification, the error rate is <code>1/8</code> and $\alpha_1$ is 0.97. Then we update weights for each data point using $\alpha_1$.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cal_alpha</span>(error):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cal_alpha</span>(error):
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>log((<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> error)<span style="color:#f92672">/</span>error)
 
 alpha_1 <span style="color:#f92672">=</span> cal_alpha(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>)
@@ -445,7 +445,7 @@ df<span style="color:#f92672">.</span>loc[clf<span style="color:#f92672">.</span
 misclassified_samples <span style="color:#f92672">=</span> df[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">!=</span> y]
 df<span style="color:#f92672">.</span>loc[clf<span style="color:#f92672">.</span>predict(X) <span style="color:#f92672">!=</span> y, <span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">=</span> misclassified_samples[<span style="color:#e6db74">&#39;weights&#39;</span>] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(alpha_1)
 
-<span style="color:#66d9ef">print</span>(alpha_1, df)
+print(alpha_1, df)
 
 </code></pre></div><p>
   <figure>
@@ -568,7 +568,7 @@ $$</p>
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2021
+      2022
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

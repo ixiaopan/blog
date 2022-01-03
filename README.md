@@ -1,14 +1,19 @@
 # Machine Learning Blog
 
-Hey, welcome to my technical blog, where I share frontend and machine learning techniques.
+Hey, welcome to my blog, where I share frontend and machine learning techniques.
 
 
 ## Build
 
 ```bash
 ~ cd blog
+~ git rm -r --cached themes/harbor
 
-~ git clone https://github.com/matsuyoshi30/harbor.git themes/harbor
+~ cd themes
+~ git submodule add https://github.com/matsuyoshi30/harbor.git harbor
 
 ~ hugo server
+
+# build
+~ hugo -D
 ```

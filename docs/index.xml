@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Mon, 13 Dec 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Tools for daily work</title>
+			<link>https://ixiaopan.github.io/blog/post/tools/</link>
+			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/tools/</guid>
+			<description>&lt;p&gt;Sharp tools make good work.&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>Video Format Intro</title>
 			<link>https://ixiaopan.github.io/blog/post/media/</link>
@@ -22,6 +30,22 @@
 Why encoding?
  raw data can be very large and noisy encoding makes it easy to transmit and storage data  Why decoding?
  preview or playback  Video Codec  H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market VP8, free and open source codec owned by Google Ogg Theora, typically used with OGG container H.</description>
+		</item>
+      	
+		<item>
+			<title>Deep Learning - Attention</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-09-attention/</link>
+			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-09-attention/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>Deep Learning - Seq2seq</title>
+			<link>https://ixiaopan.github.io/blog/post/dl-07-seq2seq/</link>
+			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/dl-07-seq2seq/</guid>
+			<description></description>
 		</item>
       	
 		<item>
@@ -38,6 +62,14 @@ Why encoding?
 			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-03-regularization/</guid>
 			<description>&lt;p&gt;In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>NLP - CRF</title>
+			<link>https://ixiaopan.github.io/blog/post/nlp-crf/</link>
+			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/nlp-crf/</guid>
+			<description>Direced Graphical Model In a direction graph, if there is a link starting from a to b, we say a is the parent of b and b is the child of a. The joint distribution over all variables $\bold x={x_1, x_2, &amp;hellip;, x_N}$ in this graph is described as $$ p(\bold x) = \prod_i^N p(x_i|pa_i) $$ where $N$ is the number of nodes, and $pa_i$ indicates the set of parents of $x_i$.</description>
 		</item>
       	
 		<item>
@@ -62,38 +94,6 @@ Why encoding?
 			<pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/recommendation/</guid>
 			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>REMOVING ANNOYING SPLASH ADs!!!</title>
-			<link>https://ixiaopan.github.io/blog/post/remove-splash/</link>
-			<pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/remove-splash/</guid>
-			<description>What and Why Nowadays, you will often see a statistic or dynamic image on your screen when you launch some APPs. The image looks like the figure below with a small button to enable people to skip ads. Generally, the showing time of ads lasts for at least 3 seconds. The most disgusting thing is that there is no upper bound for this, so you have to suffer from this unless you don&amp;rsquo;t use any app at all.</description>
-		</item>
-      	
-		<item>
-			<title>Metrics for classification</title>
-			<link>https://ixiaopan.github.io/blog/post/metrics-classification/</link>
-			<pubDate>Tue, 26 Oct 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/metrics-classification/</guid>
-			<description>&lt;p&gt;In linear regression, we choose $R^2$ as our metrics to measure how good our algorithms are. But how about classification? In this post, we are going to talk about several commonly used metrics for classification.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - RNN</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-06-rnn/</link>
-			<pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-06-rnn/</guid>
-			<description>&lt;p&gt;When I first learned RNN, I found lots of articles about it. That&amp;rsquo;s good news, but most of them focus on the design of the architecture.The network itself is not difficult to understand, the real problem is why it works. What&amp;rsquo;s the intuition behind it? Why do we need &amp;ldquo;recurrence&amp;rdquo;? Unfortunately, few articles explain it clearly. Luckily, the book &lt;a href=&#34;https://www.amazon.co.uk/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618&#34;&gt;Deep Learning&lt;/a&gt; gives the answers.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - CNN</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-05-cnn/</link>
-			<pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-05-cnn/</guid>
-			<description>&lt;p&gt;Convolutional Neural Networks (CNN) are widely used for image classification, object detection and other tasks related to images or videos in the field of computer vision. Plenty of architectures based on convolution operation have been proposed in recent years, such as AlexNet and ResNet. So, how do CNNs work?  Why not use MLP? In this post, we will go through the fundamentals of CNN and several ConvNets to develop a big picture of CNN.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

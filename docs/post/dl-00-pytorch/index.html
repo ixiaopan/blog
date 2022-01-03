@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>A tensor&rsquo;s rank tells us how many indexes are needed to refer to a specific element within the tensor. It can be zero, one, two, three and so on. If we have a rank-2 tensor, it means that this tensor have 2 axes or it&rsquo;s a matrix.</li>
 <li>An axis of a tensor is a specific dimension of a tensor. In practice, we often do computation along a specifc axis.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">1.</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">1.</span>)
 torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
 torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
 torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
@@ -194,11 +194,11 @@ torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">12</
 <li><code>NHWC</code></li>
 <li><code>CHWN</code></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[Batch, Channels, Height, Width]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[Batch, Channels, Height, Width]
 </code></pre></div><h3 id="storage">storage</h3>
 <p>In fact, the tensor declared above is just a view of the underlying data. View means a kind of way to look at data. For example, you can look at an image from the top direction or the right direction. In the case of data, you could look at data in the original order or you could skip a fixed number of elements.</p>
 <p>No matter how you view it, the data in memory stay the same. In fact, the real values are stored in a contiguous block of memory. In PyTorch, we can access it by invoking <code>tensor.storage()</code>. For example,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>], [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]])
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>], [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]])
 x<span style="color:#f92672">.</span>storage()
 </code></pre></div><p>The result is shown below. You might find that the elements are sorted along the rows of the tensor $x$. Tthe difference is that they are stored in a one-dimensional array.</p>
 <p>
@@ -210,7 +210,7 @@ x<span style="color:#f92672">.</span>storage()
 <p>Here comes a question: How does the indexing operation $x[0, 1]$ work?</p>
 <h3 id="stride">stride</h3>
 <p>In oder to index an element, PyTorch needs to know meta data about a tensor, such as stride, which indicates the number of elements to be skipped along each dimension. In the above example, the stride is</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>stride()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>stride()
 <span style="color:#75715e"># (3, 1)</span>
 </code></pre></div><p>$3$ means we need to skip 3 elements to get to the next row, 1 means we just move one step so as to reach the next column. Mathematically, the indexing operation in 2D tensor are described as follows, where offset is usually zero</p>
 <p>$$
@@ -218,13 +218,13 @@ x[i, j] = i * \text{stride}[0]  + j * \text{stride}[1] + \text{offset}
 $$</p>
 <p>Why is it designed like this? It&rsquo;s less expensive for some operations like transpose since there is no need to reallocate memory space. Instead, we just modify the stride.</p>
 <p>For instance, $x^T$ is shown below</p>
-<pre><code>0 3 
+<pre tabindex="0"><code>0 3 
 1 4
 2 5
 </code></pre><p>If we look at the underlying data of $x^T$, we will find that $x^T$ and $x$ have the same storage shown in Figure 1.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>data_ptr() <span style="color:#f92672">==</span> xt<span style="color:#f92672">.</span>data_ptr() <span style="color:#75715e"># True</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>data_ptr() <span style="color:#f92672">==</span> xt<span style="color:#f92672">.</span>data_ptr() <span style="color:#75715e"># True</span>
 </code></pre></div><p>Let&rsquo;s have a look at the stride of $x^T$</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>stride()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>stride()
 <span style="color:#75715e">#(1, 3)</span>
 </code></pre></div><p>In this case, we simply move one step forward if we want to reach the next row while we need to move 3 steps to get to the next column.</p>
 <p>Apart from this, knowing how storage and stride work will also help understand other PyTorch functions' behaviour. <a href="https://zhang-yang.medium.com/explain-pytorch-tensor-stride-and-tensor-storage-with-code-examples-50e637f1076d">This article</a> discusses the difference between <code>torch.expand()</code> and <code>torch.repeat()</code>. Accoding to the PyTorch document</p>
@@ -234,7 +234,7 @@ $$</p>
 <p>torch.repeat()</p>
 <p>​	Unlike expand(), this function copies the tensor’s data.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">3</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">3</span>)
 x<span style="color:#f92672">.</span>stride() <span style="color:#75715e"># 1</span>
 
 y <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>expand(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
@@ -255,21 +255,21 @@ $$</p>
 0, 3, 1, 4, 2, 5
 $$</p>
 <p>which is different from the storage shown in Figure 1. Therefore, we say $x$ is contiguous while $x^T$ is not. We can also check it in Pytorch shown below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>is_contiguous() <span style="color:#75715e"># True</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x<span style="color:#f92672">.</span>is_contiguous() <span style="color:#75715e"># True</span>
 xt<span style="color:#f92672">.</span>is_contiguous() <span style="color:#75715e"># False</span>
 </code></pre></div><h4 id="why">Why</h4>
 <p>But wait, why do we need contiguous tensor?</p>
 <p>One reason is that we can exploit the benefit of <a href="https://stackoverflow.com/questions/16699247/what-is-a-cache-friendly-code/16699282#16699282">cache</a> to improve the speed of fetching data. In short, when fetching an element of a matrix, we can also get the neighboring elements at the same time, requiring less memory accesses.</p>
 <p>Another reason is that some functions only work in the contiguous tensor, such as <code>view()</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)
 <span style="color:#75715e"># RuntimeError: view size is not compatible with input tensor&#39;s size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.</span>
 </code></pre></div><p>There are two approaches to fix it: call <code>contiguous()</code> to make the tensor contiguous or call <code>reshape()</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>contiguous()<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>contiguous()<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)
 xt<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)
 </code></pre></div><p>However, <code>reshape()</code> could return a view (if the tensor is contiguous) or a new tensor (if not).</p>
 <h4 id="how">How</h4>
 <p>How do we make $x^T$ contiguous too?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xtc <span style="color:#f92672">=</span> xt<span style="color:#f92672">.</span>contiguous()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xtc <span style="color:#f92672">=</span> xt<span style="color:#f92672">.</span>contiguous()
 </code></pre></div><p>
   <figure>
     <img src="/blog/post/images/x_T.png" alt="">
@@ -277,9 +277,9 @@ xt<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</spa
   </figure>
 </p>
 <p>Figure 2 shows the new storage. Thus, <code>contiguous()</code> reallocates a new memory and copy the original tensor into that memory space. We can check it using the code below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>data_ptr() <span style="color:#f92672">==</span> xtc<span style="color:#f92672">.</span>data_ptr() <span style="color:#75715e"># False</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xt<span style="color:#f92672">.</span>data_ptr() <span style="color:#f92672">==</span> xtc<span style="color:#f92672">.</span>data_ptr() <span style="color:#75715e"># False</span>
 </code></pre></div><p>Meanwhile, the stride has also been changed to adapt to this new storage.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xT<span style="color:#f92672">.</span>stride()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xT<span style="color:#f92672">.</span>stride()
 <span style="color:#75715e"># (2, 1)</span>
 </code></pre></div><h2 id="torchnn">torch.nn</h2>
 <h3 id="nnmodule">nn.module</h3>
@@ -287,7 +287,7 @@ xt<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</spa
 <p>I think we call them modules because a single layer is a layer while multiple layers can also be considered as a big layer. Thus, we refer to both of them as modules regardless how many layers there are. Moreover, a module can also have other submodules (subclasses of <code>nn.Module</code>) as their attributes and thus track their parameters automatically.</p>
 <p>When I built the BiLSTM-CRF for NER, I split LSTM and CRF apart. However, I noticed that the BiLSTM model can still retrieve the parameters of the CRF layer. Now I found the reason.</p>
 <p>First, both the <code>nn.Linear()</code> and <code>CRF()</code> are moules in PyTorch. Second, when the instance of such a module is assigned to an attribute of another <code>nn.Module</code> ( in this case, it&rsquo;s BiLSTM ), this module will be automatically registered as the submodule of  <code>BiLSTM</code>, and thus <code>BiLSTM</code> have access to the parameters of its submodules.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CRF</span>(nn<span style="color:#f92672">.</span>Module):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CRF</span>(nn<span style="color:#f92672">.</span>Module):
   <span style="color:#66d9ef">def</span> __init__(self):
 		super(CRF, self)<span style="color:#f92672">.</span>__init__()
 
@@ -300,25 +300,25 @@ xt<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</spa
 
 </code></pre></div><h3 id="forward">forward</h3>
 <p>When I first used PyTorch, I often confused why this model doesn&rsquo;t invoke <code>forward()</code>. For example, I have a simple forward network, I have seen two options shown below to move forward.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>)
 
 self<span style="color:#f92672">.</span>fc(inputs)  <span style="color:#75715e"># option 1, the right way</span>
 self<span style="color:#f92672">.</span>fc<span style="color:#f92672">.</span>forward(inputs) <span style="color:#75715e"># option 2, wrong</span>
 </code></pre></div><p>Well, the reason is simple. In fact, the built-in PyTorch subclasses of <code>nn.Module</code> allows themselves to be called as a simple function call. In the <code>__call__</code>, it calls <code>forward()</code>. So what&rsquo;s the difference? The difference is that PyTorch will do other operations by provided hooks before calling <code>forward()</code>. Thus, it&rsquo;s possible to call <code>forward()</code> directly, but it shouldn&rsquo;t do this unless we don&rsquo;t provide any hooks. ( More details can be seen <a href="https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/module.py#L1057">here</a> )</p>
 <h3 id="parameter">parameter</h3>
 <p>We have built our models, so how to access to the parameters? PyTorch provides <code>parameters()</code> function, which allows us to collect all parameters from the first layer to the last layer.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> param <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>parameters():
-	<span style="color:#66d9ef">print</span>(param)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> param <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>parameters():
+	print(param)
 </code></pre></div><p>However, it&rsquo;s a bit hard to distinguish them when you have many layers. Thus, PyTorch provides another function <code>named_parameters()</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> name, param <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>named_parameters():
-	<span style="color:#66d9ef">print</span>(name, param)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> name, param <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>named_parameters():
+	print(name, param)
 </code></pre></div><p>With the name of each layer, it&rsquo;s easy to retrieve individual parameter by accessing the corresponding name directly, such as</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model<span style="color:#f92672">.</span>out_linear<span style="color:#f92672">.</span>weight
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model<span style="color:#f92672">.</span>out_linear<span style="color:#f92672">.</span>weight
 model<span style="color:#f92672">.</span>out_linear<span style="color:#f92672">.</span>bias
 </code></pre></div><p>So far so good. But where are the names from?</p>
 <h3 id="sequential">sequential</h3>
 <p>PyTorch provide two ways to create neural networks. The first one is to use <code>nn.Sequential()</code>, as shown below</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
   nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>),
   nn<span style="color:#f92672">.</span>Tanh(),
   nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)
@@ -332,7 +332,7 @@ model<span style="color:#f92672">.</span>out_linear<span style="color:#f92672">.
 </span><span style="color:#e6db74">)
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 </code></pre></div><p>Well, the names in this example are just numbers. It would be fine if there are few layers. To build a more semantic model structure, we can pass name for each layer,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> OrderedDict
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> OrderedDict
 
 model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(OrderedDict([
   (<span style="color:#e6db74">&#39;hidden_layer&#39;</span>, torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>)),
@@ -350,13 +350,13 @@ model
 </span><span style="color:#e6db74">)
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 </code></pre></div><p>As mentioned earlier, we can retrieve the parameters for an individual layer by accessing its name, such as</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model<span style="color:#f92672">.</span>hidden_layer<span style="color:#f92672">.</span>bias
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model<span style="color:#f92672">.</span>hidden_layer<span style="color:#f92672">.</span>bias
 <span style="color:#e6db74">&#39;&#39;&#39;
 </span><span style="color:#e6db74">Parameter containing:
 </span><span style="color:#e6db74">tensor([ 0.1177, -0.2876, -0.3861, -0.3367], requires_grad=True)
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 </code></pre></div><p>Though <code>nn.Sequential()</code> is handy, the order of layers is fixed. That&rsquo;s where <code>nn.Module</code> comes into play. We rewrite the above code using <code>nn.Module</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleNet</span>(nn<span style="color:#f92672">.</span>Module):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleNet</span>(nn<span style="color:#f92672">.</span>Module):
 	<span style="color:#66d9ef">def</span> __init__(self):
     super(SimpleNet, self)<span style="color:#f92672">.</span>__init__()
 
@@ -379,12 +379,12 @@ net <span style="color:#f92672">=</span> SimpleNet()
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 </code></pre></div><h2 id="basic-techniques">Basic Techniques</h2>
 <h3 id="verify-torch">Verify torch</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;torch version:&#39;</span>, torch<span style="color:#f92672">.</span>__version__)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(<span style="color:#e6db74">&#39;torch version:&#39;</span>, torch<span style="color:#f92672">.</span>__version__)
 
 <span style="color:#75715e"># verify GPU</span>
 cuda_enabled <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available()
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;GPU available:&#39;</span>, cuda_enabled)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;GPU version:&#39;</span>, torch<span style="color:#f92672">.</span>version<span style="color:#f92672">.</span>cuda)
+print(<span style="color:#e6db74">&#39;GPU available:&#39;</span>, cuda_enabled)
+print(<span style="color:#e6db74">&#39;GPU version:&#39;</span>, torch<span style="color:#f92672">.</span>version<span style="color:#f92672">.</span>cuda)
 
 <span style="color:#75715e"># using CUDA</span>
 t <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
@@ -392,13 +392,13 @@ t <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>
   t <span style="color:#f92672">=</span> t<span style="color:#f92672">.</span>cuda()
 </code></pre></div><h3 id="creating-tensor">Creating Tensor</h3>
 <h4 id="with-data">With Data</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>Tensor(x)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>Tensor(x)
 torch<span style="color:#f92672">.</span>tensor(x)
 torch<span style="color:#f92672">.</span>from_numpy(x)
 torch<span style="color:#f92672">.</span>as_tensor(x)
 </code></pre></div><p>What&rsquo;s the difference between them? Let&rsquo;s see an example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">3</span>) <span style="color:#75715e"># construct a toy data using numpy</span>
-<span style="color:#66d9ef">print</span>(x, x<span style="color:#f92672">.</span>dtype)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">3</span>) <span style="color:#75715e"># construct a toy data using numpy</span>
+print(x, x<span style="color:#f92672">.</span>dtype)
 <span style="color:#75715e"># [0 1 2] int64</span>
 o1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(x)
 o2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(x)
@@ -410,10 +410,10 @@ o4 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span
 <span style="color:#75715e"># tensor([0, 1, 2]) torch.int64</span>
 
 x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
-<span style="color:#66d9ef">print</span>(o1)
-<span style="color:#66d9ef">print</span>(o2)
-<span style="color:#66d9ef">print</span>(o3)
-<span style="color:#66d9ef">print</span>(o4)
+print(o1)
+print(o2)
+print(o3)
+print(o4)
 <span style="color:#75715e"># tensor([0., 1., 2.])</span>
 <span style="color:#75715e"># tensor([0, 1, 2])</span>
 <span style="color:#75715e"># tensor([0, 5, 2])</span>
@@ -434,7 +434,7 @@ x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <sp
 <ul>
 <li><code>torch.Tensor()</code> uses the default dtype when creating the tensor. You can see the default dtype by invoking the following code.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>get_default_dtype() <span style="color:#75715e"># float32</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>get_default_dtype() <span style="color:#75715e"># float32</span>
 </code></pre></div><ul>
 <li>
 <p>others use the dtype inferred from the input data.</p>
@@ -445,20 +445,20 @@ x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <sp
 </ul>
 <p>Q3 memory sharing</p>
 <p>This is because <code>torch.tensor()</code> and <code>torch.Tensor()</code> copy the input data while the latter ones use the same data in memory. We see that <code>x.numpy()</code> also shares the same memory with the original tensor.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">5</span>, (<span style="color:#ae81ff">3</span>,)) <span style="color:#75715e"># tensor([3, 2, 2])</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">5</span>, (<span style="color:#ae81ff">3</span>,)) <span style="color:#75715e"># tensor([3, 2, 2])</span>
 a <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>numpy()
 
 x[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span>
-<span style="color:#66d9ef">print</span>(x) <span style="color:#75715e"># tensor([3, 9, 2])</span>
-<span style="color:#66d9ef">print</span>(a) <span style="color:#75715e"># array([3, 9, 2])</span>
+print(x) <span style="color:#75715e"># tensor([3, 9, 2])</span>
+print(a) <span style="color:#75715e"># array([3, 9, 2])</span>
 </code></pre></div><h4 id="without-data">Without Data</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>eye(<span style="color:#ae81ff">2</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">torch<span style="color:#f92672">.</span>eye(<span style="color:#ae81ff">2</span>)
 torch<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
 torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
 </code></pre></div><h3 id="loss-function">Loss function</h3>
 <h4 id="mse">MSE</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-y_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+y_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 y_true <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
 
 F<span style="color:#f92672">.</span>mse_loss(y_pred, y_true) <span style="color:#75715e"># or</span>
@@ -466,21 +466,21 @@ mse_loss <span style="color:#f92672">=</span> torch<span style="color:#f92672">.
 mse_loss(y_pred, y_true)
 
 </code></pre></div><h4 id="cross-entropy">Cross Entropy</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Cross-entropy Loss</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Cross-entropy Loss</span>
 <span style="color:#75715e"># Example of target with class indices</span>
-input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 target <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">5</span>, (<span style="color:#ae81ff">3</span>,), dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>int64)
 loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(input, target) <span style="color:#75715e"># typically, either 1 or 0</span>
 loss<span style="color:#f92672">.</span>backward()
 
 <span style="color:#75715e"># Example of target with class probabilities</span>
-input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span>True)
+input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 target <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)<span style="color:#f92672">.</span>softmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(input, target)
 loss<span style="color:#f92672">.</span>backward()
 
 </code></pre></div><h4 id="bce">BCE</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 <span style="color:#75715e"># Binary Cross-Entropy Loss (predicted prob, true prob [0,1])</span>
 bce_loss<span style="color:#f92672">=</span>nn<span style="color:#f92672">.</span>BCELoss()
 loss <span style="color:#f92672">=</span> bce_loss(torch<span style="color:#f92672">.</span>sigmoid(z), y_true)
@@ -489,7 +489,7 @@ loss <span style="color:#f92672">=</span> bce_loss(torch<span style="color:#f926
 <h3 id="torchscatter_">torch.scatter_</h3>
 <p>This function is often used to implement one-hot encoding. As its name suggests, <strong>scatter</strong> means to distribute a list of values over another tensor.</p>
 <p>In the case of one-hot encoding, the matrix is a parse matrix whose element value is either zero or one. So one is the scalar to be scattered at the corresponding column index for each observation.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">label <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">label <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>)
 one_hot <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(len(label), <span style="color:#ae81ff">5</span>)
 one_hot<span style="color:#f92672">.</span>scatter_(<span style="color:#ae81ff">1</span>, label, <span style="color:#ae81ff">1</span>)
 <span style="color:#e6db74">&#39;&#39;&#39;
@@ -500,7 +500,7 @@ one_hot<span style="color:#f92672">.</span>scatter_(<span style="color:#ae81ff">
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 
 </code></pre></div><p>Further, the scatterd item could be any multi-dimensional array rather than a simple scalar, for example,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">labels <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>]]) <span style="color:#75715e"># 3 observations</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">labels <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>]]) <span style="color:#75715e"># 3 observations</span>
 one_hot <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(len(labels), <span style="color:#ae81ff">6</span>)<span style="color:#f92672">.</span>long() <span style="color:#75715e"># 6 labels in total</span>
 source <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>)<span style="color:#f92672">.</span>long()<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
 
@@ -520,13 +520,13 @@ one_hot<span style="color:#f92672">.</span>scatter_(<span style="color:#ae81ff">
 <ul>
 <li>
 <p><code>squeeze()</code> remove all dimensions with the value of 1</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">8</span>)<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>)
 <span style="color:#e6db74">&#39;&#39;&#39;
 </span><span style="color:#e6db74">tensor([[[0, 1, 2, 3],
 </span><span style="color:#e6db74">         [4, 5, 6, 7]]])
 </span><span style="color:#e6db74">&#39;&#39;&#39;</span>
-  
+
 x<span style="color:#f92672">.</span>squeeze(<span style="color:#ae81ff">0</span>)
 <span style="color:#e6db74">&#39;&#39;&#39;
 </span><span style="color:#e6db74">tensor([[0, 1, 2, 3],
@@ -536,8 +536,8 @@ x<span style="color:#f92672">.</span>squeeze(<span style="color:#ae81ff">0</span
 <li>
 <p><code>unsqueeze()</code> add one dimension along the specified dimension</p>
 <p>​</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
-  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+
 x<span style="color:#f92672">.</span>unsqueeze(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#75715e"># tensor([[1, 2, 3]])</span>
 x<span style="color:#f92672">.</span>unsqueeze(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) 
 <span style="color:#e6db74">&#39;&#39;&#39;
@@ -554,7 +554,7 @@ x<span style="color:#f92672">.</span>unsqueeze(dim<span style="color:#f92672">=<
 \text{Score} (D_j) = \sum_{i=0}^{|D_j|} T(y^{w_i} \rarr y^{w_{(i+1)}}) + E(w_{i+i}|y^{w_{(i+1)}})
 $$</p>
 <p>where emission scores are the outputs of BiLSTM and the transition scores are the parameters of the CRF layer. For each batch training, we need to calculate each sentence score in this batch.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emission score: 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emission score: 
 	(batch_size, max_seq_len, num_of_tag)
 	[
 		[
@@ -578,7 +578,7 @@ tags: (batch_size, max_seq_len)
             <span style="color:#f92672">...</span>
 	]
 </code></pre></div><p>It&rsquo;s easy to fetch data from the specified index along the desired dimension using <code>torch.gather()</code>. In this case, we want to fetch data from the index that the true tag of each word belongs to along the innermost dimension of emission_score. For example, sentence 1 has two words with the labels <code>B</code> and <code>I</code>, so the corresponding scores in the emission score are <code>emission_score[0][0][1]</code> and <code>emission_score[0][1][2]</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emission_score <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emission_score <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([
     [
 
         [  <span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.7</span> ],
@@ -703,7 +703,7 @@ torch<span style="color:#f92672">.</span>gather(emission_score, <span style="col
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2021
+      2022
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>
