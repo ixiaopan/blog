@@ -12,6 +12,14 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>CSS - Layout 101</title>
+			<link>https://ixiaopan.github.io/blog/post/layout/</link>
+			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/layout/</guid>
+			<description>&lt;p&gt;This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Tools for daily work</title>
 			<link>https://ixiaopan.github.io/blog/post/tools/</link>
 			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
@@ -84,14 +92,6 @@ Why encoding?
 			<pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/optimization/</guid>
 			<description>&lt;p&gt;We&amp;rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&amp;rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Recommender Systems</title>
-			<link>https://ixiaopan.github.io/blog/post/recommendation/</link>
-			<pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/recommendation/</guid>
-			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

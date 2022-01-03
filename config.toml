@@ -50,7 +50,7 @@ googleAnalytics = "UA-203640627-1"
   identifier = "search"
   name = "Search"
   icon = "fas fa-search fa-lg"
-  url = "search"
+  url = "/search/"
   weight = 3
 
 [[params.nav]]
