@@ -15,26 +15,46 @@
         ,
             {
                 "id": 1,
-                "href": "https://ixiaopan.github.io/blog/post/layout/",
-                "title": "CSS - Layout 101",
+                "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
+                "title": "Build a private npm registry using verdaccio",
                 "section": "post",
-                "date" : "2022.01.03",
-                "body": "This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.\nFlexbox Nowadays, flex layout is widely used to implement both the basic and complex layout in the morden web applications. Instead of block layout, flexbox allows us to\n specify which direction to layout the content ( flex-direction ) rearrange the display order of flex items ( order ) utilize the extra space to adjust the size of flex items ( flex ) specify the way in which flex items are aligned ( justify-content )  If you want to implement a two-column layout, you simply declare the following statement,\n\u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left side\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right content\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } However, without flex, the alternate way to achieve this is to use float or position\n.left { float: left; } .right { overflow: hidden; } Flexibility It\u0026rsquo;s not common to change the property flex, but it\u0026rsquo;s very useful if we understand how it works. flex is composed of three parts:\n flex-grow flex-shrink flex-basis  When omitted, the default value of flex-grow and flex-shrink is 1. However, the values are quite confusing in some cases. To clarify it, I make a table shown below. Unfortunately, we have to remember them.\n   Case Value     Initial flex: 0 1 auto;   None flex: 0 0 auto;   Auto flex: 1 1 auto;   Number flex: Number 1 0;    I really love the last one flex: \u0026lt;number\u0026gt; because it can implement the even-spaced layout easily. For example, we can implement a dynamic ruler ( I mean when the ruler width is fixed, the width of major and minor scales are flexible when we increase or decrease the number of major scales or minor scales).\n\u0026lt;div class=\u0026#34;ruler\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .ruler { display: flex; width: 240px; height: 10px; background: #ccc; } .major { flex: 1; display: flex; border-left: 1px solid #f00; } .major:last-child { border-right: 1px solid #f00; } .minor { flex: 1; height: 6px; border-right: 1px solid blue; box-sizing: border-box; } .minor:last-child { border-right: none; }  Order By default, flex items are displayed in the same order as they appear in HTML. Sometimes we may want to change the display order without modifying the HTML structure. For example, to swap the above HTML to put the image on the right, we simply declare\n.right { order: -1; } // or .left { order: 1; } Why it works?\n  The default value of order is 0, which means all flex items have the order of 0. Thus, the display order is determined by the order of appearing in HTML.\n  order takes an integer value, and items with the smaller order are displayed first.\n  Auto Margin This is my favorite trick. Simply put, setting an auto margin on one flex item will push it away from other elements. One common scenario is to put the login module at the right side of a header, as shown below,\n \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;nav class=\u0026#34;nav\u0026#34;\u0026gt; \u0026lt;span\u0026gt;Home\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;Blog\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;About\u0026lt;/span\u0026gt; \u0026lt;/nav\u0026gt; \u0026lt;div class=\u0026#34;login\u0026#34;\u0026gt; Log in \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } .login { margin-left: auto; } We can see that justify-content or align-self are ignored when extra space are available for auto margins. Besides, overflow containers will ignore the auto magins and overflow in the end direction, as shown below.\n \u0026lt;div class=\u0026#34;flex-column\u0026#34;\u0026gt; \u0026lt;div\u0026gt;Book\u0026lt;/div\u0026gt; \u0026lt;div\u0026gt;CD\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;ad\u0026#34;\u0026gt;Advertisement\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .flex-column { border: 1px solid #ccc; width: 50px; margin: 0 50px 0 50px; display: flex; flex-direction: column; } .ad { align-self: center; } .ad { margin-left: auto; } Absolute Pos An absolute-positioned flex item has the following characteristics\n it\u0026rsquo;s out of flow, it seems that it were the sole item in that container; it means that even though we have more than one absolute-positioned flex item, they are independent with each other Both the absolute-positioned flex item and the flex container are fixed-size boxes, so we cannot change their width or height. In other words, stretch will have no effect on them.  \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;content\u0026#34;\u0026gt;content....\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; justify-content: flex-start; border: 1px solid #000; width: 600px; padding: 20px; height: 100px; } .left { background: #f00; width: 200px; } .content { background: #0ff; position: absolute; /* align-self: center; */ } .right { background: #00f; }  From the above figure, we see that the absolute-positioned item is out of flow and is considered as the sole item in that flex container. Since justify-content is specified as flex-start, the content area is placed at the start of the main axis. If we modify it to center, it will be placed in the center of the main axis.\nOn the other hand, the default value of align-items is stretch, but it has no effect on the abs-positioned flex item. Instead, if we specify align-self: center, we can see it\u0026rsquo;s centered.\nSince there are some unexpected and confusing behaviors, it\u0026rsquo;s recommned that we should avoid write code like this.\nMulticol Grid Reference  Flexbox W3C Multicol MDN A Complete Guide to Grid Grid Gardern "
+                "date" : "2022.01.07",
+                "body": "In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.\nInstall First, we need to install verdaccio and pm2 globally.\nnpm install -g verdaccio npm install -g pm2 pm2  is used to guard our service, the common commands are shown below.\npm2 start verdaccio pm2 stop verdaccio pm2 delete verdaccio To check the service status, we use the following command. status: online shows that everything is ok.\npm2 list  Configuration The config file is located at\n/Users/wuxiaopan/.config/verdaccio/config.yaml Storage This is where we place all packages.\n# path to a directory with all packages storage: ./store Uplinks # a list of other known repositories we can talk to uplinks: npmjs: url: https://registry.npmjs.org/ Packages Here, we define our own scope, which means that they can only be accessed internally. Other packages that are not started with your scope name will be downloaded from the official npmjs.\npackages: \u0026#39;@your-scope/*\u0026#39;: # scoped packages access: $all publish: $authenticated unpublish: $authenticated # proxy: npmjs Listen The last step is to specify your ip and port.\nlisten: 0.0.0.0:4873 Restart your server and verdaccio. We are done.\nNotify notify: method: POST headers: [{\u0026#39;Content-Type\u0026#39;: \u0026#39;application/json\u0026#39;}] endpoint: yourhooks content: \u0026#39;{\u0026#34;content\u0026#34;: {\u0026#34;text\u0026#34;: \u0026#34;{{ publishedPackage }} has published\u0026#34;}, \u0026#34;msg_type\u0026#34;:\u0026#34;text\u0026#34;}\u0026#39; Web Page If everything works well, you can open http://localhost:4873/ and l see the page like the below one.\n Publish your package Once your package is done, you can publish it to your private registry.\nadd user The first step is to register. The below command will ask you to input your name, password, and email.\nnpm adduser --registry http://localhost:4873/ delete user The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.\n~/.config/verdaccio/htpasswd publish Since we\u0026rsquo;re publishing our package to the private registry, we should explicitly specify where the private registry is. To avoid specifing mannually each time, we use nrm to manage registries.\nnpm i -g nrm nrm add localnpm http://localhost:4873 nrm use localnpm nrm ls  The above command set the default registry to localnpm, which allows us to download the private packages from the localhost and the public packages from other public sources, such as npmjs.\nThen we can publish\nnpm publish "
             }
     
         ,
             {
                 "id": 2,
-                "href": "https://ixiaopan.github.io/blog/post/tools/",
-                "title": "Tools for daily work",
+                "href": "https://ixiaopan.github.io/blog/post/npm/",
+                "title": "NPM",
                 "section": "post",
-                "date" : "2022.01.03",
-                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager  Homebrew  /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew // /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH  node  We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git // identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@mogic.ai\u0026#39; // view your config vi ~/.gitconfig // or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; // remove git config --global --unset alias.co FrontEnd Basis Fundamentals  CSS CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive  Framework  React Vue  Advanced  Webgl 2  Building Tools  Webpack Vite rollup gulp  CI/CD  Pro Git - Book Semantic Version  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers [Pro Git](Git - Book) "
+                "date" : "2022.01.07",
+                "body": "Learn how to use npm.\nnpm version  major minor path prerelease  alpha: WIP, unstable beta: features completed but with unknown bugs rc: ready to release    Suppose the current version is 1.2.3, there are many ways to update the version.\n# 2.0.0 npm version major # 1.3.0 npm version minor # 1.2.4 npm version patch npm version \u0026lt;version\u0026gt; # 1.2.4-0 npm version prerelease -m \u0026#34;update %s\u0026#34; --no-git-tag-version # if the current version is 1.2.3-alpha.0, then it becomes 1.2.3-alpha.1 npm version prerelease --preid=\u0026lt;prerelease-id\u0026gt; tag add tags to the existed pkg npm dist-tag add \u0026lt;pkg\u0026gt;@\u0026lt;version\u0026gt; [\u0026lt;tag\u0026gt;] publish with tags By default, npm publish will tag your package with the latest tag.\nnpm publish --tag beta Install pkg with tags npm install somepkg@beta link npmrc npx nrm Usage install\nnpm install nrm -g nrm ls add your own registry\nnrm add localnpm http://localhost:4873/ nrm use localnpm  remove\nnrm del localnpm Why Reference  http://npm.github.io/publishing-pkgs-docs/publishing/index.html "
             }
     
         ,
             {
                 "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/layout/",
+                "title": "CSS - Layout 101",
+                "section": "post",
+                "date" : "2022.01.03",
+                "body": "This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.\nFlexbox Nowadays, flex layout is widely used to implement both the basic and complex layout in the morden web applications. Instead of block layout, flexbox allows us to\n specify which direction to layout the content ( flex-direction ) rearrange the display order of flex items ( order ) utilize the extra space to adjust the size of flex items ( flex ) specify the way in which flex items are aligned ( justify-content )  If you want to implement a two-column layout, you simply declare the following statement,\n\u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left side\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right content\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } However, without flex, the alternate way to achieve this is to use float or position\n.left { float: left; } .right { overflow: hidden; } Flexibility It\u0026rsquo;s not common to change the property flex, but it\u0026rsquo;s very useful if we understand how it works. flex is composed of three parts:\n flex-grow flex-shrink flex-basis  When omitted, the default value of flex-grow and flex-shrink is 1. However, the values are quite confusing in some cases. To clarify it, I make a table shown below. Unfortunately, we have to remember them.\n   Case Value     Initial flex: 0 1 auto;   None flex: 0 0 auto;   Auto flex: 1 1 auto;   Number flex: Number 1 0;    I really love the last one flex: \u0026lt;number\u0026gt; because it can implement the even-spaced layout easily. For example, we can implement a dynamic ruler ( I mean when the ruler width is fixed, the width of major and minor scales are flexible when we increase or decrease the number of major scales or minor scales).\n\u0026lt;div class=\u0026#34;ruler\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .ruler { display: flex; width: 240px; height: 10px; background: #ccc; } .major { flex: 1; display: flex; border-left: 1px solid #f00; } .major:last-child { border-right: 1px solid #f00; } .minor { flex: 1; height: 6px; border-right: 1px solid blue; box-sizing: border-box; } .minor:last-child { border-right: none; }  Order By default, flex items are displayed in the same order as they appear in HTML. Sometimes we may want to change the display order without modifying the HTML structure. For example, to swap the above HTML to put the image on the right, we simply declare\n.right { order: -1; } // or .left { order: 1; } Why it works?\n  The default value of order is 0, which means all flex items have the order of 0. Thus, the display order is determined by the order of appearing in HTML.\n  order takes an integer value, and items with the smaller order are displayed first.\n  Auto Margin This is my favorite trick. Simply put, setting an auto margin on one flex item will push it away from other elements. One common scenario is to put the login module at the right side of a header, as shown below,\n \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;nav class=\u0026#34;nav\u0026#34;\u0026gt; \u0026lt;span\u0026gt;Home\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;Blog\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;About\u0026lt;/span\u0026gt; \u0026lt;/nav\u0026gt; \u0026lt;div class=\u0026#34;login\u0026#34;\u0026gt; Log in \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } .login { margin-left: auto; } We can see that justify-content or align-self are ignored when extra space are available for auto margins. Besides, overflow containers will ignore the auto magins and overflow in the end direction, as shown below.\n \u0026lt;div class=\u0026#34;flex-column\u0026#34;\u0026gt; \u0026lt;div\u0026gt;Book\u0026lt;/div\u0026gt; \u0026lt;div\u0026gt;CD\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;ad\u0026#34;\u0026gt;Advertisement\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .flex-column { border: 1px solid #ccc; width: 50px; margin: 0 50px 0 50px; display: flex; flex-direction: column; } .ad { align-self: center; } .ad { margin-left: auto; } Absolute Pos An absolute-positioned flex item has the following characteristics\n it\u0026rsquo;s out of flow, it seems that it were the sole item in that container; it means that even though we have more than one absolute-positioned flex item, they are independent with each other Both the absolute-positioned flex item and the flex container are fixed-size boxes, so we cannot change their width or height. In other words, stretch will have no effect on them.  \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;content\u0026#34;\u0026gt;content....\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; justify-content: flex-start; border: 1px solid #000; width: 600px; padding: 20px; height: 100px; } .left { background: #f00; width: 200px; } .content { background: #0ff; position: absolute; /* align-self: center; */ } .right { background: #00f; }  From the above figure, we see that the absolute-positioned item is out of flow and is considered as the sole item in that flex container. Since justify-content is specified as flex-start, the content area is placed at the start of the main axis. If we modify it to center, it will be placed in the center of the main axis.\nOn the other hand, the default value of align-items is stretch, but it has no effect on the abs-positioned flex item. Instead, if we specify align-self: center, we can see it\u0026rsquo;s centered.\nSince there are some unexpected and confusing behaviors, it\u0026rsquo;s recommended that we should avoid writing code like this.\nMulticol Grid Reference  Flexbox W3C Multicol MDN A Complete Guide to Grid Grid Gardern "
+            }
+    
+        ,
+            {
+                "id": 4,
+                "href": "https://ixiaopan.github.io/blog/post/tools/",
+                "title": "Tools for daily work",
+                "section": "post",
+                "date" : "2022.01.03",
+                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager  Homebrew  /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew // /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH  node  We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git // identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@163.com\u0026#39; // view your config vi ~/.gitconfig // or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; // remove git config --global --unset alias.co FrontEnd Basis Fundamentals  CSS CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive  Framework  React Vue  Advanced  Webgl 2  Building Tools  Webpack Vite rollup gulp  CI/CD  Pro Git - Book Semantic Version  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers [Pro Git](Git - Book) "
+            }
+    
+        ,
+            {
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/media/",
                 "title": "Video Format Intro",
                 "section": "post",
@@ -44,7 +64,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -54,7 +74,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -64,17 +84,7 @@
     
         ,
             {
-                "id": 6,
-                "href": "https://ixiaopan.github.io/blog/post/nlp-crf/",
-                "title": "NLP - CRF",
-                "section": "post",
-                "date" : "2021.11.22",
-                "body": "Direced Graphical Model In a direction graph, if there is a link starting from a to b, we say a is the parent of b and b is the child of a. The joint distribution over all variables $\\bold x={x_1, x_2, \u0026hellip;, x_N}$ in this graph is described as $$ p(\\bold x) = \\prod_i^N p(x_i|pa_i) $$ where $N$ is the number of nodes, and $pa_i$ indicates the set of parents of $x_i$. For example, the joint distribution of the graph in Figure 1 is $$ p(a, b, c) = p(a)p(b|a)p(c|a,b) $$  Figure 1: A directed graph representing the joint probability distribution over a, b, and c.  Undireced Graphical Model Conditional Independence   Figure 2:   Random Field Markov Random Field Global Markov Pairwise Markov Local Markov Conditional Random Feild Linear CRF Matrix Notion Inference Parameter Estimation Decoding Refer  Performing sequence Labelling using CRF Introduction to Undirected Models – Markov Random Fields Conditional Random Fields: Introduction NLP - CRF NLP From HMM to CRF Conditional Random Fields An introduction to Conditional Random Fields  "
-            }
-    
-        ,
-            {
-                "id": 7,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -84,7 +94,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -94,7 +104,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -104,7 +114,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -114,7 +124,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -124,7 +134,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -134,7 +144,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -144,7 +154,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -154,7 +164,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -164,7 +174,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -174,7 +184,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
                 "title": "Leetcode - 102",
                 "section": "post",
@@ -184,7 +194,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -194,7 +204,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
                 "title": "Leetcode - 101",
                 "section": "post",
@@ -204,7 +214,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -214,7 +224,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
                 "title": "Interview - Software Engineer",
                 "section": "post",
@@ -224,7 +234,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -234,7 +244,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -244,7 +254,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -254,7 +264,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -264,7 +274,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -274,7 +284,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -284,7 +294,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -294,7 +304,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -304,7 +314,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -314,7 +324,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -324,7 +334,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -334,7 +344,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -344,7 +354,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -354,7 +364,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -364,7 +374,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -374,7 +384,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -384,7 +394,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -394,7 +404,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -404,7 +414,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -414,7 +424,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -424,7 +434,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -434,7 +444,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

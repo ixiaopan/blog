@@ -136,7 +136,7 @@ brew install git
 
 // identity
 git config --global user.name 'yourname'
-git config --global user.email 'xx@mogic.ai'
+git config --global user.email 'xx@163.com'
 
 
 // view your config

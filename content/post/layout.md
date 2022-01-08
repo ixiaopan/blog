@@ -284,7 +284,7 @@ On the other hand, the default value of `align-items` is `stretch`, but it has n
 
 
 
-Since there are some unexpected and confusing behaviors, it's recommned that we should avoid write code like this.
+Since there are some unexpected and confusing behaviors, it's recommended that we should avoid writing code like this.
 
 
 

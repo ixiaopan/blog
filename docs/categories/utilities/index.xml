@@ -14,6 +14,22 @@
 		<atom:link href="/blog/categories/utilities/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Build a private npm registry using verdaccio</title>
+			<link>https://ixiaopan.github.io/blog/post/verdaccio/</link>
+			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/verdaccio/</guid>
+			<description>&lt;p&gt;In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>NPM</title>
+			<link>https://ixiaopan.github.io/blog/post/npm/</link>
+			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/npm/</guid>
+			<description>&lt;p&gt;Learn how to use npm.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>CSS - Layout 101</title>
 			<link>https://ixiaopan.github.io/blog/post/layout/</link>
 			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
@@ -41,22 +57,6 @@ Why encoding?
 		</item>
       	
 		<item>
-			<title>Deep Learning - Attention</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-09-attention/</link>
-			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-09-attention/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Seq2seq</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-07-seq2seq/</link>
-			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-07-seq2seq/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
 			<title>Deep Learning - Weight Initialization</title>
 			<link>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</link>
 			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
@@ -73,14 +73,6 @@ Why encoding?
 		</item>
       	
 		<item>
-			<title>NLP - CRF</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-crf/</link>
-			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-crf/</guid>
-			<description>Direced Graphical Model In a direction graph, if there is a link starting from a to b, we say a is the parent of b and b is the child of a. The joint distribution over all variables $\bold x={x_1, x_2, &amp;hellip;, x_N}$ in this graph is described as $$ p(\bold x) = \prod_i^N p(x_i|pa_i) $$ where $N$ is the number of nodes, and $pa_i$ indicates the set of parents of $x_i$.</description>
-		</item>
-      	
-		<item>
 			<title>NLP - Literature Review on NER</title>
 			<link>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</link>
 			<pubDate>Wed, 17 Nov 2021 00:00:00 +0000</pubDate>
@@ -94,6 +86,14 @@ Why encoding?
 			<pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/optimization/</guid>
 			<description>&lt;p&gt;We&amp;rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&amp;rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Recommender Systems</title>
+			<link>https://ixiaopan.github.io/blog/post/recommendation/</link>
+			<pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/recommendation/</guid>
+			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
