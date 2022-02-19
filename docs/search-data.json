@@ -15,6 +15,36 @@
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/python-epub/",
+                "title": "html2epub",
+                "section": "post",
+                "date" : "2022.02.19",
+                "body": "A simple book scraper written in Python, converting html to epub.\nInstall pip install bs4 inquirer html2epub tqdm Usage wget https://raw.githubusercontent.com/ixiaopan/DataScience/master/Utilities/Scraper/download.py python download.py After running the above commands, you need to select one source, as shown below.\n Note that this script can only convert html to epub. In other words, only books in HTML format can be downloaded.\nBooks with chapter list Books may or may not have a chapter list. For books with a chapter list, just type the URL. For example, the below one.\nhttps://booksvooks.com/selfish-shallow-and-self-absorbed-sixteen-writers-on-the-decision-not-to-have-kids-pdf.html Books without chapter list For books without a chapter list, you need to add the total page number to the page URL. For example, the book this is going to hurt does not have a chapter list, so the url is\nhttps://booksvooks.com/fullbook/this-is-going-to-hurt-pdf-adam-kay.html?page=32 The book will be downloaded in the folder booksVooks/ or jinjiang based on your source.\n- booksVooks - thisisgoingtohurtpdfadamkaypage32.epub "
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/ui-lib/",
+                "title": "Build your own frontend UI components from scratch",
+                "section": "post",
+                "date" : "2022.01.23",
+                "body": "In this post, we will learn how to build your own UI components library based on monorepo.\nFirst of all, let\u0026rsquo;s have a peek at the ultimate project structure.\n- vue-ui - docs - play - packages - components - themes - utils Initialize a project First, we install the package manager pnpm globally.\nnpm i pnpm -g Then we create an empty project and initialize it. In this tutorial, the project is called ui-demo.\nmkdir ui-demo cd ui-demo pnpm init -y Next, install vue + typescript using pnpm and initialize the ts config file.\npnpm install vue@next typescript -D npx tsc --init Generate the .npmrc and pnpm-workspace.yaml files under the root of ui-demo.\ntouch .npmrc # content shamefully-hoist = true Since we are using vue + ts, a declare ts file vue-shim.d.ts should be included.\nmkdir typings cd typings touch vue-shim.d.ts Then copy the following content into vue-shim.d.ts.\ndeclare module \u0026#39;*.vue\u0026#39; { import type { DefineComponent } from \u0026#39;vue\u0026#39; // eslint-disable-next-line @typescript-eslint/ban-types  const component: DefineComponent\u0026lt;{}, {}, any\u0026gt; export default component } Finally, declare the packages in pnpm config file pnpm-workspace.yaml.\ntouch pnpm-workspace.yaml # the content packages: - \u0026#39;packages/**\u0026#39; - docs - play - \u0026#39;!**/__tests__/**\u0026#39; Now, your project will look like this.\n Playground This is where you write components demos to debug components.\nmkdir play cd play pnpm init -y pnpm install vite @vitejs/plugin-vue -D Packages By default, packages are stored in the folder packages. Of course, you can change the name. In this project, we create three packages, as shown below.\nmkdir packages mkdir packages/components mkdir packages/themes mkdir packages/utils Then, we initialize each package and add a scope for them by modifying the name field in the file package.json. Say, the scope name is @wxp\ncd components \u0026amp;\u0026amp; pnpm init -y cd themes \u0026amp;\u0026amp; pnpm init -y cd utils \u0026amp;\u0026amp; pnpm init -y components -\u0026gt; @wxp/components themes -\u0026gt; @wxp/themes utils -\u0026gt; @wxp/utils Next, install these packages at the root directory.\npnpm install @wxp/components -w pnpm install @wxp/themes -w pnpm install @wxp/utils -w You can see that the above dependencies has been added in package.json.\n\u0026#34;dependencies\u0026#34;: { \u0026#34;@wxp/components\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp/themes\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp/utils\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, }, Components - packages/components - button - __docs__ - button.md - __tests__ - src - button.ts // props, types - button.vue // template + js - style - css.ts // css module - index.ts // less module - index.ts // entry To avoid conflicting with the vanilla HTML element, our components should have a prefix name, say M. For example, the button component name is MButton.\nindex.ts index.ts is the entry file. It does two things\n  export the component when you use it in your project\n  register the component globally when using app.use(vue-ui)\n  import { withInstall } from \u0026#34;@wxp/utils/with-install\u0026#34; import Button from \u0026#39;./src/button.vue\u0026#39; const MButton = withInstall(Button) export { MButton } export default MButton src \u0026lt;template\u0026gt; \u0026lt;a-button :type=\u0026#34;type\u0026#34; :size=\u0026#34;size\u0026#34;\u0026gt; \u0026lt;slot\u0026gt;\u0026lt;/slot\u0026gt; \u0026lt;/a-button\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; import { Button } from \u0026#39;ant-design-vue\u0026#39; export default defineComponent({ name: \u0026#39;MButton\u0026#39;, components: { [Button.name]: Button, }, }); \u0026lt;/script\u0026gt; style There are two ways of importing css.\ncss.ts\nimport '@wxp/theme/base.css' import '@wxp/theme/m-button.css' index.ts\nimport '@wxpi/theme/src/base.less' import '@wxp/theme/src/button.less' Build Docs Themes pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D ES Usage # create a new component pnpm run create # Build the ui components pnpm run build # Doc ## preview pnpm run docs ## build pnpm run docs:build # Playground pnpm run dev # publish pnpm run pub ## after publishing, commit your content to the remote repo git push "
+            }
+    
+        ,
+            {
+                "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/antd-test/",
+                "title": "记antd构建后modal丢失transition",
+                "section": "post",
+                "date" : "2022.01.23",
+                "body": "记录一下 antd modal 在测试环境打开关闭没有 transition 的 bug，说来也是我手欠，改构建改的。\nbug 复现 业务中使用了 ant-design-vue，在使用 modal 这个组件的时候，发现测试环境 modal 的打开关闭没有 transition 动画，但是本地是有的；\n排查原因 思路一： 有可能是构建没有把相关的 css 打包进去？但是打开 dist 发现是有的\n思路二： 发现是相关的类比如 fade-enter 压根就没挂在对应的元素上，那么就是代码本身有问题了。开始单点调试，发现打包后的 getTransitionProps 和源码不一致。\n这是源码\n 这是打包后的\n 这就清楚明了了，跟环境配置有关系，在测试环境部署执行的是 vite build --mode test 那么这句话就会把 NODE_ENV 设置为 test ，这样就导致构建后没有 transition\n解决方法 修改 mode 值 mode !== test 即可\n"
+            }
+    
+        ,
+            {
+                "id": 4,
                 "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -24,37 +54,37 @@
     
         ,
             {
-                "id": 2,
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/npm/",
-                "title": "NPM",
+                "title": "Package Manager",
                 "section": "post",
                 "date" : "2022.01.07",
-                "body": "Learn how to use npm.\nnpm version  major minor path prerelease  alpha: WIP, unstable beta: features completed but with unknown bugs rc: ready to release    Suppose the current version is 1.2.3, there are many ways to update the version.\n# 2.0.0 npm version major # 1.3.0 npm version minor # 1.2.4 npm version patch npm version \u0026lt;version\u0026gt; # 1.2.4-0 npm version prerelease -m \u0026#34;update %s\u0026#34; --no-git-tag-version # if the current version is 1.2.3-alpha.0, then it becomes 1.2.3-alpha.1 npm version prerelease --preid=\u0026lt;prerelease-id\u0026gt; tag add tags to the existed pkg npm dist-tag add \u0026lt;pkg\u0026gt;@\u0026lt;version\u0026gt; [\u0026lt;tag\u0026gt;] publish with tags By default, npm publish will tag your package with the latest tag.\nnpm publish --tag beta Install pkg with tags npm install somepkg@beta link npmrc npx nrm Usage install\nnpm install nrm -g nrm ls add your own registry\nnrm add localnpm http://localhost:4873/ nrm use localnpm  remove\nnrm del localnpm Why Reference  http://npm.github.io/publishing-pkgs-docs/publishing/index.html "
+                "body": "Learn how to use the modern package managers.\nnpm version  major minor path prerelease  alpha: WIP, unstable beta: features completed but with unknown bugs rc: ready to release    Suppose the current version is 1.2.3, there are many ways to update the version.\n# 2.0.0 npm version major # 1.3.0 npm version minor # 1.2.4 npm version patch npm version \u0026lt;version\u0026gt; # 1.2.4-0 npm version prerelease -m \u0026#34;update %s\u0026#34; --no-git-tag-version # if the current version is 1.2.3-alpha.0, then it becomes 1.2.3-alpha.1 npm version prerelease --preid=\u0026lt;prerelease-id\u0026gt; tag By default, npm publish will tag your package with the latest tag.\n# add tags to the existed pkg npm \u0026lt;yourtag\u0026gt; add \u0026lt;pkg\u0026gt;@\u0026lt;version\u0026gt; npm publish --tag beta npm install somepkg@beta link npm link can be used to debug your local package that is still developing. Suppose your project relies on the developing package pkgA as shown below.\n- project - node_modules - pkgA To debug pkgA, we follow th following steps\n~ cd pkgA ~ npm link ~ cd project ~ npm link pkgA When you are done, you can remove local dependency using npm unlink\ncd project npm unlink pkgA You can also opt to remove the global link\ncd pkgA npm uninstall pkgA -g npmrc This is the npm config file, which can be used to update the global or user-level config files. There are four relevant files\n  project-related file (path-to-project/.npmrc)\n  user-level config file (~/.npmrc)\n  the global config file ($PREFIX/etc/.npmrc)\n  the built-in config file\n  To access the the user-level config file, you can run\nnpm config get userconfig Likewise, to access the the global config file, run this command,\nnpm config get prefix  How to use it? One of the useful settings is registry. For example, we can set the default registry for our project to speed up the download progress.\ncd project touch .npmrc Then specify your registry in .npmrc\nregistry=https://registry.npm.taobao.org/ If you have multiple project, you can also set the user-level or global config file\nnpm config set registry https://registry.npm.taobao.org/ [-g] To remove the configuration, you just need to specify the key and delete it\nnpm config delete \u0026lt;key\u0026gt; yarn lock yarn is another widely used package manager. When running yarn install, the file yarn.lock will be created.\nSo, what\u0026rsquo;s the use of this file? As its name suggests, yarn.lock will lock down the versions of dependencies specified in the package.json, which ensures that everyone in a team has the same dependencies.\nupgrade Wait, how to upgrade versions of dependencies? Simply run yarn upgrade.\nBut this command can only upgrade versions between specified version range. If you need the latest version ignoring the specified version range, run yarn upgrade --latest.\npnpm npx nrm install\nnpm install nrm -g nrm ls add your own registry\nnrm add localnpm http://localhost:4873/ nrm use localnpm  remove\nnrm del localnpm References  publish-pkgs-docs package.json "
             }
     
         ,
             {
-                "id": 3,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/layout/",
-                "title": "CSS - Layout 101",
+                "title": "CSS Layout 101",
                 "section": "post",
                 "date" : "2022.01.03",
-                "body": "This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.\nFlexbox Nowadays, flex layout is widely used to implement both the basic and complex layout in the morden web applications. Instead of block layout, flexbox allows us to\n specify which direction to layout the content ( flex-direction ) rearrange the display order of flex items ( order ) utilize the extra space to adjust the size of flex items ( flex ) specify the way in which flex items are aligned ( justify-content )  If you want to implement a two-column layout, you simply declare the following statement,\n\u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left side\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right content\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } However, without flex, the alternate way to achieve this is to use float or position\n.left { float: left; } .right { overflow: hidden; } Flexibility It\u0026rsquo;s not common to change the property flex, but it\u0026rsquo;s very useful if we understand how it works. flex is composed of three parts:\n flex-grow flex-shrink flex-basis  When omitted, the default value of flex-grow and flex-shrink is 1. However, the values are quite confusing in some cases. To clarify it, I make a table shown below. Unfortunately, we have to remember them.\n   Case Value     Initial flex: 0 1 auto;   None flex: 0 0 auto;   Auto flex: 1 1 auto;   Number flex: Number 1 0;    I really love the last one flex: \u0026lt;number\u0026gt; because it can implement the even-spaced layout easily. For example, we can implement a dynamic ruler ( I mean when the ruler width is fixed, the width of major and minor scales are flexible when we increase or decrease the number of major scales or minor scales).\n\u0026lt;div class=\u0026#34;ruler\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .ruler { display: flex; width: 240px; height: 10px; background: #ccc; } .major { flex: 1; display: flex; border-left: 1px solid #f00; } .major:last-child { border-right: 1px solid #f00; } .minor { flex: 1; height: 6px; border-right: 1px solid blue; box-sizing: border-box; } .minor:last-child { border-right: none; }  Order By default, flex items are displayed in the same order as they appear in HTML. Sometimes we may want to change the display order without modifying the HTML structure. For example, to swap the above HTML to put the image on the right, we simply declare\n.right { order: -1; } // or .left { order: 1; } Why it works?\n  The default value of order is 0, which means all flex items have the order of 0. Thus, the display order is determined by the order of appearing in HTML.\n  order takes an integer value, and items with the smaller order are displayed first.\n  Auto Margin This is my favorite trick. Simply put, setting an auto margin on one flex item will push it away from other elements. One common scenario is to put the login module at the right side of a header, as shown below,\n \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;nav class=\u0026#34;nav\u0026#34;\u0026gt; \u0026lt;span\u0026gt;Home\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;Blog\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;About\u0026lt;/span\u0026gt; \u0026lt;/nav\u0026gt; \u0026lt;div class=\u0026#34;login\u0026#34;\u0026gt; Log in \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } .login { margin-left: auto; } We can see that justify-content or align-self are ignored when extra space are available for auto margins. Besides, overflow containers will ignore the auto magins and overflow in the end direction, as shown below.\n \u0026lt;div class=\u0026#34;flex-column\u0026#34;\u0026gt; \u0026lt;div\u0026gt;Book\u0026lt;/div\u0026gt; \u0026lt;div\u0026gt;CD\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;ad\u0026#34;\u0026gt;Advertisement\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .flex-column { border: 1px solid #ccc; width: 50px; margin: 0 50px 0 50px; display: flex; flex-direction: column; } .ad { align-self: center; } .ad { margin-left: auto; } Absolute Pos An absolute-positioned flex item has the following characteristics\n it\u0026rsquo;s out of flow, it seems that it were the sole item in that container; it means that even though we have more than one absolute-positioned flex item, they are independent with each other Both the absolute-positioned flex item and the flex container are fixed-size boxes, so we cannot change their width or height. In other words, stretch will have no effect on them.  \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;content\u0026#34;\u0026gt;content....\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; justify-content: flex-start; border: 1px solid #000; width: 600px; padding: 20px; height: 100px; } .left { background: #f00; width: 200px; } .content { background: #0ff; position: absolute; /* align-self: center; */ } .right { background: #00f; }  From the above figure, we see that the absolute-positioned item is out of flow and is considered as the sole item in that flex container. Since justify-content is specified as flex-start, the content area is placed at the start of the main axis. If we modify it to center, it will be placed in the center of the main axis.\nOn the other hand, the default value of align-items is stretch, but it has no effect on the abs-positioned flex item. Instead, if we specify align-self: center, we can see it\u0026rsquo;s centered.\nSince there are some unexpected and confusing behaviors, it\u0026rsquo;s recommended that we should avoid writing code like this.\nMulticol Grid Reference  Flexbox W3C Multicol MDN A Complete Guide to Grid Grid Gardern "
+                "body": "This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.\nFlexbox Nowadays, flex layout is widely used to implement both the basic and complex layout in the morden web applications. Instead of block layout, flexbox allows us to\n specify which direction to layout the content ( flex-direction ) rearrange the display order of flex items ( order ) utilize the extra space to adjust the size of flex items ( flex ) specify the way in which flex items are aligned ( justify-content )  If you want to implement a two-column layout, you simply declare the following statement,\n\u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left side\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right content\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } However, without flex, the alternate way to achieve this is to use float or position\n.left { float: left; } .right { overflow: hidden; } Flexibility It\u0026rsquo;s not common to change the property flex, but it\u0026rsquo;s very useful if we understand how it works. flex is composed of three parts:\n flex-grow flex-shrink flex-basis  When omitted, the default value of flex-grow and flex-shrink is 1. However, the values are quite confusing in some cases. To clarify it, I make a table shown below. Unfortunately, we have to remember them.\n   Case Value     Initial flex: 0 1 auto;   None flex: 0 0 auto;   Auto flex: 1 1 auto;   Number flex: Number 1 0;    I really love the last one flex: \u0026lt;number\u0026gt; because it can implement the even-spaced layout easily. For example, we can implement a dynamic ruler ( I mean when the ruler width is fixed, the width of major and minor scales are flexible when we increase or decrease the number of major scales or minor scales).\n\u0026lt;div class=\u0026#34;ruler\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;major\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;minor\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .ruler { display: flex; width: 240px; height: 10px; background: #ccc; } .major { flex: 1; display: flex; border-left: 1px solid #f00; } .major:last-child { border-right: 1px solid #f00; } .minor { flex: 1; height: 6px; border-right: 1px solid blue; box-sizing: border-box; } .minor:last-child { border-right: none; }  Order By default, flex items are displayed in the same order as they appear in HTML. Sometimes we may want to change the display order without modifying the HTML structure. For example, to swap the above HTML to put the image on the right, we simply declare\n.right { order: -1; } // or .left { order: 1; } Why it works?\n  The default value of order is 0, which means all flex items have the order of 0. Thus, the display order is determined by the order of appearing in HTML.\n  order takes an integer value, and items with the smaller order are displayed first.\n  Auto Margin This is my favorite trick. Simply put, setting an auto margin on one flex item will push it away from other elements. One common scenario is to put the login module at the right side of a header, as shown below,\n \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;nav class=\u0026#34;nav\u0026#34;\u0026gt; \u0026lt;span\u0026gt;Home\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;Blog\u0026lt;/span\u0026gt; \u0026lt;span\u0026gt;About\u0026lt;/span\u0026gt; \u0026lt;/nav\u0026gt; \u0026lt;div class=\u0026#34;login\u0026#34;\u0026gt; Log in \u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; } .login { margin-left: auto; } We can see that justify-content or align-self are ignored when extra space are available for auto margins. Besides, overflow containers will ignore the auto magins and overflow in the end direction, as shown below.\n \u0026lt;div class=\u0026#34;flex-column\u0026#34;\u0026gt; \u0026lt;div\u0026gt;Book\u0026lt;/div\u0026gt; \u0026lt;div\u0026gt;CD\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;ad\u0026#34;\u0026gt;Advertisement\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .flex-column { border: 1px solid #ccc; width: 50px; margin: 0 50px 0 50px; display: flex; flex-direction: column; } .ad { align-self: center; } .ad { margin-left: auto; } Absolute Pos An absolute-positioned flex item has the following characteristics\n it\u0026rsquo;s out of flow, it seems that it were the sole item in that container; it means that even though we have more than one absolute-positioned flex item, they are independent with each other Both the absolute-positioned flex item and the flex container are fixed-size boxes, so we cannot change their width or height. In other words, stretch will have no effect on them.  \u0026lt;div class=\u0026#34;item\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;left\u0026#34;\u0026gt;left\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;content\u0026#34;\u0026gt;content....\u0026lt;/div\u0026gt; \u0026lt;div class=\u0026#34;right\u0026#34;\u0026gt;right\u0026lt;/div\u0026gt; \u0026lt;/div\u0026gt; .item { display: flex; justify-content: flex-start; border: 1px solid #000; width: 600px; padding: 20px; height: 100px; } .left { background: #f00; width: 200px; } .content { background: #0ff; position: absolute; /* align-self: center; */ } .right { background: #00f; }  From the above figure, we see that the absolute-positioned item is out of flow and is considered as the sole item in that flex container. Since justify-content is specified as flex-start, the content area is placed at the start of the main axis. If we modify it to center, it will be placed in the center of the main axis.\nOn the other hand, the default value of align-items is stretch, but it has no effect on the abs-positioned flex item. Instead, if we specify align-self: center, we can see it\u0026rsquo;s centered.\nSince there are some unexpected and confusing behaviors, it\u0026rsquo;s recommended that we should avoid writing code like this.\nMulticol Grid Reference  Flexbox W3C Multicol MDN A Complete Guide to Grid Grid Gardern "
             }
     
         ,
             {
-                "id": 4,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/tools/",
                 "title": "Tools for daily work",
                 "section": "post",
                 "date" : "2022.01.03",
-                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager  Homebrew  /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew // /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH  node  We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git // identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@163.com\u0026#39; // view your config vi ~/.gitconfig // or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; // remove git config --global --unset alias.co FrontEnd Basis Fundamentals  CSS CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive  Framework  React Vue  Advanced  Webgl 2  Building Tools  Webpack Vite rollup gulp  CI/CD  Pro Git - Book Semantic Version  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers [Pro Git](Git - Book) "
+                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager Homebrew /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew # /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH pip https://pip.pypa.io/en/stable/installation/\npython -m ensurepip --upgrade wget https://bootstrap.pypa.io/get-pip.py python get-pip.py nvm We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git // identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@163.com\u0026#39; // view your config vi ~/.gitconfig // or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; // remove git config --global --unset alias.co Download   鸠摩文档搜索\n  gutenberg.org\n  allitbooks.net\n  UX   SimpleIcons\n  IconFinder\n  SVG Sprite Generator\n  English Vocabulary   vocabulary.com\n  Grammar Byte\n  Paraphrase   powerthesaurus\n  quillbot - Strongly Recommended\n  Ginger Grammar Checker\n  lingohelpme\n  BibGuru\n  FrontEnd Basis Fundamentals  CSS - MDN CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive Functional-Light JS  Advanced  Webgl 2 Web Audio  CI/CD  Pro Git - Book Semantic Version  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers "
             }
     
         ,
             {
-                "id": 5,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/media/",
                 "title": "Video Format Intro",
                 "section": "post",
@@ -64,7 +94,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -74,7 +104,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -84,7 +114,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -94,7 +124,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -104,7 +134,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -114,7 +144,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -124,7 +154,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -134,7 +164,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -144,7 +174,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -154,7 +184,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -164,7 +194,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -174,7 +204,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -184,9 +214,9 @@
     
         ,
             {
-                "id": 18,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
-                "title": "Leetcode - 102",
+                "title": "Leetcode 102",
                 "section": "post",
                 "date" : "2021.09.10",
                 "body": "Practice! Practice! Practice!\nTraverse a Tree Three strategies to visit a tree depends on the order of visiting the root\n pre-order in-order post-order  Two methods to implement this\n Recursive Iterative  The idea is first-in-last-out, so we use stack to keep nodes.    Pre-order Traversal class Solution: def preorderTraversal(self, root: Optional[TreeNode]) -\u0026gt; List[int]: if root is None: return [] # recursive l_n = self.preorderTraversal(root.left) r_n = self.preorderTraversal(root.right) return [ root.val ] + l_n + r_n # iterative val = [] stack = [ root ] while len(stack) \u0026gt; 0: node = stack.pop() val.append( node.val ) if node.right: stack.append( node.right ) if node.left: stack.append( node.left ) return val In-oder Traversal class Solution: def inorderTraversal(self, root: Optional[TreeNode]) -\u0026gt; List[int]: if root is None: return [] # recursive l_n = self.inorderTraversal(root.left) r_n = self.inorderTraversal(root.right) return l_n + [ root.val ] + r_n # iteratively stack = [] val = [] while True: while root: stack.append(root) root = root.left if len(stack) == 0: return val # once end, it must be the local root node without left children # then we pop it out to visit this node # next we visit its right child # if the right child is None, we pop up its parent node node = stack.pop() val.append(node.val) root = node.right Post-order Travesal class Solution: def postorderTraversal(self, root: Optional[TreeNode]) -\u0026gt; List[int]: if root is None: return [] # recursive l_n = self.postorderTraversal(root.left) r_n = self.postorderTraversal(root.right) return l_n + r_n + [ root.val ] Level-order Traversal BFS Breadth-First Search visit nodes level by level. We use a queue to keep nodes.\n Each time we are goingt to visit a node, we pop it out of the queue At the same time, we add its left node and right node into the queue    Figure 1: We use queue to store nodes in BFS ($\\text{LeetCode}^{[1]}$)  def BFS(root): if root is None: return [] ret = [] queue = [ root ] while len(queue) \u0026gt; 0: ret.append( [ n.val for n in queue ] ) next_level = [] for n in queue: next_level += [ n.left, n.right ] queue = [ n for n in next_level if n ] DFS Tree problem Top-down Solution  visit a node and get some values pass the values to its children  return specific value for null node left_ans = top_down(root.left, some_val_of_node) right_ans = top_down(root.right, some_val_of_node) Bottom-up Solution  get the answer from the children nodes then update the answer for the parent node  class Solution: def maxDepth(self, root: Optional[TreeNode]) -\u0026gt; int: if root is None: return 0 left_depth = self.maxDepth(root.left) right_depth = self.maxDepth(root.right) return max(left_depth, right_depth) + 1 Reference  [1] Binary Tree - LeetCode "
@@ -194,7 +224,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -204,9 +234,9 @@
     
         ,
             {
-                "id": 20,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
-                "title": "Leetcode - 101",
+                "title": "Leetcode 101",
                 "section": "post",
                 "date" : "2021.09.06",
                 "body": "Practice! Practice! Practice!\nMath Reverse an integer  the key is to multiply each remainder by 10 in each division $a*10*10+b*10+c$  reverse_x = 0 while x \u0026gt; 0: mod_x = x % 10 # mod operation x = x // 10 # floor division  # reverse reverse_x = reverse_x * 10 + mod_x Plus one  if $d==9$ ( $v==0$ ), we need to increment 1 for the next digit otherwise we are done  def plusOne(digits): d = digits[-1] v = (d + 1) % 10 if v == 0: return self.plusOne(digits[:-1]) + v else: digits[-1] = v return digits Binary addition  elementwise addition between numbers with variable length addition starts from right to left  inc = 0 while l \u0026gt;= 0 and r \u0026gt;= 0: # a,b should have the same length t = a[l] + b[r] + inc v = t % 2 # the result of the current position if t \u0026gt;= 2: inc = 1 else: inc = 0 l -= 1 r -= 1 # which is equivalent to  inc = 0 while l \u0026gt;= 0 or r \u0026gt;= 0 or inc \u0026gt; 0: if l \u0026gt;= 0: # no need to ensure that len(a) == len(b) inc +=a[l] l -= 1 if r \u0026gt;=0: inc += b[r] r -= 1 v = inc % 2 inc = inc // 2 The Euclidean Algorithm # find the greatest common divider of A and B def findGCD(A, B): while B \u0026gt; 0: A, B = B, A % B return A Array The second largest number # the largest number is unique max_v, sec_max_v = -999, -999 for n in nums: if n \u0026gt; max_v: sec_max_v = max_v max_v = n elif n \u0026gt; sec_max_v: sec_max_v = n String Two pointer approach The same direction  one slow-runner and one fast-runner, $+=1$ the slow-runner points at the placeholders the fast-runner is used to loop each element the key is to determine the movement strategy  def removeDuplicate(nums): start = 0 end = 1 while end \u0026lt; len(nums): if nums[end] == nums[start]: end += 1 else: if end - start != 1: nums[start + 1], nums[ end ] = nums[ end ], nums[start + 1] start += 1 end += 1 return start + 1 The opposite direction  the left pointer $+=1$ the right pointer $-=1$ This technique is often used in a sorted array  def reverseString(s): l, r = 0, len(s) - 1 while l \u0026lt; r: s[l], s[r] = s[r], s[l] l += 1 r -= 1 return s Two sum (sorted array)\ndef twoSum(nums): l, r = 0, len(nums) - 1 while l \u0026lt; r: t = nums[l] + nums[r] if t \u0026gt; target: r -= 1 elif t \u0026lt; target: l += 1 else: return [l, r] Binary Search An effective way to find an element in a sorted array.\n if not sorted, we can always sort the collection and apply binary search divide search space in two spaces each time converge at some position  Template 1  basic form of binary search Loop ends when the two pointers meet $ \\text{left} \u0026lt;= \\text{right} $  def findElement(nums, target): i, j = 0, len(nums) - 1 while i \u0026lt;= j: # mid = (i + j) // 2 mid = i+ (j - i) // 2 # better in this way due to overflow if target \u0026gt; nums[mid]: i = mid + 1 elif target \u0026lt; nums[mid]: j = mid - 1 else: return mid return -1 Template 2  Loop ends when there is only one element left search left: $right = mid$ search right: $ left = mid + 1$ $ \\text{left} \u0026lt; \\text{right}$  class Solution: def firstBadVersion(self, n, pick): \u0026#34;\u0026#34;\u0026#34; :type n: int :rtype: int \u0026#34;\u0026#34;\u0026#34; l, r = 1, n while l \u0026lt; r: mid = (l+r)//2 if isBadVersion(mid, pick) is False: # search right l = mid + 1 else: # search left r = mid # if l \u0026lt;= n and isBadVersion(l, pick) is True: return l # return -1 Template 3 Hash Table Keep the corresponding value of a specified key in advance\nTwo sum\n if the next value is the desired value, then it must be in the dict otherwise, we update the dict  hashmap = {} for i in range( len(nums) ): if nums[i] not in hashmap: hashmap[ target - nums[i] ] = i else: return [ hashmap[ nums[i] ], i ] Refer  Array and String - LeetCode Binary Search - LeetCode The Euclidean Algorithm "
@@ -214,7 +244,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -224,9 +254,9 @@
     
         ,
             {
-                "id": 22,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
-                "title": "Interview - Software Engineer",
+                "title": "Software Engineer Interview",
                 "section": "post",
                 "date" : "2021.07.29",
                 "body": "From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.\nWhat I learned Just a moment ago, I finished my final technical interview, which should have gone well, but it didn’t. I failed at the code part. The reason is that I was too confident in my coding skills, but the fact is that my mind was blank when I wrote code. So what happened? There are several reasons leading to this.\nOverconfident I have to admit that my programming skills have indeed become poorer.\nThe prime reason is that I was overconfident in my programming skills. In fact, I have not written codes for almost one year. ( I mean writing code every day ) I have been accustomed to googling and looking up official docs so that I cannot remember some common APIs. In short, I focus more on utilising previous work experience to solve problems, instead of paying too much attention to specific functions. Anyway, anyone can write these functions from scratch.\nAnother reason is that I’m a bit evasive in programming. Why? Because of the heavy workload. So I somewhat avoid programming subconsciously. I hope I could have a life without work-related things during my study, totally relaxing myself.\nLack of preparation The second reason is that I was not fully prepared. In part because I was not familiar with the interview pattern/process. Well, I had never attended a video interview before. I didn\u0026rsquo;t know how it runs. But basically, I was blindly confident in myself.\nOn the other hand, I applied for a new position (software engineer), which is a mix of frontend, machine learning and database. To be honest, SQL is not my cup of tea. I rarely use it during my work. I am not sure what questions will be asked to me in the interview. I had no previous interview experience to learn from.\nEnglish Poor English listening and communication skills. That\u0026rsquo;s the hard part. On the one hand, I am not familiar with some technical terms in English (Machine Learning is okay, but some frontend terms are different from my understandings), though I am always reading technical documents in English. Well, that\u0026rsquo;s another thing, you know. On the other hand, I am not able to express my thoughts completely and fluently due to poor vocabulary. Sounds very frustrating.\nWhat to do  Strengthen the understanding of basic machine learning concepts  Some concepts e.g. FP, FN are still not clear. I know the definition, but I am still confused when/how to use it and express it clearly. I need more hands-on experience.   Enhance programming skills  SQL Python, NumPy and Pandas ( I often mixed the syntax of Python and JavaScript, oppps\u0026hellip;)   English??  no idea, since I am not sure whether I will stay abroad    Why Data Science Almost everyone will ask me this question — Why data science? I\u0026rsquo;m still asking myself, too.\nShort answer  Do what I want - experience different jobs\n I am still interested in frontend, but I would like to try something new. Life has no boundaries. Just do what you want if you are able to. Maybe the worst case is that I would go back to Frontend. Well, it\u0026rsquo;s not too bad, after all, I don\u0026rsquo;t hate frontend at all.\nLong answer First, I had a strong desire to study last year. Meanwhile, I started to become interested in data, so after doing research, I chose data science as my master\u0026rsquo;s degree.\nSecond, I believe that machine learning and AI are the future trends of technology since we are generating more and more data and companies have realised the importance and value of data. Big data applications are everywhere. So I think it\u0026rsquo;s an exciting job which could bring big changes to the world and have a bright career prospect.\nThird, as a developer, I dream to be a full-stack developer. At least I don\u0026rsquo;t limit myself to frontend or backend only. As a compound developer with the knowledge of both machine learning and frontend, I believe I have more choices.\nBesides, I like to try something new. I also expect how far I can go.\n"
@@ -234,7 +264,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -244,7 +274,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -254,7 +284,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -264,7 +294,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -274,7 +304,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -284,7 +314,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -294,7 +324,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -304,7 +334,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -314,7 +344,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -324,7 +354,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -334,7 +364,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -344,7 +374,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -354,7 +384,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -364,7 +394,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -374,7 +404,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -384,7 +414,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -394,7 +424,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -404,7 +434,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -414,7 +444,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -424,7 +454,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -434,7 +464,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -444,7 +474,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

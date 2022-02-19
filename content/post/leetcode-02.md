@@ -1,10 +1,10 @@
 ---
-title: "Leetcode - 102"
+title: "Leetcode 102"
 date: "2021-09-10"
 description: ""
 # tags: []
 categories: [
-    "Utilities",
+    "Misc",
 ]
 series: ["Computer Science"]
 katex: true

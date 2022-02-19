@@ -1,10 +1,10 @@
 ---
-title: "Interview - Software Engineer"
+title: "Software Engineer Interview"
 date: "2021-07-29"
 description: ""
 # tags: []
 categories: [
-    "Utilities",
+  "Misc",
 ]
 series: ["Computer Science"]
 katex: true

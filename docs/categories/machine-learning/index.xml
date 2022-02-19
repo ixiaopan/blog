@@ -14,6 +14,30 @@
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>html2epub</title>
+			<link>https://ixiaopan.github.io/blog/post/python-epub/</link>
+			<pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/python-epub/</guid>
+			<description>&lt;p&gt;A simple book scraper written in Python, converting html to epub.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Build your own frontend UI components from scratch</title>
+			<link>https://ixiaopan.github.io/blog/post/ui-lib/</link>
+			<pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/ui-lib/</guid>
+			<description>&lt;p&gt;In this post, we will learn how to build your own UI components library based on monorepo.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>记antd构建后modal丢失transition</title>
+			<link>https://ixiaopan.github.io/blog/post/antd-test/</link>
+			<pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/antd-test/</guid>
+			<description>&lt;p&gt;记录一下 &lt;code&gt;antd modal&lt;/code&gt; 在测试环境打开关闭没有 &lt;code&gt;transition&lt;/code&gt; 的 bug，说来也是我手欠，改构建改的。&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Build a private npm registry using verdaccio</title>
 			<link>https://ixiaopan.github.io/blog/post/verdaccio/</link>
 			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
@@ -22,19 +46,19 @@
 		</item>
       	
 		<item>
-			<title>NPM</title>
+			<title>Package Manager</title>
 			<link>https://ixiaopan.github.io/blog/post/npm/</link>
 			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/npm/</guid>
-			<description>&lt;p&gt;Learn how to use npm.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Learn how to use the modern package managers.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
-			<title>CSS - Layout 101</title>
+			<title>CSS Layout 101</title>
 			<link>https://ixiaopan.github.io/blog/post/layout/</link>
 			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/layout/</guid>
-			<description>&lt;p&gt;This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.&lt;/p&gt;</description>
+			<description>&lt;p&gt;This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -70,30 +94,6 @@ Why encoding?
 			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/dl-03-regularization/</guid>
 			<description>&lt;p&gt;In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>NLP - Literature Review on NER</title>
-			<link>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</link>
-			<pubDate>Wed, 17 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/nlp-ner-lr/</guid>
-			<description>&lt;p&gt;Named entity recognition (NER) is a classical task in NLP, which aims to identify meaningful chunks of text and classify them into appropriate entity types, such as PERSON or LOCATION. For instance, &amp;ldquo;Tom&amp;rdquo; is classified as &amp;ldquo;PERSON&amp;rdquo; while &amp;ldquo;England&amp;rdquo; is labelled as &amp;ldquo;LOCATION&amp;rdquo; in the sentence &amp;ldquo;Tom comes from England&amp;rdquo;. NER serves as the foundation for a range of downstream tasks such as information extraction. In practical applications, you may notice that some websites will autofill the application form from your resume. In this series of posts, we will explain NER in detail, from models, datasets to domain adaptation. First, let&amp;rsquo;s do a brief literative review on NER.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Optimization</title>
-			<link>https://ixiaopan.github.io/blog/post/optimization/</link>
-			<pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/optimization/</guid>
-			<description>&lt;p&gt;We&amp;rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&amp;rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Recommender Systems</title>
-			<link>https://ixiaopan.github.io/blog/post/recommendation/</link>
-			<pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/recommendation/</guid>
-			<description>&lt;p&gt;Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

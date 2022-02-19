@@ -4,21 +4,17 @@ date: "2022-01-03"
 description: ""
 # tags: []
 categories: [
-    "frontend",
+   "frontend",
 ]
 series: ["frontend"]
 katex: true
 ---
 
 
-
 Sharp tools make good work.
 
 
-
 <!--more-->
-
-
 
 ## Daily Tools
 
@@ -81,7 +77,7 @@ source ~/.zshrc
 
 
 
-- [Homebrew](https://brew.sh/)
+#### [Homebrew](https://brew.sh/)
 
 
 
@@ -90,14 +86,13 @@ source ~/.zshrc
 ```
 
 
-
 You might encounter the error message `brew not found` when you type `brew` on your terminal due to the wrong path. First check the place where your brew is installed,
 
 
 
-```
+```bash
 ~ which brew
-// /opt/homebrew/bin/brew
+# /opt/homebrew/bin/brew
 ```
 
 
@@ -110,15 +105,27 @@ then add it to the global `PATH` env as follows.
 export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH
 ```
 
+#### pip
+
+https://pip.pypa.io/en/stable/installation/
 
 
-- node
+```bash
+python -m ensurepip --upgrade
+
+wget  https://bootstrap.pypa.io/get-pip.py
+
+python get-pip.py
+```
+
+
+#### nvm
 
 
 
 We use `nvm` to manage different versions of node.
 
-```Nginx
+```bash
 brew install nvm
 
 nvm install v16.13.1
@@ -157,42 +164,63 @@ git config --global --unset alias.co
 ```
 
 
+## Download
 
+- [鸠摩文档搜索](https://www.jiumodiary.com/)
+
+- [gutenberg.org](https://www.gutenberg.org/)
+
+- [allitbooks.net](https://allitbooks.net/) 
+
+
+## UX
+
+- [SimpleIcons](https://simpleicons.org/)
+
+- [IconFinder](https://www.iconfinder.com/)
+
+- [SVG Sprite Generator](https://svgsprit.es/)
+
+
+
+## English
+
+### Vocabulary
+
+- [vocabulary.com](https://www.vocabulary.com/dictionary/)
+
+- [Grammar Byte](https://chompchomp.com/terms.htm)
+
+
+### Paraphrase
+
+- [powerthesaurus](https://www.powerthesaurus.org/)
+
+- [quillbot - Strongly Recommended](https://quillbot.com/)
+
+- [Ginger Grammar Checker](https://www.gingersoftware.com/grammarcheck#.XRHyeZMzbOQ)
+
+- [lingohelpme](https://lingohelp.me/)
+
+- [BibGuru](https://app.bibguru.com/p/ef52ca5d-cd2d-41a7-bd90-5f23b0f75651)
 
 
 ## FrontEnd Basis
 
 ### Fundamentals
 
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [CSS - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [CSS Secrets](https://books.google.com.hk/books?id=nokNCgAAQBAJ&printsec=frontcover#v=onepage&q&f=false)
 - [JavaScript.info](https://javascript.info/)
 - [ES6 - You Don't Know JS ](https://github.com/getify/You-Dont-Know-JS)
 - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/)
-
-
-
-### Framework
-
-- React
-- Vue
-
+- [Functional-Light JS](https://github.com/getify/Functional-Light-JS)
 
 
 ### Advanced
 
 - [Webgl 2](https://webgl2fundamentals.org/webgl/lessons/)
-
-
-
-### Building Tools
-
-- Webpack
-- Vite
-- rollup
-- gulp
-
-
+- [Web Audio](https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/toc.html)
 
 ### CI/CD
 
@@ -204,4 +232,3 @@ git config --global --unset alias.co
 ## Reference
 
 - [A Guide to the 20 Best VSCode Extensions for Frontend Developers](https://javascript.plainenglish.io/a-guide-to-the-20-best-vscode-extensions-for-frontend-developers-f75a5d716091)
-- [Pro Git]([Git - Book](https://git-scm.com/book/en/v2))

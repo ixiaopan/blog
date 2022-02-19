@@ -4,7 +4,7 @@ date: "2021-07-30"
 description: ""
 # tags: []
 categories: [
-    "Utilities",
+    "Misc",
 ]
 series: ["Computer Science"]
 katex: true
@@ -17,6 +17,8 @@ Practice! Practice! Practice!
 
 
 <!--more-->
+
+
 
 ## Order of execution
 

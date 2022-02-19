@@ -4,7 +4,7 @@ date: "2021-10-28"
 description: ""
 # tags: []
 categories: [
-    "Utilities",
+    "Misc",
 ]
 series: ["Computer Science"]
 katex: true
@@ -81,5 +81,5 @@ $done({ body: body })
 
 
 
-I have sort out several rules for commonly used APPs — just for personal use  (You can find it on my [Github](https://github.com/ixiaopan/DataScience/tree/master/Utilities/quantumult)). Hopefully, it can help you get free from the annoying splash ads.
+I have sort out several rules for commonly used APPs — just for personal use  (You can find it on my [Github](https://github.com/ixiaopan/DataScience/tree/master/Misc/quantumult)). Hopefully, it can help you get free from the annoying splash ads.
 

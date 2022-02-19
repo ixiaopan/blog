@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>NPM</title>
+<title>Package Manager</title>
 
 
 
@@ -30,8 +30,8 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="NPM"/>
-<meta name="twitter:description" content="Learn how to use npm."/>
+<meta name="twitter:title" content="Package Manager"/>
+<meta name="twitter:description" content="Learn how to use the modern package managers."/>
 
 
 
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="post-heading">
           
             <h1>
-              NPM
+              Package Manager
             </h1>
           
           
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jan 7, 2022
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;1 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>Learn how to use npm.</p>
+  <p>Learn how to use the modern package managers.</p>
 <h2 id="npm">npm</h2>
 <h3 id="version">version</h3>
 <ul>
@@ -226,33 +226,87 @@ npm version prerelease -m <span style="color:#e6db74">&#34;update %s&#34;</span>
 <span style="color:#75715e"># if the current version is 1.2.3-alpha.0, then it becomes 1.2.3-alpha.1</span>
 npm version prerelease --preid<span style="color:#f92672">=</span>&lt;prerelease-id&gt;
 </code></pre></div><h3 id="tag">tag</h3>
-<h4 id="add-tags-to-the-existed-pkg">add tags to the existed pkg</h4>
-<pre tabindex="0"><code>npm dist-tag add &lt;pkg&gt;@&lt;version&gt; [&lt;tag&gt;]
-</code></pre><h4 id="publish-with-tags">publish with tags</h4>
 <p>By default, <code>npm publish</code> will tag your package with the <code>latest</code> tag.</p>
-<pre tabindex="0"><code>npm publish --tag beta
-</code></pre><h4 id="install-pkg-with-tags">Install pkg with tags</h4>
-<pre tabindex="0"><code>npm install somepkg@beta
-</code></pre><h3 id="link">link</h3>
-<h3 id="npmrc">npmrc</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># add tags to the existed pkg</span>
+npm &lt;yourtag&gt; add &lt;pkg&gt;@&lt;version&gt;
+
+npm publish --tag beta
+
+npm install somepkg@beta
+</code></pre></div><h3 id="link">link</h3>
+<p><code>npm link</code> can be used to debug your local package that is still developing. Suppose your project relies on the developing package <code>pkgA</code>  as shown below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- project
+  - node_modules
+  	- pkgA
+</code></pre></div><p>To debug pkgA, we follow th following steps</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ cd pkgA
+~ npm link
+
+~ cd project
+~ npm link pkgA
+</code></pre></div><p>When you are done, you can remove local dependency using <code>npm unlink</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd project
+npm unlink pkgA
+</code></pre></div><p>You can also opt to remove the global link</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd pkgA
+npm uninstall pkgA -g
+</code></pre></div><h3 id="npmrc">npmrc</h3>
+<p>This is the npm config file, which can be used to update the global or user-level config files. There are four relevant files</p>
+<ul>
+<li>
+<p>project-related file (<code>path-to-project/.npmrc</code>)</p>
+</li>
+<li>
+<p>user-level config file (<code>~/.npmrc</code>)</p>
+</li>
+<li>
+<p>the global config file (<code>$PREFIX/etc/.npmrc</code>)</p>
+</li>
+<li>
+<p>the built-in config file</p>
+</li>
+</ul>
+<p>To access the the user-level config file, you can run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm config get userconfig
+</code></pre></div><p>Likewise, to access the the global config file, run this command,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm config get prefix
+</code></pre></div><p>
+  <img src="/blog/post/images/npmrc.png" alt="">
+</p>
+<p>How to use it? One of the useful settings is <code>registry</code>. For example, we can set the default registry for our project to speed up the download progress.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd project
+touch .npmrc
+</code></pre></div><p>Then specify your registry in <code>.npmrc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">registry<span style="color:#f92672">=</span>https://registry.npm.taobao.org/
+</code></pre></div><p>If you have multiple project, you can also set the user-level or global config file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm config set registry https://registry.npm.taobao.org/ <span style="color:#f92672">[</span>-g<span style="color:#f92672">]</span>
+</code></pre></div><p>To remove the configuration, you just need to specify the key and delete it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm config delete &lt;key&gt;
+</code></pre></div><h2 id="yarn">yarn</h2>
+<h3 id="lock">lock</h3>
+<p>yarn is another widely used package manager. When running <code>yarn install</code>, the file <code>yarn.lock</code> will be created.</p>
+<p>So, what&rsquo;s the use of this file? As its name suggests, <code>yarn.lock</code> will lock down the versions of <code>dependencies</code> specified in the <code>package.json</code>, which ensures that everyone in a team has the same dependencies.</p>
+<h3 id="upgrade">upgrade</h3>
+<p>Wait, how to upgrade versions of dependencies? Simply run <code>yarn upgrade</code>.</p>
+<p>But this command can only upgrade versions between specified version range. If you need the latest version ignoring the specified version range, run <code>yarn upgrade --latest</code>.</p>
+<h2 id="pnpm">pnpm</h2>
 <h2 id="npx">npx</h2>
 <h2 id="nrm">nrm</h2>
-<h3 id="usage">Usage</h3>
 <p>install</p>
-<pre tabindex="0"><code>npm install nrm -g
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install nrm -g
 nrm ls
-</code></pre><p>add your own registry</p>
-<pre tabindex="0"><code>nrm add localnpm http://localhost:4873/
+</code></pre></div><p>add your own registry</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nrm add localnpm http://localhost:4873/
 nrm use localnpm
-</code></pre><p>
+</code></pre></div><p>
   <img src="/blog/post/images/nrm-ls.png" alt="">
 </p>
 <p>remove</p>
-<pre tabindex="0"><code>nrm del localnpm
-</code></pre><h3 id="why">Why</h3>
-<h2 id="reference">Reference</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nrm del localnpm
+</code></pre></div><h2 id="references">References</h2>
 <ul>
-<li><a href="http://npm.github.io/publishing-pkgs-docs/publishing/index.html">http://npm.github.io/publishing-pkgs-docs/publishing/index.html</a></li>
+<li><a href="http://npm.github.io/publishing-pkgs-docs/publishing/index.html">publish-pkgs-docs</a></li>
+<li><a href="https://docs.npmjs.com/cli/v6/configuring-npm/package-json">package.json</a></li>
 </ul>
 
 
@@ -272,14 +326,16 @@ nrm use localnpm
         <li><a href="#npmrc">npmrc</a></li>
       </ul>
     </li>
-    <li><a href="#npx">npx</a></li>
-    <li><a href="#nrm">nrm</a>
+    <li><a href="#yarn">yarn</a>
       <ul>
-        <li><a href="#usage">Usage</a></li>
-        <li><a href="#why">Why</a></li>
+        <li><a href="#lock">lock</a></li>
+        <li><a href="#upgrade">upgrade</a></li>
       </ul>
     </li>
-    <li><a href="#reference">Reference</a></li>
+    <li><a href="#pnpm">pnpm</a></li>
+    <li><a href="#npx">npx</a></li>
+    <li><a href="#nrm">nrm</a></li>
+    <li><a href="#references">References</a></li>
   </ul>
 </nav>
       

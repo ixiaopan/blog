@@ -1,10 +1,10 @@
 ---
-title: "CSS - Layout 101"
+title: "CSS Layout 101"
 date: "2022-01-03"
 description: ""
 # tags: []
 categories: [
-    "frontend",
+  "frontend",
 ]
 series: ["frontend"]
 katex: true
@@ -12,7 +12,7 @@ katex: true
 
 
 
-This post aims to introduce the mordern CSS layout modes, including flexbox, multi-columns and grid.
+This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.
 
 
 
