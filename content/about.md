@@ -6,7 +6,7 @@ weight: 2
 
 ## PROFILE
 
-MSc Data Science student with almost 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+MSc Data Science graduate with 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 
 
@@ -40,16 +40,33 @@ li {
 
 - Strong understanding of Machine Learning and Deep Learning 
 - Excellent hands-on experience with Python, Scikit-Learn, and PyTorch
-- Proficient in JavaScript, React, CSS3 and able to build a web application from frontend to backend independently and effectively
+- Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively
 - Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
-- Rich experience in the agile software development workflow using Git and CI/CD
-- Good at data visualisation and UI design
+- Solid hands-on experience in no-linear editing for video
+- Rich experience in the agile software development workflow with Git and CI/CD
+- Good at data visualization and UI design
 
+
+
+## EMPLOYMENT HISTORY
+
+<section>
+<div class="timeline work-item">
+  <p class="time">12/2021 - present</p>
+  <p class="work-title">Front-end Technical Specialist, startup, Hangzhou</p>
+</div>
+<div class="timeline work-item">
+  <p class="time">07/2017 - 04/2020</p>
+  <p class="work-title">Front-end Engineer II, Ant Group, Hangzhou</p>
+</div>
+<div class="timeline work-item">
+  <p class="time">07/2014 - 07/2017</p>
+  <p class="work-title">Front-end Engineer, Baidu, Beijing & Shanghai</p>
+</div>
+</section>
 
 
 ## EDUCATION
-
-
 
 <section >
 <div class="timeline">
@@ -59,20 +76,5 @@ li {
 <div class="timeline">
   <p class="time">09/2010 - 07/2014</p>
   <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </p>
-</div>
-</section>
-
-
-
-## EMPLOYMENT HISTORY
-
-<section>
-<div class="timeline work-item">
-  <p class="time">07/2017 - 04/2020</p>
-  <p class="work-title">Front-end Engineer II, Ant Group, Hangzhou</p>
-</div>
-<div class="timeline work-item">
-  <p class="time">07/2014 - 07/2017</p>
-  <p class="work-title">Front-end Engineer, Baidu, Beijing & Shanghai</p>
 </div>
 </section>

@@ -14,6 +14,22 @@
 		<atom:link href="/blog/categories/nlp/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Composition bug in Safari</title>
+			<link>https://ixiaopan.github.io/blog/post/composition/</link>
+			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/composition/</guid>
+			<description>&lt;p&gt;中文输入法 composition event 在 chrome 和 safari 表现相反&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Extract the first frame of a gif image</title>
+			<link>https://ixiaopan.github.io/blog/post/first-frame/</link>
+			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/first-frame/</guid>
+			<description>&lt;p&gt;不仅仅是 GIF，视频提取单帧画面也是一样的方法&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>html2epub</title>
 			<link>https://ixiaopan.github.io/blog/post/python-epub/</link>
 			<pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
@@ -78,22 +94,6 @@
 Why encoding?
  raw data can be very large and noisy encoding makes it easy to transmit and storage data  Why decoding?
  preview or playback  Video Codec  H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market VP8, free and open source codec owned by Google Ogg Theora, typically used with OGG container H.</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Weight Initialization</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</link>
-			<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-04-initilisation/</guid>
-			<description>&lt;p&gt;The goal of machine learning is to find the best parameters. To train the model, we must start from some values. So, what do the initial parameters look like? Can we set all of them to the same value? Or we assign random values to the weights? In this post, we will talk about another important aspect of learning — weight initialization.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Deep Learning - Regularization</title>
-			<link>https://ixiaopan.github.io/blog/post/dl-03-regularization/</link>
-			<pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/dl-03-regularization/</guid>
-			<description>&lt;p&gt;In the previous post, we introduced how to initialize weights. However, weights can be very large or small (great variance in weights). For larger weights, a tiny change in data will lead to large variance. For smaller weights, it has little influence on the model, which can be totally discarded.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

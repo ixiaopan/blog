@@ -241,7 +241,7 @@ pm2 delete verdaccio
   <span style="color:#f92672">content</span>: <span style="color:#e6db74">&#39;{&#34;content&#34;: {&#34;text&#34;: &#34;{{ publishedPackage }} has published&#34;}, &#34;msg_type&#34;:&#34;text&#34;}&#39;</span>
 
 </code></pre></div><h2 id="web-page">Web Page</h2>
-<p>If everything works well, you can open http://localhost:4873/ and l see the page like the below one.</p>
+<p>If everything works well, open <code>http://localhost:4873/</code> and you will see the page like the below one.</p>
 <p>
   <img src="/blog/post/images/verdaccio-web.png" alt="">
 </p>
@@ -252,22 +252,22 @@ pm2 delete verdaccio
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm adduser --registry http://localhost:4873/ 
 </code></pre></div><h3 id="delete-user">delete user</h3>
 <p>The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.</p>
-<pre tabindex="0"><code>~/.config/verdaccio/htpasswd
-</code></pre><h3 id="publish">publish</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/.config/verdaccio/htpasswd
+</code></pre></div><h3 id="publish">publish</h3>
 <p>Since we&rsquo;re publishing our package to the private registry, we should explicitly specify where the private registry is. To avoid specifing mannually each time, we use <code>nrm</code> to manage registries.</p>
-<pre tabindex="0"><code>npm i -g nrm
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i -g nrm
 
 nrm add localnpm http://localhost:4873
 nrm use localnpm
 
 nrm ls
-</code></pre><p>
+</code></pre></div><p>
   <img src="/blog/post/images/nrm-ls.png" alt="">
 </p>
 <p>The above command set the default registry to <code>localnpm</code>, which allows us to download the private packages from the localhost and the public packages from other public sources, such as <code>npmjs</code>.</p>
 <p>Then we can publish</p>
-<pre tabindex="0"><code>npm publish
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm publish
+</code></pre></div>
 
 
 

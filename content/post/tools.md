@@ -141,14 +141,14 @@ nvm ls-remote
 ```bash
 brew install git
 
-// identity
+# identity
 git config --global user.name 'yourname'
 git config --global user.email 'xx@163.com'
 
 
-// view your config
+# view your config
 vi ~/.gitconfig
-// or
+# or
 git config --list
 
 
@@ -159,22 +159,29 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.glog  'log --all --decorate --oneline --graph'
 
-// remove
+# remove
 git config --global --unset alias.co
+
+# clean branches
+## look up
+git br | grep 'pattern'
+## delete it
+git br | grep 'pattern' | xargs git branch -D
 ```
 
 
-## Download
+### Download
 
-- [鸠摩文档搜索](https://www.jiumodiary.com/)
+- [Library Genesis](http://libgen.rs/)
+
+- [jiumodiary](https://www.jiumodiary.com/)
 
 - [gutenberg.org](https://www.gutenberg.org/)
 
 - [allitbooks.net](https://allitbooks.net/) 
 
 
-## UX
-
+### UX
 - [SimpleIcons](https://simpleicons.org/)
 
 - [IconFinder](https://www.iconfinder.com/)
@@ -196,7 +203,7 @@ git config --global --unset alias.co
 
 - [powerthesaurus](https://www.powerthesaurus.org/)
 
-- [quillbot - Strongly Recommended](https://quillbot.com/)
+- [quillbot (Strongly Recommended)](https://quillbot.com/)
 
 - [Ginger Grammar Checker](https://www.gingersoftware.com/grammarcheck#.XRHyeZMzbOQ)
 
@@ -205,7 +212,7 @@ git config --global --unset alias.co
 - [BibGuru](https://app.bibguru.com/p/ef52ca5d-cd2d-41a7-bd90-5f23b0f75651)
 
 
-## FrontEnd Basis
+## FrontEnd
 
 ### Fundamentals
 
@@ -227,6 +234,43 @@ git config --global --unset alias.co
 - [Pro Git - Book](https://git-scm.com/book/en/v2)
 - [Semantic Version](https://semver.org/)
 
+
+## Database
+
+- [SQL Zoo](https://sqlzoo.net/wiki/SELECT_basics)
+- [SQL Tutorial](https://www.sqltutorial.org/)
+
+
+## Statistics
+
+- [Math24](https://math24.net/probability-density-function.html)
+- [XMathMain (Math Collection)](https://xaktly.com/XMathMain.html)
+- [Introduction to Statistics](https://courses.lumenlearning.com/introstats1/)
+- [Intro to Probability](https://dlsun.github.io/probability/)
+- [Applied Multivariate Statistical Analysis](https://online.stat.psu.edu/stat505/book/)
+
+
+
+## Machine Learning
+
+
+- [from-python-to-numpy](https://www.labri.fr/perso/nrougier/from-python-to-numpy/)
+- [shanelynn blog](https://www.shanelynn.ie/)
+
+
+
+## Visualisation
+
+- [Data Visualization Book Reviews](https://www.visualcinnamon.com/resources/learning-data-visualization/books/)
+- [NAPA Cards](https://napa-cards.net/)
+- [datavizproject](https://datavizproject.com/)
+- [data-to-viz](https://www.data-to-viz.com/)
+- [datavizcatalogue](https://datavizcatalogue.com/)
+- [makeovermonday](https://www.makeovermonday.co.uk/data/)
+
+## Complexity
+
+- [introduction-to-complexity](https://www.complexityexplorer.org/courses/97-introduction-to-complexity-2019/segments/8352?summary)
 
 
 ## Reference

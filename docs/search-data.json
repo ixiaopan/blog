@@ -9,12 +9,32 @@
                 "title": "",
                 "section": "",
                 "date" : "0001.01.01",
-                "body": "PROFILE MSc Data Science student with almost 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.\n .timeline p { margin: 0; } .timeline .time { margin-right: 28px; color: rgba(0,0,0,0.6); min-width: 133px; } .timeline { display: flex; justify-content: flex-start; align-items: flex-start; } .timeline+.timeline { margin-top: 8px; } li { margin-left: -20px }  PROFESSIONAL SKILLS  Strong understanding of Machine Learning and Deep Learning Excellent hands-on experience with Python, Scikit-Learn, and PyTorch Proficient in JavaScript, React, CSS3 and able to build a web application from frontend to backend independently and effectively Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program Rich experience in the agile software development workflow using Git and CI/CD Good at data visualisation and UI design  EDUCATION 09/2020 - 11/2021\nMSc Data Science, University of Southampton\n 09/2010 - 07/2014\nBSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC)   EMPLOYMENT HISTORY  07/2017 - 04/2020\nFront-end Engineer II, Ant Group, Hangzhou\n 07/2014 - 07/2017\nFront-end Engineer, Baidu, Beijing \u0026 Shanghai\n  "
+                "body": "PROFILE MSc Data Science graduate with 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.\n .timeline p { margin: 0; } .timeline .time { margin-right: 28px; color: rgba(0,0,0,0.6); min-width: 133px; } .timeline { display: flex; justify-content: flex-start; align-items: flex-start; } .timeline+.timeline { margin-top: 8px; } li { margin-left: -20px }  PROFESSIONAL SKILLS  Strong understanding of Machine Learning and Deep Learning Excellent hands-on experience with Python, Scikit-Learn, and PyTorch Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program Solid hands-on experience in no-linear editing for video Rich experience in the agile software development workflow with Git and CI/CD Good at data visualization and UI design  EMPLOYMENT HISTORY  12/2021 - present\nFront-end Technical Specialist, startup, Hangzhou\n 07/2017 - 04/2020\nFront-end Engineer II, Ant Group, Hangzhou\n 07/2014 - 07/2017\nFront-end Engineer, Baidu, Beijing \u0026 Shanghai\n  EDUCATION 09/2020 - 11/2021\nMSc Data Science, University of Southampton\n 09/2010 - 07/2014\nBSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC)   "
             }
     
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/composition/",
+                "title": "Composition bug in Safari",
+                "section": "post",
+                "date" : "2022.05.21",
+                "body": "中文输入法 composition event 在 chrome 和 safari 表现相反\nBackground 在开发编辑输入组件的时候，如果输入的是中文，监听 delete 事件会删除输入框里已经写好的文案，期望效果是删除正在输入的拼音。\nbug 复现如下\n 期望效果\n Why composition 有几个事件\n compositionstart compositionupdate compositionend  具体示例 MDN 上给了一个 demo 可以体验\n让我们看下中文输入 asd，然后 delete 后，发生了什么\nchrome 事件顺序如下\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  onCompositionEnd\n  safari 事件顺序如下\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionEnd\n  delete\n  如果输入法正在 composition，我们是知道的，只需要监听 compositionstart, compositionupdate 打个标记即可，然后在 delete 拦截掉\nfunction onCompositionStart() { isOnComposition = true } function onCompositionUpdate() { isOnComposition = true } function onCompositionEnd() { isOnComposition = false } function mockDelete() { // 拦截，false 的时候，删除业务 tag  if (!isOnComposition \u0026amp;\u0026amp; isMultipleMode \u0026amp;\u0026amp; tags.value?.length \u0026amp;\u0026amp; !phone.value) { const lastTag = tags.value[tags.value?.length - 1] removeTag(lastTag?._id) } } 目前看没啥问题，但是到最后一个字符 safari 就和 chrome 表现不一样了，\n因为 compositonend 在前 delete 在后，这就导致 safari 在监听到 delete 的时候，isOnComposition 已经被置为 false 了，这就导致会同时删除中文拼音以及业务 tag\n解决方法也简单，在 compositionend 继续打个标记\nfunction onCompositionEnd() { isOnComposition = false mockDelete.safariBug = true } function mockDelete() { // safari bug: compositionEnd =\u0026gt; delete  if (isSafari \u0026amp;\u0026amp; mockDelete.safariBug) { return mockDelete.safariBug = false } } "
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/first-frame/",
+                "title": "Extract the first frame of a gif image",
+                "section": "post",
+                "date" : "2022.05.21",
+                "body": "不仅仅是 GIF，视频提取单帧画面也是一样的方法\nBackground 工作中遇到一个需求，GIF 默认显示第一帧画面，hover 的时候在显示 gif 本身，效果如下\n How canvas.drawImage() 可以提取序列帧，代码实现如下\nfunction getFirstFrameFromGif(img) { const canvas = document.createElement(\u0026#39;canvas\u0026#39;) const ctx = canvas.getContext(\u0026#39;2d\u0026#39;) canvas.width = img.naturalWidth canvas.height = img.naturalHeight try { ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight) return canvas.toDataURL(\u0026#39;image/png\u0026#39;, 0.75) } catch (e) { return \u0026#39;\u0026#39; } } Q1 拿到帧画面了，就需要交替显示图片。一开始是使用 opacity/display ，有几个缺点\n  显隐切换会抖动\n  底下的 gif 始终在播放，那么 hover 的时候，画面不是从头开始播放的\n  另个方法就是直接换 src\n\u0026lt;div class=\u0026#34;gif\u0026#34; @mouseenter=\u0026#34;toggleGif\u0026#34; @mouseleave=\u0026#34;toggleGif\u0026#34;\u0026gt; \u0026lt;img :class=\u0026#34;[\u0026#39;gif-placeholder\u0026#39;, innerSrc == src ? \u0026#39;gif-real\u0026#39; : \u0026#39;gif-frame\u0026#39; ]\u0026#34; :src=\u0026#34;innerSrc\u0026#34; /\u0026gt; \u0026lt;/div\u0026gt; function toggleGif() { if (!frameSuccess.value) return if (gifVisible.value) { innerSrc.value = frameSrc.value } else { innerSrc.value = props.src } gifVisible.value = !gifVisible.value } Q2 这个组件接下来要显示在一个 div 里而且是 cover 整个容器的效果，但是组件用的 img 标签，无法直接用 background-size: cover，一个方法是用 js 手动算，但是还有更简单的方法，指定 object-fit\n The object-fit CSS property sets how the content of a replaced element, such as an \u0026lt;img\u0026gt; or \u0026lt;video\u0026gt;, should be resized to fit its container. \u0026ndash; MDN\n 实现代码如下\n.gif { width: 100%; height: 100%; } .mogic-gif-frame { width: 100%; height: 100%; object-fit: cover; } "
+            }
+    
+        ,
+            {
+                "id": 3,
                 "href": "https://ixiaopan.github.io/blog/post/python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -24,7 +44,7 @@
     
         ,
             {
-                "id": 2,
+                "id": 4,
                 "href": "https://ixiaopan.github.io/blog/post/ui-lib/",
                 "title": "Build your own frontend UI components from scratch",
                 "section": "post",
@@ -34,7 +54,7 @@
     
         ,
             {
-                "id": 3,
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/antd-test/",
                 "title": "记antd构建后modal丢失transition",
                 "section": "post",
@@ -44,17 +64,17 @@
     
         ,
             {
-                "id": 4,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
                 "date" : "2022.01.07",
-                "body": "In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.\nInstall First, we need to install verdaccio and pm2 globally.\nnpm install -g verdaccio npm install -g pm2 pm2  is used to guard our service, the common commands are shown below.\npm2 start verdaccio pm2 stop verdaccio pm2 delete verdaccio To check the service status, we use the following command. status: online shows that everything is ok.\npm2 list  Configuration The config file is located at\n/Users/wuxiaopan/.config/verdaccio/config.yaml Storage This is where we place all packages.\n# path to a directory with all packages storage: ./store Uplinks # a list of other known repositories we can talk to uplinks: npmjs: url: https://registry.npmjs.org/ Packages Here, we define our own scope, which means that they can only be accessed internally. Other packages that are not started with your scope name will be downloaded from the official npmjs.\npackages: \u0026#39;@your-scope/*\u0026#39;: # scoped packages access: $all publish: $authenticated unpublish: $authenticated # proxy: npmjs Listen The last step is to specify your ip and port.\nlisten: 0.0.0.0:4873 Restart your server and verdaccio. We are done.\nNotify notify: method: POST headers: [{\u0026#39;Content-Type\u0026#39;: \u0026#39;application/json\u0026#39;}] endpoint: yourhooks content: \u0026#39;{\u0026#34;content\u0026#34;: {\u0026#34;text\u0026#34;: \u0026#34;{{ publishedPackage }} has published\u0026#34;}, \u0026#34;msg_type\u0026#34;:\u0026#34;text\u0026#34;}\u0026#39; Web Page If everything works well, you can open http://localhost:4873/ and l see the page like the below one.\n Publish your package Once your package is done, you can publish it to your private registry.\nadd user The first step is to register. The below command will ask you to input your name, password, and email.\nnpm adduser --registry http://localhost:4873/ delete user The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.\n~/.config/verdaccio/htpasswd publish Since we\u0026rsquo;re publishing our package to the private registry, we should explicitly specify where the private registry is. To avoid specifing mannually each time, we use nrm to manage registries.\nnpm i -g nrm nrm add localnpm http://localhost:4873 nrm use localnpm nrm ls  The above command set the default registry to localnpm, which allows us to download the private packages from the localhost and the public packages from other public sources, such as npmjs.\nThen we can publish\nnpm publish "
+                "body": "In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.\nInstall First, we need to install verdaccio and pm2 globally.\nnpm install -g verdaccio npm install -g pm2 pm2  is used to guard our service, the common commands are shown below.\npm2 start verdaccio pm2 stop verdaccio pm2 delete verdaccio To check the service status, we use the following command. status: online shows that everything is ok.\npm2 list  Configuration The config file is located at\n/Users/wuxiaopan/.config/verdaccio/config.yaml Storage This is where we place all packages.\n# path to a directory with all packages storage: ./store Uplinks # a list of other known repositories we can talk to uplinks: npmjs: url: https://registry.npmjs.org/ Packages Here, we define our own scope, which means that they can only be accessed internally. Other packages that are not started with your scope name will be downloaded from the official npmjs.\npackages: \u0026#39;@your-scope/*\u0026#39;: # scoped packages access: $all publish: $authenticated unpublish: $authenticated # proxy: npmjs Listen The last step is to specify your ip and port.\nlisten: 0.0.0.0:4873 Restart your server and verdaccio. We are done.\nNotify notify: method: POST headers: [{\u0026#39;Content-Type\u0026#39;: \u0026#39;application/json\u0026#39;}] endpoint: yourhooks content: \u0026#39;{\u0026#34;content\u0026#34;: {\u0026#34;text\u0026#34;: \u0026#34;{{ publishedPackage }} has published\u0026#34;}, \u0026#34;msg_type\u0026#34;:\u0026#34;text\u0026#34;}\u0026#39; Web Page If everything works well, open http://localhost:4873/ and you will see the page like the below one.\n Publish your package Once your package is done, you can publish it to your private registry.\nadd user The first step is to register. The below command will ask you to input your name, password, and email.\nnpm adduser --registry http://localhost:4873/ delete user The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.\n~/.config/verdaccio/htpasswd publish Since we\u0026rsquo;re publishing our package to the private registry, we should explicitly specify where the private registry is. To avoid specifing mannually each time, we use nrm to manage registries.\nnpm i -g nrm nrm add localnpm http://localhost:4873 nrm use localnpm nrm ls  The above command set the default registry to localnpm, which allows us to download the private packages from the localhost and the public packages from other public sources, such as npmjs.\nThen we can publish\nnpm publish "
             }
     
         ,
             {
-                "id": 5,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -64,7 +84,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -74,17 +94,17 @@
     
         ,
             {
-                "id": 7,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/tools/",
                 "title": "Tools for daily work",
                 "section": "post",
                 "date" : "2022.01.03",
-                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager Homebrew /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew # /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH pip https://pip.pypa.io/en/stable/installation/\npython -m ensurepip --upgrade wget https://bootstrap.pypa.io/get-pip.py python get-pip.py nvm We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git // identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@163.com\u0026#39; // view your config vi ~/.gitconfig // or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; // remove git config --global --unset alias.co Download   鸠摩文档搜索\n  gutenberg.org\n  allitbooks.net\n  UX   SimpleIcons\n  IconFinder\n  SVG Sprite Generator\n  English Vocabulary   vocabulary.com\n  Grammar Byte\n  Paraphrase   powerthesaurus\n  quillbot - Strongly Recommended\n  Ginger Grammar Checker\n  lingohelpme\n  BibGuru\n  FrontEnd Basis Fundamentals  CSS - MDN CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive Functional-Light JS  Advanced  Webgl 2 Web Audio  CI/CD  Pro Git - Book Semantic Version  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers "
+                "body": "Sharp tools make good work.\nDaily Tools Terminal   Alfred\n  iTerm2 Download\n  oh-my-zsh\n  z - jump around\n  ## download z.sh, and then put it at your favorite place wget https://raw.githubusercontent.com/rupa/z/master/z.sh ## add z.sh to the .zashrc # method 1 # vi .zashc # method 2 echo \u0026#39;path/to/z.sh\u0026#39; \u0026gt;\u0026gt; ~/.zshrc ## reload  source ~/.zshrc Coding   Xcode - App Store\n  VSCode Download\n  VSCode Plugin List\n Visual Studio IntelliCode (ES6) code snippets ES7 React/Redux/GraphQL/React-Native snippets Vetur Volar  Prettier — Code formatter ESLint EditorConfig for VS Code dotenv  Path Intellisense Auto Rename Tag Code Runner filesize GitLens Better Comments Code Spell Checker    Package Manager Homebrew /bin/bash -c \u0026#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\u0026#34; You might encounter the error message brew not found when you type brew on your terminal due to the wrong path. First check the place where your brew is installed,\n~ which brew # /opt/homebrew/bin/brew then add it to the global PATH env as follows.\nexport PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH pip https://pip.pypa.io/en/stable/installation/\npython -m ensurepip --upgrade wget https://bootstrap.pypa.io/get-pip.py python get-pip.py nvm We use nvm to manage different versions of node.\nbrew install nvm nvm install v16.13.1 nvm ls nvm ls-remote Git brew install git # identity git config --global user.name \u0026#39;yourname\u0026#39; git config --global user.email \u0026#39;xx@163.com\u0026#39; # view your config vi ~/.gitconfig # or git config --list git config --global init.defaultBranch main git config --global alias.co checkout git config --global alias.br branch git config --global alias.ci commit git config --global alias.st status git config --global alias.glog \u0026#39;log --all --decorate --oneline --graph\u0026#39; # remove git config --global --unset alias.co # clean branches ## look up git br | grep \u0026#39;pattern\u0026#39; ## delete it git br | grep \u0026#39;pattern\u0026#39; | xargs git branch -D Download   Library Genesis\n  jiumodiary\n  gutenberg.org\n  allitbooks.net\n  UX   SimpleIcons\n  IconFinder\n  SVG Sprite Generator\n  English Vocabulary   vocabulary.com\n  Grammar Byte\n  Paraphrase   powerthesaurus\n  quillbot (Strongly Recommended)\n  Ginger Grammar Checker\n  lingohelpme\n  BibGuru\n  FrontEnd Fundamentals  CSS - MDN CSS Secrets JavaScript.info ES6 - You Don\u0026rsquo;t Know JS  TypeScript Deep Dive Functional-Light JS  Advanced  Webgl 2 Web Audio  CI/CD  Pro Git - Book Semantic Version  Database  SQL Zoo SQL Tutorial  Statistics  Math24 XMathMain (Math Collection) Introduction to Statistics Intro to Probability Applied Multivariate Statistical Analysis  Machine Learning  from-python-to-numpy shanelynn blog  Visualisation  Data Visualization Book Reviews NAPA Cards datavizproject data-to-viz datavizcatalogue makeovermonday  Complexity  introduction-to-complexity  Reference  A Guide to the 20 Best VSCode Extensions for Frontend Developers "
             }
     
         ,
             {
-                "id": 8,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/media/",
                 "title": "Video Format Intro",
                 "section": "post",
@@ -94,7 +114,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -104,7 +124,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -114,7 +134,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -124,7 +144,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -134,7 +154,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -144,7 +164,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -154,7 +174,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -164,7 +184,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -174,7 +194,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -184,7 +204,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -194,7 +214,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -204,7 +224,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -214,7 +234,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -224,7 +244,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -234,7 +254,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -244,7 +264,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -254,7 +274,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -264,7 +284,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -274,7 +294,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -284,7 +304,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -294,7 +314,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -304,7 +324,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -314,7 +334,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -324,7 +344,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -334,7 +354,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -344,7 +364,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -354,7 +374,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -364,7 +384,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -374,7 +394,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -384,7 +404,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -394,7 +414,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -404,7 +424,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -414,7 +434,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -424,7 +444,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -434,7 +454,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -444,7 +464,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -454,7 +474,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -464,7 +484,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -474,7 +494,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

@@ -148,7 +148,7 @@ notify:
 
 ## Web Page
 
-If everything works well, you can open http://localhost:4873/ and l see the page like the below one.
+If everything works well, open `http://localhost:4873/` and you will see the page like the below one.
 
 
 
@@ -180,7 +180,7 @@ npm adduser --registry http://localhost:4873/
 
 The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.
 
-```
+```bash
 ~/.config/verdaccio/htpasswd
 ```
 
@@ -192,7 +192,7 @@ Since we're publishing our package to the private registry, we should explicitly
 
 
 
-```
+```bash
 npm i -g nrm
 
 nrm add localnpm http://localhost:4873
@@ -213,7 +213,7 @@ The above command set the default registry to `localnpm`, which allows us to dow
 
 Then we can publish 
 
-```
+```bash
 npm publish
 ```
 
