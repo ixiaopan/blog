@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title></title>
+<title>Cascader component implementation</title>
 
 
 
@@ -30,7 +30,7 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
+<meta name="twitter:title" content="Cascader component implementation"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -79,6 +79,24 @@
 <script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
 
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
 
 
 <meta name="generator" content="Hugo 0.91.0" />
@@ -86,9 +104,7 @@
   <body>
     
   
-    
-  
-  
+
 
 
 
@@ -138,100 +154,67 @@
 
 
     
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Cascader component implementation
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;May 29, 2022
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
   </header>
 
     
   <div class="container" role="main">
-    <div class="posts-list">
-      
+    <div class="inner">
+      <article class="article" class="blog-post">
         
+  <h2 id="background">Background</h2>
+
+
+
         
+      </article>
 
       
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/linear-regression-01/">
-    <h2 class="post-title">Linear Regression 01</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. Linear regression is simple and easy to understand. Perhaps it is the first algorithm that most people learn in machine learning. So let&rsquo;s go!</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/linear-regression-01/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 14, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+  </ul>
+</nav>
       
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/descriptive-statistics/">
-    <h2 class="post-title">Descriptive Statistics</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>Statistics is one of the most important skills for data scientists. There are two main branches:</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/descriptive-statistics/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 13, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
+      </aside>
     </div>
     
-      <ul class="pager">
-        
-          <li class="previous">
-            
-              <a href="https://ixiaopan.github.io/blog/page/5/"
-                >&larr; Newer</a
-              >
-            
-          </li>
-        
-        
-      </ul>
+    
+    
+    
+      
+
     
   </div>
 

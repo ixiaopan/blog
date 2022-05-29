@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Common directives/plugins in Vue</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Common directives/plugins in Vue"/>
+<meta name="twitter:description" content="Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Common directives/plugins in Vue
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;May 29, 2022
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.</p>
+<h2 id="注册指令插件">注册指令/插件</h2>
+<p>注册指令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#a6e22e">directive</span>)
+</code></pre></div><p>注册插件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">install</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">options</span>) =&gt; {
+    <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#a6e22e">fooComp</span>)
+    <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;lazy&#39;</span>, <span style="color:#a6e22e">lazyDirective</span>)
+  }
+}
+</code></pre></div><p>可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，</p>
+<p>如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 <code>webp</code> ，也就只需要在 <code>url</code> 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 <code>webp</code>，也支持单个图片是否开启 <code>webp</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lazyDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">mounted</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLElement</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#75715e">// 图片自己的开关
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">webp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;webp&#39;</span>) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+  },
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">install</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">options</span>) =&gt; {
+    <span style="color:#75715e">// 全局开关
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">enableWebp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">webp</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">false</span>    
+    <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;lazy&#39;</span>, <span style="color:#a6e22e">lazyDirective</span>)
+  }
+}
+</code></pre></div><h2 id="防重复">防重复</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Prevent repeated clicks
+</span><span style="color:#75715e"> * @Example v-throttle=&#34;500&#34;
+</span><span style="color:#75715e"> */</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">Directive</span>, <span style="color:#a6e22e">DirectiveBinding</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">on</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@mogic-ui/utils&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">throttleDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">beforeMount</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Element</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span>
+    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">threshold</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">1000</span>
+
+    <span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">el</span>, <span style="color:#e6db74">&#39;click&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+      <span style="color:#66d9ef">if</span> ((<span style="color:#a6e22e">e</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">any</span>).<span style="color:#a6e22e">button</span> <span style="color:#f92672">!==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span>;
+
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">timer</span>) {
+        <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+          <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timer</span>)
+          <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+        }, <span style="color:#a6e22e">threshold</span>);
+      } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopImmediatePropagation</span>()
+      }
+    }, <span style="color:#66d9ef">true</span>)
+  },
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupRepeatDirective</span>(<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>) {
+  <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;throttle&#39;</span>, <span style="color:#a6e22e">throttleDirective</span>)
+}
+</code></pre></div><p>Then We can use <code>v-throttle</code> like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">button</span> <span style="color:#f92672">v-throttle</span>&gt;<span style="color:#a6e22e">Submit</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</code></pre></div><h2 id="一键复制">一键复制</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * https://clipboardjs.com/
+</span><span style="color:#75715e"> * @Example v-copy
+</span><span style="color:#75715e"> */</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">Directive</span>, <span style="color:#a6e22e">DirectiveBinding</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Clipboard</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;clipboard&#39;</span>
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Message</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/message&#39;</span>
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">on</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./utils&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">copyDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">beforeMount</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Element</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">el</span>, <span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clipboard</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Clipboard</span>(<span style="color:#a6e22e">el</span>)
+
+      <span style="color:#a6e22e">clipboard</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;success&#39;</span>, () =&gt; {
+        <span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">success</span>(<span style="color:#e6db74">&#39;复制成功&#39;</span>)
+        <span style="color:#a6e22e">clipboard</span>.<span style="color:#a6e22e">destroy</span>()
+      })
+      
+      <span style="color:#a6e22e">clipboard</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, () =&gt; {
+        <span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">success</span>(<span style="color:#e6db74">&#39;复制失败&#39;</span>)
+        <span style="color:#a6e22e">clipboard</span>.<span style="color:#a6e22e">destroy</span>()
+      })
+    }, <span style="color:#66d9ef">true</span>)
+  },
+}
+ 
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupCopyDirective</span>(<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>) {
+  <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;copy&#39;</span>, <span style="color:#a6e22e">copyDirective</span>)
+}
+</code></pre></div><p>Then We can use <code>v-copy</code> like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-copy</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">-clipboard-text</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">you</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">ve</span> <span style="color:#a6e22e">copied</span> <span style="color:#a6e22e">me</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;
+  <span style="color:#a6e22e">copy</span> <span style="color:#a6e22e">me</span>
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><h2 id="懒加载">懒加载</h2>
+<p>按需加载不仅仅是指图片，任何资源如js、css都可以懒加载。比如只有1、2个页面才有上传的功能，那么可以按需加载对应的依赖库(比如ali-oss)。</p>
+<h3 id="图片">图片</h3>
+<p>使用最新的 <code>intersectionObserver API</code>，如果不支持，全部加载不考虑降级(业务不需要，面向 <code>chrome</code> 开发)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">previewHost</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Lazyload</span> {
+  <span style="color:#a6e22e">io</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>
+
+  <span style="color:#a6e22e">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">io</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">initObserve</span>()
+  }
+
+  <span style="color:#a6e22e">initObserve</span>() {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">intersectionObserverEnabled</span>) {
+      <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">IntersectionObserver</span>(<span style="color:#a6e22e">entries</span> =&gt; {
+      <span style="color:#a6e22e">entries</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">item</span> =&gt; {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">elem</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">target</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">HTMLElement</span>
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">isIntersecting</span>) {
+          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">elem</span>)
+            .<span style="color:#a6e22e">then</span>(() =&gt; {
+              <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">unobserve</span>(<span style="color:#a6e22e">elem</span>)
+            })
+            .<span style="color:#66d9ef">catch</span>(() =&gt; {
+              <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;loading image error&#39;</span>);
+            })
+        }
+      })
+    })
+  }
+
+  <span style="color:#a6e22e">observe</span>(<span style="color:#a6e22e">elem</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLElement</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;data-src&#39;</span>)) <span style="color:#66d9ef">return</span>
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">io</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">observe</span>(<span style="color:#a6e22e">elem</span>)
+    } <span style="color:#66d9ef">else</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">elem</span>)
+    }
+  }
+
+  <span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">elem</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLElement</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise&lt;<span style="color:#f92672">void</span>&gt;((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;data-src&#39;</span>)
+
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">src</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">resolve</span>()
+
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isImageNode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">nodeName</span>.<span style="color:#a6e22e">toLowerCase</span>() <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;img&#39;</span>
+
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">img</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isImageNode</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">elem</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Image</span>()
+
+      <span style="color:#75715e">// 使用 webp 的话
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// @ts-ignore
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">webpUrl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">enableWebp</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">webp</span> <span style="color:#f92672">?</span> (<span style="color:#a6e22e">webpSupported</span>() <span style="color:#f92672">?</span> <span style="color:#a6e22e">src</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">webpExt</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">src</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">src</span>
+
+      <span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">img</span>, <span style="color:#e6db74">&#39;load&#39;</span>, () =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isImageNode</span>) {
+          <span style="color:#75715e">// @ts-ignore
+</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">style</span>[<span style="color:#e6db74">&#39;background-image&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;url(&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">webpUrl</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span>
+        }
+
+        <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">&#39;data-src&#39;</span>)
+
+        <span style="color:#a6e22e">resolve</span>()
+      })
+
+      <span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">img</span>, <span style="color:#e6db74">&#39;error&#39;</span>, () =&gt; {
+        <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">&#39;src&#39;</span>)
+        <span style="color:#a6e22e">reject</span>()
+      })
+
+      <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;src&#39;</span>, <span style="color:#a6e22e">webpUrl</span>)
+    })
+  }
+
+  
+}
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lazy</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lazyDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">beforeMount</span>() {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">lazy</span>) {
+      <span style="color:#a6e22e">lazy</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Lazyload</span>()
+    }
+  },
+
+  <span style="color:#a6e22e">mounted</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLElement</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#a6e22e">lazy</span>.<span style="color:#a6e22e">observe</span>(<span style="color:#a6e22e">el</span>)
+  },
+
+  <span style="color:#a6e22e">updated</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#a6e22e">lazy</span>.<span style="color:#a6e22e">observe</span>(<span style="color:#a6e22e">el</span>)
+  },
+
+  <span style="color:#a6e22e">beforeUnmount</span>() {
+    <span style="color:#a6e22e">lazy</span>.<span style="color:#a6e22e">io</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">disconnect</span>()
+  }
+}
+</code></pre></div><h3 id="js">js</h3>
+<p>正如之前提到上传功能，</p>
+<ul>
+<li>只有用户使用了上传才加载额外的第三方库</li>
+<li>上传本身就会 <code>loading</code>，所以延迟加载不会有什么体验问题</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadScriptFromRemote</span>() {  
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">customCache</span>.<span style="color:#a6e22e">has</span>(<span style="color:#a6e22e">scriptUrl</span>)) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">resolve</span>()
+  }
+  
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">script</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;script&#39;</span>)
+  <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;src&#39;</span>, <span style="color:#a6e22e">scriptUrl</span>)
+  
+  <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">resolve</span>()
+  }
+  <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">reject</span>()
+  }
+
+  <span style="color:#a6e22e">customCache</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">scriptUrl</span>)
+  document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">script</span>)
+}
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteJSDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">beforeMount</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Element</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
+    <span style="color:#a6e22e">loadScriptFromRemote</span>(<span style="color:#a6e22e">url</span>)
+  },
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">install</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">options</span>) =&gt; {
+    <span style="color:#75715e">// TODO: 可以扩展到 url collections
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">url</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;url is required&#39;</span>)
+    }
+
+    <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">url</span>
+
+    <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;v-remote&#39;</span>, <span style="color:#a6e22e">remoteJSDirective</span>)
+  }
+}
+
+</code></pre></div>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#注册指令插件">注册指令/插件</a></li>
+    <li><a href="#防重复">防重复</a></li>
+    <li><a href="#一键复制">一键复制</a></li>
+    <li><a href="#懒加载">懒加载</a>
+      <ul>
+        <li><a href="#图片">图片</a></li>
+        <li><a href="#js">js</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

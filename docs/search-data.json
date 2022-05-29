@@ -15,6 +15,36 @@
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/cascader/",
+                "title": "Cascader component implementation",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "Background"
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/directives/",
+                "title": "Common directives/plugins in Vue",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.\n注册指令/插件 注册指令\napp.directive(\u0026#39;name\u0026#39;, directive) 注册插件\nexport default { install: (app: App, options) =\u0026gt; { app.component(\u0026#39;foo\u0026#39;, fooComp) app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，\n如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 webp ，也就只需要在 url 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 webp，也支持单个图片是否开启 webp。\nlet enableWebp const lazyDirective: Directive = { mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { // 图片自己的开关  el.webp = binding.value?.indexOf(\u0026#39;webp\u0026#39;) \u0026gt; -1 }, } export default { install: (app: App, options) =\u0026gt; { // 全局开关  enableWebp = options?.webp || false app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 防重复 /** * Prevent repeated clicks * @Example v-throttle=\u0026#34;500\u0026#34; */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39;; import { on } from \u0026#39;@mogic-ui/utils\u0026#39;; const throttleDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { let timer const threshold = binding.value || 1000 on(el, \u0026#39;click\u0026#39;, (e) =\u0026gt; { if ((e as any).button !== 0) return; if (!timer) { timer = setTimeout(() =\u0026gt; { clearTimeout(timer) timer = null }, threshold); } else { e.stopImmediatePropagation() } }, true) }, } export function setupRepeatDirective(app: App) { app.directive(\u0026#39;throttle\u0026#39;, throttleDirective) } Then We can use v-throttle like this\n\u0026lt;button v-throttle\u0026gt;Submit\u0026lt;/button\u0026gt; 一键复制 /** * https://clipboardjs.com/ * @Example v-copy */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39; import Clipboard from \u0026#39;clipboard\u0026#39; import { Message } from \u0026#39;./components/message\u0026#39; import { on } from \u0026#39;./utils\u0026#39; const copyDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { on(el, \u0026#39;click\u0026#39;, () =\u0026gt; { const clipboard = new Clipboard(el) clipboard.on(\u0026#39;success\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制成功\u0026#39;) clipboard.destroy() }) clipboard.on(\u0026#39;error\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制失败\u0026#39;) clipboard.destroy() }) }, true) }, } export function setupCopyDirective(app: App) { app.directive(\u0026#39;copy\u0026#39;, copyDirective) } Then We can use v-copy like this\n\u0026lt;div v-copy data-clipboard-text=\u0026#34;you\u0026#39;ve copied me\u0026#34;\u0026gt; copy me \u0026lt;/div\u0026gt; 懒加载 按需加载不仅仅是指图片，任何资源如js、css都可以懒加载。比如只有1、2个页面才有上传的功能，那么可以按需加载对应的依赖库(比如ali-oss)。\n图片 使用最新的 intersectionObserver API，如果不支持，全部加载不考虑降级(业务不需要，面向 chrome 开发)\nlet enableWebp let previewHost class Lazyload { io: any constructor() { this.io = this.initObserve() } initObserve() { if (!intersectionObserverEnabled) { return } return new IntersectionObserver(entries =\u0026gt; { entries.forEach(item =\u0026gt; { const elem = item.target as HTMLElement if (item.isIntersecting) { this.load(elem) .then(() =\u0026gt; { this.io.unobserve(elem) }) .catch(() =\u0026gt; { console.log(\u0026#39;loading image error\u0026#39;); }) } }) }) } observe(elem: HTMLElement) { if (!elem.getAttribute(\u0026#39;data-src\u0026#39;)) return if (this.io) { this.io.observe(elem) } else { this.load(elem) } } load(elem: HTMLElement) { return new Promise\u0026lt;void\u0026gt;((resolve, reject) =\u0026gt; { let src = elem.getAttribute(\u0026#39;data-src\u0026#39;) if (!src) return resolve() const isImageNode = elem.nodeName.toLowerCase() === \u0026#39;img\u0026#39; const img = isImageNode ? elem : new Image() // 使用 webp 的话  // @ts-ignore  const webpUrl = enableWebp || elem.webp ? (webpSupported() ? src + webpExt : src) : src on(img, \u0026#39;load\u0026#39;, () =\u0026gt; { if (!isImageNode) { // @ts-ignore  elem.style[\u0026#39;background-image\u0026#39;] = \u0026#39;url(\u0026#39; + webpUrl + \u0026#39;)\u0026#39; } elem.removeAttribute(\u0026#39;data-src\u0026#39;) resolve() }) on(img, \u0026#39;error\u0026#39;, () =\u0026gt; { elem.removeAttribute(\u0026#39;src\u0026#39;) reject() }) img.setAttribute(\u0026#39;src\u0026#39;, webpUrl) }) } } let lazy const lazyDirective: Directive = { beforeMount() { if (!lazy) { lazy = new Lazyload() } }, mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, updated(el, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, beforeUnmount() { lazy.io?.disconnect() } } js 正如之前提到上传功能，\n 只有用户使用了上传才加载额外的第三方库 上传本身就会 loading，所以延迟加载不会有什么体验问题  const customCache = new Set() function loadScriptFromRemote() { if (customCache.has(scriptUrl)) { return resolve() } const script = document.createElement(\u0026#39;script\u0026#39;) script.setAttribute(\u0026#39;src\u0026#39;, scriptUrl) script.onload = () =\u0026gt; { resolve() } script.onerror = () =\u0026gt; { reject() } customCache.add(scriptUrl) document.body.appendChild(script) } let url = \u0026#39;\u0026#39; const remoteJSDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { loadScriptFromRemote(url) }, } export default { install: (app: App, options) =\u0026gt; { // TODO: 可以扩展到 url collections  if (!options?.url) { return console.error(\u0026#39;url is required\u0026#39;) } url = options?.url app.directive(\u0026#39;v-remote\u0026#39;, remoteJSDirective) } } "
+            }
+    
+        ,
+            {
+                "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/antd-theme/",
+                "title": "Replace antd theme",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "没有整啥插件，使用 less variable 覆盖即可\nBackground 现在大多数中后台开发都是基于第三方UI(如 antd, element-ui)，通常业务也会要求自己的主题定制，这就涉及到所谓的 换肤。\n庆幸的是，这些 UI 提供了这样的功能，拿 antd 来说，themes/default.less 包含了其使用的全部颜色变量，业务只需要覆盖即可。\n// -------- Colors ----------- @primary-color: @blue-6; // \u0026gt;\u0026gt;\u0026gt; Warning @warning-color: @gold-6; Why 颜色定制的原理，其实是 less 提供了对 less variables 的修改，参考 文档\nless.modifyVars({ \u0026#39;@buttonFace\u0026#39;: \u0026#39;#5B83AD\u0026#39;, \u0026#39;@buttonText\u0026#39;: \u0026#39;#D9EEF2\u0026#39; }); 所以只需要在构建里加一个自动 modifyVars，注入对应的变量即可\ncss: { preprocessorOptions: { less: { modifyVars: generateModifyVars(), javascriptEnabled: true, }, }, }, function generateModifyVars() { return { hack: \u0026#39;; @import (reference) ./src/styles/theme.less\u0026#39; } } 这是我在网上找到的大多数版本，看到这几行代码，我有几个疑惑\n  javascriptEnabled 干啥的\n  除了 modifyVars 还有其他参数吗\n  hack 干啥的\n  @import (reference) 和 @import 有什么区别\n  Q1 javascriptEnabled 开启这个即允许 code injection，但是\n False by default starting in v3.0.0. Enables evaluation of JavaScript inline in .less files. This created a security problem for some developers who didn\u0026rsquo;t expect user input for style sheets to have executable code.\n 理论上来说，修改 less variable 不需要这个参数，但是因为我们依赖的是 antd ，这个 UI 定义了一个基于 less 变量的调色板，这里有一堆 js function，比如\n.colorPaletteMixin() { @functions: ~`(function() { var getHue = function(hsv, i, isLight) { }; } 这就导致我们不得不开启这个选项\nQ2 modifyVars 还有 globalVars ，区别就是一个是在文件头部，一个在文件最后注入。当然，如果你在文件头部注入，业务恰好有同名变量，也是会被覆盖，这个要注意，所以我们采用 modifyVars\nlessc --global-var=\u0026#34;color1=red\u0026#34;\t{ globalVars: { color1: \u0026#39;red\u0026#39; } } lessc --modify-var=\u0026#34;color1=red\u0026#34;\t{ modifyVars: { color1: \u0026#39;red\u0026#39; } } 除了这两个，我们还可以注入 banner，看一下源码\nparse: function (str, callback, additionalData) { let globalVars; let modifyVars; let preText = \u0026#39;\u0026#39;; globalVars = (additionalData \u0026amp;\u0026amp; additionalData.globalVars) ? `${Parser.serializeVars(additionalData.globalVars)}\\n` : \u0026#39;\u0026#39;; modifyVars = (additionalData \u0026amp;\u0026amp; additionalData.modifyVars) ? `\\n${Parser.serializeVars(additionalData.modifyVars)}` : \u0026#39;\u0026#39;; if (globalVars || (additionalData \u0026amp;\u0026amp; additionalData.banner)) { preText = ((additionalData \u0026amp;\u0026amp; additionalData.banner) ? additionalData.banner : \u0026#39;\u0026#39;) + globalVars; } } Q3 hack 这个其实你可以用任意的名字，不信看 源码实现\nParser.serializeVars = vars =\u0026gt; { let s = \u0026#39;\u0026#39;; for (const name in vars) { if (Object.hasOwnProperty.call(vars, name)) { const value = vars[name]; s += `${((name[0] === \u0026#39;@\u0026#39;) ? \u0026#39;\u0026#39; : \u0026#39;@\u0026#39;) + name}: ${value}${(String(value).slice(-1) === \u0026#39;;\u0026#39;) ? \u0026#39;\u0026#39; : \u0026#39;;\u0026#39;}`; } } return s; }; 所以，\n{ hack: \u0026#39;; @import (reference) ./src/styles/theme.less;\u0026#39; } 最终会变成 @hack: ; @import (reference) ./src/styles/theme.less';\nQ4 @import (reference) 为啥不是 @import 呢？？看下 官方文档 怎么说的？\n Imagine that reference marks every at-rule and selector with a reference flag in the imported file, imports as normal, but when the CSS is generated, \u0026ldquo;reference\u0026rdquo; selectors (as well as any media queries containing only reference selectors) are not output. reference styles will not show up in your generated CSS unless the reference styles are used as mixins or extended.\n 这种方式可以按需引入，打包的时候，只会编译业务用到的一些变量、类等。\n"
+            }
+    
+        ,
+            {
+                "id": 4,
                 "href": "https://ixiaopan.github.io/blog/post/composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
@@ -24,7 +54,7 @@
     
         ,
             {
-                "id": 2,
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/first-frame/",
                 "title": "Extract the first frame of a gif image",
                 "section": "post",
@@ -34,7 +64,7 @@
     
         ,
             {
-                "id": 3,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -44,7 +74,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/ui-lib/",
                 "title": "Build your own frontend UI components from scratch",
                 "section": "post",
@@ -54,7 +84,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/antd-test/",
                 "title": "记antd构建后modal丢失transition",
                 "section": "post",
@@ -64,7 +94,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -74,7 +104,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -84,7 +114,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -94,7 +124,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -104,7 +134,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/media/",
                 "title": "Video Format Intro",
                 "section": "post",
@@ -114,7 +144,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -124,7 +154,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -134,7 +164,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -144,7 +174,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -154,7 +184,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -164,7 +194,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -174,7 +204,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -184,7 +214,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -194,7 +224,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -204,7 +234,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -214,7 +244,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -224,7 +254,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -234,7 +264,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -244,7 +274,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -254,7 +284,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -264,7 +294,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -274,7 +304,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -284,7 +314,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -294,7 +324,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -304,7 +334,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -314,7 +344,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -324,7 +354,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -334,7 +364,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -344,7 +374,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -354,7 +384,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -364,7 +394,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -374,7 +404,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -384,7 +414,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -394,7 +424,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -404,7 +434,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -414,7 +444,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -424,7 +454,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -434,7 +464,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -444,7 +474,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -454,7 +484,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -464,7 +494,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -474,7 +504,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -484,7 +514,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -494,7 +524,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

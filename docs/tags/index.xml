@@ -12,6 +12,30 @@
 		<atom:link href="/blog/tags/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Cascader component implementation</title>
+			<link>https://ixiaopan.github.io/blog/post/cascader/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/cascader/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>Common directives/plugins in Vue</title>
+			<link>https://ixiaopan.github.io/blog/post/directives/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/directives/</guid>
+			<description>&lt;p&gt;Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Replace antd theme</title>
+			<link>https://ixiaopan.github.io/blog/post/antd-theme/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/antd-theme/</guid>
+			<description>&lt;p&gt;没有整啥插件，使用 &lt;code&gt;less variable&lt;/code&gt; 覆盖即可&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Composition bug in Safari</title>
 			<link>https://ixiaopan.github.io/blog/post/composition/</link>
 			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
@@ -65,33 +89,6 @@
 			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/npm/</guid>
 			<description>&lt;p&gt;Learn how to use the modern package managers.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>CSS Layout 101</title>
-			<link>https://ixiaopan.github.io/blog/post/layout/</link>
-			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/layout/</guid>
-			<description>&lt;p&gt;This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Tools for daily work</title>
-			<link>https://ixiaopan.github.io/blog/post/tools/</link>
-			<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/tools/</guid>
-			<description>&lt;p&gt;Sharp tools make good work.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Video Format Intro</title>
-			<link>https://ixiaopan.github.io/blog/post/media/</link>
-			<pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/media/</guid>
-			<description>Codec   Figure 1: Process of video creation.  Codec, short for compressor-decompressor, is an algorithm designed for compressing and decompressing video and audio data. Simply put, it&amp;rsquo;s an encoding and decoding algorithm.
-Why encoding?
- raw data can be very large and noisy encoding makes it easy to transmit and storage data  Why decoding?
- preview or playback  Video Codec  H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market VP8, free and open source codec owned by Google Ogg Theora, typically used with OGG container H.</description>
 		</item>
       	
 	</channel>
