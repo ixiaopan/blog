@@ -14,11 +14,27 @@
 		<atom:link href="/blog/categories/nlp/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Cascader component implementation</title>
+			<title>A message component</title>
+			<link>https://ixiaopan.github.io/blog/post/message/</link>
+			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/message/</guid>
+			<description>&lt;p&gt;Develop a message component using vue.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>A phone input component</title>
+			<link>https://ixiaopan.github.io/blog/post/phone-tag/</link>
+			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/phone-tag/</guid>
+			<description>&lt;p&gt;Develop a vue-based mobile phone input component.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>A cascader component</title>
 			<link>https://ixiaopan.github.io/blog/post/cascader/</link>
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/cascader/</guid>
-			<description></description>
+			<description>&lt;p&gt;实现一个业务定制的级联选择器&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -26,7 +42,7 @@
 			<link>https://ixiaopan.github.io/blog/post/directives/</link>
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/directives/</guid>
-			<description>&lt;p&gt;Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.&lt;/p&gt;</description>
+			<description>&lt;p&gt;Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -62,11 +78,11 @@
 		</item>
       	
 		<item>
-			<title>Build your own frontend UI components from scratch</title>
+			<title>Build your own UI component library from scratch</title>
 			<link>https://ixiaopan.github.io/blog/post/ui-lib/</link>
 			<pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/ui-lib/</guid>
-			<description>&lt;p&gt;In this post, we will learn how to build your own UI components library based on monorepo.&lt;/p&gt;</description>
+			<description>&lt;p&gt;In this post, we will learn how to build your own UI component library based on monorepo.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -75,22 +91,6 @@
 			<pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/antd-test/</guid>
 			<description>&lt;p&gt;记录一下 &lt;code&gt;antd modal&lt;/code&gt; 在测试环境打开关闭没有 &lt;code&gt;transition&lt;/code&gt; 的 bug，说来也是我手欠，改构建改的。&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Build a private npm registry using verdaccio</title>
-			<link>https://ixiaopan.github.io/blog/post/verdaccio/</link>
-			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/verdaccio/</guid>
-			<description>&lt;p&gt;In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Package Manager</title>
-			<link>https://ixiaopan.github.io/blog/post/npm/</link>
-			<pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/npm/</guid>
-			<description>&lt;p&gt;Learn how to use the modern package managers.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

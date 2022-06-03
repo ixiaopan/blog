@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>A cascader component</title>
+<title>A phone input component</title>
 
 
 
@@ -30,8 +30,8 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A cascader component"/>
-<meta name="twitter:description" content="实现一个业务定制的级联选择器"/>
+<meta name="twitter:title" content="A phone input component"/>
+<meta name="twitter:description" content="Develop a vue-based mobile phone input component."/>
 
 
 
@@ -159,15 +159,15 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="post-heading">
           
             <h1>
-              A cascader component
+              A phone input component
             </h1>
           
           
             <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;May 29, 2022
+  >&nbsp;Jun 3, 2022
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;1 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -192,50 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>实现一个业务定制的级联选择器</p>
+  <p>Develop a vue-based mobile phone input component.</p>
 <h2 id="background">Background</h2>
-<p>常见的级联选择器，比如省市区选择器，实现起来比较简单，而且父子之间没有过多的依赖关系。然而由于我们业务的特殊性，这些选择器根本无法满足需求，不得已只能从0到1实现。先梳理一下要实现的功能</p>
-<ul>
-<li>
-<p>支持单选、多选</p>
-<ul>
-<li>单选即只能选择一个子项，又分为两种情况
-<ul>
-<li>case 1, 只能选择叶子节点</li>
-<li>case 2, 可以选到任一个层级</li>
-</ul>
-</li>
-<li>多选 case 3
-<ul>
-<li>可以选到任一个层级，可以选择多个项</li>
-<li>选择了通用节点，所有其他节点都不能被选择，即互斥关系</li>
-<li>选择了父节点，其所有孩子节点都不能被选择，但是依然可以访问其路径</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>支持筛选</p>
-<ul>
-<li>只支持叶子节点筛选，适用于 case 1 (单选且只能选择到叶子节点)</li>
-<li>所有层级都支持筛选，使用 case2 &amp; case 3</li>
-</ul>
-</li>
-</ul>
-<p>效果如下，</p>
-<p>单选
-
-  <img src="/blog/post/images/cascader-sole.gif" alt="">
-</p>
-<p>多选
-
-  <img src="/blog/post/images/cascader-mul.gif" alt="">
-</p>
-<h2 id="实现">实现</h2>
-<h3 id="数据格式">数据格式</h3>
-<h3 id="层级联动">层级联动</h3>
-<h3 id="节点互斥">节点互斥</h3>
-<h3 id="搜索筛选">搜索筛选</h3>
 
 
 
@@ -247,14 +205,6 @@ document.addEventListener("DOMContentLoaded", function() {
         <nav id="TableOfContents">
   <ul>
     <li><a href="#background">Background</a></li>
-    <li><a href="#实现">实现</a>
-      <ul>
-        <li><a href="#数据格式">数据格式</a></li>
-        <li><a href="#层级联动">层级联动</a></li>
-        <li><a href="#节点互斥">节点互斥</a></li>
-        <li><a href="#搜索筛选">搜索筛选</a></li>
-      </ul>
-    </li>
   </ul>
 </nav>
       

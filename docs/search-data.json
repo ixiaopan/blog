@@ -15,26 +15,46 @@
         ,
             {
                 "id": 1,
-                "href": "https://ixiaopan.github.io/blog/post/cascader/",
-                "title": "Cascader component implementation",
+                "href": "https://ixiaopan.github.io/blog/post/message/",
+                "title": "A message component",
                 "section": "post",
-                "date" : "2022.05.29",
-                "body": "Background"
+                "date" : "2022.06.03",
+                "body": "Develop a message component using vue.\nBackground message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还是 vue/react，调用方法都是类似的\n// jQuery $.toast({ text: \u0026#39;hello world\u0026#39; duration: 5000 }) $.loading({ text: \u0026#39;loading...\u0026#39; }) // vue const msg = inject(\u0026#39;message\u0026#39;) msg.info({ message: \u0026#39;hello world\u0026#39; duration: 5000 }) msg.loading({ message: \u0026#39;loading...\u0026#39; duration: 5000 }) 通过 jQuery 我们知道，调用 $.toast() 实际上是动态的创建了一个含有 text 的 html tag 然后插入到 body 最后，\nconst div = document.createElement(\u0026#39;div\u0026#39;) div.textContext = text document.body.appendChild(div) const timer = setTimeout(() =\u0026gt; { document.body.removeChild(div) clearTimeout(timer) }, duration) 类似的，vue 的实现也是如此，只不过我们是通过 VNode 生成真实的 DOM。\nImplementation render \u0026lt;template\u0026gt; \u0026lt;div\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/template\u0026gt; 以上定义 HTML 模板，接下来 \u0026lsquo;编译\u0026rsquo; 为 VNode，渲染为 HTML 插入到 body\nimport { createVNode, render } from \u0026#39;vue\u0026#39; import MessageConstructor from \u0026#39;./message.vue\u0026#39; const message = (options) =\u0026gt; { const props = { zIndex: options.zIndex, offset: verticalOffset, ...options, } // create a VNode  const vm = createVNode( MessageConstructor, props, null, ) const container = document.createElement(\u0026#39;div\u0026#39;) // remove it from the document  vm.props.onDestroy = () =\u0026gt; { render(null, container) container = null } // transition starts  vm.props.onBeforeLeave = () =\u0026gt; {} // generate a html fragment  render(vm, container) // insert into the document  document.body.appendChild(container.firstElementChild) } timer vue 中我们在 onMounted 开启计时器，由于使用了 transition 实现动画效果，所以在动画结束即 after-leave 触发 onDestroy 移除 DOM\n\u0026lt;template\u0026gt; \u0026lt;transition @before-leave=\u0026#34;onBeforeLeave\u0026#34; @after-leave=\u0026#34;onDestroy\u0026#34;\u0026gt; \u0026lt;div v-show=\u0026#34;visible\u0026#34;\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/transition\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; function startTimer() { if (props.duration \u0026gt; 0) { timerId = setTimeout(() =\u0026gt; { if (visible.value) { // trigger transition  visible.value = false clearTimeout(timerId) } }, props.duration) } } onMounted(() =\u0026gt; { startTimer() }) \u0026lt;/script\u0026gt; Multiple Instances 现在这段代码只支持一个 message 的创建，如果需要同时显示多个 message，这就要全局维护一个队列\n  创建的时候，添加到数组\n  移除的时候，从数组中移除\n  有一个 UI 要注意的细节，当移除第 index 个 message，它后面的 message 的 offset 要更新。一般 message 都是出现在上方，也就是说，后面的 message 的 top 都要减少，向上偏移。\n这个操作可以放在 before-leave 完成，这样向上移动的效果和 transition 的效果就是同时的，体验上会更连贯。\n"
             }
     
         ,
             {
                 "id": 2,
-                "href": "https://ixiaopan.github.io/blog/post/directives/",
-                "title": "Common directives/plugins in Vue",
+                "href": "https://ixiaopan.github.io/blog/post/phone-tag/",
+                "title": "A phone input component",
                 "section": "post",
-                "date" : "2022.05.29",
-                "body": "Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.\n注册指令/插件 注册指令\napp.directive(\u0026#39;name\u0026#39;, directive) 注册插件\nexport default { install: (app: App, options) =\u0026gt; { app.component(\u0026#39;foo\u0026#39;, fooComp) app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，\n如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 webp ，也就只需要在 url 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 webp，也支持单个图片是否开启 webp。\nlet enableWebp const lazyDirective: Directive = { mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { // 图片自己的开关  el.webp = binding.value?.indexOf(\u0026#39;webp\u0026#39;) \u0026gt; -1 }, } export default { install: (app: App, options) =\u0026gt; { // 全局开关  enableWebp = options?.webp || false app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 防重复 /** * Prevent repeated clicks * @Example v-throttle=\u0026#34;500\u0026#34; */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39;; import { on } from \u0026#39;@mogic-ui/utils\u0026#39;; const throttleDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { let timer const threshold = binding.value || 1000 on(el, \u0026#39;click\u0026#39;, (e) =\u0026gt; { if ((e as any).button !== 0) return; if (!timer) { timer = setTimeout(() =\u0026gt; { clearTimeout(timer) timer = null }, threshold); } else { e.stopImmediatePropagation() } }, true) }, } export function setupRepeatDirective(app: App) { app.directive(\u0026#39;throttle\u0026#39;, throttleDirective) } Then We can use v-throttle like this\n\u0026lt;button v-throttle\u0026gt;Submit\u0026lt;/button\u0026gt; 一键复制 /** * https://clipboardjs.com/ * @Example v-copy */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39; import Clipboard from \u0026#39;clipboard\u0026#39; import { Message } from \u0026#39;./components/message\u0026#39; import { on } from \u0026#39;./utils\u0026#39; const copyDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { on(el, \u0026#39;click\u0026#39;, () =\u0026gt; { const clipboard = new Clipboard(el) clipboard.on(\u0026#39;success\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制成功\u0026#39;) clipboard.destroy() }) clipboard.on(\u0026#39;error\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制失败\u0026#39;) clipboard.destroy() }) }, true) }, } export function setupCopyDirective(app: App) { app.directive(\u0026#39;copy\u0026#39;, copyDirective) } Then We can use v-copy like this\n\u0026lt;div v-copy data-clipboard-text=\u0026#34;you\u0026#39;ve copied me\u0026#34;\u0026gt; copy me \u0026lt;/div\u0026gt; 懒加载 按需加载不仅仅是指图片，任何资源如js、css都可以懒加载。比如只有1、2个页面才有上传的功能，那么可以按需加载对应的依赖库(比如ali-oss)。\n图片 使用最新的 intersectionObserver API，如果不支持，全部加载不考虑降级(业务不需要，面向 chrome 开发)\nlet enableWebp let previewHost class Lazyload { io: any constructor() { this.io = this.initObserve() } initObserve() { if (!intersectionObserverEnabled) { return } return new IntersectionObserver(entries =\u0026gt; { entries.forEach(item =\u0026gt; { const elem = item.target as HTMLElement if (item.isIntersecting) { this.load(elem) .then(() =\u0026gt; { this.io.unobserve(elem) }) .catch(() =\u0026gt; { console.log(\u0026#39;loading image error\u0026#39;); }) } }) }) } observe(elem: HTMLElement) { if (!elem.getAttribute(\u0026#39;data-src\u0026#39;)) return if (this.io) { this.io.observe(elem) } else { this.load(elem) } } load(elem: HTMLElement) { return new Promise\u0026lt;void\u0026gt;((resolve, reject) =\u0026gt; { let src = elem.getAttribute(\u0026#39;data-src\u0026#39;) if (!src) return resolve() const isImageNode = elem.nodeName.toLowerCase() === \u0026#39;img\u0026#39; const img = isImageNode ? elem : new Image() // 使用 webp 的话  // @ts-ignore  const webpUrl = enableWebp || elem.webp ? (webpSupported() ? src + webpExt : src) : src on(img, \u0026#39;load\u0026#39;, () =\u0026gt; { if (!isImageNode) { // @ts-ignore  elem.style[\u0026#39;background-image\u0026#39;] = \u0026#39;url(\u0026#39; + webpUrl + \u0026#39;)\u0026#39; } elem.removeAttribute(\u0026#39;data-src\u0026#39;) resolve() }) on(img, \u0026#39;error\u0026#39;, () =\u0026gt; { elem.removeAttribute(\u0026#39;src\u0026#39;) reject() }) img.setAttribute(\u0026#39;src\u0026#39;, webpUrl) }) } } let lazy const lazyDirective: Directive = { beforeMount() { if (!lazy) { lazy = new Lazyload() } }, mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, updated(el, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, beforeUnmount() { lazy.io?.disconnect() } } js 正如之前提到上传功能，\n 只有用户使用了上传才加载额外的第三方库 上传本身就会 loading，所以延迟加载不会有什么体验问题  const customCache = new Set() function loadScriptFromRemote() { if (customCache.has(scriptUrl)) { return resolve() } const script = document.createElement(\u0026#39;script\u0026#39;) script.setAttribute(\u0026#39;src\u0026#39;, scriptUrl) script.onload = () =\u0026gt; { resolve() } script.onerror = () =\u0026gt; { reject() } customCache.add(scriptUrl) document.body.appendChild(script) } let url = \u0026#39;\u0026#39; const remoteJSDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { loadScriptFromRemote(url) }, } export default { install: (app: App, options) =\u0026gt; { // TODO: 可以扩展到 url collections  if (!options?.url) { return console.error(\u0026#39;url is required\u0026#39;) } url = options?.url app.directive(\u0026#39;v-remote\u0026#39;, remoteJSDirective) } } "
+                "date" : "2022.06.03",
+                "body": "Develop a vue-based mobile phone input component.\nBackground"
             }
     
         ,
             {
                 "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/cascader/",
+                "title": "A cascader component",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "实现一个业务定制的级联选择器\nBackground 常见的级联选择器，比如省市区选择器，实现起来比较简单，而且父子之间没有过多的依赖关系。然而由于我们业务的特殊性，这些选择器根本无法满足需求，不得已只能从0到1实现。先梳理一下要实现的功能\n  支持单选、多选\n 单选即只能选择一个子项，又分为两种情况  case 1, 只能选择叶子节点 case 2, 可以选到任一个层级   多选 case 3  可以选到任一个层级，可以选择多个项 选择了通用节点，所有其他节点都不能被选择，即互斥关系 选择了父节点，其所有孩子节点都不能被选择，但是依然可以访问其路径      支持筛选\n 只支持叶子节点筛选，适用于 case 1 (单选且只能选择到叶子节点) 所有层级都支持筛选，使用 case2 \u0026amp; case 3    效果如下，\n单选 多选 实现 数据格式 层级联动 节点互斥 搜索筛选"
+            }
+    
+        ,
+            {
+                "id": 4,
+                "href": "https://ixiaopan.github.io/blog/post/directives/",
+                "title": "Common directives/plugins in Vue",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.\n注册指令/插件 注册指令\napp.directive(\u0026#39;name\u0026#39;, directive) 注册插件\nexport default { install: (app: App, options) =\u0026gt; { app.component(\u0026#39;foo\u0026#39;, fooComp) app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，\n如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 webp ，也就只需要在 url 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 webp，也支持单个图片是否开启 webp。\nlet enableWebp const lazyDirective: Directive = { mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { // 图片自己的开关  el.webp = binding.value?.indexOf(\u0026#39;webp\u0026#39;) \u0026gt; -1 }, } export default { install: (app: App, options) =\u0026gt; { // 全局开关  enableWebp = options?.webp || false app.directive(\u0026#39;lazy\u0026#39;, lazyDirective) } } 防重复 /** * Prevent repeated clicks * @Example v-throttle=\u0026#34;500\u0026#34; */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39;; import { on } from \u0026#39;@mogic-ui/utils\u0026#39;; const throttleDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { let timer const threshold = binding.value || 1000 on(el, \u0026#39;click\u0026#39;, (e) =\u0026gt; { if ((e as any).button !== 0) return; if (!timer) { timer = setTimeout(() =\u0026gt; { clearTimeout(timer) timer = null }, threshold); } else { e.stopImmediatePropagation() } }, true) }, } export function setupRepeatDirective(app: App) { app.directive(\u0026#39;throttle\u0026#39;, throttleDirective) } Then We can use v-throttle like this\n\u0026lt;button v-throttle\u0026gt;Submit\u0026lt;/button\u0026gt; 一键复制 /** * https://clipboardjs.com/ * @Example v-copy */ import type { App, Directive, DirectiveBinding } from \u0026#39;vue\u0026#39; import Clipboard from \u0026#39;clipboard\u0026#39; import { Message } from \u0026#39;./components/message\u0026#39; import { on } from \u0026#39;./utils\u0026#39; const copyDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { on(el, \u0026#39;click\u0026#39;, () =\u0026gt; { const clipboard = new Clipboard(el) clipboard.on(\u0026#39;success\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制成功\u0026#39;) clipboard.destroy() }) clipboard.on(\u0026#39;error\u0026#39;, () =\u0026gt; { Message.success(\u0026#39;复制失败\u0026#39;) clipboard.destroy() }) }, true) }, } export function setupCopyDirective(app: App) { app.directive(\u0026#39;copy\u0026#39;, copyDirective) } Then We can use v-copy like this\n\u0026lt;div v-copy data-clipboard-text=\u0026#34;you\u0026#39;ve copied me\u0026#34;\u0026gt; copy me \u0026lt;/div\u0026gt; 懒加载 按需加载不仅仅是指图片，任何资源如js、css都可以懒加载。比如只有1、2个页面才有上传的功能，那么可以按需加载对应的依赖库(比如ali-oss)。\n图片 使用最新的 intersectionObserver API，如果不支持，全部加载不考虑降级(业务不需要，面向 chrome 开发)\nlet enableWebp let previewHost class Lazyload { io: any constructor() { this.io = this.initObserve() } initObserve() { if (!intersectionObserverEnabled) { return } return new IntersectionObserver(entries =\u0026gt; { entries.forEach(item =\u0026gt; { const elem = item.target as HTMLElement if (item.isIntersecting) { this.load(elem) .then(() =\u0026gt; { this.io.unobserve(elem) }) .catch(() =\u0026gt; { console.log(\u0026#39;loading image error\u0026#39;); }) } }) }) } observe(elem: HTMLElement) { if (!elem.getAttribute(\u0026#39;data-src\u0026#39;)) return if (this.io) { this.io.observe(elem) } else { this.load(elem) } } load(elem: HTMLElement) { return new Promise\u0026lt;void\u0026gt;((resolve, reject) =\u0026gt; { let src = elem.getAttribute(\u0026#39;data-src\u0026#39;) if (!src) return resolve() const isImageNode = elem.nodeName.toLowerCase() === \u0026#39;img\u0026#39; const img = isImageNode ? elem : new Image() // 使用 webp 的话  // @ts-ignore  const webpUrl = enableWebp || elem.webp ? (webpSupported() ? src + webpExt : src) : src on(img, \u0026#39;load\u0026#39;, () =\u0026gt; { if (!isImageNode) { // @ts-ignore  elem.style[\u0026#39;background-image\u0026#39;] = \u0026#39;url(\u0026#39; + webpUrl + \u0026#39;)\u0026#39; } elem.removeAttribute(\u0026#39;data-src\u0026#39;) resolve() }) on(img, \u0026#39;error\u0026#39;, () =\u0026gt; { elem.removeAttribute(\u0026#39;src\u0026#39;) reject() }) img.setAttribute(\u0026#39;src\u0026#39;, webpUrl) }) } } let lazy const lazyDirective: Directive = { beforeMount() { if (!lazy) { lazy = new Lazyload() } }, mounted(el: HTMLElement, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, updated(el, binding: DirectiveBinding\u0026lt;any\u0026gt;) { lazy.observe(el) }, beforeUnmount() { lazy.io?.disconnect() } } js 正如之前提到上传功能，\n 只有用户使用了上传才加载额外的第三方库 上传本身就会 loading，所以延迟加载不会有什么体验问题  const customCache = new Set() function loadScriptFromRemote() { if (customCache.has(scriptUrl)) { return resolve() } const script = document.createElement(\u0026#39;script\u0026#39;) script.setAttribute(\u0026#39;src\u0026#39;, scriptUrl) script.onload = () =\u0026gt; { resolve() } script.onerror = () =\u0026gt; { reject() } customCache.add(scriptUrl) document.body.appendChild(script) } let url = \u0026#39;\u0026#39; const remoteJSDirective: Directive = { beforeMount(el: Element, binding: DirectiveBinding\u0026lt;any\u0026gt;) { loadScriptFromRemote(url) }, } export default { install: (app: App, options) =\u0026gt; { // TODO: 可以扩展到 url collections  if (!options?.url) { return console.error(\u0026#39;url is required\u0026#39;) } url = options?.url app.directive(\u0026#39;v-remote\u0026#39;, remoteJSDirective) } } "
+            }
+    
+        ,
+            {
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
@@ -44,7 +64,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
@@ -54,7 +74,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/first-frame/",
                 "title": "Extract the first frame of a gif image",
                 "section": "post",
@@ -64,7 +84,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -74,17 +94,17 @@
     
         ,
             {
-                "id": 7,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/ui-lib/",
-                "title": "Build your own frontend UI components from scratch",
+                "title": "Build your own UI component library from scratch",
                 "section": "post",
                 "date" : "2022.01.23",
-                "body": "In this post, we will learn how to build your own UI components library based on monorepo.\nFirst of all, let\u0026rsquo;s have a peek at the ultimate project structure.\n- vue-ui - docs - play - packages - components - themes - utils Initialize a project First, we install the package manager pnpm globally.\nnpm i pnpm -g Then we create an empty project and initialize it. In this tutorial, the project is called ui-demo.\nmkdir ui-demo cd ui-demo pnpm init -y Next, install vue + typescript using pnpm and initialize the ts config file.\npnpm install vue@next typescript -D npx tsc --init Generate the .npmrc and pnpm-workspace.yaml files under the root of ui-demo.\ntouch .npmrc # content shamefully-hoist = true Since we are using vue + ts, a declare ts file vue-shim.d.ts should be included.\nmkdir typings cd typings touch vue-shim.d.ts Then copy the following content into vue-shim.d.ts.\ndeclare module \u0026#39;*.vue\u0026#39; { import type { DefineComponent } from \u0026#39;vue\u0026#39; // eslint-disable-next-line @typescript-eslint/ban-types  const component: DefineComponent\u0026lt;{}, {}, any\u0026gt; export default component } Finally, declare the packages in pnpm config file pnpm-workspace.yaml.\ntouch pnpm-workspace.yaml # the content packages: - \u0026#39;packages/**\u0026#39; - docs - play - \u0026#39;!**/__tests__/**\u0026#39; Now, your project will look like this.\n Playground This is where you write components demos to debug components.\nmkdir play cd play pnpm init -y pnpm install vite @vitejs/plugin-vue -D Packages By default, packages are stored in the folder packages. Of course, you can change the name. In this project, we create three packages, as shown below.\nmkdir packages mkdir packages/components mkdir packages/themes mkdir packages/utils Then, we initialize each package and add a scope for them by modifying the name field in the file package.json. Say, the scope name is @wxp\ncd components \u0026amp;\u0026amp; pnpm init -y cd themes \u0026amp;\u0026amp; pnpm init -y cd utils \u0026amp;\u0026amp; pnpm init -y components -\u0026gt; @wxp/components themes -\u0026gt; @wxp/themes utils -\u0026gt; @wxp/utils Next, install these packages at the root directory.\npnpm install @wxp/components -w pnpm install @wxp/themes -w pnpm install @wxp/utils -w You can see that the above dependencies has been added in package.json.\n\u0026#34;dependencies\u0026#34;: { \u0026#34;@wxp/components\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp/themes\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp/utils\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, }, Components - packages/components - button - __docs__ - button.md - __tests__ - src - button.ts // props, types - button.vue // template + js - style - css.ts // css module - index.ts // less module - index.ts // entry To avoid conflicting with the vanilla HTML element, our components should have a prefix name, say M. For example, the button component name is MButton.\nindex.ts index.ts is the entry file. It does two things\n  export the component when you use it in your project\n  register the component globally when using app.use(vue-ui)\n  import { withInstall } from \u0026#34;@wxp/utils/with-install\u0026#34; import Button from \u0026#39;./src/button.vue\u0026#39; const MButton = withInstall(Button) export { MButton } export default MButton src \u0026lt;template\u0026gt; \u0026lt;a-button :type=\u0026#34;type\u0026#34; :size=\u0026#34;size\u0026#34;\u0026gt; \u0026lt;slot\u0026gt;\u0026lt;/slot\u0026gt; \u0026lt;/a-button\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; import { Button } from \u0026#39;ant-design-vue\u0026#39; export default defineComponent({ name: \u0026#39;MButton\u0026#39;, components: { [Button.name]: Button, }, }); \u0026lt;/script\u0026gt; style There are two ways of importing css.\ncss.ts\nimport '@wxp/theme/base.css' import '@wxp/theme/m-button.css' index.ts\nimport '@wxpi/theme/src/base.less' import '@wxp/theme/src/button.less' Build Docs Themes pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D ES Usage # create a new component pnpm run create # Build the ui components pnpm run build # Doc ## preview pnpm run docs ## build pnpm run docs:build # Playground pnpm run dev # publish pnpm run pub ## after publishing, commit your content to the remote repo git push "
+                "body": "In this post, we will learn how to build your own UI component library based on monorepo.\nFirst of all, let\u0026rsquo;s have a peek at the finished project structure.\n- vue-ui - docs - play - packages - components - themes - utils Initialize a project First, we install the package manager pnpm globally.\nnpm i pnpm -g Then we create an empty project and initialize it. In this tutorial, the project is called ui-demo.\nmkdir ui-demo cd ui-demo pnpm init -y Next, install vue \u0026amp; typescript using pnpm, and then initialize the ts config file.\npnpm install vue@next typescript -D npx tsc --init Generate the .npmrc and pnpm-workspace.yaml files under the root of ui-demo.\ntouch .npmrc # content shamefully-hoist = true Since we are using vue + ts, a declare ts file vue-shim.d.ts should be included.\nmkdir typings cd typings touch vue-shim.d.ts Then copy the following content into vue-shim.d.ts.\ndeclare module \u0026#39;*.vue\u0026#39; { import type { DefineComponent } from \u0026#39;vue\u0026#39; // eslint-disable-next-line @typescript-eslint/ban-types  const component: DefineComponent\u0026lt;{}, {}, any\u0026gt; export default component } Finally, declare the packages in pnpm config file pnpm-workspace.yaml.\ntouch pnpm-workspace.yaml # the content packages: - \u0026#39;packages/**\u0026#39; - docs - play - \u0026#39;!**/__tests__/**\u0026#39; Now, your project will look like this.\n Playground This is where you write components demos to debug components.\nmkdir play cd play pnpm init -y pnpm install vite @vitejs/plugin-vue -D Packages By default, packages are stored in the folder packages. Of course, you can change the name. In this project, we create four packages, as shown below.\nmkdir packages mkdir packages/components mkdir packages/themes mkdir packages/utils mkdir packages/wxp-ui Then, we initialize the first three package and add a scope for them by modifying the name field in the file package.json. Say, the scope name is @wxp-ui\ncd components \u0026amp;\u0026amp; pnpm init -y cd themes \u0026amp;\u0026amp; pnpm init -y cd utils \u0026amp;\u0026amp; pnpm init -y components -\u0026gt; @wxp-ui/components themes -\u0026gt; @wxp-ui/themes utils -\u0026gt; @wxp-ui/utils The last package is a bit special. In fact, it\u0026rsquo;s the entry file that export all components.\nimport * as components from \u0026#39;@wxp-ui/components\u0026#39; import type { App } from \u0026#39;vue\u0026#39; export default { install: (app: App) =\u0026gt; { Object.entries(components).forEach(([ name, comp ]) =\u0026gt; { app.component(name, comp) }) } } export * from \u0026#39;@wxp-ui/components\u0026#39; The package.json for this package is served as the final package.json for the published package.\n{ \u0026#34;name\u0026#34;: \u0026#34;@wxp/wxp-ui\u0026#34;, \u0026#34;version\u0026#34;: \u0026#34;0.0.1-alpha.1\u0026#34;, \u0026#34;description\u0026#34;: \u0026#34;Vue UI Components\u0026#34;, \u0026#34;exports\u0026#34;: { \u0026#34;.\u0026#34;: { \u0026#34;require\u0026#34;: \u0026#34;./lib/index.js\u0026#34;, \u0026#34;import\u0026#34;: \u0026#34;./es/index.mjs\u0026#34; }, \u0026#34;./es\u0026#34;: \u0026#34;./es/index.mjs\u0026#34;, \u0026#34;./lib\u0026#34;: \u0026#34;./lib/index.js\u0026#34;, \u0026#34;./*\u0026#34;: \u0026#34;./*\u0026#34; }, \u0026#34;main\u0026#34;: \u0026#34;lib/index.js\u0026#34;, \u0026#34;module\u0026#34;: \u0026#34;es/index.mjs\u0026#34;, \u0026#34;style\u0026#34;: \u0026#34;dist/index.css\u0026#34;, \u0026#34;unpkg\u0026#34;: \u0026#34;dist/index.full.js\u0026#34;, \u0026#34;peerDependencies\u0026#34;: { \u0026#34;vue\u0026#34;: \u0026#34;^3.2.20\u0026#34; }, \u0026#34;repository\u0026#34;: { \u0026#34;type\u0026#34;: \u0026#34;git\u0026#34;, \u0026#34;url\u0026#34;: \u0026#34;\u0026#34; } } Now, install these packages at the root directory.\npnpm install @wxp-ui/components -w pnpm install @wxp-ui/themes -w pnpm install @wxp-ui/utils -w pnpm install @wxp/wxp-ui -w You can see that the above dependencies has been added in package.json.\n\u0026#34;dependencies\u0026#34;: { \u0026#34;@wxp-ui/components\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp-ui/themes\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp-ui/utils\u0026#34;: \u0026#34;workspace:^1.0.0\u0026#34;, \u0026#34;@wxp/wxp-ui\u0026#34;: \u0026#34;workspace:^0.0.1-alpha.1\u0026#34;, }, Components - packages/components - button - __docs__ - button.md - __tests__ - src - button.ts // props, types  - button.vue // template + js  - style - css.ts // css module  - index.ts // less module  - index.ts // entry To avoid conflicting with the vanilla HTML element, our components should have a prefix name, say M. For example, the button component name is MButton.\nindex.ts index.ts is the entry file. It does two things\n  export the component when you use it in your project\n  register the component globally when using app.use(vue-ui)\n  import { withInstall } from \u0026#34;@wxp/utils/with-install\u0026#34; import Button from \u0026#39;./src/button.vue\u0026#39; const MButton = withInstall(Button) export { MButton } export default MButton src \u0026lt;template\u0026gt; \u0026lt;a-button :type=\u0026#34;type\u0026#34; :size=\u0026#34;size\u0026#34;\u0026gt; \u0026lt;slot\u0026gt;\u0026lt;/slot\u0026gt; \u0026lt;/a-button\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; import { Button } from \u0026#39;ant-design-vue\u0026#39; export default defineComponent({ name: \u0026#39;MButton\u0026#39;, components: { [Button.name]: Button, }, }); \u0026lt;/script\u0026gt; style There are two ways of importing css.\ncss.ts\nimport \u0026#39;@wxp/theme/base.css\u0026#39; import \u0026#39;@wxp/theme/m-button.css\u0026#39; index.ts\nimport \u0026#39;@wxpi/theme/src/base.less\u0026#39; import \u0026#39;@wxp/theme/src/button.less\u0026#39; Debug Generally, we can use npm link to install our package globally, and then we install it in other projects. However, if you are using other versions of this package, it could cause confusion. Thus, I don\u0026rsquo;t recommend this method.\nThe method I used is to write some bas scripts, like this,\npnpm run build cp -R dist/wxp-ui ../your-project/node_modules/@wxp/ cd ../your-project rm -rf node_modules/.vite Well, there are two things to note\n your project should have the level as the ui library you must restart your server if you use vite  Of course, you can improve this script further by watching file changes and restarting server automatically.\nBuild Themes pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D ESM Docs Usage # create a new component pnpm run create # Build the ui components pnpm run build # Debug pnpm run debug # Playground pnpm run dev # publish pnpm run pub ## after publishing, commit your content to the remote repo git push # Doc ## preview pnpm run docs ## build pnpm run docs:build "
             }
     
         ,
             {
-                "id": 8,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/antd-test/",
                 "title": "记antd构建后modal丢失transition",
                 "section": "post",
@@ -94,7 +114,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -104,7 +124,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -114,7 +134,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -124,7 +144,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -134,7 +154,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/media/",
                 "title": "Video Format Intro",
                 "section": "post",
@@ -144,7 +164,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -154,7 +174,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -164,7 +184,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -174,7 +194,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -184,7 +204,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -194,7 +214,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -204,7 +224,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -214,7 +234,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -224,7 +244,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -234,7 +254,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -244,7 +264,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -254,7 +274,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -264,7 +284,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -274,7 +294,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -284,7 +304,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -294,7 +314,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -304,7 +324,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -314,7 +334,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -324,7 +344,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -334,7 +354,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -344,7 +364,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -354,7 +374,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -364,7 +384,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -374,7 +394,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -384,7 +404,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -394,7 +414,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -404,7 +424,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -414,7 +434,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -424,7 +444,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -434,7 +454,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -444,7 +464,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -454,7 +474,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -464,7 +484,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -474,7 +494,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -484,7 +504,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -494,7 +514,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -504,7 +524,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -514,7 +534,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -524,7 +544,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

@@ -10,7 +10,7 @@ series: ["frontend"]
 katex: true
 ---
 
-Directives and plugins are different from third-libraries, which are usually used as tools to do simple tasks, such as lazy load image, format text and so on.
+Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.
 
 <!--more-->
 
