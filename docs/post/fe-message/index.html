@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>A message component</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A message component"/>
+<meta name="twitter:description" content="Develop a message component using vue."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              A message component
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 3, 2022
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Develop a message component using vue.</p>
+<h2 id="background">Background</h2>
+<p><code>message</code> 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 <code>message</code>。不管是 <code>jQuery</code> 还是 <code>vue/react</code>，调用方法都是类似的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// jQuery
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">toast</span>({
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello world&#39;</span>
+  <span style="color:#a6e22e">duration</span>: <span style="color:#66d9ef">5000</span>
+})
+<span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">loading</span>({
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;loading...&#39;</span>
+})
+
+<span style="color:#75715e">// vue
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">inject</span>(<span style="color:#e6db74">&#39;message&#39;</span>)
+<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">info</span>({
+  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello world&#39;</span>
+  <span style="color:#a6e22e">duration</span>: <span style="color:#66d9ef">5000</span>
+})
+<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">loading</span>({
+  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;loading...&#39;</span>
+  <span style="color:#a6e22e">duration</span>: <span style="color:#66d9ef">5000</span>
+})
+</code></pre></div><p>通过 <code>jQuery</code> 我们知道，调用 <code>$.toast()</code> 实际上是动态的创建了一个含有 <code>text</code> 的 <code>html tag</code> 然后插入到 <code>body</code> 最后，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;div&#39;</span>)
+<span style="color:#a6e22e">div</span>.<span style="color:#a6e22e">textContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">text</span>
+
+document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">div</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
+  document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">div</span>)
+  <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timer</span>)
+}, <span style="color:#a6e22e">duration</span>)
+</code></pre></div><p>类似的，<code>vue</code> 的实现也是如此，只不过我们是通过 <code>VNode</code> 生成真实的 <code>DOM</code>。</p>
+<h2 id="implementation">Implementation</h2>
+<h3 id="render">render</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span>&gt;
+    {{ <span style="color:#a6e22e">message</span> }}
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+</code></pre></div><p>以上定义 HTML 模板，接下来 &lsquo;编译&rsquo; 为 <code>VNode</code>，渲染为 <code>HTML</code> 插入到 <code>body</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createVNode</span>, <span style="color:#a6e22e">render</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">MessageConstructor</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./message.vue&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">options</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">props</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">zIndex</span>: <span style="color:#66d9ef">options.zIndex</span>,
+    <span style="color:#a6e22e">offset</span>: <span style="color:#66d9ef">verticalOffset</span>,
+    ...<span style="color:#a6e22e">options</span>,
+  }
+
+  <span style="color:#75715e">// create a VNode
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createVNode</span>(
+    <span style="color:#a6e22e">MessageConstructor</span>,
+    <span style="color:#a6e22e">props</span>,
+    <span style="color:#66d9ef">null</span>,
+  )
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;div&#39;</span>)
+  
+  <span style="color:#75715e">// remove it from the document
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">vm</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">onDestroy</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">render</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">container</span>)
+    <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+  }
+  
+  <span style="color:#75715e">// transition starts
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">vm</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">onBeforeLeave</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {}
+
+  <span style="color:#75715e">// generate a html fragment
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">vm</span>, <span style="color:#a6e22e">container</span>)
+  
+  <span style="color:#75715e">// insert into the document
+</span><span style="color:#75715e"></span>  document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">firstElementChild</span>)
+}
+</code></pre></div><h3 id="timer">timer</h3>
+<p><code>vue</code> 中我们在 <code>onMounted</code> 开启计时器，由于使用了 <code>transition</code> 实现动画效果，所以在动画结束即 <code>after-leave</code> 触发 <code>onDestroy</code> 移除 <code>DOM</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">transition</span> <span style="color:#f92672">@before-leave</span><span style="color:#e6db74">=&#34;onBeforeLeave&#34;</span> <span style="color:#f92672">@after-leave</span><span style="color:#e6db74">=&#34;onDestroy&#34;</span>&gt;
+  &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">v-show</span><span style="color:#e6db74">=&#34;visible&#34;</span>&gt;
+    {{ <span style="color:#a6e22e">message</span> }}
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">transition</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span>&gt;
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">startTimer</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">duration</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+    <span style="color:#a6e22e">timerId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">visible</span>.<span style="color:#a6e22e">value</span>) {
+        <span style="color:#75715e">// trigger transition
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">visible</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+        <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timerId</span>)
+      }
+    }, <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">duration</span>)
+  }
+}
+
+<span style="color:#a6e22e">onMounted</span>(() =&gt; {
+  <span style="color:#a6e22e">startTimer</span>()
+})
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="multiple-instances">Multiple Instances</h3>
+<p>现在这段代码只支持一个 <code>message</code> 的创建，如果需要同时显示多个 <code>message</code>，这就要全局维护一个队列</p>
+<ul>
+<li>
+<p>创建的时候，添加到数组</p>
+</li>
+<li>
+<p>移除的时候，从数组中移除</p>
+</li>
+</ul>
+<p>有一个 UI 要注意的细节，当移除第 <code>index</code> 个 <code>message</code>，它后面的 <code>message</code> 的 <code>offset</code> 要更新。一般 <code>message</code> 都是出现在上方，也就是说，后面的 <code>message</code> 的 <code>top</code> 都要减少，向上偏移。</p>
+<p>这个操作可以放在 <code>before-leave</code> 完成，这样向上移动的效果和 <code>transition</code> 的效果就是同时的，体验上会更连贯。</p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#implementation">Implementation</a>
+      <ul>
+        <li><a href="#render">render</a></li>
+        <li><a href="#timer">timer</a></li>
+        <li><a href="#multiple-instances">Multiple Instances</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

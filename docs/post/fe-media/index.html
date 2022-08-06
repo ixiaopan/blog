@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Intro to Video Format</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intro to Video Format"/>
+<meta name="twitter:description" content="Codec   Figure 1: Process of video creation.  Codec, short for compressor-decompressor, is an algorithm designed for compressing and decompressing video and audio data. Simply put, it&rsquo;s an encoding and decoding algorithm.
+Why encoding?
+ raw data can be very large and noisy encoding makes it easy to transmit and storage data  Why decoding?
+ preview or playback  Video Codec  H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market VP8, free and open source codec owned by Google Ogg Theora, typically used with OGG container H."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Intro to Video Format
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Dec 13, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <h2 id="codec">Codec</h2>
+<p>
+  <figure>
+    <img src="/blog/post/images/codec.png" alt="">
+    <figcaption>Figure 1: Process of video creation.</figcaption>
+  </figure>
+</p>
+<p>Codec, short for compressor-decompressor, is an algorithm designed for compressing and decompressing video and audio data. Simply put, it&rsquo;s an encoding and decoding algorithm.</p>
+<p>Why encoding?</p>
+<ul>
+<li>raw data can be very large and noisy</li>
+<li>encoding makes it easy to transmit and storage data</li>
+</ul>
+<p>Why decoding?</p>
+<ul>
+<li>preview or playback</li>
+</ul>
+<h3 id="video-codec">Video Codec</h3>
+<ul>
+<li>H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market</li>
+<li>VP8, free and open source codec owned by Google</li>
+<li>Ogg Theora, typically used with OGG container</li>
+<li>H.265, successor of H.264</li>
+</ul>
+<h3 id="lossy-audio">Lossy Audio</h3>
+<ul>
+<li>AAC is an ISO standard audio codec widely used in iTunes, iPhone, etc. Much better than MP3</li>
+<li>Ogg Vorbis, free and open source, better than MP3, typically used with OGG container</li>
+<li>MP3, the earliest and most popular audio format</li>
+</ul>
+<h3 id="lossless-audio">Lossless Audio</h3>
+<ul>
+<li>FLAC, typically compress a file by 50%</li>
+<li>WAV/WMA, owned by Microsoft. Started in early 1990s</li>
+</ul>
+<h3 id="container">Container</h3>
+<p>Now we have the encoded video and audio, are we ready for playing? No. We still need a container to include the encoded data and other metadata, such as video thumbnail and subtitles. Table below shows some common cotainer formats for storage and online video streaming and distribution.</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Desc</th>
+<th>Video Codec</th>
+<th>Audio Codec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP4</td>
+<td>- MPEG 4 Part-14, ISO/IEC standard container format<br />- supports multiple codecs<br />- <code>.m4v</code> is for video while <code>.m4a</code> is for audio only</td>
+<td>H.264, MPEG-2, MPEG-4</td>
+<td>AAC, MPEG-1</td>
+</tr>
+<tr>
+<td>OGG</td>
+<td></td>
+<td>Theora</td>
+<td>Vorbis</td>
+</tr>
+<tr>
+<td>WebM</td>
+<td>developed by Google based on the open-source container <code>Matroska (.mkv)</code></td>
+<td>VP8</td>
+<td>Vorbis</td>
+</tr>
+<tr>
+<td>QuickTime</td>
+<td><code>.mov</code> or <code>.qt</code>, widely used in Apple&rsquo;s products</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AVI</td>
+<td>- developed by Microsoft in early 1990s<br />- does not support streaming media</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>We can see that</p>
+<ul>
+<li>some containers (MP4) support variety of codecs while some containers (WebM) support only one type of codec</li>
+<li>AVI does not support straming media, that is, playing and downloading at the same time</li>
+</ul>
+<h2 id="caniuse">Caniuse</h2>
+<p>Browers that support HTML5 audio and video</p>
+<ul>
+<li>IE&gt;=9</li>
+<li>FF &gt;= 3.5</li>
+<li>safari &gt;= 4</li>
+<li>opera &gt;= 10.5，</li>
+<li>chrome</li>
+<li>safari for iOS</li>
+<li>webkit for android</li>
+</ul>
+<p>Besides, different browsers support different container formats and codecs. In other words, there is no standard specification about video format and codecs for web development. Table below shows the container format between browsers.</p>
+<table>
+<thead>
+<tr>
+<th>Browsers</th>
+<th>Supported codecs and containers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome</td>
+<td>theora/Vorbis/Ogg;   VP8/Vorbis/WebM</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>theora/Vorbis/Ogg;   VP8/Vorbis/WebM</td>
+</tr>
+<tr>
+<td>IE</td>
+<td>H.264/AAC/MPEG 4;  VP8/Vorbis/WebM</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>theora/Vorbis/Ogg;   VP8/Vorbis/WebM</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>H.264/AAC/MPEG 4</td>
+</tr>
+</tbody>
+</table>
+<p>The audio codecs supported between modern browsers.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>IE</th>
+<th>FF</th>
+<th>Chrome</th>
+<th>Opera</th>
+<th>Safari</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP3</td>
+<td>9</td>
+<td>NO</td>
+<td>5</td>
+<td>NO</td>
+<td>3.1</td>
+</tr>
+<tr>
+<td>Ogg Vorbis</td>
+<td>NO</td>
+<td>3.6</td>
+<td>5</td>
+<td>10.5</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>NO</td>
+<td>3.6</td>
+<td>8</td>
+<td>10.5</td>
+<td>3.1</td>
+</tr>
+</tbody>
+</table>
+<p>From the above tables, we see that we need to prepare at least two formats to accommodate the most browsers.</p>
+<p>Video</p>
+<ul>
+<li>H.264/AAC/MPEG 4</li>
+<li>theora/Vorbis/Ogg</li>
+<li>VP8/Vorbis/WebM</li>
+</ul>
+<p>Audio</p>
+<ul>
+<li>MP3</li>
+<li>OGG</li>
+</ul>
+<h2 id="feature-detection">Feature Detection</h2>
+<p><code>canPlayType(mediaType)</code> tells us how likely it is that the media can be played. We can dynamically detect whether the browser supports the audio element.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hasMedia</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span>(document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;audio&#34;</span>).<span style="color:#a6e22e">canPlayType</span>;
+</code></pre></div><p>If not, a simple way to degrade is to insert fallback content into the audio/video tags, as the code snippet below shows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">audio</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myAudio&#34;</span> <span style="color:#a6e22e">controls</span>&gt;
+    &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;song.ogg&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;audio/ogg&#34;</span>&gt;
+    &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;song.mp3&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;audio/mpeg&#34;</span>&gt;
+    Audio player not available.
+&lt;/<span style="color:#f92672">audio</span>&gt;
+</code></pre></div><p>However, even though browsers support some kind of format, it does not mean that it can play it. So, to ensure the successfull palyback, we specify the codecs using the <code>type</code> attribute.</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>type value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>theora/vorbis/Ogg</td>
+<td>type=&ldquo;video/ogg;codecs=&lsquo;theora,vorbis&rsquo;&rdquo;</td>
+</tr>
+<tr>
+<td>vorbis/Ogg</td>
+<td>type=&ldquo;audio/ogg;codecs=&lsquo;vorbis&rsquo;&rdquo;</td>
+</tr>
+<tr>
+<td>vp8/vorbis/webm</td>
+<td>type=&ldquo;video/webm;codecs=&lsquo;vp8,vorbis&rsquo;&rdquo;</td>
+</tr>
+<tr>
+<td>H.264/vorbis/mp4</td>
+<td>type=&ldquo;video/mp4;codecs=&lsquo;avc1.42E01E,mp4a.40.2&rsquo;&rdquo;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="http://xahlee.info/comp/streaming_video_notes.html">Intro to Video Codecs</a></li>
+<li><a href="https://blog.csdn.net/leixiaohua1020/article/details/18893769">视音频编解码技术零基础学习方法</a></li>
+<li><a href="http://www.ffmpeg.org/">FFmpeg</a></li>
+</ul>
+
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#codec">Codec</a>
+      <ul>
+        <li><a href="#video-codec">Video Codec</a></li>
+        <li><a href="#lossy-audio">Lossy Audio</a></li>
+        <li><a href="#lossless-audio">Lossless Audio</a></li>
+        <li><a href="#container">Container</a></li>
+      </ul>
+    </li>
+    <li><a href="#caniuse">Caniuse</a></li>
+    <li><a href="#feature-detection">Feature Detection</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

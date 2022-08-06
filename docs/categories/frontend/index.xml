@@ -9,71 +9,79 @@
 		
 		<managingEditor>Page(/categories/frontend) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 04 Jun 2022 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sat, 06 Aug 2022 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/frontend/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Video autoplay not working when low power mode is on (iphone)</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-video-power/</link>
+			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-video-power/</guid>
+			<description>&lt;p&gt;An interesting bug about the HTML5 video.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>Axios</title>
-			<link>https://ixiaopan.github.io/blog/post/axios/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
 			<pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/axios/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
 			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>A message component</title>
-			<link>https://ixiaopan.github.io/blog/post/message/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-message/</link>
 			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/message/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-message/</guid>
 			<description>&lt;p&gt;Develop a message component using vue.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>A phone input component</title>
-			<link>https://ixiaopan.github.io/blog/post/phone-tag/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-phone-tag/</link>
 			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/phone-tag/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-phone-tag/</guid>
 			<description>&lt;p&gt;Develop a vue-based mobile phone input component.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>A cascader component</title>
-			<link>https://ixiaopan.github.io/blog/post/cascader/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-cascader/</link>
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/cascader/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-cascader/</guid>
 			<description>&lt;p&gt;实现一个业务定制的级联选择器&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>Common directives/plugins in Vue</title>
-			<link>https://ixiaopan.github.io/blog/post/directives/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-directives/</link>
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/directives/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-directives/</guid>
 			<description>&lt;p&gt;Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>Replace antd theme</title>
-			<link>https://ixiaopan.github.io/blog/post/antd-theme/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-antd-theme/</link>
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/antd-theme/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-antd-theme/</guid>
 			<description>&lt;p&gt;没有整啥插件，使用 &lt;code&gt;less variable&lt;/code&gt; 覆盖即可&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>Composition bug in Safari</title>
-			<link>https://ixiaopan.github.io/blog/post/composition/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-composition/</link>
 			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/composition/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-composition/</guid>
 			<description>&lt;p&gt;中文输入法 composition event 在 chrome 和 safari 表现相反&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>Extract the first frame of a gif image</title>
-			<link>https://ixiaopan.github.io/blog/post/first-frame/</link>
+			<link>https://ixiaopan.github.io/blog/post/fe-first-frame/</link>
 			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/first-frame/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-first-frame/</guid>
 			<description>&lt;p&gt;不仅仅是 GIF，视频提取单帧画面也是一样的方法&lt;/p&gt;</description>
 		</item>
       	
@@ -83,14 +91,6 @@
 			<pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/python-epub/</guid>
 			<description>&lt;p&gt;A simple book scraper written in Python, converting html to epub.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Build your own UI component library from scratch</title>
-			<link>https://ixiaopan.github.io/blog/post/ui-lib/</link>
-			<pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/ui-lib/</guid>
-			<description>&lt;p&gt;In this post, we will learn how to build your own UI component library based on monorepo.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

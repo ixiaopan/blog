@@ -15,7 +15,17 @@
         ,
             {
                 "id": 1,
-                "href": "https://ixiaopan.github.io/blog/post/axios/",
+                "href": "https://ixiaopan.github.io/blog/post/fe-video-power/",
+                "title": "Video autoplay not working when low power mode is on (iphone)",
+                "section": "post",
+                "date" : "2022.08.06",
+                "body": "An interesting bug about the HTML5 video.\nLast week, I inserted a video element in a page. As you can expect, the video is muted and autoplay when page is loaded.\n\u0026lt;video src=\u0026#34;/trailer.mp4\u0026#34; loop muted autoplay playsinline /\u0026gt; Unfortunately, it didn\u0026rsquo;t play when I opened it using safari. Technically speaking, there is nothing wrong with the above code snippet. So, what\u0026rsquo;s the problem?\nThanks to StackOverflow, I found a clue.\n I had same issue with apple devices like iPhone and iPad, I turned off the low power mode\u0026hellip;.\n The reason is that I turned on the low power mode, emmm\u0026hellip;\nRefer  https://stackoverflow.com/questions/20347352/html5-video-tag-not-working-in-safari-iphone-and-ipad "
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
                 "title": "Axios",
                 "section": "post",
                 "date" : "2022.06.04",
@@ -24,8 +34,8 @@
     
         ,
             {
-                "id": 2,
-                "href": "https://ixiaopan.github.io/blog/post/message/",
+                "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/fe-message/",
                 "title": "A message component",
                 "section": "post",
                 "date" : "2022.06.03",
@@ -34,8 +44,8 @@
     
         ,
             {
-                "id": 3,
-                "href": "https://ixiaopan.github.io/blog/post/phone-tag/",
+                "id": 4,
+                "href": "https://ixiaopan.github.io/blog/post/fe-phone-tag/",
                 "title": "A phone input component",
                 "section": "post",
                 "date" : "2022.06.03",
@@ -44,8 +54,8 @@
     
         ,
             {
-                "id": 4,
-                "href": "https://ixiaopan.github.io/blog/post/cascader/",
+                "id": 5,
+                "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
                 "title": "A cascader component",
                 "section": "post",
                 "date" : "2022.05.29",
@@ -54,8 +64,8 @@
     
         ,
             {
-                "id": 5,
-                "href": "https://ixiaopan.github.io/blog/post/directives/",
+                "id": 6,
+                "href": "https://ixiaopan.github.io/blog/post/fe-directives/",
                 "title": "Common directives/plugins in Vue",
                 "section": "post",
                 "date" : "2022.05.29",
@@ -64,8 +74,8 @@
     
         ,
             {
-                "id": 6,
-                "href": "https://ixiaopan.github.io/blog/post/antd-theme/",
+                "id": 7,
+                "href": "https://ixiaopan.github.io/blog/post/fe-antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
                 "date" : "2022.05.29",
@@ -74,8 +84,8 @@
     
         ,
             {
-                "id": 7,
-                "href": "https://ixiaopan.github.io/blog/post/composition/",
+                "id": 8,
+                "href": "https://ixiaopan.github.io/blog/post/fe-composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
                 "date" : "2022.05.21",
@@ -84,8 +94,8 @@
     
         ,
             {
-                "id": 8,
-                "href": "https://ixiaopan.github.io/blog/post/first-frame/",
+                "id": 9,
+                "href": "https://ixiaopan.github.io/blog/post/fe-first-frame/",
                 "title": "Extract the first frame of a gif image",
                 "section": "post",
                 "date" : "2022.05.21",
@@ -94,7 +104,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -104,8 +114,8 @@
     
         ,
             {
-                "id": 10,
-                "href": "https://ixiaopan.github.io/blog/post/ui-lib/",
+                "id": 11,
+                "href": "https://ixiaopan.github.io/blog/post/fe-ui-lib/",
                 "title": "Build your own UI component library from scratch",
                 "section": "post",
                 "date" : "2022.01.23",
@@ -114,8 +124,8 @@
     
         ,
             {
-                "id": 11,
-                "href": "https://ixiaopan.github.io/blog/post/antd-test/",
+                "id": 12,
+                "href": "https://ixiaopan.github.io/blog/post/fe-antd-test/",
                 "title": "记antd构建后modal丢失transition",
                 "section": "post",
                 "date" : "2022.01.23",
@@ -124,8 +134,8 @@
     
         ,
             {
-                "id": 12,
-                "href": "https://ixiaopan.github.io/blog/post/verdaccio/",
+                "id": 13,
+                "href": "https://ixiaopan.github.io/blog/post/fe-verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
                 "date" : "2022.01.07",
@@ -134,8 +144,8 @@
     
         ,
             {
-                "id": 13,
-                "href": "https://ixiaopan.github.io/blog/post/npm/",
+                "id": 14,
+                "href": "https://ixiaopan.github.io/blog/post/fe-npm/",
                 "title": "Package Manager",
                 "section": "post",
                 "date" : "2022.01.07",
@@ -144,8 +154,8 @@
     
         ,
             {
-                "id": 14,
-                "href": "https://ixiaopan.github.io/blog/post/layout/",
+                "id": 15,
+                "href": "https://ixiaopan.github.io/blog/post/fe-layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
                 "date" : "2022.01.03",
@@ -154,8 +164,8 @@
     
         ,
             {
-                "id": 15,
-                "href": "https://ixiaopan.github.io/blog/post/tools/",
+                "id": 16,
+                "href": "https://ixiaopan.github.io/blog/post/fe-tools/",
                 "title": "Tools for daily work",
                 "section": "post",
                 "date" : "2022.01.03",
@@ -164,9 +174,9 @@
     
         ,
             {
-                "id": 16,
-                "href": "https://ixiaopan.github.io/blog/post/media/",
-                "title": "Video Format Intro",
+                "id": 17,
+                "href": "https://ixiaopan.github.io/blog/post/fe-media/",
+                "title": "Intro to Video Format",
                 "section": "post",
                 "date" : "2021.12.13",
                 "body": "Codec   Figure 1: Process of video creation.  Codec, short for compressor-decompressor, is an algorithm designed for compressing and decompressing video and audio data. Simply put, it\u0026rsquo;s an encoding and decoding algorithm.\nWhy encoding?\n raw data can be very large and noisy encoding makes it easy to transmit and storage data  Why decoding?\n preview or playback  Video Codec  H.264/AVC (MPEG-4 part 10/Advanced Video Coding) is the most widely used video codec on the market VP8, free and open source codec owned by Google Ogg Theora, typically used with OGG container H.265, successor of H.264  Lossy Audio  AAC is an ISO standard audio codec widely used in iTunes, iPhone, etc. Much better than MP3 Ogg Vorbis, free and open source, better than MP3, typically used with OGG container MP3, the earliest and most popular audio format  Lossless Audio  FLAC, typically compress a file by 50% WAV/WMA, owned by Microsoft. Started in early 1990s  Container Now we have the encoded video and audio, are we ready for playing? No. We still need a container to include the encoded data and other metadata, such as video thumbnail and subtitles. Table below shows some common cotainer formats for storage and online video streaming and distribution.\n   Container Desc Video Codec Audio Codec     MP4 - MPEG 4 Part-14, ISO/IEC standard container format\n- supports multiple codecs\n- .m4v is for video while .m4a is for audio only H.264, MPEG-2, MPEG-4 AAC, MPEG-1   OGG  Theora Vorbis   WebM developed by Google based on the open-source container Matroska (.mkv) VP8 Vorbis   QuickTime .mov or .qt, widely used in Apple\u0026rsquo;s products     AVI - developed by Microsoft in early 1990s\n- does not support streaming media      We can see that\n some containers (MP4) support variety of codecs while some containers (WebM) support only one type of codec AVI does not support straming media, that is, playing and downloading at the same time  Caniuse Browers that support HTML5 audio and video\n IE\u0026gt;=9 FF \u0026gt;= 3.5 safari \u0026gt;= 4 opera \u0026gt;= 10.5， chrome safari for iOS webkit for android  Besides, different browsers support different container formats and codecs. In other words, there is no standard specification about video format and codecs for web development. Table below shows the container format between browsers.\n   Browsers Supported codecs and containers     Chrome theora/Vorbis/Ogg; VP8/Vorbis/WebM   FF theora/Vorbis/Ogg; VP8/Vorbis/WebM   IE H.264/AAC/MPEG 4; VP8/Vorbis/WebM   Opera theora/Vorbis/Ogg; VP8/Vorbis/WebM   Safari H.264/AAC/MPEG 4    The audio codecs supported between modern browsers.\n    IE FF Chrome Opera Safari     MP3 9 NO 5 NO 3.1   Ogg Vorbis NO 3.6 5 10.5 NO   WAV NO 3.6 8 10.5 3.1    From the above tables, we see that we need to prepare at least two formats to accommodate the most browsers.\nVideo\n H.264/AAC/MPEG 4 theora/Vorbis/Ogg VP8/Vorbis/WebM  Audio\n MP3 OGG  Feature Detection canPlayType(mediaType) tells us how likely it is that the media can be played. We can dynamically detect whether the browser supports the audio element.\nvar hasMedia = !!(document.createElement(\u0026#34;audio\u0026#34;).canPlayType; If not, a simple way to degrade is to insert fallback content into the audio/video tags, as the code snippet below shows.\n\u0026lt;audio id=\u0026#34;myAudio\u0026#34; controls\u0026gt; \u0026lt;source src=\u0026#34;song.ogg\u0026#34; type=\u0026#34;audio/ogg\u0026#34;\u0026gt; \u0026lt;source src=\u0026#34;song.mp3\u0026#34; type=\u0026#34;audio/mpeg\u0026#34;\u0026gt; Audio player not available. \u0026lt;/audio\u0026gt; However, even though browsers support some kind of format, it does not mean that it can play it. So, to ensure the successfull palyback, we specify the codecs using the type attribute.\n   Container type value     theora/vorbis/Ogg type=\u0026ldquo;video/ogg;codecs=\u0026lsquo;theora,vorbis\u0026rsquo;\u0026rdquo;   vorbis/Ogg type=\u0026ldquo;audio/ogg;codecs=\u0026lsquo;vorbis\u0026rsquo;\u0026rdquo;   vp8/vorbis/webm type=\u0026ldquo;video/webm;codecs=\u0026lsquo;vp8,vorbis\u0026rsquo;\u0026rdquo;   H.264/vorbis/mp4 type=\u0026ldquo;video/mp4;codecs=\u0026lsquo;avc1.42E01E,mp4a.40.2\u0026rsquo;\u0026rdquo;    References  Intro to Video Codecs 视音频编解码技术零基础学习方法 FFmpeg  "
@@ -174,7 +184,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -184,7 +194,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -194,7 +204,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -204,7 +214,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -214,7 +224,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -224,7 +234,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -234,7 +244,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -244,7 +254,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -254,7 +264,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -264,7 +274,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -274,7 +284,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -284,7 +294,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -294,7 +304,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -304,7 +314,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -314,7 +324,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -324,7 +334,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -334,7 +344,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -344,7 +354,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -354,7 +364,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -364,7 +374,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -374,7 +384,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -384,7 +394,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -394,7 +404,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -404,7 +414,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -414,7 +424,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -424,7 +434,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -434,7 +444,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -444,7 +454,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -454,7 +464,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -464,7 +474,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -474,7 +484,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -484,7 +494,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -494,7 +504,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -504,7 +514,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -514,7 +524,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -524,7 +534,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -534,7 +544,7 @@
     
         ,
             {
-                "id": 53,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -544,7 +554,7 @@
     
         ,
             {
-                "id": 54,
+                "id": 55,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -554,7 +564,7 @@
     
         ,
             {
-                "id": 55,
+                "id": 56,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

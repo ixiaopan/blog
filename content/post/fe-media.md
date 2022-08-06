@@ -1,5 +1,5 @@
 ---
-title: "Video Format Intro"
+title: "Intro to Video Format"
 date: "2021-12-13"
 description: ""
 # tags: []
