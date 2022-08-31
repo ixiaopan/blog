@@ -22,7 +22,7 @@
 		</item>
       	
 		<item>
-			<title>Axios</title>
+			<title>Draft - Axios</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
 			<pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
@@ -38,7 +38,7 @@
 		</item>
       	
 		<item>
-			<title>A phone input component</title>
+			<title>Draft - A phone input component</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-phone-tag/</link>
 			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-phone-tag/</guid>
@@ -78,11 +78,11 @@
 		</item>
       	
 		<item>
-			<title>Extract the first frame of a gif image</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-first-frame/</link>
+			<title>Extract any frame of a gif image</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-gif-frame/</link>
 			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-first-frame/</guid>
-			<description>&lt;p&gt;不仅仅是 GIF，视频提取单帧画面也是一样的方法&lt;/p&gt;</description>
+			<guid>https://ixiaopan.github.io/blog/post/fe-gif-frame/</guid>
+			<description>&lt;p&gt;说到提取视频帧，我们会想到 &lt;code&gt;canvas.drawImage&lt;/code&gt; 来实现，但是，如果是要提取 &lt;code&gt;GIF&lt;/code&gt; 的任意一帧呢?&lt;/p&gt;</description>
 		</item>
       	
 		<item>
