@@ -1,5 +1,5 @@
 ---
-title: "A cascader component"
+title: "A Cascader Component"
 date: "2022-05-29"
 description: ""
 # tags: []
