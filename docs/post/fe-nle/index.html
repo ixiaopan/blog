@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>[draft] Non-Linear Video Editor(NLE) 101</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[draft] Non-Linear Video Editor(NLE) 101"/>
+<meta name="twitter:description" content="A brief overview on Non-Linear Video Editor."/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              [draft] Non-Linear Video Editor(NLE) 101
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Aug 7, 2022
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>A brief overview on Non-Linear Video Editor.</p>
+<h2 id="background">Background</h2>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

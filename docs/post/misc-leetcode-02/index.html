@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Leetcode 102</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode 102"/>
+<meta name="twitter:description" content="Practice! Practice! Practice!"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Leetcode 102
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Sep 10, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Practice! Practice! Practice!</p>
+<h2 id="traverse-a-tree">Traverse a Tree</h2>
+<p>Three strategies to visit a tree depends on the order of visiting the root</p>
+<ul>
+<li>pre-order</li>
+<li>in-order</li>
+<li>post-order</li>
+</ul>
+<p>Two methods to implement this</p>
+<ul>
+<li>Recursive</li>
+<li>Iterative
+<ul>
+<li>The idea is first-in-last-out, so we use stack to keep nodes.</li>
+</ul>
+</li>
+</ul>
+<h3 id="pre-order-traversal">Pre-order Traversal</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">preorderTraversal</span>(self, root: Optional[TreeNode]) <span style="color:#f92672">-&gt;</span> List[int]:
+        <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+          <span style="color:#66d9ef">return</span> []
+
+        <span style="color:#75715e"># recursive</span>
+        l_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>preorderTraversal(root<span style="color:#f92672">.</span>left)
+        r_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>preorderTraversal(root<span style="color:#f92672">.</span>right)
+        <span style="color:#66d9ef">return</span> [ root<span style="color:#f92672">.</span>val ]  <span style="color:#f92672">+</span> l_n <span style="color:#f92672">+</span> r_n
+      
+      	<span style="color:#75715e"># iterative</span>
+      	val <span style="color:#f92672">=</span> []
+        stack <span style="color:#f92672">=</span> [ root ]
+        <span style="color:#66d9ef">while</span> len(stack) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+          node <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+          val<span style="color:#f92672">.</span>append( node<span style="color:#f92672">.</span>val )
+
+          <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>right:
+            stack<span style="color:#f92672">.</span>append( node<span style="color:#f92672">.</span>right )
+          
+          <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>left:
+            stack<span style="color:#f92672">.</span>append( node<span style="color:#f92672">.</span>left )
+        <span style="color:#66d9ef">return</span> val
+</code></pre></div><h3 id="in-oder-traversal">In-oder Traversal</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inorderTraversal</span>(self, root: Optional[TreeNode]) <span style="color:#f92672">-&gt;</span> List[int]:
+        <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+          <span style="color:#66d9ef">return</span> []
+        
+        <span style="color:#75715e"># recursive</span>
+        l_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>inorderTraversal(root<span style="color:#f92672">.</span>left)
+        r_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>inorderTraversal(root<span style="color:#f92672">.</span>right)
+        <span style="color:#66d9ef">return</span> l_n <span style="color:#f92672">+</span> [ root<span style="color:#f92672">.</span>val ] <span style="color:#f92672">+</span> r_n
+      
+      	<span style="color:#75715e"># iteratively</span>
+        stack <span style="color:#f92672">=</span> []
+        val <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+          <span style="color:#66d9ef">while</span> root:
+            stack<span style="color:#f92672">.</span>append(root)
+            root <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>left
+
+          <span style="color:#66d9ef">if</span> len(stack) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">return</span> val
+
+          <span style="color:#75715e"># once end, it must be the local root node without left children</span>
+          <span style="color:#75715e"># then we pop it out to visit this node</span>
+          <span style="color:#75715e"># next we visit its right child</span>
+          <span style="color:#75715e"># if the right child is None, we pop up its parent node</span>
+          node <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+          val<span style="color:#f92672">.</span>append(node<span style="color:#f92672">.</span>val)
+          root <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>right
+</code></pre></div><h3 id="post-order-travesal">Post-order Travesal</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">postorderTraversal</span>(self, root: Optional[TreeNode]) <span style="color:#f92672">-&gt;</span> List[int]:
+        <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+            <span style="color:#66d9ef">return</span> []
+        
+        <span style="color:#75715e"># recursive</span>
+        l_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>postorderTraversal(root<span style="color:#f92672">.</span>left)
+        r_n <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>postorderTraversal(root<span style="color:#f92672">.</span>right)
+        <span style="color:#66d9ef">return</span> l_n <span style="color:#f92672">+</span> r_n <span style="color:#f92672">+</span> [ root<span style="color:#f92672">.</span>val ]
+</code></pre></div><h2 id="level-order-traversal">Level-order Traversal</h2>
+<h3 id="bfs">BFS</h3>
+<p>Breadth-First Search visit nodes level by level. We use a queue to keep nodes.</p>
+<ul>
+<li>Each time we are goingt to visit a node, we pop it out of the queue</li>
+<li>At the same time, we add its left node and right node into the queue</li>
+</ul>
+<p>
+  <figure>
+    <img src="/blog/post/images/BFS-queue.png#full" alt="">
+    <figcaption>Figure 1: We use queue to store nodes in BFS ($\text{LeetCode}^{[1]}$)</figcaption>
+  </figure>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BFS</span>(root):
+  <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+  	<span style="color:#66d9ef">return</span> []
+
+  ret <span style="color:#f92672">=</span> []
+  queue <span style="color:#f92672">=</span> [ root ]
+  <span style="color:#66d9ef">while</span> len(queue) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+    ret<span style="color:#f92672">.</span>append( [ n<span style="color:#f92672">.</span>val <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> queue ] )
+   
+  	next_level <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> queue:
+    	next_level <span style="color:#f92672">+=</span> [ n<span style="color:#f92672">.</span>left, n<span style="color:#f92672">.</span>right ] 
+
+    queue <span style="color:#f92672">=</span> [ n <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> next_level <span style="color:#66d9ef">if</span> n ]    	
+  
+</code></pre></div><h3 id="dfs">DFS</h3>
+<h2 id="tree-problem">Tree problem</h2>
+<h3 id="top-down-solution">Top-down Solution</h3>
+<ul>
+<li>visit a node and get some values</li>
+<li>pass the values to its children</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">return</span> specific value <span style="color:#66d9ef">for</span> null node
+left_ans <span style="color:#f92672">=</span> top_down(root<span style="color:#f92672">.</span>left, some_val_of_node)
+right_ans <span style="color:#f92672">=</span> top_down(root<span style="color:#f92672">.</span>right, some_val_of_node)
+</code></pre></div><h3 id="bottom-up-solution">Bottom-up Solution</h3>
+<ul>
+<li>get the answer from the children nodes</li>
+<li>then update the answer for the parent node</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maxDepth</span>(self, root: Optional[TreeNode]) <span style="color:#f92672">-&gt;</span> int:
+        <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+        left_depth <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>maxDepth(root<span style="color:#f92672">.</span>left)
+        right_depth <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>maxDepth(root<span style="color:#f92672">.</span>right)
+        <span style="color:#66d9ef">return</span> max(left_depth, right_depth) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/">[1] Binary Tree - LeetCode</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#traverse-a-tree">Traverse a Tree</a>
+      <ul>
+        <li><a href="#pre-order-traversal">Pre-order Traversal</a></li>
+        <li><a href="#in-oder-traversal">In-oder Traversal</a></li>
+        <li><a href="#post-order-travesal">Post-order Travesal</a></li>
+      </ul>
+    </li>
+    <li><a href="#level-order-traversal">Level-order Traversal</a>
+      <ul>
+        <li><a href="#bfs">BFS</a></li>
+        <li><a href="#dfs">DFS</a></li>
+      </ul>
+    </li>
+    <li><a href="#tree-problem">Tree problem</a>
+      <ul>
+        <li><a href="#top-down-solution">Top-down Solution</a></li>
+        <li><a href="#bottom-up-solution">Bottom-up Solution</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

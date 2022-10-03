@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>A cascader component</title>
+<title>A Cascader Component</title>
 
 
 
@@ -30,7 +30,7 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A cascader component"/>
+<meta name="twitter:title" content="A Cascader Component"/>
 <meta name="twitter:description" content="实现一个业务定制的级联选择器"/>
 
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="post-heading">
           
             <h1>
-              A cascader component
+              A Cascader Component
             </h1>
           
           
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="实现">实现</h2>
 <h3 id="数据格式">数据格式</h3>
 <p>显然，这是个树结构</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
   {
     <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;L1&#34;</span>,
     <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;level 1&#34;</span>,
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>采用这个思想，那么每个 <code>node</code> 的数据结构如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">INode</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">INode</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#75715e">// the key
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">childrenCount</span><span style="color:#f92672">:</span> <span style="color:#75715e">// the number of children
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">cwd</span><span style="color:#f92672">:</span> <span style="color:#75715e">// the current working directory
@@ -268,13 +268,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">depth</span><span style="color:#f92672">:</span> <span style="color:#75715e">// the depth of this node
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>接下来，全局维护一个 <code>map</code> 对象，其 <code>key</code> 即是 <code>cwd</code>,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
   <span style="color:#e6db74">&#39;ROOT&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">INode</span>[],
   <span style="color:#e6db74">&#39;ROOT/L1&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">INode</span>[],
   <span style="color:#e6db74">&#39;ROOT/L1/L1-2&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">INode</span>[],
 }
 </code></pre></div><p>最后是深度遍历</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">treeData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">flattenTree</span>(<span style="color:#a6e22e">tree</span>, <span style="color:#e6db74">&#39;ROOT&#39;</span>, {}, <span style="color:#66d9ef">null</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">treeData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">flattenTree</span>(<span style="color:#a6e22e">tree</span>, <span style="color:#e6db74">&#39;ROOT&#39;</span>, {}, <span style="color:#66d9ef">null</span>)
 
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">flattenTree</span>(<span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">footpath</span>, <span style="color:#a6e22e">treeMap</span>, <span style="color:#a6e22e">parent</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">treeMap</span>[<span style="color:#a6e22e">footpath</span>]) {
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><code>switchLevel(record, true)</code> 通过添加标识(第2个参数 <code>true</code>) 标记 选择完成</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rowClick</span>(<span style="color:#a6e22e">record</span>, <span style="color:#a6e22e">e</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rowClick</span>(<span style="color:#a6e22e">record</span>, <span style="color:#a6e22e">e</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">intermediate</span>) {
     <span style="color:#75715e">// 如果是叶子节点，点自己也是可以的
 </span><span style="color:#75715e"></span>    <span style="color:#75715e">// 选择了 radio/checkbox，新增 `true` 表示选择结束
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>这也很好办，结合当前路径 <code>currentPath</code> ，所选节点的信息比如 <code>cwd, depth</code>，就可以知道是是哪个情况</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">switchLevel</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">switchLevel</span>() {
   <span style="color:#75715e">// 向更深的层级展开
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentPath</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">record</span>.<span style="color:#a6e22e">depth</span>) {
     <span style="color:#a6e22e">currentPath</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentPath</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">record</span>.<span style="color:#a6e22e">cwd</span>)
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><p>最后就是渲染数据了，监听 <code>currentPath</code> 重新计算 <code>currentList</code> 即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// currentPath: [&#39;ROOT&#39;, &#39;L1&#39;, &#39;L1-2&#39;]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// currentPath: [&#39;ROOT&#39;, &#39;L1&#39;, &#39;L1-2&#39;]
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">nextList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentPath</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">fp</span>, <span style="color:#a6e22e">idx</span>) =&gt; {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">treeMap</span>[<span style="color:#a6e22e">fp</span>]<span style="color:#f92672">?</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">ot</span> =&gt; {
       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">ot</span> } <span style="color:#75715e">// copy
@@ -393,7 +393,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <p>不可选，那就是 <code>disabled</code>， 在上面的 <code>nextList = ...</code> 中新增 <code>disabled</code> 的判断即可</p>
 <p>针对通用节点（该节点只有一个），我们新增属性 <code>majestyId</code> (your majesty 女王陛下)，由业务指定节点 <code>id</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">disabled</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">majestySelected</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">majestyId</span>))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">disabled</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">majestySelected</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">majestyId</span>))
 </code></pre></div><p>针对第二个情况，遍历每一层的节点 <code>item</code>，如果</p>
 <ul>
 <li>
@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>然后判断 <code>item</code> 是否依赖选择的节点 <code>t</code>，即是否有 &ldquo;血缘关系&rdquo;</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">disabled</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span>(<span style="color:#a6e22e">nextTagList</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">find</span>((<span style="color:#a6e22e">t</span>) =&gt; <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">hasParentDependency</span>(<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">t</span>)))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">disabled</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span>(<span style="color:#a6e22e">nextTagList</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">find</span>((<span style="color:#a6e22e">t</span>) =&gt; <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">hasParentDependency</span>(<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">t</span>)))
 </code></pre></div><h3 id="搜索筛选">搜索筛选</h3>
 <p>最后是搜索的实现(前端搜索，因为业务数据量不大)，也分两种情况</p>
 <ul>
@@ -438,25 +438,25 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h4 id="叶子搜索">叶子搜索</h4>
 <p>叶子节点搜索比较简单，首先要搜集所有的叶子节点，在 <code>flattenTree()</code> 中即可以实现</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 缓存所有叶子节点
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 缓存所有叶子节点
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">childrenCount</span>) {
   <span style="color:#a6e22e">leafNodeList</span>.<span style="color:#a6e22e">push</span>({ ...(<span style="color:#a6e22e">omit</span>(<span style="color:#a6e22e">t</span>, [<span style="color:#e6db74">&#39;children&#39;</span>])) })
 }
 </code></pre></div><p>然后根据关键字过滤一下即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">queryList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">leafNodeList</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">t</span> =&gt; <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">label</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">q</span>) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">queryList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">leafNodeList</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">t</span> =&gt; <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">label</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">q</span>) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 </code></pre></div><h4 id="路径搜索">路径搜索</h4>
 <p>既然知道了叶子节点( <code>flattenTree()</code> 的深度遍历和这里层级搜索是一一对应的，所以按顺序遍历叶子节点就是我们所需要的路径顺序)，那么我们可以通过 <code>parent</code> 回溯对应的链路</p>
 <p>思考下面的路径</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>, <span style="color:#a6e22e">D1</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>, <span style="color:#a6e22e">D1</span>]
 [<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>, <span style="color:#a6e22e">D2</span>]
 </code></pre></div><p>最终所有的路径顺序</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[<span style="color:#a6e22e">A</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[<span style="color:#a6e22e">A</span>]
 [<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>]
 [<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>]
 [<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>, <span style="color:#a6e22e">D1</span>]
 [<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">C</span>, <span style="color:#a6e22e">D2</span>]
 </code></pre></div><p>这一步也简单，不断找 <code>parent</code> 就好了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">reachMe</span>(<span style="color:#a6e22e">node</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">reachMe</span>(<span style="color:#a6e22e">node</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tempList</span> <span style="color:#f92672">=</span> [ <span style="color:#a6e22e">node</span> ]
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">parent</span>
   <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">o</span>) {
@@ -475,7 +475,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>但是到了<code>D2.parent</code> 即 <code>C</code> 的时候，<code>memo</code> 里已经存在 <code>[A, B, C]</code> 了，所以不用再算了</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">oneLevelList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">leafNodeList</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">memo</span>, <span style="color:#a6e22e">node</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">oneLevelList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">leafNodeList</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">memo</span>, <span style="color:#a6e22e">node</span>) =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultList</span> <span style="color:#f92672">=</span> []
   
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">node</span>
@@ -491,7 +491,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">memo</span>
 }, [])
 </code></pre></div><p>最后就是搜索匹配，类似的，只需要匹配每条路径的最后一个节点即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">intermediate</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">intermediate</span>) {
   <span style="color:#75715e">// [[p1], [p1, p2], [p1, p2, leaf]]
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">nextList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oneLevelList</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">res</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lastNode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>[<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]

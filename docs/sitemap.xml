@@ -5,15 +5,36 @@
     <loc>https://ixiaopan.github.io/blog/about/</loc>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/categories/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/categories/frontend/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
+    <loc>https://ixiaopan.github.io/blog/categories/misc/</loc>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/</loc>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/misc-october/</loc>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-nle-layer/</loc>
+    <lastmod>2022-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-nle-web-audio/</loc>
+    <lastmod>2022-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-nle/</loc>
+    <lastmod>2022-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-upload/</loc>
+    <lastmod>2022-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/categories/frontend/</loc>
+    <lastmod>2022-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-pooling/</loc>
     <lastmod>2022-08-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/fe-video-power/</loc>
@@ -22,10 +43,10 @@
     <loc>https://ixiaopan.github.io/blog/post/fe-axios/</loc>
     <lastmod>2022-06-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/fe-message/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe-text-label/</loc>
     <lastmod>2022-06-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/fe-phone-tag/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe-message/</loc>
     <lastmod>2022-06-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/fe-cascader/</loc>
@@ -43,16 +64,13 @@
     <loc>https://ixiaopan.github.io/blog/post/fe-gif-frame/</loc>
     <lastmod>2022-05-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/python-epub/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misci-python-epub/</loc>
     <lastmod>2022-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/categories/misc/</loc>
-    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/fe-ui-lib/</loc>
-    <lastmod>2022-01-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/fe-antd-test/</loc>
+    <lastmod>2022-01-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ixiaopan.github.io/blog/post/fe-ui-lib/</loc>
     <lastmod>2022-01-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/fe-verdaccio/</loc>
@@ -94,7 +112,7 @@
     <loc>https://ixiaopan.github.io/blog/post/recommendation/</loc>
     <lastmod>2021-11-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/remove-splash/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-remove-splash/</loc>
     <lastmod>2021-10-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/metrics-classification/</loc>
@@ -115,25 +133,25 @@
     <loc>https://ixiaopan.github.io/blog/post/dataviz/</loc>
     <lastmod>2021-09-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/leetcode-02/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-leetcode-02/</loc>
     <lastmod>2021-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/dl-01-pre/</loc>
     <lastmod>2021-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/leetcode-01/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-leetcode-01/</loc>
     <lastmod>2021-09-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/sql/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-sql/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/interview/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-interview/</loc>
     <lastmod>2021-07-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/dl-00-pytorch/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ixiaopan.github.io/blog/post/sort/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc-sort/</loc>
     <lastmod>2021-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ixiaopan.github.io/blog/post/nlp-02-text-representation/</loc>

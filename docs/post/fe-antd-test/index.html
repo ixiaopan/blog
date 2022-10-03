@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>记antd构建后modal丢失transition</title>
+<title>Antd modal has no transition in test env</title>
 
 
 
@@ -30,8 +30,8 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="记antd构建后modal丢失transition"/>
-<meta name="twitter:description" content="记录一下 antd modal 在测试环境打开关闭没有 transition 的 bug，说来也是我手欠，改构建改的。"/>
+<meta name="twitter:title" content="Antd modal has no transition in test env"/>
+<meta name="twitter:description" content="记录一下 antd modal 在测试环境打开关闭 modal 组件没有 transition 过渡效果的 bug，说来也是我手欠，改构建改的。"/>
 
 
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="post-heading">
           
             <h1>
-              记antd构建后modal丢失transition
+              Antd modal has no transition in test env
             </h1>
           
           
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>记录一下 <code>antd modal</code> 在测试环境打开关闭没有 <code>transition</code> 的 bug，说来也是我手欠，改构建改的。</p>
+  <p>记录一下 <code>antd modal</code> 在测试环境打开关闭 <code>modal</code> 组件没有 <code>transition</code> 过渡效果的 bug，说来也是我手欠，改构建改的。</p>
 <h2 id="bug-复现">bug 复现</h2>
 <p>业务中使用了 <code>ant-design-vue</code>，在使用 <code>modal</code> 这个组件的时候，发现测试环境 <code>modal</code> 的打开关闭没有 <code>transition</code> 动画，但是本地是有的；</p>
 <h2 id="排查原因">排查原因</h2>

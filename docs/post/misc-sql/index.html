@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Daily SQL Practice</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Daily SQL Practice"/>
+<meta name="twitter:description" content="Practice! Practice! Practice!"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/search/" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+    
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Daily SQL Practice
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 30, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>Practice! Practice! Practice!</p>
+<h2 id="order-of-execution">Order of execution</h2>
+<ul>
+<li>from</li>
+<li>where</li>
+<li>group by</li>
+<li>having</li>
+<li>select</li>
+<li>order by</li>
+<li>limit</li>
+</ul>
+<h2 id="leetcode">Leetcode</h2>
+<p>Q1 <a href="https://leetcode.com/problems/delete-duplicate-emails/">Delete Duplicated Emails</a></p>
+<blockquote>
+<p><strong>delete</strong> all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its <em>smallest</em> <strong>Id</strong>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- query all duplicated emails
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> email
+<span style="color:#66d9ef">FROM</span> Person 
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> email
+<span style="color:#66d9ef">HAVING</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e">-- solution 1: 1414ms
+</span><span style="color:#75715e">-- got an error: You can&#39;t specify target table &#39;Person&#39; for update in FROM clause
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> Person
+<span style="color:#66d9ef">WHERE</span> Id <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Id) uid <span style="color:#66d9ef">FROM</span> Person <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> Email)
+
+<span style="color:#75715e">-- fixed - delete duplicated emails
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> Person
+<span style="color:#66d9ef">WHERE</span> Id <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> 
+(<span style="color:#66d9ef">SELECT</span> a.uid <span style="color:#66d9ef">FROM</span> 
+    (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Id) uid <span style="color:#66d9ef">FROM</span> Person <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> Email) a
+)
+
+<span style="color:#75715e">-- solution 2: 1719ms
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> p1
+<span style="color:#66d9ef">FROM</span> Person p1, Person p2
+<span style="color:#66d9ef">WHERE</span> p1.Email <span style="color:#f92672">=</span> p2.Email <span style="color:#66d9ef">and</span> p1.Id <span style="color:#f92672">&gt;</span> p2.id
+</code></pre></div><p>What I learned</p>
+<ul>
+<li>
+<p><code>You can't specify target table 'Person' for update in FROM clause</code></p>
+<blockquote>
+<p>You cannot update a table and select directly from the same table in a subquery. You can work around this by using a multi-table update in which one of the tables is derived from the table that you actually wish to update, and referring to the derived table using an alias.  <a href="https://dev.mysql.com/doc/refman/8.0/en/update.html">More detail</a></p>
+</blockquote>
+</li>
+<li>
+<p><code>DELETE</code> statement can specify which table to delete from combining <code>JOIN</code> <a href="https://sodocumentation.net/mysql/topic/1487/delete">see here</a></p>
+</li>
+</ul>
+<p>Q2 <a href="https://leetcode.com/problems/rising-temperature/">Rising Temperature</a></p>
+<blockquote>
+<p>find all dates' <code>id</code> with higher temperature compared to its previous dates (yesterday).</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> w2.id
+
+<span style="color:#66d9ef">FROM</span> Weather w1,Weather w2
+
+<span style="color:#66d9ef">WHERE</span> DATEDIFF(w2.recordDate, w1.recordDate) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> w2.Temperature <span style="color:#f92672">&gt;</span> w1.Temperature
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_datediff">MySQL - DATEDIFF</a></li>
+</ul>
+<h2 id="hackerrank">Hackerrank</h2>
+<p>Q1 <a href="https://www.hackerrank.com/challenges/weather-observation-station-5/problem">weather-observation-station-5</a></p>
+<blockquote>
+<p>Query the two cities in <strong>STATION</strong> with the shortest and longest <em>CITY</em> names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">/*
+</span><span style="color:#75715e">CITY: DEF, ABC, PQRS and WXY.
+</span><span style="color:#75715e">outputs:
+</span><span style="color:#75715e">	ABC 3
+</span><span style="color:#75715e">	PQRS 4
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">-- v1
+</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">SELECT</span> city, <span style="color:#66d9ef">CHAR_LENGTH</span>(city)
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">CHAR_LENGTH</span>(city), city
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#66d9ef">UNION</span>
+
+(<span style="color:#66d9ef">SELECT</span> city, <span style="color:#66d9ef">CHAR_LENGTH</span>(city)
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">CHAR_LENGTH</span>(city) <span style="color:#66d9ef">desc</span>, city
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e">-- v2
+</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">SELECT</span> city, <span style="color:#66d9ef">CHAR_LENGTH</span>(city)
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">where</span> <span style="color:#66d9ef">CHAR_LENGTH</span>(city) <span style="color:#f92672">=</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MAX</span>(<span style="color:#66d9ef">CHAR_LENGTH</span>(city)) <span style="color:#66d9ef">from</span> station)
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> city <span style="color:#66d9ef">asc</span>
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#66d9ef">UNION</span>
+
+(<span style="color:#66d9ef">SELECT</span> city, <span style="color:#66d9ef">CHAR_LENGTH</span>(city)
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">where</span> <span style="color:#66d9ef">CHAR_LENGTH</span>(city) <span style="color:#f92672">=</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(<span style="color:#66d9ef">CHAR_LENGTH</span>(city)) <span style="color:#66d9ef">from</span> station)
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> city <span style="color:#66d9ef">asc</span>
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>);
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>UNION</code>
+<ul>
+<li>combine multiple result sets, the selected columns must have the same size, data type, and order</li>
+<li>removes one duplicate row; To retain the duplicate row, use <code>UNION ALL</code></li>
+</ul>
+</li>
+<li><code>CHAR_LENGTH()</code>
+<ul>
+<li>return the length of a string, measured in characters</li>
+</ul>
+</li>
+<li><code>MIN(expr)/MAX(expr)</code>
+<ul>
+<li>return the maximum/minimum value of <code>expr</code></li>
+</ul>
+</li>
+</ul>
+<p>Q2 <a href="https://www.hackerrank.com/challenges/weather-observation-station-6/problem">weather-observation-station-6</a></p>
+<blockquote>
+<p>Query the list of <em>CITY</em> names starting with vowels (i.e., <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, or <code>u</code>) from <strong>STATION</strong>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">-- v1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">distinct</span> city
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">where</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;a%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;e%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;i%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;o%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;u%&#39;</span>
+<span style="color:#66d9ef">where</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%a%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%e%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%i%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%o%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%u%&#39;</span>
+
+
+<span style="color:#75715e">-- v2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">distinct</span> city
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">where</span> city REGEXP <span style="color:#e6db74">&#39;^[aeiou]&#39;</span> <span style="color:#75715e">-- start with vowels
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">where</span> city REGEXP <span style="color:#e6db74">&#39;a|e|i|o|u&#39;</span> <span style="color:#75715e">-- contains vowels
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">where</span> city <span style="color:#66d9ef">NOT</span> REGEXP <span style="color:#e6db74">&#39;^[aeiou]&#39;</span> <span style="color:#75715e">-- not start with vowels
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">where</span> city REGEXP <span style="color:#e6db74">&#39;^[aeiou].*[aeiou]$&#39;</span> <span style="color:#75715e">-- start&amp;end with vowels
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">-- v3
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">distinct</span> city
+<span style="color:#66d9ef">from</span> station
+<span style="color:#66d9ef">where</span> <span style="color:#66d9ef">LEFT</span>(city, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>) <span style="color:#75715e">-- start with vowels
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">where</span> <span style="color:#66d9ef">LEFT</span>(city, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>) <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">RIGHT</span>(city, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span> <span style="color:#75715e">-- start&amp;end with vowels
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>REG_EXP</code> / <code>NOT REG_EXP</code>
+<ul>
+<li>match substring</li>
+</ul>
+</li>
+<li><code>LEFT(str, n)</code>
+<ul>
+<li>return the leftmost <code>n</code> characters</li>
+</ul>
+</li>
+</ul>
+<p>Q3 <a href="https://www.hackerrank.com/challenges/the-blunder/problem">The Blunder</a></p>
+<blockquote>
+<p>Write a query calculating the amount of error (i.e.: average monthly salaries), and round it up to the next integer.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> CEIL(<span style="color:#66d9ef">AVG</span>(o.salary) <span style="color:#f92672">-</span> <span style="color:#66d9ef">AVG</span>(t.salary_wo_zero))
+<span style="color:#66d9ef">from</span> 
+    (<span style="color:#66d9ef">SELECT</span> id, <span style="color:#66d9ef">REPLACE</span>(salary, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#66d9ef">as</span> salary_wo_zero <span style="color:#66d9ef">from</span> employees) t
+<span style="color:#66d9ef">JOIN</span> employees <span style="color:#66d9ef">as</span> o <span style="color:#66d9ef">on</span> o.id <span style="color:#f92672">=</span> t.id
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>Every derived table must have its own alias</code></li>
+<li><code>REPLACE()</code>
+<ul>
+<li>return the string with all occurences of <code>from_str</code> replaced by <code>to_str</code></li>
+</ul>
+</li>
+<li>Specify table name when two tables have the same columns</li>
+</ul>
+<p>Q4 <a href="https://www.hackerrank.com/challenges/the-report/problem?isFullScreen=true&amp;h_r=next-challenge&amp;h_v=zen&amp;h_r=next-challenge&amp;h_v=zen">The Score Report</a></p>
+<blockquote>
+<p>Generate a report containing three columns: <em>Name</em>, <em>Grade</em> and <em>Mark</em>.</p>
+<ul>
+<li>in descending order by grade</li>
+<li>oder by name alphabetically if there is more than one students with the same grade</li>
+<li>Print &ldquo;NULL&rdquo; as the name if the grade is less than 8 (1-7)</li>
+<li>oder by marks if there is more than one students with the same grade (1-7)</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> 
+<span style="color:#66d9ef">CASE</span> 
+    <span style="color:#66d9ef">WHEN</span> grade <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">7</span> <span style="color:#66d9ef">THEN</span> name
+    <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span>
+<span style="color:#66d9ef">END</span> name,
+grade, marks
+<span style="color:#66d9ef">FROM</span> Students <span style="color:#66d9ef">JOIN</span> Grades
+<span style="color:#66d9ef">WHERE</span> Marks <span style="color:#66d9ef">between</span> Min_Mark <span style="color:#66d9ef">and</span> Max_Mark
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> grade <span style="color:#66d9ef">desc</span>, name, marks
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>join/inner join</code> without <code>on</code> is the same as <code>cross join</code></li>
+<li><code>on</code> is required for <code>left/right join</code> but optional for <code>join/inner join</code></li>
+<li><code>BETWEEN</code>
+<ul>
+<li>used in <code>where</code> clause to find values within a range</li>
+</ul>
+</li>
+<li><code>CASE WHEN</code>
+<ul>
+<li>evaluate a list of conditions and return one of the possible results</li>
+</ul>
+</li>
+</ul>
+<p>Q5 <a href="https://www.hackerrank.com/challenges/earnings-of-employees/problem?isFullScreen=true">earnings-of-employees</a></p>
+<blockquote>
+<p>find the <em>maximum total earnings</em> for all employees as well as the total number of employees who have maximum total earnings.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> months <span style="color:#f92672">*</span> salary <span style="color:#66d9ef">as</span> earnings, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>)
+<span style="color:#66d9ef">from</span> employee
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">desc</span>
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>What I learned</p>
+<ul>
+<li>In MySQL, you can use the column alias in the <code>group by/order by/having</code> to refer to that column</li>
+</ul>
+<p>Q6 <a href="https://www.hackerrank.com/challenges/draw-the-triangle-1/problem?isFullScreen=true">draw-the-triangle</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- * * * * * 
+</span><span style="color:#75715e">--- * * * * 
+</span><span style="color:#75715e">--- * * * 
+</span><span style="color:#75715e">--- * * 
+</span><span style="color:#75715e">--- *
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> Test(id integer, title varchar(<span style="color:#ae81ff">10</span>));
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> Test(id, title) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>);
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=@</span>NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">FROM</span> Test, (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>) t ;
+
+<span style="color:#75715e">--- id	title	@NUMBER:=5 @NUMBER:=@NUMBER-1
+</span><span style="color:#75715e">--- 1	  Hello	  5          4
+</span><span style="color:#75715e">--- 2	  Hello	  5          3
+</span><span style="color:#75715e">--- 3	  Hello	  5          2
+</span><span style="color:#75715e">--- 4	  Hello	  5          1
+</span><span style="color:#75715e">--- 5	  Hello	  5          0
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">--- solution 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">FROM</span> Test
+<span style="color:#66d9ef">WHERE</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>;
+
+
+<span style="color:#75715e">--- id	title	REPEAT(&#39;* &#39;, @number := @number - 1)
+</span><span style="color:#75715e">--- 1	Hello	* *
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">--- solution 2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>, REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>counter :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>counter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">FROM</span> Test
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e">--- solution 3
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> REPEAT(<span style="color:#e6db74">&#39;* &#39;</span>, <span style="color:#f92672">@</span>NUMBER :<span style="color:#f92672">=</span> <span style="color:#f92672">@</span>NUMBER <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) 
+<span style="color:#66d9ef">FROM</span> 
+  information_schema.tables, 
+  (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@</span>NUMBER:<span style="color:#f92672">=</span><span style="color:#ae81ff">21</span>) t 
+<span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">20</span>;
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>SELECT</code> a number or string without <code>FROM</code> clause, the query will return one row with that value</li>
+<li><code>SELECT</code> a number or string from a table, the query will return that value for every row in the table</li>
+<li><code>:=</code> is an assignment operator</li>
+<li><code>SET @var = val</code> declar a variable</li>
+</ul>
+<p>Q7 <a href="https://www.hackerrank.com/challenges/weather-observation-station-20">median</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> ROUND(<span style="color:#66d9ef">AVG</span>(lat_n), <span style="color:#ae81ff">4</span>)
+<span style="color:#66d9ef">from</span> (
+    <span style="color:#66d9ef">SELECT</span> 
+      lat_n, 
+      ROW_NUMBER() OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> lat_n) <span style="color:#66d9ef">AS</span> row_num,
+      <span style="color:#66d9ef">COUNT</span>(lat_n) OVER() <span style="color:#66d9ef">AS</span> t_row_num
+    <span style="color:#66d9ef">from</span> station
+) t2
+<span style="color:#66d9ef">WHERE</span> row_num <span style="color:#66d9ef">in</span> (FLOOR((t_row_num<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), CEIL((t_row_num<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>median = ( floor(N/2) + ceil(N/2) ) / 2</code> where <code>N</code> is a <code>0-based</code> counter</li>
+<li><code>OVER()</code>
+<ul>
+<li><code>ROW_NUMBER()</code> to obtain the positional index for each row</li>
+<li><code>COUNT()</code> to calculate total number of a subset</li>
+</ul>
+</li>
+</ul>
+<p>Q8 <a href="https://www.hackerrank.com/challenges/symmetric-pairs/problem">symmetric-pairs</a></p>
+<blockquote>
+<p>Two pairs <em>(X1, Y1)</em> and <em>(X2, Y2)</em> are said to be <em>symmetric</em> <em>pairs</em> if <em>X1 = Y2</em> and <em>X2 = Y1</em>.</p>
+<p>Write a query to output all such <em>symmetric</em> <em>pairs</em> in ascending order by the value of <em>X</em>. List the rows such that <em>X1 ≤ Y1</em>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">
+<span style="color:#66d9ef">SELECT</span> f1.X, f1.Y
+<span style="color:#66d9ef">from</span> Functions f1
+<span style="color:#66d9ef">JOIN</span> Functions f2 <span style="color:#66d9ef">on</span> f1.Y <span style="color:#f92672">=</span> f2.X <span style="color:#66d9ef">and</span> f1.X <span style="color:#f92672">=</span> f2.Y
+
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> f1.X, f1.Y
+<span style="color:#66d9ef">HAVING</span> <span style="color:#66d9ef">COUNT</span>(f1.X) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">or</span> f1.X <span style="color:#f92672">&lt;</span> f1.Y
+
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> f1.X
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>HAVING COUNT(f1.X) &gt; 1</code> to filter own mirrored pairs - there is only one row <code>(2, 2)</code>, which should be excluded</li>
+<li><code>f1.X &lt; f1.Y</code> to filter duplicated pairs - <code>(2, 5), (5, 2)</code>, then <code>(5, 2)</code> should be discarded</li>
+</ul>
+<p>Q9 <a href="https://www.hackerrank.com/challenges/occupations/problem">Pivot</a></p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Pivot_table">Pivot</a> the <em>Occupation</em> column in <strong>OCCUPATIONS</strong> so that each <em>Name</em> is sorted alphabetically and displayed underneath its corresponding <em>Occupation</em>. The output column headers should be <em>Doctor</em>, <em>Professor</em>, <em>Singer</em>, and <em>Actor</em>, respectively.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- Doctor,  Professor  Singer, Actor
+</span><span style="color:#75715e">--- Jenny    Ashley     Meera  Jane
+</span><span style="color:#75715e">--- Samantha Christeen  Priya  Julia
+</span><span style="color:#75715e">--- NULL     Ketty      NULL   Maria
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(Doctor), <span style="color:#66d9ef">MIN</span>(Professor), <span style="color:#66d9ef">MIN</span>(Singer), <span style="color:#66d9ef">MIN</span>(Actor)
+<span style="color:#66d9ef">FROM</span> (<span style="color:#66d9ef">SELECT</span> Name, Occupation,
+       RANK() OVER(PARTITION <span style="color:#66d9ef">BY</span> Occupation <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> Name) <span style="color:#66d9ef">AS</span> row_num,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Doctor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Doctor,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Professor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Professor,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Singer&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Singer,
+       <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> Occupation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Actor&#39;</span> <span style="color:#66d9ef">THEN</span> Name <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> Actor
+      <span style="color:#66d9ef">FROM</span> OCCUPATIONS) t
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> row_num
+
+</code></pre></div><p>What I learned</p>
+<ul>
+<li><code>MIN(expr)</code> can be used with numeric, <strong>char</strong>, datetime datatypes, ignoring <code>NULL</code>
+<ul>
+<li>e.g. <code>MIN(['AA', 'AB', 'AC']) = 'AA'</code></li>
+</ul>
+</li>
+<li>The idea is to
+<ul>
+<li>construct a one-hot encoding table</li>
+<li>group by occupation and rank by name within each group</li>
+<li>aggregate each row by grouping by within-group row number using <code>MIN(str)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/16470942/how-to-use-mysql-join-without-on-condition/16471286">join without on</a></li>
+<li><a href="https://www.mysqltutorial.org/mysql-alias/#:~:text=In%20MySQL%2C%20you%20can%20use,to%20refer%20to%20the%20column.&amp;text=The%20following%20statement%20selects%20the,GROUP%20BY%20and%20HAVING%20clauses.&amp;text=Notice%20that%20you%20cannot%20use%20a%20column%20alias%20in%20the%20WHERE%20clause.">SQL Alias</a></li>
+<li><a href="https://stackoverflow.com/questions/3841295/sql-using-alias-in-group-by">sql-using-alias-in-group-by</a></li>
+<li><a href="https://nifannn.github.io/2017/10/24/SQL-Notes-Hackerrank-Draw-The-Triangle-1/">SQL-Hackerrank-Draw-the-triangle</a></li>
+<li><a href="https://discuss.codecademy.com/t/could-someone-explain-me-why-this-code-creates-automatic-20-lines/558795">SQL :=</a></li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#order-of-execution">Order of execution</a></li>
+    <li><a href="#leetcode">Leetcode</a></li>
+    <li><a href="#hackerrank">Hackerrank</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2022
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

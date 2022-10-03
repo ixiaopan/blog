@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -209,13 +209,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>$$
 \overline x = \frac{\sum_i^nx_i}{n}
 $$</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># vanilla python</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># vanilla python</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mean</span>(x):
 	<span style="color:#66d9ef">return</span> sum(x)<span style="color:#f92672">/</span>len(x)
 </code></pre></div><h3 id="median">Median</h3>
 <p>Though mean is widely used, it&rsquo;s sensitive to outliers.  Suppose you have a set of data <code>1,2,3,4,5,6,100</code>, after some calculations, you find that the mean is <code>17.28</code>. However, it seems not convincing as most of the data values are less than <code>10</code> except for one extreme value <code>100</code>.</p>
 <p>To get the median, firstly we need to sort the data in ascending order and then find the middle number that separates the data into two groups of the same size. In this example, the median is <code>4</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">median</span>(x):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">median</span>(x):
   mid_p <span style="color:#f92672">=</span> len(x) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
   <span style="color:#66d9ef">if</span> len(x) <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#75715e"># even</span>
     <span style="color:#66d9ef">return</span> (x[mid_p] <span style="color:#f92672">+</span> x[mid_p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
@@ -223,7 +223,7 @@ $$</p>
     <span style="color:#66d9ef">return</span> x[mid_p]
 </code></pre></div><h3 id="mode">Mode</h3>
 <p>Mode is the most frequent value. There could be one, two or more data values with the same frequency, and that frequency is the largest. For instance,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> Counter
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> Counter
 a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>]
 Counter(a)<span style="color:#f92672">.</span>most_common()
 <span style="color:#75715e"># [(2, 5), (3, 5), (4, 3), (6, 3), (1, 1), (5, 1), (7, 1), (10, 1)]</span>
@@ -260,7 +260,7 @@ $$</p>
 s^2 = \frac{1}{n-1} \sum_i^n (x_i - \overline x)^2
 $$</p>
 <p>However, the squared value is a bit hard to interpret. For instance, below are 15 records of fish size measured in kilogram, and the variance is <code>30.97</code>.  It means that if we randomly catch a fish, its weight would be <code>30.97 squared kilograms</code> far away from the average weight. Emm&hellip;, a squared kilogram is an odd unit.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.6</span>, <span style="color:#ae81ff">2.9</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.9</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">6.3</span>, <span style="color:#ae81ff">8.2</span>, <span style="color:#ae81ff">12.8</span>, <span style="color:#ae81ff">23.5</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.4</span>, <span style="color:#ae81ff">2.6</span>, <span style="color:#ae81ff">2.9</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.2</span>, <span style="color:#ae81ff">3.9</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">6.3</span>, <span style="color:#ae81ff">8.2</span>, <span style="color:#ae81ff">12.8</span>, <span style="color:#ae81ff">23.5</span>
 </code></pre></div><h3 id="standard-deviation">Standard Deviation</h3>
 <p>It&rsquo;s simple to solve this problem by taking the square root of the variance, which is the standard deviation.  The standard deviation in the previous example is <code>5.56kg</code>, which makes more sense.</p>
 <p>$$
