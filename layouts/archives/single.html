@@ -33,7 +33,9 @@
             <li class="cate-title">{{ $key }}</li>
             <ul class="cate-area">
                 {{ range $taxonomy.Pages }}
-                <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}">{{ .LinkTitle }}</a></li>
+                <li hugo-nav="{{ .RelPermalink}}">
+                  <a href="{{ .Permalink}}"> {{ .LinkTitle }}</a>
+                </li>
                 {{ end }}
             </ul>
             {{ end }}

@@ -203,7 +203,7 @@ git br | grep 'pattern' | xargs git branch -D
 
 - [powerthesaurus](https://www.powerthesaurus.org/)
 
-- [quillbot (Strongly Recommended)](https://quillbot.com/)
+- [quillbot (Strongly Recommend)](https://quillbot.com/)
 
 - [Ginger Grammar Checker](https://www.gingersoftware.com/grammarcheck#.XRHyeZMzbOQ)
 
@@ -226,6 +226,7 @@ git br | grep 'pattern' | xargs git branch -D
 
 ### Advanced
 
+- [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly)
 - [Webgl 2](https://webgl2fundamentals.org/webgl/lessons/)
 - [Web Audio](https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/toc.html)
 
@@ -271,8 +272,3 @@ git br | grep 'pattern' | xargs git branch -D
 ## Complexity
 
 - [introduction-to-complexity](https://www.complexityexplorer.org/courses/97-introduction-to-complexity-2019/segments/8352?summary)
-
-
-## Reference
-
-- [A Guide to the 20 Best VSCode Extensions for Frontend Developers](https://javascript.plainenglish.io/a-guide-to-the-20-best-vscode-extensions-for-frontend-developers-f75a5d716091)
