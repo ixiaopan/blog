@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
   <p>In this post, we will learn how to build your own UI component library based on monorepo.</p>
 <p>First of all, let&rsquo;s have a peek at the finished project structure.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">vue</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ui</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">vue</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ui</span>
   <span style="color:#f92672">-</span> <span style="color:#a6e22e">docs</span>
   <span style="color:#f92672">-</span> <span style="color:#a6e22e">play</span>
   <span style="color:#f92672">-</span> <span style="color:#a6e22e">packages</span>
@@ -203,36 +203,36 @@ document.addEventListener("DOMContentLoaded", function() {
     <span style="color:#f92672">-</span> <span style="color:#a6e22e">utils</span>
 </code></pre></div><h2 id="initialize-a-project">Initialize a project</h2>
 <p>First, we install the package manager <code>pnpm</code> globally.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">pnpm</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">g</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">pnpm</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">g</span>
 </code></pre></div><p>Then we create an empty project and initialize it. In this tutorial, the project is called <code>ui-demo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">ui</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">ui</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
 
 <span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">ui</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
 <span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">init</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">y</span>
 </code></pre></div><p>Next, install <code>vue &amp; typescript</code> using <code>pnpm</code>, and then initialize the ts config file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">vue</span><span style="color:#66d9ef">@next</span> <span style="color:#a6e22e">typescript</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">D</span> 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">vue</span><span style="color:#66d9ef">@next</span> <span style="color:#a6e22e">typescript</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">D</span> 
 
 <span style="color:#a6e22e">npx</span> <span style="color:#a6e22e">tsc</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">init</span>
 </code></pre></div><p>Generate the <code>.npmrc</code> and <code>pnpm-workspace.yaml</code> files under the root of <code>ui-demo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">touch</span> .<span style="color:#a6e22e">npmrc</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">touch</span> .<span style="color:#a6e22e">npmrc</span>
 
 <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">content</span>
 <span style="color:#a6e22e">shamefully</span><span style="color:#f92672">-</span><span style="color:#a6e22e">hoist</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
 </code></pre></div><p>Since we are using <code>vue + ts</code>, a declare ts file <code>vue-shim.d.ts</code> should be included.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">typings</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">typings</span>
 
 <span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">typings</span>
 
 <span style="color:#a6e22e">touch</span> <span style="color:#a6e22e">vue</span><span style="color:#f92672">-</span><span style="color:#a6e22e">shim</span>.<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">ts</span>
 </code></pre></div><p>Then copy the following content into <code>vue-shim.d.ts</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#a6e22e">module</span> <span style="color:#e6db74">&#39;*.vue&#39;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#a6e22e">module</span> <span style="color:#e6db74">&#39;*.vue&#39;</span> {
   <span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">DefineComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
   <span style="color:#75715e">// eslint-disable-next-line @typescript-eslint/ban-types
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">DefineComponent</span><span style="color:#f92672">&lt;</span>{}, {}, <span style="color:#66d9ef">any</span><span style="color:#f92672">&gt;</span>
   <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">component</span>
 }
 </code></pre></div><p>Finally, declare the packages in pnpm config file <code>pnpm-workspace.yaml</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch pnpm-workspace.yaml
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch pnpm-workspace.yaml
 
 <span style="color:#75715e"># the content</span>
 packages:
@@ -246,20 +246,20 @@ packages:
 </p>
 <h2 id="playground">Playground</h2>
 <p>This is where you write components demos to debug components.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir play
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir play
 cd play
 
 pnpm init -y
 pnpm install vite @vitejs/plugin-vue -D
 </code></pre></div><h2 id="packages">Packages</h2>
 <p>By default, packages are stored in the folder <code>packages</code>. Of course, you can change the name. In this project, we create four packages, as shown below.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir packages
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir packages
 mkdir packages/components
 mkdir packages/themes
 mkdir packages/utils
 mkdir packages/wxp-ui
 </code></pre></div><p>Then, we initialize the first three package and add a scope for them by modifying the <code>name</code> field in the file <code>package.json</code>. Say, the scope name is <code>@wxp-ui</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd components <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd components <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 cd themes <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 cd utils <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 
@@ -267,7 +267,7 @@ components -&gt; @wxp-ui/components
 themes -&gt; @wxp-ui/themes
 utils -&gt; @wxp-ui/utils
 </code></pre></div><p>The last package is a bit special. In fact, it&rsquo;s the entry file that export all components.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
@@ -280,7 +280,7 @@ utils -&gt; @wxp-ui/utils
 
 <span style="color:#66d9ef">export</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
 </code></pre></div><p>The <code>package.json</code> for this package is served as the final <code>package.json</code> for the published package.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;@wxp/wxp-ui&#34;</span>,
   <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1-alpha.1&#34;</span>,
   <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Vue UI Components&#34;</span>,
@@ -307,19 +307,19 @@ utils -&gt; @wxp-ui/utils
 }
 
 </code></pre></div><p>Now, install these packages at the root directory.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install @wxp-ui/components -w
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install @wxp-ui/components -w
 pnpm install @wxp-ui/themes -w
 pnpm install @wxp-ui/utils -w
 pnpm install @wxp/wxp-ui -w
 </code></pre></div><p>You can see that the above dependencies has been added in <code>package.json</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
   <span style="color:#f92672">&#34;@wxp-ui/components&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
   <span style="color:#f92672">&#34;@wxp-ui/themes&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
   <span style="color:#f92672">&#34;@wxp-ui/utils&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
   <span style="color:#f92672">&#34;@wxp/wxp-ui&#34;</span>: <span style="color:#e6db74">&#34;workspace:^0.0.1-alpha.1&#34;</span>,
 }<span style="color:#960050;background-color:#1e0010">,</span>
 </code></pre></div><h2 id="components">Components</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">packages</span><span style="color:#f92672">/</span><span style="color:#a6e22e">components</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">packages</span><span style="color:#f92672">/</span><span style="color:#a6e22e">components</span>
   <span style="color:#f92672">-</span> <span style="color:#a6e22e">button</span>
     <span style="color:#f92672">-</span> <span style="color:#a6e22e">__docs__</span>
       <span style="color:#f92672">-</span> <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">md</span>
@@ -342,7 +342,7 @@ pnpm install @wxp/wxp-ui -w
 <p>register the component globally when using <code>app.use(vue-ui)</code></p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">withInstall</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@wxp/utils/with-install&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">withInstall</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@wxp/utils/with-install&#34;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Button</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./src/button.vue&#39;</span>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MButton</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">withInstall</span>(<span style="color:#a6e22e">Button</span>)
@@ -352,7 +352,7 @@ pnpm install @wxp/wxp-ui -w
 }
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">MButton</span>
 </code></pre></div><h3 id="src">src</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">a-button</span> <span style="color:#f92672">:type</span><span style="color:#e6db74">=&#34;type&#34;</span> <span style="color:#f92672">:size</span><span style="color:#e6db74">=&#34;size&#34;</span>&gt;
     &lt;<span style="color:#f92672">slot</span>&gt;&lt;/<span style="color:#f92672">slot</span>&gt;
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a-button&gt;</span>
@@ -371,15 +371,15 @@ pnpm install @wxp/wxp-ui -w
 </code></pre></div><h3 id="style">style</h3>
 <p>There are two ways of importing css.</p>
 <p><code>css.ts</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp/theme/base.css&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp/theme/base.css&#39;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp/theme/m-button.css&#39;</span>
 </code></pre></div><p><code>index.ts</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxpi/theme/src/base.less&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxpi/theme/src/base.less&#39;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp/theme/src/button.less&#39;</span>
 </code></pre></div><h2 id="debug">Debug</h2>
 <p>Generally, we can use <code>npm link</code> to install our package globally, and then we install it in other projects. However, if you are using other versions of this package, it could cause confusion. Thus, I don&rsquo;t recommend this method.</p>
 <p>The method I used is to write some bas scripts, like this,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">build</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">build</span>
 
 <span style="color:#a6e22e">cp</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">R</span> <span style="color:#a6e22e">dist</span><span style="color:#f92672">/</span><span style="color:#a6e22e">wxp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ui</span> ..<span style="color:#f92672">/</span><span style="color:#a6e22e">your</span><span style="color:#f92672">-</span><span style="color:#a6e22e">project</span><span style="color:#f92672">/</span><span style="color:#a6e22e">node_modules</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">wxp</span><span style="color:#f92672">/</span>
 
@@ -393,11 +393,11 @@ pnpm install @wxp/wxp-ui -w
 <p>Of course, you can improve this script further by watching file changes and restarting server automatically.</p>
 <h2 id="build">Build</h2>
 <h3 id="themes">Themes</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
 </code></pre></div><h3 id="esm">ESM</h3>
 <h3 id="docs">Docs</h3>
 <h2 id="usage">Usage</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># create a new component</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># create a new component</span>
 pnpm run create
 
 <span style="color:#75715e"># Build the ui components</span>

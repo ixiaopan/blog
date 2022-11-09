@@ -23,8 +23,6 @@ Attention: it's NOT the 'pooling' in Deep Learning; It's a common frontend techn
 
 ## WebSocket
 
-Well, I have no practical experience on it, so let's skip it.
-
 
 ## Reference
 

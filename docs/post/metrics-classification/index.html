@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -276,11 +276,11 @@ It is an effective metric in the following cases:</p>
 <li>A smaller TPR means higher the number of FN than TP</li>
 </ul>
 <p>Thus, the ROC curve depicts the trade-off between Type-I and Type-II Error.  Below are code snippets of the implementation of ROC, and the plot is shown in Figure 1.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ROC</span>(yp1, yp2):
     pmin <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>min(np<span style="color:#f92672">.</span>array( (np<span style="color:#f92672">.</span>min(yp1), np<span style="color:#f92672">.</span>min(yp2)) ))
     pmax <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(np<span style="color:#f92672">.</span>array( (np<span style="color:#f92672">.</span>max(yp1), np<span style="color:#f92672">.</span>max(yp2)) ))
-    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;min: </span><span style="color:#e6db74">{</span>pmin<span style="color:#e6db74">}</span><span style="color:#e6db74">, max:</span><span style="color:#e6db74">{</span>pmax<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;min: {pmin}, max:{pmax}&#39;</span>)
     
     iters <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
     thRange <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(pmin, pmax, iters)
@@ -307,7 +307,7 @@ ax<span style="color:#f92672">.</span>plot(roc[:,<span style="color:#ae81ff">1</
 ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;False Positive&#39;</span>) 
 ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;True Positive&#39;</span>) 
 <span style="color:#75715e"># ax.set_title(f&#39;ROC curve, AUC = {auc:.2f}&#39; )</span>
-ax<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+ax<span style="color:#f92672">.</span>grid(True)
 
 </code></pre></div><p>
   <figure>

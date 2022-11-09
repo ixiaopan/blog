@@ -14,6 +14,14 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>text ellipsis</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</link>
+			<pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
 			<title>Some thoughts after going back to work</title>
 			<link>https://ixiaopan.github.io/blog/post/misc-october/</link>
 			<pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
@@ -36,38 +44,6 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
  前者 『由浅入深的学习和研究能力』，要求我们
  对自己的领域，有深入的专业能力，理解大多人看不懂的东西，提高深度 对不熟悉的领域，也能快速领悟其要领，拓展广度  后者，『由深返浅的表述和应用能力』
  身为工程师，要有变现技术的能力 『表述』要求我们可以用通俗的言语把技术难点表达出来，因为『凡是你说不清的，就说明你并未真正的理解』，这一点很多人欠缺  这也是我想写博客的原因，现在这个信息过载的社会，人人们很难静下来读完一页书，写下一篇文章，长久如此，就会懒得思考。日常工作更多是重复的劳动，很多时候，急匆匆的应付完工作，实际上并未真正的理解。写作会让人变得安静，集中精力去消化那些似懂非懂的知识点，进而形成体系。</description>
-		</item>
-      	
-		<item>
-			<title>[draft] NLE - Layer</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-nle-layer/</link>
-			<pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-nle-layer/</guid>
-			<description>&lt;p&gt;A brief overview on Non-Linear Video Editor.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>[draft] NLE - WebAudio</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-nle-web-audio/</link>
-			<pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-nle-web-audio/</guid>
-			<description>WebAudio</description>
-		</item>
-      	
-		<item>
-			<title>[draft] Non-Linear Video Editor(NLE) 101</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-nle/</link>
-			<pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-nle/</guid>
-			<description>&lt;p&gt;A brief overview on Non-Linear Video Editor.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>[draft] Upload Manager</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-upload/</link>
-			<pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-upload/</guid>
-			<description></description>
 		</item>
       	
 		<item>
@@ -95,19 +71,43 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 		</item>
       	
 		<item>
-			<title>[draft] A Text Labelling Component</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-text-label/</link>
-			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-text-label/</guid>
-			<description>&lt;p&gt;Develop a vue-based Text Labelling Component.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
 			<title>A message component</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-message/</link>
 			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-message/</guid>
 			<description>&lt;p&gt;Develop a message component using vue.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>A Cascader Component</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-cascader/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-cascader/</guid>
+			<description>&lt;p&gt;实现一个业务定制的级联选择器&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Common directives/plugins in Vue</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-directives/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-directives/</guid>
+			<description>&lt;p&gt;Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Replace antd theme</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-antd-theme/</link>
+			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-antd-theme/</guid>
+			<description>&lt;p&gt;没有整啥插件，使用 &lt;code&gt;less variable&lt;/code&gt; 覆盖即可&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>Composition bug in Safari</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-composition/</link>
+			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-composition/</guid>
+			<description>&lt;p&gt;中文输入法 composition event 在 chrome 和 safari 表现相反&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
