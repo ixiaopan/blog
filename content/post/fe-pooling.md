@@ -10,8 +10,6 @@ series: ["frontend"]
 katex: true
 ---
 
-Attention: it's NOT the 'pooling' in Deep Learning; It's a common frontend technique to build a real-time(though it's not) connection with server.
-
 <!--more-->
 
 

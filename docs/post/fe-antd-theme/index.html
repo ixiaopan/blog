@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -196,19 +196,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="background">Background</h2>
 <p>现在大多数中后台开发都是基于第三方UI(如 antd, element-ui)，通常业务也会要求自己的主题定制，这就涉及到所谓的 <code>换肤</code>。</p>
 <p>庆幸的是，这些 <code>UI</code> 提供了这样的功能，拿 <code>antd</code> 来说，<a href="https://github.com/vueComponent/ant-design-vue/blob/98755f332c3c77dea29a0dfcb54615abf4c2ec45/components/style/themes/default.less">themes/default.less</a> 包含了其使用的全部颜色变量，业务只需要覆盖即可。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">//</span> <span style="color:#f92672">--------</span> <span style="color:#f92672">Colors</span> <span style="color:#f92672">-----------</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">//</span> <span style="color:#f92672">--------</span> <span style="color:#f92672">Colors</span> <span style="color:#f92672">-----------</span>
 @<span style="color:#66d9ef">primary-color</span><span style="color:#f92672">:</span> @<span style="color:#66d9ef">blue-6</span>;
 
 <span style="color:#f92672">//</span> <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">Warning</span>
 @<span style="color:#66d9ef">warning-color</span><span style="color:#f92672">:</span> @<span style="color:#66d9ef">gold-6</span>;
 </code></pre></div><h2 id="why">Why</h2>
 <p>颜色定制的原理，其实是 <code>less</code> 提供了对 <code>less variables</code> 的修改，参考 <a href="https://lesscss.org/usage/#using-less-in-the-browser-modify-variables">文档</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">less</span>.<span style="color:#a6e22e">modifyVars</span>({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">less</span>.<span style="color:#a6e22e">modifyVars</span>({
   <span style="color:#e6db74">&#39;@buttonFace&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#5B83AD&#39;</span>,
   <span style="color:#e6db74">&#39;@buttonText&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#D9EEF2&#39;</span>
 });
 </code></pre></div><p>所以只需要在构建里加一个自动 <code>modifyVars</code>，注入对应的变量即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
   <span style="color:#a6e22e">preprocessorOptions</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">less</span><span style="color:#f92672">:</span> {
       <span style="color:#a6e22e">modifyVars</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">generateModifyVars</span>(),
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>False by default starting in v3.0.0. Enables evaluation of JavaScript inline in .less files. This created a security problem for some developers who didn&rsquo;t expect user input for style sheets to have executable code.</p>
 </blockquote>
 <p>理论上来说，修改 <code>less variable</code> 不需要这个参数，但是因为我们依赖的是 <code>antd</code> ，这个 <code>UI</code> 定义了一个基于 <code>less</code> 变量的调色板，这里有一堆 <code>js function</code>，比如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">.<span style="color:#a6e22e">colorPaletteMixin</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">.<span style="color:#a6e22e">colorPaletteMixin</span>() {
 <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">functions</span><span style="color:#f92672">:</span> <span style="color:#f92672">~</span><span style="color:#e6db74">`(function() {
 </span><span style="color:#e6db74">  var getHue = function(hsv, i, isLight) {
 </span><span style="color:#e6db74">  };
@@ -251,11 +251,11 @@ document.addEventListener("DOMContentLoaded", function() {
 </span></code></pre></div><p>这就导致我们不得不开启这个选项</p>
 <h3 id="q2-modifyvars">Q2 modifyVars</h3>
 <p>还有 <code>globalVars</code> ，区别就是一个是在文件头部，一个在文件最后注入。当然，如果你在文件头部注入，业务恰好有同名变量，也是会被覆盖，这个要注意，所以我们采用 <code>modifyVars</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lessc --global-var<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color1=red&#34;</span>	<span style="color:#f92672">{</span> globalVars: <span style="color:#f92672">{</span> color1: <span style="color:#e6db74">&#39;red&#39;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lessc --global-var<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color1=red&#34;</span>	<span style="color:#f92672">{</span> globalVars: <span style="color:#f92672">{</span> color1: <span style="color:#e6db74">&#39;red&#39;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
 
 lessc --modify-var<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color1=red&#34;</span>	<span style="color:#f92672">{</span> modifyVars: <span style="color:#f92672">{</span> color1: <span style="color:#e6db74">&#39;red&#39;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
 </code></pre></div><p>除了这两个，我们还可以注入 <code>banner</code>，看一下<a href="https://github.com/less/less.js/blob/v4.1.2/packages/less/src/less/parser/parser.js#L159">源码</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">parse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">additionalData</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">parse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">additionalData</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalVars</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">modifyVars</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">preText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
@@ -269,7 +269,7 @@ lessc --modify-var<span style="color:#f92672">=</span><span style="color:#e6db74
 }
 </code></pre></div><h3 id="q3-hack">Q3 hack</h3>
 <p>这个其实你可以用任意的名字，不信看 <a href="https://github.com/less/less.js/blob/7491578403a5a35464772c730854c3a5169c0de7/packages/less/src/less/parser/parser.js#L2427">源码实现</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Parser</span>.<span style="color:#a6e22e">serializeVars</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vars</span> =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Parser</span>.<span style="color:#a6e22e">serializeVars</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vars</span> =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
 
   <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">vars</span>) {
@@ -282,7 +282,7 @@ lessc --modify-var<span style="color:#f92672">=</span><span style="color:#e6db74
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>;
 };
 </code></pre></div><p>所以，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{ 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{ 
   <span style="color:#a6e22e">hack</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;; @import (reference) ./src/styles/theme.less;&#39;</span>
 }
 </code></pre></div><p>最终会变成 <code>@hack: ; @import (reference) ./src/styles/theme.less';</code></p>

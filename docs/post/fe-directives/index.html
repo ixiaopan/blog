@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -195,9 +195,9 @@ document.addEventListener("DOMContentLoaded", function() {
   <p>Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.</p>
 <h2 id="注册指令插件">注册指令/插件</h2>
 <p>注册指令</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#a6e22e">directive</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#a6e22e">directive</span>)
 </code></pre></div><p>注册插件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
   <span style="color:#a6e22e">install</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">App</span>, <span style="color:#a6e22e">options</span>) =&gt; {
     <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#a6e22e">fooComp</span>)
     <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;lazy&#39;</span>, <span style="color:#a6e22e">lazyDirective</span>)
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><p>可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，</p>
 <p>如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 <code>webp</code> ，也就只需要在 <code>url</code> 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 <code>webp</code>，也支持单个图片是否开启 <code>webp</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lazyDirective</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Directive</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">mounted</span>(<span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLElement</span>, <span style="color:#a6e22e">binding</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DirectiveBinding</span>&lt;<span style="color:#f92672">any</span>&gt;) {
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><h2 id="防重复">防重复</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
 </span><span style="color:#75715e"> * Prevent repeated clicks
 </span><span style="color:#75715e"> * @Example v-throttle=&#34;500&#34;
 </span><span style="color:#75715e"> */</span>
@@ -255,9 +255,9 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;throttle&#39;</span>, <span style="color:#a6e22e">throttleDirective</span>)
 }
 </code></pre></div><p>Then We can use <code>v-throttle</code> like this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">button</span> <span style="color:#f92672">v-throttle</span>&gt;<span style="color:#a6e22e">Submit</span>&lt;/<span style="color:#f92672">button</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">button</span> <span style="color:#f92672">v-throttle</span>&gt;<span style="color:#a6e22e">Submit</span>&lt;/<span style="color:#f92672">button</span>&gt;
 </code></pre></div><h2 id="一键复制">一键复制</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#75715e">/**
 </span><span style="color:#75715e"> * https://clipboardjs.com/
 </span><span style="color:#75715e"> * @Example v-copy
 </span><span style="color:#75715e"> */</span>
@@ -290,14 +290,14 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#39;copy&#39;</span>, <span style="color:#a6e22e">copyDirective</span>)
 }
 </code></pre></div><p>Then We can use <code>v-copy</code> like this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-copy</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">-clipboard-text</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">you</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">ve</span> <span style="color:#a6e22e">copied</span> <span style="color:#a6e22e">me</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-copy</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">-clipboard-text</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">you</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">ve</span> <span style="color:#a6e22e">copied</span> <span style="color:#a6e22e">me</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;
   <span style="color:#a6e22e">copy</span> <span style="color:#a6e22e">me</span>
 &lt;/<span style="color:#f92672">div</span>&gt;
 </code></pre></div><h2 id="懒加载">懒加载</h2>
 <p>按需加载不仅仅是指图片，任何资源如js、css都可以懒加载。比如只有1、2个页面才有上传的功能，那么可以按需加载对应的依赖库(比如ali-oss)。</p>
 <h3 id="图片">图片</h3>
 <p>使用最新的 <code>intersectionObserver API</code>，如果不支持，全部加载不考虑降级(业务不需要，面向 <code>chrome</code> 开发)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">enableWebp</span>
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">previewHost</span>
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Lazyload</span> {
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>只有用户使用了上传才加载额外的第三方库</li>
 <li>上传本身就会 <code>loading</code>，所以延迟加载不会有什么体验问题</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadScriptFromRemote</span>() {  
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">customCache</span>.<span style="color:#a6e22e">has</span>(<span style="color:#a6e22e">scriptUrl</span>)) {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">resolve</span>()

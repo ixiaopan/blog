@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><a href="https://github.com/rupa/z">z - jump around</a></p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#75715e">## download z.sh, and then put it at your favorite place</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#75715e">## download z.sh, and then put it at your favorite place</span>
 wget https://raw.githubusercontent.com/rupa/z/master/z.sh
 
 <span style="color:#75715e">## add z.sh to the .zashrc</span>
@@ -254,29 +254,29 @@ source ~/.zshrc
 </ul>
 <h3 id="package-manager">Package Manager</h3>
 <h4 id="homebrewhttpsbrewsh"><a href="https://brew.sh/">Homebrew</a></h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>You might encounter the error message <code>brew not found</code> when you type <code>brew</code> on your terminal due to the wrong path. First check the place where your brew is installed,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ which brew
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ which brew
 <span style="color:#75715e"># /opt/homebrew/bin/brew</span>
 </code></pre></div><p>then add it to the global <code>PATH</code> env as follows.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">PATH</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$HOME</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">/usr/local/bin:/opt/homebrew/bin:$PATH</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">PATH</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$HOME</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">/usr/local/bin:/opt/homebrew/bin:$PATH</span>
 </code></pre></div><h4 id="pip">pip</h4>
 <p><a href="https://pip.pypa.io/en/stable/installation/">https://pip.pypa.io/en/stable/installation/</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m ensurepip --upgrade
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m ensurepip --upgrade
 
 wget  https://bootstrap.pypa.io/get-pip.py
 
 python get-pip.py
 </code></pre></div><h4 id="nvm">nvm</h4>
 <p>We use <code>nvm</code> to manage different versions of node.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install nvm
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install nvm
 
 nvm install v16.13.1
 
 nvm ls
 nvm ls-remote
 </code></pre></div><h3 id="git">Git</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install git
 
 <span style="color:#75715e"># identity</span>
 git config --global user.name <span style="color:#e6db74">&#39;yourname&#39;</span>

@@ -9,10 +9,18 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 05 Nov 2022 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Thu, 10 Nov 2022 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Prevent repeat click</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-repeat-click/</link>
+			<pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-repeat-click/</guid>
+			<description></description>
+		</item>
+      	
 		<item>
 			<title>text ellipsis</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</link>
@@ -51,7 +59,7 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 			<link>https://ixiaopan.github.io/blog/post/fe-pooling/</link>
 			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-pooling/</guid>
-			<description>&lt;p&gt;Attention: it&amp;rsquo;s NOT the &amp;lsquo;pooling&amp;rsquo; in Deep Learning; It&amp;rsquo;s a common frontend technique to build a real-time(though it&amp;rsquo;s not) connection with server.&lt;/p&gt;</description>
+			<description></description>
 		</item>
       	
 		<item>
@@ -100,14 +108,6 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-antd-theme/</guid>
 			<description>&lt;p&gt;没有整啥插件，使用 &lt;code&gt;less variable&lt;/code&gt; 覆盖即可&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Composition bug in Safari</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-composition/</link>
-			<pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-composition/</guid>
-			<description>&lt;p&gt;中文输入法 composition event 在 chrome 和 safari 表现相反&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

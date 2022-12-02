@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p><strong>delete</strong> all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its <em>smallest</em> <strong>Id</strong>.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- query all duplicated emails
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- query all duplicated emails
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> email
 <span style="color:#66d9ef">FROM</span> Person 
 <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> email
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p>find all dates' <code>id</code> with higher temperature compared to its previous dates (yesterday).</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> w2.id
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> w2.id
 
 <span style="color:#66d9ef">FROM</span> Weather w1,Weather w2
 
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p>Query the two cities in <strong>STATION</strong> with the shortest and longest <em>CITY</em> names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">/*
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">/*
 </span><span style="color:#75715e">CITY: DEF, ABC, PQRS and WXY.
 </span><span style="color:#75715e">outputs:
 </span><span style="color:#75715e">	ABC 3
@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p>Query the list of <em>CITY</em> names starting with vowels (i.e., <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, or <code>u</code>) from <strong>STATION</strong>.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">-- v1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">-- v1
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">distinct</span> city
 <span style="color:#66d9ef">from</span> station
 <span style="color:#66d9ef">where</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;a%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;e%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;i%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;o%&#39;</span> <span style="color:#66d9ef">or</span> city <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;u%&#39;</span>
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p>Write a query calculating the amount of error (i.e.: average monthly salaries), and round it up to the next integer.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> CEIL(<span style="color:#66d9ef">AVG</span>(o.salary) <span style="color:#f92672">-</span> <span style="color:#66d9ef">AVG</span>(t.salary_wo_zero))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> CEIL(<span style="color:#66d9ef">AVG</span>(o.salary) <span style="color:#f92672">-</span> <span style="color:#66d9ef">AVG</span>(t.salary_wo_zero))
 <span style="color:#66d9ef">from</span> 
     (<span style="color:#66d9ef">SELECT</span> id, <span style="color:#66d9ef">REPLACE</span>(salary, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#66d9ef">as</span> salary_wo_zero <span style="color:#66d9ef">from</span> employees) t
 <span style="color:#66d9ef">JOIN</span> employees <span style="color:#66d9ef">as</span> o <span style="color:#66d9ef">on</span> o.id <span style="color:#f92672">=</span> t.id
@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>oder by marks if there is more than one students with the same grade (1-7)</li>
 </ul>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> 
 <span style="color:#66d9ef">CASE</span> 
     <span style="color:#66d9ef">WHEN</span> grade <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">7</span> <span style="color:#66d9ef">THEN</span> name
     <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">NULL</span>
@@ -410,7 +410,7 @@ grade, marks
 <blockquote>
 <p>find the <em>maximum total earnings</em> for all employees as well as the total number of employees who have maximum total earnings.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> months <span style="color:#f92672">*</span> salary <span style="color:#66d9ef">as</span> earnings, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> months <span style="color:#f92672">*</span> salary <span style="color:#66d9ef">as</span> earnings, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>)
 <span style="color:#66d9ef">from</span> employee
 <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span>
 <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">desc</span>
@@ -420,7 +420,7 @@ grade, marks
 <li>In MySQL, you can use the column alias in the <code>group by/order by/having</code> to refer to that column</li>
 </ul>
 <p>Q6 <a href="https://www.hackerrank.com/challenges/draw-the-triangle-1/problem?isFullScreen=true">draw-the-triangle</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- * * * * * 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- * * * * * 
 </span><span style="color:#75715e">--- * * * * 
 </span><span style="color:#75715e">--- * * * 
 </span><span style="color:#75715e">--- * * 
@@ -476,7 +476,7 @@ grade, marks
 <li><code>SET @var = val</code> declar a variable</li>
 </ul>
 <p>Q7 <a href="https://www.hackerrank.com/challenges/weather-observation-station-20">median</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> ROUND(<span style="color:#66d9ef">AVG</span>(lat_n), <span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> ROUND(<span style="color:#66d9ef">AVG</span>(lat_n), <span style="color:#ae81ff">4</span>)
 <span style="color:#66d9ef">from</span> (
     <span style="color:#66d9ef">SELECT</span> 
       lat_n, 
@@ -501,7 +501,7 @@ grade, marks
 <p>Two pairs <em>(X1, Y1)</em> and <em>(X2, Y2)</em> are said to be <em>symmetric</em> <em>pairs</em> if <em>X1 = Y2</em> and <em>X2 = Y1</em>.</p>
 <p>Write a query to output all such <em>symmetric</em> <em>pairs</em> in ascending order by the value of <em>X</em>. List the rows such that <em>X1 ≤ Y1</em>.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">
 <span style="color:#66d9ef">SELECT</span> f1.X, f1.Y
 <span style="color:#66d9ef">from</span> Functions f1
 <span style="color:#66d9ef">JOIN</span> Functions f2 <span style="color:#66d9ef">on</span> f1.Y <span style="color:#f92672">=</span> f2.X <span style="color:#66d9ef">and</span> f1.X <span style="color:#f92672">=</span> f2.Y
@@ -519,7 +519,7 @@ grade, marks
 <blockquote>
 <p><a href="https://en.wikipedia.org/wiki/Pivot_table">Pivot</a> the <em>Occupation</em> column in <strong>OCCUPATIONS</strong> so that each <em>Name</em> is sorted alphabetically and displayed underneath its corresponding <em>Occupation</em>. The output column headers should be <em>Doctor</em>, <em>Professor</em>, <em>Singer</em>, and <em>Actor</em>, respectively.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- Doctor,  Professor  Singer, Actor
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">--- Doctor,  Professor  Singer, Actor
 </span><span style="color:#75715e">--- Jenny    Ashley     Meera  Jane
 </span><span style="color:#75715e">--- Samantha Christeen  Priya  Julia
 </span><span style="color:#75715e">--- NULL     Ketty      NULL   Maria

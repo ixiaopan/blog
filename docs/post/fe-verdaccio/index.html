@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -195,34 +195,34 @@ document.addEventListener("DOMContentLoaded", function() {
   <p>In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.</p>
 <h2 id="install">Install</h2>
 <p>First, we need to install <code>verdaccio</code> and <code>pm2</code> globally.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g verdaccio
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g verdaccio
 npm install -g pm2
 </code></pre></div><p><code>pm2 </code> is used to guard our service, the common commands are shown below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pm2 start verdaccio
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pm2 start verdaccio
 
 pm2 stop verdaccio
 
 pm2 delete verdaccio
 </code></pre></div><p>To check the service status, we use the following command. <code>status: online</code>  shows that everything is ok.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pm2 list
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pm2 list
 </code></pre></div><p>
   <img src="/blog/post/images/pm2-list.png" alt="">
 </p>
 <h2 id="configuration">Configuration</h2>
 <p>The config file is located at</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/Users/wuxiaopan/.config/verdaccio/config.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/Users/wuxiaopan/.config/verdaccio/config.yaml
 </code></pre></div><h3 id="storage">Storage</h3>
 <p>This is where we place all packages.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># path to a directory with all packages</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># path to a directory with all packages</span>
 <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">./store</span>
 </code></pre></div><h3 id="uplinks">Uplinks</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-YAML" data-lang="YAML"><span style="color:#75715e"># a list of other known repositories we can talk to</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-YAML" data-lang="YAML"><span style="color:#75715e"># a list of other known repositories we can talk to</span>
 <span style="color:#f92672">uplinks</span>:
   <span style="color:#f92672">npmjs</span>:
     <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://registry.npmjs.org/</span>
 </code></pre></div><h3 id="packages">Packages</h3>
 <p>Here, we define our own scope, which means that they can only be accessed internally. Other packages that are not started with your scope name will be downloaded from the official npmjs.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">packages</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">packages</span>:
   <span style="color:#f92672">&#39;@your-scope/*&#39;</span>:
     <span style="color:#75715e"># scoped packages</span>
     <span style="color:#f92672">access</span>: <span style="color:#ae81ff">$all</span>
@@ -231,10 +231,10 @@ pm2 delete verdaccio
     <span style="color:#75715e"># proxy: npmjs</span>
 </code></pre></div><h3 id="listen">Listen</h3>
 <p>The last step is to specify your ip and port.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">listen</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">4873</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">listen</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">4873</span>
 </code></pre></div><p>Restart your server and verdaccio. We are done.</p>
 <h3 id="notify">Notify</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">notify</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">notify</span>:
   <span style="color:#f92672">method</span>: <span style="color:#ae81ff">POST</span>
   <span style="color:#f92672">headers</span>: [{<span style="color:#f92672">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>}]
   <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">yourhooks</span>
@@ -249,13 +249,13 @@ pm2 delete verdaccio
 <p>Once your package is done, you can publish it to your private registry.</p>
 <h3 id="add-user">add user</h3>
 <p>The first step is to register. The below command will ask you to input your name, password, and email.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm adduser --registry http://localhost:4873/ 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm adduser --registry http://localhost:4873/ 
 </code></pre></div><h3 id="delete-user">delete user</h3>
 <p>The registered users are stored in the following file, so we simply remove the corresponding record if we want to delete a user.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/.config/verdaccio/htpasswd
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/.config/verdaccio/htpasswd
 </code></pre></div><h3 id="publish">publish</h3>
 <p>Since we&rsquo;re publishing our package to the private registry, we should explicitly specify where the private registry is. To avoid specifing mannually each time, we use <code>nrm</code> to manage registries.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i -g nrm
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i -g nrm
 
 nrm add localnpm http://localhost:4873
 nrm use localnpm
@@ -266,7 +266,7 @@ nrm ls
 </p>
 <p>The above command set the default registry to <code>localnpm</code>, which allows us to download the private packages from the localhost and the public packages from other public sources, such as <code>npmjs</code>.</p>
 <p>Then we can publish</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm publish
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm publish
 </code></pre></div>
 
 
