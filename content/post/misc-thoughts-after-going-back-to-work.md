@@ -12,7 +12,7 @@ katex: true
 
 ## What am I doing
 
-my old job
+Frontend Development
 
 ### Why
 

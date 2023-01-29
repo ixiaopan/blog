@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-  <header>
-    <nav class="navbar">
+<header>
+  <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
@@ -126,15 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
         
           <li>
-            <a href="/blog/about/" id="About"
-              ><em class="fas fa-user fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/blog/search/" id="Search"
+            <a href="/blog/search" id="Search"
               ><em class="fas fa-search fa-lg"></em
             ></a>
           </li>
@@ -142,8 +134,16 @@ document.addEventListener("DOMContentLoaded", function() {
       
         
           <li>
-            <a href="/blog/archives" id="Archives"
-              ><em class="fas fa-archive fa-lg"></em
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
             ></a>
           </li>
           
@@ -153,17 +153,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </nav>
 
 
-    
-    <div class="intro-header">
-      <div class="container">
-        <div class="post-heading">
-          
-            <h1>
-              A message component
-            </h1>
-          
-          
-            <span class="meta-post">
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      A message component
+    </h1>
+    <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 3, 2022
   
@@ -174,18 +169,15 @@ document.addEventListener("DOMContentLoaded", function() {
     
       <a
         href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >frontend</a
+        >Frontend</a
       >&nbsp;
     
   
 </span>
 
-          
-        </div>
-      </div>
-    </div>
-    
-  </header>
+  </div>
+  
+</header>
 
     
   <div class="container" role="main">
@@ -193,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <article class="article" class="blog-post">
         
   <p>Develop a message component using vue.</p>
-<h2 id="background">Background</h2>
+<h2 id="why">Why</h2>
 <p><code>message</code> 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 <code>message</code>。不管是 <code>jQuery</code> 还是 <code>vue/react</code>，调用方法都是类似的</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// jQuery
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">toast</span>({
@@ -317,7 +309,7 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#background">Background</a></li>
+    <li><a href="#why">Why</a></li>
     <li><a href="#implementation">Implementation</a>
       <ul>
         <li><a href="#render">render</a></li>
@@ -377,7 +369,7 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2022
+      2023
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

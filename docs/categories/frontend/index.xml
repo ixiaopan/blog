@@ -1,18 +1,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>frontend on </title>
+		<title>Frontend on </title>
 		<link>https://ixiaopan.github.io/blog/categories/frontend/</link>
-		<description>Recent content in frontend </description>
+		<description>Recent content in Frontend </description>
 		<generator>Hugo -- gohugo.io</generator>
 		
   		<language>en</language>
 		
 		<managingEditor>Page(/categories/frontend) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Thu, 10 Nov 2022 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sat, 28 Jan 2023 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/categories/frontend/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Automatically Send MR Notification</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-mr-notification/</link>
+			<pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-mr-notification/</guid>
+			<description></description>
+		</item>
+      	
 		<item>
 			<title>Prevent repeat click</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-repeat-click/</link>
@@ -31,10 +39,10 @@
       	
 		<item>
 			<title>Some thoughts after going back to work</title>
-			<link>https://ixiaopan.github.io/blog/post/misc-october/</link>
+			<link>https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/</link>
 			<pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/misc-october/</guid>
-			<description>What am I doing my old job
+			<guid>https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/</guid>
+			<description>What am I doing Frontend Development
 Why 也曾试着转行，但是门槛要求高（论文、实习、比赛等），钱也不如继续做老本行来的多。曾经我也以为我不会为五斗米折腰，然而真正到做这个选择的时刻，才发现我只不过是个普通不过的普通人，在现实面前，梦想什么的是如此不着边际。
 我听过不少人对我说过可惜，费这么大劲读书，回来没有做这一行，挺可惜的。不可惜是假的，但是至少到现在，我没后悔，就足矣。即使时光倒流，我还是会坚持出去读书的想法，因为做决定的时候，我就知道会有什么样的结果。相反，不去做，对于我来说，才是最大的遗憾。
 继续做老本行，是我的退路，我也并不抗拒，因为我还保留对这份工作的热情，只不过不会像大学刚毕业那样特别充满干劲了，毕竟我也不是刚入行的菜鸟了。
@@ -55,7 +63,7 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 		</item>
       	
 		<item>
-			<title>Pooling</title>
+			<title>Draft - Pooling</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-pooling/</link>
 			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-pooling/</guid>
@@ -100,14 +108,6 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-directives/</guid>
 			<description>&lt;p&gt;Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Replace antd theme</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-antd-theme/</link>
-			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-antd-theme/</guid>
-			<description>&lt;p&gt;没有整啥插件，使用 &lt;code&gt;less variable&lt;/code&gt; 覆盖即可&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

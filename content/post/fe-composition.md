@@ -4,9 +4,9 @@ date: "2022-05-21"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 
@@ -15,7 +15,7 @@ katex: true
 <!--more-->
 
 
-## Background
+## Why
 
 在开发编辑输入组件的时候，如果输入的是中文，监听 `delete` 事件会删除输入框里已经写好的文案，期望效果是删除正在输入的拼音。
 

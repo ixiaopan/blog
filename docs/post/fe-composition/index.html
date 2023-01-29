@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-  <header>
-    <nav class="navbar">
+<header>
+  <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
@@ -126,15 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
         
           <li>
-            <a href="/blog/about/" id="About"
-              ><em class="fas fa-user fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/blog/search/" id="Search"
+            <a href="/blog/search" id="Search"
               ><em class="fas fa-search fa-lg"></em
             ></a>
           </li>
@@ -142,8 +134,16 @@ document.addEventListener("DOMContentLoaded", function() {
       
         
           <li>
-            <a href="/blog/archives" id="Archives"
-              ><em class="fas fa-archive fa-lg"></em
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
             ></a>
           </li>
           
@@ -153,17 +153,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </nav>
 
 
-    
-    <div class="intro-header">
-      <div class="container">
-        <div class="post-heading">
-          
-            <h1>
-              Composition bug in Safari
-            </h1>
-          
-          
-            <span class="meta-post">
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      Composition bug in Safari
+    </h1>
+    <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;May 21, 2022
   
@@ -174,18 +169,15 @@ document.addEventListener("DOMContentLoaded", function() {
     
       <a
         href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >frontend</a
+        >Frontend</a
       >&nbsp;
     
   
 </span>
 
-          
-        </div>
-      </div>
-    </div>
-    
-  </header>
+  </div>
+  
+</header>
 
     
   <div class="container" role="main">
@@ -193,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <article class="article" class="blog-post">
         
   <p>中文输入法 composition event 在 chrome 和 safari 表现相反</p>
-<h2 id="background">Background</h2>
+<h2 id="why">Why</h2>
 <p>在开发编辑输入组件的时候，如果输入的是中文，监听 <code>delete</code> 事件会删除输入框里已经写好的文案，期望效果是删除正在输入的拼音。</p>
 <p>bug 复现如下</p>
 <p>
@@ -203,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>
   <img src="/blog/post/images/expected-safari.gif" alt="">
 </p>
-<h2 id="why">Why</h2>
+<h2 id="why-1">Why</h2>
 <p>composition 有几个事件</p>
 <ul>
 <li>compositionstart</li>
@@ -300,8 +292,8 @@ document.addEventListener("DOMContentLoaded", function() {
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#background">Background</a></li>
     <li><a href="#why">Why</a></li>
+    <li><a href="#why-1">Why</a></li>
   </ul>
 </nav>
       
@@ -354,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2022
+      2023
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

@@ -4,9 +4,9 @@ date: "2022-05-29"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 
@@ -14,7 +14,7 @@ katex: true
 
 <!--more-->
 
-## Background
+## Why
 
 常见的级联选择器，比如省市区选择器，实现起来比较简单，而且父子之间没有过多的依赖关系。然而由于我们业务的特殊性，这些选择器根本无法满足需求，不得已只能从0到1实现。先梳理一下要实现的功能
 

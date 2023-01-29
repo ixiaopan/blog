@@ -1,12 +1,12 @@
 ---
-title: "Pooling"
+title: "Draft - Pooling"
 date: "2022-08-06"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 

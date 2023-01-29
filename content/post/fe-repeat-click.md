@@ -4,15 +4,15 @@ date: "2022-11-10"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 
 <!--more-->
 
-## Background
+## Why
 
 最近，业务上需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点
 

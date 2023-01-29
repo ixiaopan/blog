@@ -9,44 +9,54 @@
                 "title": "",
                 "section": "",
                 "date" : "0001.01.01",
-                "body": "PROFILE MSc Data Science graduate with 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.\n .timeline p { margin: 0; } .timeline .time { margin-right: 28px; color: rgba(0,0,0,0.6); min-width: 133px; } .timeline { display: flex; justify-content: flex-start; align-items: flex-start; } .timeline+.timeline { margin-top: 8px; } li { margin-left: -20px }  PROFESSIONAL SKILLS  Strong understanding of Machine Learning and Deep Learning Excellent hands-on experience with Python, Scikit-Learn, and PyTorch Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program Solid hands-on experience in no-linear editing for video Rich experience in the agile software development workflow with Git and CI/CD Good at data visualization and UI design  EMPLOYMENT HISTORY  12/2021 - present\nFront-end Technical Specialist, startup, Hangzhou\n 07/2017 - 04/2020\nFront-end Engineer II, Ant Group, Hangzhou\n 07/2014 - 07/2017\nFront-end Engineer, Baidu, Beijing \u0026 Shanghai\n  EDUCATION 09/2020 - 11/2021\nMSc Data Science, University of Southampton\n 09/2010 - 07/2014\nBSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC)   "
+                "body": "PROFILE MSc Data Science graduate with 7 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.\n .timeline p { margin: 0; } .timeline .time { margin-right: 28px; color: rgba(0,0,0,0.6); min-width: 133px; } .timeline { display: flex; justify-content: flex-start; align-items: flex-start; } .timeline+.timeline { margin-top: 8px; } li { margin-left: -20px }  PROFESSIONAL SKILLS  Strong understanding of Machine Learning and Deep Learning Excellent hands-on experience with Python, Scikit-Learn, and PyTorch Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program Solid hands-on experience in no-linear editing for video Rich experience in the agile software development workflow with Git and CI/CD Good at data visualization and UI design  EMPLOYMENT HISTORY  12/2021 - present\nFront-end Technical Specialist, startup, Hangzhou\n 07/2017 - 04/2020\nFront-end Engineer II, Ant Group, Hangzhou\n 07/2014 - 07/2017\nFront-end Engineer, Baidu, Beijing \u0026 Shanghai\n  EDUCATION 09/2020 - 11/2021\nMSc Data Science, University of Southampton\n 09/2010 - 07/2014\nBSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC)   "
             }
     
         ,
             {
                 "id": 1,
-                "href": "https://ixiaopan.github.io/blog/post/fe-repeat-click/",
-                "title": "Prevent repeat click",
+                "href": "https://ixiaopan.github.io/blog/post/fe-mr-notification/",
+                "title": "Automatically Send MR Notification",
                 "section": "post",
-                "date" : "2022.11.10",
-                "body": "Background 最近，业务上需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点\n  disabled 样式\n  tooltip 显示 『无权限』\n  不可点击\n  一种直观的做法就是在各个需要的地方，加上对应逻辑，比如\nimport { shouldDel } from \u0026#39;xxx\u0026#39; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;span :class=\u0026#34;shouldDel() ? \u0026#39;\u0026#39; : \u0026#39;disabled\u0026#39;\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;/a-tooltip\u0026gt; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;button :disabled=\u0026#34;shouldDel()\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/button\u0026gt; \u0026lt;/a-tooltip\u0026gt; function onDel() { if (!shouldDel()) return } 这种写法有几个问题\n  button 有 disabled 属性，可以直接屏蔽点击，但是普通标签 div/span 必须在事件中进行规避，缺少统一性\n  shouldXX() 会被多次使用在 html/js 中，混乱且冗余\n  a-tooltip disabled 是在 HTML 中 shouldXX() 判断的，耦合度高\n  综上，核心问题是 shouldXX 造成的各种冗余，最终导致可维护性、可读性、可扩展性差，时间一长就没人敢去改这个代码了。\nHow 既如此，我们只要找到一个方式能同时做这3件事情就好了，不管是组件、指令、或是其他模式。在 vue 中，我们可以使用指令去实现，同样的功能但是只需要这样写就行\n\u0026lt;span v-access.del=\u0026#34;permission\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;button v-access.edit=\u0026#34;permission\u0026#34;\u0026gt;修改\u0026lt;/button\u0026gt; 具体实现还是要看指令内部 v-access，仔细分析一下这3个功能，其实最核心的是 不可点击，其他2个都可以用 css 解决。想要无侵入的屏蔽点击事件，一个方法就是拦截事件，好在 DOM 本身就支持\nel.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() e.stopPropagation() } }, true)   stopImmediatePropagation 会阻止监听同一事件的其他事件监听器 event handler 被调用\n  stopPropagation 则阻止事件进一步向上冒泡\n  其实这也可以用来实现规避防重复点击，只是再多加一个时间限制而已。\n完整的指令实现如下，\nfunction bindEvents(el, binding) { if (!binding.value) { return } const { showTooltip, hideTooltip } = createTooltip() // 显示 Tooltip  el.addEventListener(\u0026#39;mouseenter\u0026#39;, () =\u0026gt; { showTooltip(el.shouldDisable ? \u0026#39;无权限\u0026#39; : \u0026#39;删除\u0026#39;) }, true) el.addEventListener(\u0026#39;mouseleave\u0026#39;, hideTooltip, true) // 屏蔽点击  el.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() } }, true) } function checkAccess(el, binding) { el.shouldDisable = shouldXX(binding.value) } function createTooltip() { if (!toolTipElem) { toolTipElem = document.createElement(\u0026#39;span\u0026#39;) document.body.appendChild(toolTipElem) toolTipElem.style.position = \u0026#39;absolute\u0026#39; } function showTooltip(t: string) { if (toolTipElem) { toolTipElem.textContent = t toolTipElem.style.display = \u0026#39;block\u0026#39; } } function hideTooltip() { toolTipElem.style.display = \u0026#39;none\u0026#39; } return { showTooltip, hideTooltip, } } "
+                "date" : "2023.01.28",
+                "body": "Why 过去一年，团队开展了 MR 机制，但是效果不是很理想，原因有几个：\n 会 CR 的人太少 缺少时间 缺少 CR 规范 MR 通知不及时 \u0026hellip;  在人少需求不多的时候，这些问题都是可接受的。但是现在随着团队规模的扩大，这些问题就变得尖锐起来，这就需要规范且自动化，从而提高工作效率和代码质量。\n回看上面的原因，其实也就2个大问题\n 不知道怎么CR 发起MR后，未及时感知  第一个问题的解决方法，可以是制定相关规范，让大家『有迹可循』，看多了也就知道问题在哪了；第二个问题，那就是自动化的问题，可以选择接入机器人，通知到 IM。\n所以，这篇文章就是简单介绍一下如何接入 gitlab 的 webhook 实现 MR 的自动通知\nHow 整体流程分为几步\n  拦截 MR 相关事件(open/update/close)\n  提取需要的信息\n  定时发送消息到 IM，这里我们用 飞书 举例\n  Step 1 Webhook gitlab 本身就提供了 webhook 允许自建应用响应 gitlab 相关事件，比如\n push tag issue merge request \u0026hellip;  其中 Merge request 又支持多个 action\n open close update merge \u0026hellip;  在 gitlab 的 settings =\u0026gt; Webhooks 里，填写如下信息\n  webhook url 即 application endpoint，比如 https://examples.com/gitlab-mr\n  security token 会附加在请求头 X-Gitlab-Token ，进行安全校验，自定义字符串即可\n  Trigger 根据自己的需求勾选，这里就是 mr 了\n  据此，我们定义以下 enum\n// X-Gitlab-Token HTTP header export const GITLAB_WEBHOOK_TOKEN = \u0026#39;your custom string\u0026#39; // 支持的事件类型 export enum GITLAB_EVENT_TYPE { // a new comment is made on commits, merge requests, issues, and code snippets  COMMENT = \u0026#39;note\u0026#39;, //  MERGE_REQUEST = \u0026#39;merge_request\u0026#39;, } export enum MR_ACTION { open = \u0026#39;open\u0026#39;, reopen = \u0026#39;reopen\u0026#39;, update = \u0026#39;update\u0026#39;, merge = \u0026#39;merge\u0026#39;, close = \u0026#39;close\u0026#39;, approved = \u0026#39;approved\u0026#39;, unapproved = \u0026#39;unapproved\u0026#39;, } Step 2 Server 搭建应用的话，可以选用 koa 起一个简单的 node server\nimport Koa from \u0026#39;koa\u0026#39; import KoaRouter from \u0026#39;@koa/router\u0026#39; import { gitlabHookHandler } from \u0026#39;./gitlab/handler\u0026#39; import koaBody from \u0026#39;koa-body\u0026#39; const app = new Koa() const router = new KoaRouter() router .get(\u0026#39;/\u0026#39;, () =\u0026gt; { console.log(\u0026#39;hello world\u0026#39;) }) // your own endpoint .post(\u0026#39;/gitlab-mr\u0026#39;, gitlabHookHandler) app.use(koaBody()) app.use(router.routes()) app.listen(3000) API Validation 首先是边界处理，包括\n  Invalid Security Token 这个就是前面 settings =\u0026gt; webhooks 里的 Security Token\n  Empty Body\n  Invalid EVENT_TYPE 不是所有 gitlab 的事件都要处理\n  Invalid Projects 只接受指定项目的 webhook\n  export async function gitlabHookHandler(ctx) { // ...  const { headers, body } = ctx.request // Token Validation  const token = headers[\u0026#39;X-Gitlab-Token\u0026#39;] || headers[\u0026#39;x-gitlab-token\u0026#39;] if (!token || token != GITLAB_WEBHOOK_TOKEN) { return responseError(\u0026#39;invalid Secret Token\u0026#39;) } // Empty Body  if (!body) { return responseError(\u0026#39;Empty Response\u0026#39;) } const eventType = body.object_kind // Check Event Type  if (!Object.values(GITLAB_EVENT_TYPE).includes(eventType)) { return responseError(`${eventType}event is not supported`) } // Project Validation  const { id, name } = body.project || {} if (!id || !GITLAB_PROJECT_LIST.find(p =\u0026gt; p.id == id)) { return responseError(`Project [${name}] does not exist`) } } 一切都通过之后，就会进入 MergeRequest Handler 得到聚合后的数据，然后发送给 IM\nconst data = await mergeRequestHook(body) sendMR(data) responseSuccess() MR Handler When do we need MR notifications? Here are some cases\n  Open a MR with or w/o an assignee\n  Close a MR\n  Merge a MR\n  As mentioned before, data.object_attributes.action tells us which action is triggered.\nexport async function mergeRequestHook(data: IMergeRequestEvent) { const { action, } = data.object_attributes // basic data about the project and MR  const basicInfo = { url: \u0026#39;\u0026#39;, // mr url  title: \u0026#39;\u0026#39;, // mr title  description: \u0026#39;\u0026#39;, // mr description  } if (action == MR_ACTION.close) { return { ...basicInfo, } } if (action == MR_ACTION.open || action == MR_ACTION.reopen) { return { ...basicInfo, } } if (action == MR_ACTION.merge) { return { ...basicInfo, } } console.log(`MR action [${action}] is not supported`) } The above snippet does only one thing: collect data to be sent to IM.\nUserId For now, we have only data about the project and MR, but no user information. Specifically speaking, we don\u0026rsquo;t have the user id in Feishu. There are 2 ways to tackle this\n save everyone\u0026rsquo;s user id in the config file get userId by user\u0026rsquo;s mobile/email via Feishu API (we need to apply for token)  Once we have the userId, we can send the above information to someone in Feishu. Here is an example,\n// the local user config file (Security Risk) export const USER_LIST = [ { id: 01, // userId in gitlab  username: \u0026#39;gitlab user name\u0026#39;, userId: \u0026#39;userId in Feishu\u0026#39;, }, ] // 获取IM的用户id export function getUserIdByGitId(id: string | number) { const m = USER_LIST.find(o =\u0026gt; o.id == id) return m?.userId || \u0026#39;\u0026#39; } How to at someone?\n// set username as the default value, if id does not exist \u0026#34;content\u0026#34;: `\u0026lt;at id=${f.id}\u0026gt;\u0026lt;/at\u0026gt;${f.id ? \u0026#39;\u0026#39; : f.name}` Step 3 Schedule 以上实现的功能都比较被动，即需要等待事件被触发。假设想知道每天遗留的未处理MR的信息，then\n  主动发起 API 到 gitlab\n  设定每日定时提醒即可\n  首先申请 Token\nexport const GITLAB_API_V4 = `${GITLAB_HOST}/api/v4/` // TODO: Security Risk export const GITLAB_PERSONAL_ACCESS_TOKEN = \u0026#39;your token\u0026#39; 根据文档，只要知道 projectId 就能获取对应项目的 MR 列表，Node 端我们依然选用 Axios 发起 HTTP 请求，同时注意，要把之前申请的 Token 带到请求头\n参考\n  Gitlab Doc#personal-access-tokens\n  GItlab Doc#list-project-mr\n  const request = axios.create({ baseURL: GITLAB_API_V4, timeout: 10 * 1000, headers: { \u0026#39;Private-Token\u0026#39;: GITLAB_PERSONAL_ACCESS_TOKEN } }) export function fetchOpenedMRList(projectId: number) { return request.get(`/projects/${projectId}/merge_requests?state=opened`) } export async function createMRMention() { try { const allP = await Promise.all(GITLAB_PROJECT_LIST.map(async (p) =\u0026gt; { const res = await fetchOpenedMRList(p.id) return res.data })) console.log(\u0026#39;fetch opened mr done\u0026#39;); allP?.forEach((data: IMergeRequest[]) =\u0026gt; { // each project  data.forEach((res: IMergeRequest) =\u0026gt; { // each mr  // ...  }) }) sendRichText(\u0026#39;MR 处理提醒\u0026#39;, content) } catch (e) { console.error(\u0026#39;fetchOpenedMR Error\u0026#39;, e) } } 最后，每天下午5点发起提醒\nconst later = require(\u0026#39;@breejs/later\u0026#39;) later.date.localTime() const s = later.parse.text(\u0026#39;at 5:00 pm\u0026#39;) later.setInterval(createMRMention, s) Summary 完整的代码，点击这里\n"
             }
     
         ,
             {
                 "id": 2,
-                "href": "https://ixiaopan.github.io/blog/post/fe-text-ellipsis/",
-                "title": "text ellipsis",
+                "href": "https://ixiaopan.github.io/blog/post/fe-repeat-click/",
+                "title": "Prevent repeat click",
                 "section": "post",
-                "date" : "2022.11.05",
-                "body": "Background 文本截断并显示省略号，在web上是非常容易实现的，直接使用CSS就可以，那这有什么可以说的呢？道理是这样不错，但是业务总是千奇百怪。比如我们的业务是\n 如果文本太长超过容器的高度，则需要显示省略，并且还要tooltip显示原本的文案； 没超过容器高度，则正常显示；  换句话说，这就要求动态显示；这样的话，就无法通过CSS实现了\nHow 从使用方的角度考虑，他只需要传入这几个参数\n text 原始文案 rows 最多显示几行 maxHeight 不确定几行，但是明确最大高度  Step 1 是否应该截断\nconst visualH = props.maxHeight ? props.maxHeight : getLineHeight(container) * props.rows const containerH = getElemHeight(container) if (containerH \u0026lt;= visualH) { shouldTruncate = false } else { shouldTruncate = true truncate(text) } 这里建议\n 要么明确指定可见高度, maxHeight 要么明确指定容器的行高, lineHeight  Step 2 如何截断\n可以用笨方法，一次加一个字的方法判断是否超过了可视高度；这个效率有点低了，比较快的方法是用 binarySearch (折半查找)\nfunction binarySearch(l, r, callback) { while (l \u0026lt; r) { const m = Math.floor((l + r) / 2) if (callback(l, r, m)) { // 太长  r = m - 1 } else { // 太短  l = m + 1 } } } function truncate(text: string) { let finalText = \u0026#39;\u0026#39; binarySearch(0, text.length, (l, r, m) =\u0026gt; { const partial = text.slice(l, m + 1) container.textContent = finalText + partial const tempH = getElemHeight(container) if (tempH \u0026gt; visualH) { return true } else { finalText += partial } }) container.textContent = finalText } "
+                "date" : "2022.11.10",
+                "body": "Why 最近，业务上需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点\n  disabled 样式\n  tooltip 显示 『无权限』\n  不可点击\n  一种直观的做法就是在各个需要的地方，加上对应逻辑，比如\nimport { shouldDel } from \u0026#39;xxx\u0026#39; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;span :class=\u0026#34;shouldDel() ? \u0026#39;\u0026#39; : \u0026#39;disabled\u0026#39;\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;/a-tooltip\u0026gt; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;button :disabled=\u0026#34;shouldDel()\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/button\u0026gt; \u0026lt;/a-tooltip\u0026gt; function onDel() { if (!shouldDel()) return } 这种写法有几个问题\n  button 有 disabled 属性，可以直接屏蔽点击，但是普通标签 div/span 必须在事件中进行规避，缺少统一性\n  shouldXX() 会被多次使用在 html/js 中，混乱且冗余\n  a-tooltip disabled 是在 HTML 中 shouldXX() 判断的，耦合度高\n  综上，核心问题是 shouldXX 造成的各种冗余，最终导致可维护性、可读性、可扩展性差，时间一长就没人敢去改这个代码了。\nHow 既如此，我们只要找到一个方式能同时做这3件事情就好了，不管是组件、指令、或是其他模式。在 vue 中，我们可以使用指令去实现，同样的功能但是只需要这样写就行\n\u0026lt;span v-access.del=\u0026#34;permission\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;button v-access.edit=\u0026#34;permission\u0026#34;\u0026gt;修改\u0026lt;/button\u0026gt; 具体实现还是要看指令内部 v-access，仔细分析一下这3个功能，其实最核心的是 不可点击，其他2个都可以用 css 解决。想要无侵入的屏蔽点击事件，一个方法就是拦截事件，好在 DOM 本身就支持\nel.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() e.stopPropagation() } }, true)   stopImmediatePropagation 会阻止监听同一事件的其他事件监听器 event handler 被调用\n  stopPropagation 则阻止事件进一步向上冒泡\n  其实这也可以用来实现规避防重复点击，只是再多加一个时间限制而已。\n完整的指令实现如下，\nfunction bindEvents(el, binding) { if (!binding.value) { return } const { showTooltip, hideTooltip } = createTooltip() // 显示 Tooltip  el.addEventListener(\u0026#39;mouseenter\u0026#39;, () =\u0026gt; { showTooltip(el.shouldDisable ? \u0026#39;无权限\u0026#39; : \u0026#39;删除\u0026#39;) }, true) el.addEventListener(\u0026#39;mouseleave\u0026#39;, hideTooltip, true) // 屏蔽点击  el.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() } }, true) } function checkAccess(el, binding) { el.shouldDisable = shouldXX(binding.value) } function createTooltip() { if (!toolTipElem) { toolTipElem = document.createElement(\u0026#39;span\u0026#39;) document.body.appendChild(toolTipElem) toolTipElem.style.position = \u0026#39;absolute\u0026#39; } function showTooltip(t: string) { if (toolTipElem) { toolTipElem.textContent = t toolTipElem.style.display = \u0026#39;block\u0026#39; } } function hideTooltip() { toolTipElem.style.display = \u0026#39;none\u0026#39; } return { showTooltip, hideTooltip, } } "
             }
     
         ,
             {
                 "id": 3,
-                "href": "https://ixiaopan.github.io/blog/post/misc-october/",
-                "title": "Some thoughts after going back to work",
+                "href": "https://ixiaopan.github.io/blog/post/fe-text-ellipsis/",
+                "title": "text ellipsis",
                 "section": "post",
-                "date" : "2022.10.03",
-                "body": "What am I doing my old job\nWhy 也曾试着转行，但是门槛要求高（论文、实习、比赛等），钱也不如继续做老本行来的多。曾经我也以为我不会为五斗米折腰，然而真正到做这个选择的时刻，才发现我只不过是个普通不过的普通人，在现实面前，梦想什么的是如此不着边际。\n我听过不少人对我说过可惜，费这么大劲读书，回来没有做这一行，挺可惜的。不可惜是假的，但是至少到现在，我没后悔，就足矣。即使时光倒流，我还是会坚持出去读书的想法，因为做决定的时候，我就知道会有什么样的结果。相反，不去做，对于我来说，才是最大的遗憾。\n继续做老本行，是我的退路，我也并不抗拒，因为我还保留对这份工作的热情，只不过不会像大学刚毕业那样特别充满干劲了，毕竟我也不是刚入行的菜鸟了。\n那还会不会考虑继续转行呢？会的，因为我内心深处从来没有放弃过这个想法，毕竟路还很长。\nHow 即使是选择继续做老本行，也要有所特别才是，我当时所想的无外乎这两个\n 大数据平台 图像、音视频  选定了方向，还有公司偏好，大公司不在名单之内，没有啥就是厌倦了，再说gap2年也很难进去，即使进去了钱也没多少而且也很累。 那不看大公司，就只看小公司了，实际上我7月份在英国面试的时候，就是一直面小公司，应该说国外有很多这样的小作坊，Linkedin 上甚至有只有1、2个人的团队找我过去。我一直相信冥冥之中有这种设定，我必须去个小作坊，当然这也有主观的自我心理建设的影响，现在回过头来看，这确实不失为一个好时机去见识一下传说中的小公司。\n国内对小公司、创业公司都有刻板印象和偏见，当我说要去创业公司以及我在面试别人的时候，听到的最多的话就是 —— 小公司不稳定。这是事实，不可否认，进来之后我多少也会有这种忧患认识。这个缺点对于当时的我(也是现在的我)来说，根本不是问题。因为我的想法是，我也是一个不稳定的人，我那会什么都没有(物质上)，不在乎短时间内再次什么都没有，有种光脚的不怕穿鞋的感觉。 再说，此时不去更待何时？大多数人都是图稳定的，就国内的就业环境而言，年龄成为劣势之后，更不敢轻易换工作，还是换到一个不稳定的环境。\n究其根本，是我的人生观左右了这个选择。正如大家耳熟能详的那句话所言：我来到这世上，是为了看太阳怎么升起，水怎么流，经历有趣的事，遇见难忘的人，倘能如我所愿，我的一生就算成功。所以，人生苦短，至少现在你还有自由去决定自己短暂人生的某个岔路，没有被世俗所裹挟，真正的做到了做自己，听从你的内心，为什么还要想这么有的没的呢，在意别人的看法呢？\n在哪里，做什么都不是很重要，重要的是，这是你想要的吗？\nWhat have I done Tech 这大半年，都做了什么？一句话，做各种编辑器。。。\n 整了一个组件库 整了个大文件批量上传 开发 NLE 编辑器，扒了不少源码 pixijs/vidar/wasm/web audio/web codec 开发 PSD 编辑器 开发 图片视频尺寸变换 编辑器  最大的感受，资源要优化管理，合理复用；字体预览最难整；这些技术点我都会慢慢整理出来。\nFuture 谁知道以后会是什么样呢？？我只知道，所有的过去和现在造就了以后，现在的你就是以后的你。\n今天上午看了一本书，里面一句话让我受益匪浅，也是我一直努力的方向，在此分享一下\n 做教学和研究的人，要有由浅入深的学习和研究能力，还要有由深返浅的表述和应用能力\n 前者 『由浅入深的学习和研究能力』，要求我们\n 对自己的领域，有深入的专业能力，理解大多人看不懂的东西，提高深度 对不熟悉的领域，也能快速领悟其要领，拓展广度  后者，『由深返浅的表述和应用能力』\n 身为工程师，要有变现技术的能力 『表述』要求我们可以用通俗的言语把技术难点表达出来，因为『凡是你说不清的，就说明你并未真正的理解』，这一点很多人欠缺  这也是我想写博客的原因，现在这个信息过载的社会，人人们很难静下来读完一页书，写下一篇文章，长久如此，就会懒得思考。日常工作更多是重复的劳动，很多时候，急匆匆的应付完工作，实际上并未真正的理解。写作会让人变得安静，集中精力去消化那些似懂非懂的知识点，进而形成体系。\n"
+                "date" : "2022.11.05",
+                "body": "Why 文本截断并显示省略号，在web上是非常容易实现的，直接使用CSS就可以，那这有什么可以说的呢？道理是这样不错，但是业务总是千奇百怪。比如我们的业务是\n 如果文本太长超过容器的高度，则需要显示省略，并且还要tooltip显示原本的文案； 没超过容器高度，则正常显示；  换句话说，这就要求动态显示；这样的话，就无法通过CSS实现了\nHow 从使用方的角度考虑，他只需要传入这几个参数\n text 原始文案 rows 最多显示几行 maxHeight 不确定几行，但是明确最大高度  Step 1 是否应该截断\nconst visualH = props.maxHeight ? props.maxHeight : getLineHeight(container) * props.rows const containerH = getElemHeight(container) if (containerH \u0026lt;= visualH) { shouldTruncate = false } else { shouldTruncate = true truncate(text) } 这里建议\n 要么明确指定可见高度, maxHeight 要么明确指定容器的行高, lineHeight  Step 2 如何截断\n可以用笨方法，一次加一个字的方法判断是否超过了可视高度；这个效率有点低了，比较快的方法是用 binarySearch (折半查找)\nfunction binarySearch(l, r, callback) { while (l \u0026lt; r) { const m = Math.floor((l + r) / 2) if (callback(l, r, m)) { // 太长  r = m - 1 } else { // 太短  l = m + 1 } } } function truncate(text: string) { let finalText = \u0026#39;\u0026#39; binarySearch(0, text.length, (l, r, m) =\u0026gt; { const partial = text.slice(l, m + 1) container.textContent = finalText + partial const tempH = getElemHeight(container) if (tempH \u0026gt; visualH) { return true } else { finalText += partial } }) container.textContent = finalText } "
             }
     
         ,
             {
                 "id": 4,
+                "href": "https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/",
+                "title": "Some thoughts after going back to work",
+                "section": "post",
+                "date" : "2022.10.03",
+                "body": "What am I doing Frontend Development\nWhy 也曾试着转行，但是门槛要求高（论文、实习、比赛等），钱也不如继续做老本行来的多。曾经我也以为我不会为五斗米折腰，然而真正到做这个选择的时刻，才发现我只不过是个普通不过的普通人，在现实面前，梦想什么的是如此不着边际。\n我听过不少人对我说过可惜，费这么大劲读书，回来没有做这一行，挺可惜的。不可惜是假的，但是至少到现在，我没后悔，就足矣。即使时光倒流，我还是会坚持出去读书的想法，因为做决定的时候，我就知道会有什么样的结果。相反，不去做，对于我来说，才是最大的遗憾。\n继续做老本行，是我的退路，我也并不抗拒，因为我还保留对这份工作的热情，只不过不会像大学刚毕业那样特别充满干劲了，毕竟我也不是刚入行的菜鸟了。\n那还会不会考虑继续转行呢？会的，因为我内心深处从来没有放弃过这个想法，毕竟路还很长。\nHow 即使是选择继续做老本行，也要有所特别才是，我当时所想的无外乎这两个\n 大数据平台 图像、音视频  选定了方向，还有公司偏好，大公司不在名单之内，没有啥就是厌倦了，再说gap2年也很难进去，即使进去了钱也没多少而且也很累。 那不看大公司，就只看小公司了，实际上我7月份在英国面试的时候，就是一直面小公司，应该说国外有很多这样的小作坊，Linkedin 上甚至有只有1、2个人的团队找我过去。我一直相信冥冥之中有这种设定，我必须去个小作坊，当然这也有主观的自我心理建设的影响，现在回过头来看，这确实不失为一个好时机去见识一下传说中的小公司。\n国内对小公司、创业公司都有刻板印象和偏见，当我说要去创业公司以及我在面试别人的时候，听到的最多的话就是 —— 小公司不稳定。这是事实，不可否认，进来之后我多少也会有这种忧患认识。这个缺点对于当时的我(也是现在的我)来说，根本不是问题。因为我的想法是，我也是一个不稳定的人，我那会什么都没有(物质上)，不在乎短时间内再次什么都没有，有种光脚的不怕穿鞋的感觉。 再说，此时不去更待何时？大多数人都是图稳定的，就国内的就业环境而言，年龄成为劣势之后，更不敢轻易换工作，还是换到一个不稳定的环境。\n究其根本，是我的人生观左右了这个选择。正如大家耳熟能详的那句话所言：我来到这世上，是为了看太阳怎么升起，水怎么流，经历有趣的事，遇见难忘的人，倘能如我所愿，我的一生就算成功。所以，人生苦短，至少现在你还有自由去决定自己短暂人生的某个岔路，没有被世俗所裹挟，真正的做到了做自己，听从你的内心，为什么还要想这么有的没的呢，在意别人的看法呢？\n在哪里，做什么都不是很重要，重要的是，这是你想要的吗？\nWhat have I done Tech 这大半年，都做了什么？一句话，做各种编辑器。。。\n 整了一个组件库 整了个大文件批量上传 开发 NLE 编辑器，扒了不少源码 pixijs/vidar/wasm/web audio/web codec 开发 PSD 编辑器 开发 图片视频尺寸变换 编辑器  最大的感受，资源要优化管理，合理复用；字体预览最难整；这些技术点我都会慢慢整理出来。\nFuture 谁知道以后会是什么样呢？？我只知道，所有的过去和现在造就了以后，现在的你就是以后的你。\n今天上午看了一本书，里面一句话让我受益匪浅，也是我一直努力的方向，在此分享一下\n 做教学和研究的人，要有由浅入深的学习和研究能力，还要有由深返浅的表述和应用能力\n 前者 『由浅入深的学习和研究能力』，要求我们\n 对自己的领域，有深入的专业能力，理解大多人看不懂的东西，提高深度 对不熟悉的领域，也能快速领悟其要领，拓展广度  后者，『由深返浅的表述和应用能力』\n 身为工程师，要有变现技术的能力 『表述』要求我们可以用通俗的言语把技术难点表达出来，因为『凡是你说不清的，就说明你并未真正的理解』，这一点很多人欠缺  这也是我想写博客的原因，现在这个信息过载的社会，人人们很难静下来读完一页书，写下一篇文章，长久如此，就会懒得思考。日常工作更多是重复的劳动，很多时候，急匆匆的应付完工作，实际上并未真正的理解。写作会让人变得安静，集中精力去消化那些似懂非懂的知识点，进而形成体系。\n"
+            }
+    
+        ,
+            {
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/fe-pooling/",
-                "title": "Pooling",
+                "title": "Draft - Pooling",
                 "section": "post",
                 "date" : "2022.08.06",
                 "body": "Pooling Long Pooling WebSocket Reference  https://javascript.info/long-polling "
@@ -54,7 +64,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/fe-video-power/",
                 "title": "Video autoplay not working when low power mode is on (iphone)",
                 "section": "post",
@@ -64,7 +74,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
                 "title": "[Draft] - Axios",
                 "section": "post",
@@ -74,27 +84,27 @@
     
         ,
             {
-                "id": 7,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/fe-message/",
                 "title": "A message component",
                 "section": "post",
                 "date" : "2022.06.03",
-                "body": "Develop a message component using vue.\nBackground message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还是 vue/react，调用方法都是类似的\n// jQuery $.toast({ text: \u0026#39;hello world\u0026#39; duration: 5000 }) $.loading({ text: \u0026#39;loading...\u0026#39; }) // vue const msg = inject(\u0026#39;message\u0026#39;) msg.info({ message: \u0026#39;hello world\u0026#39; duration: 5000 }) msg.loading({ message: \u0026#39;loading...\u0026#39; duration: 5000 }) 通过 jQuery 我们知道，调用 $.toast() 实际上是动态的创建了一个含有 text 的 html tag 然后插入到 body 最后，\nconst div = document.createElement(\u0026#39;div\u0026#39;) div.textContext = text document.body.appendChild(div) const timer = setTimeout(() =\u0026gt; { document.body.removeChild(div) clearTimeout(timer) }, duration) 类似的，vue 的实现也是如此，只不过我们是通过 VNode 生成真实的 DOM。\nImplementation render \u0026lt;template\u0026gt; \u0026lt;div\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/template\u0026gt; 以上定义 HTML 模板，接下来 \u0026lsquo;编译\u0026rsquo; 为 VNode，渲染为 HTML 插入到 body\nimport { createVNode, render } from \u0026#39;vue\u0026#39; import MessageConstructor from \u0026#39;./message.vue\u0026#39; const message = (options) =\u0026gt; { const props = { zIndex: options.zIndex, offset: verticalOffset, ...options, } // create a VNode  const vm = createVNode( MessageConstructor, props, null, ) const container = document.createElement(\u0026#39;div\u0026#39;) // remove it from the document  vm.props.onDestroy = () =\u0026gt; { render(null, container) container = null } // transition starts  vm.props.onBeforeLeave = () =\u0026gt; {} // generate a html fragment  render(vm, container) // insert into the document  document.body.appendChild(container.firstElementChild) } timer vue 中我们在 onMounted 开启计时器，由于使用了 transition 实现动画效果，所以在动画结束即 after-leave 触发 onDestroy 移除 DOM\n\u0026lt;template\u0026gt; \u0026lt;transition @before-leave=\u0026#34;onBeforeLeave\u0026#34; @after-leave=\u0026#34;onDestroy\u0026#34;\u0026gt; \u0026lt;div v-show=\u0026#34;visible\u0026#34;\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/transition\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; function startTimer() { if (props.duration \u0026gt; 0) { timerId = setTimeout(() =\u0026gt; { if (visible.value) { // trigger transition  visible.value = false clearTimeout(timerId) } }, props.duration) } } onMounted(() =\u0026gt; { startTimer() }) \u0026lt;/script\u0026gt; Multiple Instances 现在这段代码只支持一个 message 的创建，如果需要同时显示多个 message，这就要全局维护一个队列\n  创建的时候，添加到数组\n  移除的时候，从数组中移除\n  有一个 UI 要注意的细节，当移除第 index 个 message，它后面的 message 的 offset 要更新。一般 message 都是出现在上方，也就是说，后面的 message 的 top 都要减少，向上偏移。\n这个操作可以放在 before-leave 完成，这样向上移动的效果和 transition 的效果就是同时的，体验上会更连贯。\n"
-            }
-    
-        ,
-            {
-                "id": 8,
-                "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
-                "title": "A Cascader Component",
-                "section": "post",
-                "date" : "2022.05.29",
-                "body": "实现一个业务定制的级联选择器\nBackground 常见的级联选择器，比如省市区选择器，实现起来比较简单，而且父子之间没有过多的依赖关系。然而由于我们业务的特殊性，这些选择器根本无法满足需求，不得已只能从0到1实现。先梳理一下要实现的功能\n  支持单选、多选\n 单选即只能选择一个子项，又分为两种情况  case 1, 只能选择叶子节点 case 2, 可以选到任一个层级   多选 case 3  可以选到任一个层级，可以选择多个项 选择了通用节点，所有其他节点都不能被选择，即互斥关系 选择了父节点，其所有孩子节点都不能被选择，但是依然可以访问其路径      支持筛选\n 只支持叶子节点筛选，适用于 case 1 (单选且只能选择到叶子节点) 所有层级都支持筛选，使用 case2 \u0026amp; case 3    效果如下，\n单选 多选 实现 数据格式 显然，这是个树结构\n[ { id: \u0026#34;L1\u0026#34;, label: \u0026#34;level 1\u0026#34;, children: [ { id: \u0026#34;L2\u0026#34;, label: \u0026#34;level 1-2\u0026#34; } ] } ] 从 UI 来看，切换节点，需要在下一级菜单显示对应的 children。如果每次切换，都要遍历一下树，太慢了效率不高，比较好的方式是在一开始就计算好对应的数据，切换的时候从 map 里取出来就好。\n这里借鉴了文件目录的思想\n  根目录是 ROOT\n  查看包含的子文件列表 $ ls ROOT\n  文件所在的目录 $ cwd\n  采用这个思想，那么每个 node 的数据结构如下\ntype INode = { id: // the key  childrenCount: // the number of children  cwd: // the current working directory  parent: //  depth: // the depth of this node } 接下来，全局维护一个 map 对象，其 key 即是 cwd,\n{ \u0026#39;ROOT\u0026#39;: INode[], \u0026#39;ROOT/L1\u0026#39;: INode[], \u0026#39;ROOT/L1/L1-2\u0026#39;: INode[], } 最后是深度遍历\ntreeData = flattenTree(tree, \u0026#39;ROOT\u0026#39;, {}, null) function flattenTree(list, footpath, treeMap, parent) { if (!treeMap[footpath]) { treeMap[footpath] = [] } list.forEach(t =\u0026gt; { t.id = t.id t.childrenCount = t.children?.length t.depth = splitFootPath(footpath).length t.parent = parent t.cwd = concatFootPath(footpath, t.id) treeMap[footpath].push(omit(t, [\u0026#39;children\u0026#39;])) flattenTree(t.children, t.cwd, treeMap, t) }) } 层级联动 接下来就好办了，监听节点的 click 事件，这里要注意\n 可以选择中间层的，点击了 radio/checkbox 才会被选中；点击文本，只是展示下一层几  是否只能选择叶子节点，我们借鉴 checkbox 的设计，新增属性 intermediate\n  如果是叶子节点，直接选择完成\n  这里通过 classList 判断是否点击了 radio/checkbox，if so, 直接选择完成\n  switchLevel(record, true) 通过添加标识(第2个参数 true) 标记 选择完成\n  function rowClick(record, e) { if (props.intermediate) { // 如果是叶子节点，点自己也是可以的  // 选择了 radio/checkbox，新增 `true` 表示选择结束  if ( !record.childrenCount || (e.target \u0026amp;\u0026amp; e.target.classList.contains(\u0026#39;wxp-cascader-list-option-radio\u0026#39;)) ) { e.stopPropagation() radioCheckedNode = record switchLevel(record, true) } // 点击的是文本，展开下一层  else if (record.childrenCount) { radioCheckedNode = null switchLevel(record) } } else { switchLevel(record) } emit(\u0026#39;click\u0026#39;, record) } 层级的切换，有几个情况\n  向更深的层级展开\n  在本层级不同兄弟节点之间\n  回到父层级\n  这也很好办，结合当前路径 currentPath ，所选节点的信息比如 cwd, depth，就可以知道是是哪个情况\nfunction switchLevel() { // 向更深的层级展开  if (currentPath.value.length == record.depth) { currentPath.value = currentPath.value.concat(record.cwd) } else { // 切换到上一级，或者本层级  const temp = currentPath.value.slice(0, record.depth) currentPath.value = temp.concat(record.cwd) } } 最后就是渲染数据了，监听 currentPath 重新计算 currentList 即可\n// currentPath: [\u0026#39;ROOT\u0026#39;, \u0026#39;L1\u0026#39;, \u0026#39;L1-2\u0026#39;] nextList = currentPath?.map((fp, idx) =\u0026gt; { return treeMap[fp]?.map(ot =\u0026gt; { const t = { ...ot } // copy  // UI样式相关的逻辑  const selecting = t.cwd == currentPath.value[idx+1] const selectingEnded = soleEnded.value \u0026amp;\u0026amp; selecting const selectingEndedLeaf = props.intermediate ? t.cwd == radioCheckedNode?.cwd : !t.childrenCount \u0026amp;\u0026amp; selectingEnded return { ...t, selecting, selectingEnded, selectingEndedLeaf, } }) }) if (props.intermediate \u0026amp;\u0026amp; radioCheckedNode) { currentList.value = nextList.slice(0, radioCheckedNode.depth) } else { currentList.value = nextList } 节点互斥 前面提到，节点之间存在互斥行为\n  通用节点，权限最高，与所有其他节点互斥\n  选择了父节点，其孩子节点都不可选\n  不可选，那就是 disabled， 在上面的 nextList = ... 中新增 disabled 的判断即可\n针对通用节点（该节点只有一个），我们新增属性 majestyId (your majesty 女王陛下)，由业务指定节点 id\ndisabled = (majestySelected.value \u0026amp;\u0026amp; (item.id !== props.majestyId)) 针对第二个情况，遍历每一层的节点 item，如果\n  当前层级深度比选择的节点所在的层级深，说明当前渲染的是孩子节点\n  然后判断 item 是否依赖选择的节点 t，即是否有 \u0026ldquo;血缘关系\u0026rdquo;\n  disabled = !!(nextTagList?.find((t) =\u0026gt; t.depth \u0026lt; item.depth \u0026amp;\u0026amp; hasParentDependency(item, t))) 搜索筛选 最后是搜索的实现(前端搜索，因为业务数据量不大)，也分两种情况\n  只在叶子节点搜\n  对整棵树进行搜索，且搜索结果需要按深度层级显示(换句话说，也是深度遍历)\n  Node_L1_1 匹配，继续匹配孩子节点\n  Node_L1_1_L2_2 匹配，继续匹配孩子节点\n Node_L1_1_L2_2_L3_3匹配 ，继续匹配孩子节点    如果 Node_L1_1_L2_6 匹配，继续匹配孩子节点\n    Node_L1_2 匹配，继续匹配孩子节点\n  \u0026hellip;\n    叶子搜索 叶子节点搜索比较简单，首先要搜集所有的叶子节点，在 flattenTree() 中即可以实现\n// 缓存所有叶子节点 if (!t.childrenCount) { leafNodeList.push({ ...(omit(t, [\u0026#39;children\u0026#39;])) }) } 然后根据关键字过滤一下即可\nqueryList = leafNodeList.filter(t =\u0026gt; t.label.indexOf(q) \u0026gt; -1) 路径搜索 既然知道了叶子节点( flattenTree() 的深度遍历和这里层级搜索是一一对应的，所以按顺序遍历叶子节点就是我们所需要的路径顺序)，那么我们可以通过 parent 回溯对应的链路\n思考下面的路径\n[A, B, C, D1] [A, B, C, D2] 最终所有的路径顺序\n[A] [A, B] [A, B, C] [A, B, C, D1] [A, B, C, D2] 这一步也简单，不断找 parent 就好了\nfunction reachMe(node) { let tempList = [ node ] let o = node.parent while (o) { tempList.unshift(o) o = o.parent } return tempList } 当给定一个节点，比如说 D1 ，这个函数就会返回 [A, B, C, D1]，所以要得所有路径，还需要在遍历 D1.parent 直到 null\n这里要注意一个问题，当我们继续遍历 D2 的时候，[A], [A, B], [A, B, C] 已经存在了，所以要去重。去重也很简单，只需要看一下最后一个节点是不是当前节点就行，\n  比如 D2，这是肯定没有的，所以需要计算；\n  但是到了D2.parent 即 C 的时候，memo 里已经存在 [A, B, C] 了，所以不用再算了\n  oneLevelList = leafNodeList.reduce((memo, node) =\u0026gt; { let resultList = [] let o = node while (o) { if (!memo.length || !memo.find(nl =\u0026gt; nl[nl.length - 1][\u0026#39;id\u0026#39;] == o.id)) { resultList.unshift(reachMe(o)) } o = o.parent } memo = memo.concat(resultList) return memo }, []) 最后就是搜索匹配，类似的，只需要匹配每条路径的最后一个节点即可\nif (props.intermediate) { // [[p1], [p1, p2], [p1, p2, leaf]]  nextList = oneLevelList.filter((res) =\u0026gt; { const lastNode = res[res.length - 1] return lastNode.label.indexOf(q) \u0026gt; -1 }) } "
+                "body": "Develop a message component using vue.\nWhy message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还是 vue/react，调用方法都是类似的\n// jQuery $.toast({ text: \u0026#39;hello world\u0026#39; duration: 5000 }) $.loading({ text: \u0026#39;loading...\u0026#39; }) // vue const msg = inject(\u0026#39;message\u0026#39;) msg.info({ message: \u0026#39;hello world\u0026#39; duration: 5000 }) msg.loading({ message: \u0026#39;loading...\u0026#39; duration: 5000 }) 通过 jQuery 我们知道，调用 $.toast() 实际上是动态的创建了一个含有 text 的 html tag 然后插入到 body 最后，\nconst div = document.createElement(\u0026#39;div\u0026#39;) div.textContext = text document.body.appendChild(div) const timer = setTimeout(() =\u0026gt; { document.body.removeChild(div) clearTimeout(timer) }, duration) 类似的，vue 的实现也是如此，只不过我们是通过 VNode 生成真实的 DOM。\nImplementation render \u0026lt;template\u0026gt; \u0026lt;div\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/template\u0026gt; 以上定义 HTML 模板，接下来 \u0026lsquo;编译\u0026rsquo; 为 VNode，渲染为 HTML 插入到 body\nimport { createVNode, render } from \u0026#39;vue\u0026#39; import MessageConstructor from \u0026#39;./message.vue\u0026#39; const message = (options) =\u0026gt; { const props = { zIndex: options.zIndex, offset: verticalOffset, ...options, } // create a VNode  const vm = createVNode( MessageConstructor, props, null, ) const container = document.createElement(\u0026#39;div\u0026#39;) // remove it from the document  vm.props.onDestroy = () =\u0026gt; { render(null, container) container = null } // transition starts  vm.props.onBeforeLeave = () =\u0026gt; {} // generate a html fragment  render(vm, container) // insert into the document  document.body.appendChild(container.firstElementChild) } timer vue 中我们在 onMounted 开启计时器，由于使用了 transition 实现动画效果，所以在动画结束即 after-leave 触发 onDestroy 移除 DOM\n\u0026lt;template\u0026gt; \u0026lt;transition @before-leave=\u0026#34;onBeforeLeave\u0026#34; @after-leave=\u0026#34;onDestroy\u0026#34;\u0026gt; \u0026lt;div v-show=\u0026#34;visible\u0026#34;\u0026gt; {{ message }} \u0026lt;/div\u0026gt; \u0026lt;/transition\u0026gt; \u0026lt;/template\u0026gt; \u0026lt;script lang=\u0026#34;ts\u0026#34;\u0026gt; function startTimer() { if (props.duration \u0026gt; 0) { timerId = setTimeout(() =\u0026gt; { if (visible.value) { // trigger transition  visible.value = false clearTimeout(timerId) } }, props.duration) } } onMounted(() =\u0026gt; { startTimer() }) \u0026lt;/script\u0026gt; Multiple Instances 现在这段代码只支持一个 message 的创建，如果需要同时显示多个 message，这就要全局维护一个队列\n  创建的时候，添加到数组\n  移除的时候，从数组中移除\n  有一个 UI 要注意的细节，当移除第 index 个 message，它后面的 message 的 offset 要更新。一般 message 都是出现在上方，也就是说，后面的 message 的 top 都要减少，向上偏移。\n这个操作可以放在 before-leave 完成，这样向上移动的效果和 transition 的效果就是同时的，体验上会更连贯。\n"
             }
     
         ,
             {
                 "id": 9,
+                "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
+                "title": "A Cascader Component",
+                "section": "post",
+                "date" : "2022.05.29",
+                "body": "实现一个业务定制的级联选择器\nWhy 常见的级联选择器，比如省市区选择器，实现起来比较简单，而且父子之间没有过多的依赖关系。然而由于我们业务的特殊性，这些选择器根本无法满足需求，不得已只能从0到1实现。先梳理一下要实现的功能\n  支持单选、多选\n 单选即只能选择一个子项，又分为两种情况  case 1, 只能选择叶子节点 case 2, 可以选到任一个层级   多选 case 3  可以选到任一个层级，可以选择多个项 选择了通用节点，所有其他节点都不能被选择，即互斥关系 选择了父节点，其所有孩子节点都不能被选择，但是依然可以访问其路径      支持筛选\n 只支持叶子节点筛选，适用于 case 1 (单选且只能选择到叶子节点) 所有层级都支持筛选，使用 case2 \u0026amp; case 3    效果如下，\n单选 多选 实现 数据格式 显然，这是个树结构\n[ { id: \u0026#34;L1\u0026#34;, label: \u0026#34;level 1\u0026#34;, children: [ { id: \u0026#34;L2\u0026#34;, label: \u0026#34;level 1-2\u0026#34; } ] } ] 从 UI 来看，切换节点，需要在下一级菜单显示对应的 children。如果每次切换，都要遍历一下树，太慢了效率不高，比较好的方式是在一开始就计算好对应的数据，切换的时候从 map 里取出来就好。\n这里借鉴了文件目录的思想\n  根目录是 ROOT\n  查看包含的子文件列表 $ ls ROOT\n  文件所在的目录 $ cwd\n  采用这个思想，那么每个 node 的数据结构如下\ntype INode = { id: // the key  childrenCount: // the number of children  cwd: // the current working directory  parent: //  depth: // the depth of this node } 接下来，全局维护一个 map 对象，其 key 即是 cwd,\n{ \u0026#39;ROOT\u0026#39;: INode[], \u0026#39;ROOT/L1\u0026#39;: INode[], \u0026#39;ROOT/L1/L1-2\u0026#39;: INode[], } 最后是深度遍历\ntreeData = flattenTree(tree, \u0026#39;ROOT\u0026#39;, {}, null) function flattenTree(list, footpath, treeMap, parent) { if (!treeMap[footpath]) { treeMap[footpath] = [] } list.forEach(t =\u0026gt; { t.id = t.id t.childrenCount = t.children?.length t.depth = splitFootPath(footpath).length t.parent = parent t.cwd = concatFootPath(footpath, t.id) treeMap[footpath].push(omit(t, [\u0026#39;children\u0026#39;])) flattenTree(t.children, t.cwd, treeMap, t) }) } 层级联动 接下来就好办了，监听节点的 click 事件，这里要注意\n 可以选择中间层的，点击了 radio/checkbox 才会被选中；点击文本，只是展示下一层几  是否只能选择叶子节点，我们借鉴 checkbox 的设计，新增属性 intermediate\n  如果是叶子节点，直接选择完成\n  这里通过 classList 判断是否点击了 radio/checkbox，if so, 直接选择完成\n  switchLevel(record, true) 通过添加标识(第2个参数 true) 标记 选择完成\n  function rowClick(record, e) { if (props.intermediate) { // 如果是叶子节点，点自己也是可以的  // 选择了 radio/checkbox，新增 `true` 表示选择结束  if ( !record.childrenCount || (e.target \u0026amp;\u0026amp; e.target.classList.contains(\u0026#39;wxp-cascader-list-option-radio\u0026#39;)) ) { e.stopPropagation() radioCheckedNode = record switchLevel(record, true) } // 点击的是文本，展开下一层  else if (record.childrenCount) { radioCheckedNode = null switchLevel(record) } } else { switchLevel(record) } emit(\u0026#39;click\u0026#39;, record) } 层级的切换，有几个情况\n  向更深的层级展开\n  在本层级不同兄弟节点之间\n  回到父层级\n  这也很好办，结合当前路径 currentPath ，所选节点的信息比如 cwd, depth，就可以知道是是哪个情况\nfunction switchLevel() { // 向更深的层级展开  if (currentPath.value.length == record.depth) { currentPath.value = currentPath.value.concat(record.cwd) } else { // 切换到上一级，或者本层级  const temp = currentPath.value.slice(0, record.depth) currentPath.value = temp.concat(record.cwd) } } 最后就是渲染数据了，监听 currentPath 重新计算 currentList 即可\n// currentPath: [\u0026#39;ROOT\u0026#39;, \u0026#39;L1\u0026#39;, \u0026#39;L1-2\u0026#39;] nextList = currentPath?.map((fp, idx) =\u0026gt; { return treeMap[fp]?.map(ot =\u0026gt; { const t = { ...ot } // copy  // UI样式相关的逻辑  const selecting = t.cwd == currentPath.value[idx+1] const selectingEnded = soleEnded.value \u0026amp;\u0026amp; selecting const selectingEndedLeaf = props.intermediate ? t.cwd == radioCheckedNode?.cwd : !t.childrenCount \u0026amp;\u0026amp; selectingEnded return { ...t, selecting, selectingEnded, selectingEndedLeaf, } }) }) if (props.intermediate \u0026amp;\u0026amp; radioCheckedNode) { currentList.value = nextList.slice(0, radioCheckedNode.depth) } else { currentList.value = nextList } 节点互斥 前面提到，节点之间存在互斥行为\n  通用节点，权限最高，与所有其他节点互斥\n  选择了父节点，其孩子节点都不可选\n  不可选，那就是 disabled， 在上面的 nextList = ... 中新增 disabled 的判断即可\n针对通用节点（该节点只有一个），我们新增属性 majestyId (your majesty 女王陛下)，由业务指定节点 id\ndisabled = (majestySelected.value \u0026amp;\u0026amp; (item.id !== props.majestyId)) 针对第二个情况，遍历每一层的节点 item，如果\n  当前层级深度比选择的节点所在的层级深，说明当前渲染的是孩子节点\n  然后判断 item 是否依赖选择的节点 t，即是否有 \u0026ldquo;血缘关系\u0026rdquo;\n  disabled = !!(nextTagList?.find((t) =\u0026gt; t.depth \u0026lt; item.depth \u0026amp;\u0026amp; hasParentDependency(item, t))) 搜索筛选 最后是搜索的实现(前端搜索，因为业务数据量不大)，也分两种情况\n  只在叶子节点搜\n  对整棵树进行搜索，且搜索结果需要按深度层级显示(换句话说，也是深度遍历)\n  Node_L1_1 匹配，继续匹配孩子节点\n  Node_L1_1_L2_2 匹配，继续匹配孩子节点\n Node_L1_1_L2_2_L3_3匹配 ，继续匹配孩子节点    如果 Node_L1_1_L2_6 匹配，继续匹配孩子节点\n    Node_L1_2 匹配，继续匹配孩子节点\n  \u0026hellip;\n    叶子搜索 叶子节点搜索比较简单，首先要搜集所有的叶子节点，在 flattenTree() 中即可以实现\n// 缓存所有叶子节点 if (!t.childrenCount) { leafNodeList.push({ ...(omit(t, [\u0026#39;children\u0026#39;])) }) } 然后根据关键字过滤一下即可\nqueryList = leafNodeList.filter(t =\u0026gt; t.label.indexOf(q) \u0026gt; -1) 路径搜索 既然知道了叶子节点( flattenTree() 的深度遍历和这里层级搜索是一一对应的，所以按顺序遍历叶子节点就是我们所需要的路径顺序)，那么我们可以通过 parent 回溯对应的链路\n思考下面的路径\n[A, B, C, D1] [A, B, C, D2] 最终所有的路径顺序\n[A] [A, B] [A, B, C] [A, B, C, D1] [A, B, C, D2] 这一步也简单，不断找 parent 就好了\nfunction reachMe(node) { let tempList = [ node ] let o = node.parent while (o) { tempList.unshift(o) o = o.parent } return tempList } 当给定一个节点，比如说 D1 ，这个函数就会返回 [A, B, C, D1]，所以要得所有路径，还需要在遍历 D1.parent 直到 null\n这里要注意一个问题，当我们继续遍历 D2 的时候，[A], [A, B], [A, B, C] 已经存在了，所以要去重。去重也很简单，只需要看一下最后一个节点是不是当前节点就行，\n  比如 D2，这是肯定没有的，所以需要计算；\n  但是到了D2.parent 即 C 的时候，memo 里已经存在 [A, B, C] 了，所以不用再算了\n  oneLevelList = leafNodeList.reduce((memo, node) =\u0026gt; { let resultList = [] let o = node while (o) { if (!memo.length || !memo.find(nl =\u0026gt; nl[nl.length - 1][\u0026#39;id\u0026#39;] == o.id)) { resultList.unshift(reachMe(o)) } o = o.parent } memo = memo.concat(resultList) return memo }, []) 最后就是搜索匹配，类似的，只需要匹配每条路径的最后一个节点即可\nif (props.intermediate) { // [[p1], [p1, p2], [p1, p2, leaf]]  nextList = oneLevelList.filter((res) =\u0026gt; { const lastNode = res[res.length - 1] return lastNode.label.indexOf(q) \u0026gt; -1 }) } "
+            }
+    
+        ,
+            {
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/fe-directives/",
                 "title": "Common directives/plugins in Vue",
                 "section": "post",
@@ -104,7 +114,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
@@ -114,17 +124,17 @@
     
         ,
             {
-                "id": 11,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/fe-composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
                 "date" : "2022.05.21",
-                "body": "中文输入法 composition event 在 chrome 和 safari 表现相反\nBackground 在开发编辑输入组件的时候，如果输入的是中文，监听 delete 事件会删除输入框里已经写好的文案，期望效果是删除正在输入的拼音。\nbug 复现如下\n 期望效果\n Why composition 有几个事件\n compositionstart compositionupdate compositionend  具体示例 MDN 上给了一个 demo 可以体验\n让我们看下中文输入 asd，然后 delete 后，发生了什么\nchrome 事件顺序如下\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  onCompositionEnd\n  safari 事件顺序如下\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionEnd\n  delete\n  如果输入法正在 composition，我们是知道的，只需要监听 compositionstart, compositionupdate 打个标记即可，然后在 delete 拦截掉\nfunction onCompositionStart() { isOnComposition = true } function onCompositionUpdate() { isOnComposition = true } function onCompositionEnd() { isOnComposition = false } function mockDelete() { // 拦截，false 的时候，删除业务 tag  if (!isOnComposition \u0026amp;\u0026amp; isMultipleMode \u0026amp;\u0026amp; tags.value?.length \u0026amp;\u0026amp; !phone.value) { const lastTag = tags.value[tags.value?.length - 1] removeTag(lastTag?._id) } } 目前看没啥问题，但是到最后一个字符 safari 就和 chrome 表现不一样了，\n因为 compositonend 在前 delete 在后，这就导致 safari 在监听到 delete 的时候，isOnComposition 已经被置为 false 了，这就导致会同时删除中文拼音以及业务 tag\n解决方法也简单，在 compositionend 继续打个标记\nfunction onCompositionEnd() { isOnComposition = false mockDelete.safariBug = true } function mockDelete() { // safari bug: compositionEnd =\u0026gt; delete  if (isSafari \u0026amp;\u0026amp; mockDelete.safariBug) { return mockDelete.safariBug = false } } "
+                "body": "中文输入法 composition event 在 chrome 和 safari 表现相反\nWhy 在开发编辑输入组件的时候，如果输入的是中文，监听 delete 事件会删除输入框里已经写好的文案，期望效果是删除正在输入的拼音。\nbug 复现如下\n 期望效果\n Why composition 有几个事件\n compositionstart compositionupdate compositionend  具体示例 MDN 上给了一个 demo 可以体验\n让我们看下中文输入 asd，然后 delete 后，发生了什么\nchrome 事件顺序如下\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  onCompositionEnd\n  safari 事件顺序如下\n  onCompositionUpdate\n  delete\n  onCompositionUpdate\n  delete\n  onCompositionEnd\n  delete\n  如果输入法正在 composition，我们是知道的，只需要监听 compositionstart, compositionupdate 打个标记即可，然后在 delete 拦截掉\nfunction onCompositionStart() { isOnComposition = true } function onCompositionUpdate() { isOnComposition = true } function onCompositionEnd() { isOnComposition = false } function mockDelete() { // 拦截，false 的时候，删除业务 tag  if (!isOnComposition \u0026amp;\u0026amp; isMultipleMode \u0026amp;\u0026amp; tags.value?.length \u0026amp;\u0026amp; !phone.value) { const lastTag = tags.value[tags.value?.length - 1] removeTag(lastTag?._id) } } 目前看没啥问题，但是到最后一个字符 safari 就和 chrome 表现不一样了，\n因为 compositonend 在前 delete 在后，这就导致 safari 在监听到 delete 的时候，isOnComposition 已经被置为 false 了，这就导致会同时删除中文拼音以及业务 tag\n解决方法也简单，在 compositionend 继续打个标记\nfunction onCompositionEnd() { isOnComposition = false mockDelete.safariBug = true } function mockDelete() { // safari bug: compositionEnd =\u0026gt; delete  if (isSafari \u0026amp;\u0026amp; mockDelete.safariBug) { return mockDelete.safariBug = false } } "
             }
     
         ,
             {
-                "id": 12,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/fe-gif-frame/",
                 "title": "Extract any frame of a gif image",
                 "section": "post",
@@ -134,8 +144,8 @@
     
         ,
             {
-                "id": 13,
-                "href": "https://ixiaopan.github.io/blog/post/misci-python-epub/",
+                "id": 14,
+                "href": "https://ixiaopan.github.io/blog/post/misc-python-epub/",
                 "title": "html2epub",
                 "section": "post",
                 "date" : "2022.02.19",
@@ -144,7 +154,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-test/",
                 "title": "Antd modal has no transition in test env",
                 "section": "post",
@@ -154,7 +164,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/fe-ui-lib/",
                 "title": "Build your own UI component library from scratch",
                 "section": "post",
@@ -164,7 +174,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/fe-verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -174,7 +184,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/fe-npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -184,7 +194,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/fe-layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -194,7 +204,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/fe-tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -204,7 +214,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/fe-media/",
                 "title": "Intro to Video Format",
                 "section": "post",
@@ -214,7 +224,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -224,7 +234,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -234,7 +244,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -244,7 +254,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -254,7 +264,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -264,7 +274,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/misc-remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -274,7 +284,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -284,7 +294,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -294,7 +304,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -304,7 +314,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -314,7 +324,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -324,7 +334,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -334,7 +344,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -344,7 +354,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -354,7 +364,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -364,7 +374,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -374,7 +384,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/misc-interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -384,7 +394,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -394,7 +404,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -404,7 +414,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -414,7 +424,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -424,7 +434,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -434,7 +444,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -444,7 +454,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -454,7 +464,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -464,7 +474,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -474,7 +484,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -484,7 +494,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -494,7 +504,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -504,7 +514,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -514,7 +524,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -524,7 +534,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -534,7 +544,7 @@
     
         ,
             {
-                "id": 53,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -544,7 +554,7 @@
     
         ,
             {
-                "id": 54,
+                "id": 55,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -554,7 +564,7 @@
     
         ,
             {
-                "id": 55,
+                "id": 56,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -564,7 +574,7 @@
     
         ,
             {
-                "id": 56,
+                "id": 57,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -574,7 +584,7 @@
     
         ,
             {
-                "id": 57,
+                "id": 58,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -584,7 +594,7 @@
     
         ,
             {
-                "id": 58,
+                "id": 59,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -594,7 +604,7 @@
     
         ,
             {
-                "id": 59,
+                "id": 60,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

@@ -4,9 +4,9 @@ date: "2022-01-03"
 description: ""
 # tags: []
 categories: [
-   "frontend",
+   "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 

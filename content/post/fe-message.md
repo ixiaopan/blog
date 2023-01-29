@@ -4,9 +4,9 @@ date: "2022-06-03"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 
@@ -14,7 +14,7 @@ Develop a message component using vue.
 
 <!--more-->
 
-## Background
+## Why
 
 `message` 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 `message`。不管是 `jQuery` 还是 `vue/react`，调用方法都是类似的
 

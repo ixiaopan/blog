@@ -103,11 +103,9 @@ strong {
 
 .intro-header {
   margin: 40px 0 20px;
-  position: relative;
-}
-
-.intro-header [class$="-heading"] {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .intro-header [class$="-heading"] h1 {
@@ -246,10 +244,6 @@ p + p {
 
 .blog-tags a:before {
   content: "#";
-}
-
-h4.term-name > span.badge {
-    float: right;
 }
 
 div.panel-body {
@@ -395,9 +389,9 @@ code {
 
 .searchBoxContainer {
   position: relative;
-  width: 300px;
-  height: 30px;
-  margin: 10px auto 50px auto;
+  width: 600px;
+  height: 40px;
+  margin: 100px auto 50px auto;
 }
 
 input.searchBox {
@@ -540,6 +534,24 @@ footer a {
 
 footer em {
   cursor: pointer;
+}
+
+/* term */
+.term-page {
+  display: flex;
+  justify-content: center;
+}
+.terms,
+.term-pages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.terms .term-name > a {
+  font-size: 28px;
+}
+.term-pages a {
+  color: #0594cb;
 }
 
 @media (min-width: 600px) {

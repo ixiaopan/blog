@@ -6,7 +6,7 @@ weight: 2
 
 ## PROFILE
 
-MSc Data Science graduate with 6 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+MSc Data Science graduate with 7 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 
 

@@ -4,15 +4,15 @@ date: "2022-11-05"
 description: ""
 # tags: []
 categories: [
-  "frontend",
+  "Frontend",
 ]
-series: ["frontend"]
+series: ["Frontend"]
 katex: true
 ---
 
 <!--more-->
 
-## Background
+## Why
 
 文本截断并显示省略号，在web上是非常容易实现的，直接使用CSS就可以，那这有什么可以说的呢？道理是这样不错，但是业务总是千奇百怪。比如我们的业务是
 - 如果文本太长超过容器的高度，则需要显示省略，并且还要tooltip显示原本的文案；

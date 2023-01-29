@@ -90,8 +90,8 @@
 
 
 
-  <header>
-    <nav class="navbar">
+<header>
+  <nav class="navbar">
   <div class="nav">
     
       <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
@@ -108,15 +108,7 @@
       
         
           <li>
-            <a href="/blog/about/" id="About"
-              ><em class="fas fa-user fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/blog/search/" id="Search"
+            <a href="/blog/search" id="Search"
               ><em class="fas fa-search fa-lg"></em
             ></a>
           </li>
@@ -124,8 +116,16 @@
       
         
           <li>
-            <a href="/blog/archives" id="Archives"
-              ><em class="fas fa-archive fa-lg"></em
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
             ></a>
           </li>
           
@@ -135,31 +135,23 @@
 </nav>
 
 
-    
-    <div class="intro-header">
-      <div class="container">
-        <div class="post-heading">
-          
-            <h1>
-              Posts
-            </h1>
-          
-          
-            <span class="meta-post">
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      Posts
+    </h1>
+    <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Nov 10, 2022
+  >&nbsp;Jan 28, 2023
   
   &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
 
   
 </span>
 
-          
-        </div>
-      </div>
-    </div>
-    
-  </header>
+  </div>
+  
+</header>
 
     
   <div class="container" role="main">
@@ -170,13 +162,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/">
-    <h2 class="post-title">NLP - Text Preprocessing</h2>
+  <a href="https://ixiaopan.github.io/blog/post/dataviz/">
+    <h2 class="post-title">Data Visualisation</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM + CRF. The very first step in NLP is text preprocessing, so I am going to start from here.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/" class="post-read-more"
+      <p><p>Data visualisation is one of the modules in the first semester. Though I worked with web design and UI for several years, I&rsquo;d never think about them deeply. As I learned more about design principles and the use of different charts, my aesthetic sense improved greatly. Here I listed some useful resources just for future reference.</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/dataviz/" class="post-read-more"
         >Read More</a
       >
     
@@ -185,184 +177,7 @@
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 22, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/nlp/"
-        >NLP</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/naive-bayes/">
-    <h2 class="post-title">Naive Bayes Classification</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating $P(Y|X)$ directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/naive-bayes/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 16, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/svm/">
-    <h2 class="post-title">Support Vector Machine</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p>Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
-$$ y_i d_i \ge \Delta $$
-where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin.</p>
-      <a href="https://ixiaopan.github.io/blog/post/svm/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 15, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/kmeans/">
-    <h2 class="post-title">K-means</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>So far, we&rsquo;ve talked much about supervised learning. Aside from it, there exist many other learning types such as unspervised learning, semi-supervised learning and so on. This post will introduce one of the most widely used unsupervised clustering algorithms — K-means. We will cover the implementation of K-means algorithm, the limitation of this algorithm as well as its applications.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/kmeans/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 14, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/logistic-regression/">
-    <h2 class="post-title">Logistic Regression</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>We&rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&rsquo;s also a linear classifier. PS: Don&rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/logistic-regression/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 14, 2021
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/perceptron/">
-    <h2 class="post-title">Perceptron</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it&rsquo;s out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/perceptron/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 13, 2021
+  >&nbsp;Sep 11, 2021
   
   &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
 
@@ -382,13 +197,13 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/knn/">
-    <h2 class="post-title">K-nearest neighbours</h2>
+  <a href="https://ixiaopan.github.io/blog/post/misc-leetcode-02/">
+    <h2 class="post-title">Leetcode 102</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It&rsquo;s simple and intutive to understand because it doesn&rsquo;t require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/knn/" class="post-read-more"
+      <p><p>Practice! Practice! Practice!</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/misc-leetcode-02/" class="post-read-more"
         >Read More</a
       >
     
@@ -397,16 +212,16 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 12, 2021
+  >&nbsp;Sep 10, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
       >&nbsp;
     
   
@@ -417,13 +232,13 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/information-theory/">
-    <h2 class="post-title">Information Theory</h2>
+  <a href="https://ixiaopan.github.io/blog/post/dl-01-pre/">
+    <h2 class="post-title">Deep Learning - Preliminary</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/information-theory/" class="post-read-more"
+      <p><p>So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/dl-01-pre/" class="post-read-more"
         >Read More</a
       >
     
@@ -432,16 +247,16 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 7, 2021
+  >&nbsp;Sep 9, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;16 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
       >&nbsp;
     
   
@@ -452,13 +267,13 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/constrained-optimisation/">
-    <h2 class="post-title">Constrained Optimisation</h2>
+  <a href="https://ixiaopan.github.io/blog/post/misc-leetcode-01/">
+    <h2 class="post-title">Leetcode 101</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>When I first learned machine learning, I was scared by the complicated formulas. I spent much time going over subjects like Linear Algebra and Calculus since I&rsquo;d already forgotten them. But with time, I feel more and more confident in understanding them, though they sometimes still confuse me. Anyway, in my opinion, there is no need to know every detail about each equation, after all, we are not mathematicians. Instead, learning how to use these math formulas to solve real-world problems is the key.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/constrained-optimisation/" class="post-read-more"
+      <p><p>Practice! Practice! Practice!</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/misc-leetcode-01/" class="post-read-more"
         >Read More</a
       >
     
@@ -467,16 +282,16 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 3, 2021
+  >&nbsp;Sep 6, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;17 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
       >&nbsp;
     
   
@@ -487,14 +302,13 @@ where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is t
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/probabilistic-model/">
-    <h2 class="post-title">Probabilistic Model</h2>
+  <a href="https://ixiaopan.github.io/blog/post/misc-sql/">
+    <h2 class="post-title">Daily SQL Practice</h2>
   </a>
   <div class="post-entry">
     
-      <p>The goal of machine learning is to infer an unknown pattern from data. However, both parameters and predictions are estimated values, so how confident are we in these values? To measure uncertainty, we use probability. On the other hand, Bayes' theorem provides a framework for us to invert the problem into a forward process, where we observe data from parameters instead of making inferences from data.
-Probability Random Variable At the beginning, let&rsquo;s have a quick refresh on probability.</p>
-      <a href="https://ixiaopan.github.io/blog/post/probabilistic-model/" class="post-read-more"
+      <p><p>Practice! Practice! Practice!</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/misc-sql/" class="post-read-more"
         >Read More</a
       >
     
@@ -503,16 +317,121 @@ Probability Random Variable At the beginning, let&rsquo;s have a quick refresh o
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;May 26, 2021
+  >&nbsp;Jul 30, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
     
       <a
-        href="https://ixiaopan.github.io/blog/categories/machine-learning/"
-        >Machine Learning</a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/misc-interview/">
+    <h2 class="post-title">Software Engineer Interview</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p><p>From the beginning of July, I started to look for job opportunities in Data Science, Front-End, or both. The whole process is time-consuming and tedious. Now I have achieved my goal ( I mean the experience in seeking a job, I still have no offer for now ), so I am going to share my idea and recent thoughts about job seeking.</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/misc-interview/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 29, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/dl-00-pytorch/">
+    <h2 class="post-title">Deep Learning - PyTorch</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p><p>The most popular deep learning frameworks nowadays are Tensorflow and PyTorch. Well, during my study, I use PyTorch more often. Recently, I am building the classic BiLSTM-CRF model using PyTorch. It&rsquo;s a bit hard for me when operating matrices since it uses various advanced techniques about indexing and slicing. I think it&rsquo;s necessary to explain these amazing functions. Therefore, I am going to write this post to revisit the most important aspects of PyTorch for future references.</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/dl-00-pytorch/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 19, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;12 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/deep-learning/"
+        >Deep Learning</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/misc-sort/">
+    <h2 class="post-title">Sorting</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p><p>Data structure and algorithms are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Well, this series of articles are simply quick notes to help refresh my knowledge for future reference. So let&rsquo;s start from sorting.</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/misc-sort/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 11, 2021
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/misc/"
+        >Misc</a
       >&nbsp;
     
   
@@ -585,7 +504,7 @@ Probability Random Variable At the beginning, let&rsquo;s have a quick refresh o
     <p class="credits copyright">
       <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
       &nbsp;&copy;
-      2022
+      2023
       
       &nbsp;&ndash;&nbsp;
       <em class="fas fa-moon" id="dark-mode-toggle"></em>

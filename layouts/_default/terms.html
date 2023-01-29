@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <div class="container" role="main">
+    <article class="post-preview term-page">
+      <div>
+      {{ range .Data.Terms.Alphabetical }}
+        <ul class="terms">
+          <li class="term-name">
+            <a href="{{ .Page.Permalink }}">{{ .Page.Title }}({{ .Count }})</a>
+            <ul class="term-pages">
+              {{ range .Pages }}
+              <li hugo-nav="{{ .RelPermalink }}">
+                <a href="{{ .Permalink }}"> {{ .LinkTitle }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </li>
+        </ul>
+      {{ end }}
+      </div>
+    </article>
+  </div>
+{{ end }}
