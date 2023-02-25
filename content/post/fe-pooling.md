@@ -1,5 +1,5 @@
 ---
-title: "Draft - Pooling"
+title: "[Draft] - Pooling"
 date: "2022-08-06"
 description: ""
 # tags: []

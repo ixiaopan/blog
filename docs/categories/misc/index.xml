@@ -14,6 +14,22 @@
 		<atom:link href="/blog/categories/misc/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Naming conflicts in unplugin-vue-component</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-name-conflict/</link>
+			<pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-name-conflict/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>Prefix static url when using public Image</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-public-image/</link>
+			<pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-public-image/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
 			<title>Automatically Send MR Notification</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-mr-notification/</link>
 			<pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
@@ -22,7 +38,7 @@
 		</item>
       	
 		<item>
-			<title>Prevent repeat click</title>
+			<title>button-level access control</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-repeat-click/</link>
 			<pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-repeat-click/</guid>
@@ -63,7 +79,7 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 		</item>
       	
 		<item>
-			<title>Draft - Pooling</title>
+			<title>[Draft] - Pooling</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-pooling/</link>
 			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-pooling/</guid>
@@ -92,22 +108,6 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
 			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-message/</guid>
 			<description>&lt;p&gt;Develop a message component using vue.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>A Cascader Component</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-cascader/</link>
-			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-cascader/</guid>
-			<description>&lt;p&gt;实现一个业务定制的级联选择器&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Common directives/plugins in Vue</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-directives/</link>
-			<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-directives/</guid>
-			<description>&lt;p&gt;Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
