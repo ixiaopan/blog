@@ -46,21 +46,43 @@ katex: true
 <img src="https://xxx-oss/static/images/xxx.png" />
 ```
 
-## What I need
+## What I want
 
-So far so good, but it's not what I need.
+但是通过 `baseUrl` 自动转换图片路径，有几个缺点
 
-1、`public` 下图片每次打包都会复制到 `baseUrl` 所在的服务上
+- 需要本地项目的 `public` 里也有对应的图片文件，因为 `baseUrl` 在 `dev` 开发时配置的是 `/` ，而不是远程 `cdn` 地址。
 
-2、`public` 存储的几乎都是整个 app 共用的不会变的图片，比如空占位符、logo等
+- `public` 下图片每次打包都会被复制到 `dist` 产物中，再上传到 `baseUrl` 所在的服务器
 
-3、尽量让 `public` 简单，只存放 `favicon/robots.txt` 
+- `baseUrl` 不一定就是 图片最终的 `http url`；换句话说，一般 `js/css` 是 `baseUrl`, 图片我们可能会有自己的图床服务，资源地址不同于 `baseUrl` 
+ 
+- 尽量让 `public` 简单，只存放 `favicon/robots.txt` 
 
-出于这种目的，首先我把 `public` 下的图片都放在了 `oss` 上，然后在 `html` 中直接用 `http` 绝对路径引入 `<img src="https://xxx-oss/static/images/xxx.png" />`。但是时间一长，
+
+既然 `public` 的图片已经在 `cdn` ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？
+
+
+### HTML 写死绝对路径
+
+- 先把 `public` 下的图片上传在 `oss` 上
+
+- 然后在 `html` 中直接用 `http` 绝对路径引入 `<img src="https://xxx-oss/static/images/xxx.png" />`
+
+
+这样 `public` 只有 `favicon/robots.txt` ，但是也有问题
 
 - 代码里充斥着 `http` ，显得过于臃肿
 
 - `url` 不好一键替换
+
+### HTML 写相对路径
+
+我希望的是 `html` 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 `baseUrl`，因为图片的 `url` 是单独的资源服务器，和 `baseUrl` 是不一样的
+
+```html
+<!-- // public -->
+<img src="./xxx.png" />
+```
 
 所以，这两天花了点时间研究一下 `vite`，看看是不是可以通过配置解决，最后验证确实可以。
 
@@ -218,4 +240,4 @@ export default {
 
 3、在 `css` 中，这样引入 `url('./xxx.png')`
 
-4、如果动态，ze这样引入 `<DemoCom :src="$replaceStatic('xxx.png')" />`
+4、如果动态，这样引入 `<DemoCom :src="$replaceStatic('xxx.png')" />`

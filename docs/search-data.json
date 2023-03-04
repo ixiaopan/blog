@@ -15,6 +15,46 @@
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
+                "title": "[Draft] - Axios",
+                "section": "post",
+                "date" : "2023.03.04",
+                "body": "Learn the modern http library - Axios.\nContent-Type Ajax Fetch Axios Chain Transformation Cancellation Data Type"
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/fe-event-tracking/",
+                "title": "[Draft] - Event Tracking",
+                "section": "post",
+                "date" : "2023.03.04",
+                "body": " Common Practices Combine generator"
+            }
+    
+        ,
+            {
+                "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/fs-promise/",
+                "title": "[Draft] - JavaScript with Promise Revisited",
+                "section": "post",
+                "date" : "2023.03.04",
+                "body": "关于 promise 介绍的太多了，今天就推荐一本我收藏已久的小册子，Javascript with promise\nRun to completion and the Event loop This chapter explains how async tasks/callbacks work.\nAs we all know, javascript runs on a single thread, which means you can only do one thing at one time. For the async tasks or callbacks, they are not part of the JavaScript. In other words, they run on a separate thread.\n[run to completion]\nOnce the async tasks are done, they need to communicate with JavaScript. But JavaScript is single-threaded, you cannot interrupt the current executing code.\n[event loop]\nOne way is to put the callback into a queue. When JavaScript is available, it will look up the queue and execute each callback in order. Unfortunately, we do know how long the callback will have to wait after putting into the queue.\nPromise  A promise is an object that serves as a placeholder for the value of an operation.\n A promise has three states\n  pending: the init state\n  fulfilled: the operation has completed\n  rejected: the operation could not be completed\n  When a promise is no longer pending, it is said to be settled. In other words, that promise has reached its final state and it can never be changed.\nCommon Practices The Async Ripple Effect  As a general rule, any function that uses a promise should also return a promise\n function fetchList() { listAPI().then((data) =\u0026gt; console.log(data)) } // trigger error: fetchList() return undefined fetchList().then(() =\u0026gt; {}) Conditional Logic Avoid this style of conditional async execution\nfunction showMenu() { if (!user.authenticated) { user.login().then(showMenu) return } // other things... } The problem is that showMenu() may run asynchronously or synchronously. The proper pattern is shown below,\nfunction showMenu() { const p = (!user.authenticated) ? user.login() : Promise.resolve() return p.then(function () { // other things...  }) } Parallel execution const userP = [\u0026#39;tom\u0026#39;, \u0026#39;alice\u0026#39;, \u0026#39;bob\u0026#39;].map((name) =\u0026gt; ajax(name)) const p = Promise.all(userP) However, p will be rejected if one of the userP fails.\nIf we want to get all the settled promises regardless of whether they succeeded or failed, we can use Promise.allSettled()\nPromise.allSettled = (pList) =\u0026gt; { const allP = pList.map((p) =\u0026gt; { return p.then( (value) =\u0026gt; { return { value, state: \u0026#39;fulfilled\u0026#39; } }, (reason) =\u0026gt; { return { reason, state: \u0026#39;rejected\u0026#39; } } ) }) return Promise.all(allP) } Sequential execution Using a loop function sequence(arr, asyncFunc) { return arr.reduce((p, val) =\u0026gt; { return p.then(() =\u0026gt; asyncFunc(val)) }, Promise.resolve()) } Using recursion function sequence(arr, asyncFunc) { const step = (idx) =\u0026gt; { if (idx == arr.length) return Promise.resolve() return Promise.resolve(asyncFunc(val)).then(() =\u0026gt; step(idx + 1)) } step(0) } There are a little differences between the two methods.\n  Using a loop builds an entire promise chain when the sequence() finishes, however, the recursive method builds the chain step by step.\n  the recursive method doesn\u0026rsquo;t need a predefined number of steps based on the elements in an array. This pattern is widely used in Nodejs.\n  function readFile(file) { const reader = file.getReader() const chunks = [] pump() const pump = () =\u0026gt; { return reader.read().then((ret) =\u0026gt; { if (ret.done) { return chunks } chunks.push(ret.value) return pump() }) } } Race Promise.race([p1, p2]) A common case is the competition between timer and request.\nfunction getData() { const fetchInfo = ajax() const getFromCache = new Promise((resolve) =\u0026gt; { const cached = \u0026#39;\u0026#39; setTimeout(() =\u0026gt; { resolve(cached) }, 1000) }) return Promise.race([fetchInfo, getFromCache]) } function getData() { const fetchInfo = ajax() const timeout = new Promise((resolve, reject) =\u0026gt; { setTimeout(() =\u0026gt; { reject() }, 1000) }) return Promise.race([fetchInfo, timeout]) } Error Handling Rejecting a promise   explicit rejection\n  throw an error(explicitly/implicitly) in any of the callbacks the promise invokes (i.e., any callback passed to the Promise constructor, then, or catch.)\n  new Promise((resolve, reject) =\u0026gt; { reject(new Error(\u0026#39;Explicit rejection\u0026#39;)) }) new Promise((resolve, reject) =\u0026gt; { console.log(a) // implicitly throw an error }) new Promise((resolve, reject) =\u0026gt; { throw new Error(\u0026#39;explicit throw error\u0026#39;)// explicitly throw an error })  Any error that occurs in a function that returns a promise should be used to reject the promise instead of being thrown back to the caller.\nThis approach allows the caller to deal with any problems that arise by attaching a catch handler to the returned promise instead of surrounding the call in a try/catch block\n 就是说，要在 promise 内抛出错误，这样可以在 catch 中捕获，避免在调用 promise 的地方，使用 try/catch\nAvoid this\nfunction badFunc(url) { var image; image.src = url; // Error: image is undefined  return new Promise(function (resolve, reject) { image.onload = resolve; image.onerror = reject; }) } function a() { try { badFunc() } catch (e) { console.log(e) // TypeError: Cannot set properties of undefined (setting \u0026#39;src\u0026#39;)  } } Recommend this\nfunction badFunc(url) { return new Promise(function (resolve, reject) { var image; image.src = url; // Error: image is undefined  image.onload = resolve; image.onerror = reject; }) } function a() { // TypeError: Cannot set properties of undefined (setting \u0026#39;src\u0026#39;)  badFunc().catch((e) =\u0026gt; console.log(e)) } Passing Errors When we have a chain of promises, it\u0026rsquo;s a common practice to add a catch at the end of the chain.\n Because one promise is rejected, all subsequent promises in this chain area rejected in a domino effect until an onRejected handler is found\n 但是使用 catch 有一点需要注意\n The catch function returns a new promise similar to then, but the promise that catch returns is only rejected if the callback throws an error.\n 换句话说，如果希望继续在 promise chain 中传递错误，你必须明确在 catch 中抛出错误才行，\nfunction catchMe() { queryUser() .then(() =\u0026gt; queryInfo()) .catch((err) =\u0026gt; { throw err }) } Combine generator 主要是结合 generator 可以实现 async\nasync function loadImage() { const imageData = await fetchImage() console.log(imageData) } "
+            }
+    
+        ,
+            {
+                "id": 4,
+                "href": "https://ixiaopan.github.io/blog/post/fe-js-ninja/",
+                "title": "[Draft] - Secrets of the js ninja",
+                "section": "post",
+                "date" : "2023.03.04",
+                "body": " Event Loop"
+            }
+    
+        ,
+            {
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/fe-name-conflict/",
                 "title": "Naming conflicts in unplugin-vue-component",
                 "section": "post",
@@ -24,17 +64,17 @@
     
         ,
             {
-                "id": 2,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/fe-public-image/",
                 "title": "Prefix static url when using public Image",
                 "section": "post",
                 "date" : "2023.02.25",
-                "body": "Background 项目中使用的图片一般会放在2个目录下\n  public\n  assets\n  这两个的区别，主要有2点\n1、打包的时候会不会被 webpack/rollup 等识别为待打包的资源\n  assets 的图片会根据图片大小打包为 base64 或者 xxxx-[hash].[ext]，\n  public 还是保持原样\n  2、引用方式不同\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;/images/xxx.png\u0026#34; /\u0026gt; \u0026lt;!-- // assets--\u0026gt; \u0026lt;img src=\u0026#34;@/assets/images/xxx.png\u0026#34; /\u0026gt; 可以发现 public 用的是绝对路径。在打包的时候，会根据配置的 baseUrl 自动转换，比如配置的 baseUrl = https://xxx-oss/static，那么打包的产物就是\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;https://xxx-oss/static/images/xxx.png\u0026#34; /\u0026gt; What I need So far so good, but it\u0026rsquo;s not what I need.\n1、public 下图片每次打包都会复制到 baseUrl 所在的服务上\n2、public 存储的几乎都是整个 app 共用的不会变的图片，比如空占位符、logo等\n3、尽量让 public 简单，只存放 favicon/robots.txt\n出于这种目的，首先我把 public 下的图片都放在了 oss 上，然后在 html 中直接用 http 绝对路径引入 \u0026lt;img src=\u0026quot;https://xxx-oss/static/images/xxx.png\u0026quot; /\u0026gt;。但是时间一长，\n  代码里充斥着 http ，显得过于臃肿\n  url 不好一键替换\n  所以，这两天花了点时间研究一下 vite，看看是不是可以通过配置解决，最后验证确实可以。\nHow HTML vite 为了解析 sfc ，引入了 vitejs/vite-plugin-vue，其内部引入了 compiler-sfc，这个包有一个文件叫 templateTransformAssetUrl.ts，顾名思义就是转换 html 里遇到的 url，这里有一段这样的代码\nif (options.base \u0026amp;\u0026amp; attr.value.content[0] === \u0026#39;.\u0026#39;) { // explicit base - directly rewrite relative urls into absolute url  // to avoid generating extra imports  // Allow for full hostnames provided in options.base  const base = parseUrl(options.base) const protocol = base.protocol || \u0026#39;\u0026#39; const host = base.host ? protocol + \u0026#39;//\u0026#39; + base.host : \u0026#39;\u0026#39; const basePath = base.path || \u0026#39;/\u0026#39; // when packaged in the browser, path will be using the posix-  // only version provided by rollup-plugin-node-builtins.  attr.value.content = host + (path.posix || path).join(basePath, url.path + (url.hash || \u0026#39;\u0026#39;)) return } 所以我们只要在 vite 中配置 base 以及在 html 中用 . 开头即可，源码 vite-plugin-vue/src/template#L137\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, // tags: { // the default tags  // video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;],  // source: [\u0026#39;src\u0026#39;],  // img: [\u0026#39;src\u0026#39;],  // image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // },  }, }, }), ] 改写后的 html，现在我们可以安全的删除 public/images/xxx.png 了\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./images/xxx.png\u0026#34; /\u0026gt; 上面的代码还支持可以配置自己的标签、属性用来加载图片，比如业务中封装了 Empty.vue ，希望 vue 能自动识别 src 的值为 asset，可以配置如下\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, tags: { // the default tags  video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;], source: [\u0026#39;src\u0026#39;], img: [\u0026#39;src\u0026#39;], image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], empty: [\u0026#39;src\u0026#39;], // your custom tags  }, }, }, }), ] Less 如果是在 css 中使用了 public/images/xxx.png，又该怎么处理？？同样，我们在源码 compiler-sfc/src/stylePreprocessors 找到了如下的代码，其实就是利用了 additionalData\nfunction getSource( source: string, filename: string, additionalData?: string | ((source: string, filename: string) =\u0026gt; string) ) { if (!additionalData) return source if (isFunction(additionalData)) { return additionalData(source, filename) } return additionalData + source } 那么，vite 里就可以配置如下\ncss: { preprocessorOptions: { less: { additionalData(source: string) { source = source.replace(new RegExp(`\\\\/xxxx\\\\/`), VITE_COMMON) return source }, }, }, } Dynamic 以上都是静态引入的情况，还有一种情况是动态的，比如 src 是从父组件传进来的，这就无法解析，那这种情况，我们写一个插件就好了\nimport type { App } from \u0026#39;vue\u0026#39; const slash = (s: string) =\u0026gt; (s.endsWith(\u0026#39;/\u0026#39;) ? s : s + \u0026#39;/\u0026#39;) const unSlash = (s: string) =\u0026gt; (s.startsWith(\u0026#39;/\u0026#39;) ? s.slice(1) : s) export default { install: (app: App, options: { prefixUrl: string }) =\u0026gt; { const { prefixUrl } = options || {} app.config.globalProperties.$replaceStatic = (path: string) =\u0026gt; { return /^https?:\\/\\//.test(path) ? path : `${slash(prefixUrl)}${unSlash(path)}` } }, } 在任何需要动态引入的地方\n\u0026lt;DemoCom :src=\u0026#34;$replaceStatic(\u0026#39;xxx.png\u0026#39;)\u0026#34; /\u0026gt; Summary 综上，整个配置的目的就是，如果一张图片是不怎么变的，比如空占位符/兜底图，首先\n1、上传图片到 cdn\n2、在 html 中，这样引入 \u0026lt;img src='./xx.png' /\u0026gt;\n3、在 css 中，这样引入 url('./xxx.png')\n4、如果动态，ze这样引入 \u0026lt;DemoCom :src=\u0026quot;$replaceStatic('xxx.png')\u0026quot; /\u0026gt;\n"
+                "body": "Background 项目中使用的图片一般会放在2个目录下\n  public\n  assets\n  这两个的区别，主要有2点\n1、打包的时候会不会被 webpack/rollup 等识别为待打包的资源\n  assets 的图片会根据图片大小打包为 base64 或者 xxxx-[hash].[ext]，\n  public 还是保持原样\n  2、引用方式不同\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;/images/xxx.png\u0026#34; /\u0026gt; \u0026lt;!-- // assets--\u0026gt; \u0026lt;img src=\u0026#34;@/assets/images/xxx.png\u0026#34; /\u0026gt; 可以发现 public 用的是绝对路径。在打包的时候，会根据配置的 baseUrl 自动转换，比如配置的 baseUrl = https://xxx-oss/static，那么打包的产物就是\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;https://xxx-oss/static/images/xxx.png\u0026#34; /\u0026gt; What I want 但是通过 baseUrl 自动转换图片路径，有几个缺点\n  需要本地项目的 public 里也有对应的图片文件，因为 baseUrl 在 dev 开发时配置的是 / ，而不是远程 cdn 地址。\n  public 下图片每次打包都会被复制到 dist 产物中，再上传到 baseUrl 所在的服务器\n  baseUrl 不一定就是 图片最终的 http url；换句话说，一般 js/css 是 baseUrl, 图片我们可能会有自己的图床服务，资源地址不同于 baseUrl\n  尽量让 public 简单，只存放 favicon/robots.txt\n  既然 public 的图片已经在 cdn ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？\nHTML 写死绝对路径   先把 public 下的图片上传在 oss 上\n  然后在 html 中直接用 http 绝对路径引入 \u0026lt;img src=\u0026quot;https://xxx-oss/static/images/xxx.png\u0026quot; /\u0026gt;\n  这样 public 只有 favicon/robots.txt ，但是也有问题\n  代码里充斥着 http ，显得过于臃肿\n  url 不好一键替换\n  HTML 写相对路径 我希望的是 html 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 baseUrl，因为图片的 url 是单独的资源服务器，和 baseUrl 是不一样的\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./xxx.png\u0026#34; /\u0026gt; 所以，这两天花了点时间研究一下 vite，看看是不是可以通过配置解决，最后验证确实可以。\nHow HTML vite 为了解析 sfc ，引入了 vitejs/vite-plugin-vue，其内部引入了 compiler-sfc，这个包有一个文件叫 templateTransformAssetUrl.ts，顾名思义就是转换 html 里遇到的 url，这里有一段这样的代码\nif (options.base \u0026amp;\u0026amp; attr.value.content[0] === \u0026#39;.\u0026#39;) { // explicit base - directly rewrite relative urls into absolute url  // to avoid generating extra imports  // Allow for full hostnames provided in options.base  const base = parseUrl(options.base) const protocol = base.protocol || \u0026#39;\u0026#39; const host = base.host ? protocol + \u0026#39;//\u0026#39; + base.host : \u0026#39;\u0026#39; const basePath = base.path || \u0026#39;/\u0026#39; // when packaged in the browser, path will be using the posix-  // only version provided by rollup-plugin-node-builtins.  attr.value.content = host + (path.posix || path).join(basePath, url.path + (url.hash || \u0026#39;\u0026#39;)) return } 所以我们只要在 vite 中配置 base 以及在 html 中用 . 开头即可，源码 vite-plugin-vue/src/template#L137\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, // tags: { // the default tags  // video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;],  // source: [\u0026#39;src\u0026#39;],  // img: [\u0026#39;src\u0026#39;],  // image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // },  }, }, }), ] 改写后的 html，现在我们可以安全的删除 public/images/xxx.png 了\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./images/xxx.png\u0026#34; /\u0026gt; 上面的代码还支持可以配置自己的标签、属性用来加载图片，比如业务中封装了 Empty.vue ，希望 vue 能自动识别 src 的值为 asset，可以配置如下\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, tags: { // the default tags  video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;], source: [\u0026#39;src\u0026#39;], img: [\u0026#39;src\u0026#39;], image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], empty: [\u0026#39;src\u0026#39;], // your custom tags  }, }, }, }), ] Less 如果是在 css 中使用了 public/images/xxx.png，又该怎么处理？？同样，我们在源码 compiler-sfc/src/stylePreprocessors 找到了如下的代码，其实就是利用了 additionalData\nfunction getSource( source: string, filename: string, additionalData?: string | ((source: string, filename: string) =\u0026gt; string) ) { if (!additionalData) return source if (isFunction(additionalData)) { return additionalData(source, filename) } return additionalData + source } 那么，vite 里就可以配置如下\ncss: { preprocessorOptions: { less: { additionalData(source: string) { source = source.replace(new RegExp(`\\\\/xxxx\\\\/`), VITE_COMMON) return source }, }, }, } Dynamic 以上都是静态引入的情况，还有一种情况是动态的，比如 src 是从父组件传进来的，这就无法解析，那这种情况，我们写一个插件就好了\nimport type { App } from \u0026#39;vue\u0026#39; const slash = (s: string) =\u0026gt; (s.endsWith(\u0026#39;/\u0026#39;) ? s : s + \u0026#39;/\u0026#39;) const unSlash = (s: string) =\u0026gt; (s.startsWith(\u0026#39;/\u0026#39;) ? s.slice(1) : s) export default { install: (app: App, options: { prefixUrl: string }) =\u0026gt; { const { prefixUrl } = options || {} app.config.globalProperties.$replaceStatic = (path: string) =\u0026gt; { return /^https?:\\/\\//.test(path) ? path : `${slash(prefixUrl)}${unSlash(path)}` } }, } 在任何需要动态引入的地方\n\u0026lt;DemoCom :src=\u0026#34;$replaceStatic(\u0026#39;xxx.png\u0026#39;)\u0026#34; /\u0026gt; Summary 综上，整个配置的目的就是，如果一张图片是不怎么变的，比如空占位符/兜底图，首先\n1、上传图片到 cdn\n2、在 html 中，这样引入 \u0026lt;img src='./xx.png' /\u0026gt;\n3、在 css 中，这样引入 url('./xxx.png')\n4、如果动态，这样引入 \u0026lt;DemoCom :src=\u0026quot;$replaceStatic('xxx.png')\u0026quot; /\u0026gt;\n"
             }
     
         ,
             {
-                "id": 3,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/fe-mr-notification/",
                 "title": "Automatically Send MR Notification",
                 "section": "post",
@@ -44,9 +84,9 @@
     
         ,
             {
-                "id": 4,
-                "href": "https://ixiaopan.github.io/blog/post/fe-repeat-click/",
-                "title": "button-level access control",
+                "id": 8,
+                "href": "https://ixiaopan.github.io/blog/post/fe-btn-access/",
+                "title": "Button-level access control",
                 "section": "post",
                 "date" : "2022.11.10",
                 "body": "Why 最近，业务上需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点\n  disabled 样式\n  tooltip 显示 『无权限』\n  不可点击\n  一种直观的做法就是在各个需要的地方，加上对应逻辑，比如\nimport { shouldDel } from \u0026#39;xxx\u0026#39; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;span :class=\u0026#34;shouldDel() ? \u0026#39;\u0026#39; : \u0026#39;disabled\u0026#39;\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;/a-tooltip\u0026gt; \u0026lt;a-tooltip :title=\u0026#34;shouldDel() ? \u0026#39;删除\u0026#39; : \u0026#39;无权限\u0026#39;\u0026#34;\u0026gt; \u0026lt;button :disabled=\u0026#34;shouldDel()\u0026#34; @click=\u0026#34;onDel\u0026#34;\u0026gt;删除\u0026lt;/button\u0026gt; \u0026lt;/a-tooltip\u0026gt; function onDel() { if (!shouldDel()) return } 这种写法有几个问题\n  button 有 disabled 属性，可以直接屏蔽点击，但是普通标签 div/span 必须在事件中进行规避，缺少统一性\n  shouldXX() 会被多次使用在 html/js 中，混乱且冗余\n  a-tooltip disabled 是在 HTML 中 shouldXX() 判断的，耦合度高\n  综上，核心问题是 shouldXX 造成的各种冗余，最终导致可维护性、可读性、可扩展性差，时间一长就没人敢去改这个代码了。\nHow 既如此，我们只要找到一个方式能同时做这3件事情就好了，不管是组件、指令、或是其他模式。在 vue 中，我们可以使用指令去实现，同样的功能但是只需要这样写就行\n\u0026lt;span v-access.del=\u0026#34;permission\u0026#34;\u0026gt;删除\u0026lt;/span\u0026gt; \u0026lt;button v-access.edit=\u0026#34;permission\u0026#34;\u0026gt;修改\u0026lt;/button\u0026gt; 具体实现还是要看指令内部 v-access，仔细分析一下这3个功能，其实最核心的是 不可点击，其他2个都可以用 css 解决。想要无侵入的屏蔽点击事件，一个方法就是拦截事件，好在 DOM 本身就支持\nel.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() e.stopPropagation() } }, true)   stopImmediatePropagation 会阻止监听同一事件的其他事件监听器 event handler 被调用\n  stopPropagation 则阻止事件进一步向上冒泡\n  其实这也可以用来实现规避防重复点击，只是再多加一个时间限制而已。\n完整的指令实现如下，\nfunction bindEvents(el, binding) { if (!binding.value) { return } const { showTooltip, hideTooltip } = createTooltip() // 显示 Tooltip  el.addEventListener(\u0026#39;mouseenter\u0026#39;, () =\u0026gt; { showTooltip(el.shouldDisable ? \u0026#39;无权限\u0026#39; : \u0026#39;删除\u0026#39;) }, true) el.addEventListener(\u0026#39;mouseleave\u0026#39;, hideTooltip, true) // 屏蔽点击  el.addEventListener(\u0026#39;click\u0026#39;, () =\u0026gt; { if (el.shouldDisable) { e.stopImmediatePropagation() } }, true) } function checkAccess(el, binding) { el.shouldDisable = shouldXX(binding.value) } function createTooltip() { if (!toolTipElem) { toolTipElem = document.createElement(\u0026#39;span\u0026#39;) document.body.appendChild(toolTipElem) toolTipElem.style.position = \u0026#39;absolute\u0026#39; } function showTooltip(t: string) { if (toolTipElem) { toolTipElem.textContent = t toolTipElem.style.display = \u0026#39;block\u0026#39; } } function hideTooltip() { toolTipElem.style.display = \u0026#39;none\u0026#39; } return { showTooltip, hideTooltip, } } "
@@ -54,9 +94,9 @@
     
         ,
             {
-                "id": 5,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/fe-text-ellipsis/",
-                "title": "text ellipsis",
+                "title": "Text ellipsis",
                 "section": "post",
                 "date" : "2022.11.05",
                 "body": "Why 文本截断并显示省略号，在web上是非常容易实现的，直接使用CSS就可以，那这有什么可以说的呢？道理是这样不错，但是业务总是千奇百怪。比如我们的业务是\n 如果文本太长超过容器的高度，则需要显示省略，并且还要tooltip显示原本的文案； 没超过容器高度，则正常显示；  换句话说，这就要求动态显示；这样的话，就无法通过CSS实现了\nHow 从使用方的角度考虑，他只需要传入这几个参数\n text 原始文案 rows 最多显示几行 maxHeight 不确定几行，但是明确最大高度  Step 1 是否应该截断\nconst visualH = props.maxHeight ? props.maxHeight : getLineHeight(container) * props.rows const containerH = getElemHeight(container) if (containerH \u0026lt;= visualH) { shouldTruncate = false } else { shouldTruncate = true truncate(text) } 这里建议\n 要么明确指定可见高度, maxHeight 要么明确指定容器的行高, lineHeight  Step 2 如何截断\n可以用笨方法，一次加一个字的方法判断是否超过了可视高度；这个效率有点低了，比较快的方法是用 binarySearch (折半查找)\nfunction binarySearch(l, r, callback) { while (l \u0026lt; r) { const m = Math.floor((l + r) / 2) if (callback(l, r, m)) { // 太长  r = m - 1 } else { // 太短  l = m + 1 } } } function truncate(text: string) { let finalText = \u0026#39;\u0026#39; binarySearch(0, text.length, (l, r, m) =\u0026gt; { const partial = text.slice(l, m + 1) container.textContent = finalText + partial const tempH = getElemHeight(container) if (tempH \u0026gt; visualH) { return true } else { finalText += partial } }) container.textContent = finalText } "
@@ -64,7 +104,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/",
                 "title": "Some thoughts after going back to work",
                 "section": "post",
@@ -74,17 +114,17 @@
     
         ,
             {
-                "id": 7,
-                "href": "https://ixiaopan.github.io/blog/post/fe-pooling/",
-                "title": "[Draft] - Pooling",
+                "id": 11,
+                "href": "https://ixiaopan.github.io/blog/post/fe-polling/",
+                "title": "[Draft] - Polling",
                 "section": "post",
                 "date" : "2022.08.06",
-                "body": "Pooling Long Pooling WebSocket Reference  https://javascript.info/long-polling "
+                "body": "Polling Long Polling WebSocket Reference  https://javascript.info/long-polling "
             }
     
         ,
             {
-                "id": 8,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/fe-video-power/",
                 "title": "Video autoplay not working when low power mode is on (iphone)",
                 "section": "post",
@@ -94,17 +134,7 @@
     
         ,
             {
-                "id": 9,
-                "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
-                "title": "[Draft] - Axios",
-                "section": "post",
-                "date" : "2022.06.04",
-                "body": "Learn the modern http library - Axios.\nChain Transformation Cancellation Data Type"
-            }
-    
-        ,
-            {
-                "id": 10,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/fe-message/",
                 "title": "A message component",
                 "section": "post",
@@ -114,7 +144,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
                 "title": "A Cascader Component",
                 "section": "post",
@@ -124,7 +154,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/fe-directives/",
                 "title": "Common directives/plugins in Vue",
                 "section": "post",
@@ -134,7 +164,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
@@ -144,7 +174,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/fe-composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
@@ -154,7 +184,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/fe-gif-frame/",
                 "title": "Extract any frame of a gif image",
                 "section": "post",
@@ -164,7 +194,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/misc-python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -174,7 +204,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-test/",
                 "title": "Antd modal has no transition in test env",
                 "section": "post",
@@ -184,7 +214,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/fe-ui-lib/",
                 "title": "Build your own UI component library from scratch",
                 "section": "post",
@@ -194,7 +224,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/fe-verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -204,7 +234,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/fe-npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -214,7 +244,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/fe-layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -224,7 +254,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/fe-tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -234,7 +264,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/fe-media/",
                 "title": "Intro to Video Format",
                 "section": "post",
@@ -244,7 +274,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -254,7 +284,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -264,7 +294,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -274,7 +304,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -284,7 +314,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -294,7 +324,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/misc-remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -304,7 +334,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -314,7 +344,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -324,7 +354,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -334,7 +364,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -344,7 +374,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -354,7 +384,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -364,7 +394,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -374,7 +404,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -384,7 +414,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -394,7 +424,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -404,7 +434,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/misc-interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -414,7 +444,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -424,7 +454,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -434,7 +464,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -444,7 +474,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -454,7 +484,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -464,7 +494,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -474,7 +504,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -484,7 +514,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -494,7 +524,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -504,7 +534,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -514,7 +544,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -524,7 +554,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 55,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -534,7 +564,7 @@
     
         ,
             {
-                "id": 53,
+                "id": 56,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -544,7 +574,7 @@
     
         ,
             {
-                "id": 54,
+                "id": 57,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -554,7 +584,7 @@
     
         ,
             {
-                "id": 55,
+                "id": 58,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -564,7 +594,7 @@
     
         ,
             {
-                "id": 56,
+                "id": 59,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -574,7 +604,7 @@
     
         ,
             {
-                "id": 57,
+                "id": 60,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -584,7 +614,7 @@
     
         ,
             {
-                "id": 58,
+                "id": 61,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -594,7 +624,7 @@
     
         ,
             {
-                "id": 59,
+                "id": 62,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -604,7 +634,7 @@
     
         ,
             {
-                "id": 60,
+                "id": 63,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -614,7 +644,7 @@
     
         ,
             {
-                "id": 61,
+                "id": 64,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -624,7 +654,7 @@
     
         ,
             {
-                "id": 62,
+                "id": 65,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

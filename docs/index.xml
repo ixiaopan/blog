@@ -9,10 +9,42 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 25 Feb 2023 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sat, 04 Mar 2023 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>[Draft] - Axios</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
+			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
+			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>[Draft] - Event Tracking</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-event-tracking/</link>
+			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-event-tracking/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>[Draft] - JavaScript with Promise Revisited</title>
+			<link>https://ixiaopan.github.io/blog/post/fs-promise/</link>
+			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fs-promise/</guid>
+			<description>&lt;p&gt;关于 &lt;code&gt;promise&lt;/code&gt; 介绍的太多了，今天就推荐一本我收藏已久的小册子，&lt;a href=&#34;https://book.douban.com/subject/26261877/&#34;&gt;Javascript with promise&lt;/a&gt;&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>[Draft] - Secrets of the js ninja</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-js-ninja/</link>
+			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-js-ninja/</guid>
+			<description></description>
+		</item>
+      	
 		<item>
 			<title>Naming conflicts in unplugin-vue-component</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-name-conflict/</link>
@@ -38,15 +70,15 @@
 		</item>
       	
 		<item>
-			<title>button-level access control</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-repeat-click/</link>
+			<title>Button-level access control</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-btn-access/</link>
 			<pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-repeat-click/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-btn-access/</guid>
 			<description></description>
 		</item>
       	
 		<item>
-			<title>text ellipsis</title>
+			<title>Text ellipsis</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</link>
 			<pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</guid>
@@ -76,38 +108,6 @@ Future 谁知道以后会是什么样呢？？我只知道，所有的过去和�
  前者 『由浅入深的学习和研究能力』，要求我们
  对自己的领域，有深入的专业能力，理解大多人看不懂的东西，提高深度 对不熟悉的领域，也能快速领悟其要领，拓展广度  后者，『由深返浅的表述和应用能力』
  身为工程师，要有变现技术的能力 『表述』要求我们可以用通俗的言语把技术难点表达出来，因为『凡是你说不清的，就说明你并未真正的理解』，这一点很多人欠缺  这也是我想写博客的原因，现在这个信息过载的社会，人人们很难静下来读完一页书，写下一篇文章，长久如此，就会懒得思考。日常工作更多是重复的劳动，很多时候，急匆匆的应付完工作，实际上并未真正的理解。写作会让人变得安静，集中精力去消化那些似懂非懂的知识点，进而形成体系。</description>
-		</item>
-      	
-		<item>
-			<title>[Draft] - Pooling</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-pooling/</link>
-			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-pooling/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Video autoplay not working when low power mode is on (iphone)</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-video-power/</link>
-			<pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-video-power/</guid>
-			<description>&lt;p&gt;An interesting bug about the HTML5 video.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>[Draft] - Axios</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
-			<pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
-			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>A message component</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-message/</link>
-			<pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-message/</guid>
-			<description>&lt;p&gt;Develop a message component using vue.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

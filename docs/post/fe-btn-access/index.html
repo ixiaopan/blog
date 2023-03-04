@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Button-level access control</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Button-level access control"/>
+<meta name="twitter:description" content=""/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      Button-level access control
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Nov 10, 2022
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <h2 id="why">Why</h2>
+<p>最近，业务上需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点</p>
+<ul>
+<li>
+<p><code>disabled</code> 样式</p>
+</li>
+<li>
+<p><code>tooltip</code> 显示 『无权限』</p>
+</li>
+<li>
+<p>不可点击</p>
+</li>
+</ul>
+<p>一种直观的做法就是在各个需要的地方，加上对应逻辑，比如</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">import { shouldDel } from &#39;xxx&#39;
+
+&lt;<span style="color:#f92672">a-tooltip</span> <span style="color:#a6e22e">:title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel() ? &#39;删除&#39; : &#39;无权限&#39;&#34;</span>&gt;
+  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel() ? &#39;&#39; : &#39;disabled&#39;&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;onDel&#34;</span>&gt;删除&lt;/<span style="color:#f92672">span</span>&gt;
+&lt;/<span style="color:#f92672">a-tooltip</span>&gt;
+
+&lt;<span style="color:#f92672">a-tooltip</span> <span style="color:#a6e22e">:title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel() ? &#39;删除&#39; : &#39;无权限&#39;&#34;</span>&gt;
+  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">:disabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel()&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;onDel&#34;</span>&gt;删除&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">a-tooltip</span>&gt;
+
+function onDel() {
+  if (!shouldDel()) return
+}
+</code></pre></div><p>这种写法有几个问题</p>
+<ul>
+<li>
+<p><code>button</code> 有 <code>disabled</code> 属性，可以直接屏蔽点击，但是普通标签 <code>div/span</code> 必须在事件中进行规避，缺少统一性</p>
+</li>
+<li>
+<p><code>shouldXX()</code> 会被多次使用在 <code>html/js</code> 中，混乱且冗余</p>
+</li>
+<li>
+<p><code>a-tooltip</code> <code>disabled</code> 是在 <code>HTML</code> 中 <code>shouldXX()</code> 判断的，耦合度高</p>
+</li>
+</ul>
+<p>综上，核心问题是 <code>shouldXX</code> 造成的各种冗余，最终导致可维护性、可读性、可扩展性差，时间一长就没人敢去改这个代码了。</p>
+<h2 id="how">How</h2>
+<p>既如此，我们只要找到一个方式能同时做这3件事情就好了，不管是组件、指令、或是其他模式。在 <code>vue</code> 中，我们可以使用指令去实现，同样的功能但是只需要这样写就行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-access</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">del</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;permission&#34;</span>&gt;删除&lt;/<span style="color:#f92672">span</span>&gt;
+&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">v-access</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">edit</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;permission&#34;</span>&gt;修改&lt;/<span style="color:#f92672">button</span>&gt;
+</code></pre></div><p>具体实现还是要看指令内部 <code>v-access</code>，仔细分析一下这3个功能，其实最核心的是 不可点击，其他2个都可以用 <code>css</code> 解决。想要无侵入的屏蔽点击事件，一个方法就是拦截事件，好在 DOM 本身就支持</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">shouldDisable</span>) {
+    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopImmediatePropagation</span>()
+    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopPropagation</span>()
+  }
+}, <span style="color:#66d9ef">true</span>)
+</code></pre></div><ul>
+<li>
+<p><code>stopImmediatePropagation</code> 会阻止监听同一事件的其他事件监听器 <code>event handler</code> 被调用</p>
+</li>
+<li>
+<p><code>stopPropagation</code> 则阻止事件进一步向上冒泡</p>
+</li>
+</ul>
+<p>其实这也可以用来实现规避防重复点击，只是再多加一个时间限制而已。</p>
+<p>完整的指令实现如下，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvents</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">return</span>
+  }
+
+  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">showTooltip</span>, <span style="color:#a6e22e">hideTooltip</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createTooltip</span>()
+
+  <span style="color:#75715e">// 显示 Tooltip
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mouseenter&#39;</span>, () =&gt; {
+    <span style="color:#a6e22e">showTooltip</span>(<span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">shouldDisable</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;无权限&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;删除&#39;</span>)
+  }, <span style="color:#66d9ef">true</span>)
+  <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mouseleave&#39;</span>, <span style="color:#a6e22e">hideTooltip</span>, <span style="color:#66d9ef">true</span>)
+
+
+  <span style="color:#75715e">// 屏蔽点击
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">shouldDisable</span>) {
+      <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopImmediatePropagation</span>()
+    }
+  }, <span style="color:#66d9ef">true</span>)
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkAccess</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
+  <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">shouldDisable</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">shouldXX</span>(<span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>)
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createTooltip</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">toolTipElem</span>) {
+    <span style="color:#a6e22e">toolTipElem</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;span&#39;</span>)
+    document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">toolTipElem</span>)
+    <span style="color:#a6e22e">toolTipElem</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;absolute&#39;</span>
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showTooltip</span>(<span style="color:#a6e22e">t</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">toolTipElem</span>) {
+      <span style="color:#a6e22e">toolTipElem</span>.<span style="color:#a6e22e">textContent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>
+      <span style="color:#a6e22e">toolTipElem</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">display</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;block&#39;</span>
+    }
+  }
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">hideTooltip</span>() {
+    <span style="color:#a6e22e">toolTipElem</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">display</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>
+  }
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">showTooltip</span>,
+    <span style="color:#a6e22e">hideTooltip</span>,
+  }
+}
+</code></pre></div>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why">Why</a></li>
+    <li><a href="#how">How</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,5 +1,6 @@
+
 ---
-title: "[Draft] - Pooling"
+title: "[Draft] - Polling"
 date: "2022-08-06"
 description: ""
 # tags: []
@@ -13,10 +14,10 @@ katex: true
 <!--more-->
 
 
-## Pooling
+## Polling
 
 
-## Long Pooling
+## Long Polling
 
 
 ## WebSocket

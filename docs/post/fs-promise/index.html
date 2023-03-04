@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>[Draft] - JavaScript with Promise Revisited</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Draft] - JavaScript with Promise Revisited"/>
+<meta name="twitter:description" content="关于 promise 介绍的太多了，今天就推荐一本我收藏已久的小册子，Javascript with promise"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      [Draft] - JavaScript with Promise Revisited
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Mar 4, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>关于 <code>promise</code> 介绍的太多了，今天就推荐一本我收藏已久的小册子，<a href="https://book.douban.com/subject/26261877/">Javascript with promise</a></p>
+<h2 id="run-to-completion-and-the-event-loop">Run to completion and the Event loop</h2>
+<p>This chapter explains how async tasks/callbacks work.</p>
+<p>As we all know, javascript runs on a single thread, which means you can only do one thing at one time. For the async tasks or callbacks, they are not part of the JavaScript. In other words, they run on a separate thread.</p>
+<p>[run to completion]</p>
+<p>Once the async tasks are done, they need to communicate with JavaScript. But JavaScript is single-threaded, you cannot interrupt the current executing code.</p>
+<p>[event loop]</p>
+<p>One way is to put the callback into a queue. When JavaScript is available, it will look up the queue and execute each callback in order. Unfortunately, we do know how long the callback will have to wait after putting into the queue.</p>
+<h2 id="promise">Promise</h2>
+<blockquote>
+<p>A promise is an object that serves as a placeholder for the value of an operation.</p>
+</blockquote>
+<p>A promise has three states</p>
+<ul>
+<li>
+<p>pending: the init state</p>
+</li>
+<li>
+<p>fulfilled: the operation has completed</p>
+</li>
+<li>
+<p>rejected: the operation could not be completed</p>
+</li>
+</ul>
+<p>When a promise is no longer pending, it is said to be settled. In other words, that promise has reached its final state and it can never be changed.</p>
+<h2 id="common-practices">Common Practices</h2>
+<h3 id="the-async-ripple-effect">The Async Ripple Effect</h3>
+<blockquote>
+<p>As a general rule, any function that uses a promise should also return a promise</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchList</span>() {
+  <span style="color:#a6e22e">listAPI</span>().<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>))
+}
+<span style="color:#75715e">// trigger error: fetchList() return undefined
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fetchList</span>().<span style="color:#a6e22e">then</span>(() =&gt; {})
+</code></pre></div><h3 id="conditional-logic">Conditional Logic</h3>
+<p>Avoid this style of conditional async execution</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">authenticated</span>) { 
+    <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">login</span>().<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">showMenu</span>)
+    <span style="color:#66d9ef">return</span>
+  }
+  
+  <span style="color:#75715e">// other things...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>The problem is that <code>showMenu()</code> may run asynchronously or synchronously. The proper pattern is shown below,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() { 
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">authenticated</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">login</span>() <span style="color:#f92672">:</span> Promise.<span style="color:#a6e22e">resolve</span>()
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () { 
+    <span style="color:#75715e">// other things...
+</span><span style="color:#75715e"></span>  })
+}
+</code></pre></div><h3 id="parallel-execution">Parallel execution</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userP</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;tom&#39;</span>, <span style="color:#e6db74">&#39;alice&#39;</span>, <span style="color:#e6db74">&#39;bob&#39;</span>].<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">name</span>) =&gt; <span style="color:#a6e22e">ajax</span>(<span style="color:#a6e22e">name</span>))
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">userP</span>)
+</code></pre></div><p>However, <code>p</code> will be rejected if one of the <code>userP</code> fails.</p>
+<p>If we want to get all the settled promises regardless of whether they succeeded or failed, we can use <code>Promise.allSettled()</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">allSettled</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">pList</span>) =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">allP</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pList</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">p</span>) =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(
+      (<span style="color:#a6e22e">value</span>) =&gt; {
+        <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;fulfilled&#39;</span> }
+      }, 
+      (<span style="color:#a6e22e">reason</span>) =&gt; {
+        <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">reason</span>, <span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;rejected&#39;</span> }
+      }
+    )
+  })
+
+  <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">allP</span>)
+}
+</code></pre></div><h3 id="sequential-execution">Sequential execution</h3>
+<h4 id="using-a-loop">Using a loop</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">val</span>) =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">asyncFunc</span>(<span style="color:#a6e22e">val</span>))
+  }, Promise.<span style="color:#a6e22e">resolve</span>())
+}
+</code></pre></div><h4 id="using-recursion">Using recursion</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">idx</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">idx</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>) <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>()
+    
+    <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">asyncFunc</span>(<span style="color:#a6e22e">val</span>)).<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">step</span>(<span style="color:#a6e22e">idx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))
+  }
+  
+  <span style="color:#a6e22e">step</span>(<span style="color:#ae81ff">0</span>)
+}
+</code></pre></div><p>There are a little differences between the two methods.</p>
+<ul>
+<li>
+<p>Using a loop builds an entire promise chain when the <code>sequence()</code> finishes, however, the recursive method builds the chain step by step.</p>
+</li>
+<li>
+<p>the recursive method doesn&rsquo;t need a predefined number of steps based on the elements in an array. This pattern is widely used in Nodejs.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">file</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reader</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">getReader</span>()
+  
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chunks</span> <span style="color:#f92672">=</span> []
+  
+  <span style="color:#a6e22e">pump</span>()
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pump</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reader</span>.<span style="color:#a6e22e">read</span>().<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">ret</span>) =&gt; {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">done</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">chunks</span>
+      }
+      
+      <span style="color:#a6e22e">chunks</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">value</span>)
+      
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pump</span>()
+    })
+  }
+}
+</code></pre></div><h3 id="race">Race</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">race</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>])
+</code></pre></div><p>A common case is the competition between timer and request.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInfo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ajax</span>()
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFromCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cached</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+      <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">cached</span>)
+    }, <span style="color:#ae81ff">1000</span>)
+  })
+  <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">race</span>([<span style="color:#a6e22e">fetchInfo</span>, <span style="color:#a6e22e">getFromCache</span>])
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInfo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ajax</span>()
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeout</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+      <span style="color:#a6e22e">reject</span>()
+    }, <span style="color:#ae81ff">1000</span>)
+  })
+
+  <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">race</span>([<span style="color:#a6e22e">fetchInfo</span>, <span style="color:#a6e22e">timeout</span>])
+}
+</code></pre></div><h2 id="error-handling">Error Handling</h2>
+<h3 id="rejecting-a-promise">Rejecting a promise</h3>
+<ul>
+<li>
+<p>explicit rejection</p>
+</li>
+<li>
+<p>throw an error(explicitly/implicitly) in any of the callbacks the promise invokes (i.e., any callback passed to the Promise constructor, then, or catch.)</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+  <span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Explicit rejection&#39;</span>))
+})
+
+<span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">// implicitly throw an error
+</span><span style="color:#75715e"></span>})
+
+<span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+  <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;explicit throw error&#39;</span>)<span style="color:#75715e">// explicitly throw an error
+</span><span style="color:#75715e"></span>})
+</code></pre></div><blockquote>
+<p>Any error that occurs in a function that returns a promise should be used to reject the promise instead of being thrown back to the caller.</p>
+<p>This approach allows the caller to deal with any problems that arise by attaching a catch handler to the returned promise instead of surrounding the call in a try/catch block</p>
+</blockquote>
+<p>就是说，要在 promise 内抛出错误，这样可以在 <code>catch</code> 中捕获，避免在调用 <code>promise</code> 的地方，使用 <code>try/catch</code></p>
+<p>Avoid this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">image</span>; 
+  <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>;  <span style="color:#75715e">// Error: image is undefined 
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) { 
+    <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resolve</span>; 
+    <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reject</span>;
+  })
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">a</span>() {
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#a6e22e">badFunc</span>()
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>) <span style="color:#75715e">// TypeError: Cannot set properties of undefined (setting &#39;src&#39;)
+</span><span style="color:#75715e"></span>  }
+}
+</code></pre></div><p>Recommend this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) { 
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">image</span>; 
+    <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>;  <span style="color:#75715e">// Error: image is undefined 
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resolve</span>; 
+    <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reject</span>;
+  })
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">a</span>() {
+  <span style="color:#75715e">// TypeError: Cannot set properties of undefined (setting &#39;src&#39;)
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">badFunc</span>().<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">e</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>)) 
+}
+</code></pre></div><h3 id="passing-errors">Passing Errors</h3>
+<p>When we have a chain of promises, it&rsquo;s a common practice to add a <code>catch</code> at the end of the chain.</p>
+<blockquote>
+<p>Because one promise is rejected, all subsequent promises in this chain area rejected in a domino effect until an onRejected handler is found</p>
+</blockquote>
+<p>但是使用 <code>catch</code> 有一点需要注意</p>
+<blockquote>
+<p>The catch function returns a new promise similar to then, but the promise that catch returns is only rejected if the callback throws an error.</p>
+</blockquote>
+<p>换句话说，如果希望继续在 <code>promise chain</code> 中传递错误，你必须明确在 <code>catch</code> 中抛出错误才行，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">catchMe</span>() {
+  <span style="color:#a6e22e">queryUser</span>()
+  .<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">queryInfo</span>())
+  .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">err</span>) =&gt; {
+    <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">err</span>
+  })
+}
+</code></pre></div><h2 id="combine-generator">Combine generator</h2>
+<p>主要是结合 <code>generator</code> 可以实现 <code>async</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadImage</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">imageData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchImage</span>()
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">imageData</span>)
+}
+</code></pre></div>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#run-to-completion-and-the-event-loop">Run to completion and the Event loop</a></li>
+    <li><a href="#promise">Promise</a></li>
+    <li><a href="#common-practices">Common Practices</a>
+      <ul>
+        <li><a href="#the-async-ripple-effect">The Async Ripple Effect</a></li>
+        <li><a href="#conditional-logic">Conditional Logic</a></li>
+        <li><a href="#parallel-execution">Parallel execution</a></li>
+        <li><a href="#sequential-execution">Sequential execution</a></li>
+        <li><a href="#race">Race</a></li>
+      </ul>
+    </li>
+    <li><a href="#error-handling">Error Handling</a>
+      <ul>
+        <li><a href="#rejecting-a-promise">Rejecting a promise</a></li>
+        <li><a href="#passing-errors">Passing Errors</a></li>
+      </ul>
+    </li>
+    <li><a href="#combine-generator">Combine generator</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

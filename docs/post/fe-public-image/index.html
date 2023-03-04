@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Feb 25, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -213,12 +213,33 @@ document.addEventListener("DOMContentLoaded", function() {
 </code></pre></div><p>可以发现 <code>public</code> 用的是绝对路径。在打包的时候，会根据配置的 <code>baseUrl</code> 自动转换，比如配置的 <code>baseUrl = https://xxx-oss/static</code>，那么打包的产物就是</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
 &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/images/xxx.png&#34;</span> /&gt;
-</code></pre></div><h2 id="what-i-need">What I need</h2>
-<p>So far so good, but it&rsquo;s not what I need.</p>
-<p>1、<code>public</code> 下图片每次打包都会复制到 <code>baseUrl</code> 所在的服务上</p>
-<p>2、<code>public</code> 存储的几乎都是整个 app 共用的不会变的图片，比如空占位符、logo等</p>
-<p>3、尽量让 <code>public</code> 简单，只存放 <code>favicon/robots.txt</code></p>
-<p>出于这种目的，首先我把 <code>public</code> 下的图片都放在了 <code>oss</code> 上，然后在 <code>html</code> 中直接用 <code>http</code> 绝对路径引入 <code>&lt;img src=&quot;https://xxx-oss/static/images/xxx.png&quot; /&gt;</code>。但是时间一长，</p>
+</code></pre></div><h2 id="what-i-want">What I want</h2>
+<p>但是通过 <code>baseUrl</code> 自动转换图片路径，有几个缺点</p>
+<ul>
+<li>
+<p>需要本地项目的 <code>public</code> 里也有对应的图片文件，因为 <code>baseUrl</code> 在 <code>dev</code> 开发时配置的是 <code>/</code> ，而不是远程 <code>cdn</code> 地址。</p>
+</li>
+<li>
+<p><code>public</code> 下图片每次打包都会被复制到 <code>dist</code> 产物中，再上传到 <code>baseUrl</code> 所在的服务器</p>
+</li>
+<li>
+<p><code>baseUrl</code> 不一定就是 图片最终的 <code>http url</code>；换句话说，一般 <code>js/css</code> 是 <code>baseUrl</code>, 图片我们可能会有自己的图床服务，资源地址不同于 <code>baseUrl</code></p>
+</li>
+<li>
+<p>尽量让 <code>public</code> 简单，只存放 <code>favicon/robots.txt</code></p>
+</li>
+</ul>
+<p>既然 <code>public</code> 的图片已经在 <code>cdn</code> ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？</p>
+<h3 id="html-写死绝对路径">HTML 写死绝对路径</h3>
+<ul>
+<li>
+<p>先把 <code>public</code> 下的图片上传在 <code>oss</code> 上</p>
+</li>
+<li>
+<p>然后在 <code>html</code> 中直接用 <code>http</code> 绝对路径引入 <code>&lt;img src=&quot;https://xxx-oss/static/images/xxx.png&quot; /&gt;</code></p>
+</li>
+</ul>
+<p>这样 <code>public</code> 只有 <code>favicon/robots.txt</code> ，但是也有问题</p>
 <ul>
 <li>
 <p>代码里充斥着 <code>http</code> ，显得过于臃肿</p>
@@ -227,7 +248,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><code>url</code> 不好一键替换</p>
 </li>
 </ul>
-<p>所以，这两天花了点时间研究一下 <code>vite</code>，看看是不是可以通过配置解决，最后验证确实可以。</p>
+<h3 id="html-写相对路径">HTML 写相对路径</h3>
+<p>我希望的是 <code>html</code> 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 <code>baseUrl</code>，因为图片的 <code>url</code> 是单独的资源服务器，和 <code>baseUrl</code> 是不一样的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
+&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./xxx.png&#34;</span> /&gt;
+</code></pre></div><p>所以，这两天花了点时间研究一下 <code>vite</code>，看看是不是可以通过配置解决，最后验证确实可以。</p>
 <h2 id="how">How</h2>
 <h3 id="html">HTML</h3>
 <p><code>vite</code> 为了解析 <code>sfc</code> ，引入了 <code>vitejs/vite-plugin-vue</code>，其内部引入了 <code>compiler-sfc</code>，这个包有一个文件叫 <a href="https://github.com/vuejs/core/blob/main/packages/compiler-sfc/src/templateTransformAssetUrl.ts">templateTransformAssetUrl.ts</a>，顾名思义就是转换 <code>html</code> 里遇到的 <code>url</code>，这里有一段这样的代码</p>
@@ -333,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>1、上传图片到 <code>cdn</code></p>
 <p>2、在 <code>html</code> 中，这样引入 <code>&lt;img src='./xx.png' /&gt;</code></p>
 <p>3、在 <code>css</code> 中，这样引入 <code>url('./xxx.png')</code></p>
-<p>4、如果动态，ze这样引入 <code>&lt;DemoCom :src=&quot;$replaceStatic('xxx.png')&quot; /&gt;</code></p>
+<p>4、如果动态，这样引入 <code>&lt;DemoCom :src=&quot;$replaceStatic('xxx.png')&quot; /&gt;</code></p>
 
 
 
@@ -345,7 +370,12 @@ document.addEventListener("DOMContentLoaded", function() {
         <nav id="TableOfContents">
   <ul>
     <li><a href="#background">Background</a></li>
-    <li><a href="#what-i-need">What I need</a></li>
+    <li><a href="#what-i-want">What I want</a>
+      <ul>
+        <li><a href="#html-写死绝对路径">HTML 写死绝对路径</a></li>
+        <li><a href="#html-写相对路径">HTML 写相对路径</a></li>
+      </ul>
+    </li>
     <li><a href="#how">How</a>
       <ul>
         <li><a href="#html">HTML</a></li>

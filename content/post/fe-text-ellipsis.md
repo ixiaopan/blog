@@ -1,5 +1,5 @@
 ---
-title: "text ellipsis"
+title: "Text ellipsis"
 date: "2022-11-05"
 description: ""
 # tags: []
