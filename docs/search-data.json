@@ -15,28 +15,28 @@
         ,
             {
                 "id": 1,
-                "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
-                "title": "[Draft] - Axios",
+                "href": "https://ixiaopan.github.io/blog/post/fe-js-ninja/",
+                "title": "[Draft] - Secrets of the js ninja",
                 "section": "post",
                 "date" : "2023.03.04",
-                "body": "Learn the modern http library - Axios.\nContent-Type Ajax Fetch Axios Chain Transformation Cancellation Data Type"
+                "body": "Scope Generator Event Loop"
             }
     
         ,
             {
                 "id": 2,
                 "href": "https://ixiaopan.github.io/blog/post/fe-event-tracking/",
-                "title": "[Draft] - Event Tracking",
+                "title": "Event Tracking",
                 "section": "post",
                 "date" : "2023.03.04",
-                "body": " Common Practices Combine generator"
+                "body": "简单谈一下对埋点的理解\nWhat 埋点是对用户在客户端产品发生的事件的描述\n  Who：用户\n  When：timestamp\n  What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等。\n  How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/\u0026hellip;)\n  Why 埋点可以帮助业务分析用户行为，从而更好的理解用户习惯、优化产品\nHow 事件分类   页面打开 PageShow\n  用户主动交互 Behavior\n  一般可以划分为这2个大类，毕竟用户可以只打开页面，什么都不操作\n  PageShow 需要单独统计，是因为 页面的 pv/uv 是埋点中非常重要的一个数据指标\n  Behavior 可以进一步根据产品的功能再细分，比如产品大概会有 登录、添加购物车、下单、分享等模块\n  行为属性描述 属性描述，换句话说，就是从多维度分析行为，比如\n  登录模块，需要统计 登录方式（验证码登录、密码登录）\n  添加购物车，需要统计 商品Id、商家 ID\n  分享，需要统计 分享的商品ID，分享到的渠道\n  对于页面打开 PageShow，就很简单，统计 当前访问的页面ID 即可\n数据规范/SDK 一条完备的日志需要包含\n  通用数据: browser/os/screen resolution/appId/appVersion/timestamp/...\n  页面数据: pageId/url/query/...\n  行为数据: eventType/eventId/extParam/...\n  class Tracker { page(page?: IPage) { const data = { type: EVENT_TRACK_TYPE.PAGE_SHOW } this._report(data) } track(event_id: string, extParam = null) { const data = { event_id, extParam, type: EVENT_TRACK_TYPE.BEHAVIOR } this._report(data) } private _report(data = null) { if (!data) return const nextData = { common: { appId, appName, appVersion, os: getOS(), // 系统  ua: getBrowser(), // 浏览器  sr: getScreenInfo(), // 屏幕分辨率  }, page: { pageId, title, url, hostname, hash, query, path, }, event: { ...data, }, timestamp: Date.now(), } } } 埋点平台管理 除了 SDK 之外，还需要一个埋点平台管理所有埋点，因为开发埋的点位和BI需要统一字段口径，平台就是用来约束埋点值的。\n埋点之前，需要去 平台申请对应点位，才能埋点，对应代码就是 track(event_id: string, extParam = null) 这里的入参都是埋点平台自动生成的。\n如果是开发自己随便写的点位，虽然埋点平台不存在也不会有很大的问题，但是后续和 BI 对口径的时候，就需要去看代码才知道埋的是什么值，就很浪费时间。\n实际工作中，埋点平台并没有强约束开发必须要申请，为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。\n埋点验证 最后，为了确定点位确实埋好了，我们需要验证。像是 pc 应用，我们可以直接看 network 的请求参数，但是如果是 h5 或者是远程调试，是无法直接看到请求的。那该怎么办？\n一个方式是建立一个埋点验证平台，访问需要验证埋点的页面就会自动连接到这个验证平台，拦截对应的埋点请求，然后和埋点平台的数据进行匹配即可。\nTODO: 等有时间会详细介绍一下怎么实现\n"
             }
     
         ,
             {
                 "id": 3,
                 "href": "https://ixiaopan.github.io/blog/post/fs-promise/",
-                "title": "[Draft] - JavaScript with Promise Revisited",
+                "title": "JavaScript with Promise Revisited",
                 "section": "post",
                 "date" : "2023.03.04",
                 "body": "关于 promise 介绍的太多了，今天就推荐一本我收藏已久的小册子，Javascript with promise\nRun to completion and the Event loop This chapter explains how async tasks/callbacks work.\nAs we all know, javascript runs on a single thread, which means you can only do one thing at one time. For the async tasks or callbacks, they are not part of the JavaScript. In other words, they run on a separate thread.\n[run to completion]\nOnce the async tasks are done, they need to communicate with JavaScript. But JavaScript is single-threaded, you cannot interrupt the current executing code.\n[event loop]\nOne way is to put the callback into a queue. When JavaScript is available, it will look up the queue and execute each callback in order. Unfortunately, we do know how long the callback will have to wait after putting into the queue.\nPromise  A promise is an object that serves as a placeholder for the value of an operation.\n A promise has three states\n  pending: the init state\n  fulfilled: the operation has completed\n  rejected: the operation could not be completed\n  When a promise is no longer pending, it is said to be settled. In other words, that promise has reached its final state and it can never be changed.\nCommon Practices The Async Ripple Effect  As a general rule, any function that uses a promise should also return a promise\n function fetchList() { listAPI().then((data) =\u0026gt; console.log(data)) } // trigger error: fetchList() return undefined fetchList().then(() =\u0026gt; {}) Conditional Logic Avoid this style of conditional async execution\nfunction showMenu() { if (!user.authenticated) { user.login().then(showMenu) return } // other things... } The problem is that showMenu() may run asynchronously or synchronously. The proper pattern is shown below,\nfunction showMenu() { const p = (!user.authenticated) ? user.login() : Promise.resolve() return p.then(function () { // other things...  }) } Parallel execution const userP = [\u0026#39;tom\u0026#39;, \u0026#39;alice\u0026#39;, \u0026#39;bob\u0026#39;].map((name) =\u0026gt; ajax(name)) const p = Promise.all(userP) However, p will be rejected if one of the userP fails.\nIf we want to get all the settled promises regardless of whether they succeeded or failed, we can use Promise.allSettled()\nPromise.allSettled = (pList) =\u0026gt; { const allP = pList.map((p) =\u0026gt; { return p.then( (value) =\u0026gt; { return { value, state: \u0026#39;fulfilled\u0026#39; } }, (reason) =\u0026gt; { return { reason, state: \u0026#39;rejected\u0026#39; } } ) }) return Promise.all(allP) } Sequential execution Using a loop function sequence(arr, asyncFunc) { return arr.reduce((p, val) =\u0026gt; { return p.then(() =\u0026gt; asyncFunc(val)) }, Promise.resolve()) } Using recursion function sequence(arr, asyncFunc) { const step = (idx) =\u0026gt; { if (idx == arr.length) return Promise.resolve() return Promise.resolve(asyncFunc(val)).then(() =\u0026gt; step(idx + 1)) } step(0) } There are a little differences between the two methods.\n  Using a loop builds an entire promise chain when the sequence() finishes, however, the recursive method builds the chain step by step.\n  the recursive method doesn\u0026rsquo;t need a predefined number of steps based on the elements in an array. This pattern is widely used in Nodejs.\n  function readFile(file) { const reader = file.getReader() const chunks = [] pump() const pump = () =\u0026gt; { return reader.read().then((ret) =\u0026gt; { if (ret.done) { return chunks } chunks.push(ret.value) return pump() }) } } Race Promise.race([p1, p2]) A common case is the competition between timer and request.\nfunction getData() { const fetchInfo = ajax() const getFromCache = new Promise((resolve) =\u0026gt; { const cached = \u0026#39;\u0026#39; setTimeout(() =\u0026gt; { resolve(cached) }, 1000) }) return Promise.race([fetchInfo, getFromCache]) } function getData() { const fetchInfo = ajax() const timeout = new Promise((resolve, reject) =\u0026gt; { setTimeout(() =\u0026gt; { reject() }, 1000) }) return Promise.race([fetchInfo, timeout]) } Error Handling Rejecting a promise   explicit rejection\n  throw an error(explicitly/implicitly) in any of the callbacks the promise invokes (i.e., any callback passed to the Promise constructor, then, or catch.)\n  new Promise((resolve, reject) =\u0026gt; { reject(new Error(\u0026#39;Explicit rejection\u0026#39;)) }) new Promise((resolve, reject) =\u0026gt; { console.log(a) // implicitly throw an error }) new Promise((resolve, reject) =\u0026gt; { throw new Error(\u0026#39;explicit throw error\u0026#39;)// explicitly throw an error })  Any error that occurs in a function that returns a promise should be used to reject the promise instead of being thrown back to the caller.\nThis approach allows the caller to deal with any problems that arise by attaching a catch handler to the returned promise instead of surrounding the call in a try/catch block\n 就是说，要在 promise 内抛出错误，这样可以在 catch 中捕获，避免在调用 promise 的地方，使用 try/catch\nAvoid this\nfunction badFunc(url) { var image; image.src = url; // Error: image is undefined  return new Promise(function (resolve, reject) { image.onload = resolve; image.onerror = reject; }) } function a() { try { badFunc() } catch (e) { console.log(e) // TypeError: Cannot set properties of undefined (setting \u0026#39;src\u0026#39;)  } } Recommend this\nfunction badFunc(url) { return new Promise(function (resolve, reject) { var image; image.src = url; // Error: image is undefined  image.onload = resolve; image.onerror = reject; }) } function a() { // TypeError: Cannot set properties of undefined (setting \u0026#39;src\u0026#39;)  badFunc().catch((e) =\u0026gt; console.log(e)) } Passing Errors When we have a chain of promises, it\u0026rsquo;s a common practice to add a catch at the end of the chain.\n Because one promise is rejected, all subsequent promises in this chain area rejected in a domino effect until an onRejected handler is found\n 但是使用 catch 有一点需要注意\n The catch function returns a new promise similar to then, but the promise that catch returns is only rejected if the callback throws an error.\n 换句话说，如果希望继续在 promise chain 中传递错误，你必须明确在 catch 中抛出错误才行，\nfunction catchMe() { queryUser() .then(() =\u0026gt; queryInfo()) .catch((err) =\u0026gt; { throw err }) } Combine generator 主要是结合 generator 可以实现 async\nasync function loadImage() { const imageData = await fetchImage() console.log(imageData) } "
@@ -45,11 +45,11 @@
         ,
             {
                 "id": 4,
-                "href": "https://ixiaopan.github.io/blog/post/fe-js-ninja/",
-                "title": "[Draft] - Secrets of the js ninja",
+                "href": "https://ixiaopan.github.io/blog/post/fe-axios/",
+                "title": "[Draft] - Axios",
                 "section": "post",
-                "date" : "2023.03.04",
-                "body": " Event Loop"
+                "date" : "2023.03.01",
+                "body": "Learn the modern http library - Axios.\nContent-Type Ajax Fetch Axios"
             }
     
         ,

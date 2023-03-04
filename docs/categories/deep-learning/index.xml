@@ -14,23 +14,23 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>[Draft] - Axios</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
+			<title>[Draft] - Secrets of the js ninja</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-js-ninja/</link>
 			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
-			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>[Draft] - Event Tracking</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-event-tracking/</link>
-			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-event-tracking/</guid>
+			<guid>https://ixiaopan.github.io/blog/post/fe-js-ninja/</guid>
 			<description></description>
 		</item>
       	
 		<item>
-			<title>[Draft] - JavaScript with Promise Revisited</title>
+			<title>Event Tracking</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-event-tracking/</link>
+			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-event-tracking/</guid>
+			<description>&lt;p&gt;简单谈一下对埋点的理解&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>JavaScript with Promise Revisited</title>
 			<link>https://ixiaopan.github.io/blog/post/fs-promise/</link>
 			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fs-promise/</guid>
@@ -38,11 +38,11 @@
 		</item>
       	
 		<item>
-			<title>[Draft] - Secrets of the js ninja</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-js-ninja/</link>
-			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-js-ninja/</guid>
-			<description></description>
+			<title>[Draft] - Axios</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
+			<pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
+			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
 		</item>
       	
 		<item>

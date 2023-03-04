@@ -1,6 +1,6 @@
 ---
 title: "[Draft] - Axios"
-date: "2023-03-04"
+date: "2023-03-01"
 description: ""
 # tags: []
 categories: [
@@ -21,11 +21,3 @@ Learn the modern http library - Axios.
 ## Fetch
 
 ## Axios
-
-## Chain
-
-## Transformation
-
-## Cancellation
-
-## Data Type

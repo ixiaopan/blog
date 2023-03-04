@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>[Draft] - Event Tracking</title>
+<title>Event Tracking</title>
 
 
 
@@ -30,8 +30,8 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[Draft] - Event Tracking"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="Event Tracking"/>
+<meta name="twitter:description" content="简单谈一下对埋点的理解"/>
 
 
 
@@ -156,13 +156,13 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="intro-header">
     <h1 class="post-heading">
-      [Draft] - Event Tracking
+      Event Tracking
     </h1>
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Mar 4, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -184,9 +184,128 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <h2 id="heading"></h2>
-<h2 id="common-practices">Common Practices</h2>
-<h2 id="combine-generator">Combine generator</h2>
+  <p>简单谈一下对埋点的理解</p>
+<h2 id="what">What</h2>
+<p>埋点是对用户在客户端产品发生的事件的描述</p>
+<ul>
+<li>
+<p>Who：用户</p>
+</li>
+<li>
+<p>When：timestamp</p>
+</li>
+<li>
+<p>What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等。</p>
+</li>
+<li>
+<p>How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/&hellip;)</p>
+</li>
+</ul>
+<h2 id="why">Why</h2>
+<p>埋点可以帮助业务分析用户行为，从而更好的理解用户习惯、优化产品</p>
+<h2 id="how">How</h2>
+<h3 id="事件分类">事件分类</h3>
+<ul>
+<li>
+<p>页面打开 PageShow</p>
+</li>
+<li>
+<p>用户主动交互 Behavior</p>
+</li>
+</ul>
+<p>一般可以划分为这2个大类，毕竟用户可以只打开页面，什么都不操作</p>
+<ul>
+<li>
+<p><code>PageShow</code> 需要单独统计，是因为 页面的 <code>pv/uv</code> 是埋点中非常重要的一个数据指标</p>
+</li>
+<li>
+<p><code>Behavior</code> 可以进一步根据产品的功能再细分，比如产品大概会有 登录、添加购物车、下单、分享等模块</p>
+</li>
+</ul>
+<h4 id="行为属性描述">行为属性描述</h4>
+<p>属性描述，换句话说，就是从多维度分析行为，比如</p>
+<ul>
+<li>
+<p>登录模块，需要统计 登录方式（验证码登录、密码登录）</p>
+</li>
+<li>
+<p>添加购物车，需要统计 商品Id、商家 ID</p>
+</li>
+<li>
+<p>分享，需要统计 分享的商品ID，分享到的渠道</p>
+</li>
+</ul>
+<p>对于页面打开 <code>PageShow</code>，就很简单，统计 当前访问的页面ID 即可</p>
+<h3 id="数据规范sdk">数据规范/SDK</h3>
+<p>一条完备的日志需要包含</p>
+<ul>
+<li>
+<p>通用数据: <code>browser/os/screen resolution/appId/appVersion/timestamp/...</code></p>
+</li>
+<li>
+<p>页面数据: <code>pageId/url/query/...</code></p>
+</li>
+<li>
+<p>行为数据: <code>eventType/eventId/extParam/...</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tracker</span> {
+  <span style="color:#a6e22e">page</span>(<span style="color:#a6e22e">page</span><span style="color:#f92672">?:</span> <span style="color:#a6e22e">IPage</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">EVENT_TRACK_TYPE</span>.<span style="color:#a6e22e">PAGE_SHOW</span>
+    }
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_report</span>(<span style="color:#a6e22e">data</span>)
+  }
+
+  <span style="color:#a6e22e">track</span>(<span style="color:#a6e22e">event_id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">extParam</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">event_id</span>,
+      <span style="color:#a6e22e">extParam</span>,
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">EVENT_TRACK_TYPE</span>.<span style="color:#a6e22e">BEHAVIOR</span>
+    }
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_report</span>(<span style="color:#a6e22e">data</span>)
+  }
+
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_report</span>(<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">data</span>) <span style="color:#66d9ef">return</span>
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextData</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">common</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">appId</span>,
+        <span style="color:#a6e22e">appName</span>,
+        <span style="color:#a6e22e">appVersion</span>,
+        
+        <span style="color:#a6e22e">os</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">getOS</span>(), <span style="color:#75715e">// 系统
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">ua</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">getBrowser</span>(), <span style="color:#75715e">// 浏览器
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">sr</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">getScreenInfo</span>(), <span style="color:#75715e">// 屏幕分辨率
+</span><span style="color:#75715e"></span>      },
+      <span style="color:#a6e22e">page</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">pageId</span>,
+        <span style="color:#a6e22e">title</span>,
+        <span style="color:#a6e22e">url</span>,
+        <span style="color:#a6e22e">hostname</span>,
+        <span style="color:#a6e22e">hash</span>,
+        <span style="color:#a6e22e">query</span>,
+        <span style="color:#a6e22e">path</span>,
+      },
+      <span style="color:#a6e22e">event</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">data</span>,
+      },
+      <span style="color:#a6e22e">timestamp</span><span style="color:#f92672">:</span> Date.<span style="color:#a6e22e">now</span>(),
+    }
+  }
+}
+</code></pre></div><h3 id="埋点平台管理">埋点平台管理</h3>
+<p>除了 <code>SDK</code> 之外，还需要一个埋点平台管理所有埋点，因为开发埋的点位和BI需要统一字段口径，平台就是用来约束埋点值的。</p>
+<p>埋点之前，需要去 平台申请对应点位，才能埋点，对应代码就是 <code>track(event_id: string, extParam = null)</code> 这里的入参都是埋点平台自动生成的。</p>
+<p>如果是开发自己随便写的点位，虽然埋点平台不存在也不会有很大的问题，但是后续和 BI 对口径的时候，就需要去看代码才知道埋的是什么值，就很浪费时间。</p>
+<p>实际工作中，埋点平台并没有强约束开发必须要申请，为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。</p>
+<h3 id="埋点验证">埋点验证</h3>
+<p>最后，为了确定点位确实埋好了，我们需要验证。像是 pc 应用，我们可以直接看 <code>network</code> 的请求参数，但是如果是 <code>h5</code> 或者是远程调试，是无法直接看到请求的。那该怎么办？</p>
+<p>一个方式是建立一个埋点验证平台，访问需要验证埋点的页面就会自动连接到这个验证平台，拦截对应的埋点请求，然后和埋点平台的数据进行匹配即可。</p>
+<p>TODO: 等有时间会详细介绍一下怎么实现</p>
 
 
 
@@ -197,9 +316,16 @@ document.addEventListener("DOMContentLoaded", function() {
       <aside class="article-aside">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#common-practices">Common Practices</a></li>
-    <li><a href="#combine-generator">Combine generator</a></li>
+    <li><a href="#what">What</a></li>
+    <li><a href="#why">Why</a></li>
+    <li><a href="#how">How</a>
+      <ul>
+        <li><a href="#事件分类">事件分类</a></li>
+        <li><a href="#数据规范sdk">数据规范/SDK</a></li>
+        <li><a href="#埋点平台管理">埋点平台管理</a></li>
+        <li><a href="#埋点验证">埋点验证</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       
