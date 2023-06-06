@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>WDID Frontend Project Structure</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WDID Frontend Project Structure"/>
+<meta name="twitter:description" content="本文主要介绍一下当下 general &amp; vue-based 前端项目结构划分"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      WDID Frontend Project Structure
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 6, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>本文主要介绍一下当下 <code>general</code> &amp; <code>vue-based</code> 前端项目结构划分</p>
+<h2 id="naive">Naive</h2>
+<p>The simplest project structure is like this,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">test</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
+ <span style="color:#f92672">-</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">html</span>
+ <span style="color:#f92672">-</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">js</span>
+ <span style="color:#f92672">-</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">css</span>
+</code></pre></div><p>这种形式一般有两种情况： <code>demo</code> or <code>artifacts</code>。</p>
+<p>复杂的项目当然不能像这样扁平的堆叠文件，可读性太差，难以维护。如果让我做一个初始化项目的模板，我会从以下几个模块考虑</p>
+<h2 id="project-metadata">Project Metadata</h2>
+<p>对于一个从未见过的项目，熟悉它最快的方式莫过于浏览一下 <code>README.md/package.json</code></p>
+<h3 id="readmemd">README.md</h3>
+<p>通常，我会写上项目的名字、描述、开发构建命令。这样，其他人看了 <code>readme.md</code> 就可以立刻启动项目</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"># 周报定时提醒
+
+<span style="color:#75715e">## Install
+</span><span style="color:#75715e"></span>npm i
+
+<span style="color:#75715e">## Dev
+</span><span style="color:#75715e"></span>npm run dev
+
+<span style="color:#75715e">## Build
+</span><span style="color:#75715e"></span>npm run build
+</code></pre></div><h3 id="packagejson">package.json</h3>
+<p>相较于 <code>readme.md</code> 像是一本使用手册，<code>package.json</code> 则是对项目元信息的描述。通常，我会更关注</p>
+<ul>
+<li><code>dependencies</code></li>
+<li><code>scripts</code></li>
+</ul>
+<p>PS：如果是 <code>npm module</code>，我们还得关注 <code>version/exports/main/type</code> 等字段</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;report&#34;</span>,
+  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1&#34;</span>,
+  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;周报定时提醒&#34;</span>,
+  <span style="color:#f92672">&#34;scripts&#34;</span>: {
+    <span style="color:#f92672">&#34;dev&#34;</span>: <span style="color:#e6db74">&#34;vite&#34;</span>,
+    <span style="color:#f92672">&#34;build&#34;</span>: <span style="color:#e6db74">&#34;vite build&#34;</span>
+  },
+  <span style="color:#f92672">&#34;dependencies&#34;</span>: {
+    <span style="color:#f92672">&#34;vue&#34;</span>: <span style="color:#e6db74">&#34;^3.2.20&#34;</span>
+  },
+  <span style="color:#f92672">&#34;devDependencies&#34;</span>: {}
+}
+</code></pre></div><p>此时我们的项目结构如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- test-demo
+ - README.md
+ - package.json
+</code></pre></div><h2 id="devbuild">Dev/Build</h2>
+<p>接下来，我们要对项目的开发、构建进行技术选型</p>
+<h3 id="npmyarnpnpm">npm/yarn/pnpm</h3>
+<p>目前主流的3个 <code>package manager</code>，各有优劣，看自己的喜好和项目情况选择即可</p>
+<h3 id="vite">vite</h3>
+<p>这里我们使用 <code>vue3</code>，所以选择配套的 <code>vite</code> 进行构建。</p>
+<p>不同的项目有不同的构建方式，对应的工具也是不同，比如</p>
+<ul>
+<li><code>react</code> -&gt; <code>webpack</code></li>
+<li><code>node module</code> -&gt; <code>esbuild/rollup</code></li>
+</ul>
+<p>此时我们的项目结构如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- test-demo
+ - README.md
+ - package.json
+ - vite.config.ts
+</code></pre></div><h2 id="formatter">Formatter</h2>
+<h3 id="ignore">ignore</h3>
+<h3 id="eslint">eslint</h3>
+<h3 id="prettier">prettier</h3>
+<h3 id="commitlint">commitlint</h3>
+<h3 id="editorconfig">editorconfig</h3>
+<p>此时我们的项目结构如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- test-demo
+ - .editorconfig
+ - .eslintignore
+ - .eslintrc
+ - .gitignore
+ - .prettierignore
+ - .prettierrc
+ - commitlint.config.js
+ - README.md
+ - package.json
+ - vite.config.ts
+</code></pre></div><h2 id="content">Content</h2>
+<h3 id="page">page</h3>
+<h3 id="components">components</h3>
+<h3 id="enums">enums</h3>
+<h3 id="assets">assets</h3>
+<h3 id="api">api</h3>
+<h3 id="utils">utils</h3>
+<h2 id="vue-specific">Vue-Specific</h2>
+<h3 id="router">router</h3>
+<h3 id="store">store</h3>
+<h3 id="plugins">plugins</h3>
+<h2 id="summary">Summary</h2>
+<h2 id="todo">TODO</h2>
+<ul>
+<li><code>./fe-package-json/</code>=&gt; 常见容易混淆字段的含义</li>
+<li><code>./fe-npm/</code>=&gt; 哪里不同，哪里相同？为什么会有 <code>yarn/pnpm</code>？解决了什么问题</li>
+<li><code>./fe-build/</code> =&gt; <code>gulp/rollup/vite/webpack</code> 源码分析</li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#naive">Naive</a></li>
+    <li><a href="#project-metadata">Project Metadata</a>
+      <ul>
+        <li><a href="#readmemd">README.md</a></li>
+        <li><a href="#packagejson">package.json</a></li>
+      </ul>
+    </li>
+    <li><a href="#devbuild">Dev/Build</a>
+      <ul>
+        <li><a href="#npmyarnpnpm">npm/yarn/pnpm</a></li>
+        <li><a href="#vite">vite</a></li>
+      </ul>
+    </li>
+    <li><a href="#formatter">Formatter</a>
+      <ul>
+        <li><a href="#ignore">ignore</a></li>
+        <li><a href="#eslint">eslint</a></li>
+        <li><a href="#prettier">prettier</a></li>
+        <li><a href="#commitlint">commitlint</a></li>
+        <li><a href="#editorconfig">editorconfig</a></li>
+      </ul>
+    </li>
+    <li><a href="#content">Content</a>
+      <ul>
+        <li><a href="#page">page</a></li>
+        <li><a href="#components">components</a></li>
+        <li><a href="#enums">enums</a></li>
+        <li><a href="#assets">assets</a></li>
+        <li><a href="#api">api</a></li>
+        <li><a href="#utils">utils</a></li>
+      </ul>
+    </li>
+    <li><a href="#vue-specific">Vue-Specific</a>
+      <ul>
+        <li><a href="#router">router</a></li>
+        <li><a href="#store">store</a></li>
+        <li><a href="#plugins">plugins</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#todo">TODO</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

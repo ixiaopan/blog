@@ -9,10 +9,26 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Sat, 04 Mar 2023 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Tue, 06 Jun 2023 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>WDID 101</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-01/</link>
+			<pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-01/</guid>
+			<description>&lt;p&gt;从今天开始，计划写一系列技术文章，总结这一年半来重新回归到前端这个职业期间所做的事情，我给这个系列命名为 &lt;code&gt;WDID&lt;/code&gt;, i.e. &lt;code&gt;What did I do?&lt;/code&gt;&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>WDID Frontend Project Structure</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-02/</link>
+			<pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-02/</guid>
+			<description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>[Draft] - Secrets of the js ninja</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-js-ninja/</link>
@@ -75,39 +91,6 @@
 			<pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-btn-access/</guid>
 			<description></description>
-		</item>
-      	
-		<item>
-			<title>Text ellipsis</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</link>
-			<pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-text-ellipsis/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Some thoughts after going back to work</title>
-			<link>https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/</link>
-			<pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/</guid>
-			<description>What am I doing Frontend Development
-Why 也曾试着转行，但是门槛要求高（论文、实习、比赛等），钱也不如继续做老本行来的多。曾经我也以为我不会为五斗米折腰，然而真正到做这个选择的时刻，才发现我只不过是个普通不过的普通人，在现实面前，梦想什么的是如此不着边际。
-我听过不少人对我说过可惜，费这么大劲读书，回来没有做这一行，挺可惜的。不可惜是假的，但是至少到现在，我没后悔，就足矣。即使时光倒流，我还是会坚持出去读书的想法，因为做决定的时候，我就知道会有什么样的结果。相反，不去做，对于我来说，才是最大的遗憾。
-继续做老本行，是我的退路，我也并不抗拒，因为我还保留对这份工作的热情，只不过不会像大学刚毕业那样特别充满干劲了，毕竟我也不是刚入行的菜鸟了。
-那还会不会考虑继续转行呢？会的，因为我内心深处从来没有放弃过这个想法，毕竟路还很长。
-How 即使是选择继续做老本行，也要有所特别才是，我当时所想的无外乎这两个
- 大数据平台 图像、音视频  选定了方向，还有公司偏好，大公司不在名单之内，没有啥就是厌倦了，再说gap2年也很难进去，即使进去了钱也没多少而且也很累。 那不看大公司，就只看小公司了，实际上我7月份在英国面试的时候，就是一直面小公司，应该说国外有很多这样的小作坊，Linkedin 上甚至有只有1、2个人的团队找我过去。我一直相信冥冥之中有这种设定，我必须去个小作坊，当然这也有主观的自我心理建设的影响，现在回过头来看，这确实不失为一个好时机去见识一下传说中的小公司。
-国内对小公司、创业公司都有刻板印象和偏见，当我说要去创业公司以及我在面试别人的时候，听到的最多的话就是 —— 小公司不稳定。这是事实，不可否认，进来之后我多少也会有这种忧患认识。这个缺点对于当时的我(也是现在的我)来说，根本不是问题。因为我的想法是，我也是一个不稳定的人，我那会什么都没有(物质上)，不在乎短时间内再次什么都没有，有种光脚的不怕穿鞋的感觉。 再说，此时不去更待何时？大多数人都是图稳定的，就国内的就业环境而言，年龄成为劣势之后，更不敢轻易换工作，还是换到一个不稳定的环境。
-究其根本，是我的人生观左右了这个选择。正如大家耳熟能详的那句话所言：我来到这世上，是为了看太阳怎么升起，水怎么流，经历有趣的事，遇见难忘的人，倘能如我所愿，我的一生就算成功。所以，人生苦短，至少现在你还有自由去决定自己短暂人生的某个岔路，没有被世俗所裹挟，真正的做到了做自己，听从你的内心，为什么还要想这么有的没的呢，在意别人的看法呢？
-在哪里，做什么都不是很重要，重要的是，这是你想要的吗？
-What have I done Tech 这大半年，都做了什么？一句话，做各种编辑器。。。
- 整了一个组件库 整了个大文件批量上传 开发 NLE 编辑器，扒了不少源码 pixijs/vidar/wasm/web audio/web codec 开发 PSD 编辑器 开发 图片视频尺寸变换 编辑器  最大的感受，资源要优化管理，合理复用；字体预览最难整；这些技术点我都会慢慢整理出来。
-Future 谁知道以后会是什么样呢？？我只知道，所有的过去和现在造就了以后，现在的你就是以后的你。
-今天上午看了一本书，里面一句话让我受益匪浅，也是我一直努力的方向，在此分享一下
- 做教学和研究的人，要有由浅入深的学习和研究能力，还要有由深返浅的表述和应用能力
- 前者 『由浅入深的学习和研究能力』，要求我们
- 对自己的领域，有深入的专业能力，理解大多人看不懂的东西，提高深度 对不熟悉的领域，也能快速领悟其要领，拓展广度  后者，『由深返浅的表述和应用能力』
- 身为工程师，要有变现技术的能力 『表述』要求我们可以用通俗的言语把技术难点表达出来，因为『凡是你说不清的，就说明你并未真正的理解』，这一点很多人欠缺  这也是我想写博客的原因，现在这个信息过载的社会，人人们很难静下来读完一页书，写下一篇文章，长久如此，就会懒得思考。日常工作更多是重复的劳动，很多时候，急匆匆的应付完工作，实际上并未真正的理解。写作会让人变得安静，集中精力去消化那些似懂非懂的知识点，进而形成体系。</description>
 		</item>
       	
 	</channel>
