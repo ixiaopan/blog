@@ -9,24 +9,32 @@
 		
 		<managingEditor>Page(&#34;&#34;) (ixiaopan)</managingEditor>
     	
-  		<lastBuildDate>Tue, 06 Jun 2023 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Wed, 07 Jun 2023 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/blog/" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>WDID Build your own UI component library from scratch</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-03/</link>
+			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-03/</guid>
+			<description>&lt;p&gt;In this post, we will learn how to build your own UI component library based on monorepo.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>WDID Frontend Project Structure</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-02/</link>
+			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-02/</guid>
+			<description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
+		</item>
+      	
 		<item>
 			<title>WDID 101</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-wdid-01/</link>
 			<pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-01/</guid>
 			<description>&lt;p&gt;从今天开始，计划写一系列技术文章，总结这一年半来重新回归到前端这个职业期间所做的事情，我给这个系列命名为 &lt;code&gt;WDID&lt;/code&gt;, i.e. &lt;code&gt;What did I do?&lt;/code&gt;&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>WDID Frontend Project Structure</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-wdid-02/</link>
-			<pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-02/</guid>
-			<description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -82,14 +90,6 @@
 			<link>https://ixiaopan.github.io/blog/post/fe-mr-notification/</link>
 			<pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-mr-notification/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Button-level access control</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-btn-access/</link>
-			<pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-btn-access/</guid>
 			<description></description>
 		</item>
       	

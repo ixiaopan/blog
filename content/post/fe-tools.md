@@ -240,7 +240,7 @@ git br | grep 'pattern' | xargs git branch -D
 
 - [SQL Zoo](https://sqlzoo.net/wiki/SELECT_basics)
 - [SQL Tutorial](https://www.sqltutorial.org/)
-
+- [Build Your Own Database From Scratch](https://build-your-own.org/database/)
 
 ## Statistics
 
@@ -257,8 +257,8 @@ git br | grep 'pattern' | xargs git branch -D
 
 - [from-python-to-numpy](https://www.labri.fr/perso/nrougier/from-python-to-numpy/)
 - [shanelynn blog](https://www.shanelynn.ie/)
-
-
+- [Neural Networks and Deep Learning - By Michael Nielsen / Dec 2019 ](http://neuralnetworksanddeeplearning.com/chap1.html)
+- [Deep Learning Do it Yourself](https://dataflowr.github.io/website/)
 
 ## Visualisation
 

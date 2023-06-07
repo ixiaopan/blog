@@ -17,7 +17,7 @@ katex: true
 
 具体的内容如下
 
-- [ ] Project Structure (Vue3)
+- [x] Project Structure
 - [ ] Build your own UI Library
 - [ ] Optimize your website
 - [ ] Login module

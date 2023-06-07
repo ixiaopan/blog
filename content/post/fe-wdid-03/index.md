@@ -1,6 +1,6 @@
 ---
-title: "Build your own UI component library from scratch"
-date: "2022-01-23"
+title: "WDID Build your own UI component library from scratch"
+date: "2023-06-07"
 description: ""
 # tags: []
 categories: [
@@ -16,16 +16,31 @@ In this post, we will learn how to build your own UI component library based on 
 <!--more-->
 
 
-First of all, let's have a peek at the finished project structure.
+First of all, let's have a peek at the final project structure.
 
-```js
-- vue-ui
+```
+- ui-demo
   - docs
   - play
   - packages
     - components
+      - button
+        - __docs__
+        - src
+        - style
+        - index.ts
     - themes
+      - src
+        - button.less
+      - gulpfile.ts
+      - package.json
     - utils
+    - wxp-ui
+      - index.ts
+      - package.json
+  - package.json
+  - pnpm-workspace.yaml
+  - README.md
 ```
 
 ## Initialize a project
@@ -119,6 +134,74 @@ pnpm install vite @vitejs/plugin-vue -D
 
 ## Packages
 
+在正式开发之前，有2件事要做
+
+- 确定包名&命名规范
+
+- 包模块划分
+
+
+### 命名规范
+
+确定包名及其命名规范，可以从以下几点考虑
+
+- `package scope`
+  
+  - 包的私域，也就是 `@wxp/wxp-ui` 中的 `@wxp` 
+  
+  - 因为一般UI都是基于公司业务开发不会对外发布，而且公司内部有自己的包管理平台，对应的也有自己的私域，一般是公司名，这里我们以自己的名字作为私域 `@wxp`
+
+- `package name`
+  
+  - 包的名字，即 `@wxp/wxp-ui` 中的 `wxp-ui` 
+
+- `workspace name`
+
+  - 因为这个组件库是基于 `monorepo` 的，他需要一个工作空间的概念，这里我们和 `package-name` 统一，约定为 `@wxp-ui`
+
+
+- 组件命名
+  - 可以选择 `upper-camel-case`、`kebab-style` 等
+
+
+- 组件导出命名 `AButton`
+  
+  - 为了防止和其他引入的组件库冲突，比如 `antd` 的 `AButton` ，同时使自己的组件突出显示
+  
+  - 约定导出名字以 `W` 开头，比如 `import WButton from './button.vue'`
+
+
+- 组件的类名、less 中的全局变量名
+  -  参考 `antd` 的 `ant-`，我们也约定一个 `prefix` 比如这里的 `w-`
+
+
+综上，我们确定命名规则如下
+
+```
+// package scope
+scope: @wxp
+
+// package name
+name: wxp-ui
+
+// pnpm workspace name
+pnpm scope: @wxp-ui
+
+// 组件文件名 kebab-style
+input-number
+
+// 组件导出名 驼峰式，以 W 开头
+WButton
+WIcon
+
+// 组件的类名
+.wxp-xx
+
+// less 中的全局变量名，比如 .w-primary-color
+abbr: w
+```
+
+### 包的划分
 
 By default, packages are stored in the folder `packages`. Of course, you can change the name. In this project, we create four packages, as shown below.
 
@@ -132,17 +215,28 @@ mkdir packages/wxp-ui
 ```
 
 
-Then, we initialize the first three package and add a scope for them by modifying the `name` field in the file `package.json`. Say, the scope name is `@wxp-ui`
+Then, we initialize the first three package and add a scope for them by modifying the `name` field in the file `package.json`.
 
 
 ```bash
 cd components && pnpm init -y
 cd themes && pnpm init -y
 cd utils && pnpm init -y
+```
 
-components -> @wxp-ui/components
-themes -> @wxp-ui/themes
-utils -> @wxp-ui/utils
+```
+{
+  - "name": "components",
+  + "name": "@wxp-ui/components",
+}
+{
+  - "name": "themes",
+  + "name": "@wxp-ui/themes",
+}
+{
+  - "name": "utils",
+  + "name": "@wxp-ui/utils",
+}
 ```
 
 The last package is a bit special. In fact, it's the entry file that export all components.
@@ -193,7 +287,7 @@ The `package.json` for this package is served as the final `package.json` for th
 
 ```
 
-Now, install these packages at the root directory.
+Now, install these packages at the `root` directory.
 
 
 ```bash
@@ -203,7 +297,7 @@ pnpm install @wxp-ui/utils -w
 pnpm install @wxp/wxp-ui -w
 ```
 
-You can see that the above dependencies has been added in `package.json`.
+You can see that the above dependencies has been added into `ui-demo/package.json`.
 
 ```json
 "dependencies": {
@@ -216,6 +310,8 @@ You can see that the above dependencies has been added in `package.json`.
 
 
 ## Components
+
+以 `Button` 为例，以下就是一个 `button` 组件需要的文件
 
 ```js
 - packages/components
@@ -232,33 +328,61 @@ You can see that the above dependencies has been added in `package.json`.
     - index.ts // entry
 ```
 
-To avoid conflicting with the vanilla HTML element, our components should have a prefix name, say `M`. For example, the button component name is `MButton`.
-
-
-
 ### index.ts
 
 `index.ts` is the entry file. It does two things
 
-- export the component when you use it in your project
-
-- register the component globally when using `app.use(vue-ui)`
+- export the component 
+- register the component globally
 
 
 ```ts
 import { withInstall } from "@wxp/utils/with-install"
 import Button from './src/button.vue'
 
-const MButton = withInstall(Button)
+// register
+const WButton = withInstall(Button)
 
+// export 
 export {
-  MButton
+  WButton
 }
-export default MButton
+export default WButton
 ```
 
 
 ### src
+
+```
+src
+- button.ts
+- button.vue
+```
+
+
+`ts` 定义 组件的 `props`
+
+```ts
+import type { ExtractPropTypes } from "vue" 
+
+export const buttonProps = {
+  type: {
+    type: String,
+    default: 'primary'
+  },
+
+  size: {
+    type: String,
+    default: 'normal'
+  },
+}
+
+export type ButtonProps = ExtractPropTypes<typeof buttonProps>
+
+```
+
+`vue` 就是普通的 `vue sfc` 
+
 
 ```vue
 <template>
@@ -271,7 +395,7 @@ export default MButton
 import { Button } from 'ant-design-vue'
 
 export default defineComponent({
-  name: 'MButton',
+  name: 'WButton',
   components: {
     [Button.name]: Button,
   },
@@ -281,28 +405,49 @@ export default defineComponent({
 
 ### style
 
-There are two ways of importing css.
+支持两种方式导入样式，`less & css`，可以看到
+
+- 这个文件仅仅是导入样式
+
+- 真正的样式是维护在 `theme/src/button.less`
+
+- `theme/w-button.css` 则是编译后的产物
+
+
+PS：这些文件无需手动编写，后续我们会有一个 `pnpm run create` 的命令，一键创建开发组件的模板
 
 
 `css.ts`
 
 
 ```css
-import '@wxp/theme/base.css'
-import '@wxp/theme/m-button.css'
+import '@wxp-ui/theme/base.css'
+import '@wxp-ui/theme/w-button.css'
 ```
 
 `index.ts`
 
 
 ```css
-import '@wxpi/theme/src/base.less'
-import '@wxp/theme/src/button.less'
+import '@wxp-ui/theme/src/base.less'
+import '@wxp-ui/theme/src/button.less'
+```
+
+## Theme
+
+按照约定，组件对应的样式名同组件名。可以看到，这里并没有 `theme/w-button.css` 只有源码 `button.less`
+
+```
+theme
+ - src
+   - button.less
+ - gulpfile.ts
+ - package.json
 ```
 
 ## Debug
 
-Generally, we can use `npm link` to install our package globally, and then we install it in other projects. However, if you are using other versions of this package, it could cause confusion. Thus, I don't recommend this method.
+Usually, we use `npm link` to install our package globally, and then we install it in other projects. However, if you are using other versions of this package, it could cause confusion. Thus, I don't recommend this method.
 
 The method I used is to write some bas scripts, like this,
 
@@ -325,7 +470,7 @@ Of course, you can improve this script further by watching file changes and rest
 
 ## Build
 
-### Themes
+### Theme
 
 ```sh
 pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
@@ -335,6 +480,35 @@ pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gul
 
 
 ### Docs
+
+
+### 产物
+
+```
+- dist
+  - wxp-ui
+    - dist
+      - index.css // the whole css 
+    - es
+      - components
+        - button
+          - src
+          - style
+          - index.mjs
+      - utils
+      - index.mjs
+    - lib
+    - theme
+      - w-button.css
+      - index.css // the whole css 
+      - src
+        - button.less
+        - index.less 
+    - package.json
+    - README.md
+```
+
+## Cli
 
 
 ## Usage
