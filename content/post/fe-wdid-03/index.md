@@ -433,7 +433,28 @@ import '@wxp-ui/theme/src/base.less'
 import '@wxp-ui/theme/src/button.less'
 ```
 
+### doc
+
+简单的方式，在每个组件内编写 `md`，然后在构建的时候，同步到 `packages/docs`，找个插件类似 `md2doc` 转为静态页面即可
+
+```
+button
+  - __docs__
+    - button.md
+```
+
+这种方式也有缺点，毕竟是面向开发同学的文档
+
+- 缺少交互
+
+- 无法给 UE 同学走查
+
+为了兼容 开发/UE 同学，后面就升级为 `storybook` 了
+
+
 ## Theme
+
+### 组件样式
 
 按照约定，组件对应的样式名同组件名。可以看到，这里并没有 `theme/w-button.css` 只有源码 `button.less`
 
@@ -441,8 +462,238 @@ import '@wxp-ui/theme/src/button.less'
 theme
  - src
    - button.less
+   - index.less
  - gulpfile.ts
  - package.json
+```
+
+### 入口文件
+
+除了组件样式之外，我们发现还多了一个 `index.less`，这是入口文件，会引入所有的组件样式，这是为了后续打包 `dist/inde.css` 做准备
+
+```less
+// component styles, add your component style from here
+@import './button.less';
+```
+
+## Build
+
+准备工作已经完成，现在就差打包构建了。我们希望支持
+
+- js 支持 `cjs/esm` 引入
+
+- js/css 支持全量导入 `dist/index.[js,css]` ，也可以支持按组件引入
+
+换句话说，构建的产物大概是这个样子，才可以满足我们的需求
+
+```
+- dist
+  - wxp-ui
+    - dist
+      - index.css // the whole css 
+      - index.js // 
+    - es // esm
+      - components
+        - button
+          - src
+          - style
+          - index.mjs
+      - index.mjs
+    - lib // cjs
+    - theme
+      - w-button.css
+      - index.css // the whole css 
+      - src // the source code 
+        - button.less
+        - index.less 
+    - package.json
+    - README.md
+```
+
+
+针对这个目标，构建分为几个部分
+
+- 打包js
+- 打包css
+
+### css
+
+先看样式，这个最简单，就只有一个事情 `less2css`，所以首先安装 `less2css` 的相关插件
+
+```sh
+pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
+```
+
+观察 `dist/wxp-ui/theme` 下的目录结构，可以看到
+
+- 编译后的组件样式以 `w-` 开头
+
+- `index.css` 保持名字不变
+
+- `src` 是整个源码
+
+
+```js
+function compile() {
+  return src(path.resolve(__dirname, './src/*.less'))
+  .pipe(gulpLess())
+  .pipe(
+    rename((path) => {
+      // `index.css` 保持名字不变
+      if (!/index/.test(path.basename)) {
+        path.basename = `w-${path.basename}`
+      }
+    })
+  )
+  .pipe(dest('./dist'))
+}
+// 复制编译后的产物 packages/theme/dist 到 `dist/wxp-ui/theme`
+function copy2Theme() {
+  return src(
+      path.resolve(__dirname, './dist/**'))
+      .pipe(dest(path.resolve(__dirname, distThemeDir)))
+}
+
+// 复制源码 packages/theme/src 到 `dist/wxp-ui/theme/src`
+function copyThemeSource() {
+  return src(path.resolve(__dirname, 'src/**')).pipe(
+    dest(path.resolve(distThemeDir, 'src'))
+  )
+}
+```
+
+### js
+
+- 一种简单的打包方式，是编译 `ui-demo/packages` 下所有的 `js/ts/vue` 结尾的文件
+
+- 另外一种就是指定/过滤 `package` 或者再进一步结合 `js/vue/ts` 文件类型进行打包
+
+不管哪种方式，我们的目的都是编译高级语法的`ts` 到兼容性更好的 `es6`语法的`cjs/esm`格式，
+
+同时我还希望维持源码的目录层级，因为这个组件库后续我还会添加其他的包，比如 `plugins/utils` 等（他们可以选择作为子包单独发布，也可以集成在这个组件库里，通过 `import` 自动导入
+
+
+#### Step 1 确定输入文件
+
+```js
+const input = excludeFiles(
+  await glob('**/*.{js,ts,vue}', {
+    cwd: packageRoot, // ui-demo/packages
+    absolute: true,
+    onlyFiles: true,
+  })
+)
+export const excludeFiles = (files: string[]) => {
+  // 进一步去除不相关的 `ts/js/vue` 
+  const excludes = ['node_modules', 'test', '__tests__', 'mock', 'gulpfile', 'dist']
+  return files.filter(
+    (path) => !excludes.some((exclude) => path.includes(exclude))
+  )
+}
+```
+
+如果是方式2，我们可以调用 `pnpm/findWorkspacePackages` 遍历每个子包，明确的指定要编译的子包
+
+```js
+export const getDistPackages = async () =>
+  (await findWorkspacePackages(projectRoot))
+   .map(pkg => ({ name: pkg.manifest.name, dir: pkg.dir }))
+   .filter(pkg=> !!pkg.name && !!pkg.dir 
+    && !pkg.name.includes('theme') // 过滤掉 package/theme
+  )
+```
+
+#### Step 2 build
+
+打包可以使用 `esbuild/vue/commonjs` 等插件即可，但是有2个注意点
+
+第一，我们发现 `button/style/index.ts` 中的引入路径不对，
+
+```js
+import '@wxp-ui/theme/src/base.less'
+import '@wxp-ui/theme/src/button.less'
+```
+
+`@wxp-ui/theme` 是 `pnpm workspace name` 的域名空间，而我们要发布到 `npm` 的组件库的域名空间是 `@wxp`，换句话说，期望的引入路径是这样的
+
+```js
+import '@wxp/wxp-ui/theme/src/base.less'
+import '@wxp/wxp-ui/theme/src/button.less'
+```
+
+
+那为什么不是 `import '../../theme/src/base.less` 呢？？因为我们希望保持外链导入，而不是在构建 `js` 的时候，再次打包 `css`，为此还需要告诉构建工具 导入模块路径或者 `id` 包含`theme` 的都是 `external` 这样就可以保持该文件内容不变（具体实现代码见下方）
+
+
+为此，我们需要写个插件遍历每个文件
+
+```js
+export async function lessPathAlias() {
+  return {
+    name: 'less-path-alias-plugin',
+
+    resolveId(id, importer, options) {
+      if (!id.startsWith('@wxp-ui')) return
+
+      const THEME_CHALK = `@wxp-ui/theme`
+      if (id.startsWith(THEME_CHALK)) {
+        return {
+          id: id.replaceAll(THEME_CHALK, `@wxp/wxp-ui/theme`), // 这一行替换
+          external: 'absolute', // 保持外部引入
+        }
+      }
+
+      return this.resolve(id, importer, { skipSelf: true, ...options })
+    },
+  }
+}
+```
+
+第2个问题是，组件依赖的第三库怎么处理，这里我偷懒了，选择让业务方主动安装，为此我在 `package/wxp-ui` 的 `package.json` 定义了 `peerDependencies` 
+
+```json
+{
+  "name": "@wxp/wxp-ui",
+  "peerDependencies": {
+    "vue": "^3.2.20"
+  }
+}
+```
+
+```js
+export const generateExternal = async () => {
+  return (id: string) => {
+    const packages: string[] = ['vue', 'wxp-ui/theme', '@vue', ...getPeerDependencies('package/wxp-ui/package.json')]
+
+    return [...new Set(packages)].some(
+      (pkg) => id === pkg || id.startsWith(`${pkg}/`)
+    )
+  }
+}
+```
+
+最后用 `rollup` 打包即可
+
+```js
+const bundle = await rollup({
+  input,
+  plugins: [
+    await lessPathAlias(),
+    css(),
+    vue({ target: 'browser' }),
+    nodeResolve({
+      extensions: ['.mjs', '.js', '.json', '.ts'],
+    }),
+    preprocessPlugin(),
+    commonjs(),
+    esbuild({
+      sourceMap: true,
+      target: 'es2018',
+    }),
+  ],
+  external: await generateExternal(),
+  treeshake: false,
+})
 ```
 
 ## Debug
@@ -468,73 +719,46 @@ Well, there are two things to note
 Of course, you can improve this script further by watching file changes and restarting server automatically.
 
 
-## Build
-
-### Theme
-
-```sh
-pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
-```
-
-### ESM
-
-
-### Docs
-
-
-### 产物
-
-```
-- dist
-  - wxp-ui
-    - dist
-      - index.css // the whole css 
-    - es
-      - components
-        - button
-          - src
-          - style
-          - index.mjs
-      - utils
-      - index.mjs
-    - lib
-    - theme
-      - w-button.css
-      - index.css // the whole css 
-      - src
-        - button.less
-        - index.less 
-    - package.json
-    - README.md
-```
-
 ## Cli
 
+最后为了方便一键创建组件模板，开发了一个简单的 `cli`，其实就是提前定义好模板，嵌入用户输入的组件名即可
 
-## Usage
 
-```sh
-# create a new component
-pnpm run create
+```js
+enum IAction  {
+  ADD = 'add'
+  CREATE = 'create'
+}
+type ITemplate = {
+  type: IAction // 创建新文件、追加文件
+  folder: string
+  name: string
+  content: string[]
+}
 
-# Build the ui components
-pnpm run build
+function cli() {
+  const file = path.resolve(compDir, t.folder, t.name)
 
-# Debug
-pnpm run debug
+  if (t.type == 'create') {
+    // create folder only
+    if (!t.name) {
+      return fs.ensureDir(path.resolve(compDir, t.folder))
+    }
 
-# Playground
-pnpm run dev
+    // create file
+    return fs.ensureFile(file).then(() => fs.outputFile(file, t.content))
+  }
 
-# publish
-pnpm run pub
-## after publishing, commit your content to the remote repo
-git push
-
-# Doc
-## preview
-pnpm run docs
-## build
-pnpm run docs:build
-
+  else if (t.type == 'add') {
+    return fs.readFile(file, 'utf8').then(data => {
+      let idx = 0
+      const newContent = data.replace(/((?:\/\/|<!--)\s*<SLOT>)/g, (m, p1) => t.content[idx++] + '\n' + p1)
+      return fs.outputFile(file, newContent)
+    })
+  }
+}
 ```
+
+## Summary
+
+这一套下来，组件库是能用的，至少面向业务开发绰绰有余，但是离开源还差的很远，比如缺少测试、国际化、主题色等。开源组件库的设计逻辑肯定远比本文复杂，感兴趣可以更深入研究一下，就本文讨论的组件库设计就到此为止了。

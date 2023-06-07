@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
   <h2 id="background">Background</h2>
 <p>一般 <code>vue</code> 项目中都会用 <code>unplugin-vue-components/vite</code> 这个插件，用来动态引入 <code>vue</code> 组件，无需写 <code>import xx from xxx</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;unplugin-vue-components/vite&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;unplugin-vue-components/vite&#39;</span>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AntDesignVueResolver</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;unplugin-vue-components/resolvers&#39;</span>
 
 <span style="color:#a6e22e">Components</span>({
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </code></pre></div><p>但是它比较坑的是，项目中不能有同名文件。当然这个插件本身支持添加 <code>directoryAsNamespace: true</code> 解决这个问题，但是我个人倾向于不要有重名文件。</p>
 <h2 id="why-naming-conflicts">Why naming conflicts</h2>
 <p>先看为什么为有重名问题？？下面就是这个插件的核心代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getNameFromFilePath</span>(<span style="color:#a6e22e">filePath</span>, <span style="color:#a6e22e">options</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getNameFromFilePath</span>(<span style="color:#a6e22e">filePath</span>, <span style="color:#a6e22e">options</span>) {
  <span style="color:#75715e">// Users/work/saas/src/components/XXXCenter/XXXCard/index.vue
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;filePath&#39;</span>, <span style="color:#a6e22e">filePath</span>);
 
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>后面在 <code>html</code> 遇到一个组件比如 <code>&lt;CompName&gt;</code> 就会先从 <code>_componentNameMap</code> 判断是否存在，不存在才会走到自定义的 <code>resolver</code>。</p>
 <h2 id="why-resolver-failed">Why resolver failed</h2>
 <p>走到自定义 <code>resolver</code>，这里又会遇到一个问题。如下代码，我们仅仅判断了 <code>name.startsWith('XX')</code> 就认为这个组件是合法的，但是有可能我们的组件库根本没有这个组件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"> (<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">a</span>) =&gt; {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"> (<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">a</span>) =&gt; {
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#39;XX&#39;</span>)) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dirName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">kebabCase</span>(<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>))
     <span style="color:#66d9ef">return</span> {
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><code>configureServer</code>，这里可以拿到 <code>vite</code> 的 <code>server</code> ，它自带一个 <code>file watcher</code></p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">defaultOptions</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">dirs</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;src/components&#39;</span>],
   <span style="color:#a6e22e">ext</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;vue&#39;</span>,

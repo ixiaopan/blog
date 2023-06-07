@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
   <p>An interesting bug about the HTML5 video.</p>
 <p>Last week, I inserted a video element in a page. As you can expect, the video is muted and autoplay when page is loaded.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">video</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/trailer.mp4&#34;</span> <span style="color:#a6e22e">loop</span> <span style="color:#a6e22e">muted</span> <span style="color:#a6e22e">autoplay</span> <span style="color:#a6e22e">playsinline</span> /&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">video</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/trailer.mp4&#34;</span> <span style="color:#a6e22e">loop</span> <span style="color:#a6e22e">muted</span> <span style="color:#a6e22e">autoplay</span> <span style="color:#a6e22e">playsinline</span> /&gt;
 </code></pre></div><p>Unfortunately, it didn&rsquo;t play when I opened it using safari. Technically speaking, there is nothing wrong with the above code snippet. So, what&rsquo;s the problem?</p>
 <p>Thanks to StackOverflow, I found a clue.</p>
 <blockquote>

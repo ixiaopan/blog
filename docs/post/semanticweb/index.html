@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Okay, let&rsquo;s go back to this post. The goal of this post is to go through the most important parts of this module for the final exam preparation.</p>
 <h2 id="web-for-machine">Web for machine</h2>
 <p>We all know that the current web pages are written in HTML. You can use <code>&lt;p&gt;</code> to define a paragraph like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;Hello world&lt;/<span style="color:#f92672">p</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;Hello world&lt;/<span style="color:#f92672">p</span>&gt;
 </code></pre></div><p>HTML looks more like a natural language as it is designed to be readable and understandable for human, not machines. However, we hope machines can understand information as well. But why? Because we want machines to do reasoning about data rather than save data only.</p>
 <p>Web pages can be linked using the markup <code>&lt;a&gt;</code>, but not all relevant documents are connected. Anyone can publish a new web page anytime. Moreover, not everyone uses the same language to describe the same thing. Thus, the interconnected web pages are simply a limited bundle of documents. More importantly, the data are not connected, and we don&rsquo;t have explicit schemas that enable machines to understand documents.</p>
 <p>On the contrary, the goal of Semantic Web is to make data readable and understandable for machines. To achieve this, the first step is to encourage people to share their data. Then things are denoted by their unique identifiers. Thus, data from various contexts can be connected through the identifiers, making a huge net finally (also known as Linked Data). Therefore, in Semantic Web, machines learn from data directly instead of documents that are written for people.</p>
@@ -216,14 +216,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The above model is an abstract framework. Subjects and predicates can be anything. To describe the specific subjects and the relationship between them, we need to find a way to identify them explicitly. We also need a data format that defines and parses this model.</p>
 <h3 id="uri">URI</h3>
 <p>In the World Wide Web, URI is used to define a unique object. Here are some examples,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">mailto</span><span style="color:#f92672">:</span><span style="color:#a6e22e">aaa</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">xxx</span>.<span style="color:#a6e22e">com</span>
 <span style="color:#a6e22e">urn</span><span style="color:#f92672">:</span><span style="color:#a6e22e">isbn</span><span style="color:#f92672">:</span><span style="color:#ae81ff">123456</span>
 </code></pre></div><p>Well, URI can also be followed by an optional fragment identifier like this,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com/index.html#introduction
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//www.example.com/index.html#introduction
 </span></code></pre></div><h3 id="namespace">Namespace</h3>
 <p>The above method has one problem. A term may have different meanings in different domains. If we include them all in a file, it will cause name conflicts. We can solve it using namespace. Specifically, a resource can be represented by a namespace, a colon and a local name.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt;
 
 // is equivalent to
 
@@ -236,11 +236,11 @@ d:hasFriend
 <li>Literal values  are written in double quotes</li>
 <li>Triples end with a full stop</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Bob</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Alice</span>&gt; .
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Bob</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">ontology</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">hasFriend</span>&gt; &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">org</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Alice</span>&gt; .
 
 </code></pre></div><h3 id="rdfxml">RDF/XML</h3>
 <p>Apart from Turtle, we can also express RDF using RDF/XML, which is similar to XML. But it&rsquo;s not easy for humans to read compared to Turtle.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
 &lt;<span style="color:#f92672">rdf:RDF</span> <span style="color:#a6e22e">xmlns:rdf</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34;</span>
          <span style="color:#a6e22e">xmlns:ns0</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.org/ontology#&#34;</span>&gt;
 
@@ -269,9 +269,9 @@ d:hasFriend
 <p>RDFS and OWL are two common ontology languages to do this. We will talk RDFS first in this section. RDFS allows us to define classes and properties as well as the characteristics of classes and properties.</p>
 <h3 id="class-definition">class definition</h3>
 <p>In OOP, we use keyword <code>class</code> to declare a class, for example,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {}
 </code></pre></div><p>In RDFS, we use predefined classes, such as <code>rdfs:Class</code>, <code>rdfs:Property</code>, to declare the corresponding object.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> .
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> .
 </code></pre></div><p>
   <figure>
     <img src="/blog/post/images/rdfs-class.png" alt="">
@@ -279,7 +279,7 @@ d:hasFriend
   </figure>
 </p>
 <p>Furthermore, we use <code>rdfs:subClassOf</code> to declare that a class is a subclass of another class. It&rsquo;s clear that <code>rdfs:subClassOf</code> is transitive. For example, if  <code>Teacher</code> is a subclass of <code>UniStaff</code> and <code>UniStaff</code> is a subclass of <code>Person</code> , then <code>Teacher</code> is a subclass of <code>Person</code>, as shown in Figure 3.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Teacher</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Teacher</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
 		   <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">subClassOf</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">UniStaff</span> .
 
 <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">UniStaff</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Class</span> ;
@@ -299,12 +299,12 @@ d:hasFriend
 </p>
 <h3 id="property-definition">property definition</h3>
 <p>Property declaration is similar to class declaration. The following code declares a property named <code>ex:hasStreet</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> .
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> .
 </code></pre></div><p>But not every object has an addresss. Besides, we sometimes want to limit the domain and range of a property. In this case, we would say, only people can have an address.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
              <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">domain</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> .
 </code></pre></div><p>We also notice that <code>ex:hasStreet</code> is a more specific attribute of <code>ex:hasAddress</code> since addresses are usually composed of several components like towns and streets. So we define <code>ex:hasStreet</code> as a subproperty of <code>ex:hasAddress</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasStreet</span> <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">rdfs</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Property</span> ;
              <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">domain</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span> ;
              <span style="color:#a6e22e">rdf</span><span style="color:#f92672">:</span><span style="color:#a6e22e">subPropertyOf</span> <span style="color:#a6e22e">ex</span><span style="color:#f92672">:</span><span style="color:#a6e22e">hasAddress</span> .
 </code></pre></div><p>Figure 5 illustrates that if Bob lives in a street named West Road, it implies that West Road is Bob&rsquo;s address. Furthermore, we have already stated that only <strong>Person</strong> can have street names, which means Bob must be a  person under this semantics.</p>
@@ -317,7 +317,7 @@ d:hasFriend
 <h2 id="sparql">SPARQL</h2>
 <p>So far, we are able to represent data. But how do we retrieve it from databases? Well, SPARQL is a SQL-like query language that allows us to make a query.</p>
 <h3 id="basic-syntax">basic syntax</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">variable</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">variable</span><span style="color:#f92672">&gt;</span>
 <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">&lt;</span>graph<span style="color:#f92672">&gt;</span>
 <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#f92672">&lt;</span>triple patterns<span style="color:#f92672">&gt;</span> <span style="color:#960050;background-color:#1e0010">}</span>
 </code></pre></div><ul>
@@ -325,20 +325,20 @@ d:hasFriend
 <li>triple patterns are expressed in Turtle</li>
 </ul>
 <p>For example, the following codes return the names of the people who have street addresses.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
 <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
 	<span style="color:#f92672">?</span>name ex:hasStreet <span style="color:#f92672">?</span>street .
 <span style="color:#960050;background-color:#1e0010">}</span>
 </code></pre></div><h3 id="filter">FILTER</h3>
 <p>We can also query the names of the people who live on the streets only containing &lsquo;Baker&rsquo;.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
 <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
 	<span style="color:#f92672">?</span>person ex:hasStreet <span style="color:#f92672">?</span>street .
 	FILTER regex(<span style="color:#f92672">?</span>street, <span style="color:#e6db74">&#34;Baker&#34;</span>) 
 	<span style="color:#f92672">?</span>person ex:hasName <span style="color:#f92672">?</span>name .
 <span style="color:#960050;background-color:#1e0010">}</span>
 </code></pre></div><p>Another example is to filter all the items whose prices are lower than 5 pounds.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
 <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
 	<span style="color:#f92672">?</span>item ex:hasPrice <span style="color:#f92672">?</span>price .
 	FILTER (<span style="color:#f92672">?</span>price <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>)
@@ -346,7 +346,7 @@ d:hasFriend
 <span style="color:#960050;background-color:#1e0010">}</span>
 </code></pre></div><h3 id="union">UNION</h3>
 <p><code>UNION</code> allows us to either match this condition or that one, which is equivalent to the operation of <code>OR</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">?</span>name
 <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">{</span>
 	<span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#f92672">?</span>person ex:hasStreet <span style="color:#e6db74">&#34;Baker Street&#34;</span> . <span style="color:#960050;background-color:#1e0010">}</span>
 	<span style="color:#66d9ef">UNION</span>
