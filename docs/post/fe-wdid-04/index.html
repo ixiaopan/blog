@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span>&gt;
 &lt;<span style="color:#f92672">a-player-container</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;videoRef&#34;</span> <span style="color:#a6e22e">:width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span> <span style="color:#a6e22e">:height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;autoPlay&#34;</span>&gt;
   &lt;<span style="color:#f92672">a-spin</span> <span style="color:#a6e22e">v-show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;loading&#34;</span> /&gt;
 &lt;/<span style="color:#f92672">a-player-container</span>&gt;
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
 &lt;/<span style="color:#f92672">div</span>&gt;
 </code></pre></div><h2 id="api">API</h2>
 <p>定义一个类 <code>MyVideo</code>，至少需要暴露以下几个方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
   <span style="color:#a6e22e">play</span>() {
     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span>) <span style="color:#66d9ef">return</span>
 
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="入参">入参</h3>
 <p>接下来定义入参，很容易想到，至少要告诉我一个 <code>url</code> 吧，其他参数可以是预加载、自动播放、循环播放、事件等和官方 API对齐即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IOption</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IOption</span> {
   <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>
   <span style="color:#a6e22e">container</span><span style="color:#f92672">?:</span> <span style="color:#a6e22e">HTMLElement</span> <span style="color:#75715e">// 包含视频的容器
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">?:</span> <span style="color:#a6e22e">number</span> <span style="color:#75715e">// 视频的宽高
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="加载视频">加载视频</h3>
 <p>这里采用动态加载 <code>video</code> 插入到 <code>DOM</code> 的方式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">init</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">createVideo</span>()
 
@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="定义事件">定义事件</h3>
 <p><code>Video</code> 的官方文档就已经提供了很多钩子，我们直接使用接口，比如</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
   <span style="color:#a6e22e">bindEvents</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;play&#39;</span>, () =&gt; {
       <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onPlay</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onPlay</span>()
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function() {
 The event frequency is dependent on the system load, but will be thrown between about 4Hz and 66Hz (assuming the event handlers don&rsquo;t take longer than 250ms to run)</p>
 </blockquote>
 <p>为了解决这个问题，我们需要在 <code>timeupdate</code> 里频繁的触发回调，才能达到丝滑般的滚动条前进效果</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;timeupdate&#39;</span>, () =&gt; {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;timeupdate&#39;</span>, () =&gt; {
   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">clearTimer</span>()
 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -386,7 +386,7 @@ The event frequency is dependent on the system load, but will be thrown between 
   <span style="color:#a6e22e">step</span>()
 })
 </code></pre></div><p>同时需要在其他可能的地方，防止内存泄露，比如</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyVideo</span> {
   <span style="color:#a6e22e">bindEvents</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;pause&#39;</span>, () =&gt; {
       <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">clearTimer</span>()

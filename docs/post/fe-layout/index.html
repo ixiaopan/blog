@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>specify the way in which flex items are aligned ( <code>justify-content</code> )</li>
 </ul>
 <p>If you want to implement a two-column layout, you simply declare the following statement,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">left</span> <span style="color:#f92672">side</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
 	<span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">right</span> <span style="color:#f92672">content</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
 <span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
 }
 </code></pre></div><p>However, without flex, the alternate way to achieve this is to use float or position</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">left</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">left</span> {
 	<span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
 }
 .<span style="color:#a6e22e">right</span> {
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </tbody>
 </table>
 <p>I really love the last one <code>flex: &lt;number&gt;</code> because it can implement the even-spaced layout easily. For example, we can implement a dynamic ruler ( I mean when the ruler width is fixed, the width of major and minor scales are flexible when we increase or decrease the number of major scales or minor scales).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">
 <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ruler&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;major&#34;</span><span style="color:#f92672">&gt;</span>
     <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;minor&#34;</span><span style="color:#f92672">&gt;&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </p>
 <h3 id="order">Order</h3>
 <p>By default, flex items are displayed in the same order as they appear in HTML. Sometimes we may want to change the display order without modifying the HTML structure. For example, to swap the above HTML to put the image on the right, we simply declare</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">right</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">right</span> {
 	<span style="color:#66d9ef">order</span>: <span style="color:#ae81ff">-1</span>;
 }
 <span style="color:#f92672">//</span> <span style="color:#f92672">or</span>
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>
   <img src="/blog/post/images/auto-margin.png" alt="">
 </p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">nav</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav&#34;</span><span style="color:#f92672">&gt;</span>
     <span style="color:#f92672">&lt;</span><span style="color:#f92672">span</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">Home</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">span</span><span style="color:#f92672">&gt;</span>
     <span style="color:#f92672">&lt;</span><span style="color:#f92672">span</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">Blog</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">span</span><span style="color:#f92672">&gt;</span>
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>
   <img src="/blog/post/images/auto-overflow.png" alt="">
 </p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex-column&#34;</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex-column&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">Book</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">CD</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ad&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">Advertisement</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>it seems that it were the sole item in that container; it means that even though we have more than one absolute-positioned flex item, they are independent with each other</li>
 <li>Both the absolute-positioned flex item and the flex container are fixed-size boxes, so we cannot change their width or height. In other words, <code>stretch</code> will have no effect on them.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">left</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
 	<span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">content</span><span style="color:#f92672">....&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">right</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 .<span style="color:#a6e22e">item</span> {
 	<span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
-  <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">flex-start</span>;
+  <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">flex</span><span style="color:#f92672">-</span><span style="color:#66d9ef">start</span>;
   
   <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#000</span>;
   <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;

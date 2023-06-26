@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Nov 7, 2021
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;14 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;15 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As we said before, the top 10 perhaps is the most common type of non-personalised recs. You can see Top 10 everywhere on the Internet.</p>
 <h4 id="method-1-top-popular">Method 1: Top Popular</h4>
 <p>An intuitive method to get the top 10 items is to order items by the number of users that have bought, seen, or given their opinions.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># top 10 movies</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># top 10 movies</span>
 movies_has_seen <span style="color:#f92672">=</span> Log<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>values(<span style="color:#e6db74">&#39;content_id&#39;</span>)<span style="color:#f92672">.</span>filter(event<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;seen&#39;</span>)<span style="color:#f92672">.</span>annotate(Count(<span style="color:#e6db74">&#39;user_id&#39;</span>))
 
 sorted_items <span style="color:#f92672">=</span> sorted(movies_has_seen, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> item: <span style="color:#f92672">-</span>float(item[<span style="color:#e6db74">&#39;user_id__count&#39;</span>]))
@@ -285,7 +285,7 @@ sorted_items <span style="color:#f92672">=</span> sorted(movies_has_seen, key<sp
 sorted_items[:<span style="color:#ae81ff">10</span>]
 </code></pre></div><h4 id="method-2-the-best-rated-items">Method 2: The Best Rated Items</h4>
 <p>Another technique is to calculate the average rating for each item and retrieve the top 10 items ranked by the average rating in descending order.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">movies_avg_rated <span style="color:#f92672">=</span> Rating<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>values(<span style="color:#e6db74">&#39;movie_id&#39;</span>)<span style="color:#f92672">.</span>annotate(Avg(<span style="color:#e6db74">&#39;rating&#39;</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">movies_avg_rated <span style="color:#f92672">=</span> Rating<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>values(<span style="color:#e6db74">&#39;movie_id&#39;</span>)<span style="color:#f92672">.</span>annotate(Avg(<span style="color:#e6db74">&#39;rating&#39;</span>))
 
 sorted(movies_avg_rated, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> item: <span style="color:#f92672">-</span>float(item[<span style="color:#e6db74">&#39;rating__avg&#39;</span>]))[:<span style="color:#ae81ff">10</span>]
 </code></pre></div><p>To calculate the average rating, we need the help of URM. Let $r_{ui}$ be the non-zero rating given by user $u$ to item $i$, and $N_i$ be the number of users who rated item $i$,  then the average rating of item $i$ is given as</p>
@@ -321,7 +321,7 @@ $$</p>
 \text {list} (A \rarr B) = \frac{\text{supp}(A \rarr B)}{\text{supp}(A)\text{supp}(B)}
 $$</p>
 <p>With these terms, now we can make an association analysis using the Apriori algorithm.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> {
     <span style="color:#e6db74">&#39;1&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
     <span style="color:#e6db74">&#39;2&#39;</span>: [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>],
     <span style="color:#e6db74">&#39;3&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
@@ -331,7 +331,7 @@ $$</p>
 index <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#39;InvoiceNo_&#39;</span> <span style="color:#f92672">+</span> str(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>) ]
 basket_set <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data<span style="color:#f92672">=</span>data, index<span style="color:#f92672">=</span>index)
 
-freq_itemsets <span style="color:#f92672">=</span> apriori(basket_set, min_support<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, use_colnames<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+freq_itemsets <span style="color:#f92672">=</span> apriori(basket_set, min_support<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, use_colnames<span style="color:#f92672">=</span>True)
 freq_itemsets[<span style="color:#e6db74">&#39;length&#39;</span>] <span style="color:#f92672">=</span> freq_itemsets[<span style="color:#e6db74">&#39;itemsets&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: len(x))
 freq_itemsets
 
@@ -380,7 +380,7 @@ $$</p>
 <h3 id="pearson-correlation-coefficient">Pearson Correlation Coefficient</h3>
 <p>The above formula is the same as Pearson Correlation Coefficient. The only difference between them is that the Pearson only works for vectors with the same size (the rated items in common between users), while the adjusted cosine similarity considers all items by treating missing values as zero.</p>
 <p>For instance, below are the ratings of Alice and Bob for six films.</p>
-<pre tabindex="0"><code>Alice: [4, 5, 4, NaN, 3, 3]
+<pre><code>Alice: [4, 5, 4, NaN, 3, 3]
 Bob:   [3, 3, 3, 2, 4, 5]
 </code></pre><p>Step 1: calculating the average rating</p>
 <ul>
@@ -391,26 +391,26 @@ Bob:   [3, 3, 3, 2, 4, 5]
 <ul>
 <li>Adjusted Cosine</li>
 </ul>
-<pre tabindex="0"><code>Alice: [0.2, 1.2, 0.2, -3.8, -0.8, -0.8]
+<pre><code>Alice: [0.2, 1.2, 0.2, -3.8, -0.8, -0.8]
 Bob:   [-0.33, -0.33, -0.33, -1.33, 0.67, 1.67]
 </code></pre><p>Notice that we treat $NaN$ as $0$.</p>
 <ul>
 <li>Pearson</li>
 </ul>
-<pre tabindex="0"><code>Alice: [0.2, 1.2, 0.2, NaN, -0.8, -0.8]
+<pre><code>Alice: [0.2, 1.2, 0.2, NaN, -0.8, -0.8]
 Bob:   [-0.33, -0.33, -0.33, -1.33, 0.67, 1.67]
 </code></pre><p>Step 3: Calculating similarity</p>
 <ul>
 <li>Adjusted Cosine</li>
 </ul>
 <p>$$
-\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+ -3.8*-1.33 +-0.8<em>0.67+-0.8</em>1.67}{\sqrt{0.2^2+1.2^2+0.2^2+ -3.8^2+-0.8^2<em>2} \sqrt{-0.33^2</em>3+-1.33^2 + 0.67^2+1.67^2}} \\ = -0.62
+\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+ -3.8*-1.33 +-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+ -3.8^2+-0.8^2*2} \sqrt{-0.33^2*3+-1.33^2 + 0.67^2+1.67^2}} \\ = -0.62
 $$</p>
 <ul>
 <li>Pearson</li>
 </ul>
 <p>$$
-\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+-0.8<em>0.67+-0.8</em>1.67}{\sqrt{0.2^2+1.2^2+0.2^2+(-0.8)^2+(-0.8)^2}  \sqrt{-0.33^2 + -0.33^2+-0.33^2+0.67^2+1.67^2}} \\ = -0.75
+\frac{0.2*-0.33+1.2*-0.33+0.2*-0.33+-0.8*0.67+-0.8*1.67}{\sqrt{0.2^2+1.2^2+0.2^2+(-0.8)^2+(-0.8)^2}  \sqrt{-0.33^2 + -0.33^2+-0.33^2+0.67^2+1.67^2}} \\ = -0.75
 $$</p>
 <h3 id="overlapping">Overlapping</h3>
 <p>However, the cosine similarity is not perfect enough. Figure 3 shows that the similarity between the users who rated one item only is greater than those who have more items in common. However, the result is not convincing because there are less common in the first pair of users. In other words, the similarity is not reliable when the support is small. The support is the number of non-zero ratings of a user.</p>
@@ -425,8 +425,8 @@ $$</p>
 S_{uv} = \frac{r_u \cdot r_v}{||r_u|| * ||r_v|| + C}
 $$</p>
 <p>Alternatively, you can also set a threshold for the minimum support to filter out the users who have rated only one or two items. The codes below return the number of overlapping elements between users. On the contrary, if there are too many overlapping users, users are so alike that it&rsquo;s difficult to recommend special items (the recommendations are too general).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">overlap_matrix <span style="color:#f92672">=</span> URM<span style="color:#f92672">.</span>astype(bool)<span style="color:#f92672">.</span>astype(int)
-overlap_matrix <span style="color:#f92672">=</span> overlap_matrix <span style="color:#f92672">@</span> overlap_matrix<span style="color:#f92672">.</span>T
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">overlap_matrix <span style="color:#f92672">=</span> URM<span style="color:#f92672">.</span>astype(bool)<span style="color:#f92672">.</span>astype(int)
+overlap_matrix <span style="color:#f92672">=</span> overlap_matrix <span style="color:#960050;background-color:#1e0010">@</span> overlap_matrix<span style="color:#f92672">.</span>T
 </code></pre></div><h3 id="neighborhood">Neighborhood</h3>
 <p>In practice, we only consider a small set of similar users or items, which is called as the neighborhood of the target user or item.</p>
 <h4 id="cluster">Cluster</h4>
@@ -564,11 +564,11 @@ where</p>
   </figure>
 </p>
 <p>For coders, below are PyTorch implementation of SVD.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">U, S, V <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>svd(A)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">U, S, V <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>svd(A)
 
 S[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 
-A_hat <span style="color:#f92672">=</span> U <span style="color:#f92672">@</span> torch<span style="color:#f92672">.</span>diag(S) <span style="color:#f92672">@</span> V<span style="color:#f92672">.</span>T
+A_hat <span style="color:#f92672">=</span> U <span style="color:#960050;background-color:#1e0010">@</span> torch<span style="color:#f92672">.</span>diag(S) <span style="color:#960050;background-color:#1e0010">@</span> V<span style="color:#f92672">.</span>T
 </code></pre></div><p>However, there are some obvious problems with SVD. First, it&rsquo;s time-consuming to calculate large matrixes. Second, we have to impute the missing values first. Usually, we impute zero cells with user&rsquo;s average rating. Nevertheless, SVD is not very computationally efficient.</p>
 <h3 id="funk-svd">Funk SVD</h3>
 <p>The idea of Funk SVD proposed by Simon Funk is to compute the lower-rank approximation of a matrix by minimising the squared error loss. The difference wih SVD above is that Funk SVD only considers the known values, which means we discard the missing values in URM. Mathematically, the goal of Funk SVD is to minimise the following loss function,</p>
@@ -586,7 +586,7 @@ $$</p>
 $$
 p_u \larr p_u + lr * \epsilon_{ui} q_i\\ q_i \larr q_i + lr * \epsilon_{ui} p_u
 $$</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sgd_factorise</span>(A: torch<span style="color:#f92672">.</span>Tensor, rank: int, num_epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>) <span style="color:#f92672">-&gt;</span> Tuple[torch<span style="color:#f92672">.</span>Tensor, torch<span style="color:#f92672">.</span>Tensor]:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sgd_factorise</span>(A: torch<span style="color:#f92672">.</span>Tensor, rank: int, num_epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>) <span style="color:#f92672">-&gt;</span> Tuple[torch<span style="color:#f92672">.</span>Tensor, torch<span style="color:#f92672">.</span>Tensor]:
     m, n <span style="color:#f92672">=</span> A<span style="color:#f92672">.</span>shape
 
     U <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand((m, rank))
@@ -595,7 +595,7 @@ $$</p>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(num_epochs):
         <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(m):
             <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(n):
-                e <span style="color:#f92672">=</span> A[r, c] <span style="color:#f92672">-</span> U[r] <span style="color:#f92672">@</span> V[c]<span style="color:#f92672">.</span>T
+                e <span style="color:#f92672">=</span> A[r, c] <span style="color:#f92672">-</span> U[r] <span style="color:#960050;background-color:#1e0010">@</span> V[c]<span style="color:#f92672">.</span>T
                 U[r] <span style="color:#f92672">=</span> U[r] <span style="color:#f92672">+</span> lr <span style="color:#f92672">*</span> e <span style="color:#f92672">*</span> V[c]
                 V[c] <span style="color:#f92672">=</span> V[c] <span style="color:#f92672">+</span> lr <span style="color:#f92672">*</span> e <span style="color:#f92672">*</span> U[r]
 
