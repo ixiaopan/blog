@@ -14,7 +14,39 @@
 		<atom:link href="/blog/categories/machine-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>WDID Build your own UI component library from scratch</title>
+			<title>WDID - Frontend Optimization</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-07/</link>
+			<pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-07/</guid>
+			<description>&lt;p&gt;2017年的时候，我读过一本专门介绍前端优化方法的书，&lt;code&gt;High Performance Mobile Web&lt;/code&gt;，可不能被它的标题所欺骗，认为只侧重于移动端，事实不是如此。这本书可贵的地方是授人以渔，而不是授之以鱼，书中不仅有针对移动端的优化，还系统的梳理了一个页面在它的各个生命周期需要注意的优化项，并明确性能指标的确定以及衡量的方法。可惜的是，很少有人知道这本书。&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>WDID - The track of a Video Editor</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-06/</link>
+			<pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-06/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>WDID - Things about frames</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-05/</link>
+			<pubDate>Thu, 22 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-05/</guid>
+			<description>&lt;p&gt;Speaking of images and videos, we often use &lt;code&gt;img/video&lt;/code&gt; to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>WDID - Design a Video Player</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-wdid-04/</link>
+			<pubDate>Wed, 21 Jun 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-04/</guid>
+			<description>&lt;p&gt;业务最开始实现的视频播放功能用的是 &lt;code&gt;xgplayer&lt;/code&gt; 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;，为此，我们需要基于 &lt;code&gt;video api&lt;/code&gt; 实现自己的播放器。&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>WDID - Build your own UI component library from scratch</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-wdid-03/</link>
 			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-03/</guid>
@@ -22,7 +54,7 @@
 		</item>
       	
 		<item>
-			<title>WDID Frontend Project Structure</title>
+			<title>WDID - Frontend Project Structure</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-wdid-02/</link>
 			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-wdid-02/</guid>
@@ -59,38 +91,6 @@
 			<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fs-promise/</guid>
 			<description>&lt;p&gt;关于 &lt;code&gt;promise&lt;/code&gt; 介绍的太多了，今天就推荐一本我收藏已久的小册子，&lt;a href=&#34;https://book.douban.com/subject/26261877/&#34;&gt;Javascript with promise&lt;/a&gt;&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>[Draft] - Axios</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-axios/</link>
-			<pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-axios/</guid>
-			<description>&lt;p&gt;Learn the modern http library - Axios.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Naming conflicts in unplugin-vue-component</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-name-conflict/</link>
-			<pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-name-conflict/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Prefix static url when using public Image</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-public-image/</link>
-			<pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-public-image/</guid>
-			<description></description>
-		</item>
-      	
-		<item>
-			<title>Automatically Send MR Notification</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-mr-notification/</link>
-			<pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-mr-notification/</guid>
-			<description></description>
 		</item>
       	
 	</channel>

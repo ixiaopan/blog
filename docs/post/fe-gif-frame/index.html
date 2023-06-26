@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </p>
 <h2 id="how">How</h2>
 <p><code>canvas.drawImage()</code> 可以提取序列帧，代码实现如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getFirstFrameFromGif</span>(<span style="color:#a6e22e">img</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getFirstFrameFromGif</span>(<span style="color:#a6e22e">img</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;canvas&#39;</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>)  
 
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>另个方法就是直接换 <code>src</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gif&#34;</span> <span style="color:#f92672">@mouseenter</span><span style="color:#e6db74">=&#34;toggleGif&#34;</span> <span style="color:#f92672">@mouseleave</span><span style="color:#e6db74">=&#34;toggleGif&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gif&#34;</span> <span style="color:#f92672">@mouseenter</span><span style="color:#e6db74">=&#34;toggleGif&#34;</span> <span style="color:#f92672">@mouseleave</span><span style="color:#e6db74">=&#34;toggleGif&#34;</span>&gt;
   &lt;<span style="color:#f92672">img</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[&#39;gif-placeholder&#39;, innerSrc == src ? &#39;gif-real&#39; : &#39;gif-frame&#39; ]&#34;</span> <span style="color:#f92672">:src</span><span style="color:#e6db74">=&#34;innerSrc&#34;</span> /&gt;
 &lt;/<span style="color:#f92672">div</span>&gt;
 
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function() {
 &ndash; MDN</p>
 </blockquote>
 <p>实现代码如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">gif</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">gif</span> {
   <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
   <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
 }
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>第一帧是很简单了，还是和提取视频帧一样的方法，现在如果想要提取任意时刻的一帧呢？？</p>
 <p>说实话，几个月之前，我是真不知道的，也就是今天我才在 <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageDecoder">MDN</a> 上看到方法，就是用 <code>ImageCoder</code> 实现，官方给的例子就可以满足我们的需求。</p>
 <p>Step 1 加载图片，实例化解码器</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">decoder</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">decoder</span>
 <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">res</span>) =&gt; {
   <span style="color:#a6e22e">decoder</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ImageDecoder</span>({
     <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">body</span>,
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 })
 </code></pre></div><p>Step 2 解析指定位置的帧，渲染到 <code>canvas</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
   <span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">decode</span>({
     <span style="color:#a6e22e">frameIndex</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">n</span>,
   }).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">renderFrame</span>)
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </code></pre></div><h2 id="draw-gif-on-the-canvas">Draw GIF on the canvas</h2>
 <p>既然可以得到任意帧，那么把 GIF 绘制出来，也不是难事，来排个队依次渲染就好了。需要注意的是，这个依次渲染，不是 <code>0 delay</code> 的，比如 我们执行一个 <code>for loop</code>。
 因为渲染1帧也是有时长的，比如我们说帧率 <code>25fps</code>，那么绘制一帧需要 <code>40ms</code>，也就是说，需要等 <code>40ms</code> 后，才能绘制第2桢。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
   <span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">decode</span>({
     <span style="color:#a6e22e">frameIndex</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">n</span>,
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 }
 </code></pre></div><p>上面的代码还是有问题，<code>n</code> 会越界从而触发 <code>RangeError</code>，要想解决，需要知道这个 <code>GIF</code> 总共有多少帧</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// get the current image track
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// get the current image track
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">track</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">tracks</span>.<span style="color:#a6e22e">selectedTrack</span>
 
 <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">complete</span>) {

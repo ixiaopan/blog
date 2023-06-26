@@ -19,12 +19,17 @@ katex: true
 
 - [x] Project Structure
 - [x] Build your own UI Library
+- [x] Design a Video Player
+- [x] Extract video frames
+- [ ] The track of a video editor
 - [ ] Optimize your website
-- [ ] Login module
-- [ ] Router & permission
+- [ ] Router
+- [ ] permission
 - [ ] Upload 1000 large files
-- [ ] Extract video frames
-- [ ] Design a Non-linear Video Editor
+- [ ] image editor
+- [ ] psd editor
+- [ ] non-linear Video Editor
 - [ ] Frontend Infrastructure 
   - [ ] Micro Frontend
+  - [ ] pipeline
   - [ ] Nest/Nuxt

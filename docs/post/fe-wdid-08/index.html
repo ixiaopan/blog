@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>WDID - Frontend Optimization</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WDID - Frontend Optimization"/>
+<meta name="twitter:description" content="2017年的时候，我读过一本专门介绍前端优化方法的书，High Performance Mobile Web，可不能被它的标题所欺骗，认为只侧重于移动端，事实不是如此。这本书可贵的地方是授人以渔，而不是授之以鱼，书中不仅有针对移动端的优化，还系统的梳理了一个页面在它的各个生命周期需要注意的优化项，并明确性能指标的确定以及衡量的方法。可惜的是，很少有人知道这本书。"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      WDID - Frontend Optimization
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jun 26, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>2017年的时候，我读过一本专门介绍前端优化方法的书，<code>High Performance Mobile Web</code>，可不能被它的标题所欺骗，认为只侧重于移动端，事实不是如此。这本书可贵的地方是授人以渔，而不是授之以鱼，书中不仅有针对移动端的优化，还系统的梳理了一个页面在它的各个生命周期需要注意的优化项，并明确性能指标的确定以及衡量的方法。可惜的是，很少有人知道这本书。</p>
+<p>性能优化是绕不开的面试话题，然而很多人都说不清楚，或者说没有这方面的知识体系，如果我是面试官，我更想听到的是你的思考，而不是方法（毕竟常见的优化手段网上都能找到，比如图片优化）。何为思考？假设现在要优化一个项目，那我们至少要明确</p>
+<ul>
+<li>Why 有必要优化嘛？</li>
+<li>What 哪些地方需要优化？</li>
+<li>How 怎么优化？</li>
+</ul>
+<p>刚进公司不久，就恰好开展了几次优化的专项，趁着这个经验再结合 <code>High Performance Mobile Web</code> ，就打算写下这篇文章总结一下前端优化的知识体系。</p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents"></nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

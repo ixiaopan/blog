@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>WDID Frontend Project Structure</title>
+<title>WDID - Frontend Project Structure</title>
 
 
 
@@ -30,7 +30,7 @@
 />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="WDID Frontend Project Structure"/>
+<meta name="twitter:title" content="WDID - Frontend Project Structure"/>
 <meta name="twitter:description" content="本文主要介绍一下当下 general &amp; vue-based 前端项目结构划分"/>
 
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="intro-header">
     <h1 class="post-heading">
-      WDID Frontend Project Structure
+      WDID - Frontend Project Structure
     </h1>
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <p>本文主要介绍一下当下 <code>general</code> &amp; <code>vue-based</code> 前端项目结构划分</p>
 <h2 id="naive">Naive</h2>
 <p>The simplest project structure is like this,</p>
-<pre><code>test-demo
+<pre tabindex="0"><code>test-demo
  - index.html
  - index.js
  - index.css
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>对于一个从未见过的项目，熟悉它最快的方式莫过于浏览一下 <code>README.md/package.json</code></p>
 <h3 id="readmemd">README.md</h3>
 <p>通常，我会写上项目的名字、描述、开发构建命令。这样，其他人看了 <code>readme.md</code> 就可以立刻启动项目</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"># 周报定时提醒
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"># 周报定时提醒
 
 <span style="color:#75715e">## Install
 </span><span style="color:#75715e"></span>npm i
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><code>scripts</code></li>
 </ul>
 <p>PS：如果是 <code>npm module</code>，我们还得关注 <code>version/exports/main/type</code> 等字段</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;report&#34;</span>,
   <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1&#34;</span>,
   <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;周报定时提醒&#34;</span>,
@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#f92672">&#34;devDependencies&#34;</span>: {}
 }
 </code></pre></div><p>此时我们的项目结构如下</p>
-<pre><code>- test-demo
+<pre tabindex="0"><code>- test-demo
  - README.md
  - package.json
 </code></pre><h2 id="devbuild">Dev/Build</h2>
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><code>node module</code> -&gt; <code>esbuild/rollup</code></li>
 </ul>
 <p>此时我们的项目结构如下</p>
-<pre><code>- test-demo
+<pre tabindex="0"><code>- test-demo
  - README.md
  - package.json
  - vite.config.ts
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h3 id="ignore">ignore</h3>
 <p>最经典的莫过于 <code>.gitignore</code> 了，那些不需要提交的文件都可以写在这里。常见配置如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.DS_Store
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.DS_Store
 node_modules
 dist
 
@@ -293,7 +293,7 @@ pnpm-debug.log*
 <h3 id="commitlint">commitlint</h3>
 <h3 id="editorconfig">editorconfig</h3>
 <p>这个文件用来约束编辑器的配置，比如针对不同文件类型 <code>js/md</code> 的格式化、空格、文件编码(兼容<code>OS</code>)等。常见配置如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root <span style="color:#f92672">=</span> true
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root <span style="color:#f92672">=</span> true
 
 <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>
 charset <span style="color:#f92672">=</span> utf-8
@@ -304,7 +304,7 @@ insert_final_newline <span style="color:#f92672">=</span> true
 trim_trailing_whitespace <span style="color:#f92672">=</span> true
 quote_type <span style="color:#f92672">=</span> single
 </code></pre></div><p>此时我们的项目结构如下</p>
-<pre><code>- test-demo
+<pre tabindex="0"><code>- test-demo
  - .editorconfig
  - .eslintignore
  - .eslintrc
@@ -320,12 +320,12 @@ quote_type <span style="color:#f92672">=</span> single
 <h3 id="pages">pages</h3>
 <p>对于前端而言，最主要的就是入口 <code>index.html</code>，在各个框架(<code>react/vue</code>的加持下，现在我们一般去找 <code>views/pages</code> 等文件夹</p>
 <p>很早之前，后端渲染的时候，入口的文件大都是 <code>.html</code> 结尾</p>
-<pre><code>pages
+<pre tabindex="0"><code>pages
  - home.html
  - detail.html
  - about.html
 </code></pre><p>现在SPA/CSR的时代，入口文件则和框架绑定，以 <code>vue</code> 为例</p>
-<pre><code>pages
+<pre tabindex="0"><code>pages
  - home.vue
  - detail.vue
  - about.vue
@@ -338,7 +338,7 @@ quote_type <span style="color:#f92672">=</span> single
 </ul>
 <p><code>components</code> 就可以解决这些问题</p>
 <p>记得第一次学习前端的时候，也是是创建了类似的文件夹 <code>partials</code> ，里面主要存放网站的公共模块，给后端渲染</p>
-<pre><code>partials
+<pre tabindex="0"><code>partials
  - header.html
  - footer.html
  - nav.html
@@ -348,13 +348,13 @@ quote_type <span style="color:#f92672">=</span> single
 <h3 id="enums">enums</h3>
 <p>枚举是我很喜欢的一个概念，它既是可变列表，值又有不可变的属性，同时自带表述能力。</p>
 <p>试想面对如下的代码，如果没有注释，真的很难理解其意</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">50001</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">50001</span>) {
 
 } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">50002</span>) {
 
 }
 </code></pre></div><p>如果我们改写为 <code>enum</code> ，就大不相同</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">STATUS_CODE</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">STATUS_CODE</span> {
   <span style="color:#a6e22e">TOKEN_INVALID</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">50001</span>,
   <span style="color:#a6e22e">REDIRECT_HOME</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">50002</span>
 }
@@ -366,7 +366,7 @@ quote_type <span style="color:#f92672">=</span> single
 </code></pre></div><p>看似很简单，然而在工作中会发现，很多人从来不写 <code>enum</code>，导致项目中一堆不明其意的数字、字符串，只能跟着之前的逻辑继续「添砖加瓦」，导致项目越加难以维护</p>
 <h3 id="utils">utils</h3>
 <p>前端和浏览器交互是很复杂的，要涉及到浏览器的很多模块，比如 <code>dom/cache/http</code>，这些功能浏览器都有对应的 <code>API</code>，为了更好的维护和扩展，一般我都会每个 <code>API</code> 独立成文件，最后在 <code>index.ts</code> 全部导入</p>
-<pre><code>utils
+<pre tabindex="0"><code>utils
  - dom.ts
  - util.ts
  - cache.ts
@@ -374,7 +374,7 @@ quote_type <span style="color:#f92672">=</span> single
  - index.ts
 </code></pre><h3 id="assetspublic">assets/public</h3>
 <p>除了代码本身，前端还需要引入一些额外的资源，比如图片、字体、音视频等，一般我们会把他们放在 <code>assets</code></p>
-<pre><code>assets
+<pre tabindex="0"><code>assets
 - images
 - fonts
 - audio
@@ -413,7 +413,7 @@ quote_type <span style="color:#f92672">=</span> single
 <p>对于公共部分，比如全局的开关配置可以放在 <code>common</code> 里</p>
 </li>
 </ul>
-<pre><code>api
+<pre tabindex="0"><code>api
  - login.ts
  - order.ts
  - common
@@ -424,7 +424,7 @@ quote_type <span style="color:#f92672">=</span> single
 <h3 id="plugins">plugins</h3>
 <h2 id="summary">Summary</h2>
 <p>最后的项目结构如下</p>
-<pre><code>- test-demo
+<pre tabindex="0"><code>- test-demo
  - mock
  - public
  - src
