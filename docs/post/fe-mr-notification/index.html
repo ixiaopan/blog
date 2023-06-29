@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>据此，我们定义以下 <code>enum</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// X-Gitlab-Token HTTP header
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// X-Gitlab-Token HTTP header
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GITLAB_WEBHOOK_TOKEN</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;your custom string&#39;</span>
 
 <span style="color:#75715e">// 支持的事件类型
@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </code></pre></div><h3 id="step-2-server">Step 2 Server</h3>
 <p>搭建应用的话，可以选用 <code>koa</code> 起一个简单的 <code>node server</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Koa</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;koa&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Koa</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;koa&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">KoaRouter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@koa/router&#39;</span>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">gitlabHookHandler</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./gitlab/handler&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">koaBody</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;koa-body&#39;</span>
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><code>Invalid Projects</code> 只接受指定项目的 <code>webhook</code></p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">gitlabHookHandler</span>(<span style="color:#a6e22e">ctx</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">gitlabHookHandler</span>(<span style="color:#a6e22e">ctx</span>) {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">headers</span>, <span style="color:#a6e22e">body</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">request</span>
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><p>一切都通过之后，就会进入 <code>MergeRequest Handler</code> 得到聚合后的数据，然后发送给 IM</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">mergeRequestHook</span>(<span style="color:#a6e22e">body</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">mergeRequestHook</span>(<span style="color:#a6e22e">body</span>)
 <span style="color:#a6e22e">sendMR</span>(<span style="color:#a6e22e">data</span>)
 <span style="color:#a6e22e">responseSuccess</span>()
 </code></pre></div><h4 id="mr-handler">MR Handler</h4>
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>As mentioned before, <code>data.object_attributes.action</code> tells us which action is triggered.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mergeRequestHook</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">IMergeRequestEvent</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mergeRequestHook</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">IMergeRequestEvent</span>) {
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">action</span>, } <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">object_attributes</span>
   
   <span style="color:#75715e">// basic data about the project and MR
@@ -386,7 +386,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>get userId by user&rsquo;s mobile/email via Feishu API (we need to apply for token)</li>
 </ul>
 <p>Once we have the userId, we can send the above information to someone in Feishu. Here is an example,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// the local user config file (Security Risk)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// the local user config file (Security Risk)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">USER_LIST</span> <span style="color:#f92672">=</span> [
   {
     <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">01</span>, <span style="color:#75715e">// userId in gitlab
@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">userId</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;&#39;</span>
 }
 </code></pre></div><p>How to at someone?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// set username as the default value, if id does not exist
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// set username as the default value, if id does not exist
 </span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;content&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`&lt;at id=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;&lt;/at&gt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
 </code></pre></div><h3 id="step-3-schedule">Step 3 Schedule</h3>
 <p>以上实现的功能都比较被动，即需要等待事件被触发。假设想知道每天遗留的未处理MR的信息，then</p>
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>首先申请 <code>Token</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GITLAB_API_V4</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">GITLAB_HOST</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/api/v4/`</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GITLAB_API_V4</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">GITLAB_HOST</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/api/v4/`</span>
 
 <span style="color:#75715e">// TODO: Security Risk
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GITLAB_PERSONAL_ACCESS_TOKEN</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;your token&#39;</span>
@@ -428,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><a href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests">GItlab Doc#list-project-mr</a></p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({
   <span style="color:#a6e22e">baseURL</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">GITLAB_API_V4</span>,
   <span style="color:#a6e22e">timeout</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>,
   <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;Private-Token&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">GITLAB_PERSONAL_ACCESS_TOKEN</span> }
@@ -460,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><p>最后，每天下午5点发起提醒</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">later</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;@breejs/later&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">later</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;@breejs/later&#39;</span>)
 
 <span style="color:#a6e22e">later</span>.<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">localTime</span>()
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">later</span>.<span style="color:#a6e22e">parse</span>.<span style="color:#a6e22e">text</span>(<span style="color:#e6db74">&#39;at 5:00 pm&#39;</span>)

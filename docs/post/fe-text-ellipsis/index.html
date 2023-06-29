@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>maxHeight 不确定几行，但是明确最大高度</li>
 </ul>
 <p>Step 1 是否应该截断</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visualH</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">maxHeight</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">maxHeight</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">getLineHeight</span>(<span style="color:#a6e22e">container</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">rows</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visualH</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">maxHeight</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">maxHeight</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">getLineHeight</span>(<span style="color:#a6e22e">container</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">rows</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">containerH</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getElemHeight</span>(<span style="color:#a6e22e">container</span>)
 
 <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">containerH</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">visualH</span>) {
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <p>Step 2 如何截断</p>
 <p>可以用笨方法，一次加一个字的方法判断是否超过了可视高度；这个效率有点低了，比较快的方法是用 <code>binarySearch</code> (折半查找)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">binarySearch</span>(<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">callback</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">binarySearch</span>(<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">callback</span>) {
   <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">r</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">l</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">r</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>)
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">m</span>)) { <span style="color:#75715e">// 太长

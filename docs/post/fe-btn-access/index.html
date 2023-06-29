@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>一种直观的做法就是在各个需要的地方，加上对应逻辑，比如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">import { shouldDel } from &#39;xxx&#39;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">import { shouldDel } from &#39;xxx&#39;
 
 &lt;<span style="color:#f92672">a-tooltip</span> <span style="color:#a6e22e">:title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel() ? &#39;删除&#39; : &#39;无权限&#39;&#34;</span>&gt;
   &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shouldDel() ? &#39;&#39; : &#39;disabled&#39;&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;onDel&#34;</span>&gt;删除&lt;/<span style="color:#f92672">span</span>&gt;
@@ -226,10 +226,10 @@ function onDel() {
 <p>综上，核心问题是 <code>shouldXX</code> 造成的各种冗余，最终导致可维护性、可读性、可扩展性差，时间一长就没人敢去改这个代码了。</p>
 <h2 id="how">How</h2>
 <p>既如此，我们只要找到一个方式能同时做这3件事情就好了，不管是组件、指令、或是其他模式。在 <code>vue</code> 中，我们可以使用指令去实现，同样的功能但是只需要这样写就行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-access</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">del</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;permission&#34;</span>&gt;删除&lt;/<span style="color:#f92672">span</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-access</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">del</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;permission&#34;</span>&gt;删除&lt;/<span style="color:#f92672">span</span>&gt;
 &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">v-access</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">edit</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;permission&#34;</span>&gt;修改&lt;/<span style="color:#f92672">button</span>&gt;
 </code></pre></div><p>具体实现还是要看指令内部 <code>v-access</code>，仔细分析一下这3个功能，其实最核心的是 不可点击，其他2个都可以用 <code>css</code> 解决。想要无侵入的屏蔽点击事件，一个方法就是拦截事件，好在 DOM 本身就支持</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">shouldDisable</span>) {
     <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopImmediatePropagation</span>()
     <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopPropagation</span>()
@@ -245,7 +245,7 @@ function onDel() {
 </ul>
 <p>其实这也可以用来实现规避防重复点击，只是再多加一个时间限制而已。</p>
 <p>完整的指令实现如下，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvents</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvents</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>) {
     <span style="color:#66d9ef">return</span>
   }

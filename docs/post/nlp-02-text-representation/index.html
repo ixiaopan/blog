@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
   </figure>
 </p>
 <p>Below are  simple codes to construct such a matrix.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Impossible Mr Bennet impossible when I am not acquainted with him&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Impossible Mr Bennet impossible when I am not acquainted with him&#39;</span>
 
 line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(line<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>split())
 line, len(line)
@@ -218,7 +218,7 @@ letter_tensor <span style="color:#f92672">=</span> torch<span style="color:#f926
 
 </code></pre></div><h4 id="word-level">word-level</h4>
 <p>From the view of sentences, the vocabulary is all the unique words in the corpus and each row represents each word. The implementation of one-hot encoding at word-level is similar to the above codes.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Impossible Mr Bennet impossible when I am not acquainted with him&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">line <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Impossible Mr Bennet impossible when I am not acquainted with him&#39;</span>
 
 <span style="color:#75715e"># build vocabulary</span>
 vocabulary <span style="color:#f92672">=</span> set(line<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>split())
@@ -235,7 +235,7 @@ word_vector <span style="color:#f92672">=</span> np<span style="color:#f92672">.
 word_vector<span style="color:#f92672">.</span>shape
 <span style="color:#75715e"># (11, 10)</span>
 </code></pre></div><p>The results are shown below, we can see that this sentence can be represented as a  <code>11 x 10</code> matrix.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># (|sentence|, |vocabulary|)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># (|sentence|, |vocabulary|)</span>
 Impossible [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
 Mr         [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
 Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
@@ -253,13 +253,13 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
 </ul>
 <h3 id="bag-of-word">Bag of Word</h3>
 <p>The idea of Bag-of-word(BOW) is that all the words in the corpus are in a bag without considering the orders and context. The intuition is similar to the concepts introduced in LDA — a topic is characterized by a  small specific set of words. Therefore, BOW is commonly used to classify documents. If two documents are similar (have the same words), they are likely to be classified into the same group. Each document is represented as a vector of <code>|V|</code> dimensions, where the element value of this vector is the frequency of the word in the corresponding doc. Say we have the following corpus,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
   <span style="color:#e6db74">&#39;cat eats meat and dog eats meat&#39;</span>,
   <span style="color:#e6db74">&#39;cat eats fish&#39;</span>,
   <span style="color:#e6db74">&#39;dog eats bones&#39;</span>
 ]
 </code></pre></div><p>The vocabulary of this small corpus and the doc-term matrix are</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bagofWord</span>(corpus):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bagofWord</span>(corpus):
     vocab <span style="color:#f92672">=</span> set(<span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(corpus)<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>split())
     word2idx <span style="color:#f92672">=</span> {word: idx <span style="color:#66d9ef">for</span> idx, word <span style="color:#f92672">in</span> enumerate(vocab)}
 
@@ -271,9 +271,9 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
                 doc_v[ word2idx[word]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
         doc_term<span style="color:#f92672">.</span>append(doc_v)
 
-    <span style="color:#66d9ef">print</span>(word2idx)
+    print(word2idx)
     <span style="color:#66d9ef">for</span> i, doc_v <span style="color:#f92672">in</span> enumerate(doc_term):
-        <span style="color:#66d9ef">print</span>(corpus[i], list(doc_v))
+        print(corpus[i], list(doc_v))
 
 <span style="color:#75715e">#</span>
 <span style="color:#75715e"># {&#39;eats&#39;: 0, &#39;and&#39;: 1, &#39;dog&#39;: 2, &#39;fish&#39;: 3, &#39;cat&#39;: 4, &#39;meat&#39;: 5, &#39;bones&#39;: 6}</span>
@@ -282,8 +282,8 @@ Bennet     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0<
 <span style="color:#75715e"># dog eats bones [1, 0, 1, 0, 0, 0, 1]</span>
 </code></pre></div><h4 id="one-hot-1">one-hot</h4>
 <p>Sometimes, we don&rsquo;t care about the number of occurrence of words. Just like one-hot encoding, we only want to know whether a word is present in the sentence or not, which would be useful for sentiment analysis. Well, that&rsquo;s easy to implement using Sklearn</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># occurrence</span>
-vectorizer <span style="color:#f92672">=</span> CountVectorizer(binary<span style="color:#f92672">=</span>True)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># occurrence</span>
+vectorizer <span style="color:#f92672">=</span> CountVectorizer(binary<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 
 X_train_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f92672">.</span>fit_transform(X_train)
 X_test_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f92672">.</span>transform(X_test)
@@ -304,7 +304,7 @@ X_test_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f9
 </ul>
 <h3 id="bag-of-n-gram">Bag of N-gram</h3>
 <p>Basically, n-gram is a sequence of N tokens. Generally, we treat each word as an independent unit, in this case, a word is 1-gram or unigram. Similarly, a two-word sequence of words is 2-gram (bigram), three words is 3-gram (trigram), and so on so forth. A simple implementation is shown below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_ngrams</span>(tokens, n<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_ngrams</span>(tokens, n<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
 	ngrams <span style="color:#f92672">=</span> zip(<span style="color:#f92672">*</span>[tokens[i:] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)])
 	<span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(gram) <span style="color:#66d9ef">for</span> gram <span style="color:#f92672">in</span> ngrams]
 </code></pre></div><p>So what&rsquo;s the use of n-gram?</p>
@@ -312,7 +312,7 @@ X_test_dtm <span style="color:#f92672">=</span> vectorizer<span style="color:#f9
 <li>estimate the proability of the last word of an n-gram given the previous words</li>
 <li>assign probabilities to entire sequences</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">corpus <span style="color:#f92672">=</span> [
   <span style="color:#e6db74">&#39;Dog bites man&#39;</span>,
   <span style="color:#e6db74">&#39;Man bites dog&#39;</span>,
   <span style="color:#e6db74">&#39;Dog eats meat&#39;</span>,
@@ -382,7 +382,7 @@ $$</p>
 <li>combine the above real valued vectors in some way such that it captures the overall context</li>
 <li>finally, the linear layer and softmax layer are used to predict probability distribution over vocabulary. The largest prob indicates the most likely target word</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
     <span style="color:#66d9ef">def</span> __init__(self, voc_size, embd_size):
         super(CBOW, self)<span style="color:#f92672">.</span>__init__()
         self<span style="color:#f92672">.</span>embedding <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Embedding(voc_size, embd_size)
@@ -401,7 +401,7 @@ $$</p>
 </ul>
 <h4 id="vectorization">Vectorization</h4>
 <p>The first problem is easy to solve because there is no need to store the entire one-hot matrix. After all, it&rsquo;s just used to extract the embedding of the corresponding token, which corrsponds the row of the embdding matrix $E$. In other words, we can just store the row index of the words in one dimensional array.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CBOW</span>(nn<span style="color:#f92672">.</span>Module):
     <span style="color:#f92672">...</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">one_hot</span>(self, context):
         <span style="color:#e6db74">&#39;&#39;&#39;
@@ -423,7 +423,7 @@ $$</p>
 E_{Like} * 2 + E_{Rain} = E_{aggerate} \\ Out = E_{aggerate} * W_{fc}
 $$
 where $E_{Like}$ is the embedding of word &ldquo;Like&rdquo;.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>embedding(x)<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># (batch, |D|, |E|)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>embedding(x)<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># (batch, |D|, |E|)</span>
 out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(out)
 </code></pre></div><h3 id="skip-gram">Skip-gram</h3>
 <h3 id="negative-sampling">Negative Sampling</h3>

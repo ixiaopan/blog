@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="WDID - The track panel of a video editor"/>
-<meta name="twitter:description" content="In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of couse, we can. Today, we will introduce the basic UI implmentation of the track panel of a video editor."/>
+<meta name="twitter:description" content="In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the UI part. For the edit operation, we will talk it later."/>
 
 
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 26, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -184,22 +184,25 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="inner">
       <article class="article" class="blog-post">
         
-  <p>In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of couse, we can. Today, we will introduce the basic UI implmentation of the track panel of a video editor.</p>
+  <p>In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the <code>UI</code> part. For the edit operation, we will talk it later.</p>
 <h2 id="comps">Comps</h2>
-<p>As shown in the above image, we can see the track panel has three main parts:</p>
+<p>
+  <img src="./track-panel.png" alt="">
+</p>
+<p>From the above image, we can see that the track panel has three main parts:</p>
 <ul>
 <li>
 <p>timeline(scale + indicator)</p>
 <ul>
 <li>the container for both zoom and track</li>
+<li>the initial reference is called <code>baseWidth</code>, which means how many pixels 1 second hold</li>
+<li>When zoom in, <code>baseWidth</code> becomes larger; When zoom out, <code>baseWidth</code> becomes smaller</li>
 </ul>
 </li>
 <li>
 <p>zoom</p>
 <ul>
 <li>zoom-in and zoom-out, which affects the width of the timeline and the track</li>
-<li>the initial reference is called <code>baseWidth</code>, which means how many pixels 1 second hold</li>
-<li>When zoom in, <code>baseWidth</code> becomes larger; When zoom out, <code>baseWidth</code> becomes smaller</li>
 </ul>
 </li>
 <li>
@@ -219,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h2 id="track">Track</h2>
 <p>First, different track type has different styles, so we need to define each track type first.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TRACK_TYPE</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TRACK_TYPE</span> {
   <span style="color:#a6e22e">BGM</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#a6e22e">TEXT</span>,
   <span style="color:#a6e22e">TTS</span>,
@@ -228,12 +231,12 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#a6e22e">CLIP</span>,
 }
 </code></pre></div><p>Second, each track has its position and width, which is determined by the start time, duration, yIndex and the baseWidth.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">duration</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">duration</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
 
 <span style="color:#a6e22e">offsetX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
 
 <span style="color:#a6e22e">offsetY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yIndex</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">someHeight</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[&#39;track&#39;, &#39;track-&#39; + type]&#34;</span> <span style="color:#f92672">:style</span><span style="color:#e6db74">=&#34;styleObj&#34;</span> <span style="color:#f92672">:data-scale</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> <span style="color:#f92672">:data-start</span><span style="color:#e6db74">=&#34;startTime&#34;</span> <span style="color:#f92672">:data-duration</span><span style="color:#e6db74">=&#34;duration&#34;</span>&gt;
     &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">:class</span><span style="color:#e6db74">=&#34;[&#39;track-inner&#39;]&#34;</span>&gt;
       &lt;<span style="color:#f92672">icon</span> /&gt;
@@ -264,9 +267,162 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 &lt;/<span style="color:#f92672">style</span>&gt;
-</code></pre></div><p>The interesting thing here is the use of <code>outline</code>.</p>
-<h2 id="zoom">Zoom</h2>
-<h2 id="timeline">Timeline</h2>
+</code></pre></div><p>The interesting thing here is the use of <code>outline</code> instead of <code>border</code>. The reason is that the segment width in hover status is <code>1px</code> while it&rsquo;s <code>2px</code> in active status. If we use <code>border</code>, the whole segment will shake slightly when we hover and click it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">track-bgm</span> {
+  <span style="color:#960050;background-color:#1e0010">&amp;:hover</span> <span style="color:#960050;background-color:#1e0010">.track-inner</span> <span style="color:#960050;background-color:#1e0010">{</span>
+    <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#f00</span>;
+  }
+  <span style="color:#f92672">&amp;</span>:<span style="color:#a6e22e">active</span> .<span style="color:#a6e22e">track-inner</span><span style="color:#f92672">,</span>
+  <span style="color:#f92672">&amp;</span>.<span style="color:#a6e22e">active</span> .<span style="color:#a6e22e">track-inner</span> {
+    <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#f00</span>;
+  }
+<span style="color:#960050;background-color:#1e0010">}</span>
+<span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</code></pre></div><p>The reason is that <code>border</code> takes up space. Luckily, <code>outline</code> can do this.</p>
+<blockquote>
+<p>Unlike other areas of the box, outlines don&rsquo;t take up space, so they don&rsquo;t affect the layout of the document in any way - MDN</p>
+</blockquote>
+<p>Besides <code>outline</code>, we can also use <code>border + box-shadow</code> to achieve the same effect.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">track-bgm</span> {
+  <span style="color:#960050;background-color:#1e0010">.track-inner</span> <span style="color:#960050;background-color:#1e0010">{</span>
+    <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#66d9ef">transparent</span>;
+  }
+  <span style="color:#f92672">&amp;</span>:<span style="color:#a6e22e">hover</span> .<span style="color:#a6e22e">track-inner</span> {
+    <span style="color:#66d9ef">border-color</span>: <span style="color:#ae81ff">#f00</span>;
+  }
+  <span style="color:#f92672">&amp;</span>:<span style="color:#a6e22e">active</span> .<span style="color:#a6e22e">track-inner</span><span style="color:#f92672">,</span>
+  <span style="color:#f92672">&amp;</span>.<span style="color:#a6e22e">active</span> .<span style="color:#a6e22e">track-inner</span> {
+    <span style="color:#66d9ef">border-color</span>: <span style="color:#ae81ff">#f00</span>;
+    <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">#f00</span>;
+  }
+<span style="color:#960050;background-color:#1e0010">}</span>
+<span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</code></pre></div><h2 id="zoom">Zoom</h2>
+<p>This component is simple enough. All we care about is the scale value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onZoomOut</span>() {
+  <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, Math.<span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>, <span style="color:#a6e22e">scaleVal</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">step</span>) <span style="color:#f92672">/</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>))
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onZoomIn</span>() {
+  <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, Math.<span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span>, <span style="color:#a6e22e">scaleVal</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">step</span>) <span style="color:#f92672">/</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>))
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">val</span>) {
+  <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#a6e22e">val</span> <span style="color:#f92672">/</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>))
+}
+</code></pre></div><h2 id="timeline">Timeline</h2>
+<p><code>timeline</code> is a little difficult. First, the whole timeline need to be scalable by the zoom scale. Second, we can seek at any position of it.</p>
+<h3 id="ruler">Ruler</h3>
+<p>There are 2 things about ruler</p>
+<ul>
+<li>
+<p>suppose there are <code>n</code> seconds in total, the total duration in the ruler should be greater than <code>n</code> since we need some room in a ruler</p>
+</li>
+<li>
+<p>ruler should divided equally: the major scale is <code>s</code>, and the minor scale is <code>ms</code></p>
+</li>
+</ul>
+<p>Based on the above two principles, we can write code like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler-wrap&#34;</span>&gt;
+  &lt;<span style="color:#f92672">a-seek</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;onSeek&#34;</span> <span style="color:#a6e22e">scrollable</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler&#34;</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-major&#34;</span> <span style="color:#f92672">v-for</span><span style="color:#e6db74">=&#34;m in realMax - min&#34;&gt;
+</span><span style="color:#e6db74">      &lt;span class=&#34;timeline-major-text&#34;&gt;{{ min + m - 1 }}s&lt;/span&gt;
+</span><span style="color:#e6db74">      &lt;span class=&#34;timeline-minor&#34; v-for=&#34;n in step&#34;&gt;&lt;/span&gt;
+</span><span style="color:#e6db74">    &lt;/div&gt;
+</span><span style="color:#e6db74">  &lt;/a-seek&gt;
+</span><span style="color:#e6db74">&lt;/div&gt;
+</span><span style="color:#e6db74">&lt;/template&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;style lang=&#34;less&#34;</span>&gt;
+<span style="color:#a6e22e">.timeline</span><span style="color:#f92672">-ruler</span> {
+  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span><span style="color:#960050;background-color:#1e0010">;</span>
+  <span style="color:#a6e22e">.timeline</span><span style="color:#f92672">-major</span> {
+    <span style="color:#a6e22e">flex</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">;</span>
+    <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span><span style="color:#960050;background-color:#1e0010">;</span>
+    <span style="color:#a6e22e">justify</span><span style="color:#f92672">-content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-between</span><span style="color:#960050;background-color:#1e0010">;</span>
+  }
+  <span style="color:#a6e22e">.timeline</span><span style="color:#f92672">-minor</span> {
+    <span style="color:#a6e22e">flex</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">;</span>
+  }
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span> <span style="color:#a6e22e">setup</span>&gt;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">realMax</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() =&gt; <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">threshold</span>)
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="auto-resized">Auto-Resized</h3>
+<p>As mentioned earlier, we define a param called <code>baseWidth</code>, which means the width per second(e.g. <code>80px/1000ms</code>) or the width of a major scale. Thus, we can set the whole timeline in this way</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">
+&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler-wrap&#34;</span> <span style="color:#f92672">:style</span><span style="color:#e6db74">=&#34;wrapStyle&#34;</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scrollRef&#34;</span>&gt;
+  &lt;<span style="color:#f92672">a-seek</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;onSeek&#34;</span> <span style="color:#a6e22e">scrollable</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler&#34;</span>&gt;...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a-seek&gt;</span>
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span> <span style="color:#a6e22e">setup</span>&gt;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wrapStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() =&gt; ({
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">baseWidth</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">realMax</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;px&#39;</span>,
+}))
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>As the zoom changes, we can get the scaled value from the <code>change</code> event, and then we simply change the <code>baseWidth</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;editor-track-panel&#34;</span>&gt;
+  &lt;<span style="color:#f92672">a-zoom</span> <span style="color:#f92672">@change</span><span style="color:#e6db74">=&#34;onZoomChange&#34;</span> /&gt;
+  &lt;<span style="color:#f92672">a-timeline</span> <span style="color:#f92672">:baseWidth</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span> <span style="color:#a6e22e">setup</span>&gt;
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onZoomChange</span>(<span style="color:#a6e22e">changedRatio</span>) {
+  <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">baseWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">defaultBaseWidth</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">changedRatio</span>
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="seek">seek</h3>
+<p>Last, we need to seek any position of the timeline. It&rsquo;s easy to get the click position, however, there two issues</p>
+<ul>
+<li>
+<p>the ratio of the click position relative to the timeline is not exactly the ratio of the currentTime relative to the video duration. Why? Because the timeline has some extra room for UI experience. In other words, the video is <code>N</code> seconds, but the timeline is <code>N+m</code> seconds.</p>
+</li>
+<li>
+<p>the timeline can scroll in the horizontal direction</p>
+</li>
+</ul>
+<p>To have the exact click position, we use <code>clientX</code> instead of <code>offsetX</code>. <code>offsetX</code> can be used in simple cases, for example, a pure div container. But in our case, <code>major-scale</code> and <code>minor-scale</code> are set <code>position: relative/absolute</code>, thus, <code>offsetX</code> is unstable because the minor-scale is relative major-scale. On the contrary, <code>clientX</code> will always be the position we click.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#f92672">@click</span><span style="color:#e6db74">=&#34;onClick&#34;</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;seekRef&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onClick</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ratio</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">scrollable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">clientX</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetX</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">seekWidth</span>
+  <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;seek&#39;</span>, <span style="color:#a6e22e">ratio</span>, <span style="color:#a6e22e">seekWidth</span>)
+}
+<span style="color:#a6e22e">onMounted</span>(() =&gt; {
+  <span style="color:#a6e22e">seekWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">seekRef</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">clientWidth</span>
+})
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>However, <code>clientX</code> is not sufficient because the timeline can scroll, so we need to calculate both the <code>scrollLeft</code> and <code>clientX</code> of the timeline. The formula is</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">realPosition</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ratio</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">seekWidth</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">clientXOfTimeline</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">scrollLeftOfTimeline</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;editor-track-panel&#34;</span>&gt;
+  &lt;<span style="color:#f92672">a-zoom</span> <span style="color:#f92672">@change</span><span style="color:#e6db74">=&#34;onZoomChange&#34;</span> /&gt;
+  &lt;<span style="color:#f92672">a-timeline</span> <span style="color:#f92672">:baseWidth</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;oSeek&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span> <span style="color:#a6e22e">setup</span>&gt;
+<span style="color:#75715e">// seekRealPos = progress * totalW - getElementViewOffset(timelineRef.value).left + timelineRef.value.scrollLeft
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onSeek</span>(<span style="color:#a6e22e">seekRealPos</span>) {
+  <span style="color:#75715e">// duration is measured by `second`
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">seekPercent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">seekRealPos</span> <span style="color:#f92672">/</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">baseWidth</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">duration</span>) 
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">seekPercent</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">duration</span>
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline">outline MDN</a></li>
+</ul>
 
 
 
@@ -280,7 +436,14 @@ document.addEventListener("DOMContentLoaded", function() {
     <li><a href="#comps">Comps</a></li>
     <li><a href="#track">Track</a></li>
     <li><a href="#zoom">Zoom</a></li>
-    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#timeline">Timeline</a>
+      <ul>
+        <li><a href="#ruler">Ruler</a></li>
+        <li><a href="#auto-resized">Auto-Resized</a></li>
+        <li><a href="#seek">seek</a></li>
+      </ul>
+    </li>
+    <li><a href="#refer">Refer</a></li>
   </ul>
 </nav>
       
