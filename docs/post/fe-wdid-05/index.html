@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>
   <img src="./scale-frame-queue.gif" alt="">
 </p>
-<p>From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(<code>msPerDraw</code>) become longer as we zoom in.</p>
+<p>From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(<code>msPerDraw</code>) become shorter as we zoom in.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onScaleChange</span>(<span style="color:#a6e22e">ratioIncrease</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>) {
   <span style="color:#a6e22e">timeList</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">val</span>) =&gt; {
     <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">drawByTime</span>(<span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">startTime</span>, <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">endTime</span><span style="color:#960050;background-color:#1e0010">，</span> <span style="color:#ae81ff">250</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">ratioIncrease</span>)

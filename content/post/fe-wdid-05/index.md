@@ -297,7 +297,7 @@ So far so good. However, things become difficult when scaler is added. The final
 ![](./scale-frame-queue.gif)
 
 
-From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(`msPerDraw`) become longer as we zoom in.
+From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(`msPerDraw`) become shorter as we zoom in.
 
 ```js
 function onScaleChange(ratioIncrease: number) {
