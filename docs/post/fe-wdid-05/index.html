@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Jun 22, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -352,6 +352,192 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><h2 id="draw-continuous-video-frames">Draw continuous video frames</h2>
+<p>We often see a series of images (e.g. the below one) shown on the track panel when we use some video editor apps.</p>
+<p>
+  <img src="./frame-queue.png" alt="">
+</p>
+<p>To achieve this, we need to solve</p>
+<ul>
+<li>
+<p>how to draw a series of images over a period time</p>
+</li>
+<li>
+<p>how to draw a series of images over a continuous period time</p>
+</li>
+<li>
+<p>how images change when zoom scale changes</p>
+</li>
+</ul>
+<h3 id="q1-extract-continuous-images">Q1 Extract continuous images</h3>
+<p>Thanks to <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage">canvas.drawImage</a>, we can easily extract any frame from a video.</p>
+<p>Suppose we want to extract frames every <code>250ms</code> from <code>0s</code> to <code>3s</code>,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawByTime</span>(<span style="color:#a6e22e">startTime</span><span style="color:#960050;background-color:#1e0010">，</span> <span style="color:#a6e22e">endTime</span>, <span style="color:#a6e22e">msPerDraw</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">250</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">frameCount</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">endTime</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">startTime</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">msPerDraw</span>)
+
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">beginTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startTime</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">drawFrame</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">seekTime</span>(<span style="color:#a6e22e">beginTime</span>).<span style="color:#a6e22e">then</span>(() =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">offlineCanvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;canvas&#39;</span>)
+      <span style="color:#a6e22e">offlineCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">frameWidth</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;px&#39;</span>
+      <span style="color:#a6e22e">offlineCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">frameHeight</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;px&#39;</span>
+
+      <span style="color:#a6e22e">offlineCanvas</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">frameWidth</span> 
+      <span style="color:#a6e22e">offlineCanvas</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">frameHeight</span>
+
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offlineCanvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>)
+      <span style="color:#a6e22e">ctx</span><span style="color:#f92672">!</span>.<span style="color:#a6e22e">drawImage</span>(<span style="color:#a6e22e">video</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">frameWidth</span>, <span style="color:#a6e22e">frameHeight</span>)
+
+      <span style="color:#a6e22e">beginTime</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">endTime</span>, <span style="color:#a6e22e">beginTime</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">msPerDraw</span>)
+    })
+  }
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">count</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">totalFrames</span>; <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">drawFrame</span>()
+  }
+}
+<span style="color:#a6e22e">drawByTime</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3000</span>)
+</code></pre></div><h3 id="q2-extract-continuous-images-over-a-continuous-period-time">Q2 Extract continuous images over a continuous period time</h3>
+<p>The above solution works if we only draw frames once. What if we have multiple periods? For example, draw images between <code>0-3s</code> and <code>6-10s</code>. In this case, order matters, i.e. <code>0-3s</code> must be drawn first, and then <code>6-10s</code> is drawn. Therefore, we need a queue to control the order.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeList</span> <span style="color:#f92672">=</span> [ { <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">endTime</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3000</span> }, { <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">6000</span>, <span style="color:#a6e22e">endTime</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10000</span> }]
+<span style="color:#a6e22e">timeList</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">val</span>) =&gt; {
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">drawByTime</span>(<span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">startTime</span>, <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">endTime</span>)
+})
+</code></pre></div><h3 id="q3-how-images-change-whe-scaler-changes">Q3 How images change whe scaler changes</h3>
+<p>So far so good. However, things become difficult when scaler is added. The final effect we want to achieve is shown below.</p>
+<p>
+  <img src="./scale-frame-queue.gif" alt="">
+</p>
+<p>From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(<code>msPerDraw</code>) become longer as we zoom in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onScaleChange</span>(<span style="color:#a6e22e">ratioIncrease</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>) {
+  <span style="color:#a6e22e">timeList</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">val</span>) =&gt; {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">drawByTime</span>(<span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">startTime</span>, <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">endTime</span><span style="color:#960050;background-color:#1e0010">，</span> <span style="color:#ae81ff">250</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">ratioIncrease</span>)
+  })
+}
+</code></pre></div><h3 id="refine">Refine</h3>
+<p>Though the above code works, the performance is not good, especially when we change the scaler. Do you sport the issue? Well, the problem is that every time we zoom in/out, <code>msPerDraw</code> will change, causing the unstable currentTime of a video due to this line of code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">beginTime</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">endTime</span>, <span style="color:#a6e22e">beginTime</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">msPerDraw</span>)
+</code></pre></div><p>All in all, we are drawing unstable(different) frames because of seeking different currentTime every time we zoom in/out. In fact, it&rsquo;s unnecessary since the precision is not required to be 100% in our business.</p>
+<p>A better way is to cache more frames and show them selectively.</p>
+<ul>
+<li>
+<p><code>more frames</code> means we first cache frames(say <code>MaxN</code>) based on the minimum <code>msPerDraw</code> (the maximum scaler)</p>
+</li>
+<li>
+<p><code>show them selectively</code> means calculate the real frame count (<code>MaxN*ratio</code>) as the scaler changes. (Because <code>MaxN</code> is the largest frame count, the real frame count can only be smaller than <code>MaxN</code>.)</p>
+</li>
+</ul>
+<p>First, we need a queue to cache all frames</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">frameList</span> <span style="color:#f92672">=</span> []
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">init</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myFrameQueue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FrameQueue</span>()
+  
+  <span style="color:#a6e22e">timeList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">val</span>) =&gt; {
+    <span style="color:#a6e22e">myFrameQueue</span>.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">next</span>) =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">frameCount</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">endTime</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">startTime</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">msPerDraw</span>)
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tempList</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HTMLCanvasElement</span>[] <span style="color:#f92672">=</span> []
+      ....
+      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">count</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">totalFrames</span>; <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">drawFrame</span>()
+      }
+      <span style="color:#75715e">// cached !!!
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">frameList</span>.<span style="color:#a6e22e">push</span>({
+        <span style="color:#a6e22e">canvas</span>,
+        <span style="color:#a6e22e">frameWidth</span>,
+        <span style="color:#a6e22e">frameHeight</span>,
+        <span style="color:#a6e22e">list</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tempList</span>,
+      })
+
+      <span style="color:#a6e22e">next</span>()
+    })
+  })
+  
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">myFrameQueue</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">run</span>(<span style="color:#66d9ef">null</span>, () =&gt; {
+    <span style="color:#a6e22e">myFrameQueue</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">destroy</span>()
+    <span style="color:#a6e22e">renderFrames</span>(<span style="color:#a6e22e">scaler</span>)
+  })
+}
+</code></pre></div><p>To cache and draw frames(<code>frameList</code>) in order, we use a common asynchronous control flow patten called  <code>sequential execution</code> (we will talk it more in other posts) in <code>FrameQueue</code>. The core of this pattern is that the order of execution must be preserved.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FrameQueue</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">queue</span><span style="color:#f92672">:</span> Array<span style="color:#f92672">&lt;</span>Function<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> []
+  
+  ...
+  
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">context</span><span style="color:#f92672">?:</span> <span style="color:#a6e22e">any</span>, <span style="color:#a6e22e">doneCallback</span><span style="color:#f92672">?:</span> Function) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">resolve</span>) =&gt; {
+      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastIndex</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">index</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">index</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">lastIndex</span>) {
+          <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;next() called multiple times&#39;</span>)
+        }
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">index</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">queue</span>.<span style="color:#a6e22e">length</span>) {
+          <span style="color:#a6e22e">resolve</span>()
+          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">doneCallback</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">doneCallback</span>()
+        }
+
+        <span style="color:#a6e22e">lastIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">index</span>
+
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">queue</span>[<span style="color:#a6e22e">index</span>]
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fn</span>) {
+          <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">context</span>, () =&gt; {
+            <span style="color:#a6e22e">step</span>(<span style="color:#a6e22e">index</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+          })
+        }
+      }
+
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">step</span>(<span style="color:#ae81ff">0</span>)
+    })
+  }
+}
+</code></pre></div><p>The last step is to render frames based on the current scaler. The default value is <code>0.5</code> (the min is 0 and the max is 1)</p>
+<ul>
+<li>
+<p>calculate the real number of frames to render for each time segment</p>
+</li>
+<li>
+<p>select the corresponding frames from <code>frameList</code></p>
+</li>
+<li>
+<p>redraw frames on <code>canvas</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">renderFrames</span>(<span style="color:#a6e22e">scaler</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>) {
+  <span style="color:#a6e22e">frameList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">item</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">canvas</span>, <span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">frameWidth</span>, <span style="color:#a6e22e">frameHeight</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">item</span>
+    
+    <span style="color:#75715e">// step1 the maximum number of frames to render
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxFrameNum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">length</span>
+    <span style="color:#75715e">// at least draw 1 frame
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// the real number of frames to render =  MaxN * ratio
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalFrames</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(<span style="color:#ae81ff">1</span>, Math.<span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">maxFrameNum</span>, Math.<span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">maxFrameNum</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">scaler</span>)))
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>)
+    
+    <span style="color:#75715e">// step2
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">maxFrameNum</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">totalFrames</span>
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">totalFrames</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span>  Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">step</span>)
+
+      <span style="color:#75715e">// step 3
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span>]) {
+        <span style="color:#a6e22e">ctx</span><span style="color:#f92672">!</span>.<span style="color:#a6e22e">drawImage</span>(
+          <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span>],
+          <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">frameWidth</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">ratio</span>,
+          <span style="color:#ae81ff">0</span>,
+          <span style="color:#a6e22e">frameWidth</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">ratio</span>,
+          <span style="color:#a6e22e">frameHeight</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">ratio</span>
+        )
+      }
+    }
+  })
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onScaleChange</span>(<span style="color:#a6e22e">nextScaler</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>) {
+  <span style="color:#a6e22e">renderFrames</span>(<span style="color:#a6e22e">nextScaler</span>)
+}
+</code></pre></div>
 
 
 
@@ -372,7 +558,14 @@ document.addEventListener("DOMContentLoaded", function() {
         <li><a href="#draw-gif-on-the-canvas">Draw GIF on the canvas</a></li>
       </ul>
     </li>
-    <li><a href="#draw-continuous-video-frames">Draw continuous video frames</a></li>
+    <li><a href="#draw-continuous-video-frames">Draw continuous video frames</a>
+      <ul>
+        <li><a href="#q1-extract-continuous-images">Q1 Extract continuous images</a></li>
+        <li><a href="#q2-extract-continuous-images-over-a-continuous-period-time">Q2 Extract continuous images over a continuous period time</a></li>
+        <li><a href="#q3-how-images-change-whe-scaler-changes">Q3 How images change whe scaler changes</a></li>
+        <li><a href="#refine">Refine</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       

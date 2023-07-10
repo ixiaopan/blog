@@ -231,3 +231,214 @@ if (decoder.complete) {
 
 
 ## Draw continuous video frames
+
+We often see a series of images (e.g. the below one) shown on the track panel when we use some video editor apps.
+
+![](./frame-queue.png)
+
+To achieve this, we need to solve 
+
+- how to draw a series of images over a period time
+
+- how to draw a series of images over a continuous period time
+
+- how images change when zoom scale changes
+
+### Q1 Extract continuous images
+
+Thanks to [canvas.drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage), we can easily extract any frame from a video.
+
+Suppose we want to extract frames every `250ms` from `0s` to `3s`,
+
+```js
+function drawByTime(startTime， endTime, msPerDraw = 250) {
+  const frameCount = Math.floor((endTime - startTime) / msPerDraw)
+
+  let beginTime = startTime
+  const drawFrame = () => {
+    seekTime(beginTime).then(() => {
+      const offlineCanvas = document.createElement('canvas')
+      offlineCanvas.style.width = frameWidth + 'px'
+      offlineCanvas.style.height = frameHeight + 'px'
+
+      offlineCanvas.width = frameWidth 
+      offlineCanvas.height = frameHeight
+
+      const ctx = offlineCanvas.getContext('2d')
+      ctx!.drawImage(video, 0, 0, frameWidth, frameHeight)
+
+      beginTime = Math.min(endTime, beginTime + msPerDraw)
+    })
+  }
+  for (let count = 0; count < totalFrames; count++) {
+    await drawFrame()
+  }
+}
+drawByTime(0, 3000)
+```
+
+### Q2 Extract continuous images over a continuous period time
+
+The above solution works if we only draw frames once. What if we have multiple periods? For example, draw images between `0-3s` and `6-10s`. In this case, order matters, i.e. `0-3s` must be drawn first, and then `6-10s` is drawn. Therefore, we need a queue to control the order.
+
+
+```js
+const timeList = [ { startTime: 0, endTime: 3000 }, { startTime: 6000, endTime: 10000 }]
+timeList.forEach(async (val) => {
+  await drawByTime(val.startTime, val.endTime)
+})
+```
+
+
+### Q3 How images change whe scaler changes
+
+So far so good. However, things become difficult when scaler is added. The final effect we want to achieve is shown below.
+
+![](./scale-frame-queue.gif)
+
+
+From the gif, we can see that the frame count becomes smaller/larger when we zoom out/in. In other words, the time of drawing one frame(`msPerDraw`) become longer as we zoom in.
+
+```js
+function onScaleChange(ratioIncrease: number) {
+  timeList.forEach(async (val) => {
+    await drawByTime(val.startTime, val.endTime， 250 / ratioIncrease)
+  })
+}
+```
+
+### Refine
+
+Though the above code works, the performance is not good, especially when we change the scaler. Do you sport the issue? Well, the problem is that every time we zoom in/out, `msPerDraw` will change, causing the unstable currentTime of a video due to this line of code
+
+```js
+beginTime = Math.min(endTime, beginTime + msPerDraw)
+```
+
+All in all, we are drawing unstable(different) frames because of seeking different currentTime every time we zoom in/out. In fact, it's unnecessary since the precision is not required to be 100% in our business.
+
+A better way is to cache more frames and show them selectively.
+
+- `more frames` means we first cache frames(say `MaxN`) based on the minimum `msPerDraw` (the maximum scaler)
+
+- `show them selectively` means calculate the real frame count (`MaxN*ratio`) as the scaler changes. (Because `MaxN` is the largest frame count, the real frame count can only be smaller than `MaxN`.)
+
+First, we need a queue to cache all frames
+
+```js
+const frameList = []
+
+function init() {
+  const myFrameQueue = new FrameQueue()
+  
+  timeList.forEach((val) => {
+    myFrameQueue.add(async (_, next) => {
+      const frameCount = Math.floor((endTime - startTime) / msPerDraw)
+      const tempList: HTMLCanvasElement[] = []
+      ....
+      for (let count = 0; count < totalFrames; count++) {
+        await drawFrame()
+      }
+      // cached !!!
+      frameList.push({
+        canvas,
+        frameWidth,
+        frameHeight,
+        list: tempList,
+      })
+
+      next()
+    })
+  })
+  
+  await myFrameQueue?.run(null, () => {
+    myFrameQueue?.destroy()
+    renderFrames(scaler)
+  })
+}
+```
+
+To cache and draw frames(`frameList`) in order, we use a common asynchronous control flow patten called  `sequential execution` (we will talk it more in other posts) in `FrameQueue`. The core of this pattern is that the order of execution must be preserved.
+
+
+```js
+class FrameQueue {
+  private queue: Array<Function> = []
+  
+  ...
+  
+  async run(context?: any, doneCallback?: Function) {
+    return new Promise<void>(async (resolve) => {
+      let lastIndex = -1
+
+      const step = async (index: number) => {
+        if (index == lastIndex) {
+          throw new Error('next() called multiple times')
+        }
+
+        if (index == this.queue.length) {
+          resolve()
+          return doneCallback && doneCallback()
+        }
+
+        lastIndex = index
+
+        const fn = this.queue[index]
+
+        if (fn) {
+          await fn(context, () => {
+            step(index + 1)
+          })
+        }
+      }
+
+      await step(0)
+    })
+  }
+}
+```
+
+The last step is to render frames based on the current scaler. The default value is `0.5` (the min is 0 and the max is 1)
+
+- calculate the real number of frames to render for each time segment
+
+- select the corresponding frames from `frameList`
+
+- redraw frames on `canvas`
+
+```js
+function renderFrames(scaler = 0.5) {
+  frameList.forEach((item: any) => {
+    const { canvas, list, frameWidth, frameHeight } = item
+    
+    // step1 the maximum number of frames to render
+    const maxFrameNum = list.length
+    // at least draw 1 frame
+    // the real number of frames to render =  MaxN * ratio
+    const totalFrames = Math.max(1, Math.min(maxFrameNum, Math.round(maxFrameNum * scaler)))
+
+    const ctx = canvas.getContext('2d')
+    
+    // step2
+    const step = maxFrameNum / totalFrames
+    for (let i = 0; i < totalFrames; i++) {
+      const j =  Math.floor(i * step)
+
+      // step 3
+      if (list[j]) {
+        ctx!.drawImage(
+          list[j],
+          i * frameWidth * ratio,
+          0,
+          frameWidth * ratio,
+          frameHeight * ratio
+        )
+      }
+    }
+  })
+}
+
+function onScaleChange(nextScaler: number) {
+  renderFrames(nextScaler)
+}
+```
