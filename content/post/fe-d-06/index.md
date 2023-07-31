@@ -1,5 +1,5 @@
 ---
-title: "WDID - The track panel of a video editor"
+title: "D - The track panel of a video editor"
 date: "2023-06-26"
 description: ""
 # tags: []

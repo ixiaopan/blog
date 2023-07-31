@@ -1,5 +1,5 @@
 ---
-title: "WDID - Things about frames"
+title: "D - Things about frames"
 date: "2023-06-22"
 description: ""
 # tags: []

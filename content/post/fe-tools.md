@@ -105,9 +105,7 @@ then add it to the global `PATH` env as follows.
 export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH
 ```
 
-#### pip
-
-https://pip.pypa.io/en/stable/installation/
+#### [pip](https://pip.pypa.io/en/stable/installation/)
 
 
 ```bash
@@ -182,6 +180,7 @@ git br | grep 'pattern' | xargs git branch -D
 
 
 ### UX
+
 - [SimpleIcons](https://simpleicons.org/)
 
 - [IconFinder](https://www.iconfinder.com/)
@@ -219,10 +218,12 @@ git br | grep 'pattern' | xargs git branch -D
 - [CSS - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [CSS Secrets](https://books.google.com.hk/books?id=nokNCgAAQBAJ&printsec=frontcover#v=onepage&q&f=false)
 - [JavaScript.info](https://javascript.info/)
+- [Secrets of the JavaScript Ninja](https://book.douban.com/subject/26745757/)
 - [ES6 - You Don't Know JS ](https://github.com/getify/You-Dont-Know-JS)
 - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/)
 - [Functional-Light JS](https://github.com/getify/Functional-Light-JS)
-
+- [Pro Git - Book](https://git-scm.com/book/en/v2)
+- [Semantic Version](https://semver.org/)
 
 ### Advanced
 
@@ -230,19 +231,18 @@ git br | grep 'pattern' | xargs git branch -D
 - [Webgl 2](https://webgl2fundamentals.org/webgl/lessons/)
 - [Web Audio](https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/toc.html)
 
-### CI/CD
 
-- [Pro Git - Book](https://git-scm.com/book/en/v2)
-- [Semantic Version](https://semver.org/)
-
-
-## Database
+### Database
 
 - [SQL Zoo](https://sqlzoo.net/wiki/SELECT_basics)
 - [SQL Tutorial](https://www.sqltutorial.org/)
 - [Build Your Own Database From Scratch](https://build-your-own.org/database/)
 
-## Statistics
+
+
+## Data Science
+
+### Statistics
 
 - [Math24](https://math24.net/probability-density-function.html)
 - [XMathMain (Math Collection)](https://xaktly.com/XMathMain.html)
@@ -250,17 +250,7 @@ git br | grep 'pattern' | xargs git branch -D
 - [Intro to Probability](https://dlsun.github.io/probability/)
 - [Applied Multivariate Statistical Analysis](https://online.stat.psu.edu/stat505/book/)
 
-
-
-## Machine Learning
-
-
-- [from-python-to-numpy](https://www.labri.fr/perso/nrougier/from-python-to-numpy/)
-- [shanelynn blog](https://www.shanelynn.ie/)
-- [Neural Networks and Deep Learning - By Michael Nielsen / Dec 2019 ](http://neuralnetworksanddeeplearning.com/chap1.html)
-- [Deep Learning Do it Yourself](https://dataflowr.github.io/website/)
-
-## Visualisation
+### Visualisation
 
 - [Data Visualization Book Reviews](https://www.visualcinnamon.com/resources/learning-data-visualization/books/)
 - [NAPA Cards](https://napa-cards.net/)
@@ -269,6 +259,22 @@ git br | grep 'pattern' | xargs git branch -D
 - [datavizcatalogue](https://datavizcatalogue.com/)
 - [makeovermonday](https://www.makeovermonday.co.uk/data/)
 
-## Complexity
+### Machine Learning
+
+- [Data Science from Scratch](https://book.douban.com/subject/33428563/)
+- [from-python-to-numpy](https://www.labri.fr/perso/nrougier/from-python-to-numpy/)
+- [An Introduction to Statistical Learning](https://book.douban.com/subject/21706191/)
+- [The Elements of Statistical Learning](https://book.douban.com/subject/3294335/)
+- [Pattern Recognition and Machine Learning](https://book.douban.com/subject/3294335/)
+
+### Deep Learning
+
+- [shanelynn blog](https://www.shanelynn.ie/)
+- [Neural Networks and Deep Learning - By Michael Nielsen / Dec 2019 ](http://neuralnetworksanddeeplearning.com/chap1.html)
+- [Deep Learning Do it Yourself](https://dataflowr.github.io/website/)
+
+
+### Complexity
 
 - [introduction-to-complexity](https://www.complexityexplorer.org/courses/97-introduction-to-complexity-2019/segments/8352?summary)
+

@@ -1,5 +1,5 @@
 ---
-title: "WDID - Build your own UI component library from scratch"
+title: "D - Build your own UI component library from scratch"
 date: "2023-06-07"
 description: ""
 # tags: []

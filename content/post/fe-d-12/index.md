@@ -1,5 +1,5 @@
 ---
-title: "WDID - NLE Video Editor"
+title: "D - PSD Editor"
 date: "2023-06-26"
 description: ""
 # tags: []

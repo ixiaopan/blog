@@ -1,6 +1,6 @@
 ---
-title: "WDID - Upload Large Files"
-date: "2023-06-26"
+title: "D - Permission"
+date: "2023-07-30"
 description: ""
 # tags: []
 categories: [
@@ -8,5 +8,4 @@ categories: [
 ]
 series: ["Frontend"]
 katex: true
-draft: true
 ---

@@ -1,5 +1,5 @@
 ---
-title: "WDID - Frontend Optimization"
+title: "D - Frontend Optimization"
 date: "2023-06-26"
 description: ""
 # tags: []
@@ -8,6 +8,7 @@ categories: [
 ]
 series: ["Frontend"]
 katex: true
+draft: true
 ---
 
 2017年的时候，我读过一本专门介绍前端优化方法的书，`High Performance Mobile Web`，可不能被它的标题所欺骗，认为只侧重于移动端，事实不是如此。这本书可贵的地方是授人以渔，而不是授之以鱼，书中不仅有针对移动端的优化，还系统的梳理了一个页面在它的各个生命周期需要注意的优化项，并明确性能指标的确定以及衡量的方法。可惜的是，很少有人知道这本书。

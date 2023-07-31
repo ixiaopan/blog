@@ -1,5 +1,5 @@
 ---
-title: "WDID - Vue Router"
+title: "D - Image Editor"
 date: "2023-06-26"
 description: ""
 # tags: []

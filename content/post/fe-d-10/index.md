@@ -1,5 +1,5 @@
 ---
-title: "WDID - PSD Editor"
+title: "D - Upload Large Files"
 date: "2023-06-26"
 description: ""
 # tags: []

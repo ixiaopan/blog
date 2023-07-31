@@ -1,5 +1,5 @@
 ---
-title: "WDID - Frontend Project Structure"
+title: "D - Frontend Project Structure"
 date: "2023-06-07"
 description: ""
 # tags: []

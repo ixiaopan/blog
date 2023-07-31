@@ -1,5 +1,5 @@
 ---
-title: "WDID - Design a Video Player"
+title: "D - Design a Video Player"
 date: "2023-06-21"
 description: ""
 # tags: []
