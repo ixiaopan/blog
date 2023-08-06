@@ -81,7 +81,7 @@
 <script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -142,7 +142,7 @@
     </h1>
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 26, 2023
+  >&nbsp;Aug 6, 2023
   
   &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
 
@@ -162,13 +162,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-07/">
-    <h2 class="post-title">WDID - Frontend Optimization</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-15/">
+    <h2 class="post-title">D - 基建 101</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>2017年的时候，我读过一本专门介绍前端优化方法的书，<code>High Performance Mobile Web</code>，可不能被它的标题所欺骗，认为只侧重于移动端，事实不是如此。这本书可贵的地方是授人以渔，而不是授之以鱼，书中不仅有针对移动端的优化，还系统的梳理了一个页面在它的各个生命周期需要注意的优化项，并明确性能指标的确定以及衡量的方法。可惜的是，很少有人知道这本书。</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-07/" class="post-read-more"
+      <p><p>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-15/" class="post-read-more"
         >Read More</a
       >
     
@@ -177,9 +177,9 @@
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 26, 2023
+  >&nbsp;Aug 6, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;2 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -197,13 +197,116 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-06/">
-    <h2 class="post-title">WDID - The track panel of a video editor</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-16/">
+    <h2 class="post-title">D - 基建 业务开关配置</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p>先说一下最简单的开关配置吧
+Background 业务经常会有这种情况，对某个 id 先隐藏某个功能，待时机成熟在放开，此外这个白名单还可能随时追加。一般后端都有配置表，前端很少有。做这个开关就是实现这样的功能，当然，作用远不止如此，比如开关还可以当做数据配置平台，给运营使用用来实时更新页面数据等。
+How 要实现的功能：基于用户的配置，生成一个基于 JSON 的文件 url，提供给业务方使用
+UI   新建一个项目
+ 输入 projectId、projectName, projectDesc    创建成功，新建一个开关配置
+ 输入 id、name 选择 类型（boolean or text) 输入内容    点击保存，生成一个 json 文件的 url，比如 https://xx.oss-xx/project-config.json
+  业务引入这个 json 解析内容，使用即可
+  数据 项目 项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 url 这2个重要信息
+{ id: String, // 项目ID  name: String, // 项目名  desc: String, // 项目描述  config: ISwitch[] // 开关列表  url: String, // json配置文件url，系统生成 } 需要注意 url 是平台自动生成的，不用手动配置，比如我们可以使用 projectId 作为配置文件的 url，e.</p>
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-16/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Aug 6, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-14/">
+    <h2 class="post-title">D - Axios</h2>
+  </a>
+  <div class="post-entry">
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 30, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-09/">
+    <h2 class="post-title">D - Permission</h2>
+  </a>
+  <div class="post-entry">
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Jul 30, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-06/">
+    <h2 class="post-title">D - The track panel of a video editor</h2>
   </a>
   <div class="post-entry">
     
       <p><p>In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the <code>UI</code> part. For the edit operation, we will talk it later.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-06/" class="post-read-more"
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-06/" class="post-read-more"
         >Read More</a
       >
     
@@ -232,13 +335,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-05/">
-    <h2 class="post-title">WDID - Things about frames</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-05/">
+    <h2 class="post-title">D - Things about frames</h2>
   </a>
   <div class="post-entry">
     
       <p><p>Speaking of images and videos, we often use <code>img/video</code> to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-05/" class="post-read-more"
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-05/" class="post-read-more"
         >Read More</a
       >
     
@@ -267,13 +370,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-04/">
-    <h2 class="post-title">WDID - Design a Video Player</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-04/">
+    <h2 class="post-title">D - Design a Video Player</h2>
   </a>
   <div class="post-entry">
     
       <p><p>业务最开始实现的视频播放功能用的是 <code>xgplayer</code> 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 <code>&lt;video&gt;</code>，为此，我们需要基于 <code>video api</code> 实现自己的播放器。</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-04/" class="post-read-more"
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-04/" class="post-read-more"
         >Read More</a
       >
     
@@ -302,13 +405,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-03/">
-    <h2 class="post-title">WDID - Build your own UI component library from scratch</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-03/">
+    <h2 class="post-title">D - Build your own UI component library from scratch</h2>
   </a>
   <div class="post-entry">
     
       <p><p>In this post, we will learn how to build your own UI component library based on monorepo.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-03/" class="post-read-more"
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-03/" class="post-read-more"
         >Read More</a
       >
     
@@ -320,111 +423,6 @@
   >&nbsp;Jun 7, 2023
   
   &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;13 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >Frontend</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-02/">
-    <h2 class="post-title">WDID - Frontend Project Structure</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>本文主要介绍一下当下 <code>general</code> &amp; <code>vue-based</code> 前端项目结构划分</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-02/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 7, 2023
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;10 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >Frontend</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-wdid-01/">
-    <h2 class="post-title">WDID 101</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>从今天开始，计划写一系列技术文章，总结这一年半来重新回归到前端这个职业期间所做的事情，我给这个系列命名为 <code>WDID</code>, i.e. <code>What did I do?</code></p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-wdid-01/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 6, 2023
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >Frontend</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-js-ninja/">
-    <h2 class="post-title">[Draft] - Secrets of the js ninja</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-js-ninja/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Mar 4, 2023
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;

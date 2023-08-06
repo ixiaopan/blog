@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>D - 基建 101</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="D - 基建 101"/>
+<meta name="twitter:description" content="这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      D - 基建 101
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Aug 6, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。</p>
+<p>那我都实现了哪些基建？这里简单介绍一下各个平台的功能，具体每个平台会单独出一篇文章说明其背景、开发思路等细节。此外，整个平台采用了微服务+monorepo的架构，具体内容后续也会单独介绍。</p>
+<h2 id="basement">Basement</h2>
+<p>前端迭代管理 &amp; 发布平台，其实是老东家内部的迭代管理平台，在现在这个公司，我就沿用了这个名字。</p>
+<p>功能</p>
+<ul>
+<li>
+<p>项目管理（新建、编辑、删除）</p>
+</li>
+<li>
+<p>迭代管理（新建、编辑、删除）</p>
+</li>
+<li>
+<p>日报管理（新增、编辑、发送到群里）</p>
+</li>
+<li>
+<p>部署（开发、测试、线上、回滚）</p>
+</li>
+<li>
+<p>分支管理（根据内部规范，分类管理分支，比如 <code>hotfix/story/release/...</code>)</p>
+</li>
+<li>
+<p>MR 管理 （创建MR、查看MR列表）</p>
+</li>
+<li>
+<p>上线记录（上线/tag记录）</p>
+</li>
+</ul>
+<h2 id="api-mock">API Mock</h2>
+<p>接口 Mock 平台</p>
+<p>功能</p>
+<ul>
+<li>
+<p>项目管理（新建、编辑、删除）</p>
+</li>
+<li>
+<p>接口管理（新建、编辑、删除）</p>
+</li>
+<li>
+<p>Mock（GET/POST, timeout, postman)</p>
+</li>
+</ul>
+<h2 id="埋点管理平台">埋点管理平台</h2>
+<p>功能</p>
+<ul>
+<li>
+<p>埋点录入、状态变更、搜索</p>
+</li>
+<li>
+<p>自动验证</p>
+</li>
+</ul>
+<h2 id="性能监控平台">性能监控平台</h2>
+<p>功能</p>
+<ul>
+<li>
+<p>设备分析</p>
+</li>
+<li>
+<p>用户分析</p>
+</li>
+<li>
+<p>HTTP 分析</p>
+</li>
+<li>
+<p>js错误</p>
+</li>
+<li>
+<p>静态资源错误</p>
+</li>
+</ul>
+<h2 id="npm-包管理平台">NPM 包管理平台</h2>
+<p>功能</p>
+<ul>
+<li>
+<p>支持 普通包、 monorepo</p>
+</li>
+<li>
+<p>支持发布到 npm, cdn</p>
+</li>
+<li>
+<p>发布权限管理</p>
+</li>
+<li>
+<p>发布记录列表</p>
+</li>
+<li>
+<p>每次发布的changelog</p>
+</li>
+</ul>
+<h2 id="周报系统">周报系统</h2>
+<ul>
+<li>
+<p>写周报</p>
+</li>
+<li>
+<p>查看本周周报</p>
+</li>
+<li>
+<p>周报 archive</p>
+</li>
+</ul>
+<h2 id="文件上传平台">文件上传平台</h2>
+<ul>
+<li>
+<p>列表、大图模式预览</p>
+</li>
+<li>
+<p>支持文件夹</p>
+</li>
+</ul>
+<h2 id="业务开关配置">业务开关配置</h2>
+<ul>
+<li>
+<p>支持配置字符串、布尔值类型</p>
+</li>
+<li>
+<p>支持开关的禁用、删除</p>
+</li>
+</ul>
+<h2 id="lego-可视化搭建">Lego 可视化搭建</h2>
+<p>实现一个可视化搭建类似营销活动的平台，开发中</p>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basement">Basement</a></li>
+    <li><a href="#api-mock">API Mock</a></li>
+    <li><a href="#埋点管理平台">埋点管理平台</a></li>
+    <li><a href="#性能监控平台">性能监控平台</a></li>
+    <li><a href="#npm-包管理平台">NPM 包管理平台</a></li>
+    <li><a href="#周报系统">周报系统</a></li>
+    <li><a href="#文件上传平台">文件上传平台</a></li>
+    <li><a href="#业务开关配置">业务开关配置</a></li>
+    <li><a href="#lego-可视化搭建">Lego 可视化搭建</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

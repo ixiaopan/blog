@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
   </head>
   <body>
     
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><a href="https://github.com/rupa/z">z - jump around</a></p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#75715e">## download z.sh, and then put it at your favorite place</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#75715e">## download z.sh, and then put it at your favorite place</span>
 wget https://raw.githubusercontent.com/rupa/z/master/z.sh
 
 <span style="color:#75715e">## add z.sh to the .zashrc</span>
@@ -246,29 +246,28 @@ source ~/.zshrc
 </ul>
 <h3 id="package-manager">Package Manager</h3>
 <h4 id="homebrewhttpsbrewsh"><a href="https://brew.sh/">Homebrew</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>You might encounter the error message <code>brew not found</code> when you type <code>brew</code> on your terminal due to the wrong path. First check the place where your brew is installed,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ which brew
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ which brew
 <span style="color:#75715e"># /opt/homebrew/bin/brew</span>
 </code></pre></div><p>then add it to the global <code>PATH</code> env as follows.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">PATH</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$HOME</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">/usr/local/bin:/opt/homebrew/bin:$PATH</span>
-</code></pre></div><h4 id="pip">pip</h4>
-<p><a href="https://pip.pypa.io/en/stable/installation/">https://pip.pypa.io/en/stable/installation/</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m ensurepip --upgrade
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">PATH</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$HOME</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">/usr/local/bin:/opt/homebrew/bin:$PATH</span>
+</code></pre></div><h4 id="piphttpspippypaioenstableinstallation"><a href="https://pip.pypa.io/en/stable/installation/">pip</a></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m ensurepip --upgrade
 
 wget  https://bootstrap.pypa.io/get-pip.py
 
 python get-pip.py
 </code></pre></div><h4 id="nvm">nvm</h4>
 <p>We use <code>nvm</code> to manage different versions of node.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install nvm
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install nvm
 
 nvm install v16.13.1
 
 nvm ls
 nvm ls-remote
 </code></pre></div><h3 id="git">Git</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install git
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install git
 
 <span style="color:#75715e"># identity</span>
 git config --global user.name <span style="color:#e6db74">&#39;yourname&#39;</span>
@@ -357,9 +356,12 @@ git br | grep <span style="color:#e6db74">&#39;pattern&#39;</span> | xargs git b
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS - MDN</a></li>
 <li><a href="https://books.google.com.hk/books?id=nokNCgAAQBAJ&amp;printsec=frontcover#v=onepage&amp;q&amp;f=false">CSS Secrets</a></li>
 <li><a href="https://javascript.info/">JavaScript.info</a></li>
+<li><a href="https://book.douban.com/subject/26745757/">Secrets of the JavaScript Ninja</a></li>
 <li><a href="https://github.com/getify/You-Dont-Know-JS">ES6 - You Don&rsquo;t Know JS </a></li>
 <li><a href="https://basarat.gitbook.io/typescript/">TypeScript Deep Dive</a></li>
 <li><a href="https://github.com/getify/Functional-Light-JS">Functional-Light JS</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Pro Git - Book</a></li>
+<li><a href="https://semver.org/">Semantic Version</a></li>
 </ul>
 <h3 id="advanced">Advanced</h3>
 <ul>
@@ -367,18 +369,14 @@ git br | grep <span style="color:#e6db74">&#39;pattern&#39;</span> | xargs git b
 <li><a href="https://webgl2fundamentals.org/webgl/lessons/">Webgl 2</a></li>
 <li><a href="https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/toc.html">Web Audio</a></li>
 </ul>
-<h3 id="cicd">CI/CD</h3>
-<ul>
-<li><a href="https://git-scm.com/book/en/v2">Pro Git - Book</a></li>
-<li><a href="https://semver.org/">Semantic Version</a></li>
-</ul>
-<h2 id="database">Database</h2>
+<h3 id="database">Database</h3>
 <ul>
 <li><a href="https://sqlzoo.net/wiki/SELECT_basics">SQL Zoo</a></li>
 <li><a href="https://www.sqltutorial.org/">SQL Tutorial</a></li>
 <li><a href="https://build-your-own.org/database/">Build Your Own Database From Scratch</a></li>
 </ul>
-<h2 id="statistics">Statistics</h2>
+<h2 id="data-science">Data Science</h2>
+<h3 id="statistics">Statistics</h3>
 <ul>
 <li><a href="https://math24.net/probability-density-function.html">Math24</a></li>
 <li><a href="https://xaktly.com/XMathMain.html">XMathMain (Math Collection)</a></li>
@@ -386,14 +384,7 @@ git br | grep <span style="color:#e6db74">&#39;pattern&#39;</span> | xargs git b
 <li><a href="https://dlsun.github.io/probability/">Intro to Probability</a></li>
 <li><a href="https://online.stat.psu.edu/stat505/book/">Applied Multivariate Statistical Analysis</a></li>
 </ul>
-<h2 id="machine-learning">Machine Learning</h2>
-<ul>
-<li><a href="https://www.labri.fr/perso/nrougier/from-python-to-numpy/">from-python-to-numpy</a></li>
-<li><a href="https://www.shanelynn.ie/">shanelynn blog</a></li>
-<li><a href="http://neuralnetworksanddeeplearning.com/chap1.html">Neural Networks and Deep Learning - By Michael Nielsen / Dec 2019 </a></li>
-<li><a href="https://dataflowr.github.io/website/">Deep Learning Do it Yourself</a></li>
-</ul>
-<h2 id="visualisation">Visualisation</h2>
+<h3 id="visualisation">Visualisation</h3>
 <ul>
 <li><a href="https://www.visualcinnamon.com/resources/learning-data-visualization/books/">Data Visualization Book Reviews</a></li>
 <li><a href="https://napa-cards.net/">NAPA Cards</a></li>
@@ -402,7 +393,21 @@ git br | grep <span style="color:#e6db74">&#39;pattern&#39;</span> | xargs git b
 <li><a href="https://datavizcatalogue.com/">datavizcatalogue</a></li>
 <li><a href="https://www.makeovermonday.co.uk/data/">makeovermonday</a></li>
 </ul>
-<h2 id="complexity">Complexity</h2>
+<h3 id="machine-learning">Machine Learning</h3>
+<ul>
+<li><a href="https://book.douban.com/subject/33428563/">Data Science from Scratch</a></li>
+<li><a href="https://www.labri.fr/perso/nrougier/from-python-to-numpy/">from-python-to-numpy</a></li>
+<li><a href="https://book.douban.com/subject/21706191/">An Introduction to Statistical Learning</a></li>
+<li><a href="https://book.douban.com/subject/3294335/">The Elements of Statistical Learning</a></li>
+<li><a href="https://book.douban.com/subject/3294335/">Pattern Recognition and Machine Learning</a></li>
+</ul>
+<h3 id="deep-learning">Deep Learning</h3>
+<ul>
+<li><a href="https://www.shanelynn.ie/">shanelynn blog</a></li>
+<li><a href="http://neuralnetworksanddeeplearning.com/chap1.html">Neural Networks and Deep Learning - By Michael Nielsen / Dec 2019 </a></li>
+<li><a href="https://dataflowr.github.io/website/">Deep Learning Do it Yourself</a></li>
+</ul>
+<h3 id="complexity">Complexity</h3>
 <ul>
 <li><a href="https://www.complexityexplorer.org/courses/97-introduction-to-complexity-2019/segments/8352?summary">introduction-to-complexity</a></li>
 </ul>
@@ -436,14 +441,18 @@ git br | grep <span style="color:#e6db74">&#39;pattern&#39;</span> | xargs git b
       <ul>
         <li><a href="#fundamentals">Fundamentals</a></li>
         <li><a href="#advanced">Advanced</a></li>
-        <li><a href="#cicd">CI/CD</a></li>
+        <li><a href="#database">Database</a></li>
       </ul>
     </li>
-    <li><a href="#database">Database</a></li>
-    <li><a href="#statistics">Statistics</a></li>
-    <li><a href="#machine-learning">Machine Learning</a></li>
-    <li><a href="#visualisation">Visualisation</a></li>
-    <li><a href="#complexity">Complexity</a></li>
+    <li><a href="#data-science">Data Science</a>
+      <ul>
+        <li><a href="#statistics">Statistics</a></li>
+        <li><a href="#visualisation">Visualisation</a></li>
+        <li><a href="#machine-learning">Machine Learning</a></li>
+        <li><a href="#deep-learning">Deep Learning</a></li>
+        <li><a href="#complexity">Complexity</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       
