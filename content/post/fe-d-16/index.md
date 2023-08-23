@@ -1,6 +1,6 @@
 ---
 title: "D - 基建 业务开关配置"
-date: "2023-08-06"
+date: "2023-08-07"
 description: ""
 # tags: []
 categories: [
@@ -11,6 +11,8 @@ katex: true
 ---
 
 先说一下最简单的开关配置吧
+
+<!--more-->
 
 ## Background
 

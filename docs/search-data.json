@@ -15,6 +15,36 @@
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/fe-d-18/",
+                "title": "D - 基建 API Mock",
+                "section": "post",
+                "date" : "2023.08.22",
+                "body": "Background"
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/fe-d-17/",
+                "title": "D - 基建 埋点管理",
+                "section": "post",
+                "date" : "2023.08.22",
+                "body": "简单谈一下对埋点的理解\nWhat 埋点是对用户在客户端产品发生的事件的描述\n  Who：用户\n  When：timestamp\n  What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等\n  How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/\u0026hellip;)\n  Why 埋点可以帮助业务分析用户行为，从而更好的理解用户习惯、优化产品\nHow 事件分类 一般可以划分为2个大类\n  页面打开 PageShow，需要单独统计，因为页面的 pv/uv 是埋点中非常重要的一个数据指标\n  用户主动交互 Behavior\n click 点击行为 exposure 模块的曝光    enum IEvent_Type = { PAGE_SHOW = \u0026#39;pageShow\u0026#39;, CLICK = \u0026#39;behavior.click\u0026#39;, EXPOSURE = \u0026#39;behavior.exposure\u0026#39;, } 数据规范 pagesShow 描述 对于页面打开 PageShow，就很简单，一般统计 当前页面 id 即可\n事件描述 试想怎么描述 『点击了登录按钮』这件事件，至少需要\n  eventId, 行为 id，比如下载download, 分享 share, 登录 login\n  eventType, 事件类型，IEvent_Type\n  eventTarget, 事件对象的描述，类似 js 里的 event.target\n  timestamp, 发生时间\n  事件对象的描述 事件对象的相关信息，比如\n  点击登录，需要统计 登录方式（验证码登录、密码登录）\n  添加购物车，需要统计 商品Id、商家 id\n  分享商品，需要统计 分享的商品id，分享渠道\n  举个例子，分享商品\n{ eventId: \u0026#39;share\u0026#39;, eventType: IEvent_Type.CLICK, eventTarget: [ { goodId: \u0026#39;1\u0026#39;, channel: \u0026#39;wechat\u0026#39;, }, { goodId: \u0026#39;2\u0026#39;, channel: \u0026#39;wechat\u0026#39;, } ], timestamp: Date.now() } 上面这个 eventTarget 还是有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 goodId，换到其他业务，这个对象可能是 projectId，换句话说，evetTarget 的结构不固定，无法统一分析。优化后的结构如下，其中 extend 作为扩展字段，存储其他业务信息，比如说上面的渠道\ninterface IEventTarget { targetKey: string targetValue: string extend?: { [k: string]: any } } { eventId: \u0026#39;share\u0026#39;, eventType: IEvent_Type.CLICK, eventTarget: [ { targetKey: \u0026#39;goodId\u0026#39;, targetValue: \u0026#39;1\u0026#39; extend: { channel: \u0026#39;wechat\u0026#39;, } }, { targetKey: \u0026#39;goodId\u0026#39;, targetValue: \u0026#39;2\u0026#39; extend: { channel: \u0026#39;wechat\u0026#39;, } } ], timestamp: Date.now() } 上下文环境 除了事件本身，还需要知道事件发生时所处的环境，\n  设备信息\n  业务应用信息\n  用户信息\n  页面信息\n  综上，我们可以定义一条完备的日志数据结构\ninterface ITrack { common: { appId: string // 应用ID  appName: string, // 应用名称  appVersion: string // 应用版本  os: string, // 系统  ua: string, // 浏览器  sr: string, // 屏幕分辨率  }, page: { url: string, pageId: string, }, user: { userId: string }, event: [ { eventId: string, eventType: IEvent_Type, eventTarget: IEventTarget[], timestamp: Number, // 事件发生的时间  } ], timestamp: Number, // 发送日志的时间 } 埋点平台管理 除了 SDK 之外，还需要一个埋点平台管理所有埋点，因为开发需要和 BI 统一数据口径，而平台就是用来约束埋点值的。\n具体来说，开发埋点之前，需要去 平台申请对应点位，然后写在业务里。\n实际工作中，埋点平台并没有强约束开发必须要申请，但是如果开发随便写点位，没有去平台申请，后续和 BI 对字段的时候，需要去看代码才知道埋的是什么值，这就很浪费时间。\n为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。\n埋点验证 最后，为了确定点位确实埋好了，我们需要验证。一般是看 network 的请求参数，不过这个方式有几个缺点\n  业务请求太多，难以清晰的找到埋点的接口，需要开启过滤\n  一般而言， h5 非模拟器环境是无法直接看到请求的\n  针对以上问题，可以考虑2种小工具提高验证效率\n  SDK 内置 UI 查看工具，自动显示每次的埋点数据\n  打通埋点平台，拦截业务发起的埋点请求，对其进行数据结构的校验\n  技术细节 埋点方式 埋点有可视化埋点、自动埋点、手动埋点，各有利弊\n  可视化埋点\n  自动埋点\n  手动埋点\n  我们业务比较简单，就采用了手动埋点\n发送时机 上面我们已经确定了埋点的数据结构，接下来要考虑什么时候发出去，一般有2种方式\n  实时发送，简单，事件发生就发生一条日志\n 对接口密集型业务，会影响业务的请求 几乎不存在数据丢失的情况    延时发送，比较复杂，需要考虑很多东西，比如\n 发送时机，比如页面切换 或者 定时器机制； 未来得及发送的数据进行缓存，下次进入页面再发送； 比较容易存在数据丢失的情况    怎么发送 发送埋点本质就是发送一条请求，可能大家就说那不简单，xhr 不就得了，但是，有几个问题需要考虑\n  发送时机，要知道如果在页面离开发送请求，一般浏览器会中断该请求，除非某些浏览通过代码配置允许不中断请求\n  xhr 会有跨域问题\n  XHR img sendBecorn SDK Option 埋点上报 插件系统 埋点平台管理 SPM 一些公司采用的埋点方案是 spm，数据形式类似 siteA.pageB.blockC.targetD，有4个点位信息\n  a 是应用 id\n  b 是页面 id\n  c 是区块 id\n  d 是事件 id\n  这些 id 都是在平台申请的，申请下来的 id 也是诸如数字的形式，比如，我们有应用 saas 页面是详情页，发生了一次点击分享行为，这个点位是 a101.b20.c32.d12。\n这个方案相比较前面的方案还是比较复杂的\n  埋点值不是很直观，点位都是数字，很难理解\n  SDK 需要支持自动埋点，不然开发面对这些数字要头大\n  需要完善的埋点平台的支持（怎么申请点位、点位的管理、点位的校验、数据分析等）\n  这套方案之所以这么复杂，应该是为了满足淘宝的需求，店铺、商品详情页，需要统计各个模块、展位的曝光率、点击率等。\n"
+            }
+    
+        ,
+            {
+                "id": 3,
+                "href": "https://ixiaopan.github.io/blog/post/fe-d-16/",
+                "title": "D - 基建 业务开关配置",
+                "section": "post",
+                "date" : "2023.08.07",
+                "body": "先说一下最简单的开关配置吧\nBackground 业务经常会有这种情况，对某个 id 先隐藏某个功能，待时机成熟在放开，此外这个白名单还可能随时追加。一般后端都有配置表，前端很少有。做这个开关就是实现这样的功能，当然，作用远不止如此，比如开关还可以当做数据配置平台，给运营使用用来实时更新页面数据等。\nHow 要实现的功能：基于用户的配置，生成一个基于 JSON 的文件 url，提供给业务方使用\nUI   新建一个项目\n 输入 projectId、projectName, projectDesc    创建成功，新建一个开关配置\n 输入 id、name 选择 类型（boolean or text) 输入内容    点击保存，生成一个 json 文件的 url，比如 https://xx.oss-xx/project-config.json\n  业务引入这个 json 解析内容，使用即可\n  数据 项目 项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 url 这2个重要信息\n{ id: String, // 项目ID  name: String, // 项目名  desc: String, // 项目描述  config: ISwitch[] // 开关列表  url: String, // json配置文件url，系统生成 } 需要注意 url 是平台自动生成的，不用手动配置，比如我们可以使用 projectId 作为配置文件的 url，e.g. https://xx.oss-xx/config/${id}-config.json\n控件 初期我们只考虑 boolean 和 string 类型\n  boolean，业务根据 true/false 判断功能是否可用等\n  string，可以配置文本、json、url等可以序列化的数据\n  基于此可以确定一个开关的数据结构\ntype ISwitch = { id: string // 唯一id  name: string // 名称  disbaled: boolean // 是否被禁用  control: string, // 控件类型  content: string // 开关的内容 } 举几个例子，\n1、boolean 开关\n{ \u0026#34;id\u0026#34;: \u0026#34;approved\u0026#34;, \u0026#34;name\u0026#34;: \u0026#34;允许访问\u0026#34;, \u0026#34;control\u0026#34;: \u0026#34;boolean\u0026#34;, \u0026#34;content\u0026#34;: \u0026#34;false\u0026#34; } 2、string 开关\n{ \u0026#34;id\u0026#34;: \u0026#34;videoList\u0026#34;, \u0026#34;name\u0026#34;: \u0026#34;视频列表\u0026#34;, \u0026#34;control\u0026#34;: \u0026#34;string\u0026#34;, \u0026#34;content\u0026#34;: \u0026#34;[{\u0026#34;url\u0026#34;: \u0026#34;https:\u0026#34;},{\u0026#34;url\u0026#34;: \u0026#34;https:\u0026#34;}]\u0026#34; } 保存 可以前端组装好数据，在前端上传到 oss，也可以后端组装/上传。具体上传就是调用 OSS API，下面的代码使用的是后端流式上传\nconst result = = await client.putStream( `${DIR_ON_OSS}/${id}.json`, stringToStream(JSON.stringify({ id, config })) ) console.log(result?.url) "
+            }
+    
+        ,
+            {
+                "id": 4,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-15/",
                 "title": "D - 基建 101",
                 "section": "post",
@@ -24,17 +54,7 @@
     
         ,
             {
-                "id": 2,
-                "href": "https://ixiaopan.github.io/blog/post/fe-d-16/",
-                "title": "D - 基建 业务开关配置",
-                "section": "post",
-                "date" : "2023.08.06",
-                "body": "先说一下最简单的开关配置吧\nBackground 业务经常会有这种情况，对某个 id 先隐藏某个功能，待时机成熟在放开，此外这个白名单还可能随时追加。一般后端都有配置表，前端很少有。做这个开关就是实现这样的功能，当然，作用远不止如此，比如开关还可以当做数据配置平台，给运营使用用来实时更新页面数据等。\nHow 要实现的功能：基于用户的配置，生成一个基于 JSON 的文件 url，提供给业务方使用\nUI   新建一个项目\n 输入 projectId、projectName, projectDesc    创建成功，新建一个开关配置\n 输入 id、name 选择 类型（boolean or text) 输入内容    点击保存，生成一个 json 文件的 url，比如 https://xx.oss-xx/project-config.json\n  业务引入这个 json 解析内容，使用即可\n  数据 项目 项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 url 这2个重要信息\n{ id: String, // 项目ID  name: String, // 项目名  desc: String, // 项目描述  config: ISwitch[] // 开关列表  url: String, // json配置文件url，系统生成 } 需要注意 url 是平台自动生成的，不用手动配置，比如我们可以使用 projectId 作为配置文件的 url，e.g. https://xx.oss-xx/config/${id}-config.json\n控件 初期我们只考虑 boolean 和 string 类型\n  boolean，业务根据 true/false 判断功能是否可用等\n  string，可以配置文本、json、url等可以序列化的数据\n  基于此可以确定一个开关的数据结构\ntype ISwitch = { id: string // 唯一id  name: string // 名称  disbaled: boolean // 是否被禁用  control: string, // 控件类型  content: string // 开关的内容 } 举几个例子，\n1、boolean 开关\n{ \u0026#34;id\u0026#34;: \u0026#34;approved\u0026#34;, \u0026#34;name\u0026#34;: \u0026#34;允许访问\u0026#34;, \u0026#34;control\u0026#34;: \u0026#34;boolean\u0026#34;, \u0026#34;content\u0026#34;: \u0026#34;false\u0026#34; } 2、string 开关\n{ \u0026#34;id\u0026#34;: \u0026#34;videoList\u0026#34;, \u0026#34;name\u0026#34;: \u0026#34;视频列表\u0026#34;, \u0026#34;control\u0026#34;: \u0026#34;string\u0026#34;, \u0026#34;content\u0026#34;: \u0026#34;[{\u0026#34;url\u0026#34;: \u0026#34;https:\u0026#34;},{\u0026#34;url\u0026#34;: \u0026#34;https:\u0026#34;}]\u0026#34; } 保存 可以前端组装好数据，在前端上传到 oss，也可以后端组装/上传。具体上传就是调用 OSS API，下面的代码使用的是后端流式上传\nconst result = = await client.putStream( `${DIR_ON_OSS}/${id}.json`, stringToStream(JSON.stringify({ id, config })) ) console.log(result?.url) "
-            }
-    
-        ,
-            {
-                "id": 3,
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-06/",
                 "title": "D - The track panel of a video editor",
                 "section": "post",
@@ -44,7 +64,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-05/",
                 "title": "D - Things about frames",
                 "section": "post",
@@ -54,7 +74,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-04/",
                 "title": "D - Design a Video Player",
                 "section": "post",
@@ -64,7 +84,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-03/",
                 "title": "D - Build your own UI component library from scratch",
                 "section": "post",
@@ -74,7 +94,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-02/",
                 "title": "D - Frontend Project Structure",
                 "section": "post",
@@ -84,7 +104,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-01/",
                 "title": "D - 101",
                 "section": "post",
@@ -94,7 +114,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/fe-js-ninja/",
                 "title": "[Draft] - Secrets of the js ninja",
                 "section": "post",
@@ -104,17 +124,7 @@
     
         ,
             {
-                "id": 10,
-                "href": "https://ixiaopan.github.io/blog/post/fe-event-tracking/",
-                "title": "Event Tracking",
-                "section": "post",
-                "date" : "2023.03.04",
-                "body": "简单谈一下对埋点的理解\nWhat 埋点是对用户在客户端产品发生的事件的描述\n  Who：用户\n  When：timestamp\n  What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等。\n  How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/\u0026hellip;)\n  Why 埋点可以帮助业务分析用户行为，从而更好的理解用户习惯、优化产品\nHow 事件分类   页面打开 PageShow\n  用户主动交互 Behavior\n  一般可以划分为这2个大类，毕竟用户可以只打开页面，什么都不操作\n  PageShow 需要单独统计，是因为 页面的 pv/uv 是埋点中非常重要的一个数据指标\n  Behavior 可以进一步根据产品的功能再细分，比如产品大概会有 登录、添加购物车、下单、分享等模块\n  行为属性描述 属性描述，换句话说，就是从多维度分析行为，比如\n  登录模块，需要统计 登录方式（验证码登录、密码登录）\n  添加购物车，需要统计 商品Id、商家 ID\n  分享，需要统计 分享的商品ID，分享到的渠道\n  对于页面打开 PageShow，就很简单，统计 当前访问的页面ID 即可\n数据规范/SDK 一条完备的日志需要包含\n  通用数据: browser/os/screen resolution/appId/appVersion/timestamp/...\n  页面数据: pageId/url/query/...\n  行为数据: eventType/eventId/extParam/...\n  class Tracker { page(page?: IPage) { const data = { type: EVENT_TRACK_TYPE.PAGE_SHOW } this._report(data) } track(event_id: string, extParam = null) { const data = { event_id, extParam, type: EVENT_TRACK_TYPE.BEHAVIOR } this._report(data) } private _report(data = null) { if (!data) return const nextData = { common: { appId, appName, appVersion, os: getOS(), // 系统  ua: getBrowser(), // 浏览器  sr: getScreenInfo(), // 屏幕分辨率  }, page: { pageId, title, url, hostname, hash, query, path, }, event: { ...data, }, timestamp: Date.now(), } } } 埋点平台管理 除了 SDK 之外，还需要一个埋点平台管理所有埋点，因为开发埋的点位和BI需要统一字段口径，平台就是用来约束埋点值的。\n埋点之前，需要去 平台申请对应点位，才能埋点，对应代码就是 track(event_id: string, extParam = null) 这里的入参都是埋点平台自动生成的。\n如果是开发自己随便写的点位，虽然埋点平台不存在也不会有很大的问题，但是后续和 BI 对口径的时候，就需要去看代码才知道埋的是什么值，就很浪费时间。\n实际工作中，埋点平台并没有强约束开发必须要申请，为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。\n埋点验证 最后，为了确定点位确实埋好了，我们需要验证。像是 pc 应用，我们可以直接看 network 的请求参数，但是如果是 h5 或者是远程调试，是无法直接看到请求的。那该怎么办？\n一个方式是建立一个埋点验证平台，访问需要验证埋点的页面就会自动连接到这个验证平台，拦截对应的埋点请求，然后和埋点平台的数据进行匹配即可。\nTODO: 等有时间会详细介绍一下怎么实现\n"
-            }
-    
-        ,
-            {
-                "id": 11,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/fs-promise/",
                 "title": "JavaScript with Promise Revisited",
                 "section": "post",
@@ -124,7 +134,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/fe-name-conflict/",
                 "title": "Naming conflicts in unplugin-vue-component",
                 "section": "post",
@@ -134,7 +144,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/fe-public-image/",
                 "title": "Prefix static url when using public Image",
                 "section": "post",
@@ -144,7 +154,7 @@
     
         ,
             {
-                "id": 14,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/fe-mr-notification/",
                 "title": "Automatically Send MR Notification",
                 "section": "post",
@@ -154,7 +164,7 @@
     
         ,
             {
-                "id": 15,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/fe-btn-access/",
                 "title": "Button-level access control",
                 "section": "post",
@@ -164,7 +174,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/fe-text-ellipsis/",
                 "title": "Text ellipsis",
                 "section": "post",
@@ -174,7 +184,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/",
                 "title": "Some thoughts after going back to work",
                 "section": "post",
@@ -184,7 +194,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/fe-polling/",
                 "title": "[Draft] - Polling",
                 "section": "post",
@@ -194,7 +204,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/fe-video-power/",
                 "title": "Video autoplay not working when low power mode is on (iphone)",
                 "section": "post",
@@ -204,7 +214,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/fe-message/",
                 "title": "A message component",
                 "section": "post",
@@ -214,7 +224,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
                 "title": "A Cascader Component",
                 "section": "post",
@@ -224,7 +234,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/fe-directives/",
                 "title": "Common directives/plugins in Vue",
                 "section": "post",
@@ -234,7 +244,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
@@ -244,7 +254,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/fe-composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
@@ -254,7 +264,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/misc-python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -264,7 +274,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-test/",
                 "title": "Antd modal has no transition in test env",
                 "section": "post",
@@ -274,7 +284,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/fe-verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -284,7 +294,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/fe-npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -294,7 +304,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/fe-layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -304,7 +314,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/fe-tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -314,7 +324,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/fe-media/",
                 "title": "Intro to Video Format",
                 "section": "post",
@@ -324,7 +334,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -334,7 +344,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -344,7 +354,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -354,7 +364,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -364,7 +374,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -374,7 +384,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/misc-remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -384,7 +394,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -394,7 +404,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -404,7 +414,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -414,7 +424,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -424,7 +434,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -434,7 +444,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -444,7 +454,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -454,7 +464,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -464,7 +474,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -474,7 +484,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -484,7 +494,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/misc-interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -494,7 +504,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -504,7 +514,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -514,7 +524,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -524,7 +534,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -534,7 +544,7 @@
     
         ,
             {
-                "id": 53,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -544,7 +554,7 @@
     
         ,
             {
-                "id": 54,
+                "id": 55,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -554,7 +564,7 @@
     
         ,
             {
-                "id": 55,
+                "id": 56,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -564,7 +574,7 @@
     
         ,
             {
-                "id": 56,
+                "id": 57,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -574,7 +584,7 @@
     
         ,
             {
-                "id": 57,
+                "id": 58,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -584,7 +594,7 @@
     
         ,
             {
-                "id": 58,
+                "id": 59,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -594,7 +604,7 @@
     
         ,
             {
-                "id": 59,
+                "id": 60,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -604,7 +614,7 @@
     
         ,
             {
-                "id": 60,
+                "id": 61,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -614,7 +624,7 @@
     
         ,
             {
-                "id": 61,
+                "id": 62,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -624,7 +634,7 @@
     
         ,
             {
-                "id": 62,
+                "id": 63,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -634,7 +644,7 @@
     
         ,
             {
-                "id": 63,
+                "id": 64,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -644,7 +654,7 @@
     
         ,
             {
-                "id": 64,
+                "id": 65,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -654,7 +664,7 @@
     
         ,
             {
-                "id": 65,
+                "id": 66,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -664,7 +674,7 @@
     
         ,
             {
-                "id": 66,
+                "id": 67,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -674,7 +684,7 @@
     
         ,
             {
-                "id": 67,
+                "id": 68,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -684,7 +694,7 @@
     
         ,
             {
-                "id": 68,
+                "id": 69,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -694,7 +704,7 @@
     
         ,
             {
-                "id": 69,
+                "id": 70,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -704,7 +714,7 @@
     
         ,
             {
-                "id": 70,
+                "id": 71,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

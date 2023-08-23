@@ -147,13 +147,13 @@
 
       
         <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-d-15/">
-    <h2 class="post-title">D - 基建 101</h2>
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-18/">
+    <h2 class="post-title">D - 基建 API Mock</h2>
   </a>
   <div class="post-entry">
     
-      <p><p>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-d-15/" class="post-read-more"
+      <p></p>
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-18/" class="post-read-more"
         >Read More</a
       >
     
@@ -162,9 +162,44 @@
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;Aug 6, 2023
+  >&nbsp;Aug 22, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;0 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-17/">
+    <h2 class="post-title">D - 基建 埋点管理</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p><p>简单谈一下对埋点的理解</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-17/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Aug 22, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -187,16 +222,43 @@
   </a>
   <div class="post-entry">
     
-      <p>先说一下最简单的开关配置吧
-Background 业务经常会有这种情况，对某个 id 先隐藏某个功能，待时机成熟在放开，此外这个白名单还可能随时追加。一般后端都有配置表，前端很少有。做这个开关就是实现这样的功能，当然，作用远不止如此，比如开关还可以当做数据配置平台，给运营使用用来实时更新页面数据等。
-How 要实现的功能：基于用户的配置，生成一个基于 JSON 的文件 url，提供给业务方使用
-UI   新建一个项目
- 输入 projectId、projectName, projectDesc    创建成功，新建一个开关配置
- 输入 id、name 选择 类型（boolean or text) 输入内容    点击保存，生成一个 json 文件的 url，比如 https://xx.oss-xx/project-config.json
-  业务引入这个 json 解析内容，使用即可
-  数据 项目 项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 url 这2个重要信息
-{ id: String, // 项目ID  name: String, // 项目名  desc: String, // 项目描述  config: ISwitch[] // 开关列表  url: String, // json配置文件url，系统生成 } 需要注意 url 是平台自动生成的，不用手动配置，比如我们可以使用 projectId 作为配置文件的 url，e.</p>
+      <p><p>先说一下最简单的开关配置吧</p></p>
       <a href="https://ixiaopan.github.io/blog/post/fe-d-16/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Aug 7, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;3 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://ixiaopan.github.io/blog/post/fe-d-15/">
+    <h2 class="post-title">D - 基建 101</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p><p>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。</p></p>
+      <a href="https://ixiaopan.github.io/blog/post/fe-d-15/" class="post-read-more"
         >Read More</a
       >
     
@@ -338,76 +400,6 @@ UI   新建一个项目
   >&nbsp;Jun 22, 2023
   
   &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;9 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >Frontend</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-d-04/">
-    <h2 class="post-title">D - Design a Video Player</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>业务最开始实现的视频播放功能用的是 <code>xgplayer</code> 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 <code>&lt;video&gt;</code>，为此，我们需要基于 <code>video api</code> 实现自己的播放器。</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-d-04/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 21, 2023
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;4 min read
-
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://ixiaopan.github.io/blog/categories/frontend/"
-        >Frontend</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://ixiaopan.github.io/blog/post/fe-d-03/">
-    <h2 class="post-title">D - Build your own UI component library from scratch</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p><p>In this post, we will learn how to build your own UI component library based on monorepo.</p></p>
-      <a href="https://ixiaopan.github.io/blog/post/fe-d-03/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Jun 7, 2023
-  
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;13 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;

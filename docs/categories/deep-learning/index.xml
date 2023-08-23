@@ -14,27 +14,35 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>D - 基建 101</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-15/</link>
-			<pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-15/</guid>
-			<description>&lt;p&gt;这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。&lt;/p&gt;</description>
+			<title>D - 基建 API Mock</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-18/</link>
+			<pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-18/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>D - 基建 埋点管理</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-17/</link>
+			<pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-17/</guid>
+			<description>&lt;p&gt;简单谈一下对埋点的理解&lt;/p&gt;</description>
 		</item>
       	
 		<item>
 			<title>D - 基建 业务开关配置</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-16/</link>
-			<pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
+			<pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-16/</guid>
-			<description>先说一下最简单的开关配置吧
-Background 业务经常会有这种情况，对某个 id 先隐藏某个功能，待时机成熟在放开，此外这个白名单还可能随时追加。一般后端都有配置表，前端很少有。做这个开关就是实现这样的功能，当然，作用远不止如此，比如开关还可以当做数据配置平台，给运营使用用来实时更新页面数据等。
-How 要实现的功能：基于用户的配置，生成一个基于 JSON 的文件 url，提供给业务方使用
-UI   新建一个项目
- 输入 projectId、projectName, projectDesc    创建成功，新建一个开关配置
- 输入 id、name 选择 类型（boolean or text) 输入内容    点击保存，生成一个 json 文件的 url，比如 https://xx.oss-xx/project-config.json
-  业务引入这个 json 解析内容，使用即可
-  数据 项目 项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 url 这2个重要信息
-{ id: String, // 项目ID  name: String, // 项目名  desc: String, // 项目描述  config: ISwitch[] // 开关列表  url: String, // json配置文件url，系统生成 } 需要注意 url 是平台自动生成的，不用手动配置，比如我们可以使用 projectId 作为配置文件的 url，e.</description>
+			<description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>D - 基建 101</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-15/</link>
+			<pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-15/</guid>
+			<description>&lt;p&gt;这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。&lt;/p&gt;</description>
 		</item>
       	
 		<item>
@@ -83,22 +91,6 @@ UI   新建一个项目
 			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-03/</guid>
 			<description>&lt;p&gt;In this post, we will learn how to build your own UI component library based on monorepo.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>D - Frontend Project Structure</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-02/</link>
-			<pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-02/</guid>
-			<description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>D - 101</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-01/</link>
-			<pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-01/</guid>
-			<description>&lt;p&gt;从今天开始，计划写一系列技术文章，总结这一年半来重新回归到前端这个职业期间所做的事情，我给这个系列命名为 &lt;code&gt;D&lt;/code&gt;&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
