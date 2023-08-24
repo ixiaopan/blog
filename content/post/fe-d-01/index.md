@@ -23,16 +23,25 @@ katex: true
 - [x] Extract video frames
 - [x] The track of a video editor
 - [ ] Optimize your website
-- [ ] Router
-- [ ] permission
+- [ ] Permission
 - [ ] Axios
 - [ ] Upload 1000 large files
-- [ ] image editor
-- [ ] psd editor
-- [ ] non-linear Video Editor
-- [ ] Frontend Infrastructure 
+- [ ] Multi-lang & Multi-theme support
+- Vue
+  - [ ] Router
+  - [ ] Store
+  - [ ] Nuxt
+- Editor
+  - [ ] Image editor
+  - [ ] PSD editor
+  - [ ] Non-Linear Video Editor
+- Frontend Infrastructure 
   - [ ] Micro Frontend
-  - [ ] pipeline
-  - [ ] EventTrack
-  - [ ] API Mock
-  - [ ] Nest/Nuxt
+  - [ ] Basement 迭代管理&发布平台
+  - [x] 埋点管理平台
+  - [x] API Mock
+  - [x] 开关配置平台
+- Node/Mongo
+  - [ ] Node Pattern
+  - [ ] Database from scratch
+- [ ] Automated UI Testing

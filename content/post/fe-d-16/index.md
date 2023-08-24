@@ -1,5 +1,5 @@
 ---
-title: "D - 基建 业务开关配置"
+title: "D - 基建 开关配置"
 date: "2023-08-07"
 description: ""
 # tags: []
