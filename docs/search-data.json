@@ -15,6 +15,26 @@
         ,
             {
                 "id": 1,
+                "href": "https://ixiaopan.github.io/blog/post/fe-d-19/",
+                "title": "D - 基建 迭代管理\u0026发布平台 01",
+                "section": "post",
+                "date" : "2023.08.26",
+                "body": "这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。\n之前的文章也说过，这个产品是老东家的，我只是用自己的方式给实现出来，本身它很多功能我都不记得了。这个项目最核心的功能，要解决的问题，就是清晰的进行对需求/项目的管理和发布。\n在深入探讨这个平台之前，先来说一下最开始的项目管理和发布流程，慢慢的是怎么演变到这个平台的，知道为什么才能更好的明白怎么做。\n我把我经历的需求管理/发布分为3个阶段，\n开发机问题 在开始之前，必须明确，到现在为止，我们的日常开发、测试、线上只有一套环境。这意味着 如果有多需求并行开发，如果不合并所有需求分支，代码会被反复覆盖，这也是发布问题的本质。\n单分支开发/gitflow/jenkins 分支管理 最开始，业务单一需求少，做完一个需求才开始下一个需求，那所有人就 all in 一个需求，当时的规范是 gitflow，日常有 dev/main 分支\n  先从 dev 拉一个本次需求的分支，比如 feat/xx，\n  每个人再基于 feat/xx 切自己的个人分支 feat/xx-name\n  功能开发完成，feat/xx 合入到 dev\n  提测，从 dev 切 beta\n  上线， beta 合入到 main 发布，main 合回到 dev\n  部署流程  jenkins 部署对应环境的 dev/test  问题 这种模式运作了小半年，存在的问题：\n  分支太多，且都是手动管理\n  日常开发，个人分支 合 feat\n  部署分支，feat 合 dev -\u0026gt; dev 切 beta -\u0026gt; beta 合 mai -\u0026gt; main 合回 dev，整个开发非常繁琐\n    需求功能集中在 dev/beta，如果存在某个需求临时不能上线，怎么从 dev/beta 去掉？\n  缺少需求管理，即需求文档、负责人、分支、MR、上线记录没有关联，没有文档记录，无法追溯\n  这个模式给我的最大的感受就是分支太多，每天分支都是合来合去，冲突也多，代码也容易丢。\n多分支并行开发/Aoneflow 分支管理 产品初见成效，业务功能越来越多，需求开始并行。我开始研究阿里的 Aoneflow，它的核心理念是基于需求进行分支管理，平台会自动合并所有需求分支到 release，发现挺合适的就切换到它了。现在的工作流是\n  每个需求从 main 切对应的需求分支，比如 story/xxx\n  开发者基于 story 切自己的开发分支，提交 MR 到 story\n  登录 flow 平台，手动选择要合并的需求分支，发布即可；\n  临时下线某个需求，在 flow 平台，手动删除即可，\n  多个需求上线，发布 release 即可\n  部署流程  flow 平台自动化管理  问题 这种模式同样运作了小半年，可以算是很完美的方案了，但是还有点问题\n  flow 只关心部署，无法和业务迭代关联起来\n  没有分支部署保护，允许添加个人分支部署（有些同学因为没有合并权限，经常先添加自己的开发分支去 flow 部署），无法感知分支功能，严重影响分支维护\n  已上线的分支不会自己去掉，需要手动删除\n    当时 gitlab 上会有很多 release 分支，提 MR 的时候，很难找到需求分支\n  无法感知需求的上线时间，是否 delay，也没有日报管理等\n  flow 的流水线是按环境区分，不是按业务项目划分，即 dev 下有其他我并没有参与的项目，不是很直接同时也不是很安全\n  flow 登录有时效，经常几天就要重新登录\n  我的想法是\n  对于开发来说，是不需要感知 flow 界面的，开发更关注部署结果；\n  一个需求的从开始到上线要可追溯，包括\n  当时的需求、UI、技术文档\n  当时的开发者、分支MR\n  部署、上线记录\n    成套的阿里云产品是包括这些的，但是我们没有购买。。。。\n自建平台管理 这时候，我就想到了以前公司的产品，但是时间有点长，我都记不清具体有啥了，只能模糊的还原一个大概。\n其实最开始我没想实现这个平台，后来业务越来越多，而且今年上半年我也想做点基建，就决定尝试一下，没想到一做就是2个月。\n这里简单罗列一下功能，具体的技术方案下篇文章再细说\n  项目管理（新建、编辑、删除）\n  迭代管理（新建、编辑、删除）\n  部署（开发、测试、线上）\n  日报管理（新增、编辑、发送到群里）\n  分支管理（根据内部规范，分类管理分支，比如 hotfix/story/release/\u0026hellip;)\n  MR 管理 （创建MR、查看MR列表）\n  上线记录（上线/tag记录）\n  PS：相比较于用了什么新技术，或许可以反向思考一下，不用新技术会有什么不好嘛。技术是服务于业务/解决问题的，脱离了上下文单纯论技术是无意义的，能真正解决问题的技术才是有用的技术。\n"
+            }
+    
+        ,
+            {
+                "id": 2,
+                "href": "https://ixiaopan.github.io/blog/post/fe-d-20/",
+                "title": "D - 基建 迭代管理\u0026发布平台 02",
+                "section": "post",
+                "date" : "2023.08.26",
+                "body": "这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。\n"
+            }
+    
+        ,
+            {
+                "id": 3,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-18/",
                 "title": "D - 基建 API Mock",
                 "section": "post",
@@ -24,7 +44,7 @@
     
         ,
             {
-                "id": 2,
+                "id": 4,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-17/",
                 "title": "D - 基建 埋点管理",
                 "section": "post",
@@ -34,7 +54,7 @@
     
         ,
             {
-                "id": 3,
+                "id": 5,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-16/",
                 "title": "D - 基建 开关配置",
                 "section": "post",
@@ -44,17 +64,17 @@
     
         ,
             {
-                "id": 4,
+                "id": 6,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-15/",
                 "title": "D - 基建 101",
                 "section": "post",
                 "date" : "2023.08.06",
-                "body": "这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。\n那我都实现了哪些基建？这里简单介绍一下各个平台的功能，具体每个平台会单独出一篇文章说明其背景、开发思路等细节。此外，整个平台采用了微服务+monorepo的架构，具体内容后续也会单独介绍。\nBasement 前端迭代管理 \u0026amp; 发布平台，其实是老东家内部的迭代管理平台，在现在这个公司，我就沿用了这个名字。\n功能\n  项目管理（新建、编辑、删除）\n  迭代管理（新建、编辑、删除）\n  日报管理（新增、编辑、发送到群里）\n  部署（开发、测试、线上、回滚）\n  分支管理（根据内部规范，分类管理分支，比如 hotfix/story/release/...)\n  MR 管理 （创建MR、查看MR列表）\n  上线记录（上线/tag记录）\n  API Mock 接口 Mock 平台\n功能\n  项目管理（新建、编辑、删除）\n  接口管理（新建、编辑、删除）\n  Mock（GET/POST, timeout, postman)\n  埋点管理平台 功能\n  埋点录入、状态变更、搜索\n  自动验证\n  性能监控平台 功能\n  设备分析\n  用户分析\n  HTTP 分析\n  js错误\n  静态资源错误\n  NPM 包管理平台 功能\n  支持 普通包、 monorepo\n  支持发布到 npm, cdn\n  发布权限管理\n  发布记录列表\n  每次发布的changelog\n  周报系统   写周报\n  查看本周周报\n  周报 archive\n  文件上传平台   列表、大图模式预览\n  支持文件夹\n  业务开关配置   支持配置字符串、布尔值类型\n  支持开关的禁用、删除\n  Lego 可视化搭建 实现一个可视化搭建类似营销活动的平台，开发中\n"
+                "body": "这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。\n那我都实现了哪些基建？这里简单介绍一下各个平台的功能，具体每个平台会单独出一篇文章说明其背景、开发思路等细节。此外，整个平台采用了微前端+monorepo的架构，具体内容后续也会单独介绍。\nBasement 前端迭代管理 \u0026amp; 发布平台，其实是老东家内部的迭代管理平台，在现在这个公司，我就沿用了这个名字。\n功能\n  项目管理（新建、编辑、删除）\n  迭代管理（新建、编辑、删除）\n  日报管理（新增、编辑、发送到群里）\n  部署（开发、测试、线上、回滚）\n  分支管理（根据内部规范，分类管理分支，比如 hotfix/story/release/...)\n  MR 管理 （创建MR、查看MR列表）\n  上线记录（上线/tag记录）\n  API Mock 接口 Mock 平台\n功能\n  项目管理（新建、编辑、删除）\n  接口管理（新建、编辑、删除）\n  Mock（GET/POST, timeout, postman)\n  埋点管理平台 功能\n  埋点录入、状态变更、搜索\n  自动验证\n  性能监控平台 功能\n  设备分析\n  用户分析\n  HTTP 分析\n  js错误\n  静态资源错误\n  NPM 包管理平台 功能\n  支持 普通包、 monorepo\n  支持发布到 npm, cdn\n  发布权限管理\n  发布记录列表\n  每次发布的changelog\n  周报系统   写周报\n  查看本周周报\n  周报 archive\n  文件上传平台   列表、大图模式预览\n  支持文件夹\n  业务开关配置   支持配置字符串、布尔值类型\n  支持开关的禁用、删除\n  Lego 可视化搭建 实现一个可视化搭建类似营销活动的平台，开发中\n"
             }
     
         ,
             {
-                "id": 5,
+                "id": 7,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-06/",
                 "title": "D - The track panel of a video editor",
                 "section": "post",
@@ -64,7 +84,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 8,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-05/",
                 "title": "D - Things about frames",
                 "section": "post",
@@ -74,7 +94,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 9,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-04/",
                 "title": "D - Design a Video Player",
                 "section": "post",
@@ -84,7 +104,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 10,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-03/",
                 "title": "D - Build your own UI component library from scratch",
                 "section": "post",
@@ -94,7 +114,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 11,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-02/",
                 "title": "D - Frontend Project Structure",
                 "section": "post",
@@ -104,7 +124,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 12,
                 "href": "https://ixiaopan.github.io/blog/post/fe-d-01/",
                 "title": "D - 101",
                 "section": "post",
@@ -114,7 +134,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 13,
                 "href": "https://ixiaopan.github.io/blog/post/fe-js-ninja/",
                 "title": "[Draft] - Secrets of the js ninja",
                 "section": "post",
@@ -124,7 +144,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 14,
                 "href": "https://ixiaopan.github.io/blog/post/fs-promise/",
                 "title": "JavaScript with Promise Revisited",
                 "section": "post",
@@ -134,7 +154,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 15,
                 "href": "https://ixiaopan.github.io/blog/post/fe-name-conflict/",
                 "title": "Naming conflicts in unplugin-vue-component",
                 "section": "post",
@@ -144,17 +164,17 @@
     
         ,
             {
-                "id": 14,
+                "id": 16,
                 "href": "https://ixiaopan.github.io/blog/post/fe-public-image/",
                 "title": "Prefix static url when using public Image",
                 "section": "post",
                 "date" : "2023.02.25",
-                "body": "Background 项目中使用的图片一般会放在2个目录下\n  public\n  assets\n  这两个的区别，主要有2点\n1、打包的时候会不会被 webpack/rollup 等识别为待打包的资源\n  assets 的图片会根据图片大小打包为 base64 或者 xxxx-[hash].[ext]，\n  public 还是保持原样\n  2、引用方式不同\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;/images/xxx.png\u0026#34; /\u0026gt; \u0026lt;!-- // assets--\u0026gt; \u0026lt;img src=\u0026#34;@/assets/images/xxx.png\u0026#34; /\u0026gt; 可以发现 public 用的是绝对路径。在打包的时候，会根据配置的 baseUrl 自动转换，比如配置的 baseUrl = https://xxx-oss/static，那么打包的产物就是\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;https://xxx-oss/static/images/xxx.png\u0026#34; /\u0026gt; What I want 但是通过 baseUrl 自动转换图片路径，有几个缺点\n  需要本地项目的 public 里也有对应的图片文件，因为 baseUrl 在 dev 开发时配置的是 / ，而不是远程 cdn 地址。\n  public 下图片每次打包都会被复制到 dist 产物中，再上传到 baseUrl 所在的服务器\n  baseUrl 不一定就是 图片最终的 http url；换句话说，一般 js/css 是 baseUrl, 图片我们可能会有自己的图床服务，资源地址不同于 baseUrl\n  尽量让 public 简单，只存放 favicon/robots.txt\n  既然 public 的图片已经在 cdn ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？\nHTML 写死绝对路径   先把 public 下的图片上传在 oss 上\n  然后在 html 中直接用 http 绝对路径引入 \u0026lt;img src=\u0026quot;https://xxx-oss/static/images/xxx.png\u0026quot; /\u0026gt;\n  这样 public 只有 favicon/robots.txt ，但是也有问题\n  代码里充斥着 http ，显得过于臃肿\n  url 不好一键替换\n  HTML 写相对路径 我希望的是 html 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 baseUrl，因为图片的 url 是单独的资源服务器，和 baseUrl 是不一样的\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./xxx.png\u0026#34; /\u0026gt; 所以，这两天花了点时间研究一下 vite，看看是不是可以通过配置解决，最后验证确实可以。\nHow HTML vite 为了解析 sfc ，引入了 vitejs/vite-plugin-vue，其内部引入了 compiler-sfc，这个包有一个文件叫 templateTransformAssetUrl.ts，顾名思义就是转换 html 里遇到的 url，这里有一段这样的代码\nif (options.base \u0026amp;\u0026amp; attr.value.content[0] === \u0026#39;.\u0026#39;) { // explicit base - directly rewrite relative urls into absolute url  // to avoid generating extra imports  // Allow for full hostnames provided in options.base  const base = parseUrl(options.base) const protocol = base.protocol || \u0026#39;\u0026#39; const host = base.host ? protocol + \u0026#39;//\u0026#39; + base.host : \u0026#39;\u0026#39; const basePath = base.path || \u0026#39;/\u0026#39; // when packaged in the browser, path will be using the posix-  // only version provided by rollup-plugin-node-builtins.  attr.value.content = host + (path.posix || path).join(basePath, url.path + (url.hash || \u0026#39;\u0026#39;)) return } 所以我们只要在 vite 中配置 base 以及在 html 中用 . 开头即可，源码 vite-plugin-vue/src/template#L137\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, // tags: { // the default tags  // video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;],  // source: [\u0026#39;src\u0026#39;],  // img: [\u0026#39;src\u0026#39;],  // image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // },  }, }, }), ] 改写后的 html，现在我们可以安全的删除 public/images/xxx.png 了\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./images/xxx.png\u0026#34; /\u0026gt; 上面的代码还支持可以配置自己的标签、属性用来加载图片，比如业务中封装了 Empty.vue ，希望 vue 能自动识别 src 的值为 asset，可以配置如下\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, tags: { // the default tags  video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;], source: [\u0026#39;src\u0026#39;], img: [\u0026#39;src\u0026#39;], image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], empty: [\u0026#39;src\u0026#39;], // your custom tags  }, }, }, }), ] Less 如果是在 css 中使用了 public/images/xxx.png，又该怎么处理？？同样，我们在源码 compiler-sfc/src/stylePreprocessors 找到了如下的代码，其实就是利用了 additionalData\nfunction getSource( source: string, filename: string, additionalData?: string | ((source: string, filename: string) =\u0026gt; string) ) { if (!additionalData) return source if (isFunction(additionalData)) { return additionalData(source, filename) } return additionalData + source } 那么，vite 里就可以配置如下\ncss: { preprocessorOptions: { less: { additionalData(source: string) { source = source.replace(new RegExp(`\\\\/xxxx\\\\/`), VITE_COMMON) return source }, }, }, } Dynamic 以上都是静态引入的情况，还有一种情况是动态的，比如 src 是从父组件传进来的，这就无法解析，那这种情况，我们写一个插件就好了\nimport type { App } from \u0026#39;vue\u0026#39; const slash = (s: string) =\u0026gt; (s.endsWith(\u0026#39;/\u0026#39;) ? s : s + \u0026#39;/\u0026#39;) const unSlash = (s: string) =\u0026gt; (s.startsWith(\u0026#39;/\u0026#39;) ? s.slice(1) : s) export default { install: (app: App, options: { prefixUrl: string }) =\u0026gt; { const { prefixUrl } = options || {} app.config.globalProperties.$replaceStatic = (path: string) =\u0026gt; { return /^https?:\\/\\//.test(path) ? path : `${slash(prefixUrl)}${unSlash(path)}` } }, } 在任何需要动态引入的地方\n\u0026lt;DemoCom :src=\u0026#34;$replaceStatic(\u0026#39;xxx.png\u0026#39;)\u0026#34; /\u0026gt; Summary 综上，整个配置的目的就是，如果一张图片是不怎么变的，比如空占位符/兜底图，首先\n1、上传图片到 cdn\n2、在 html 中，这样引入 \u0026lt;img src='./xx.png' /\u0026gt;\n3、在 css 中，这样引入 url('./xxx.png')\n4、如果动态，这样引入 \u0026lt;DemoCom :src=\u0026quot;$replaceStatic('xxx.png')\u0026quot; /\u0026gt;\n"
+                "body": "Background 项目中使用的图片一般会放在2个目录下\n  public\n  assets\n  这两个的区别，主要有2点\n1、打包的时候会不会被 webpack/rollup 等识别为待打包的资源\n  assets 的图片会根据图片大小打包为 base64 或者 xxxx-[hash].[ext]，\n  public 还是保持原样\n  2、引用方式不同\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;/images/xxx.png\u0026#34; /\u0026gt; \u0026lt;!-- // assets--\u0026gt; \u0026lt;img src=\u0026#34;@/assets/images/xxx.png\u0026#34; /\u0026gt; 可以发现 public 用的是绝对路径，发布到线上的时候，会缓存 html 服务器所在的地址。\n业务中，尝尝会有很多图片不需要频繁变更，这种就适合放在 cdn长期存储，刚开始我没有配置到 cdn，偷懒就放在了 public 下，随着业务迭代，越来越多图片放在这里，这就给服务器带来不小的压力，所以我开始切到 cdn\nWhat I want 但是我希望是这样的使用\n\u0026lt;img src=\u0026#34;./empty.png\u0026#34; /\u0026gt; 而不是这样的使用\n\u0026lt;img src=\u0026#34;https://xxx-oss/static/empty.png\u0026#34; /\u0026gt; 换句话说，HTML 不要充斥着 https://xxxx，对越开发者来说，只需要关心图片叫什么名字就好了。\n尝试 vite base 鉴于 base 就是最终的 js/css 地址，同时也是 cdn地址，所以我就想要不要都用 base，但是有几个缺点\n  需要本地项目的 public 里也有对应的图片文件，因为 baseUrl 在 dev 开发时配置的是 / ，而不是远程 cdn 地址，这就造成图片冗余、管理混乱\n  public 下图片每次打包都会被复制到 dist 产物中，再上传到 baseUrl 所在的服务器\n  尽量让 public 简单，只存放 favicon/robots.txt\n    baseUrl 不一定就是 图片最终的 http url；换句话说，一般 js/css 是 baseUrl, 图片我们可能会有自己的图床服务，资源地址不同于 baseUrl\n  既然 public 的图片已经在 cdn ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？\nHTML 写死绝对路径   图片上传 oss 上\n  在 html 中直接用 http 绝对路径引入\n  \u0026lt;img src=\u0026#34;https://xxx-oss/static/images/xxx.png\u0026#34; /\u0026gt; 这样 public 只有 favicon/robots.txt ，但是也有问题\n  代码里充斥着 http ，显得过于臃肿\n  url 不好一键替换\n  HTML 写相对路径 我希望的是 html 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 baseUrl，因为图片的 url 是单独的资源服务器，和 baseUrl 是不一样的\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./xxx.png\u0026#34; /\u0026gt; 所以，这两天花了点时间研究一下 vite，看看是不是可以通过配置解决，最后验证确实可以。\nHow HTML vite 为了解析 sfc ，引入了 vitejs/vite-plugin-vue，其内部引入了 compiler-sfc，这个包有一个文件叫 templateTransformAssetUrl.ts，顾名思义就是转换 html 里遇到的 url，这里有一段这样的代码\nif (options.base \u0026amp;\u0026amp; attr.value.content[0] === \u0026#39;.\u0026#39;) { // explicit base - directly rewrite relative urls into absolute url  // to avoid generating extra imports  // Allow for full hostnames provided in options.base  const base = parseUrl(options.base) const protocol = base.protocol || \u0026#39;\u0026#39; const host = base.host ? protocol + \u0026#39;//\u0026#39; + base.host : \u0026#39;\u0026#39; const basePath = base.path || \u0026#39;/\u0026#39; // when packaged in the browser, path will be using the posix-  // only version provided by rollup-plugin-node-builtins.  attr.value.content = host + (path.posix || path).join(basePath, url.path + (url.hash || \u0026#39;\u0026#39;)) return } 所以我们只要在 vite 中配置 base 以及在 html 中用 . 开头即可，源码 vite-plugin-vue/src/template#L137\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, // tags: { // the default tags  // video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;],  // source: [\u0026#39;src\u0026#39;],  // img: [\u0026#39;src\u0026#39;],  // image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;],  // },  }, }, }), ] 改写后的 html，现在我们可以安全的删除 public/images/xxx.png 了\n\u0026lt;!-- // public --\u0026gt; \u0026lt;img src=\u0026#34;./images/xxx.png\u0026#34; /\u0026gt; 上面的代码还支持可以配置自己的标签、属性用来加载图片，比如业务中封装了 Empty.vue ，希望 vue 能自动识别 src 的值为 asset，可以配置如下\nplugins: [ vue({ template: { transformAssetUrls: { base: VITE_COMMON, tags: { // the default tags  video: [\u0026#39;src\u0026#39;, \u0026#39;poster\u0026#39;], source: [\u0026#39;src\u0026#39;], img: [\u0026#39;src\u0026#39;], image: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], use: [\u0026#39;xlink:href\u0026#39;, \u0026#39;href\u0026#39;], empty: [\u0026#39;src\u0026#39;], // your custom tags  }, }, }, }), ] Less 如果是在 css 中使用了 public/images/xxx.png，又该怎么处理？？同样，我们在源码 compiler-sfc/src/stylePreprocessors 找到了如下的代码，其实就是利用了 additionalData\nfunction getSource( source: string, filename: string, additionalData?: string | ((source: string, filename: string) =\u0026gt; string) ) { if (!additionalData) return source if (isFunction(additionalData)) { return additionalData(source, filename) } return additionalData + source } 那么，vite 里就可以配置如下\ncss: { preprocessorOptions: { less: { additionalData(source: string) { source = source.replace(new RegExp(`\\\\/xxxx\\\\/`), VITE_COMMON) return source }, }, }, } Dynamic 以上都是静态引入的情况，还有一种情况是动态的，比如 src 是从父组件传进来的，这就无法解析，那这种情况，我们写一个插件就好了\nimport type { App } from \u0026#39;vue\u0026#39; const slash = (s: string) =\u0026gt; (s.endsWith(\u0026#39;/\u0026#39;) ? s : s + \u0026#39;/\u0026#39;) const unSlash = (s: string) =\u0026gt; (s.startsWith(\u0026#39;/\u0026#39;) ? s.slice(1) : s) export default { install: (app: App, options: { prefixUrl: string }) =\u0026gt; { const { prefixUrl } = options || {} app.config.globalProperties.$replaceStatic = (path: string) =\u0026gt; { return /^https?:\\/\\//.test(path) ? path : `${slash(prefixUrl)}${unSlash(path)}` } }, } 在任何需要动态引入的地方\n\u0026lt;DemoCom :src=\u0026#34;$replaceStatic(\u0026#39;xxx.png\u0026#39;)\u0026#34; /\u0026gt; Summary 综上，整个配置的目的就是，如果一张图片是不怎么变的，比如空占位符/兜底图，首先\n1、上传图片到 cdn\n2、在 html 中，这样引入 \u0026lt;img src='./xx.png' /\u0026gt;\n3、在 css 中，这样引入 url('./xxx.png')\n4、如果动态，这样引入 \u0026lt;DemoCom :src=\u0026quot;$replaceStatic('xxx.png')\u0026quot; /\u0026gt;\n"
             }
     
         ,
             {
-                "id": 15,
+                "id": 17,
                 "href": "https://ixiaopan.github.io/blog/post/fe-mr-notification/",
                 "title": "Automatically Send MR Notification",
                 "section": "post",
@@ -164,7 +184,7 @@
     
         ,
             {
-                "id": 16,
+                "id": 18,
                 "href": "https://ixiaopan.github.io/blog/post/fe-btn-access/",
                 "title": "Button-level access control",
                 "section": "post",
@@ -174,7 +194,7 @@
     
         ,
             {
-                "id": 17,
+                "id": 19,
                 "href": "https://ixiaopan.github.io/blog/post/fe-text-ellipsis/",
                 "title": "Text ellipsis",
                 "section": "post",
@@ -184,7 +204,7 @@
     
         ,
             {
-                "id": 18,
+                "id": 20,
                 "href": "https://ixiaopan.github.io/blog/post/misc-thoughts-after-going-back-to-work/",
                 "title": "Some thoughts after going back to work",
                 "section": "post",
@@ -194,7 +214,7 @@
     
         ,
             {
-                "id": 19,
+                "id": 21,
                 "href": "https://ixiaopan.github.io/blog/post/fe-polling/",
                 "title": "[Draft] - Polling",
                 "section": "post",
@@ -204,7 +224,7 @@
     
         ,
             {
-                "id": 20,
+                "id": 22,
                 "href": "https://ixiaopan.github.io/blog/post/fe-video-power/",
                 "title": "Video autoplay not working when low power mode is on (iphone)",
                 "section": "post",
@@ -214,7 +234,7 @@
     
         ,
             {
-                "id": 21,
+                "id": 23,
                 "href": "https://ixiaopan.github.io/blog/post/fe-message/",
                 "title": "A message component",
                 "section": "post",
@@ -224,7 +244,7 @@
     
         ,
             {
-                "id": 22,
+                "id": 24,
                 "href": "https://ixiaopan.github.io/blog/post/fe-cascader/",
                 "title": "A Cascader Component",
                 "section": "post",
@@ -234,7 +254,7 @@
     
         ,
             {
-                "id": 23,
+                "id": 25,
                 "href": "https://ixiaopan.github.io/blog/post/fe-directives/",
                 "title": "Common directives/plugins in Vue",
                 "section": "post",
@@ -244,7 +264,7 @@
     
         ,
             {
-                "id": 24,
+                "id": 26,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-theme/",
                 "title": "Replace antd theme",
                 "section": "post",
@@ -254,7 +274,7 @@
     
         ,
             {
-                "id": 25,
+                "id": 27,
                 "href": "https://ixiaopan.github.io/blog/post/fe-composition/",
                 "title": "Composition bug in Safari",
                 "section": "post",
@@ -264,7 +284,7 @@
     
         ,
             {
-                "id": 26,
+                "id": 28,
                 "href": "https://ixiaopan.github.io/blog/post/misc-python-epub/",
                 "title": "html2epub",
                 "section": "post",
@@ -274,7 +294,7 @@
     
         ,
             {
-                "id": 27,
+                "id": 29,
                 "href": "https://ixiaopan.github.io/blog/post/fe-antd-test/",
                 "title": "Antd modal has no transition in test env",
                 "section": "post",
@@ -284,7 +304,7 @@
     
         ,
             {
-                "id": 28,
+                "id": 30,
                 "href": "https://ixiaopan.github.io/blog/post/fe-verdaccio/",
                 "title": "Build a private npm registry using verdaccio",
                 "section": "post",
@@ -294,7 +314,7 @@
     
         ,
             {
-                "id": 29,
+                "id": 31,
                 "href": "https://ixiaopan.github.io/blog/post/fe-npm/",
                 "title": "Package Manager",
                 "section": "post",
@@ -304,7 +324,7 @@
     
         ,
             {
-                "id": 30,
+                "id": 32,
                 "href": "https://ixiaopan.github.io/blog/post/fe-layout/",
                 "title": "CSS Layout 101",
                 "section": "post",
@@ -314,7 +334,7 @@
     
         ,
             {
-                "id": 31,
+                "id": 33,
                 "href": "https://ixiaopan.github.io/blog/post/fe-tools/",
                 "title": "Tools for daily work",
                 "section": "post",
@@ -324,7 +344,7 @@
     
         ,
             {
-                "id": 32,
+                "id": 34,
                 "href": "https://ixiaopan.github.io/blog/post/fe-media/",
                 "title": "Intro to Video Format",
                 "section": "post",
@@ -334,7 +354,7 @@
     
         ,
             {
-                "id": 33,
+                "id": 35,
                 "href": "https://ixiaopan.github.io/blog/post/dl-04-initilisation/",
                 "title": "Deep Learning - Weight Initialization",
                 "section": "post",
@@ -344,7 +364,7 @@
     
         ,
             {
-                "id": 34,
+                "id": 36,
                 "href": "https://ixiaopan.github.io/blog/post/dl-03-regularization/",
                 "title": "Deep Learning - Regularization",
                 "section": "post",
@@ -354,7 +374,7 @@
     
         ,
             {
-                "id": 35,
+                "id": 37,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-ner-lr/",
                 "title": "NLP - Literature Review on NER",
                 "section": "post",
@@ -364,7 +384,7 @@
     
         ,
             {
-                "id": 36,
+                "id": 38,
                 "href": "https://ixiaopan.github.io/blog/post/optimization/",
                 "title": "Optimization",
                 "section": "post",
@@ -374,7 +394,7 @@
     
         ,
             {
-                "id": 37,
+                "id": 39,
                 "href": "https://ixiaopan.github.io/blog/post/recommendation/",
                 "title": "Recommender Systems",
                 "section": "post",
@@ -384,7 +404,7 @@
     
         ,
             {
-                "id": 38,
+                "id": 40,
                 "href": "https://ixiaopan.github.io/blog/post/misc-remove-splash/",
                 "title": "REMOVING ANNOYING SPLASH ADs!!!",
                 "section": "post",
@@ -394,7 +414,7 @@
     
         ,
             {
-                "id": 39,
+                "id": 41,
                 "href": "https://ixiaopan.github.io/blog/post/metrics-classification/",
                 "title": "Metrics for classification",
                 "section": "post",
@@ -404,7 +424,7 @@
     
         ,
             {
-                "id": 40,
+                "id": 42,
                 "href": "https://ixiaopan.github.io/blog/post/dl-06-rnn/",
                 "title": "Deep Learning - RNN",
                 "section": "post",
@@ -414,7 +434,7 @@
     
         ,
             {
-                "id": 41,
+                "id": 43,
                 "href": "https://ixiaopan.github.io/blog/post/dl-05-cnn/",
                 "title": "Deep Learning - CNN",
                 "section": "post",
@@ -424,7 +444,7 @@
     
         ,
             {
-                "id": 42,
+                "id": 44,
                 "href": "https://ixiaopan.github.io/blog/post/model-selection/",
                 "title": "Model Selection",
                 "section": "post",
@@ -434,7 +454,7 @@
     
         ,
             {
-                "id": 43,
+                "id": 45,
                 "href": "https://ixiaopan.github.io/blog/post/dl-02-architecture/",
                 "title": "Deep Learning - Neural Networks",
                 "section": "post",
@@ -444,7 +464,7 @@
     
         ,
             {
-                "id": 44,
+                "id": 46,
                 "href": "https://ixiaopan.github.io/blog/post/dataviz/",
                 "title": "Data Visualisation",
                 "section": "post",
@@ -454,7 +474,7 @@
     
         ,
             {
-                "id": 45,
+                "id": 47,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-02/",
                 "title": "Leetcode 102",
                 "section": "post",
@@ -464,7 +484,7 @@
     
         ,
             {
-                "id": 46,
+                "id": 48,
                 "href": "https://ixiaopan.github.io/blog/post/dl-01-pre/",
                 "title": "Deep Learning - Preliminary",
                 "section": "post",
@@ -474,7 +494,7 @@
     
         ,
             {
-                "id": 47,
+                "id": 49,
                 "href": "https://ixiaopan.github.io/blog/post/misc-leetcode-01/",
                 "title": "Leetcode 101",
                 "section": "post",
@@ -484,7 +504,7 @@
     
         ,
             {
-                "id": 48,
+                "id": 50,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sql/",
                 "title": "Daily SQL Practice",
                 "section": "post",
@@ -494,7 +514,7 @@
     
         ,
             {
-                "id": 49,
+                "id": 51,
                 "href": "https://ixiaopan.github.io/blog/post/misc-interview/",
                 "title": "Software Engineer Interview",
                 "section": "post",
@@ -504,7 +524,7 @@
     
         ,
             {
-                "id": 50,
+                "id": 52,
                 "href": "https://ixiaopan.github.io/blog/post/dl-00-pytorch/",
                 "title": "Deep Learning - PyTorch",
                 "section": "post",
@@ -514,7 +534,7 @@
     
         ,
             {
-                "id": 51,
+                "id": 53,
                 "href": "https://ixiaopan.github.io/blog/post/misc-sort/",
                 "title": "Sorting",
                 "section": "post",
@@ -524,7 +544,7 @@
     
         ,
             {
-                "id": 52,
+                "id": 54,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-02-text-representation/",
                 "title": "NLP - Text Representation",
                 "section": "post",
@@ -534,7 +554,7 @@
     
         ,
             {
-                "id": 53,
+                "id": 55,
                 "href": "https://ixiaopan.github.io/blog/post/nlp-01-text-preprocessing/",
                 "title": "NLP - Text Preprocessing",
                 "section": "post",
@@ -544,7 +564,7 @@
     
         ,
             {
-                "id": 54,
+                "id": 56,
                 "href": "https://ixiaopan.github.io/blog/post/naive-bayes/",
                 "title": "Naive Bayes Classification",
                 "section": "post",
@@ -554,7 +574,7 @@
     
         ,
             {
-                "id": 55,
+                "id": 57,
                 "href": "https://ixiaopan.github.io/blog/post/svm/",
                 "title": "Support Vector Machine",
                 "section": "post",
@@ -564,7 +584,7 @@
     
         ,
             {
-                "id": 56,
+                "id": 58,
                 "href": "https://ixiaopan.github.io/blog/post/kmeans/",
                 "title": "K-means",
                 "section": "post",
@@ -574,7 +594,7 @@
     
         ,
             {
-                "id": 57,
+                "id": 59,
                 "href": "https://ixiaopan.github.io/blog/post/logistic-regression/",
                 "title": "Logistic Regression",
                 "section": "post",
@@ -584,7 +604,7 @@
     
         ,
             {
-                "id": 58,
+                "id": 60,
                 "href": "https://ixiaopan.github.io/blog/post/perceptron/",
                 "title": "Perceptron",
                 "section": "post",
@@ -594,7 +614,7 @@
     
         ,
             {
-                "id": 59,
+                "id": 61,
                 "href": "https://ixiaopan.github.io/blog/post/knn/",
                 "title": "K-nearest neighbours",
                 "section": "post",
@@ -604,7 +624,7 @@
     
         ,
             {
-                "id": 60,
+                "id": 62,
                 "href": "https://ixiaopan.github.io/blog/post/information-theory/",
                 "title": "Information Theory",
                 "section": "post",
@@ -614,7 +634,7 @@
     
         ,
             {
-                "id": 61,
+                "id": 63,
                 "href": "https://ixiaopan.github.io/blog/post/constrained-optimisation/",
                 "title": "Constrained Optimisation",
                 "section": "post",
@@ -624,7 +644,7 @@
     
         ,
             {
-                "id": 62,
+                "id": 64,
                 "href": "https://ixiaopan.github.io/blog/post/probabilistic-model/",
                 "title": "Probabilistic Model",
                 "section": "post",
@@ -634,7 +654,7 @@
     
         ,
             {
-                "id": 63,
+                "id": 65,
                 "href": "https://ixiaopan.github.io/blog/post/semanticweb/",
                 "title": "Semantic Web",
                 "section": "post",
@@ -644,7 +664,7 @@
     
         ,
             {
-                "id": 64,
+                "id": 66,
                 "href": "https://ixiaopan.github.io/blog/post/svd/",
                 "title": "Singular Value Decomposition",
                 "section": "post",
@@ -654,7 +674,7 @@
     
         ,
             {
-                "id": 65,
+                "id": 67,
                 "href": "https://ixiaopan.github.io/blog/post/end2end-project-01/",
                 "title": "An E2E Project - EDA",
                 "section": "post",
@@ -664,7 +684,7 @@
     
         ,
             {
-                "id": 66,
+                "id": 68,
                 "href": "https://ixiaopan.github.io/blog/post/ensemble-methods/",
                 "title": "Ensemble Methods",
                 "section": "post",
@@ -674,7 +694,7 @@
     
         ,
             {
-                "id": 67,
+                "id": 69,
                 "href": "https://ixiaopan.github.io/blog/post/decision-tree/",
                 "title": "Decision Tree",
                 "section": "post",
@@ -684,7 +704,7 @@
     
         ,
             {
-                "id": 68,
+                "id": 70,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-02/",
                 "title": "Linear Regression 02",
                 "section": "post",
@@ -694,7 +714,7 @@
     
         ,
             {
-                "id": 69,
+                "id": 71,
                 "href": "https://ixiaopan.github.io/blog/post/bias-variance-dilemma/",
                 "title": "Bias-Variance dilemma",
                 "section": "post",
@@ -704,7 +724,7 @@
     
         ,
             {
-                "id": 70,
+                "id": 72,
                 "href": "https://ixiaopan.github.io/blog/post/linear-regression-01/",
                 "title": "Linear Regression 01",
                 "section": "post",
@@ -714,7 +734,7 @@
     
         ,
             {
-                "id": 71,
+                "id": 73,
                 "href": "https://ixiaopan.github.io/blog/post/descriptive-statistics/",
                 "title": "Descriptive Statistics",
                 "section": "post",

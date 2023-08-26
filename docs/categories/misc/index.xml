@@ -14,11 +14,19 @@
 		<atom:link href="/blog/categories/misc/" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>[Draft] D - 基建 迭代管理&amp;发布平台</title>
+			<title>D - 基建 迭代管理&amp;发布平台 01</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-19/</link>
-			<pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate>
+			<pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-19/</guid>
-			<description></description>
+			<description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
+			<title>D - 基建 迭代管理&amp;发布平台 02</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-20/</link>
+			<pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-20/</guid>
+			<description>这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。</description>
 		</item>
       	
 		<item>
@@ -83,14 +91,6 @@
 			<pubDate>Thu, 22 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-05/</guid>
 			<description>&lt;p&gt;Speaking of images and videos, we often use &lt;code&gt;img/video&lt;/code&gt; to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>D - Design a Video Player</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-04/</link>
-			<pubDate>Wed, 21 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-04/</guid>
-			<description>&lt;p&gt;业务最开始实现的视频播放功能用的是 &lt;code&gt;xgplayer&lt;/code&gt; 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;，为此，我们需要基于 &lt;code&gt;video api&lt;/code&gt; 实现自己的播放器。&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

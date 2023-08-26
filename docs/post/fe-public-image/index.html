@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Feb 25, 2023
   
-  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;6 min read
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;7 min read
 
   
     &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
@@ -210,36 +210,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <span style="color:#75715e">&lt;!-- // assets--&gt;</span>
 &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;@/assets/images/xxx.png&#34;</span> /&gt;
-</code></pre></div><p>可以发现 <code>public</code> 用的是绝对路径。在打包的时候，会根据配置的 <code>baseUrl</code> 自动转换，比如配置的 <code>baseUrl = https://xxx-oss/static</code>，那么打包的产物就是</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
-&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/images/xxx.png&#34;</span> /&gt;
-</code></pre></div><h2 id="what-i-want">What I want</h2>
-<p>但是通过 <code>baseUrl</code> 自动转换图片路径，有几个缺点</p>
+</code></pre></div><p>可以发现 <code>public</code> 用的是绝对路径，发布到线上的时候，会缓存 html 服务器所在的地址。</p>
+<p>业务中，尝尝会有很多图片不需要频繁变更，这种就适合放在 cdn长期存储，刚开始我没有配置到 cdn，偷懒就放在了 public 下，随着业务迭代，越来越多图片放在这里，这就给服务器带来不小的压力，所以我开始切到 cdn</p>
+<h2 id="what-i-want">What I want</h2>
+<p>但是我希望是这样的使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./empty.png&#34;</span> /&gt;
+</code></pre></div><p>而不是这样的使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/empty.png&#34;</span> /&gt;
+</code></pre></div><p>换句话说，HTML 不要充斥着 <code>https://xxxx</code>，对越开发者来说，只需要关心图片叫什么名字就好了。</p>
+<h2 id="尝试">尝试</h2>
+<h3 id="vite-base">vite base</h3>
+<p>鉴于 <code>base</code> 就是最终的 <code>js/css</code> 地址，同时也是 <code>cdn</code>地址，所以我就想要不要都用 <code>base</code>，但是有几个缺点</p>
 <ul>
 <li>
-<p>需要本地项目的 <code>public</code> 里也有对应的图片文件，因为 <code>baseUrl</code> 在 <code>dev</code> 开发时配置的是 <code>/</code> ，而不是远程 <code>cdn</code> 地址。</p>
-</li>
+<p>需要本地项目的 <code>public</code> 里也有对应的图片文件，因为 <code>baseUrl</code> 在 <code>dev</code> 开发时配置的是 <code>/</code> ，而不是远程 <code>cdn</code> 地址，这就造成图片冗余、管理混乱</p>
+<ul>
 <li>
 <p><code>public</code> 下图片每次打包都会被复制到 <code>dist</code> 产物中，再上传到 <code>baseUrl</code> 所在的服务器</p>
 </li>
 <li>
-<p><code>baseUrl</code> 不一定就是 图片最终的 <code>http url</code>；换句话说，一般 <code>js/css</code> 是 <code>baseUrl</code>, 图片我们可能会有自己的图床服务，资源地址不同于 <code>baseUrl</code></p>
+<p>尽量让 <code>public</code> 简单，只存放 <code>favicon/robots.txt</code></p>
+</li>
+</ul>
 </li>
 <li>
-<p>尽量让 <code>public</code> 简单，只存放 <code>favicon/robots.txt</code></p>
+<p><code>baseUrl</code> 不一定就是 图片最终的 <code>http url</code>；换句话说，一般 <code>js/css</code> 是 <code>baseUrl</code>, 图片我们可能会有自己的图床服务，资源地址不同于 <code>baseUrl</code></p>
 </li>
 </ul>
 <p>既然 <code>public</code> 的图片已经在 <code>cdn</code> ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？</p>
 <h3 id="html-写死绝对路径">HTML 写死绝对路径</h3>
 <ul>
 <li>
-<p>先把 <code>public</code> 下的图片上传在 <code>oss</code> 上</p>
+<p>图片上传 <code>oss</code> 上</p>
 </li>
 <li>
-<p>然后在 <code>html</code> 中直接用 <code>http</code> 绝对路径引入 <code>&lt;img src=&quot;https://xxx-oss/static/images/xxx.png&quot; /&gt;</code></p>
+<p>在 <code>html</code> 中直接用 <code>http</code> 绝对路径引入</p>
 </li>
 </ul>
-<p>这样 <code>public</code> 只有 <code>favicon/robots.txt</code> ，但是也有问题</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/images/xxx.png&#34;</span> /&gt;
+</code></pre></div><p>这样 <code>public</code> 只有 <code>favicon/robots.txt</code> ，但是也有问题</p>
 <ul>
 <li>
 <p>代码里充斥着 <code>http</code> ，显得过于臃肿</p>
@@ -370,8 +379,10 @@ document.addEventListener("DOMContentLoaded", function() {
         <nav id="TableOfContents">
   <ul>
     <li><a href="#background">Background</a></li>
-    <li><a href="#what-i-want">What I want</a>
+    <li><a href="#what-i-want">What I want</a></li>
+    <li><a href="#尝试">尝试</a>
       <ul>
+        <li><a href="#vite-base">vite base</a></li>
         <li><a href="#html-写死绝对路径">HTML 写死绝对路径</a></li>
         <li><a href="#html-写相对路径">HTML 写相对路径</a></li>
       </ul>

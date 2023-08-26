@@ -39,24 +39,42 @@ katex: true
 <img src="@/assets/images/xxx.png" />
 ```
 
-可以发现 `public` 用的是绝对路径。在打包的时候，会根据配置的 `baseUrl` 自动转换，比如配置的 `baseUrl = https://xxx-oss/static`，那么打包的产物就是
+可以发现 `public` 用的是绝对路径，发布到线上的时候，会缓存 html 服务器所在的地址。
 
-```html
-<!-- // public -->
-<img src="https://xxx-oss/static/images/xxx.png" />
-```
+
+业务中，尝尝会有很多图片不需要频繁变更，这种就适合放在 cdn长期存储，刚开始我没有配置到 cdn，偷懒就放在了 public 下，随着业务迭代，越来越多图片放在这里，这就给服务器带来不小的压力，所以我开始切到 cdn
 
 ## What I want
 
-但是通过 `baseUrl` 自动转换图片路径，有几个缺点
+但是我希望是这样的使用
 
-- 需要本地项目的 `public` 里也有对应的图片文件，因为 `baseUrl` 在 `dev` 开发时配置的是 `/` ，而不是远程 `cdn` 地址。
+```html
+<img src="./empty.png" />
+```
 
-- `public` 下图片每次打包都会被复制到 `dist` 产物中，再上传到 `baseUrl` 所在的服务器
+而不是这样的使用
+
+```html
+<img src="https://xxx-oss/static/empty.png" />
+```
+
+换句话说，HTML 不要充斥着 `https://xxxx`，对越开发者来说，只需要关心图片叫什么名字就好了。
+
+
+## 尝试
+
+### vite base
+
+鉴于 `base` 就是最终的 `js/css` 地址，同时也是 `cdn`地址，所以我就想要不要都用 `base`，但是有几个缺点
+
+
+- 需要本地项目的 `public` 里也有对应的图片文件，因为 `baseUrl` 在 `dev` 开发时配置的是 `/` ，而不是远程 `cdn` 地址，这就造成图片冗余、管理混乱
+
+  - `public` 下图片每次打包都会被复制到 `dist` 产物中，再上传到 `baseUrl` 所在的服务器
+
+  - 尽量让 `public` 简单，只存放 `favicon/robots.txt` 
 
 - `baseUrl` 不一定就是 图片最终的 `http url`；换句话说，一般 `js/css` 是 `baseUrl`, 图片我们可能会有自己的图床服务，资源地址不同于 `baseUrl` 
- 
-- 尽量让 `public` 简单，只存放 `favicon/robots.txt` 
 
 
 既然 `public` 的图片已经在 `cdn` ，为什么还要在本地冗余、构建的时候重复上传一遍呢？？
@@ -64,10 +82,13 @@ katex: true
 
 ### HTML 写死绝对路径
 
-- 先把 `public` 下的图片上传在 `oss` 上
+- 图片上传 `oss` 上
 
-- 然后在 `html` 中直接用 `http` 绝对路径引入 `<img src="https://xxx-oss/static/images/xxx.png" />`
+- 在 `html` 中直接用 `http` 绝对路径引入 
 
+```html
+<img src="https://xxx-oss/static/images/xxx.png" />
+```
 
 这样 `public` 只有 `favicon/robots.txt` ，但是也有问题
 

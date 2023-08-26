@@ -37,7 +37,7 @@ katex: true
   - [ ] Non-Linear Video Editor
 - Frontend Infrastructure 
   - [ ] Micro Frontend
-  - [ ] Basement 迭代管理&发布平台
+  - [x] Basement 迭代管理&发布平台
   - [x] 埋点管理平台
   - [x] API Mock
   - [x] 开关配置平台
