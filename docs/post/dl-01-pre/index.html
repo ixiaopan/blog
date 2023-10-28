@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -360,7 +360,7 @@ $$</p>
 f'(x) = \text{lim}_{h\rarr0} \frac{f(x+h) - f(x)}{h}
 $$</p>
 <p>The python implementation of numerical differentiation is shown below</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numericala_diff</span>(f,x):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numericala_diff</span>(f,x):
 	h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-10</span>
 	<span style="color:#66d9ef">return</span> ( f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x) ) <span style="color:#f92672">/</span> h
 </code></pre></div><h3 id="gradient">Gradient</h3>
@@ -373,7 +373,7 @@ $$</p>
 \nabla_x f(x) = [\frac{\partial f(x)}{x_1}, \frac{\partial f(x)}{x_2}, &hellip;, \frac{\partial f(x)}{x_n}]^T
 $$</p>
 <p>The python implementation of the gradient of $f$ at $x$ is shown below</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numerical_gradient</span>(f, x):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numerical_gradient</span>(f, x):
 
   h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-4</span> <span style="color:#75715e"># 0.0001</span>
   grad <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(x)
@@ -449,7 +449,7 @@ $$</p>
 <h2 id="numerical-computation">Numerical Computation</h2>
 <h3 id="rounding-errors">Rounding Errors</h3>
 <p>Underflow occurs when numbers are very close to zero. Overflow, on the other hand, occurs when numbers are so large that computers return infinity or negative infinity. Both are due to the limited precision of numerical representation.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># underflow and overflow in Python</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># underflow and overflow in Python</span>
 math<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span>)
 <span style="color:#75715e"># 0.0</span>
 math<span style="color:#f92672">.</span>exp(<span style="color:#ae81ff">10000</span>)
@@ -533,7 +533,7 @@ $$</p>
 f(x) = f(a) + f'(a) b\epsilon + \epsilon^2  \sum_{n=2} \frac{f^n(a)}{n!}  b^n\epsilon^{n-2} =  f(a) + f'(a) b\epsilon
 $$</p>
 <p>From this, we see that by calculating $x = a + b\epsilon$, we can obtain the value of the function $f(x)$ and the derivative at $x$ simultaneously. The implementation of  forward mode AD by dual numbers is shown below,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DualNumber</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DualNumber</span>:
     <span style="color:#66d9ef">def</span> __init__(self, value, dvalue):
         self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
         self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">=</span> dvalue
@@ -564,7 +564,7 @@ y <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
 a<span style="color:#f92672">=</span>DualNumber(x, <span style="color:#ae81ff">1</span>)
 b<span style="color:#f92672">=</span>DualNumber(y, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># w.r.t y</span>
 z <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b <span style="color:#f92672">+</span> a  <span style="color:#75715e"># df/da = b + 1</span>
-<span style="color:#66d9ef">print</span>(z) <span style="color:#75715e"># it should be 6</span>
+print(z) <span style="color:#75715e"># it should be 6</span>
 <span style="color:#75715e"># 12 + 6ε</span>
 </code></pre></div><h3 id="reverse-adbackprop">Reverse AD(backprop)</h3>
 <p>Forward mode AD is intutive and simple, but we need to repeat $n$ times if there are $n$ variables. In other words, for each variable $x_i$, we need to set $t = x_i$ while keep others constant. If the process of computing deriative is complex and the number of parameters is huge (which is often the case in deep learning), it would take much time to obtain the whole derivatives. A solution is reverse mode AD, which enables us to obtain the derivatives of all variables in one go.</p>
@@ -590,15 +590,15 @@ $$</p>
   </figure>
 </p>
 <p>When implementing reversel mode AD, we need to track the children nodes for each input variable and the derivative w.r.t each input input variable at this step, which are used to apply chain rule. Some example codes are shown below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Var</span>:
     <span style="color:#66d9ef">def</span> __init__(self, value):
         self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
         self<span style="color:#f92672">.</span>children <span style="color:#f92672">=</span> []
-        self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> None
+        self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">grad</span>(self):
-      <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">is</span> None:
+      <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
           self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> sum(weight <span style="color:#f92672">*</span> var<span style="color:#f92672">.</span>grad() <span style="color:#66d9ef">for</span> weight, var <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>children)
       <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>grad_value
 
@@ -630,7 +630,7 @@ x <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">2.0</span
 y <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">3.0</span>)
 z <span style="color:#f92672">=</span> x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> sin(x)
 z<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#75715e"># see the gradient of z to 1</span>
-<span style="color:#66d9ef">print</span>(x<span style="color:#f92672">.</span>grad())
+print(x<span style="color:#f92672">.</span>grad())
 
 </code></pre></div><h2 id="references">References</h2>
 <ul>

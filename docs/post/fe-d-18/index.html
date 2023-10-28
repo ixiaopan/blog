@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="mock平台">Mock平台</h2>
 <h3 id="创建项目">创建项目</h3>
 <p>每个业务需要创建对应的项目，我们就简单点</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MockProjectSchema</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">mongoose</span>.<span style="color:#a6e22e">Schema</span>({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MockProjectSchema</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">mongoose</span>.<span style="color:#a6e22e">Schema</span>({
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">String</span>,
   <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">String</span>,
   <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">String</span>,
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>至于 <code>api</code> 的匹配，一期做个模糊匹配即可，也就是只关心 <code>method/url</code>，不考虑入参</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MockAPISchema</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">mongoose</span>.<span style="color:#a6e22e">Schema</span>({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MockAPISchema</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">mongoose</span>.<span style="color:#a6e22e">Schema</span>({
   <span style="color:#a6e22e">projectId</span>: <span style="color:#66d9ef">String</span>,
   <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">String</span>,
   <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">String</span>,
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">json</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 出参
 </span><span style="color:#75715e"></span>})
 </code></pre></div><p>然后就是对应的 <code>crud</code> 接口实现，比较简单，这里就简单举个例子，不再赘述。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MockMeController</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MockMeController</span> {
   <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/mockme&#39;</span>
 
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">queryProjectById</span>(<span style="color:#a6e22e">ctx</span>: <span style="color:#66d9ef">any</span>) {
@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>重点看看，业务怎么接入平台</p>
 <h3 id="mock-option">mock option</h3>
 <p>从开发者的角度思考，他只需要在 <code>api</code> 这个文件对需要 mock 的 api，加一个参数即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">queryList() {</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">queryList() {</span>
   <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">request</span>.<span style="color:#66d9ef">get</span>({
     <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;test/list&#39;</span>,
   }, {
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span>  })
 }
 </code></pre></div><p>要想拿到 mock 数据，必须和 mock 平台关联，也就是要拦截请求，代理到平台的地址。以 <code>axios</code> 为例，我们封装如下方法</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">confg</span>, <span style="color:#a6e22e">option</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">confg</span>, <span style="color:#a6e22e">option</span>) {
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">request</span>({ ...<span style="color:#a6e22e">conf</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;get&#39;</span>, }, <span style="color:#a6e22e">option</span>)
 }
 <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">conf</span>, <span style="color:#a6e22e">option</span>) {
@@ -259,8 +259,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>不过，这里会有跨域的问题，后面会解决这个问题</p>
 <h3 id="mock-url">mock url</h3>
 <p><code>mockUrl</code> 是 <code>mock</code> 平台提供的，前面我们说过每个业务对应一个mock项目，也就会有对应唯一的项目id，平台根据这个 id会自动生成一个地址，格式如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">https://test.com/mockme/proxy/:projectId</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">https:</span><span style="color:#75715e">//test.com/mockme/proxy/:projectId
+</span></code></pre></div><ul>
 <li>
 <p><code>test.com</code> 是平台服务器地址</p>
 </li>
@@ -272,13 +272,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>举个例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 项目一
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 项目一
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//test.com/mockme/proxy/elem
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// 项目二
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//test.com/mockme/proxy/ant-design
 </span></code></pre></div><p>请求打到平台后，平台会有对应的接口处理</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MockMeController</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MockMeController</span> {
   ...
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">proxyAPI</span>(<span style="color:#a6e22e">ctx</span>: <span style="color:#66d9ef">any</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">urlRegResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">path</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/\/mockme\/proxy(.*)/</span>)
@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Q：但是怎么识别请求是真的来自业务呢？<code>cors</code> 只能对白名单列表的 <code>url</code> 开启，</p>
 <p>A：业务连接到 mock 平台，可以带个请求头，表明身份</p>
 <p>以 <code>axios</code> 为例，只要添加一个 <code>requestInterceptor</code> 即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">axiosInstance</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>((<span style="color:#a6e22e">config</span>) <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">axiosInstance</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>((<span style="color:#a6e22e">config</span>) <span style="color:#f92672">=&gt;</span> {
     <span style="color:#75715e">// 加签校验，配置 mock 请求头
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">serverMode</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">mock</span>) {
       <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-test-mock&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mock-me&#39;</span>
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>
 }, <span style="color:#66d9ef">undefined</span>)
 </code></pre></div><p>服务端则检测请求头，进行白名单校验，以 <code>koa</code> 为例</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(
     <span style="color:#a6e22e">cors</span>({
       <span style="color:#a6e22e">origin</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">ctx</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
         <span style="color:#75715e">// cors 预检

@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -229,7 +229,7 @@ $$</p>
 x_b = -1 \begin{bmatrix}2\\ 1 \end{bmatrix} + 2 \begin{bmatrix}-1\\ 1 \end{bmatrix} = \begin{bmatrix}-4\\ 1 \end{bmatrix}
 $$</p>
 <p>As expected, they yield the same result. And the second one essentially changes the basis of $R^2$ from <code>(2,1),(-1,1)</code> to<code>(1,0),(0,1)</code>, which is the standard basis of $R^2$.</p>
-<p>Actually, this example is a special case of the change of basis, where the new basis is the standard basis. More generally, $P_{c \larr b}$ is known as **the change of coordinate matrix from the old basis $b$ to the new basis $c$, which we are going to switch to** in $R^n$.</p>
+<p>Actually, this example is a special case of the change of basis, where the new basis is the standard basis. More generally, $P_{c \larr b}$ is known as <strong>the change of coordinate matrix from the old basis $b$ to the new basis $c$, which we are going to switch to</strong> in $R^n$.</p>
 <p>Say we are in the basis $b$ and $[x]_b$ is known, the corresponding coodinates of $x$ under the new basis $c$ can be computed as follows,</p>
 <p>$$
 x_c = P_{c \larr b} x_b
@@ -424,7 +424,7 @@ $$</p>
 <li>SVD</li>
 </ul>
 <p>Eigen-decomposition follows the above steps, and we can see it from the following code,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pca</span>(X):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pca</span>(X):
     <span style="color:#75715e"># Data matrix X, assumes 0-centered</span>
     P, N <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>shape
 
@@ -439,7 +439,7 @@ $$</p>
 
     <span style="color:#66d9ef">return</span> X_pca, eigen_vals, eigen_vecs
 </code></pre></div><p>Instead, SVD decomposes $X$ directly. Besides, we don&rsquo;t need to centralize data first in SVD, though most people will do.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">svd</span>(X):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">svd</span>(X):
   N, P <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>shape
   
   <span style="color:#75715e"># In practice, we usually subtract the mean from data and then perform SVD</span>
@@ -494,14 +494,14 @@ $$</p>
 <p>where $u = Xv$. We find that $C$ and $D$ has the same eigenvalues. Thus, we can use the dual $n \times n$ matrix $D$ to find eigenvalues and eigenvectors of $C$.</p>
 <h3 id="find-k-components">Find K Components</h3>
 <p>The last question is how to decide the number of components. Instead of guessing the number of dimensions that we want to keep, we choose the right $k$ components along which the sum of the explained variance ratio is greater than a threshold. The explained variance ratio of each component indicates how much the variance explained along component. In Sklearn, it can be accessed via <code>explained_variance_ratio_</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
 
 pca <span style="color:#f92672">=</span> PCA(n_components<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
 X2D <span style="color:#f92672">=</span> pca<span style="color:#f92672">.</span>fit_transform(X)
 pca<span style="color:#f92672">.</span>explained_variance_ratio_
 
 </code></pre></div><p>The following code shows how to find $k$ components with a variance ratio of $0.95$ using Sklearn.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.decomposition <span style="color:#f92672">import</span> PCA
 
 pca <span style="color:#f92672">=</span> PCA()
 pca<span style="color:#f92672">.</span>fit(X_train)

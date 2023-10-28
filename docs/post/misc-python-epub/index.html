@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -186,9 +186,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
   <p>A simple book scraper written in Python, converting html to epub.</p>
 <h2 id="install">Install</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip install bs4 inquirer html2epub tqdm
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip install bs4 inquirer html2epub tqdm
 </code></pre></div><h2 id="usage">Usage</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://raw.githubusercontent.com/ixiaopan/DataScience/master/Utilities/Scraper/download.py
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://raw.githubusercontent.com/ixiaopan/DataScience/master/Utilities/Scraper/download.py
 
 python download.py
 </code></pre></div><p>After running the above commands, you need to select one source, as shown below.</p>
@@ -198,12 +198,12 @@ python download.py
 <p>Note that this script can only convert html to epub. In other words, only books in HTML format can be downloaded.</p>
 <h3 id="books-with-chapter-list">Books with chapter list</h3>
 <p>Books may or may not have a chapter list. For books with a chapter list, just type the URL. For example, the below one.</p>
-<pre><code>https://booksvooks.com/selfish-shallow-and-self-absorbed-sixteen-writers-on-the-decision-not-to-have-kids-pdf.html
+<pre tabindex="0"><code>https://booksvooks.com/selfish-shallow-and-self-absorbed-sixteen-writers-on-the-decision-not-to-have-kids-pdf.html
 </code></pre><h3 id="books-without-chapter-list">Books without chapter list</h3>
 <p>For books without a chapter list, you need to add the total page number to the page URL. For example, the book <code>this is going to hurt</code>  does not have a chapter list, so the url is</p>
-<pre><code>https://booksvooks.com/fullbook/this-is-going-to-hurt-pdf-adam-kay.html?page=32
+<pre tabindex="0"><code>https://booksvooks.com/fullbook/this-is-going-to-hurt-pdf-adam-kay.html?page=32
 </code></pre><p>The book will be downloaded in the folder <code>booksVooks/</code> or <code>jinjiang</code> based on your source.</p>
-<pre><code>- booksVooks
+<pre tabindex="0"><code>- booksVooks
   - thisisgoingtohurtpdfadamkaypage32.epub
 </code></pre>
 

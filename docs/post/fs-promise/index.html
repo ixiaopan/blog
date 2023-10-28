@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -214,14 +214,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <blockquote>
 <p>As a general rule, any function that uses a promise should also return a promise</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchList</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchList</span>() {
   <span style="color:#a6e22e">listAPI</span>().<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>))
 }
 <span style="color:#75715e">// trigger error: fetchList() return undefined
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fetchList</span>().<span style="color:#a6e22e">then</span>(() =&gt; {})
 </code></pre></div><h3 id="conditional-logic">Conditional Logic</h3>
 <p>Avoid this style of conditional async execution</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">authenticated</span>) { 
     <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">login</span>().<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">showMenu</span>)
     <span style="color:#66d9ef">return</span>
@@ -230,18 +230,18 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#75715e">// other things...
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>The problem is that <code>showMenu()</code> may run asynchronously or synchronously. The proper pattern is shown below,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() { 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showMenu</span>() { 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">authenticated</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">login</span>() <span style="color:#f92672">:</span> Promise.<span style="color:#a6e22e">resolve</span>()
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () { 
     <span style="color:#75715e">// other things...
 </span><span style="color:#75715e"></span>  })
 }
 </code></pre></div><h3 id="parallel-execution">Parallel execution</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userP</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;tom&#39;</span>, <span style="color:#e6db74">&#39;alice&#39;</span>, <span style="color:#e6db74">&#39;bob&#39;</span>].<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">name</span>) =&gt; <span style="color:#a6e22e">ajax</span>(<span style="color:#a6e22e">name</span>))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userP</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;tom&#39;</span>, <span style="color:#e6db74">&#39;alice&#39;</span>, <span style="color:#e6db74">&#39;bob&#39;</span>].<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">name</span>) =&gt; <span style="color:#a6e22e">ajax</span>(<span style="color:#a6e22e">name</span>))
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">userP</span>)
 </code></pre></div><p>However, <code>p</code> will be rejected if one of the <code>userP</code> fails.</p>
 <p>If we want to get all the settled promises regardless of whether they succeeded or failed, we can use <code>Promise.allSettled()</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">allSettled</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">pList</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">allSettled</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">pList</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">allP</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pList</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">p</span>) =&gt; {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(
       (<span style="color:#a6e22e">value</span>) =&gt; {
@@ -257,13 +257,13 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="sequential-execution">Sequential execution</h3>
 <h4 id="using-a-loop">Using a loop</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">val</span>) =&gt; {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">asyncFunc</span>(<span style="color:#a6e22e">val</span>))
   }, Promise.<span style="color:#a6e22e">resolve</span>())
 }
 </code></pre></div><h4 id="using-recursion">Using recursion</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sequence</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">asyncFunc</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">idx</span>) =&gt; {
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">idx</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>) <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>()
     
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>the recursive method doesn&rsquo;t need a predefined number of steps based on the elements in an array. This pattern is widely used in Nodejs.</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">file</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">file</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reader</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">getReader</span>()
   
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chunks</span> <span style="color:#f92672">=</span> []
@@ -301,9 +301,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
 </code></pre></div><h3 id="race">Race</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">race</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>])
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">Promise.<span style="color:#a6e22e">race</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>])
 </code></pre></div><p>A common case is the competition between timer and request.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInfo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ajax</span>()
 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFromCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>) =&gt; {
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>throw an error(explicitly/implicitly) in any of the callbacks the promise invokes (i.e., any callback passed to the Promise constructor, then, or catch.)</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
   <span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Explicit rejection&#39;</span>))
 })
 
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </blockquote>
 <p>就是说，要在 promise 内抛出错误，这样可以在 <code>catch</code> 中捕获，避免在调用 <code>promise</code> 的地方，使用 <code>try/catch</code></p>
 <p>Avoid this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">image</span>; 
   <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>;  <span style="color:#75715e">// Error: image is undefined 
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) { 
@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span>  }
 }
 </code></pre></div><p>Recommend this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">badFunc</span>(<span style="color:#a6e22e">url</span>) { 
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) { 
     <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">image</span>; 
     <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>;  <span style="color:#75715e">// Error: image is undefined 
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The catch function returns a new promise similar to then, but the promise that catch returns is only rejected if the callback throws an error.</p>
 </blockquote>
 <p>换句话说，如果希望继续在 <code>promise chain</code> 中传递错误，你必须明确在 <code>catch</code> 中抛出错误才行，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">catchMe</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">catchMe</span>() {
   <span style="color:#a6e22e">queryUser</span>()
   .<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">queryInfo</span>())
   .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">err</span>) =&gt; {
@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h2 id="combine-generator">Combine generator</h2>
 <p>主要是结合 <code>generator</code> 可以实现 <code>async</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadImage</span>() {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadImage</span>() {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">imageData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchImage</span>()
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">imageData</span>)
 }

@@ -14,19 +14,33 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>D - 基建 迭代管理&amp;发布平台 02</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-20/</link>
+			<pubDate>Thu, 26 Oct 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-20/</guid>
+			<description></description>
+		</item>
+      	
+		<item>
+			<title>数据压缩 101</title>
+			<link>https://ixiaopan.github.io/blog/post/misc-data-compress/</link>
+			<pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/misc-data-compress/</guid>
+			<description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;哈夫曼编码&lt;/li&gt;
+&lt;li&gt;算术编码&lt;/li&gt;
+&lt;li&gt;LZ编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
+		</item>
+      	
+		<item>
 			<title>D - 基建 迭代管理&amp;发布平台 01</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-19/</link>
 			<pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-19/</guid>
 			<description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>D - 基建 迭代管理&amp;发布平台 02</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-20/</link>
-			<pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-20/</guid>
-			<description>这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。</description>
 		</item>
       	
 		<item>
@@ -70,7 +84,7 @@
 		</item>
       	
 		<item>
-			<title>D - Permission</title>
+			<title>[Draft] D - Permission</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-09/</link>
 			<pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-09/</guid>
@@ -83,14 +97,6 @@
 			<pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-06/</guid>
 			<description>&lt;p&gt;In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the &lt;code&gt;UI&lt;/code&gt; part. For the edit operation, we will talk it later.&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>D - Things about frames</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-05/</link>
-			<pubDate>Thu, 22 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-05/</guid>
-			<description>&lt;p&gt;Speaking of images and videos, we often use &lt;code&gt;img/video&lt;/code&gt; to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>

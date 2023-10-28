@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="数据">数据</h3>
 <h4 id="项目">项目</h4>
 <p>项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 <code>url</code> 这2个重要信息</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目ID
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目名
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目描述
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>基于此可以确定一个开关的数据结构</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ISwitch</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ISwitch</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 唯一id
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 名称
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">disbaled</span>: <span style="color:#66d9ef">boolean</span> <span style="color:#75715e">// 是否被禁用
@@ -244,14 +244,14 @@ document.addEventListener("DOMContentLoaded", function() {
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>举几个例子，</p>
 <p>1、<code>boolean</code> 开关</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;approved&#34;</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;允许访问&#34;</span>,
   <span style="color:#e6db74">&#34;control&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;boolean&#34;</span>,
   <span style="color:#e6db74">&#34;content&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;false&#34;</span>
 }
 </code></pre></div><p>2、<code>string</code> 开关</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;videoList&#34;</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;视频列表&#34;</span>,
   <span style="color:#e6db74">&#34;control&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;string&#34;</span>,
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="保存">保存</h3>
 <p>可以前端组装好数据，在前端上传到 <code>oss</code>，也可以后端组装/上传。具体上传就是调用 <code>OSS API</code>，下面的代码使用的是后端流式上传</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">putStream</span>(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">putStream</span>(
   <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">DIR_ON_OSS</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.json`</span>,
   <span style="color:#a6e22e">stringToStream</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">config</span> }))
 )

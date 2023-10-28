@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -366,9 +366,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h2 id="feature-detection">Feature Detection</h2>
 <p><code>canPlayType(mediaType)</code> tells us how likely it is that the media can be played. We can dynamically detect whether the browser supports the audio element.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hasMedia</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span>(document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;audio&#34;</span>).<span style="color:#a6e22e">canPlayType</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hasMedia</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span>(document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;audio&#34;</span>).<span style="color:#a6e22e">canPlayType</span>;
 </code></pre></div><p>If not, a simple way to degrade is to insert fallback content into the audio/video tags, as the code snippet below shows.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">audio</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myAudio&#34;</span> <span style="color:#a6e22e">controls</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">audio</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myAudio&#34;</span> <span style="color:#a6e22e">controls</span>&gt;
     &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;song.ogg&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;audio/ogg&#34;</span>&gt;
     &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;song.mp3&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;audio/mpeg&#34;</span>&gt;
     Audio player not available.

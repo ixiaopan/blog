@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   </head>
   <body>
     
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
 </ul>
 <p>2、引用方式不同</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
 &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/images/xxx.png&#34;</span> /&gt;
 
 <span style="color:#75715e">&lt;!-- // assets--&gt;</span>
@@ -214,9 +214,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>业务中，尝尝会有很多图片不需要频繁变更，这种就适合放在 cdn长期存储，刚开始我没有配置到 cdn，偷懒就放在了 public 下，随着业务迭代，越来越多图片放在这里，这就给服务器带来不小的压力，所以我开始切到 cdn</p>
 <h2 id="what-i-want">What I want</h2>
 <p>但是我希望是这样的使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./empty.png&#34;</span> /&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./empty.png&#34;</span> /&gt;
 </code></pre></div><p>而不是这样的使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/empty.png&#34;</span> /&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/empty.png&#34;</span> /&gt;
 </code></pre></div><p>换句话说，HTML 不要充斥着 <code>https://xxxx</code>，对越开发者来说，只需要关心图片叫什么名字就好了。</p>
 <h2 id="尝试">尝试</h2>
 <h3 id="vite-base">vite base</h3>
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>在 <code>html</code> 中直接用 <code>http</code> 绝对路径引入</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/images/xxx.png&#34;</span> /&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx-oss/static/images/xxx.png&#34;</span> /&gt;
 </code></pre></div><p>这样 <code>public</code> 只有 <code>favicon/robots.txt</code> ，但是也有问题</p>
 <ul>
 <li>
@@ -259,13 +259,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h3 id="html-写相对路径">HTML 写相对路径</h3>
 <p>我希望的是 <code>html</code> 只需要写相对路径，在构建的时候，可以自动转换。当然不是通过 <code>baseUrl</code>，因为图片的 <code>url</code> 是单独的资源服务器，和 <code>baseUrl</code> 是不一样的</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
 &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./xxx.png&#34;</span> /&gt;
 </code></pre></div><p>所以，这两天花了点时间研究一下 <code>vite</code>，看看是不是可以通过配置解决，最后验证确实可以。</p>
 <h2 id="how">How</h2>
 <h3 id="html">HTML</h3>
 <p><code>vite</code> 为了解析 <code>sfc</code> ，引入了 <code>vitejs/vite-plugin-vue</code>，其内部引入了 <code>compiler-sfc</code>，这个包有一个文件叫 <a href="https://github.com/vuejs/core/blob/main/packages/compiler-sfc/src/templateTransformAssetUrl.ts">templateTransformAssetUrl.ts</a>，顾名思义就是转换 <code>html</code> 里遇到的 <code>url</code>，这里有一段这样的代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">base</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">attr</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">content</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;.&#39;</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">base</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">attr</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">content</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;.&#39;</span>) {
   <span style="color:#75715e">// explicit base - directly rewrite relative urls into absolute url
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// to avoid generating extra imports
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Allow for full hostnames provided in options.base
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#66d9ef">return</span>
 }
 </code></pre></div><p>所以我们只要在 <code>vite</code> 中配置 <code>base</code> 以及在 <code>html</code> 中用 <code>.</code> 开头即可，源码 <a href="https://github.com/vitejs/vite-plugin-vue/blob/eef8929c95d8b5cce1385a1d5e60da56a8420c0b/packages/plugin-vue/src/template.ts#L137">vite-plugin-vue/src/template#L137</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
   <span style="color:#a6e22e">vue</span>({
     <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> {
       <span style="color:#a6e22e">transformAssetUrls</span><span style="color:#f92672">:</span> {
@@ -299,10 +299,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }),
 ]
 </code></pre></div><p>改写后的 <code>html</code>，现在我们可以安全的删除 <code>public/images/xxx.png</code> 了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- // public --&gt;</span>
 &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./images/xxx.png&#34;</span> /&gt;
 </code></pre></div><p>上面的代码还支持可以配置自己的标签、属性用来加载图片，比如业务中封装了 <code>Empty.vue</code> ，希望 <code>vue</code> 能自动识别 <code>src</code> 的值为 <code>asset</code>，可以配置如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
   <span style="color:#a6e22e">vue</span>({
     <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> {
       <span style="color:#a6e22e">transformAssetUrls</span><span style="color:#f92672">:</span> {
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ]
 </code></pre></div><h3 id="less">Less</h3>
 <p>如果是在 <code>css</code> 中使用了 <code>public/images/xxx.png</code>，又该怎么处理？？同样，我们在源码 <a href="https://github.com/vuejs/core/blob/main/packages/compiler-sfc/src/stylePreprocessors.ts#L122">compiler-sfc/src/stylePreprocessors</a> 找到了如下的代码，其实就是利用了 <code>additionalData</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getSource</span>(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getSource</span>(
   <span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>,
   <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>,
   <span style="color:#a6e22e">additionalData</span><span style="color:#f92672">?:</span> <span style="color:#a6e22e">string</span> <span style="color:#f92672">|</span> ((<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; <span style="color:#a6e22e">string</span>)
@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">additionalData</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">source</span>
 }
 </code></pre></div><p>那么，<code>vite</code> 里就可以配置如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
   <span style="color:#a6e22e">preprocessorOptions</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">less</span><span style="color:#f92672">:</span> {
       <span style="color:#a6e22e">additionalData</span>(<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 </code></pre></div><h3 id="dynamic">Dynamic</h3>
 <p>以上都是静态引入的情况，还有一种情况是动态的，比如 <code>src</code> 是从父组件传进来的，这就无法解析，那这种情况，我们写一个插件就好了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">slash</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; (<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">endsWith</span>(<span style="color:#e6db74">&#39;/&#39;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/&#39;</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unSlash</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; (<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#39;/&#39;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">s</span>)
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function() {
   },
 }
 </code></pre></div><p>在任何需要动态引入的地方</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">DemoCom</span> <span style="color:#a6e22e">:src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$replaceStatic(&#39;xxx.png&#39;)&#34;</span> /&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">DemoCom</span> <span style="color:#a6e22e">:src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$replaceStatic(&#39;xxx.png&#39;)&#34;</span> /&gt;
 </code></pre></div><h2 id="summary">Summary</h2>
 <p>综上，整个配置的目的就是，如果一张图片是不怎么变的，比如空占位符/兜底图，首先</p>
 <p>1、上传图片到 <code>cdn</code></p>
