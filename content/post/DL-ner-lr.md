@@ -4,7 +4,7 @@ date: "2021-11-17"
 description: ""
 # tags: []
 categories: [
-    "NLP",
+    "Deep Learning",
 ]
 series: ["Machine Learning"]
 katex: true

@@ -8,5 +8,4 @@ categories: [
 ]
 series: ["Frontend"]
 katex: true
-draft: true
 ---

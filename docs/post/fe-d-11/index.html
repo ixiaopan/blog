@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>D - Image Editor</title>
+
+
+
+  
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203640627-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-203640627-1');
+  </script>
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://ixiaopan.github.io/blog/index.xml"
+  title=""
+/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="D - Image Editor"/>
+<meta name="twitter:description" content="业务中有不少对图片、视频甚至是PSD二次加工的需求，因此前端就需要提供对应的编辑器。从复杂程度来看，图片编辑器是最简单最容易实现的，涉及的常用功能主要是
+
+
+显示（短边？长边）
+
+
+放大缩小、滚动拖拽
+
+
+平移旋转缩放
+
+"/>
+
+
+
+
+<link rel="stylesheet" href="https://ixiaopan.github.io/blog/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/blog/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+  <link rel="stylesheet" href="https://ixiaopan.github.io/blog/css/main.css" />
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/blog/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+
+
+<script defer crossorigin="anonymous" src="/blog/js/theme.js" integrity=""></script>
+
+<script src="https://ixiaopan.github.io/blog/js/instantpage.min.js" type="module" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+ 
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://ixiaopan.github.io/blog/" class="nav-logo">
+        <img
+          src="https://ixiaopan.github.io/blog/images/me.JPG"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/blog/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/about" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/blog/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <div class="intro-header">
+    <h1 class="post-heading">
+      D - Image Editor
+    </h1>
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Oct 30, 2023
+  
+  &nbsp;&nbsp;<i class="fas fa-clock"></i>&nbsp;5 min read
+
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://ixiaopan.github.io/blog/categories/frontend/"
+        >Frontend</a
+      >&nbsp;
+    
+  
+</span>
+
+  </div>
+  
+</header>
+
+    
+  <div class="container" role="main">
+    <div class="inner">
+      <article class="article" class="blog-post">
+        
+  <p>业务中有不少对图片、视频甚至是PSD二次加工的需求，因此前端就需要提供对应的编辑器。从复杂程度来看，图片编辑器是最简单最容易实现的，涉及的常用功能主要是</p>
+<ul>
+<li>
+<p>显示（短边？长边）</p>
+</li>
+<li>
+<p>放大缩小、滚动拖拽</p>
+</li>
+<li>
+<p>平移旋转缩放</p>
+</li>
+</ul>
+<h2 id="图片显示">图片显示</h2>
+<p>先看静态显示(不存在任何交互)，给定一个容器，显示一张图片，业务中会有几种情况</p>
+<ul>
+<li>
+<p>短边居中对齐，即要求图片保持缩放比同时最大程度包含在容器之内，也就是 css contain 效果</p>
+</li>
+<li>
+<p>长边居中对齐，即要求图片保持缩放比同时最小程度超过在容器，也就是 css cover 效果</p>
+</li>
+<li>
+<p>宽度撑满（保持宽高比）</p>
+</li>
+<li>
+<p>高度撑满（保持宽高比）</p>
+</li>
+</ul>
+<p>PS：当然还有其他布局方式比如左上对齐、右下对齐等，不过不在业务中使用，就不在讨论范围内</p>
+<p>主要有3种实现方式</p>
+<h3 id="background">background</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cover&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">cover</span> {
+  <span style="color:#66d9ef">background-size</span>: <span style="color:#66d9ef">cover</span>; <span style="color:#75715e">/* 长边 */</span>
+  <span style="color:#66d9ef">background-size</span>: <span style="color:#66d9ef">contain</span>; <span style="color:#75715e">/* 短边 */</span>
+  <span style="color:#66d9ef">background-size</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span> <span style="color:#66d9ef">auto</span>; <span style="color:#75715e">/* 宽度对齐 */</span>
+  <span style="color:#66d9ef">background-size</span>: <span style="color:#66d9ef">auto</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>; <span style="color:#75715e">/* 高度对齐 */</span>
+}
+</code></pre></div><ul>
+<li>
+<p>简单高效，自动支持 <code>resize</code></p>
+</li>
+<li>
+<p>支持短边、长边、宽度、高度撑满</p>
+</li>
+</ul>
+<h3 id="object-fit">object-fit</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://xxx.png&#34;</span> /&gt;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">img</span> {
+  <span style="color:#66d9ef">object-fit</span>: <span style="color:#66d9ef">cover</span>; <span style="color:#75715e">/* 长边 */</span>
+  <span style="color:#66d9ef">object-fit</span>: <span style="color:#66d9ef">contain</span>; <span style="color:#75715e">/* 短边 */</span>
+}
+</code></pre></div><ul>
+<li>
+<p>简单高效，自动支持 <code>resize</code></p>
+</li>
+<li>
+<p>只支持短边、长边；无法满足宽度、高度撑满</p>
+</li>
+</ul>
+<p>当然 <code>object-fit</code> 还有其他取值，可以参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit">object-fit MDN</a></p>
+<h3 id="js">js</h3>
+<ul>
+<li>
+<p>满足所有需求、灵活度高</p>
+</li>
+<li>
+<p>但是需要适配 <code>resize</code>，考虑性能问题</p>
+</li>
+</ul>
+<p>首先定义4种剪裁方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">CLIP_MODE</span> {
+  <span style="color:#a6e22e">COVER</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e">// 长边 
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">CONTAIN</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#75715e">// 短边
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">WIDTH</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, <span style="color:#75715e">// 宽度撑满
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">HEIGHT</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, <span style="color:#75715e">// 高度撑满
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>对于长/短边，我们需要计算两个比例</p>
+<ul>
+<li>
+<p>容器的宽高比 <code>containerRatio = containerW / containerH</code></p>
+</li>
+<li>
+<p>图片的宽高比 <code>imageRatio = naturalWidth / naturalHeight</code></p>
+</li>
+</ul>
+<p>通过比较这两个比例，计算图片缩放后的尺寸和位置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ratioX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">containerW</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">naturalWidth</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ratioY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">containerH</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">naturalHeight</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">widthBase</span> <span style="color:#f92672">=</span>
+      <span style="color:#a6e22e">mode</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">CLIP_MODE</span>.<span style="color:#a6e22e">COVER</span>
+        <span style="color:#f92672">?</span> <span style="color:#a6e22e">ratioX</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ratioY</span>
+        <span style="color:#f92672">:</span> (<span style="color:#a6e22e">mode</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">CLIP_MODE</span>.<span style="color:#a6e22e">CONTAIN</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">ratioX</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">ratioY</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">mode</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">CLIP_MODE</span>.<span style="color:#a6e22e">WIDTH</span>)
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">imgWidth</span>, <span style="color:#a6e22e">imgHeight</span>
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">widthBase</span>) {
+  <span style="color:#a6e22e">imgWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">containerW</span>
+  <span style="color:#a6e22e">imgHeight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ratioX</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">naturalHeight</span> 
+} <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">imgHeight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">containerH</span>
+  <span style="color:#a6e22e">imgWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ratioY</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">naturalWidth</span>
+}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">containerW</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">imgWidth</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">top</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">containerH</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">imgHeight</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+
+<span style="color:#a6e22e">setCSS</span>(<span style="color:#a6e22e">img</span>, {
+  <span style="color:#a6e22e">left</span>, 
+  <span style="color:#a6e22e">top</span>,
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">imgWidth</span>,
+  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">imgHeight</span>,
+})
+</code></pre></div><p>从这段代码也能看出</p>
+<ul>
+<li>
+<p>短边的效果，一般是图片在容器内上下或者左右存在边距（也会有刚好的情况，容器和图片一样大）</p>
+</li>
+<li>
+<p>长边则会溢出，被剪裁（left/top 是负值）</p>
+</li>
+</ul>
+<h2 id="放大缩小自定义滚动条">放大缩小+自定义滚动条</h2>
+<p>上文偏向静态显示，如果是 <code>cover</code> 效果，用户是无法查看被剪裁的地方的。有些时候，我们希望用户也能通过鼠标拖动、滚动等查看被剪裁的地方，这个就像是电脑上查看图片这个app的功能。</p>
+<p>如果是这种情况，只能用 <code>js</code> 来实现，具体来说我们还需要实现如下功能</p>
+<ul>
+<li>
+<p>图片的平移</p>
+</li>
+<li>
+<p>鼠标滚动监听</p>
+</li>
+<li>
+<p>鼠标拖拽监听</p>
+</li>
+<li>
+<p>自定义滚动条、滚动条拖拽</p>
+</li>
+</ul>
+<h2 id="平移旋转缩放">平移旋转缩放</h2>
+<h2 id="架构设计">架构设计</h2>
+<p>前面讨论的话题偏向某个具体的功能，现在我们从编辑器整体的角度来考虑，怎么整合上面的这些功能并能提供友好的API给业务方使用？</p>
+<p>我设计一个类库，都会问自己一个问题</p>
+<blockquote>
+<p>如果我是业务方，我要怎么方便的使用这个库？我肯定是希望一看到接口名，我就知道干啥的，下意识就知道传入那些参数，预期结果是什么</p>
+</blockquote>
+<p>从这个目的出发设计的框架，我想是至少 API是不会不友好的，此外我还会考虑另外2点</p>
+<ul>
+<li>
+<p>扩展性好，比如这个图片编辑器，不仅支持图片、还支持视频、支持自定义对象等。</p>
+<ul>
+<li>但是我们不应该为了扩展而扩展，而是在开发之前要尽量能想到扩展性，如无必要，可以不扩展同时写好文档解释原因，或者给出另外的方法让用户自己实现</li>
+</ul>
+</li>
+<li>
+<p>代码实现简洁且文档详实，这样方便业务方快速明白内部原理，实现自己的修改或扩展</p>
+</li>
+</ul>
+
+
+
+        
+      </article>
+
+      
+      <aside class="article-aside">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#图片显示">图片显示</a>
+      <ul>
+        <li><a href="#background">background</a></li>
+        <li><a href="#object-fit">object-fit</a></li>
+        <li><a href="#js">js</a></li>
+      </ul>
+    </li>
+    <li><a href="#放大缩小自定义滚动条">放大缩小+自定义滚动条</a></li>
+    <li><a href="#平移旋转缩放">平移旋转缩放</a></li>
+    <li><a href="#架构设计">架构设计</a></li>
+  </ul>
+</nav>
+      
+      </aside>
+    </div>
+    
+    
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="mailto:?to=xiaopan.wpp@outlook.com" name="Email">
+        <em class="fas fa-envelope"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/ixiaopan" name="GitHub">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/ixiaopan" name="Linkedin">
+        <em class="fab fa-linkedin"></em>
+      </a>
+    
+       &nbsp;&nbsp;&nbsp;
+      <a href="https://space.bilibili.com/22910840" name="Bilibili">
+        <em class="fab fa-youtube"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://ixiaopan.github.io/blog/about">ixiaopan</a>
+      &nbsp;&copy;
+      2023
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

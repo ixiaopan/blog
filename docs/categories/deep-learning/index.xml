@@ -14,6 +14,25 @@
 		<atom:link href="/blog/categories/deep-learning/" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>D - Image Editor</title>
+			<link>https://ixiaopan.github.io/blog/post/fe-d-11/</link>
+			<pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
+			<guid>https://ixiaopan.github.io/blog/post/fe-d-11/</guid>
+			<description>&lt;p&gt;业务中有不少对图片、视频甚至是PSD二次加工的需求，因此前端就需要提供对应的编辑器。从复杂程度来看，图片编辑器是最简单最容易实现的，涉及的常用功能主要是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;显示（短边？长边）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;放大缩小、滚动拖拽&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;平移旋转缩放&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+		</item>
+      	
+		<item>
 			<title>D - 基建 迭代管理&amp;发布平台 02</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-20/</link>
 			<pubDate>Thu, 26 Oct 2023 00:00:00 +0000</pubDate>
@@ -89,14 +108,6 @@
 			<pubDate>Sun, 30 Jul 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-09/</guid>
 			<description></description>
-		</item>
-      	
-		<item>
-			<title>D - The track panel of a video editor</title>
-			<link>https://ixiaopan.github.io/blog/post/fe-d-06/</link>
-			<pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
-			<guid>https://ixiaopan.github.io/blog/post/fe-d-06/</guid>
-			<description>&lt;p&gt;In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the &lt;code&gt;UI&lt;/code&gt; part. For the edit operation, we will talk it later.&lt;/p&gt;</description>
 		</item>
       	
 	</channel>
