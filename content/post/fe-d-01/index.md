@@ -26,13 +26,9 @@ katex: true
 - [ ] Permission
 - [ ] Axios
 - [ ] Upload 1000 large files
-- [ ] Multi-lang & Multi-theme support
-- Vue
-  - [ ] Router
-  - [ ] Store
-  - [ ] Nuxt
+- [ ] Multi-lang & Multi-channel support
 - Editor
-  - [ ] Image editor
+  - [x] Image editor
   - [ ] PSD editor
   - [ ] Non-Linear Video Editor
 - Frontend Infrastructure 
@@ -41,7 +37,4 @@ katex: true
   - [x] 埋点管理平台
   - [x] API Mock
   - [x] 开关配置平台
-- Node/Mongo
-  - [ ] Node Pattern
-  - [ ] Database from scratch
 - [ ] Automated UI Testing

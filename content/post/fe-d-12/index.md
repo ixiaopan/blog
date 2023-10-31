@@ -1,5 +1,5 @@
 ---
-title: "D - PSD Editor"
+title: "[Draft] D - PSD Editor"
 date: "2023-06-26"
 description: ""
 # tags: []
@@ -8,5 +8,4 @@ categories: [
 ]
 series: ["Frontend"]
 katex: true
-draft: true
 ---

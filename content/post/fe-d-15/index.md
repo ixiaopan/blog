@@ -45,7 +45,7 @@ katex: true
 
 - 接口管理（新建、编辑、删除）
 
-- Mock（GET/POST, timeout, postman)
+- Mock（GET/POST, timeout, postman）
 
 
 ## 埋点管理平台
@@ -109,8 +109,3 @@ katex: true
 - 支持配置字符串、布尔值类型
 
 - 支持开关的禁用、删除
-
-
-## Lego 可视化搭建
-
-实现一个可视化搭建类似营销活动的平台，开发中

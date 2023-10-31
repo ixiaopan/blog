@@ -22,16 +22,16 @@
 &lt;p&gt;显示（短边？长边）&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;放大缩小、滚动拖拽&lt;/p&gt;
+&lt;p&gt;限制平移缩放&amp;amp;自定义滚动条&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;平移旋转缩放&lt;/p&gt;
+&lt;p&gt;无限制平移、旋转、缩放&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description>
 		</item>
       	
 		<item>
-			<title>D - 基建 迭代管理&amp;发布平台 02</title>
+			<title>[Draft] D - 基建 迭代管理&amp;发布平台 02</title>
 			<link>https://ixiaopan.github.io/blog/post/fe-d-20/</link>
 			<pubDate>Thu, 26 Oct 2023 00:00:00 +0000</pubDate>
 			<guid>https://ixiaopan.github.io/blog/post/fe-d-20/</guid>
