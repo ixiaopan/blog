@@ -6,7 +6,25 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 26 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D - 性能监控SDK</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-monitor/</link>
+      <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-monitor/</guid>
+      <description>Background 一开始也没想要做监控，当时其实是接入了阿里的 arms，但是接入一段时间后，觉得用起来不舒服，不知道是不是使用姿势不对，而且还收费，因此才有</description>
+    </item>
+    
+    <item>
+      <title>Axios</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/axios/</link>
+      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
+      <description>MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资</description>
+    </item>
+    
     <item>
       <title>D - 基建 迭代管理&amp;发布平台 01</title>
       <link>https://ixiaopan.github.io/blog/post/fe/d-infras-basement-1/</link>
@@ -77,24 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/d-video-player/</guid>
       <description>&lt;p&gt;业务最开始实现的视频播放功能用的是 &lt;code&gt;xgplayer&lt;/code&gt; 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;，为此，我们需要基于 &lt;code&gt;video api&lt;/code&gt; 实现自己的播放器。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>D - Build your own UI component library from scratch</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/d-ui/</link>
-      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/d-ui/</guid>
-      <description>&lt;p&gt;In this post, we will learn how to build your own UI component library.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>D - Frontend Project Structure</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/d-project-struct/</link>
-      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/d-project-struct/</guid>
-      <description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
     </item>
     
   </channel>

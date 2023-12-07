@@ -10,27 +10,48 @@
   
   <url>
     <loc>https://ixiaopan.github.io/blog/categories/</loc>
-    <lastmod>2023-10-25T00:00:00+00:00</lastmod>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/categories/misc/</loc>
-    <lastmod>2023-10-25T00:00:00+00:00</lastmod>
+    <loc>https://ixiaopan.github.io/blog/post/fe/d-monitor/</loc>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/categories/frontend/</loc>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/post/</loc>
-    <lastmod>2023-10-25T00:00:00+00:00</lastmod>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/</loc>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/post/fe/axios/</loc>
+    <lastmod>2023-11-10T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/categories/misc/</loc>
     <lastmod>2023-10-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -45,13 +66,6 @@
   
   <url>
     <loc>https://ixiaopan.github.io/blog/post/fe/d-infras-basement-1/</loc>
-    <lastmod>2023-08-26T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixiaopan.github.io/blog/categories/frontend/</loc>
     <lastmod>2023-08-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
