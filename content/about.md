@@ -1,7 +1,13 @@
 ---
-title: ''
-button: 'About us'
-weight: 2
+title: "About"
+date: 2017-08-20T21:38:52+08:00
+menu: "main"
+weight: 50
+
+# you can close something for this content if you open it in config.toml.
+comment: false
+mathjax: false
+toc: false
 ---
 
 ## PROFILE
@@ -9,15 +15,29 @@ weight: 2
 MSc Data Science graduate with 7 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
 
 
+## PROFESSIONAL SKILLS
+
+- Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively
+- Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
+- Strong understanding of Machine Learning and Deep Learning 
+- Excellent hands-on experience with Python, Scikit-Learn, and PyTorch
+- Rich experience in the agile software development workflow with Git and CI/CD
+- Good at data visualization and UI design
 
 <style>
+.post-header {
+  display: none;
+}
+.post-content {
+  margin-top: -3em;
+}
 .timeline p {
   margin: 0;
 }
 .timeline .time {
-  margin-right: 28px;
+  margin-right: 20px;
   color: rgba(0,0,0,0.6);
-  min-width: 133px;
+  flex: 0 0 160px;
 }
 .timeline {
   display: flex;
@@ -30,23 +50,7 @@ MSc Data Science graduate with 7 years of work experience in frontend developmen
 li {
   margin-left: -20px
 }
-
-
 </style>
-
-
-
-## PROFESSIONAL SKILLS
-
-- Strong understanding of Machine Learning and Deep Learning 
-- Excellent hands-on experience with Python, Scikit-Learn, and PyTorch
-- Proficient in JavaScript, Vue/React, CSS3; able to build a web application from frontend to backend independently and effectively
-- Extensive practical frontend experience across PC, mobile web, hybrid app and mini-program
-- Solid hands-on experience in no-linear editing for video
-- Rich experience in the agile software development workflow with Git and CI/CD
-- Good at data visualization and UI design
-
-
 
 ## EMPLOYMENT HISTORY
 
@@ -65,7 +69,6 @@ li {
 </div>
 </section>
 
-
 ## EDUCATION
 
 <section >
@@ -78,3 +81,5 @@ li {
   <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </p>
 </div>
 </section>
+
+
