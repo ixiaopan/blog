@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          Deep Learning - Preliminary - xiaopan&#39;s blog
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="xiaopan" />
+  <meta name="description" content="So far, we&amp;rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.
+" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+
+
+<link rel="canonical" href="https://ixiaopan.github.io/blog/post/dl/pre/" />
+
+
+
+
+
+<link rel="icon" href="/blog/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="Deep Learning - Preliminary" />
+<meta property="og:description" content="So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ixiaopan.github.io/blog/post/dl/pre/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-09T00:00:00+00:00" />
+
+<meta itemprop="name" content="Deep Learning - Preliminary">
+<meta itemprop="description" content="So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge."><meta itemprop="datePublished" content="2021-09-09T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-09T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3436">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deep Learning - Preliminary"/>
+<meta name="twitter:description" content="So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/blog/" class="logo">Pan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/blog/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    
+
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/blog/" class="logo">
+    
+      Pan
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">Deep Learning - Preliminary</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2021-09-09">
+      2021-09-09
+    </time>
+  </div>
+
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/deep-learning/"> Deep Learning </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>So far, we&rsquo;ve covered most of the things that we should know about machine learning, including concepts, optimization, and popular models under the hood. Yet, some advanced techniques, such as the Gaussian Process and MCMC, are not mentioned. We will talk about them later. From now on, we will move to Deep Learning. But before that, we are going to revisit some math knowledge.</p>
+<h2 id="linear-algebra">Linear Algebra</h2>
+<h3 id="tensor">Tensor</h3>
+<p>We introduced tensors in the previous article. A tensor is a n-dimensional array of numbers.</p>
+<ul>
+<li>If $n=0$, it&rsquo;s a scalar &lt;=&gt; a number mathmatically</li>
+<li>If $n =1$, it&rsquo;s a vector &lt;=&gt; a list of numbers</li>
+<li>If $n=2$, it&rsquo;s a matrix &lt;=&gt; a 2-dimensional array with two axises</li>
+<li>If $n&gt;2$, it&rsquo;s a tensor &lt;=&gt; an array with more than two axises</li>
+</ul>
+<p>In linear algebra, we can add vectors, multiply a vector by a scalar, or do both of them.</p>
+<h4 id="vector-addition">Vector Addition</h4>
+<p>$$
+\bold v=\begin{bmatrix}v_1\\ v_2\end{bmatrix}
+\bold w=\begin{bmatrix}w_1\\ w_2\end{bmatrix}
+\bold v+\bold w=\begin{bmatrix}v_1+w_1\\ v_2+w_2\end{bmatrix}
+$$</p>
+<h4 id="scalar-multiplication">Scalar multiplication</h4>
+<p>$$
+a \bold v=\begin{bmatrix}av_1\\ av_2\end{bmatrix}
+$$</p>
+<h4 id="linear-combination">Linear Combination</h4>
+<p>$$
+c\bold v + d\bold w
+$$</p>
+<h4 id="unit-vector">Unit Vector</h4>
+<p>Vectors have both directions and length. The length is defined as follows,</p>
+<p>$$
+|| \bold v|| = \sqrt{\bold v^T\bold v}
+$$
+The vector whose length equals one is known as the unit vector,</p>
+<p>$$
+\bold v^T \bold v = 1
+$$</p>
+<p>Here are some unit vectors,</p>
+<p>$$
+\bold i=\begin{bmatrix}1\\ 0\end{bmatrix}
+\bold j=\begin{bmatrix}0\\ 1\end{bmatrix}
+\bold u=\begin{bmatrix}cos\theta\\ sin\theta\end{bmatrix}
+$$</p>
+<p>A vector can be transformed into a unit vector by dividing it by its length, as shown below.</p>
+<p>$$
+\bold u = \frac{\bold v}{ || \bold v ||}
+$$</p>
+<h4 id="dot-product">Dot product</h4>
+<p>$$
+&lt;v, w&gt; = v \cdot w = v^Tw =  v_1 * w_1 + v_2 * w_2 + &hellip; + v_n * w_n
+$$</p>
+<ul>
+<li>The order of $v$ and $w$ makes no difference.</li>
+<li>$v \cdot w$  is zero when $v$ and $w$ are prependicular.</li>
+</ul>
+<p>For any real matrix 𝐴 and any vectors 𝐱 and 𝐲 , we have</p>
+<p>$$
+⟨𝐴𝐱,𝐲⟩=⟨𝐱,𝐴^T𝐲⟩
+$$</p>
+<h3 id="ax--b">Ax = b</h3>
+<p>Mathematically, machine learning is all about $\bold A \bold x= \bold  b$, where $A, b$ are known, and $x$ is unknown. We can interpret $Ax=b$ from two aspects</p>
+<ul>
+<li>$\bold A \bold x$ is a linear combination of the columns of A ( column picture )
+<ul>
+<li>The system has solution only if the target $b$ lies in the column space of $A$</li>
+</ul>
+</li>
+<li>$\bold A \bold x$ is dot products ( row picture )
+<ul>
+<li>$m$ equations</li>
+</ul>
+</li>
+</ul>
+<h4 id="rank">Rank</h4>
+<p>To solve $x$ or to solve $m$ equations, we need $m$ pivots ($\bold A$ is an $m \times n$ matrix). Pivots are the diagnoal elements of $\bold A$. To find the pivots, we transform $A$ to an upper triangle matrix. Besides, we define the number of pivots of $A$ as the rank. In fact, rank contains the following meanings:</p>
+<ul>
+<li>the number of pivots</li>
+<li>$r$ independent rows or columns</li>
+<li>$r$ is the dimension of the column space or row space</li>
+</ul>
+<p>However, it is not always lucky to obtain $m$ non-zero pivots. The possible solution could be either of the following cases</p>
+<ul>
+<li>no solution</li>
+</ul>
+<p>$$
+x - 2y = 1 \\ 0y = 8
+$$</p>
+<ul>
+<li>infinitely many solutions</li>
+</ul>
+<p>$$
+x - 2y = 1 \\ 0y = 0
+$$</p>
+<ul>
+<li>exactly one solution</li>
+</ul>
+<p>$$
+3x - 2y = 5 \\ 2y = 4
+$$</p>
+<p>$\bold A$ in case 1 and 2 is called <strong>singular</strong> —— there is no second pivot.</p>
+<ul>
+<li>Singular equations have no solution or infinitely many solutions.</li>
+<li>Pivots must be non-zero becaue we have to divide by them.</li>
+</ul>
+<h4 id="inverse-matrix">Inverse Matrix</h4>
+<p>It is also possible to multiply the inverse of $\bold A$ to obtain $\bold x$ directly (closed-form solution), as shown below.
+$$
+x = A^{-1}b
+$$
+However, $A^{-1}$ is not always exist.</p>
+<p>Is A invertible?</p>
+<ul>
+<li>$A$ must have $m$ non-zero pivots</li>
+<li>$A$ has $m$ linearly independent columns</li>
+<li>$det A \neq 0$</li>
+</ul>
+<p>If $A$ is invertible,</p>
+<ul>
+<li>
+<p>the only solution to $Ax=b$ is $x=A^{-1}b$</p>
+</li>
+<li>
+<p>$x=0$ must be the only solution for $Ax = 0$</p>
+</li>
+</ul>
+<h4 id="n--m">n &gt;= m</h4>
+<p>In conclusion, there are two ways to determine whether the system has a solution. If $A$ is invertible, there is only one solution. Otherwise, it depends on the rank of A.</p>
+<p><img src="/blog/post/images/rank.png#full" alt="" title="Figure 1: The four possibilities for linear equations depned on the rnak (Introduction to Linear Algebra, Chapter 3)"></p>
+<p>In order to ensure that the system has a solution for all values of $b \in R^m$,  $A$ must contain $m$ linearly independent columns and $n \ge m$, as shown in  Figure 1.</p>
+<h4 id="matrix-multiplication">Matrix Multiplication</h4>
+<p>$$
+AB = A \begin{bmatrix}b_1 &amp;b_2&amp; b_3\end{bmatrix} = \begin{bmatrix} Ab_1 &amp;Ab_2&amp; Ab_3\end{bmatrix}
+$$
+Associative Law is true</p>
+<p>$$
+A(BC) = (AB)C \\ A(B + C) = AB + AC \\\ (A + B)C = AC + BC
+$$</p>
+<p>However, Commulative Law is not always true</p>
+<p>$$
+AB \neq BA
+$$</p>
+<h3 id="norms">Norms</h3>
+<p>In the previous section, we introduced how to compute the length of a vector. In fact, it is a kind of  $L^p$ norm, which is used to measure the size of vectors, as defined below.</p>
+<p>$$
+|| \bold x||_p = ( \sum_i |x_i|^p)^{\frac{1}{p}}
+$$</p>
+<p>Thus, the previous measurement of the size of a vector is called $L^2$ norm, which is also known as the Euclidean norm. Intuitively, it is the distance from the origin to the point $x$.</p>
+<blockquote>
+<p>It is also common to use the squared $L^2$ norm, which equals to $x^Tx$. However, the squared  $L^2$ norm increases slowly near the origin. In several machine learning applications, it is important to discriminate between elements that are exactly zero and elements that are small but nonzero. In these cases, we turn to a function that grows at the same rate in all locations, but that retains mathematical simplicity: the L 1norm.</p>
+<p>&ndash; Deep Learning, p37</p>
+</blockquote>
+<p>$L^1$ norm is defined as follows,</p>
+<p>$$
+|| \bold x||_1 = \sum_{i}|x_i|
+$$</p>
+<p>Another commonly used norm is the max norm, which returns the largest absolute value of the component of $x$</p>
+<p>$$
+||x||_{\infin} = \text{max}_i |x_i|
+$$</p>
+<p>The size of a matrix is known as Frobenius norm, which is similar to the $L^2$ norm of a vector. We sum up the squared value of each element, as shown below</p>
+<p>$$
+||A||_F = \sqrt{\sum_{i,j}A_{ij}^2}
+$$</p>
+<h3 id="determinant">Determinant</h3>
+<p>Mathematially, the determinant is a scalar value calculated from a square matrix. Geometrically, it indicates the scale factor by which the unit space changed by $A$.  The unit space is determined by the basis of a space.</p>
+<p>For example, the determinant of $\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}$ is 1. We know that each column of the matrix is the basis of the 2D space. The area of the parallelogram defined by the two columns is 1. Similarly, the determinant indicates the volume of the parallelepiped in the 3D space.</p>
+<p>When multiplying by $A$, we are using another basis of the same space. The corresponding change in the area of the unit space is measured by determinant. Specifically, if determinant is 0, then the unit space is contracted completely along at least one dimension. In other words, the new unit space could be a plane instead of parallelepiped if we are in 3D space. Since anything multiplies 0 is 0, we are not able to cancel the transformation from zero. Thus, $A$ is invertible if and only if the determinant is not zero.</p>
+<h2 id="calculus">Calculus</h2>
+<h3 id="derivative">Derivative</h3>
+<p>The derivative of $f(x)$ with respect to $x$ is defined as</p>
+<p>$$
+f'(x) = \text{lim}_{h\rarr0} \frac{f(x+h) - f(x)}{h}
+$$</p>
+<p>The python implementation of numerical differentiation is shown below</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numericala_diff</span>(f,x):
+	h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-10</span>
+	<span style="color:#66d9ef">return</span> ( f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x) ) <span style="color:#f92672">/</span> h
+</code></pre></div><h3 id="gradient">Gradient</h3>
+<p>The previous equation involves only one variable, what if we have multiple variables? For example, $f(x, y) = x^2 + 2y$. In this case, we calculate the partial derivative of $f$ with respect to each variable while keeping other variables as constants</p>
+<p>$$
+\frac{\partial f} {\partial x_i} = \text{lim}_{h \rarr 0} \frac{f(x_1,&hellip;,x_i+h,&hellip;,x_n) - f(x_1,&hellip;,x_i,&hellip;,x_n)}{h}
+$$</p>
+<p>The vector of partial derivative of $f$ at a point ($\bold x = x_1, x_2,&hellip;,x_n$) is the gradient of $f$ at $\bold x$</p>
+<p>$$
+\nabla_x f(x) = [\frac{\partial f(x)}{x_1}, \frac{\partial f(x)}{x_2}, &hellip;, \frac{\partial f(x)}{x_n}]^T
+$$</p>
+<p>The python implementation of the gradient of $f$ at $x$ is shown below</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numerical_gradient</span>(f, x):
+
+  h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-4</span> <span style="color:#75715e"># 0.0001</span>
+  grad <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(x)
+  
+  <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> range(x<span style="color:#f92672">.</span>size):
+    tmp_val <span style="color:#f92672">=</span> x[idx]
+    
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#f92672">+</span> h
+    fxh1 <span style="color:#f92672">=</span> f(x)
+    
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#f92672">-</span> h
+    fxh2 <span style="color:#f92672">=</span> f(x)
+    
+    grad[idx] <span style="color:#f92672">=</span> (fxh1 <span style="color:#f92672">-</span> fxh2) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>h) 
+    x[idx] <span style="color:#f92672">=</span> tmp_val <span style="color:#75715e"># revert </span>
+    
+    <span style="color:#66d9ef">return</span> grad
+</code></pre></div><h3 id="chain-rule">Chain Rule</h3>
+<p>Consider a function $f$ that relys on $z$ which depends on $x$,  for instance, $y = f(g(x))$, where $z =g(x)$. Then the derivative of $f$ w.r.t $x$ is defined as</p>
+<p>$$
+\frac{dy}{dx} = \frac{dy}{dz}\frac{dz}{dx}
+$$</p>
+<ul>
+<li>$dz/dx$ means how much $z$ will change due to the unit change in $x$</li>
+<li>$dy/dz$ means how much $y$ will change due to the tiny change in $z$</li>
+</ul>
+<p>Therefore, the total change in $f$ due to the change in $x$ equals the product of all these changes. This is known as the &ldquo;chain rule.&rdquo;</p>
+<p>What if we have a vector-valued function?  Suppose we have</p>
+<p>$$
+\bold z = g(\bold  x) \text{ and } y = f(\bold z)
+$$</p>
+<p>where  $x \in R^m, z \in R^n, y \in R $. Consider the gradient of $g$ with respect to $x_i$, for a specific $x_i$, it will cause change in $z_1, z_2, &hellip; , z_n$, and then the change in $\bold z$ will cause change in $y$ in the end. Therefore, we have</p>
+<p>$$
+\frac{\partial y}{\partial x_i} = \sum_{j}^n\frac{\partial y}{\partial z_j} \frac{\partial z_j}{\partial x_i}
+$$</p>
+<ul>
+<li>$\frac{\partial z_j}{\partial x_i}$ represents how a small change in $x_i$ influences the intermediate output $z_j$</li>
+<li>$\frac{\partial y}{\partial z_j}$ represents how a small change in $z_j$ influences the output $y$</li>
+</ul>
+<p>We can rewrite it in vector notation</p>
+<p>$$
+\nabla_{\bold x} y = (\frac{\partial \bold z}{\partial \bold x})^T \nabla_{\bold z} y
+$$</p>
+<p>where $\frac{\partial \bold z}{\partial \bold x}$ is the $n \times m$ Jacobian matrix of $g$, as shown below</p>
+<p>$$
+\begin{bmatrix}
+\frac{z_1}{x_1} &amp; \frac{z_1}{x_2} &amp; &hellip; &amp; \frac{z_1}{x_m} \\  \\ \frac{z_2}{x_1} &amp; \frac{z_2}{x_2} &amp; &hellip; &amp; \frac{z_2}{x_m} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{z_n}{x_1} &amp; \frac{z_n}{x_2} &amp; &hellip; &amp; \frac{z_n}{x_m}
+\end{bmatrix}^T \begin{bmatrix} \frac{y}{z_1} \\ \frac{y}{z_2} \\ &hellip; \\ \frac{y}{z_n} \end{bmatrix}
+$$</p>
+<h3 id="d--xw">D = XW</h3>
+<p>In a one-layer-hidden network, suppose we have $N$ examples  with $M$ features defined as $X \in R^{n \times m}$ and $H$ hidden neurons defined as $W \in R^{m\times h}$, the objective function $L = f(D) = f(XW)$ is some scalar function of $D$ that we want to optimise. So, what are the derivatives of $L$ w.r.t. $W$?</p>
+<p>If we are familiar with matrix derivatives, it&rsquo;s easy to find the answer, which is $\bold X^T \frac{\partial L}{\partial D}$. But how do we derive it step by step? The derivative of $f(\bold X) \in R$ w.r.t $\bold X \in R^{m\times n}$ is defined as</p>
+<p>$$
+\frac{\partial f}{\partial \bold X} = \begin{bmatrix}
+\frac{\partial f}{x_{11}} &amp; \frac{\partial f}{x_{12}} &amp; &hellip; &amp; \frac{\partial f}{x_{1n}} \\  \\ \frac{\partial f}{x_{21}} &amp; \frac{\partial f}{x_{22}} &amp; &hellip; &amp; \frac{\partial f}{x_{2n}} \\  \\ &amp; &amp; &hellip;  &amp; \\ \frac{\partial f}{x_{m1}} &amp; \frac{\partial f}{x_{m2}} &amp; &hellip; &amp; \frac{\partial f}{x_{mn}}
+\end{bmatrix}  = \sum_{i,j}E_{ij} \frac{\partial f}{\partial x_{ij}}
+$$</p>
+<p>Let&rsquo;s start by considering a specific weight $W_{uv}$, the derivative of $L$ w.r.t $W_{uv}$ is given as</p>
+<p>$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{ij}\frac{\partial D_{ij}}{\partial W_{uv}} \frac{\partial L}{\partial D_{ij}}
+$$</p>
+<p>where $D_{ij}$ is the output of the $j_{th}$ neuron for the $i_{th}$ example, and $W_{uv}$ is the $u_{th}$ weight of the $v_{th}$ neuron. Thus, if $j \neq v$, $D_{ij}$ has nothing to do with $W_{uv}$, so $\frac{\partial D_{ij}}{\partial W_{uv}} = 0$. Therefore, we can simply the summation</p>
+<p>$$
+\frac{\partial L}{\partial W_{uv}} = \sum_{i}\frac{\partial D_{iv}}{\partial W_{uv}} \frac{\partial L}{\partial D_{iv}} = \sum_{i} \frac{\partial L}{\partial D_{iv}} X_{iu}
+$$</p>
+<p>Since $W$ is an $m \times h$ matrix, $\frac{\partial L}{\partial \bold D}$ is an $n \times h$ matrix, and $X$ is an $n \times m$ matrix, we have</p>
+<p>$$
+\frac{\partial L}{\partial \bold W} = X^T \frac{\partial L}{\partial \bold D}
+$$</p>
+<p>So what does it mean? Well, the gradient of the loss with respect to a parameter tells you how much the loss will change with a small perturbation to that parameter.</p>
+<h2 id="probability">Probability</h2>
+<p>Since we have already talked about <a href="/blog/post/probabilistic-model/">Probabilistic Model</a>, we will skip this section.</p>
+<h2 id="numerical-computation">Numerical Computation</h2>
+<h3 id="rounding-errors">Rounding Errors</h3>
+<p>Underflow occurs when numbers are very close to zero. Overflow, on the other hand, occurs when numbers are so large that computers return infinity or negative infinity. Both are due to the limited precision of numerical representation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># underflow and overflow in Python</span>
+math<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span>)
+<span style="color:#75715e"># 0.0</span>
+math<span style="color:#f92672">.</span>exp(<span style="color:#ae81ff">10000</span>)
+<span style="color:#75715e"># OverflowError: math range error</span>
+</code></pre></div><p>Rounding errors can easily happen when dealing with softmax function, which is defined as</p>
+<p>$$
+\sigma(z_i) = \frac{e^{z_i}}{\sum^K_{j=1}e^{z_j}}
+$$</p>
+<ul>
+<li>$z_i &raquo; 0$ , then $\text{exp}(z_i) \approx \infin $, =&gt; overflow</li>
+<li>$z_i &laquo; 0$ , then $\sigma(z) \approx 0$  =&gt;  underflow =&gt; $\text{log }\sigma(z) = -\infin$</li>
+</ul>
+<h3 id="log-sum-exp">Log-sum-exp</h3>
+<p>How to solve this to obtain a stable value? The trick is the log-sum-exp.</p>
+<p>$$
+y = \text{ log } \sum^K_{j=1}e^{z_j} \\ e^y =  \sum^K_{j=1}e^{z_j} \\ e^{-a}e^y =  \sum^K_{j=1}e^{z_j}e^{-a} \\ y-a = \text{log} \sum^K_{j=1}e^{z_j-a} \\ y = a + \text{log} \sum^K_{j=1}e^{z_j-a}
+$$</p>
+<p>Typically, we set $a$ to the maximum value of $z$. Thus,</p>
+<p>$$
+\text{ log} \frac{e^{z_i}}{\sum^K_{j=1}e^{z_j}} = z_i - \text{ log } \sum^K_{j=1}e^{z_j} \\ = z_i - a - \text{log} \sum^K_{j=1}e^{z_j-a}
+$$</p>
+<p>For example, suppose we have $z=[10000, 10000]$, then $\sigma(z_0) = 0.5$. If we compute the softmax function directly, it will cause overflow error. Instead, let&rsquo;s plug $10000$ into the above equation using the log-sum-exp trick, and we have</p>
+<p>$$
+\text{log} \sigma(z_0) = 10000 - 10000 - \text{log}2 = \text{log}0.5
+$$</p>
+<h3 id="overparameterisation">Overparameterisation</h3>
+<p>One interesting characteristic of the softmax function is overparameterisation — subtracting $\psi$ from every weight $\theta^k$ does not affect the final result, as shown in the following equation. This means that there are multiple parameter settings that satisfy the same function.</p>
+<p>$$
+\sigma(x^{i}) = \frac{\exp((\theta^{k}-\psi)^\top x^{i})}{\sum_{j=1}^K \exp( (\theta^{j}-\psi)^\top x^{i})}  \\ = \frac{\exp(\theta^{(k)\top} x^{(i)}) \exp(-\psi^\top x^{(i)})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i}) \exp(-\psi^\top x^{i})} \\ = \frac{\exp(\theta^{(k)\top} x^{i})}{\sum_{j=1}^K \exp(\theta^{(j)\top} x^{i})}.
+$$</p>
+<p>On the other hand, we can eliminate $\theta^k$ by replace $\theta^k$ with $\theta^k - \psi = 0$ without affecting prediction. In doing so, we only need to optimise over $(K - 1)*n$ parameters rather than $Kn$ parameters ($\theta^1, \theta^2, &hellip;, \theta^K, \text{where } \theta^i \in R^n$).</p>
+<h2 id="automatic-differentiation">Automatic Differentiation</h2>
+<h3 id="computation-graph">Computation Graph</h3>
+<h4 id="sum">Sum</h4>
+<p><img src="/blog/post/images/sum-back.png" alt=""></p>
+<h4 id="multiplication">Multiplication</h4>
+<p><img src="/blog/post/images/mult-back.png" alt=""></p>
+<h4 id="heading"></h4>
+<h3 id="forward-ad">Forward AD</h3>
+<p>There are three ways to compute gradient. The simplest one is to apply common rules directly, for example,</p>
+<p>$$
+f(x) = x^2 \\ f'(x) = 2x
+$$</p>
+<p>For composite functions, the gradient is computed step by step, for instance,</p>
+<p>$$
+f(x) = g(x) + h(x) \\ f'(x) = g'(x) + h'(x), \\ f(x) = g(x)\cdot  h(x) \\f'(x) = h(x) g'(x) + h'(x) g(x)
+$$</p>
+<p>However, it is difficult for complex functions to obtain such an equation. In this case, we solve it by applying numerical differentiation</p>
+<p>$$
+f'(x) = \text{lim}_{h\rarr0} \frac{f(x+h) - f(x)}{h}
+$$</p>
+<p>Well, it seems perfect, but in practice, we do not know exactly what a function is composed of and the input variable could be dynamic. Ideally, we&rsquo;d like to obtain the value of a function and the corresponding gradient simultaneously. This technique is known as automatic differentiation.</p>
+<p>Forward mode AD is an intuive and simple way to accomplish this, which is similar to  how computer works the equations out. For example, we have a funciton $z = xy + sin(x)$, and then computers will compute step by step as follows,</p>
+<p>$$
+x = ? \\ y = ?\\ a = xy \\ b = sin(x) \\ z = a + b
+$$</p>
+<p>Let&rsquo;s differentiate the each expression w.r.t some variable $t$</p>
+<p>$$
+\frac{dx}{dt} = ? \\ \frac{dy}{dt} = ? \\ \frac{\partial a}{\partial t} = x \frac{dy}{dt} + y \frac{dx}{dt} \\ \frac{\partial b}{\partial t} = cos(x) \frac{dx}{dt} \\ \frac{\partial z}{\partial t} = \frac{ \partial a }{\partial t}  + \frac{ \partial b }{\partial t}
+$$</p>
+<p>To get the derivative of $f$ w.r.t a specific variable, we simply set $t$ as the given varaible. For example, we set $t = x$ to compute $\frac{\partial z}{\partial x}$. Besides, we can see that the operation of excuating the function and computing the derivative can be done at the same time. Dual numbers is one way to achieve this concisely.</p>
+<h4 id="dual-number">Dual number</h4>
+<p>Dual number is similar to complex number, which is defined as,</p>
+<p>$$
+a + b\epsilon
+$$</p>
+<p>where $\epsilon^2 = 0$. Below are some basic rules of dual number</p>
+<p>$$
+(a + b\epsilon) + ( c + d\epsilon ) = a + c + (b + d)\epsilon \\ (a + b\epsilon)(c+d\epsilon) = ac + bc\epsilon + ad\epsilon
+$$</p>
+<p>So&hellip; what is the use of dual number? We&rsquo;ve known that Talyer expansion around a point $a$ is defined as</p>
+<p>$$
+f(x) = f(a) + f'(a) (x - a) + \sum_{n=2} \frac{f^n(a)}{n!} (x - a)^n
+$$</p>
+<p>Let&rsquo;s replace $x = a + b\epsilon$, then we have</p>
+<p>$$
+f(x) = f(a) + f'(a) b\epsilon + \epsilon^2  \sum_{n=2} \frac{f^n(a)}{n!}  b^n\epsilon^{n-2} =  f(a) + f'(a) b\epsilon
+$$</p>
+<p>From this, we see that by calculating $x = a + b\epsilon$, we can obtain the value of the function $f(x)$ and the derivative at $x$ simultaneously. The implementation of  forward mode AD by dual numbers is shown below,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DualNumber</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, value, dvalue):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+        self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">=</span> dvalue
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> repr(self<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; + &#39;</span> <span style="color:#f92672">+</span> repr(self<span style="color:#f92672">.</span>dvalue)  <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ε&#34;</span>
+    
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> str(self<span style="color:#f92672">.</span>value) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; + &#34;</span> <span style="color:#f92672">+</span> str(self<span style="color:#f92672">.</span>dvalue) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ε&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __mul__(self, other):
+        <span style="color:#66d9ef">if</span> isinstance(other, DualNumber):
+            <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value,
+                self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>value)
+
+        <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other, self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">*</span> other)
+     
+    <span style="color:#66d9ef">def</span> __add__(self, other):
+        <span style="color:#66d9ef">if</span> isinstance(other, DualNumber):
+            <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>value, self<span style="color:#f92672">.</span>dvalue <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>dvalue)
+
+        <span style="color:#66d9ef">return</span> DualNumber(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other, self<span style="color:#f92672">.</span>dvalue)
+      
+
+<span style="color:#75715e"># test</span>
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+y <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+a<span style="color:#f92672">=</span>DualNumber(x, <span style="color:#ae81ff">1</span>)
+b<span style="color:#f92672">=</span>DualNumber(y, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># w.r.t y</span>
+z <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b <span style="color:#f92672">+</span> a  <span style="color:#75715e"># df/da = b + 1</span>
+print(z) <span style="color:#75715e"># it should be 6</span>
+<span style="color:#75715e"># 12 + 6ε</span>
+</code></pre></div><h3 id="reverse-adbackprop">Reverse AD(backprop)</h3>
+<p>Forward mode AD is intutive and simple, but we need to repeat $n$ times if there are $n$ variables. In other words, for each variable $x_i$, we need to set $t = x_i$ while keep others constant. If the process of computing deriative is complex and the number of parameters is huge (which is often the case in deep learning), it would take much time to obtain the whole derivatives. A solution is reverse mode AD, which enables us to obtain the derivatives of all variables in one go.</p>
+<p>As previously mentioned, the chain rule is defined as</p>
+<p>$$
+\frac{\partial z}{\partial x_i} = \sum_{j}^n\frac{\partial z}{\partial y_j} \frac{\partial y_j}{\partial x_i}
+$$</p>
+<p>We first consider each component $y_j$ that influence $z$, and then the change in each $y_i$ due of the  change in an input variable $x_i$. Thus, $\frac{\partial y_j}{\partial x_i}$ could be zero for any $y_j$ that does not invovle $x_i$.</p>
+<p>However, the chain rule can also be expressed as</p>
+<p>$$
+\frac{\partial z}{\partial x_i} = \sum_{j}^n \frac{\partial y_j}{\partial x_i} \frac{\partial z}{\partial y_j}
+$$</p>
+<p>In this case, we first consider what output variables a given input variable $x_i$ can affect, and then how each output variable influence $z$. If $y_i$ has no contribution to $z$, $\frac{\partial z}{\partial y_j}$ is zero.</p>
+<p>Therefore, suppose the yet-to-be-given output variable is $s$, we have</p>
+<p>$$
+\frac{\partial s}{\partial z} = ? \\ \frac{\partial s}{\partial b} =  \frac{\partial z}{\partial b} \frac{\partial s}{\partial z} \\ \frac{\partial s}{\partial a} = \frac{\partial z}{\partial z} \frac{\partial s}{\partial z} \\ \frac{\partial s}{\partial y} = \frac{\partial a}{\partial y} \frac{\partial s}{\partial a} \\ \frac{\partial s}{\partial x} = \frac{\partial a}{\partial x} \frac{\partial s}{\partial a} + \frac{\partial b}{\partial x} \frac{\partial s}{\partial b} = (y + cos(x)) \frac{\partial s}{\partial z}
+$$</p>
+<p>We can see the dependency between variables by drawing a tree, as shown in Figure 2. Besides, we also see that backprop follows breadth-depth first strategy. In other words, we compute gradients level by level.</p>
+<p><img src="/blog/post/images/visual-back-ad.png" alt="" title="Figure 2: Visualisation of reverse mode AD."></p>
+<p>When implementing reversel mode AD, we need to track the children nodes for each input variable and the derivative w.r.t each input input variable at this step, which are used to apply chain rule. Some example codes are shown below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Var</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, value):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+        self<span style="color:#f92672">.</span>children <span style="color:#f92672">=</span> []
+        self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">grad</span>(self):
+      <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+          self<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> sum(weight <span style="color:#f92672">*</span> var<span style="color:#f92672">.</span>grad() <span style="color:#66d9ef">for</span> weight, var <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>children)
+      <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>grad_value
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> repr(self<span style="color:#f92672">.</span>value)
+    
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> str(self<span style="color:#f92672">.</span>value)
+    
+    <span style="color:#66d9ef">def</span> __mul__(self, other):
+      z <span style="color:#f92672">=</span> Var(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> other<span style="color:#f92672">.</span>value)
+      self<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((other<span style="color:#f92672">.</span>value, z)) <span style="color:#75715e"># (derivative, output)</span>
+      other<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((self<span style="color:#f92672">.</span>value, z))
+      <span style="color:#66d9ef">return</span> z
+
+    <span style="color:#66d9ef">def</span> __add__(self, other):
+        z <span style="color:#f92672">=</span> Var(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>value)
+        self<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">1</span>, z))
+        other<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">1</span>, z))
+        <span style="color:#66d9ef">return</span> z
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sin</span>(x):
+  z <span style="color:#f92672">=</span> Var(math<span style="color:#f92672">.</span>sin(x<span style="color:#f92672">.</span>value))
+  x<span style="color:#f92672">.</span>children<span style="color:#f92672">.</span>append((math<span style="color:#f92672">.</span>cos(x<span style="color:#f92672">.</span>value), z))
+  <span style="color:#66d9ef">return</span> z
+
+
+x <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">2.0</span>)
+y <span style="color:#f92672">=</span> Var(<span style="color:#ae81ff">3.0</span>)
+z <span style="color:#f92672">=</span> x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> sin(x)
+z<span style="color:#f92672">.</span>grad_value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#75715e"># see the gradient of z to 1</span>
+print(x<span style="color:#f92672">.</span>grad())
+
+</code></pre></div><h2 id="references">References</h2>
+<ul>
+<li><a href="https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/">Dual Numbers &amp; Automatic Differentiation</a></li>
+<li><a href="https://sidsite.com/posts/autodiff/">Reverse-mode automatic differentiation from scratch, in Python</a></li>
+<li><a href="http://www.doc.ic.ac.uk/~ahanda/referencepdfs/MatrixCalculus.pdf">Matrix Calculus</a></li>
+<li><a href="https://jhui.github.io/2017/01/05/Deep-learning-computation-and-optimization/">Deep Learning - Computation &amp; Optimization</a></li>
+</ul>
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          
+
+
+          
+          <nav class="post-nav">
+            
+              <a class="prev" href="/blog/post/ml/dataviz/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">Data Visualisation</span>
+                <span class="prev-text nav-mobile">Prev</span>
+              </a>
+            
+              <a class="next" href="/blog/post/dl/pytorch/">
+                <span class="next-text nav-default">Deep Learning - PyTorch</span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#linear-algebra">Linear Algebra</a>
+      <ul>
+        <li><a href="#tensor">Tensor</a></li>
+        <li><a href="#ax--b">Ax = b</a></li>
+        <li><a href="#norms">Norms</a></li>
+        <li><a href="#determinant">Determinant</a></li>
+      </ul>
+    </li>
+    <li><a href="#calculus">Calculus</a>
+      <ul>
+        <li><a href="#derivative">Derivative</a></li>
+        <li><a href="#gradient">Gradient</a></li>
+        <li><a href="#chain-rule">Chain Rule</a></li>
+        <li><a href="#d--xw">D = XW</a></li>
+      </ul>
+    </li>
+    <li><a href="#probability">Probability</a></li>
+    <li><a href="#numerical-computation">Numerical Computation</a>
+      <ul>
+        <li><a href="#rounding-errors">Rounding Errors</a></li>
+        <li><a href="#log-sum-exp">Log-sum-exp</a></li>
+        <li><a href="#overparameterisation">Overparameterisation</a></li>
+      </ul>
+    </li>
+    <li><a href="#automatic-differentiation">Automatic Differentiation</a>
+      <ul>
+        <li><a href="#computation-graph">Computation Graph</a></li>
+        <li><a href="#forward-ad">Forward AD</a></li>
+        <li><a href="#reverse-adbackprop">Reverse AD(backprop)</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+  
+    <a href="wxp201013@163.com" rel="me noopener" class="iconfont"
+      title="email"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://www.linkedin.com/in/ixiaopan" rel="me noopener" class="iconfont"
+      title="linkedin"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="33" height="33">
+  <path d="M872.405333 872.618667h-151.637333v-237.610667c0-56.661333-1.152-129.578667-79.018667-129.578667-79.061333 0-91.136 61.653333-91.136 125.397334v241.792H398.976V384h145.664v66.602667h1.962667c20.352-38.4 69.845333-78.933333 143.786666-78.933334 153.642667 0 182.058667 101.12 182.058667 232.746667v268.202667zM227.712 317.141333a87.978667 87.978667 0 0 1-88.021333-88.106666 88.064 88.064 0 1 1 88.021333 88.106666z m76.032 555.477334H151.68V384h152.064v488.618667zM948.266667 0H75.562667C33.792 0 0 33.024 0 73.770667v876.458666C0 991.018667 33.792 1024 75.562667 1024h872.576C989.866667 1024 1024 991.018667 1024 950.229333V73.770667C1024 33.024 989.866667 0 948.138667 0h0.128z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://github.com/ixiaopan" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://space.bilibili.com/22910840" rel="me noopener" class="iconfont"
+      title="bilibili"  target="_blank"
+      >
+      <svg
+  class="icon" style="" viewBox="0 0 1024 1024" version="1.1" width="36"
+  height="36" id="svg8">
+  <path
+      style=""
+      d="M 744.60599,0.00486267 A 41.779915,41.779915 0 0 0 710.4184,18.673394 L 548.5048,255.32642 h -11.70046 a 41.779915,41.779915 0 0 0 -10.80295,-7.84928 L 235.66,97.084498 a 41.779915,41.779915 0 0 0 -20.07193,-4.960864 41.779915,41.779915 0 0 0 -18.3748,79.145436 L 359.4859,255.32642 H 128.16909 c -49.458302,0 -89.27932,39.82105 -89.27932,89.27932 v 508.65224 c 0,49.4583 39.821018,89.27934 89.27932,89.27934 h 19.48445 C 149.12802,984.5043 179.92773,1024 224.79179,1024 c 44.86407,0 75.66379,-39.4957 77.13826,-81.46268 H 719.98116 C 721.45559,984.5043 752.25533,1024 797.1194,1024 c 44.86406,0 75.6638,-39.4957 77.13824,-81.46268 h 21.57323 c 49.45831,0 89.27936,-39.82104 89.27936,-89.27934 V 344.60574 c 0,-49.45827 -39.82105,-89.27932 -89.27936,-89.27932 H 649.74567 L 779.38103,65.866924 A 41.779915,41.779915 0 0 0 744.60599,0.00486267 Z M 644.49108,418.70871 c 6.29985,0.21538 12.44451,2.01107 17.86888,5.22196 l 171.36218,98.10771 c 18.23417,10.21935 24.63334,33.34627 14.24614,51.48533 -10.38726,18.13909 -33.57344,24.32718 -51.61587,13.77296 L 624.9903,489.18895 c -15.21356,-8.41858 -22.66871,-26.1765 -18.03211,-42.93436 4.63664,-16.75784 20.15573,-28.14465 37.53289,-27.54588 z M 350.2006,432.31846 c 16.89952,0.0317 31.69582,11.33328 36.17844,27.62747 4.48262,16.2942 -2.44981,33.57765 -16.95507,42.24898 l -140.7157,86.91312 c -17.68528,11.18244 -41.09629,5.77692 -52.08912,-12.02686 -10.99282,-17.80373 -5.33855,-41.15658 12.58167,-51.95857 L 329.9002,438.2095 c 6.0643,-3.86439 13.10951,-5.90891 20.3004,-5.89104 z M 501.605,641.53985 c 3.75002,-0.15248 7.48645,0.53903 10.93349,2.0235 0.15842,0.0637 0.31618,0.12888 0.47325,0.19582 0.59328,0.27092 1.17574,0.56489 1.74609,0.88121 0.15868,0.0854 0.31643,0.17233 0.47325,0.2611 0.55694,0.32165 1.10131,0.66458 1.63185,1.02807 0.16455,0.1123 0.32777,0.2265 0.48956,0.34269 0.50382,0.36781 0.99371,0.75428 1.46868,1.15864 0.18724,0.15504 0.37218,0.31282 0.55484,0.47323 0.43271,0.38784 0.8518,0.79061 1.25653,1.20756 0.15449,0.16114 0.30679,0.32437 0.45693,0.48959 0.40798,0.44266 0.79989,0.89988 1.17494,1.37076 0.17799,0.22544 0.35205,0.45395 0.5222,0.68538 0.25932,0.34701 0.50964,0.70071 0.75064,1.06071 0.26712,0.39516 0.52286,0.79784 0.76699,1.20757 0.16907,0.29043 0.33231,0.58424 0.48957,0.88123 0.21836,0.41297 0.42513,0.83199 0.62009,1.25653 0.14836,0.32333 0.28983,0.64976 0.42429,0.97911 0.21319,0.51552 0.40915,1.03801 0.58747,1.5666 0.0677,0.19499 0.13296,0.39085 0.19582,0.58748 0.18652,0.60823 0.34984,1.22334 0.48957,1.84399 0.0397,0.16277 0.0779,0.32601 0.11423,0.48957 0.1436,0.69112 0.25788,1.38801 0.34269,2.08877 0.005,0.0381 0.0111,0.0761 0.0163,0.11424 0.0857,0.78056 0.13474,1.56471 0.14687,2.34988 0.005,0.0543 0.0111,0.10879 0.0163,0.1632 0,0 -0.008,1.12132 0,1.45234 0,0 -0.14697,17.84761 5.89102,34.12231 3.01902,8.13734 7.33278,15.10615 12.61433,19.61501 5.28157,4.50889 11.42894,7.62081 23.64572,7.62081 12.2168,0 18.36416,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.5953,-11.47767 12.6143,-19.61501 6.03799,-16.2747 5.89103,-34.12231 5.89103,-34.12231 -0.44885,-13.87045 10.45922,-25.46302 24.3311,-25.86506 13.87189,-0.40201 25.42828,10.53953 25.78348,24.41272 0,0 1.11929,25.7226 -9.00791,53.01927 -5.06359,13.64832 -13.1986,28.46036 -27.05631,40.29073 -13.85772,11.83039 -33.5454,19.63135 -56.20142,19.63135 -22.65603,0 -42.34371,-7.80096 -56.20141,-19.63135 -4.1801,-3.56856 -7.78733,-7.42433 -10.99878,-11.42303 -3.21235,4.00037 -6.81703,7.85309 -10.99876,11.42303 -13.85773,11.83039 -33.5454,19.63135 -56.20144,19.63135 -22.65601,0 -42.3437,-7.80096 -56.2014,-19.63135 -13.85775,-11.83037 -21.99272,-26.64241 -27.05632,-40.29073 -10.12725,-27.29667 -9.00789,-53.01928 -9.00789,-53.01927 0.20714,-13.83687 11.58744,-24.88848 25.42444,-24.69013 14.1263,0.19991 25.2971,12.0278 24.69011,26.14247 0,0 -0.14697,17.84761 5.89103,34.12231 3.01902,8.13734 7.31646,15.10615 12.598,19.61501 5.28155,4.50889 11.44526,7.62081 23.66203,7.62081 12.21681,0 18.36418,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.57899,-11.47767 12.598,-19.61501 5.76352,-15.53489 5.89112,-32.05691 5.89103,-33.56746 0.006,-0.37466 0.0111,-1.05336 0.0163,-1.20759 -0.0117,-0.74583 0.0105,-1.49177 0.0652,-2.23565 0.009,-0.15784 0.0204,-0.31561 0.0327,-0.47324 0.14204,-1.56859 0.43163,-3.12027 0.86487,-4.63449 0.0213,-0.0763 0.0433,-0.15244 0.0652,-0.22848 3.0335,-10.25748 12.24157,-17.46007 22.92769,-17.93417 z"
+      id="rect824"/>
+</svg>
+
+    </a>
+
+
+<a href="https://ixiaopan.github.io/blog/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2023
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        xiaopan
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/blog/js/main.4484b3f29dd568c80320701800e1b69704b179f367b8223a43c728d819f39b97.js" integrity="sha256-RISz8p3VaMgDIHAYAOG2lwSxefNnuCI6Q8co2Bnzm5c=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+    integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+    crossorigin="anonymous">
+
+  
+  <script defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js"
+    integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1"
+    crossorigin="anonymous"></script>
+
+  
+  <script defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+    crossorigin="anonymous" onload="renderMathInElement(document.body);">
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        
+      });
+    });
+  </script>
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

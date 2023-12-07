@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Frontend on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/categories/frontend/</link>
+    <description>Recent content in Frontend on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 26 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D - 基建 迭代管理&amp;发布平台 01</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-infras-basement-1/</link>
+      <pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-infras-basement-1/</guid>
+      <description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - 基建 API Mock</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-infras-mock/</link>
+      <pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-infras-mock/</guid>
+      <description>Background 开发没有mock还是比较痛苦的，最开始接入mock-server需要在业务里新开一个 mock 手动写 json，维护成本很高，也不利于共享。一直以来</description>
+    </item>
+    
+    <item>
+      <title>D - 基建 埋点管理</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-infras-track/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-infras-track/</guid>
+      <description>&lt;p&gt;简单实现一个埋点sdk和管理平台&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - 基建 开关配置</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-infras-switch/</link>
+      <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-infras-switch/</guid>
+      <description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - 基建 101</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-infras/</link>
+      <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-infras/</guid>
+      <description>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的</description>
+    </item>
+    
+    <item>
+      <title>D - The track panel of a video editor</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-track/</link>
+      <pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-track/</guid>
+      <description>&lt;p&gt;In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the &lt;code&gt;UI&lt;/code&gt; part. For the edit operation, we will talk it later.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - Things about frames</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-frames/</link>
+      <pubDate>Thu, 22 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-frames/</guid>
+      <description>&lt;p&gt;Speaking of images and videos, we often use &lt;code&gt;img/video&lt;/code&gt; to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - Design a video player</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-video-player/</link>
+      <pubDate>Wed, 21 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-video-player/</guid>
+      <description>&lt;p&gt;业务最开始实现的视频播放功能用的是 &lt;code&gt;xgplayer&lt;/code&gt; 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;，为此，我们需要基于 &lt;code&gt;video api&lt;/code&gt; 实现自己的播放器。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - Build your own UI component library from scratch</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-ui/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-ui/</guid>
+      <description>&lt;p&gt;In this post, we will learn how to build your own UI component library.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>D - Frontend Project Structure</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/d-project-struct/</link>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/d-project-struct/</guid>
+      <description>&lt;p&gt;本文主要介绍一下当下 &lt;code&gt;general&lt;/code&gt; &amp;amp; &lt;code&gt;vue-based&lt;/code&gt; 前端项目结构划分&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

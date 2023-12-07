@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Misc on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/categories/misc/</link>
+    <description>Recent content in Misc on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 25 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/misc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据压缩 101</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/data-compress/</link>
+      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/data-compress/</guid>
+      <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;哈夫曼编码&lt;/li&gt;
+&lt;li&gt;算术编码&lt;/li&gt;
+&lt;li&gt;LZ编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Some thoughts after going back to work</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/thoughts-after-going-back-to-work/</link>
+      <pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/thoughts-after-going-back-to-work/</guid>
+      <description>What am I doing Frontend Development Why 也曾试着转行，但是门槛要求高（论文、实习、比赛等），钱也不如继续做老本行来的多。曾经我也以为我不会为五斗米折腰，然而真正到做这</description>
+    </item>
+    
+    <item>
+      <title>html2epub</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/python-epub/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/python-epub/</guid>
+      <description>&lt;p&gt;A simple book scraper written in Python, converting html to epub.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>REMOVING ANNOYING SPLASH ADs!!!</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/remove-splash/</link>
+      <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/remove-splash/</guid>
+      <description>What and Why Nowadays, you will often see a statistic or dynamic image on your screen when you launch some APPs. The image looks like the figure below with a small button to enable people to skip ads. Generally, the showing time of ads lasts for at least 3 seconds. The most disgusting thing is that there is no upper bound for this, so you have to suffer from this unless you don&amp;rsquo;t use any app at all.</description>
+    </item>
+    
+    <item>
+      <title>Sorting</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/sort/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/sort/</guid>
+      <description>&lt;p&gt;Data structure and algorithms are two important courses in Computer Science. Knowing how to utilise appropriate data structures and algorithms to fit our problems can greatly decrease memory space and improve performance. Besides, the ideas behind the classical algorithms are also worth learning to strengthen our logical thinking skills. Well, this series of articles are simply quick notes to help refresh my knowledge for future reference. So let&amp;rsquo;s start from sorting.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

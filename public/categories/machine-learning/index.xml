@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/categories/machine-learning/</link>
+    <description>Recent content in Machine Learning on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimization</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/optimization/</link>
+      <pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/optimization/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve talked about many ML algorithms and DL architectures so far, but how to find the optimal parameters? Mathematically, the process of minimizing the objective functions is called optimization, but it&amp;rsquo;s a bit different in DL — the global minimum point does not always achieve the best generalization performance. After all, we are minimizing the training error. Besides, the loss function typically is very complex, and there is no analytical solution to it. In this case, we have only one choice — optimization algorithms.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Recommender Systems</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/recommendation/</link>
+      <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/recommendation/</guid>
+      <description>Recommender system is one of the most popular studying fields in machine learning due to its wide application in our daily life. When you shop online, such as Amazon, you can see similar items just below the item you are looking at. The goal of a recommender system is to make recommendations that fit the user&amp;rsquo;s taste. In this post, we will go through the very basic concepts and several classcial techniques in the field of recommender systems.</description>
+    </item>
+    
+    <item>
+      <title>Metrics for classification</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/metrics-classification/</link>
+      <pubDate>Tue, 26 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/metrics-classification/</guid>
+      <description>&lt;p&gt;In linear regression, we choose $R^2$ as our metrics to measure how good our algorithms are. But how about classification? In this post, we are going to talk about several commonly used metrics for classification.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Model Selection</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/model-selection/</link>
+      <pubDate>Sun, 19 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/model-selection/</guid>
+      <description>Model Complexity What is model complexity? Perhaps it mainly refers to the number of parameters that the model has. However, it does not mean that a model is complex if it has more parameters, although it is often the case. Generally, a simple model could result in underfitting, while a complex model could lead to overfitting. So, what factors affect the complexity of a model? Well, it is hard to say.</description>
+    </item>
+    
+    <item>
+      <title>Data Visualisation</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/dataviz/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/dataviz/</guid>
+      <description>Data visualisation is one of the modules in the first semester. Though I worked with web design and UI for several years, I&amp;rsquo;d never think about them deeply. As I learned more about design principles and the use of different charts, my aesthetic sense improved greatly. Here I listed some useful resources just for future reference.
+DLKW Pyramid https://allthingy.com/data-information-knowledge-wisdom/
+Chart Junk Data story Below are key points when you structure a data story</description>
+    </item>
+    
+    <item>
+      <title>Naive Bayes Classification</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/naive-bayes/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/naive-bayes/</guid>
+      <description>&lt;p&gt;In the previous articles, we introduced several classification algorithms like logistic regression. These models are often called discriminative models since they make prediction by calculating \(P(Y|X)\) directly. Sometimes it might be hard to compute. Another way to think of this is that samples are generated from the existed distributions. And one of the most popular models is Naive Bayes classification.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Support Vector Machine</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/svm/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/svm/</guid>
+      <description>Maximise the margin Given a linearly separable set of data $D = (x_i, y_i)_{i=1}^n$ where $y_i \in -1, 1$, there are many lines that separates the data. Which one is the best? Intuitively, the line with the largest distance to all samples generates more space to avoid misclassification. Mathematically, this can be described as follows,
+$$ y_i d_i \ge \Delta $$
+where $d_i$ is the distance from $x_i$ to the separating plane and $\Delta$ is the margin.</description>
+    </item>
+    
+    <item>
+      <title>K-means</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/kmeans/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/kmeans/</guid>
+      <description>&lt;p&gt;So far, we&amp;rsquo;ve talked much about supervised learning. Aside from it, there exist many other learning types such as unspervised learning, semi-supervised learning and so on. This post will introduce one of the most widely used unsupervised clustering algorithms — K-means. We will cover the implementation of K-means algorithm, the limitation of this algorithm as well as its applications.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Logistic Regression</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/logistic-regression/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/logistic-regression/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve known that linear regression can be used to predict a continuous value, but sometimes the target variable might be categorical, i.e. whether tomorrow is sunny or someone has a cancer. Can we still use linear regression to solve this classification problem? The answer is Yes and the algorithm that we will introduce in this article is known as logistic regression. Well, we can also try Perceptron since it&amp;rsquo;s also a linear classifier. PS: Don&amp;rsquo;t mix it up with linear regression. Logistic regression is a classification algorithm.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Perceptron</title>
+      <link>https://ixiaopan.github.io/blog/post/ml/perceptron/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/ml/perceptron/</guid>
+      <description>&lt;p&gt;Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it&amp;rsquo;s out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
