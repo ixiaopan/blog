@@ -1,5 +1,5 @@
 ---
-title: "D - 基建 API Mock"
+title: "基建 API Mock"
 date: "2023-08-23"
 description: ""
 categories: [

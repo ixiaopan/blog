@@ -1,5 +1,5 @@
 ---
-title: "D - Design a video player"
+title: "Design a video player"
 date: "2023-06-21"
 categories: [
   "Frontend",

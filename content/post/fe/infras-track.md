@@ -1,5 +1,5 @@
 ---
-title: "D - 基建 埋点管理"
+title: "基建 埋点管理"
 date: "2023-08-22"
 description: ""
 categories: [

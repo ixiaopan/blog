@@ -1,5 +1,5 @@
 ---
-title: "D - Build your own UI component library from scratch"
+title: "Build your own UI component library from scratch"
 date: "2023-06-08"
 categories: [
   "Frontend",

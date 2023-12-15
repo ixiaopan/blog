@@ -1,5 +1,5 @@
 ---
-title: "D - 基建 迭代管理&发布平台 01"
+title: "基建 迭代管理&发布平台 01"
 date: "2023-08-26"
 description: ""
 categories: [

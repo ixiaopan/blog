@@ -1,5 +1,5 @@
 ---
-title: "D - 基建 101"
+title: "基建 101"
 date: "2023-08-06"
 description: ""
 categories : [

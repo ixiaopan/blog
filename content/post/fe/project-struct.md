@@ -1,5 +1,5 @@
 ---
-title: "D - Frontend Project Structure"
+title: "Frontend Project Structure"
 date: "2023-06-07"
 categories: [
   "Frontend",
