@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          基建 迭代管理&amp;发布平台 02 - xiaopan&#39;s blog
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="xiaopan" />
+  <meta name="description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.0" />
+
+
+<link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/infras-basement-2/" />
+
+
+
+
+
+<link rel="icon" href="/blog/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="基建 迭代管理&amp;发布平台 02" />
+<meta property="og:description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/infras-basement-2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-12-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-12-30T00:00:00+00:00" />
+
+<meta itemprop="name" content="基建 迭代管理&amp;发布平台 02">
+<meta itemprop="description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla"><meta itemprop="datePublished" content="2023-12-30T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-12-30T00:00:00+00:00" />
+<meta itemprop="wordCount" content="6304">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基建 迭代管理&amp;发布平台 02"/>
+<meta name="twitter:description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/blog/" class="logo">Pan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/blog/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    
+
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/blog/" class="logo">
+    
+      Pan
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">基建 迭代管理&amp;发布平台 02</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-12-30">
+      2023-12-30
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <h2 id="background">Background</h2>
+<p>之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂</p>
+<ul>
+<li>需求/技术文档在飞书，但不知道该需求对应哪个分支</li>
+<li>代码托管在 <code>gitlab</code>，但不知道该分支是需求分支、还是个人开发分支</li>
+<li>部署在另外的平台比如云效，只看分支名压根不知道是什么需求</li>
+</ul>
+<p>上面3个平台单独来看，根本无法知道在做什么需求，需求的进度如何等。比如要查看前一周上线了什么需求，就只能查看 <code>git</code> 提交历史，或者部署记录，但如果部署分支是 dev/release/main，那根本不可能知道上线了什么内容。</p>
+<p>那这个平台的目的是集成以上3者的功能，让迭代有迹可循，让开发者更关注开发，让项目管理一目了然。</p>
+<p>从用户角度来看，当进入开发阶段，只需要打开平台</p>
+<ul>
+<li>新建一个迭代，关联相关需求、技术文档</li>
+<li>提交代码，在平台部署到对应环境</li>
+<li>在平台申请发布，然后上线</li>
+</ul>
+<h2 id="应用">应用</h2>
+<p>以前新立项一个项目，是在 <code>gitlab</code> 上创建；现在，到平台创建一个应用。</p>
+<h3 id="关联-git">关联 Git</h3>
+<p>一个应用除了基本的信息（应用名、描述、维护者等）之外，最关键的是要关联对应的 <code>git</code> 项目上，目的是获取 <code>git project id</code>，为后续的分支管理、<code>MR</code> 等准备。</p>
+<p>此时，应用的 <code>schema</code> 可以定义如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUser</span> {
+  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">string</span>
+}
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">APP_TYPE</span> {
+  <span style="color:#a6e22e">WEB</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;web&#39;</span>,
+  <span style="color:#a6e22e">H5</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;h5&#39;</span>,
+  <span style="color:#a6e22e">MINI_PROGRAM</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mini-program&#39;</span>,
+  <span style="color:#a6e22e">HYBRID</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hybrid&#39;</span>,
+  <span style="color:#a6e22e">APP</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;APP&#39;</span>,
+}
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+  <span style="color:#a6e22e">projectId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project id
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project name
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project url
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 应用描述
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">APP_TYPE</span>  <span style="color:#75715e">// 应用类型 
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">maintainer</span>: <span style="color:#66d9ef">IUser</span>[] <span style="color:#75715e">// 维护者
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="项目模板">项目模板</h3>
+<p>基本上每个前端团队都有自己的项目脚手架 <code>cli</code>，一键生成项目，保证前端基建统一。</p>
+<p>既然现在有了平台，我们就把 <code>cli</code> 接入平台，在创建新项目的时候，选择对应项目模板，相应的，应用 <code>schema</code> 此时需要新增一个模板字段</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TEMPLATE_TYPE</span> {
+  <span style="color:#a6e22e">BLANK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;blank&#39;</span>
+  <span style="color:#a6e22e">VUE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;vue&#39;</span>,
+  <span style="color:#a6e22e">REACT</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;react&#39;</span>,
+  <span style="color:#a6e22e">H5</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;h5&#39;</span>,
+  <span style="color:#a6e22e">NPM</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;npm&#39;</span>,
+  <span style="color:#a6e22e">VITE_PLUGIN</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;vite-plugin&#39;</span>,
+}
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">template</span>: <span style="color:#66d9ef">TEMPLATE_TYPE</span> <span style="color:#75715e">// 项目模板
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="monorepo">monorepo</h3>
+<p>这里要考虑当下 <code>monorepo</code> 的项目架构，最开始开发的时候我就没考虑到，不过后续扩展也简单，因为这里主要是维护<strong>项目元信息</strong>。</p>
+<p>对于 <code>monorepo</code> 而言是共享 <code>git project id</code>，不同在于项目名，所以新增一个字段 <code>aliasName</code> 支持自定义业务别名，即使不是 <code>monorepo</code> 也是可以使用的。对于 <code>monorepo</code> 的项目当然要加个字段标识进行区分</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">aliasName</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 项目别名
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">monorepo</span>: <span style="color:#66d9ef">boolean</span>
+}
+</code></pre></div><h3 id="分支规范mr管理">分支规范/MR管理</h3>
+<p>只要有了 <code>git project id</code>，就可以对分支、MR进行增删查改，<code>API</code> 接入参考</p>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/api/merge_requests.html">Gitlab API</a></li>
+<li><a href="https://help.aliyun.com/document_detail/460464.html">Ali Codeup API</a></li>
+</ul>
+<p><code>gitlab</code> 上的分支列表是没有业务属性的，但是我们内部约定</p>
+<ul>
+<li><code>story/*</code> 属于需求分支，同时也是保护分支，个人开发只能提交MR到此分支</li>
+<li><code>refactor/*</code> 属于技改分支，</li>
+<li><code>feat/*</code> 个人开发分支</li>
+<li><code>release/*</code> 是集成分支，用于部署，不能提交代码到此分支</li>
+</ul>
+<p>所以，我们在实现分支管理的时候，可以根据上述不同分支类型，查看对应分支列表，进行分门归类。另外，根据分支名可以查询到迭代，进而可以查看该分支对应的需求、进度、负责人等。</p>
+<p>同理，可以对 <code>mr</code> 列表按照当前迭代对应的分支名进行归类</p>
+<ul>
+<li>每个 mr 的状态、提交人、审阅人、comments等</li>
+<li>每个迭代对应的 mr 个数</li>
+</ul>
+<p>分类的更大的好处是，提 <code>mr</code> 的时候，不会提到其他分支，尤其是 <code>main</code></p>
+<ul>
+<li>之前大家都是在 <code>gitlab</code> 上提交 <code>mr</code>，但是它的默认目标分支是 <code>main</code>，很容易就直接提到 main 了</li>
+<li>就算搜索到目标分支，那也要多一层搜索，比较费时间，尤其是分支数量很多的时候</li>
+</ul>
+<h3 id="部署相关">部署相关</h3>
+<p>部署这块接的是阿里的云效，有2个要考虑的地方，一个要考虑是否开启分支模式，一个是配置流水线</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devPipelineId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 开发环境流水线id
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">betaPipelineId</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">prodPipelineId</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">branchMode</span>: <span style="color:#66d9ef">boolean</span>
+}
+</code></pre></div><h3 id="发布审批上线日志">发布审批/上线日志</h3>
+<p>之前上线，都是要手动写个发布计划的文档，内容包括需求文档、开发人、MR、回滚方案等，效率低不说，压根起不到审批的作用，而且时间长了之后，发布计划文档，也是难以追溯。</p>
+<p>现在接入平台之后，需求上线前会发起自动审批，前提是项目配置了「发布审批」，因为不是所有项目都需要审批的，比如技术项目组件库、三方库等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">needProdAudit</span>: <span style="color:#66d9ef">boolean</span>
+}
+</code></pre></div><p>需求上线就会更新迭代状态为「已上线」状态，那么，查询「已上线」状态的迭代列表，再按日分类，上线日志就一目了然。</p>
+<h3 id="appid">appId</h3>
+<p>以上字段提交到服务器，会返回应用 <code>id</code> 即 <code>appId</code>。当在应用中创建新迭代，会把 <code>appId</code> 提交给服务端，这样应用和迭代就通过 <code>appId</code>关联起来</p>
+<h2 id="迭代">迭代</h2>
+<p>可以看到，应用层更多是添加相关配置，真正的干货都在迭代里。</p>
+<h3 id="名词解释">名词解释</h3>
+<p>在此之前，先定义一下几个名词</p>
+<ul>
+<li>需求：要实现的产品功能，一般通过 产品的需求文档 PRD 表述</li>
+<li>迭代：一次完整的需求开发流程，包括需求文档、技术文档、UI稿、测试用例、相关人员、开发进度、日报、开发分支、排期等</li>
+</ul>
+<h3 id="元信息">元信息</h3>
+<p>根据定义，迭代对应的基本数据模型如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
+  <span style="color:#a6e22e">appId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 所属应用id，平台自动生成(创建应用返回的 appId)
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 本次迭代标题
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 本次迭代描述
+</span><span style="color:#75715e"></span>
+  <span style="color:#a6e22e">prd</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 需求文档
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ui</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// UI稿
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">analysis</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 系统分析,技术文档
+</span><span style="color:#75715e"></span>
+  <span style="color:#a6e22e">owner</span>: <span style="color:#66d9ef">IUser</span>[] <span style="color:#75715e">// 开发者
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">pd</span>: <span style="color:#66d9ef">IUser</span>[] <span style="color:#75715e">// 产品人员
+</span><span style="color:#75715e"></span>
+  <span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">ITER_STATUS</span> <span style="color:#75715e">// 进度
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">dailyReportList</span><span style="color:#f92672">:</span> { <span style="color:#75715e">// 日报列表
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">content</span>: <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">date</span>: <span style="color:#66d9ef">number</span>
+  }[]
+
+  <span style="color:#a6e22e">testDate</span>: <span style="color:#66d9ef">Number</span> <span style="color:#75715e">// 提测时间
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">uatDate</span>: <span style="color:#66d9ef">Number</span> <span style="color:#75715e">// uat时间
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">pubDate</span>: <span style="color:#66d9ef">Number</span> <span style="color:#75715e">// 上线时间
+</span><span style="color:#75715e"></span>  
+  <span style="color:#a6e22e">branch</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 分支名
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">branchUrl</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 分支url
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">projectName</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project name
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">projectId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project id
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>其中 <code>ITER_STATUS</code>，表示迭代的进度，我们定义以下7种状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ITER_STATUS</span> {
+  <span style="color:#a6e22e">INIT</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#a6e22e">DEV</span>,
+  <span style="color:#a6e22e">TESTING</span>,
+  <span style="color:#a6e22e">UAT</span>,
+  <span style="color:#a6e22e">PUBLISHING</span>,
+  <span style="color:#a6e22e">PUBLISHED</span>,
+  <span style="color:#a6e22e">INVALID</span>,
+}
+</code></pre></div><h3 id="关联-git-分支">关联 Git 分支</h3>
+<p>一个迭代对应一个分支，在创建的时候，开发者需要填入分支名 <code>branch</code>，服务端然后调用 <code>gitlab/codeup api</code> 生成对应的远程分支。下面是使用 <code>gitlab api</code> 创建新分支的代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(
+  <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">GITLAB_API_V4</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/projects/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">projectId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/repository/branches?branch=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">branch</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;ref=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ref</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+  {},
+  {
+    <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;Private-Token&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">GITLAB_PERSONAL_ACCESS_TOKEN</span> },
+  }
+)
+
+<span style="color:#66d9ef">return</span> {
+  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">res.data?.name</span>,
+  <span style="color:#a6e22e">web_url</span>: <span style="color:#66d9ef">res?.data?.web_url</span>,
+}
+</code></pre></div><h3 id="日报管理">日报管理</h3>
+<p>以前，项目日报都只是发到项目群，并没有归档，不同需求想要汇总查看，还是比较麻烦的，要到处查看群消息。</p>
+<p>现在，日报和迭代关联在一起，不仅支持一键发到群组，还可以查看历史日报，而且对所有人都是公开的。</p>
+<p>要存储的信息就只有内容和日期，毕竟其他信息迭代本身就已经有了，而内容也不需要 <code>markdown</code>，寥寥几十字足以</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">dailyReportList</span><span style="color:#f92672">:</span> { <span style="color:#75715e">// 日报列表
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">content</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">date</span>: <span style="color:#66d9ef">number</span>
+}[]
+</code></pre></div><h3 id="审批">审批</h3>
+<p>以前是怎么上线的</p>
+<ul>
+<li>编写发布计划，通知本周有发布权限的同学</li>
+<li>对应同学手动合并代码到 <code>main</code>，然后再到云效生产环境发布</li>
+<li>最后通知开发同学，发布完成，回归验证</li>
+</ul>
+<p>整个流程非常被动，核心问题是真正负责该迭代的同学却没有发布的权限和对应的责任。</p>
+<p>现在，当测试通过准备上线，开发者只需要提交审批流，审批者收到通知确认无误，同意发布即可，后续所有事项皆由开发同学操作。因此，每个迭代都要有至少一个审批者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">audit</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">String</span>,
+    <span style="color:#a6e22e">userName</span>: <span style="color:#66d9ef">String</span>,
+    <span style="color:#a6e22e">agreed</span>: <span style="color:#66d9ef">Number</span>,
+    <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">String</span>,
+  },
+}
+</code></pre></div><p>审批通知，目前是接入到群组中，为此审批者还需要再次登录平台才能点击同意，稍微有点麻烦，不过也能用，更方便的是能接入 <code>IM</code> 的工作流。</p>
+<h3 id="导入迭代">导入迭代</h3>
+<p>业务中存在应用在多渠道发布的情况，比如同时发布到阿里、字节两个平台，这种情况大都使用 <code>monorepo</code> 架构。</p>
+<p>这就给迭代平台造成2个小问题</p>
+<p>1、在创建迭代的时候，一般都要判断 <code>branch</code> 是否已经创建，如果是就会提示 <code>分支已存在</code></p>
+<p>2、即使可以跳过分支存在检查，那同一个需求要在2个应用内反复创建，这就 <code>repeat yourself</code> 了</p>
+<p>解决方法也很简单</p>
+<ul>
+<li>第一个问题，跳过分支存在检查；</li>
+<li>第二个问题，支持导入同一个 <code>project id</code>（注意，不是 <code>appId</code> 因为 <code>monorepo</code> 的项目 <code>project id</code> 相同但是 <code>appId</code> 不同） 下的迭代，导入其实等同于创建新迭代，只需要稍微修改部分迭代元信息，主要更新为当前应用的 <code>appId/appName</code></li>
+</ul>
+<h2 id="发布">发布</h2>
+<p>到目前为止，应用、迭代的 <code>CRUD</code> 层已经完成，只剩下最核心的部署流程未实现。部署提过很多次，接入的是 <a href="https://help.aliyun.com/document_detail/472261.html">阿里云效</a>，要接入就要看下它提供了哪些 <code>API</code></p>
+<h3 id="flow-api">Flow API</h3>
+<p>和部署息息相关的主要是这4个 <code>API</code></p>
+<ul>
+<li>运行流水线 <code>startPipelineRunWithOptions</code></li>
+<li>查询流水线运行详情 <code>getPipelineRunWithOptions</code></li>
+<li>查询每个阶段的日志 <code>logPipelineJobRunWithOptions</code></li>
+<li>取消流水线运行 <code>stopPipelineRunWithOptions</code></li>
+</ul>
+<p>整个服务只需要实例化一个 <code>flow</code> 对象即可，具体实现代码参考 <a href="https://next.api.aliyun.com/api/devops/2021-06-25/GetPipelineArtifactUrl?lang=TYPESCRIPT">官方文档</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlowClient</span> {
+  <span style="color:#a6e22e">client</span>
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">accessKeyId</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">accessKeySecret</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">$OpenApi</span>.<span style="color:#a6e22e">Config</span>({
+      <span style="color:#a6e22e">accessKeyId</span>,
+      <span style="color:#a6e22e">accessKeySecret</span>,
+    })
+
+    <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">endpoint</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`devops.cn-hangzhou.aliyuncs.com`</span>
+
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">devops20210625</span>(<span style="color:#a6e22e">config</span>)
+  }
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">ack</span>, <span style="color:#a6e22e">ackSecret</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FlowClient</span>(<span style="color:#a6e22e">ack</span>, <span style="color:#a6e22e">ackSecret</span>)
+  }
+  <span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">runningBranches</span>: <span style="color:#66d9ef">string</span>[]) {}
+  <span style="color:#a6e22e">queryPipelineDetail</span>(<span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">pipelineRunId</span>: <span style="color:#66d9ef">number</span>) {}
+  <span style="color:#a6e22e">queryJobDetail</span>(<span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">pipelineRunId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">jobId</span>: <span style="color:#66d9ef">number</span>) {}
+  <span style="color:#a6e22e">cancelPipeline</span>(<span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">pipelineRunId</span>: <span style="color:#66d9ef">number</span>){}
+}
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FlowClient</span>.<span style="color:#a6e22e">create</span>()
+</code></pre></div><h3 id="状态机">状态机</h3>
+<p>一次发布至少有2个步骤：构建 和 部署。在 <code>flow</code> 平台，如果选择了分支模式，那么第一步是做分支集成，然后才是构建、部署。显然，整个流程是一个有限状态机</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FLOW_STATE</span> {
+  <span style="color:#a6e22e">BRANCH_CHECK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;branch_check&#39;</span>,
+  <span style="color:#a6e22e">BUILD</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;build&#39;</span>,
+  <span style="color:#a6e22e">DEPLOY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;deploy&#39;</span>,
+  <span style="color:#a6e22e">DONE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;done&#39;</span>,
+}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stepList</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">FLOW_STATE</span>.<span style="color:#a6e22e">BRANCH_CHECK</span>, <span style="color:#a6e22e">FLOW_STATE</span>.<span style="color:#a6e22e">BUILD</span>, <span style="color:#a6e22e">FLOW_STATE</span>.<span style="color:#a6e22e">DEPLOY</span>, <span style="color:#a6e22e">FLOW_STATE</span>.<span style="color:#a6e22e">DONE</span>]
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start() {</span>
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">error</span>
+  <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
+
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">step</span>) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BRANCH_CHECK</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">check</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BUILD</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">build</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.DEPLOY</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deploy</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">break</span>
+    }
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) {
+      <span style="color:#66d9ef">break</span>
+    }
+  }
+}
+</code></pre></div><p>很多时候，我们希望在每一步切换的前后进行业务扩展，比如每一步完成之后都要进行某个操作等，第N步之前要做些前置判断等等，这就要求我们提供对应的 <code>hooks</code>，参考单元测试的语法，可以定义如下的钩子</p>
+<ul>
+<li><code>beforeAll()</code></li>
+<li><code>beforeEach()</code></li>
+<li><code>before[FLOW_STATE]()</code></li>
+<li><code>afterAll()</code></li>
+<li><code>afterEach()</code></li>
+<li><code>after[FLOW_STATE]()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">start() {</span>
+  <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
+
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">beforeEach</span>)) {
+      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">beforeEach</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>, <span style="color:#66d9ef">this</span>)
+    }
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">beforeCb</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;before&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">to</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">toUpperCase</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">to</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">beforeCb</span>])) {
+      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">beforeCb</span>](<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>, <span style="color:#66d9ef">this</span>)
+    }
+
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">step</span>) {
+      <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">afterCb</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;after&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">to</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">toUpperCase</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">to</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">afterCb</span>])) {
+      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">afterCb</span>](<span style="color:#a6e22e">error</span>, <span style="color:#66d9ef">this</span>)
+    }
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">afterEach</span>)) {
+      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">afterEach</span>(<span style="color:#a6e22e">error</span>, <span style="color:#66d9ef">this</span>)
+    }
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) {
+      <span style="color:#66d9ef">break</span>
+    }
+  }
+}
+</code></pre></div><h3 id="pipeline">Pipeline</h3>
+<p>状态机是一次发布的状态流转，而一次发布我们抽象为 <code>pipeline</code>。</p>
+<p>首先是一次发布的状态，主要有4种情况</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">PIPELINE_STATE</span> {
+  <span style="color:#a6e22e">WAITING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;WAITING&#39;</span>,
+  <span style="color:#a6e22e">RUNNING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>,
+  <span style="color:#a6e22e">SUCCESS</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>,
+  <span style="color:#a6e22e">FAIL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>,
+}
+</code></pre></div><p>根据 <code>flow</code> 官方流水线操作，一次发布过程中涉及的主要操作包括</p>
+<ul>
+<li>开始部署</li>
+<li>查询流水线的详情</li>
+<li>解决冲突</li>
+<li>取消分支集成</li>
+<li>取消部署</li>
+</ul>
+<p>基于此，一个简单的 <code>pipeline</code> 类定义如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">branch</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">projectId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">appId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">env</span>: <span style="color:#66d9ef">ENV_TYPE.DEV</span>,
+  }
+
+  <span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">PIPELINE_STATE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PIPELINE_STATE</span>.<span style="color:#a6e22e">WAITING</span>
+
+  <span style="color:#75715e">// 状态机的开始、销毁
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">start() {</span>}
+  <span style="color:#a6e22e">destroy() {</span>}
+
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">check() {</span>}
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">build() {</span>}
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">deploy() {</span>}
+  
+  <span style="color:#75715e">// 查询流水线的详情
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">queryRunDetail() {</span>}
+  
+  <span style="color:#75715e">// 解决冲突
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">resolveConflict() {</span>}
+
+  <span style="color:#75715e">// 取消分支集成
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">cancelRelease() {</span>}
+
+  <span style="color:#75715e">// 取消部署
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">cancel() {</span>}
+}
+</code></pre></div><h3 id="构建部署">构建/部署</h3>
+<p>触发构建，其实就是调用 <code>flow api</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">build() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pipelineRunId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRunId</span>
+}
+</code></pre></div><p>问题是该接口返回的只是当下的流水线实例 <code>id</code> 即 <code>pipelineRunId</code>，如果想知道具体的流水线详情，还需要不断轮询查询详情的接口</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">build() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineRunId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRunId</span>
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_startLoop</span>() <span style="color:#75715e">// 新增轮询
+</span><span style="color:#75715e"></span>  }
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">_startLoop() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">queryRunDetail</span>()
+    }, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+  }
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">queryRunDetail() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">queryPipelineDetail</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">pipelineRunId</span>)
+  }
+}
+</code></pre></div><p>流水线详情接口返回结果如下，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+  <span style="color:#a6e22e">pipelineRun</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">123</span>,
+    <span style="color:#a6e22e">pipelineRunId</span>: <span style="color:#66d9ef">992</span>,
+    <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+      {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Group0-Stage0&#39;</span>,
+        <span style="color:#a6e22e">stageInfo</span><span style="color:#f92672">:</span> {
+          <span style="color:#a6e22e">jobs</span><span style="color:#f92672">:</span> [
+            {
+              <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">134762231</span>,
+              <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;构建&#39;</span>,
+              <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>,
+            },
+          ],
+          <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Group0-Stage0&#39;</span>,
+          <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>,
+        },
+      },
+      {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Group1-Stage0&#39;</span>,
+        <span style="color:#a6e22e">stageInfo</span><span style="color:#f92672">:</span> {
+          <span style="color:#a6e22e">jobs</span><span style="color:#f92672">:</span> [
+            {
+              <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">134762232</span>,
+              <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;主机部署&#39;</span>,
+              <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INIT&#39;</span>,
+            },
+          ],
+          <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Group1-Stage0&#39;</span>,
+          <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INIT&#39;</span>,
+        },
+      },
+    ],
+    <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>,
+  }
+}
+</code></pre></div><p>可以看到</p>
+<ul>
+<li><code>pipelineRun.status</code> 表明了当前流水线的整体运行状态</li>
+<li><code>pipelineRun.stages</code> 说明我们有2个步骤：构建、部署；每一步也有自己的 <code>status</code></li>
+</ul>
+<p>有了这些字段就可以更新状态机了</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">build() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineRunId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRunId</span>
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_startLoop</span>() 
+
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_buildResolver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>
+    })
+  }
+  <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">deploy() {</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_deployResolver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>
+    })
+  }
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">queryRunDetail() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">queryPipelineDetail</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">pipelineRunId</span>)
+
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 在运行
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRun</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>) {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRun</span>.<span style="color:#a6e22e">stages</span>.<span style="color:#a6e22e">findIndex</span>((<span style="color:#a6e22e">s</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>)
+
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">idx</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_buildResolver</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_buildResolver</span>()
+      }
+    }
+    <span style="color:#75715e">// 失败
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRun</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>) {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_buildResolver</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_buildResolver</span>(<span style="color:#e6db74">&#39;构建失败，请查看日志&#39;</span>)
+      } 
+      <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_deployResolver</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_deployResolver</span>(<span style="color:#e6db74">&#39;部署失败，请查看日志&#39;</span>)
+      }
+    }
+    <span style="color:#75715e">// 部署成功
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">pipelineRun</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_deployResolver</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_deployResolver</span>()
+    }
+  }
+}
+</code></pre></div><p>这段代码需要注意的点是，不同于以往的 <code>new Promise(handler)</code>，<code>resolve/reject</code> 会在 <code>handler</code> 中调用，这里我们存储了 <code>resolve</code> 的引用，只有当其他外界条件满足时，才会触发 <code>resolve()</code> 使 <code>promise</code> 变为 <code>fulfilled</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 普通模式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span>(), <span style="color:#ae81ff">1000</span>)
+}).<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;haha&#39;</span>))
+
+<span style="color:#75715e">// 保存引用
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resolve</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">waitMe() {</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>)
+}
+<span style="color:#a6e22e">waitMe</span>().<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;haha&#39;</span>))
+<span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span>(), <span style="color:#ae81ff">1000</span>)
+</code></pre></div><h3 id="分支集成">分支集成</h3>
+<p>可惜的是，没有分支集成的 <code>API</code>。。。说起来当时我竟然没发现，上面的API都接入完了才发现无法分支集成，郁闷了1、2个星期才开始研究自己实现。</p>
+<p>所谓分支集成，就是把不同分支按顺序 <code>merge</code> 到一个从 main 切的新分支上（约定为 <code>release/*</code>），然后部署该 <code>release</code> 分支。如果要自己实现，也不是很难</p>
+<ul>
+<li>clone project</li>
+<li>create a new branch named release/xxx if necessary</li>
+<li>merge each source branch into release/xxx</li>
+<li>commit and push release/xxx</li>
+</ul>
+<p>代码实现如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createRelease</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+  <span style="color:#a6e22e">sourceBranchList</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">branch</span>: <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">branchUrl</span>: <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">commitId?</span>: <span style="color:#66d9ef">string</span>
+  }[]
+  <span style="color:#a6e22e">releaseBranch</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">needCreateBranch</span>: <span style="color:#66d9ef">boolean</span>
+  <span style="color:#a6e22e">env</span>: <span style="color:#66d9ef">number</span>
+  <span style="color:#a6e22e">projectUrl</span>: <span style="color:#66d9ef">string</span>
+}) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">envDir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;beta&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">baseDir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#a6e22e">envDir</span>)
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">ensureDir</span>(<span style="color:#a6e22e">baseDir</span>)
+
+  <span style="color:#75715e">// clone project
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">git</span>: <span style="color:#66d9ef">SimpleGit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">simpleGit</span>({
+    <span style="color:#a6e22e">baseDir</span>,
+    <span style="color:#a6e22e">binary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;git&#39;</span>,
+  })
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">repoDir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">baseDir</span>, <span style="color:#a6e22e">repoName</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">exists</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">pathExists</span>(<span style="color:#a6e22e">repoDir</span>)
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">exists</span>) {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">clone</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">projectUrl</span>)
+  }
+  
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cwd</span>({ <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">repoDir</span>, <span style="color:#a6e22e">root</span>: <span style="color:#66d9ef">true</span> })
+
+  <span style="color:#75715e">// create a new branch named release/xxx if necessary
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">releaseBranch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">releaseBranch</span>
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">needCreateBranch</span>) {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;createNew&#39;</span>)
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseBranch</span>) {
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">checkout</span>(<span style="color:#a6e22e">releaseBranch</span>)
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">pull</span>()
+    }
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;invalid releaseBranch&#39;</span>)
+    }
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">checkout</span>(<span style="color:#e6db74">&#39;main&#39;</span>)
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">pull</span>()
+
+    <span style="color:#a6e22e">releaseBranch</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;release/&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">envDir</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;-&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">dayjs</span>().<span style="color:#a6e22e">format</span>(<span style="color:#e6db74">&#39;YYYY-MM-DD-HH-mm-ss&#39;</span>)
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">checkoutLocalBranch</span>(<span style="color:#a6e22e">releaseBranch</span>)
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">push</span>([<span style="color:#e6db74">&#39;--set-upstream&#39;</span>, <span style="color:#e6db74">&#39;origin&#39;</span>, <span style="color:#a6e22e">releaseBranch</span>])
+  }
+
+
+  <span style="color:#75715e">// merge branch
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">branch</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">sourceBranchList</span>) {
+    <span style="color:#66d9ef">try</span> {
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">merge</span>([<span style="color:#e6db74">&#39;--no-edit&#39;</span>, <span style="color:#e6db74">&#39;-s&#39;</span>, <span style="color:#e6db74">&#39;recursive&#39;</span>, <span style="color:#e6db74">&#39;--no-ff&#39;</span>, <span style="color:#a6e22e">branch</span>.<span style="color:#a6e22e">commitId</span>])
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">push</span>()
+    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">merge</span>([<span style="color:#e6db74">&#39;--abort&#39;</span>])
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MergeException</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">message</span>, { <span style="color:#a6e22e">releaseBranch</span>, <span style="color:#a6e22e">commitId</span>: <span style="color:#66d9ef">branch.commitId</span> })
+    }
+  }
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">releaseBranch</span>,
+  }
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">MergeException</span>(<span style="color:#a6e22e">message</span>, <span style="color:#a6e22e">detail?</span>: <span style="color:#66d9ef">any</span>) {
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MergeException&#39;</span>
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">detail</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">detail</span>
+}
+</code></pre></div><p>这段代码有2点要注意</p>
+<p>1、不是每次部署都需要创建新的 <code>release/xxx</code>，比如在解决冲突的时候（具体见下面的解释）；那什么时候需要创建新的 <code>release/xxx</code> ？</p>
+<ul>
+<li>有分支上线</li>
+<li>有分支下线</li>
+<li>有新分支加入</li>
+</ul>
+<p>注意 <code>createRelease</code> 只负责保证有 release ，不关心到底需不需要创建新的 release，需不需要应该是上层业务决定，然后保存到 <code>this.lastRelease</code></p>
+<p>2、合并冲突</p>
+<p>发生冲突是很常见的，问题是怎么通知给开发者让其手动解决，可以看到一旦发生冲突，代码就会抛出异常 <code>throw new MergeException</code>，所以我们要在第一步做分支集成的时候捕获冲突异常，再次使用 <code>保存promise引用</code> 的方法让状态机始终维持在第一步，直到开发者手动解决</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">check() {</span>
+    <span style="color:#66d9ef">try</span> {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">stepMerge</span>()
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">message</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;check failed&#39;</span>
+    }
+  }
+
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">stepMerge() {</span>
+    <span style="color:#66d9ef">try</span> {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">createRelease</span>({
+        ...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">lastRelease</span>,
+
+        <span style="color:#a6e22e">env</span>: <span style="color:#66d9ef">this.payload.env</span>,
+        <span style="color:#a6e22e">projectUrl</span>: <span style="color:#66d9ef">this.payload.projectUrl</span>,
+      })
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>
+    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+      <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">/CONFLICTS/i</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">message</span>)) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span>.<span style="color:#a6e22e">releaseBranch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">detail</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">releaseBranch</span>
+
+        <span style="color:#75715e">// 注意这里，只有发生冲突，才会有 commitId，可以根据这个字段判断是否发生了冲突
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span>.<span style="color:#a6e22e">commitId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">detail</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">commitId</span>
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onConflict</span>)) {
+          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onConflict</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">detail</span>)
+        }
+      }
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {
+        <span style="color:#75715e">// 注意这里，保存引用又出现了
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_conflictResolver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>
+      })
+    }
+  }
+}
+</code></pre></div><p>冲突一旦解决完成，需要开发者手动通知服务器，根据上面的代码，可知服务端会调用 <code>this._conflictResolver()</code>，推进状态机进入第2步【构建】。但这是不对的，因为分支集成还没结束，只是因为现在冲突发生了。怎么避免进入第2步呢？？很简单，状态机的运行顺序是通过 <code>currentStep</code> 控制的，强制修改回到第一步即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#a6e22e">resolveConflict() {</span>
+    <span style="color:#75715e">// 强制 -1，回到最开始，重新来过
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_conflictResolver</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span>)
+  }
+}
+</code></pre></div><p>回到第一步之后，如果还是继续创建新的 <code>release</code>，那么依然还是有冲突，这样就进入了死循环。所以在 <code>stepMerge()</code> 还需要判断是否已经发生了冲突，如果是的，就使用旧的 <code>release</code>，这样才能保证旧的 <code>release</code> 已经知道该 <code>commit</code> 已经手动标记解决</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">stepMerge() {</span>
+    <span style="color:#66d9ef">try</span> {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">createRelease</span>({
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 说明存在冲突，这时候不需要重新开新的集成分支
+</span><span style="color:#75715e"></span>        ...(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">commitId</span> <span style="color:#f92672">?</span> { <span style="color:#a6e22e">needCreateBranch</span>: <span style="color:#66d9ef">false</span> } <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>),
+        ...(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextRelease</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">commitId</span> <span style="color:#f92672">?</span> { <span style="color:#a6e22e">releaseBranch</span>: <span style="color:#66d9ef">this.nextRelease.releaseBranch</span> } <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>),
+      })
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>
+    }
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  }
+}
+</code></pre></div><h3 id="取消分支集成">取消分支集成</h3>
+<p>最后如何取消分支集成？</p>
+<p>1、要清空数据库中分支对应的 <code>release.commitId</code>，因为 <code>nextRelease.commitId</code> 表示冲突发生了，既然取消分支集成，这个标记就要清空避免发生未知错误；</p>
+<p>2、要销毁本次部署的状态机</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">cancelReleaseDueConflict() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancelRelease</span>)) {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancelRelease</span>({
+        <span style="color:#a6e22e">appId</span>: <span style="color:#66d9ef">this.payload.appId</span>,
+        <span style="color:#a6e22e">env</span>: <span style="color:#66d9ef">this.payload.env</span>,
+        <span style="color:#a6e22e">sourceBranchList</span>: <span style="color:#66d9ef">this.lastRelease?.sourceBranchList</span>,
+        <span style="color:#a6e22e">releaseBranch</span>: <span style="color:#66d9ef">this.nextRelease.releaseBranch</span>
+      })
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ok</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;用户取消集成&#39;</span>
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PIPELINE_STATE</span>.<span style="color:#a6e22e">FAIL</span>
+
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">destroy</span>()
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">onCancel</span>)) {
+          <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancel</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">error</span>, <span style="color:#66d9ef">this</span>)
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ok</span>
+      }
+    }
+  }
+}
+</code></pre></div><h3 id="取消部署">取消部署</h3>
+<p>这里的部署，是指在 <code>flow</code> 平台存在一个运行中的流水线。</p>
+<p>取消分支集成和取消部署的区别在于</p>
+<ul>
+<li>
+<p>分支集成是第一步，且是我们自己实现的，此时还没有到 <code>flow</code> 平台</p>
+</li>
+<li>
+<p>取消部署，说明已经到 <code>flow</code> 平台了，此时查询流水线详情会存在一个 <code>pipelineRunId</code>，这时候取消，意味着取消 <code>flow</code> 平台的流水线</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#75715e">// 取消部署
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">cancel() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">FlowIns</span>.<span style="color:#a6e22e">cancelPipelineRun</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineId</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineRunId</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">success</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;用户取消部署&#39;</span>
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PIPELINE_STATE</span>.<span style="color:#a6e22e">FAIL</span>
+
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">destroy</span>()
+
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">onCancel</span>)) {
+        <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancel</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">error</span>, <span style="color:#66d9ef">this</span>)
+      }
+
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">success</span>
+    }
+  }
+}
+</code></pre></div><h3 id="销毁发布">销毁发布</h3>
+<p>不管是取消分支集成、还是取消部署，最后都要做 <code>clean up</code> 当前 <code>pipeline</code> 的状态，避免内存泄露。我们的 <code>class pipeline</code> 存在轮询，所以需要及时销毁</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">destroy() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">clearInterval</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  }
+}
+</code></pre></div><h3 id="pipelinemanager">PipelineManager</h3>
+<p><code>Pipeline class</code> 仅仅是单次部署的抽象，现实中，我们要实现多项目、多环境下同时部署，这就导致排队的问题，为了维护队列按顺序执行，我们要实现一个 <code>PipelineManager</code></p>
+<p>1、不同项目应该对应不同的 <code>manager</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">managerByProject</span> <span style="color:#f92672">=</span> {}
+
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">options</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">PipelineManager</span>.<span style="color:#a6e22e">managerByProject</span>[<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">appId</span>]) {
+      <span style="color:#a6e22e">PipelineManager</span>.<span style="color:#a6e22e">managerByProject</span>[<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">appId</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">PipelineManager</span>()
+    }
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">manager</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PipelineManager</span>.<span style="color:#a6e22e">managerByProject</span>[<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">appId</span>]
+    <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">options</span>)
+  }
+}
+</code></pre></div><p>2、按环境区分同一个迭代同时间部署</p>
+<p>3、当有 <code>pipeline</code> 在运行，其他 <code>pipeline</code> 加入队列</p>
+<p>4、当运行完成，从队列中拿出最近的一条，开始运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+  <span style="color:#a6e22e">devPipelineList</span>: <span style="color:#66d9ef">Pipeline</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#a6e22e">devRunning</span>: <span style="color:#66d9ef">Pipeline</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
+
+  <span style="color:#a6e22e">betaPipelineList</span>: <span style="color:#66d9ef">Pipeline</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#a6e22e">betaRunning</span>: <span style="color:#66d9ef">Pipeline</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
+
+  <span style="color:#a6e22e">prodPipelineList</span>: <span style="color:#66d9ef">Pipeline</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#a6e22e">prodRunning</span>: <span style="color:#66d9ef">Pipeline</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
+
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">IOption</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ins</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Pipeline</span>({
+      ...<span style="color:#a6e22e">options</span>,
+      <span style="color:#a6e22e">beforeEach() {</span>},
+      <span style="color:#a6e22e">afterEach</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">error</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Pipeline</span>) <span style="color:#f92672">=&gt;</span> {
+        <span style="color:#75715e">// 只要有一步发生错误
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) {
+          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">env</span>)
+        }
+      },
+      <span style="color:#a6e22e">afterDone</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">error</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Pipeline</span>) <span style="color:#f92672">=&gt;</span> {
+        <span style="color:#75715e">// 都没出错，部署成功
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">env</span>)
+      },
+    })
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">DEV</span>) {
+      <span style="color:#75715e">// 加入队列
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">devPipelineList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">ins</span>)
+      <span style="color:#75715e">// 尝试执行
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">DEV</span>)
+    }
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">TEST</span>) {
+      <span style="color:#75715e">// 加入队列
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">betaPipelineList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">ins</span>)
+      <span style="color:#75715e">// 尝试执行
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">TEST</span>)
+    }
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">PROD</span>) {
+      <span style="color:#75715e">// 加入队列
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prodPipelineList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">ins</span>)
+      <span style="color:#75715e">// 尝试执行
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">PROD</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ins</span>
+  }
+
+  <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">env</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_next</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">running</span>: <span style="color:#66d9ef">Pipeline</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">running</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">running</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">PIPELINE_STATE</span>.<span style="color:#a6e22e">RUNNING</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">running</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">PIPELINE_STATE</span>.<span style="color:#a6e22e">WAITING</span>)) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">running</span>
+      }
+      
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">running</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextPipeline</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">shift</span>()
+        
+        <span style="color:#a6e22e">nextPipeline</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">start</span>()
+        
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nextPipeline</span>
+      }
+    }
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">DEV</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">devRunning</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_next</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">devPipelineList</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">devRunning</span>)
+    } 
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">TEST</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">betaRunning</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_next</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">betaPipelineList</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">betaRunning</span>)
+    } 
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">PROD</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prodRunning</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_next</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prodPipelineList</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prodRunning</span>)
+    }
+  }
+}
+</code></pre></div><p>5、运行取消排队，从对列中删除</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">cancelQueue</span>(<span style="color:#a6e22e">env</span>, <span style="color:#a6e22e">appId</span>, <span style="color:#a6e22e">id</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">manager</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PipelineManager</span>.<span style="color:#a6e22e">managerByProject</span>[<span style="color:#a6e22e">appId</span>]
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">DEV</span>) {
+      <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">devPipelineList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">devPipelineList</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">p</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">id</span>)
+    } 
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">TEST</span>) {
+      <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">betaPipelineList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">betaPipelineList</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">p</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">id</span>)
+    } 
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">env</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ENV_TYPE</span>.<span style="color:#a6e22e">PROD</span>) {
+      <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">prodPipelineList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">prodPipelineList</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">p</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">id</span>)
+    }
+  }
+}
+</code></pre></div><h2 id="summary">Summary</h2>
+<p>这个项目是所有基建中最复杂的，前后也做了有2个月，好在是真的提高了开发效率，大家用起来也很顺手。这篇文章写起来也非常费劲，拖拖拉拉的有2周，整体是按照我当时的开发思路来的，先做CRUD层，再研究如何部署，最后是分支集成。其实还有很多功能没有介绍，比如紧急发布、跳过分支检查、甚至是跳过整个发布（针对小程序项目）只保留上线记录等，这些其实也不是一开始我就能想到的，也是在大家不断使用中才发现，是该有这么个功能，慢慢补齐的。总之，这篇文章就到这吧。</p>
+
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          
+
+
+          
+          <nav class="post-nav">
+            
+            
+              <a class="next" href="/blog/post/fe/upload/">
+                <span class="next-text nav-default">Upload</span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#应用">应用</a>
+      <ul>
+        <li><a href="#关联-git">关联 Git</a></li>
+        <li><a href="#项目模板">项目模板</a></li>
+        <li><a href="#monorepo">monorepo</a></li>
+        <li><a href="#分支规范mr管理">分支规范/MR管理</a></li>
+        <li><a href="#部署相关">部署相关</a></li>
+        <li><a href="#发布审批上线日志">发布审批/上线日志</a></li>
+        <li><a href="#appid">appId</a></li>
+      </ul>
+    </li>
+    <li><a href="#迭代">迭代</a>
+      <ul>
+        <li><a href="#名词解释">名词解释</a></li>
+        <li><a href="#元信息">元信息</a></li>
+        <li><a href="#关联-git-分支">关联 Git 分支</a></li>
+        <li><a href="#日报管理">日报管理</a></li>
+        <li><a href="#审批">审批</a></li>
+        <li><a href="#导入迭代">导入迭代</a></li>
+      </ul>
+    </li>
+    <li><a href="#发布">发布</a>
+      <ul>
+        <li><a href="#flow-api">Flow API</a></li>
+        <li><a href="#状态机">状态机</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#构建部署">构建/部署</a></li>
+        <li><a href="#分支集成">分支集成</a></li>
+        <li><a href="#取消分支集成">取消分支集成</a></li>
+        <li><a href="#取消部署">取消部署</a></li>
+        <li><a href="#销毁发布">销毁发布</a></li>
+        <li><a href="#pipelinemanager">PipelineManager</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+  
+    <a href="wxp201013@163.com" rel="me noopener" class="iconfont"
+      title="email"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://www.linkedin.com/in/ixiaopan" rel="me noopener" class="iconfont"
+      title="linkedin"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="33" height="33">
+  <path d="M872.405333 872.618667h-151.637333v-237.610667c0-56.661333-1.152-129.578667-79.018667-129.578667-79.061333 0-91.136 61.653333-91.136 125.397334v241.792H398.976V384h145.664v66.602667h1.962667c20.352-38.4 69.845333-78.933333 143.786666-78.933334 153.642667 0 182.058667 101.12 182.058667 232.746667v268.202667zM227.712 317.141333a87.978667 87.978667 0 0 1-88.021333-88.106666 88.064 88.064 0 1 1 88.021333 88.106666z m76.032 555.477334H151.68V384h152.064v488.618667zM948.266667 0H75.562667C33.792 0 0 33.024 0 73.770667v876.458666C0 991.018667 33.792 1024 75.562667 1024h872.576C989.866667 1024 1024 991.018667 1024 950.229333V73.770667C1024 33.024 989.866667 0 948.138667 0h0.128z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://github.com/ixiaopan" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://space.bilibili.com/22910840" rel="me noopener" class="iconfont"
+      title="bilibili"  target="_blank"
+      >
+      <svg
+  class="icon" style="" viewBox="0 0 1024 1024" version="1.1" width="36"
+  height="36" id="svg8">
+  <path
+      style=""
+      d="M 744.60599,0.00486267 A 41.779915,41.779915 0 0 0 710.4184,18.673394 L 548.5048,255.32642 h -11.70046 a 41.779915,41.779915 0 0 0 -10.80295,-7.84928 L 235.66,97.084498 a 41.779915,41.779915 0 0 0 -20.07193,-4.960864 41.779915,41.779915 0 0 0 -18.3748,79.145436 L 359.4859,255.32642 H 128.16909 c -49.458302,0 -89.27932,39.82105 -89.27932,89.27932 v 508.65224 c 0,49.4583 39.821018,89.27934 89.27932,89.27934 h 19.48445 C 149.12802,984.5043 179.92773,1024 224.79179,1024 c 44.86407,0 75.66379,-39.4957 77.13826,-81.46268 H 719.98116 C 721.45559,984.5043 752.25533,1024 797.1194,1024 c 44.86406,0 75.6638,-39.4957 77.13824,-81.46268 h 21.57323 c 49.45831,0 89.27936,-39.82104 89.27936,-89.27934 V 344.60574 c 0,-49.45827 -39.82105,-89.27932 -89.27936,-89.27932 H 649.74567 L 779.38103,65.866924 A 41.779915,41.779915 0 0 0 744.60599,0.00486267 Z M 644.49108,418.70871 c 6.29985,0.21538 12.44451,2.01107 17.86888,5.22196 l 171.36218,98.10771 c 18.23417,10.21935 24.63334,33.34627 14.24614,51.48533 -10.38726,18.13909 -33.57344,24.32718 -51.61587,13.77296 L 624.9903,489.18895 c -15.21356,-8.41858 -22.66871,-26.1765 -18.03211,-42.93436 4.63664,-16.75784 20.15573,-28.14465 37.53289,-27.54588 z M 350.2006,432.31846 c 16.89952,0.0317 31.69582,11.33328 36.17844,27.62747 4.48262,16.2942 -2.44981,33.57765 -16.95507,42.24898 l -140.7157,86.91312 c -17.68528,11.18244 -41.09629,5.77692 -52.08912,-12.02686 -10.99282,-17.80373 -5.33855,-41.15658 12.58167,-51.95857 L 329.9002,438.2095 c 6.0643,-3.86439 13.10951,-5.90891 20.3004,-5.89104 z M 501.605,641.53985 c 3.75002,-0.15248 7.48645,0.53903 10.93349,2.0235 0.15842,0.0637 0.31618,0.12888 0.47325,0.19582 0.59328,0.27092 1.17574,0.56489 1.74609,0.88121 0.15868,0.0854 0.31643,0.17233 0.47325,0.2611 0.55694,0.32165 1.10131,0.66458 1.63185,1.02807 0.16455,0.1123 0.32777,0.2265 0.48956,0.34269 0.50382,0.36781 0.99371,0.75428 1.46868,1.15864 0.18724,0.15504 0.37218,0.31282 0.55484,0.47323 0.43271,0.38784 0.8518,0.79061 1.25653,1.20756 0.15449,0.16114 0.30679,0.32437 0.45693,0.48959 0.40798,0.44266 0.79989,0.89988 1.17494,1.37076 0.17799,0.22544 0.35205,0.45395 0.5222,0.68538 0.25932,0.34701 0.50964,0.70071 0.75064,1.06071 0.26712,0.39516 0.52286,0.79784 0.76699,1.20757 0.16907,0.29043 0.33231,0.58424 0.48957,0.88123 0.21836,0.41297 0.42513,0.83199 0.62009,1.25653 0.14836,0.32333 0.28983,0.64976 0.42429,0.97911 0.21319,0.51552 0.40915,1.03801 0.58747,1.5666 0.0677,0.19499 0.13296,0.39085 0.19582,0.58748 0.18652,0.60823 0.34984,1.22334 0.48957,1.84399 0.0397,0.16277 0.0779,0.32601 0.11423,0.48957 0.1436,0.69112 0.25788,1.38801 0.34269,2.08877 0.005,0.0381 0.0111,0.0761 0.0163,0.11424 0.0857,0.78056 0.13474,1.56471 0.14687,2.34988 0.005,0.0543 0.0111,0.10879 0.0163,0.1632 0,0 -0.008,1.12132 0,1.45234 0,0 -0.14697,17.84761 5.89102,34.12231 3.01902,8.13734 7.33278,15.10615 12.61433,19.61501 5.28157,4.50889 11.42894,7.62081 23.64572,7.62081 12.2168,0 18.36416,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.5953,-11.47767 12.6143,-19.61501 6.03799,-16.2747 5.89103,-34.12231 5.89103,-34.12231 -0.44885,-13.87045 10.45922,-25.46302 24.3311,-25.86506 13.87189,-0.40201 25.42828,10.53953 25.78348,24.41272 0,0 1.11929,25.7226 -9.00791,53.01927 -5.06359,13.64832 -13.1986,28.46036 -27.05631,40.29073 -13.85772,11.83039 -33.5454,19.63135 -56.20142,19.63135 -22.65603,0 -42.34371,-7.80096 -56.20141,-19.63135 -4.1801,-3.56856 -7.78733,-7.42433 -10.99878,-11.42303 -3.21235,4.00037 -6.81703,7.85309 -10.99876,11.42303 -13.85773,11.83039 -33.5454,19.63135 -56.20144,19.63135 -22.65601,0 -42.3437,-7.80096 -56.2014,-19.63135 -13.85775,-11.83037 -21.99272,-26.64241 -27.05632,-40.29073 -10.12725,-27.29667 -9.00789,-53.01928 -9.00789,-53.01927 0.20714,-13.83687 11.58744,-24.88848 25.42444,-24.69013 14.1263,0.19991 25.2971,12.0278 24.69011,26.14247 0,0 -0.14697,17.84761 5.89103,34.12231 3.01902,8.13734 7.31646,15.10615 12.598,19.61501 5.28155,4.50889 11.44526,7.62081 23.66203,7.62081 12.21681,0 18.36418,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.57899,-11.47767 12.598,-19.61501 5.76352,-15.53489 5.89112,-32.05691 5.89103,-33.56746 0.006,-0.37466 0.0111,-1.05336 0.0163,-1.20759 -0.0117,-0.74583 0.0105,-1.49177 0.0652,-2.23565 0.009,-0.15784 0.0204,-0.31561 0.0327,-0.47324 0.14204,-1.56859 0.43163,-3.12027 0.86487,-4.63449 0.0213,-0.0763 0.0433,-0.15244 0.0652,-0.22848 3.0335,-10.25748 12.24157,-17.46007 22.92769,-17.93417 z"
+      id="rect824"/>
+</svg>
+
+    </a>
+
+
+<a href="https://ixiaopan.github.io/blog/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2021 -
+    2023
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        xiaopan
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/blog/js/main.4484b3f29dd568c80320701800e1b69704b179f367b8223a43c728d819f39b97.js" integrity="sha256-RISz8p3VaMgDIHAYAOG2lwSxefNnuCI6Q8co2Bnzm5c=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

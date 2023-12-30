@@ -6,7 +6,25 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基建 迭代管理&amp;发布平台 02</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
+      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</guid>
+      <description>Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla</description>
+    </item>
+    
+    <item>
+      <title>Upload</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/upload/</link>
+      <pubDate>Sat, 16 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/upload/</guid>
+      <description>Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS</description>
+    </item>
+    
     <item>
       <title>基建 包发布管理平台</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
@@ -77,24 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/infras-switch/</guid>
       <description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>基建 101</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras/</link>
-      <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras/</guid>
-      <description>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的</description>
-    </item>
-    
-    <item>
-      <title>The track panel of a video editor</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/track/</link>
-      <pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/track/</guid>
-      <description>&lt;p&gt;In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the &lt;code&gt;UI&lt;/code&gt; part. For the edit operation, we will talk it later.&lt;/p&gt;</description>
     </item>
     
   </channel>
