@@ -77,7 +77,7 @@
 <meta itemprop="name" content="基建 埋点管理">
 <meta itemprop="description" content="简单实现一个埋点sdk和管理平台"><meta itemprop="datePublished" content="2023-08-22T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2023-08-22T00:00:00+00:00" />
-<meta itemprop="wordCount" content="2755">
+<meta itemprop="wordCount" content="2749">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="基建 埋点管理"/>
 <meta name="twitter:description" content="简单实现一个埋点sdk和管理平台"/>
@@ -334,69 +334,52 @@
 <h2 id="what">What</h2>
 <p>埋点是对用户在客户端产品发生的事件的描述</p>
 <ul>
-<li>
-<p>Who：用户</p>
-</li>
-<li>
-<p>When：timestamp</p>
-</li>
-<li>
-<p>What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等</p>
-</li>
-<li>
-<p>How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/&hellip;)</p>
-</li>
+<li>Who：用户</li>
+<li>When：timestamp</li>
+<li>What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等</li>
+<li>How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/&hellip;)</li>
 </ul>
 <h2 id="why">Why</h2>
 <p>埋点可以帮助业务分析用户行为，从而更好的理解用户习惯、优化产品</p>
 <h2 id="how">How</h2>
-<h3 id="事件分类">事件分类</h3>
+<h3 id="eventtype">EventType</h3>
 <p>一般可以划分为2个大类</p>
 <ul>
-<li>
-<p>页面打开 <code>PageShow</code>，需要单独统计，因为页面的 <code>pv/uv</code> 是埋点中非常重要的一个数据指标</p>
-</li>
-<li>
-<p>用户主动交互 <code>Behavior</code></p>
+<li>页面打开 <code>PageShow</code>，需要单独统计，因为页面的 <code>pv/uv</code> 是埋点中非常重要的一个数据指标</li>
+<li>用户主动交互 <code>Behavior</code>
 <ul>
 <li><code>click</code> 点击行为</li>
 <li><code>exposure</code> 模块的曝光</li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IEvent_Type</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IEventType</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">PAGE_SHOW</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pageShow&#39;</span>,
   <span style="color:#a6e22e">CLICK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;behavior.click&#39;</span>,
   <span style="color:#a6e22e">EXPOSURE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;behavior.exposure&#39;</span>,
 }
 </code></pre></div><h3 id="数据规范">数据规范</h3>
-<h4 id="pageshow-描述"><code>pageShow</code> 描述</h4>
+<h4 id="pageshow"><code>pageShow</code></h4>
 <p>对于页面打开 <code>PageShow</code>，就很简单，一般统计 当前页面 <code>url/pageId</code> 即可</p>
-<h4 id="behavior-描述"><code>behavior</code> 描述</h4>
+<h4 id="behavior"><code>behavior</code></h4>
 <p>试想怎么描述 『点击了登录按钮』这件事件，至少需要</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEvent</span> {
   <span style="color:#a6e22e">eventId</span>: <span style="color:#66d9ef">string</span>, <span style="color:#75715e">//  行为 `id`，比如下载download, 分享 share, 登录 login
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEvent_Type</span>,
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType</span>,
   <span style="color:#a6e22e">eventTarget</span>: <span style="color:#66d9ef">IEventTarget</span>[], <span style="color:#75715e">// 事件对象的描述，类似 `js` 里的 `event.target`
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">number</span>, <span style="color:#75715e">// 发生时间
 </span><span style="color:#75715e"></span>}
-</code></pre></div><h4 id="事件对象的描述">事件对象的描述</h4>
+</code></pre></div><h4 id="eventtarget">EventTarget</h4>
 <p>事件对象的相关信息，比如</p>
 <ul>
-<li>
-<p>点击登录，需要统计 登录方式（验证码登录、密码登录）</p>
-</li>
-<li>
-<p>添加购物车，需要统计 商品Id、商家 id</p>
-</li>
-<li>
-<p>分享商品，需要统计 分享的商品id，分享渠道</p>
-</li>
+<li>点击登录，统计 登录方式（验证码登录、密码登录）</li>
+<li>添加购物车，统计 商品Id、商家 id</li>
+<li>分享商品，统计 分享的商品id，分享渠道</li>
 </ul>
 <p>举个例子，分享商品</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
-  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEvent_Type.CLICK</span>,
+  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
   <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
     {
       <span style="color:#a6e22e">goodId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1&#39;</span>,
@@ -409,15 +392,30 @@
   ],
   <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">Date.now</span>()
 }
-</code></pre></div><p>上面这个 <code>eventTarget</code> 还是有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 <code>goodId</code>，换到其他业务，这个对象可能是 <code>projectId</code>，换句话说，<code>evetTarget</code> 的结构不固定，无法统一分析。优化后的结构如下，其中 <code>extend</code> 作为扩展字段，存储其他业务信息，比如说上面的渠道</p>
+</code></pre></div><p>上面这个 <code>eventTarget</code> 结构上有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 <code>goodId</code>，换到其他业务，这个对象可能是 <code>projectId</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+  <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
+  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
+  <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
+    {
+      <span style="color:#a6e22e">projectId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1&#39;</span>,
+    },
+    {
+      <span style="color:#a6e22e">projectId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;2&#39;</span>,
+    },
+  ],
+  <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">Date.now</span>()
+}
+</code></pre></div><p>可以发现，<code>eventTarget</code> 结构不固定，无法统一分析。优化后的结构如下，其中 <code>extend</code> 作为扩展字段，存储其他业务信息，比如说上面的渠道</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEventTarget</span> {
-  <span style="color:#a6e22e">targetKey</span>: <span style="color:#66d9ef">string</span>
-  <span style="color:#a6e22e">targetValue</span>: <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">targetKey</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 这个就是前文中的 goodId/projectId
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">targetValue</span>: <span style="color:#66d9ef">string</span>
   <span style="color:#a6e22e">extend</span><span style="color:#f92672">?:</span> { [<span style="color:#a6e22e">k</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#66d9ef">any</span> }
 }
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+</code></pre></div><p>优化后如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
-  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEvent_Type.CLICK</span>,
+  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
   <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
     {
       <span style="color:#a6e22e">targetKey</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;goodId&#39;</span>,
@@ -439,18 +437,10 @@
 </code></pre></div><h4 id="上下文环境">上下文环境</h4>
 <p>除了事件本身，还需要知道事件发生时所处的环境，</p>
 <ul>
-<li>
-<p>设备信息</p>
-</li>
-<li>
-<p>业务应用信息</p>
-</li>
-<li>
-<p>用户信息</p>
-</li>
-<li>
-<p>页面信息</p>
-</li>
+<li>设备信息</li>
+<li>业务应用信息</li>
+<li>用户信息</li>
+<li>页面信息</li>
 </ul>
 <p>综上，我们可以定义一条完备的日志数据结构</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ITrack</span> {
@@ -474,42 +464,25 @@
   <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">Number</span>, <span style="color:#75715e">// 发送日志的时间
 </span><span style="color:#75715e"></span>}
 </code></pre></div><h3 id="埋点平台管理">埋点平台管理</h3>
-<p>除了 <code>SDK</code> 之外，还需要一个埋点平台管理所有埋点，因为开发需要和 <code>BI</code> 统一数据口径，而平台就是用来约束埋点值的。</p>
-<p>具体来说，开发埋点之前，需要去 平台申请对应点位，然后写在业务里。</p>
-<p>实际工作中，埋点平台并没有强约束开发必须要申请，但是如果开发随便写点位，没有去平台申请，后续和 BI 对字段的时候，需要去看代码才知道埋的是什么值，这就很浪费时间。</p>
-<p>为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。</p>
+<p>除了 <code>SDK</code> 之外，还需要一个埋点平台管理所有埋点，因为开发需要和 <code>BI</code> 统一数据口径，而平台就是用来约束埋点值的。具体来说，开发埋点之前，需要去 平台申请对应点位，然后写在业务里。</p>
+<p>实际工作中，埋点平台并没有强约束开发必须要申请，但是如果开发随便写点位，没有去平台申请，后续和 BI 对字段的时候，需要去看代码才知道埋的是什么值，这就很浪费时间。为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。</p>
 <h3 id="埋点验证">埋点验证</h3>
 <p>最后，为了确定点位确实埋好了，我们需要验证。一般是看 <code>network</code> 的请求参数，不过这个方式有几个缺点</p>
 <ul>
-<li>
-<p>业务请求太多，难以清晰的找到埋点的接口，需要开启过滤</p>
-</li>
-<li>
-<p>一般而言， <code>h5</code> 非模拟器环境是无法直接看到请求的</p>
-</li>
+<li>业务请求太多，难以清晰的找到埋点的接口，需要开启过滤</li>
+<li>一般而言， <code>h5</code> 非模拟器环境是无法直接看到请求的</li>
 </ul>
 <p>针对以上问题，可以考虑2种小工具提高验证效率</p>
 <ul>
-<li>
-<p><code>SDK</code> 内置 <code>UI</code> 查看工具，自动显示每次的埋点数据</p>
-</li>
-<li>
-<p>打通埋点平台，拦截业务发起的埋点请求，对其进行数据结构的校验</p>
-</li>
+<li><code>SDK</code> 内置 <code>UI</code> 查看工具，自动显示每次的埋点数据</li>
+<li>打通埋点平台，拦截业务发起的埋点请求，对其进行<strong>数据结构</strong>的校验（无法验证埋点是否合理）</li>
 </ul>
-<h2 id="技术细节">技术细节</h2>
 <h3 id="埋点方式">埋点方式</h3>
 <p>埋点有可视化埋点、自动埋点、手动埋点，各有利弊</p>
 <ul>
-<li>
-<p>可视化埋点</p>
-</li>
-<li>
-<p>自动埋点</p>
-</li>
-<li>
-<p>手动埋点</p>
-</li>
+<li>可视化埋点</li>
+<li>自动埋点</li>
+<li>手动埋点</li>
 </ul>
 <p>我们业务比较简单，就采用了手动埋点</p>
 <h3 id="发送时机">发送时机</h3>
@@ -534,18 +507,14 @@
 <h3 id="怎么发送">怎么发送</h3>
 <p>发送埋点本质就是发送一条请求，可能大家就说那不简单，<code>xhr</code> 不就得了，但是，有几个问题需要考虑</p>
 <ul>
-<li>
-<p>发送时机，要知道如果在页面离开发送请求，一般浏览器会中断该请求，除非某些浏览通过代码配置允许不中断请求</p>
-</li>
-<li>
-<p><code>xhr</code> 会有跨域问题</p>
-</li>
+<li>发送时机，要知道如果在页面离开发送请求，一般浏览器会中断该请求，除非某些浏览通过代码配置允许不中断请求</li>
+<li><code>xhr</code> 会有跨域问题</li>
 </ul>
 <h4 id="xhr">XHR</h4>
 <h4 id="img">img</h4>
 <h4 id="sendbeacon">sendBeacon</h4>
-<h3 id="sdk">SDK</h3>
-<h4 id="初始化">初始化</h4>
+<h2 id="sdk">SDK</h2>
+<h3 id="初始化">初始化</h3>
 <p>根据前面的数据结构定义，需要外部传入的参数只有应用元信息、用户身份</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IUser</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">string</span>
@@ -568,9 +537,6 @@
 </li>
 <li>
 <p>注册插件系统，在埋点最后上报之前，提供给业务进行数据处理的钩子</p>
-<ul>
-<li>SDK 内置了一个 <code>validate</code> 插件，会连接到埋点平台自动验证</li>
-</ul>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTracker</span> {
@@ -594,11 +560,7 @@
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pageStack</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MyPage</span>() 
     
     <span style="color:#75715e">// 插件注册
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">plugins</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">plugins</span> <span style="color:#f92672">||</span> [])
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">validate</span>) {
-      <span style="color:#a6e22e">plugins</span>.<span style="color:#a6e22e">unshift</span>(<span style="color:#a6e22e">ValidatePlugin</span>)
-    }
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_transform</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">compose</span>(<span style="color:#a6e22e">plugins</span>)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_transform</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">compose</span>(<span style="color:#a6e22e">options</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">plugins</span> <span style="color:#f92672">||</span> [])
   }
 }
 </code></pre></div><p><code>MyPage</code> 负责页面信息管理，默认只保留当前访问的页面信息</p>
@@ -668,6 +630,7 @@
   }
 }
 </code></pre></div><p>前面说明，埋点验证有2个小工具，一个是UI查看工具，一个是自动验证，本质就是2个插件</p>
+<h4 id="ui查看工具">UI查看工具</h4>
 <p>UI查看工具的话，我们是封装一个 <code>web component</code>，业务开启的话，会在业务页面弹出一个浮层，每次埋点上报都能看到埋点数据</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrackDebug</span> <span style="color:#a6e22e">extend</span> <span style="color:#a6e22e">HTMLElement</span> {
   <span style="color:#a6e22e">container</span>
@@ -729,7 +692,8 @@
   <span style="color:#a6e22e">trackIns</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addLog</span>(<span style="color:#a6e22e">data</span>)
   <span style="color:#a6e22e">next</span>()
 }
-</code></pre></div><p>同理，自动验证的话，只需要连接到埋点平台的验证接口，不合规的埋点不会发送请求</p>
+</code></pre></div><h4 id="自动验证">自动验证</h4>
+<p>同理，自动验证的话，只需要连接到埋点平台的验证接口，不合规的埋点不会发送请求</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#75715e">// 数据校验
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">valid</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
@@ -877,18 +841,18 @@
     <li><a href="#why">Why</a></li>
     <li><a href="#how">How</a>
       <ul>
-        <li><a href="#事件分类">事件分类</a></li>
+        <li><a href="#eventtype">EventType</a></li>
         <li><a href="#数据规范">数据规范</a></li>
         <li><a href="#埋点平台管理">埋点平台管理</a></li>
         <li><a href="#埋点验证">埋点验证</a></li>
-      </ul>
-    </li>
-    <li><a href="#技术细节">技术细节</a>
-      <ul>
         <li><a href="#埋点方式">埋点方式</a></li>
         <li><a href="#发送时机">发送时机</a></li>
         <li><a href="#怎么发送">怎么发送</a></li>
-        <li><a href="#sdk">SDK</a></li>
+      </ul>
+    </li>
+    <li><a href="#sdk">SDK</a>
+      <ul>
+        <li><a href="#初始化">初始化</a></li>
         <li><a href="#插件系统">插件系统</a></li>
       </ul>
     </li>
@@ -980,7 +944,7 @@
     &copy;
     
       2021 -
-    2023
+    2024
     <span class="heart">
       
       <i class="iconfont">

@@ -17,11 +17,8 @@ categories: [
 埋点是对用户在客户端产品发生的事件的描述
 
 - Who：用户
-
 - When：timestamp
-
 - What：用户会有哪些行为？？比如 打开页面、点击按钮、滚动列表、登录、分享等等
-
 - How：比如 渠道(从哪里访问页面的)、登录方式(email/mobile/sso/...)
 
 
@@ -32,18 +29,17 @@ categories: [
 
 ## How
 
-### 事件分类
+### EventType
 
 一般可以划分为2个大类
 
 - 页面打开 `PageShow`，需要单独统计，因为页面的 `pv/uv` 是埋点中非常重要的一个数据指标
-
 - 用户主动交互 `Behavior`
   - `click` 点击行为
   - `exposure` 模块的曝光
 
 ```ts
-enum IEvent_Type = {
+enum IEventType = {
   PAGE_SHOW = 'pageShow',
   CLICK = 'behavior.click',
   EXPOSURE = 'behavior.exposure',
@@ -52,12 +48,12 @@ enum IEvent_Type = {
 
 ### 数据规范
 
-#### `pageShow` 描述
+#### `pageShow`
 
 对于页面打开 `PageShow`，就很简单，一般统计 当前页面 `url/pageId` 即可
 
 
-#### `behavior` 描述
+#### `behavior`
 
 试想怎么描述 『点击了登录按钮』这件事件，至少需要
 
@@ -65,22 +61,19 @@ enum IEvent_Type = {
 ```ts
 interface IEvent {
   eventId: string, //  行为 `id`，比如下载download, 分享 share, 登录 login
-  eventType: IEvent_Type,
+  eventType: IEventType,
   eventTarget: IEventTarget[], // 事件对象的描述，类似 `js` 里的 `event.target`
   timestamp: number, // 发生时间
 }
 ```
 
-#### 事件对象的描述
+#### EventTarget
 
 事件对象的相关信息，比如 
 
-- 点击登录，需要统计 登录方式（验证码登录、密码登录）
-
-- 添加购物车，需要统计 商品Id、商家 id
-
-- 分享商品，需要统计 分享的商品id，分享渠道
-
+- 点击登录，统计 登录方式（验证码登录、密码登录）
+- 添加购物车，统计 商品Id、商家 id
+- 分享商品，统计 分享的商品id，分享渠道
 
 
 举个例子，分享商品
@@ -88,7 +81,7 @@ interface IEvent {
 ```ts
 {
   eventId: 'share',
-  eventType: IEvent_Type.CLICK,
+  eventType: IEventType.CLICK,
   eventTarget: [
     {
       goodId: '1',
@@ -103,20 +96,40 @@ interface IEvent {
 }
 ```
 
-上面这个 `eventTarget` 还是有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 `goodId`，换到其他业务，这个对象可能是 `projectId`，换句话说，`evetTarget` 的结构不固定，无法统一分析。优化后的结构如下，其中 `extend` 作为扩展字段，存储其他业务信息，比如说上面的渠道
+上面这个 `eventTarget` 结构上有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 `goodId`，换到其他业务，这个对象可能是 `projectId`
+
+```ts
+{
+  eventId: 'share',
+  eventType: IEventType.CLICK,
+  eventTarget: [
+    {
+      projectId: '1',
+    },
+    {
+      projectId: '2',
+    },
+  ],
+  timestamp: Date.now()
+}
+```
+
+可以发现，`eventTarget` 结构不固定，无法统一分析。优化后的结构如下，其中 `extend` 作为扩展字段，存储其他业务信息，比如说上面的渠道
 
 ```ts
 interface IEventTarget {
-  targetKey: string
+  targetKey: string // 这个就是前文中的 goodId/projectId
   targetValue: string
   extend?: { [k: string]: any }
 }
 ```
 
+优化后如下
+
 ```ts
 {
   eventId: 'share',
-  eventType: IEvent_Type.CLICK,
+  eventType: IEventType.CLICK,
   eventTarget: [
     {
       targetKey: 'goodId',
@@ -142,13 +155,9 @@ interface IEventTarget {
 除了事件本身，还需要知道事件发生时所处的环境，
 
 - 设备信息
-
 - 业务应用信息
-
 - 用户信息
-
 - 页面信息
-
 
 
 综上，我们可以定义一条完备的日志数据结构
@@ -179,46 +188,31 @@ interface ITrack {
 
 ### 埋点平台管理
 
-除了 `SDK` 之外，还需要一个埋点平台管理所有埋点，因为开发需要和 `BI` 统一数据口径，而平台就是用来约束埋点值的。
+除了 `SDK` 之外，还需要一个埋点平台管理所有埋点，因为开发需要和 `BI` 统一数据口径，而平台就是用来约束埋点值的。具体来说，开发埋点之前，需要去 平台申请对应点位，然后写在业务里。
 
-
-具体来说，开发埋点之前，需要去 平台申请对应点位，然后写在业务里。
-
-实际工作中，埋点平台并没有强约束开发必须要申请，但是如果开发随便写点位，没有去平台申请，后续和 BI 对字段的时候，需要去看代码才知道埋的是什么值，这就很浪费时间。
-
-
-为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。
+实际工作中，埋点平台并没有强约束开发必须要申请，但是如果开发随便写点位，没有去平台申请，后续和 BI 对字段的时候，需要去看代码才知道埋的是什么值，这就很浪费时间。为了不给自己麻烦，尽量还是先申请点位，而且也是为了方便后续的埋点验证工作。
 
 ### 埋点验证
 
 最后，为了确定点位确实埋好了，我们需要验证。一般是看 `network` 的请求参数，不过这个方式有几个缺点
 
 - 业务请求太多，难以清晰的找到埋点的接口，需要开启过滤
-
 - 一般而言， `h5` 非模拟器环境是无法直接看到请求的
 
 针对以上问题，可以考虑2种小工具提高验证效率
 
 - `SDK` 内置 `UI` 查看工具，自动显示每次的埋点数据
+- 打通埋点平台，拦截业务发起的埋点请求，对其进行**数据结构**的校验（无法验证埋点是否合理）
 
-- 打通埋点平台，拦截业务发起的埋点请求，对其进行数据结构的校验
-
-
-## 技术细节
 
 ### 埋点方式
 
-
 埋点有可视化埋点、自动埋点、手动埋点，各有利弊
-
 - 可视化埋点
-
 - 自动埋点
-
 - 手动埋点
 
 我们业务比较简单，就采用了手动埋点
-
 
 ### 发送时机
 
@@ -239,23 +233,18 @@ interface ITrack {
 发送埋点本质就是发送一条请求，可能大家就说那不简单，`xhr` 不就得了，但是，有几个问题需要考虑
 
 - 发送时机，要知道如果在页面离开发送请求，一般浏览器会中断该请求，除非某些浏览通过代码配置允许不中断请求
-
 - `xhr` 会有跨域问题
-
-
 
 #### XHR
 
-
 #### img
-
 
 #### sendBeacon
 
 
-### SDK
+## SDK
 
-#### 初始化
+### 初始化
 
 根据前面的数据结构定义，需要外部传入的参数只有应用元信息、用户身份
 
@@ -280,8 +269,6 @@ type IOption = {
 - 页面信息管理
 
 - 注册插件系统，在埋点最后上报之前，提供给业务进行数据处理的钩子
-  - SDK 内置了一个 `validate` 插件，会连接到埋点平台自动验证
-
 
 ```ts
 class MyTracker {
@@ -305,11 +292,7 @@ class MyTracker {
     this.pageStack = new MyPage() 
     
     // 插件注册
-    const plugins = (options?.plugins || [])
-    if (options?.validate) {
-      plugins.unshift(ValidatePlugin)
-    }
-    this._transform = compose(plugins)
+    this._transform = compose(options?.plugins || [])
   }
 }
 ```
@@ -395,6 +378,7 @@ export function compose(plugins) {
 
 前面说明，埋点验证有2个小工具，一个是UI查看工具，一个是自动验证，本质就是2个插件
 
+#### UI查看工具
 
 UI查看工具的话，我们是封装一个 `web component`，业务开启的话，会在业务页面弹出一个浮层，每次埋点上报都能看到埋点数据
 
@@ -464,6 +448,8 @@ export default async (ctx, data, next) => {
   next()
 }
 ```
+
+#### 自动验证
 
 同理，自动验证的话，只需要连接到埋点平台的验证接口，不合规的埋点不会发送请求
 

@@ -6,7 +6,34 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基建 服务端实现</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
+      <description>Background 前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志</description>
+    </item>
+    
+    <item>
+      <title>基建 Micro Frontend</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</link>
+      <pubDate>Sun, 31 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Audio Sprite</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
+      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>基建 迭代管理&amp;发布平台 02</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
@@ -68,33 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</guid>
       <description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>基建 API Mock</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-mock/</link>
-      <pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-mock/</guid>
-      <description>Background 开发没有mock还是比较痛苦的，最开始接入mock-server需要在业务里新开一个 mock 手动写 json，维护成本很高，也不利于共享。一直以来</description>
-    </item>
-    
-    <item>
-      <title>基建 埋点管理</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-track/</link>
-      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-track/</guid>
-      <description>&lt;p&gt;简单实现一个埋点sdk和管理平台&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>基建 开关配置</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-switch/</link>
-      <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-switch/</guid>
-      <description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
     </item>
     
   </channel>

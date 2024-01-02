@@ -6,7 +6,7 @@
     <description>Recent content on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://ixiaopan.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
@@ -83,6 +83,238 @@ li {
 &lt;/div&gt;
 &lt;/section&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>基建 服务端实现</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
+      
+        <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志、鉴权等。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Node&lt;/code&gt; 端比较流行的服务框架有 &lt;code&gt;koa/express/Nest/Nuxt&lt;/code&gt; 等等，鉴于我们主要是实现简单的 &lt;code&gt;http endpoint&lt;/code&gt;，使用 &lt;code&gt;koa/express&lt;/code&gt; 就足以，本文以 &lt;code&gt;koa&lt;/code&gt; 为例，数据库选择 &lt;code&gt;MongoDB/Redis&lt;/code&gt; 更符合前端人员的开发思维。&lt;/p&gt;
+&lt;h2 id=&#34;登录&#34;&gt;登录&lt;/h2&gt;
+&lt;p&gt;既然是内部工具，一方面是保证系统安全性不被外人访问到，一方面就是免登，最简单的方案就是接入内部使用的 &lt;code&gt;IM&lt;/code&gt;，比如钉钉、飞书等。&lt;/p&gt;
+&lt;h3 id=&#34;飞书登录流程&#34;&gt;飞书登录流程&lt;/h3&gt;
+&lt;p&gt;这里我们以飞书为例，流程参考 &lt;a href=&#34;https://open.feishu.cn/document/common-capabilities/sso/web-application-sso/web-app-overview&#34;&gt;飞书登录流程&lt;/a&gt;，其实很简单，授权登录是一个拿 &lt;code&gt;code&lt;/code&gt; 换 &lt;code&gt;token&lt;/code&gt; 的流程。从前端开发的角度来看，需要调用2个 &lt;code&gt;API&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1、获取 code&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;auth&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;redirect_uri&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;query&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {}
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;query&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`client_id=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;client_id&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;amp;redirect_uri=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;encodeURIComponent(&lt;span style=&#34;color:#a6e22e&#34;&gt;redirect_uri&lt;/span&gt;)&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`https://passport.feishu.cn/suite/passport/oauth/authorize?&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;query&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;服务端会返回如上的 &lt;code&gt;url&lt;/code&gt; ，客户端拿到后手动跳转，用户授权之后，飞书会自动在 &lt;code&gt;redirect_uri&lt;/code&gt; 中加入 &lt;code&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2、前端从地址栏解析 &lt;code&gt;code&lt;/code&gt;，再次调用后端接口获取 &lt;code&gt;token&lt;/code&gt; 然后据此获取用户信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;AccountController&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://passport.feishu.cn/suite/passport/oauth/token&amp;#39;&lt;/span&gt;, {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;grant_type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;authorization_code&amp;#39;&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;client_id&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;client_secret&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 地址栏解析的 code 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;redirect_uri&lt;/span&gt;,
+      })
+
+      &lt;span style=&#34;color:#75715e&#34;&gt;// 拿到 token 获取用户信息
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;access_token&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://passport.feishu.cn/suite/passport/oauth/userinfo&amp;#39;&lt;/span&gt;, {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+          &lt;span style=&#34;color:#a6e22e&#34;&gt;Authorization&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`Bearer &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;access_token&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;,
+        },
+      })
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;user_id&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;avatar_url&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {}
+    } &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;logger&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt;)
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;到此，前后端都知道用户身份了，不过前后端保存用户身份的逻辑不同&lt;/p&gt;
+&lt;p&gt;1、前端 把 &lt;code&gt;token&lt;/code&gt; 写入到 &lt;code&gt;localStorage&lt;/code&gt; 中，后续的接口调用都要在 &lt;code&gt;header&lt;/code&gt; 带上它再传给后端验证&lt;/p&gt;
+&lt;p&gt;2、后端 写入 &lt;code&gt;mongodb&lt;/code&gt;，不过通常 &lt;code&gt;token&lt;/code&gt; 具有有效期，写入 &lt;code&gt;redis&lt;/code&gt; 可以快速查询是否过期，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;doc&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;AccountModel&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;findOne&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;userId&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;user_id&lt;/span&gt; })
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;doc&lt;/span&gt;) { &lt;span style=&#34;color:#75715e&#34;&gt;// 同一个用户，更新 token 而已
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;doc&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;access_token&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;doc&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;save&lt;/span&gt;()
+} 
+&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; { &lt;span style=&#34;color:#75715e&#34;&gt;// 说明是新建的
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;AccountModel&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt;({
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;userId&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;user_id&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;avatar&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;avatar_url&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;access_token&lt;/span&gt;,
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;永久登录&#34;&gt;永久登录&lt;/h3&gt;
+&lt;p&gt;在我们这个内部系统，为了避免老是登录，就做了一个假的永久登录态，即使 &lt;code&gt;token&lt;/code&gt; 失效也不管。换句话说，&lt;/p&gt;
+&lt;p&gt;1、只要飞书授权成功之后，就把 &lt;code&gt;token&lt;/code&gt; 更新到数据库中（见上面的代码），不在考虑 &lt;code&gt;refreshToken&lt;/code&gt; 的事情&lt;/p&gt;
+&lt;p&gt;2、鉴权只判断数据库中是否存在 &lt;code&gt;token&lt;/code&gt;，存在即有效，不存在就失效&lt;/p&gt;
+&lt;p&gt;3、除非用户主动退出，才会清空数据库中的 &lt;code&gt;token&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这个方案简单粗暴，有个很明显的问题，如果用户在不同的端访问系统，&lt;code&gt;token&lt;/code&gt; 会被反复覆盖。举个例子，&lt;/p&gt;
+&lt;p&gt;1、用户先用PC端浏览器访问，因为是第一次访问，会生成 &lt;code&gt;tokenA&lt;/code&gt; 写入数据库，&lt;/p&gt;
+&lt;p&gt;2、再用 pad 端浏览器访问，因为是第一次访问，又会生成新的 &lt;code&gt;tokenB&lt;/code&gt; 从而覆盖 &lt;code&gt;tokenA&lt;/code&gt;， 因为此时数据库中已经有 &lt;code&gt;user_id&lt;/code&gt; 了，这时候更新 &lt;code&gt;token&lt;/code&gt; 即可，而不是创建一个新用户&lt;/p&gt;
+&lt;p&gt;3、过一段时间，再用PC访问，此时是二次访问，&lt;code&gt;headers&lt;/code&gt; 中带有 &lt;code&gt;tokenA&lt;/code&gt;，但是数据库已经找不到 &lt;code&gt;tokenA&lt;/code&gt; 从而强制用户退登&lt;/p&gt;
+&lt;p&gt;解决方法也很简单，加个 &lt;code&gt;redis&lt;/code&gt; 既支持真的 &lt;code&gt;token&lt;/code&gt; 有效期，也支持多端登录。&lt;/p&gt;
+&lt;h2 id=&#34;koa-中间件&#34;&gt;koa 中间件&lt;/h2&gt;
+&lt;h3 id=&#34;api-鉴权&#34;&gt;API 鉴权&lt;/h3&gt;
+&lt;p&gt;大多数 &lt;code&gt;API&lt;/code&gt; 都是要鉴权的，不过也有少部分不需要，比如前文提到的2个接口 &lt;code&gt;auth() &amp;amp; token()&lt;/code&gt;，此时还未授权，哪来的 &lt;code&gt;token&lt;/code&gt;。代码参考如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;whitePathList&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/account/auth&amp;#39;&lt;/span&gt;,
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/account/token&amp;#39;&lt;/span&gt;,
+]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tokenIntercept() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;whitePathList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;)) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;()
+    }
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tokenValue&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-access-token&amp;#39;&lt;/span&gt;]
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tokenValue&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;token is null&amp;#39;&lt;/span&gt;
+    }
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;user&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;AccountModel&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;findOne&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;tokenValue&lt;/span&gt; })
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;invalid token&amp;#39;&lt;/span&gt;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;跨域&#34;&gt;跨域&lt;/h3&gt;
+&lt;p&gt;即使通过白名单跳过 &lt;code&gt;token&lt;/code&gt; 验证，某些 &lt;code&gt;api&lt;/code&gt; 依旧访问不通，会出现跨域的问题，比如埋点系统的自动验证插件，会调用服务端的 &lt;code&gt;/track/validate&lt;/code&gt;、&lt;a href=&#34;https://ixiaopan.github.io/blog/blog/post/fe/infras-mock/#%E8%B7%A8%E5%9F%9F&#34;&gt;mock 平台&lt;/a&gt;的 &lt;code&gt;/mockme/proxy&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;跨域也很好解决，最简单的就是服务端支持 &lt;code&gt;cors&lt;/code&gt;，koa 有自己的三方中间件。这里从3个方面判断是否可以跨域&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;域名是否在白名单内&lt;/li&gt;
+&lt;li&gt;请求头 &lt;code&gt;header&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;请求方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cors&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;koa2-cors&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;cors&lt;/span&gt;({
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;origin&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;referer&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;substr&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;referer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;whiteList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;some&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;u&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;u&lt;/span&gt;))) {
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mock-me&amp;#39;&lt;/span&gt;) {
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;
+        }
+      },
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;allowMethods&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;POST&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;GET&amp;#39;&lt;/span&gt;],
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;allowHeaders&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-access-token&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;],
+    })
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;log4js&#34;&gt;log4js&lt;/h3&gt;
+&lt;p&gt;最后就是日志服务，服务端不像前端，可以到直接在浏览器 &lt;code&gt;debug&lt;/code&gt;，所以后端的日志服务是非常重要的，这里选择了比较流行的一个三方日志库 &lt;a href=&#34;https://github.com/log4js-node/log4js-node&#34;&gt;log4js-node&lt;/a&gt;，功能挺多的。&lt;/p&gt;
+&lt;p&gt;那我们要搜集哪些日志信息呢？？我分为3大类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有日志：info、warning、error 所有信息，帮助分析用户行为&lt;/li&gt;
+&lt;li&gt;错误日志：代码异常、数据库异常等&lt;/li&gt;
+&lt;li&gt;API日志：请求了哪些接口？接口的耗时分布？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;log4js&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;configure&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;appenders&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;console&amp;#39;&lt;/span&gt;,
+    },
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 所有的日志
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;file&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;filename&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;log/app.log&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;maxLogSize&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;10485760&lt;/span&gt;,
+    },
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 访问接口日志
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;access&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dateFile&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;filename&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;log/access.log&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;pattern&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;yyyy-MM-dd.log&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;alwaysIncludePattern&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+    },
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 错误日志
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dateFile&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;filename&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;log/error.log&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;pattern&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;yyyy-MM-dd.log&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;alwaysIncludePattern&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+    },
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;just-error&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;logLevelFilter&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;appender&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;level&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;,
+    },
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这段代码的 &lt;code&gt;error appender&lt;/code&gt; 使用了 &lt;a href=&#34;https://log4js-node.github.io/log4js-node/logLevelFilter.html&#34;&gt;logLevelFilter&lt;/a&gt;，简单来说就是根据 &lt;code&gt;level&lt;/code&gt; 过滤事件。比如线上环境，我们希望 &lt;code&gt;info&lt;/code&gt; 以上的事件记录到 &lt;code&gt;app appender&lt;/code&gt; 中同时 &lt;code&gt;error&lt;/code&gt; 以上的事件记录到 &lt;code&gt;error.log&lt;/code&gt; 中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;log4js&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;configure&lt;/span&gt;({
+  &lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;categories&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;appenders&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;just-error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;app&amp;#39;&lt;/span&gt;],
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;level&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;info&amp;#39;&lt;/span&gt;,
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;access&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;appenders&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;access&amp;#39;&lt;/span&gt;],
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;level&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;info&amp;#39;&lt;/span&gt;,
+    },
+  }
+})
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;logger&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log4js&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getLogger&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;api-日志&#34;&gt;API 日志&lt;/h4&gt;
+&lt;p&gt;要想记录访问了哪些api、入参等信息，显然需要实现中间件，代码也很简单&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;logAccess&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;accessLogger&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log4js&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getLogger&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;access&amp;#39;&lt;/span&gt;)
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;accessLogger&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;info&lt;/span&gt;(
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;JSON&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;stringify&lt;/span&gt;({
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;ctx.url&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;query&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;ctx.query&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;ua&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;ctx.userAgent&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;timestamp&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Date.now&lt;/span&gt;(),
+      })
+    )
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;待改进&#34;&gt;待改进&lt;/h2&gt;
+&lt;p&gt;目前的服务端是所有子项目、定时任务部署在一起&lt;/p&gt;
+&lt;p&gt;1、只要其中一个服务挂起，其他服务也会受到影响&lt;/p&gt;
+&lt;p&gt;2、只改某个项目的代码，也会部署整套服务&lt;/p&gt;
+&lt;p&gt;只因现在业务不复杂，这样做是可以的，如果后续继续完善各个项目，单独部署是有必要的，后续可以考虑 &lt;code&gt;nestjs&lt;/code&gt; 以及微服务。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>基建 Micro Frontend</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</link>
+      <pubDate>Sun, 31 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Audio Sprite</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
+      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
+      
+        <description></description>
       
     </item>
     
@@ -2463,691 +2695,6 @@ value2
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://vue-i18n.intlify.dev/guide/advanced/lazy.html&#34;&gt;i18n Lazy&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-      
-    </item>
-    
-    <item>
-      <title>数据压缩 101</title>
-      <link>https://ixiaopan.github.io/blog/post/misc/data-compress/</link>
-      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/misc/data-compress/</guid>
-      
-        <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;哈夫曼编码&lt;/li&gt;
-&lt;li&gt;算术编码&lt;/li&gt;
-&lt;li&gt;LZ编码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;压缩思路&#34;&gt;压缩思路&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;减少数据集中不同符号的数量，比如 &lt;code&gt;TO BE OR NOT TO BE&lt;/code&gt; 如果按字符级别就有 &lt;code&gt;TOBERN&lt;/code&gt; 6个符号，而按单词只有 &lt;code&gt;TO&lt;/code&gt; &lt;code&gt;BE&lt;/code&gt; &lt;code&gt;OR&lt;/code&gt; &lt;code&gt;NOT&lt;/code&gt; 4个，如果再按 &lt;code&gt;TO BE&lt;/code&gt; &lt;code&gt;OR&lt;/code&gt; &lt;code&gt;NOT&lt;/code&gt; 只有3个&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;用更少的位数对更常见的符号进行编码，这个道理就显而易见的了&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;但是也要考虑其他因素&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;不同数据类型处理方法不同&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;有些数据需要转换才能压缩&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;数据可能是偏态的，比如温度夏天偏高冬天偏低&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;entropy&#34;&gt;Entropy&lt;/h2&gt;
-&lt;p&gt;给定任意一个十进制整数，用二进制来表示这个数最少需要多少二进制位&lt;/p&gt;
-&lt;p&gt;$$
-log_2(x) = ceil(log(x + 1) / log(2))
-$$&lt;/p&gt;
-&lt;p&gt;这个值就是熵（entropy），扩展到整个数据集&lt;/p&gt;
-&lt;p&gt;$$
-H(S) = - \sum_{i=1}^{n} p_i log_2(p_i)
-$$&lt;/p&gt;
-&lt;p&gt;从上面的公式可以看出，&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;熵是建立在对每个符号出现概率的估算之上的&lt;/li&gt;
-&lt;li&gt;熵表示的是数据集中的每个符号平均所需的最小二进制位数&lt;/li&gt;
-&lt;li&gt;一个符号出现得越频繁，$p_i$ 越大，熵越小，即越不重要&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;有个在线计算 &lt;a href=&#34;http://www.shannonentropy.netmark.pl&#34;&gt;shannon entropy&lt;/a&gt; 的网站，比如我们输入 &lt;code&gt;ABBCCCDDDD&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;首先会先计算频率
-A: 0.1
-B: 0.2
-C: 0.3
-D: 0.4&lt;/p&gt;
-&lt;p&gt;然后根据公示计算熵&lt;/p&gt;
-&lt;p&gt;$$
-H(S) =  -[(0.1log_2 0.1)+(0.2log_2 0.2)+(0.3log_2 0.3)+(0.4log_2 0.4)] = 1.84644
-$$&lt;/p&gt;
-&lt;p&gt;这个熵表示每个符号平均需要 &lt;code&gt;2bit&lt;/code&gt; 表示，整个字符串也就是 &lt;code&gt;20bit&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;突破熵&#34;&gt;突破熵&lt;/h3&gt;
-&lt;p&gt;上面公式有个明显的问题 —— 只考虑了概率，忽略了数据本身含有的结构信息，比如顺序，语义等。比如[1,2,3,4]和 [3,2,1,4] 虽然熵一样，但是前者是线性递增序列，明显可以用更少的信息存储。&lt;/p&gt;
-&lt;p&gt;所以我们可以利用数据集的结构信息将其转换为一种新的表示形式，这也是突破熵的关键，可行的方法比如&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;增量编码 delta coding：将数转换为与上一个数的差，比如 [0,1,2,3,4,5,6,7] 转换为[0,1,1,1,1,1,1,1]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;字符分组&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;vlc&#34;&gt;VLC&lt;/h2&gt;
-&lt;p&gt;需要寻找合适的码字，符合数据中符号的出现概率分布。&lt;/p&gt;
-&lt;h3 id=&#34;前缀性质&#34;&gt;前缀性质&lt;/h3&gt;
-&lt;p&gt;如何用 VLC 编码？&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;计算数据集中每个符号的出现概率&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;根据概率为每个符号分配码字，一个符号出现的概率越大，所分配的码字就越短&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;再次遍历数据集，对每一个符号进行编码，并将对应的码字输出到压缩后的数据流中&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如何解码？&lt;/p&gt;
-&lt;p&gt;假设现在有如下编码 &lt;code&gt;A: 0, B: 10, C: 101, D: 111&lt;/code&gt;，有待解码字符串 &lt;code&gt;0101111&lt;/code&gt;，&lt;/p&gt;
-&lt;p&gt;首先 &lt;code&gt;0&lt;/code&gt; 对应 &lt;code&gt;A&lt;/code&gt;，然后 &lt;code&gt;1&lt;/code&gt; 没有找到，继续得到 &lt;code&gt;10&lt;/code&gt; 发现是 &lt;code&gt;B or C&lt;/code&gt; 继续输入得 &lt;code&gt;101&lt;/code&gt; 是 &lt;code&gt;C&lt;/code&gt;，但是这里就有歧义了，&lt;code&gt;101&lt;/code&gt; 是 &lt;code&gt;10&lt;/code&gt; + &lt;code&gt;1&lt;/code&gt; 即 &lt;code&gt;B+?&lt;/code&gt; 还是就只是 &lt;code&gt;101&lt;/code&gt; 即 &lt;code&gt;C&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;从这个例子可以看出，如果一个码字被分配了，就不能再用作另个码字的前缀，即码字需要满足 &lt;code&gt;前缀性质&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;一元码&#34;&gt;一元码&lt;/h3&gt;
-&lt;p&gt;任意正整数，&lt;code&gt;n&lt;/code&gt;个  &lt;code&gt;1&lt;/code&gt; 或 &lt;code&gt;0&lt;/code&gt; 后面跟着一个 &lt;code&gt;0&lt;/code&gt; 或者 &lt;code&gt;1&lt;/code&gt;。比如&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;number&lt;/th&gt;
-&lt;th&gt;unary code&lt;/th&gt;
-&lt;th&gt;alternative&lt;/th&gt;
-&lt;th&gt;probability&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;td&gt;01&lt;/td&gt;
-&lt;td&gt;0.5&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;110&lt;/td&gt;
-&lt;td&gt;001&lt;/td&gt;
-&lt;td&gt;0.25&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;1110&lt;/td&gt;
-&lt;td&gt;0001&lt;/td&gt;
-&lt;td&gt;0.125&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;本质就是有些位数 &lt;code&gt;1&lt;/code&gt; 当作值来使用，而最后一位 &lt;code&gt;0&lt;/code&gt; 作为分隔符使用&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一元码满足前缀性质&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;但是对于大数字，比如 &lt;code&gt;1000&lt;/code&gt; 那就是有 1000个1 加上 1个0，这就有点过犹不及了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;elias-gamma&#34;&gt;Elias Gamma&lt;/h3&gt;
-&lt;p&gt;适用于无法确定上限的整数编码，分解 &lt;code&gt;x&lt;/code&gt; 为2个因子，分别用一元码和二进制编码表示，同时为了保证可以无歧义的解码，二进制编码的长度是一元码的长度。&lt;/p&gt;
-&lt;p&gt;$$
-x = 2^e + d
-$$&lt;/p&gt;
-&lt;p&gt;举个例子， &lt;code&gt;42 = 2^5 + 10&lt;/code&gt; 即一元码是 &lt;code&gt;111110&lt;/code&gt;，二进制是 &lt;code&gt;1010&lt;/code&gt;，合在一起就是 &lt;code&gt;111110:01010&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;cons&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;因为使用了一元码，对于大数字，要经过位数很长的编码，比如1000要19个bit&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;egc&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;u&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;floor&lt;/span&gt;(Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;log2&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;))
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;pow&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;u&lt;/span&gt;)
-    
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;us&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Array(&lt;span style=&#34;color:#a6e22e&#34;&gt;u&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;fill&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;join&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bs&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;bs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;us&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;) {
-        &lt;span style=&#34;color:#a6e22e&#34;&gt;bs&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;padStart&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;us&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;)
-    }
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bit&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;us&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bs&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;us&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;举个例子，有如下数据 &lt;code&gt;10, 990, 21, 1&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;如果使用固定编码，需要 &lt;code&gt;10bit * 4 = 40bit&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;使用 &lt;code&gt;Elias Gamma&lt;/code&gt; 需要 &lt;code&gt;egc(10) + egc(990) + egc(21) + egc(1) = 36bit&lt;/code&gt;，少了 &lt;code&gt;4bit&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;统计熵编码&#34;&gt;统计/熵编码&lt;/h2&gt;
-&lt;p&gt;给定一个数据集，我们需要找到和符号出现概率匹配的VLC方法，从而为其分配码字，但不是每次都是这么走运，可能现有的 VLC 都不能满足。&lt;/p&gt;
-&lt;p&gt;可以使用统计编码解决，这类算法主要是根据符号出现的概率确定唯一的变长编码，这样任意数据集都有自己的一套自定义码字。&lt;/p&gt;
-&lt;h3 id=&#34;哈夫曼编码&#34;&gt;哈夫曼编码&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.programiz.com/dsa/huffman-coding&#34;&gt;Huffman Coding&lt;/a&gt; 其实就是构建一个二叉树&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;每个符号都是叶子节点，所有其编码都满足前缀性质&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;因为是自底向上构建树，且是从权重最小(出现频次最小)的节点开始，那自然出现越频繁的节点路径越短，出现频率低的节点离根越远，整颗树自然也是加权路径最短，也是一颗最优二叉树&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Step 1 计算频率&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calFreq&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;]) {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-    }
-  }
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Step 2 Build Tree&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Node&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;left&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;right&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
-  }
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Huffman&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;) {
-  &lt;span style=&#34;color:#75715e&#34;&gt;// building frequency table
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calFreq&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;// sorting &amp;amp; creating leaf nodes
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Node&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;freqTable&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;]))
-  }
-  
-  &lt;span style=&#34;color:#75715e&#34;&gt;// building tree
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;sort&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; ) =&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt;)
-    
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;l&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;r&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;slice&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newNode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Node&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;l&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;r&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt;)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;newNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;left&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;l&lt;/span&gt;
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;newNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;right&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;r&lt;/span&gt;
-
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;splice&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;newNode&lt;/span&gt;)
-  }
-  
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nodeList&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
-    
-  &lt;span style=&#34;color:#75715e&#34;&gt;// const codings = {}
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// encode(nodeList[0], codings)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Step 3 encode&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;encode&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;coding&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;left&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;right&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;coding&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-  }
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;encode&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;left&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;coding&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;)
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;encode&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;right&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;coding&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;来看个实际例子&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Huffman&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;BCAADDDCCACACAC&amp;#39;&lt;/span&gt;)
-
-&lt;span style=&#34;color:#a6e22e&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;11&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;D&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;101&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;算术编码&#34;&gt;算术编码&lt;/h3&gt;
-&lt;p&gt;这个算法的思想真是好有意思，具体可以参考 &lt;a href=&#34;https://segmentfault.com/a/1190000011561822&#34;&gt;算数编码原理解析&lt;/a&gt;，写的很详细。&lt;/p&gt;
-&lt;h2 id=&#34;字典转换&#34;&gt;字典转换&lt;/h2&gt;
-&lt;p&gt;不同于统计压缩，字典转换是先识别出数据集中常见的单词/长字符串，而不是把每个字母作为一个符号，可以理解为字典转换是预处理阶段。&lt;/p&gt;
-&lt;h3 id=&#34;如何找出正确单词&#34;&gt;如何找出正确『单词』&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;正确的『单词』：最小熵的字符串&lt;/li&gt;
-&lt;li&gt;怎么识别是单词：分词 &lt;code&gt;tokenization&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;lz-算法&#34;&gt;LZ 算法&lt;/h3&gt;
-&lt;p&gt;把数据中重复出现的长字符串加入字典，后续重复出现的字符串使用标记代替从而进行压缩。算法包括3个概念&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;search buffer&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;look ahead buffer&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;sliding window&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;具体参考 &lt;a href=&#34;https://segmentfault.com/a/1190000011425787&#34;&gt;LZW压缩算法原理解析&lt;/a&gt;、&lt;a href=&#34;https://blog.51cto.com/u_15127629/2873305&#34;&gt;图解 LZ77 压缩算法&lt;/a&gt;，我就懒得再写了。&lt;/p&gt;
-&lt;p&gt;pros&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;解压很快，比较已经知道位置了&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;cons&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;压缩比较耗时，需要花时间在 search&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;contextual-transform&#34;&gt;Contextual transform&lt;/h2&gt;
-&lt;h3 id=&#34;run-length-encoding&#34;&gt;run-length encoding&lt;/h3&gt;
-&lt;p&gt;对连续出现相同的符号进行聚类，比如 &lt;code&gt;AAAABBBBBBBBCCC&lt;/code&gt; 输出为 &lt;code&gt;(4,A)(8, B),(3,C)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;最坏情况，编码直接翻倍 &lt;code&gt;ABCD&lt;/code&gt; 输出为 &lt;code&gt;(1,A)(1,B)(1,C)(1,D)&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;delta-coding&#34;&gt;delta coding&lt;/h3&gt;
-&lt;p&gt;将一组数据转换为各个相邻数据之间的相对差值（即增量）的过程。其思想是，给定一组数据，相关的或相似的数据往往会集中在一起。&lt;/p&gt;
-&lt;p&gt;最适用于处理时间序列数据（比如每10秒检测一次温度的传感器所产生的数据），以及音频和图像数据这类多媒体数据，因为这类数据中邻近的数据之间存在着时间上的关联&lt;/p&gt;
-&lt;p&gt;比如 &lt;code&gt;[1,3,6,8,10]&lt;/code&gt; =&amp;gt; &lt;code&gt;[1, 2,3,2,2]&lt;/code&gt;，原先每个字符需要 4 bit，现在只要 2 bit&lt;/p&gt;
-&lt;p&gt;但是也可能存在负数比如 &lt;code&gt;[1,3,10,8,6]&lt;/code&gt; =&amp;gt; &lt;code&gt;[1,2,7,-2,-2]&lt;/code&gt;，有很多改进方法&lt;/p&gt;
-&lt;p&gt;改进一：XOR 增量编码
-&lt;code&gt;[1,3,10,8,6]&lt;/code&gt; =&amp;gt; &lt;code&gt;[1 xor 1, 1 xor 3, 3 xor 10, 10 xor 8, 6 xor 8]&lt;/code&gt; =&amp;gt; &lt;code&gt;[1,2,9,2,14]&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;改进二：参照系增量编码
-&lt;code&gt;[107,108,110,115,120,125,132,132,131,135]&lt;/code&gt; 每个数需要 8bit 存储，我们发现这些数都大于 107，所以让每个数都减去 107 就可以进行增量编码，即 &lt;code&gt;[0,1,3,8,13,18,25,25,24,28]&lt;/code&gt; 这就只需要 5bit&lt;/p&gt;
-&lt;h2 id=&#34;评价数据压缩&#34;&gt;评价数据压缩&lt;/h2&gt;
-&lt;h3 id=&#34;使用场景&#34;&gt;使用场景&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;线下压缩、客户端解压&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;比如游戏、app 等图片资源，压缩目的是使资源尽可能小&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;客户端压缩、云端解压&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;减少用户流量费用&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;云端压缩、客户端解压&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;case 1：比如服务器动态生成的数据，压缩目的是使减小网络传输&lt;/li&gt;
-&lt;li&gt;case 2：上传的图片转换为多种格式、大小的图片，上传的视频转为 H.264 等（阿里 oss 等都提供此服务），压缩目的可以高效的将大量数据压缩为最少的二进制位数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;客户端压缩、客户端解压&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;压缩的需求&#34;&gt;压缩的需求&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;了解要处理的数据格式、类型、使用方式&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;了解各算法的指标&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;什么场景使用什么样的算法（比如缩略图我们会用有损压缩，而大图模式则使用高清无损图）&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;压缩率&#34;&gt;压缩率&lt;/h3&gt;
-&lt;p&gt;压缩后大小和压缩前大小之比&lt;/p&gt;
-&lt;h3 id=&#34;压缩性能&#34;&gt;压缩性能&lt;/h3&gt;
-&lt;p&gt;将数据转换为压缩后的形式需要多长时间。在对网络延迟要求很高的情况下，无论是客户端还是服务端负责压，压缩性能都至关重要。考虑 2 个指标&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CPU&lt;/li&gt;
-&lt;li&gt;内存&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;解压性能&#34;&gt;解压性能&lt;/h3&gt;
-&lt;p&gt;压缩率高不一定解压性能好，解压通常在客户端进行，但客户端存在内存小的问题；所以选择压缩算法，也要考虑其解压性能（这也和上面的压缩性能对应，本质还是要综合考虑硬件、CPU、内存等）&lt;/p&gt;
-&lt;h2 id=&#34;与前端相关的压缩算法&#34;&gt;与前端相关的压缩算法&lt;/h2&gt;
-&lt;h3 id=&#34;图片压缩&#34;&gt;图片压缩&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;PNG：无损压缩，支持 alpha&lt;/li&gt;
-&lt;li&gt;JPG：有损压缩，不支持 alpha&lt;/li&gt;
-&lt;li&gt;GIF：支持透明、支持动画，仅支持256色&lt;/li&gt;
-&lt;li&gt;WEBP：无损+透明度、有损&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;一般是优先选择 &lt;code&gt;webp&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;gzip&#34;&gt;Gzip&lt;/h3&gt;
-&lt;h3 id=&#34;brotli&#34;&gt;Brotli&lt;/h3&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/forfuture1978/p/3944583.html&#34;&gt;Lucene 4.X 倒排索引原理与实现: (2) 倒排表的格式设计&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://voskan.host/2023/01/29/huffman-data-compression-using-javascript/&#34;&gt;Huffman Data Compression using JavaScript&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>基建 迭代管理&amp;发布平台 01</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</link>
-      <pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</guid>
-      
-        <description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;
-&lt;p&gt;之前的文章也说过，这个产品是老东家的，我只是用自己的方式给实现出来，本身它很多功能我都不记得了。这个项目最核心的功能，要解决的问题，就是清晰的进行对需求/项目的管理和发布。&lt;/p&gt;
-&lt;p&gt;在深入探讨这个平台之前，先来说一下最开始的项目管理和发布流程，慢慢的是怎么演变到这个平台的，知道为什么才能更好的明白怎么做。&lt;/p&gt;
-&lt;p&gt;我把我经历的需求管理/发布分为3个阶段，&lt;/p&gt;
-&lt;h2 id=&#34;开发机问题&#34;&gt;开发机问题&lt;/h2&gt;
-&lt;p&gt;在开始之前，必须明确，到现在为止，我们的日常开发、测试、线上只有一套环境。这意味着 &lt;code&gt;如果有多需求并行开发，如果不合并所有需求分支，代码会被反复覆盖&lt;/code&gt;，这也是发布问题的本质。&lt;/p&gt;
-&lt;h2 id=&#34;单分支开发gitflowjenkins&#34;&gt;单分支开发/gitflow/jenkins&lt;/h2&gt;
-&lt;h3 id=&#34;分支管理&#34;&gt;分支管理&lt;/h3&gt;
-&lt;p&gt;最开始，业务单一需求少，做完一个需求才开始下一个需求，那所有人就 all in 一个需求，当时的规范是 &lt;code&gt;gitflow&lt;/code&gt;，日常有 &lt;code&gt;dev/main&lt;/code&gt; 分支&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;先从 &lt;code&gt;dev&lt;/code&gt; 拉一个本次需求的分支，比如 &lt;code&gt;feat/xx&lt;/code&gt;，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;每个人再基于 &lt;code&gt;feat/xx&lt;/code&gt; 切自己的个人分支 &lt;code&gt;feat/xx-name&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;功能开发完成，&lt;code&gt;feat/xx&lt;/code&gt; 合入到 &lt;code&gt;dev&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;提测，从 &lt;code&gt;dev&lt;/code&gt; 切 &lt;code&gt;beta&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;上线， &lt;code&gt;beta&lt;/code&gt; 合入到 &lt;code&gt;main&lt;/code&gt; 发布，&lt;code&gt;main&lt;/code&gt; 合回到 &lt;code&gt;dev&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;部署流程&#34;&gt;部署流程&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;jenkins&lt;/code&gt; 部署对应环境的 &lt;code&gt;dev/test&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;问题&#34;&gt;问题&lt;/h3&gt;
-&lt;p&gt;这种模式运作了小半年，存在的问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;分支太多，且都是手动管理&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;日常开发，个人分支 合 &lt;code&gt;feat&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;部署分支，&lt;code&gt;feat&lt;/code&gt; 合 &lt;code&gt;dev&lt;/code&gt; -&amp;gt; dev 切 beta -&amp;gt; beta 合 mai -&amp;gt; main 合回 dev，整个开发非常繁琐&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;需求功能集中在 &lt;code&gt;dev/beta&lt;/code&gt;，如果存在某个需求临时不能上线，怎么从 &lt;code&gt;dev/beta&lt;/code&gt; 去掉？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;缺少需求管理，即需求文档、负责人、分支、MR、上线记录没有关联，没有文档记录，无法追溯&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这个模式给我的最大的感受就是分支太多，每天分支都是合来合去，冲突也多，代码也容易丢。&lt;/p&gt;
-&lt;h2 id=&#34;多分支并行开发aoneflow&#34;&gt;多分支并行开发/Aoneflow&lt;/h2&gt;
-&lt;h3 id=&#34;分支管理-1&#34;&gt;分支管理&lt;/h3&gt;
-&lt;p&gt;产品初见成效，业务功能越来越多，需求开始并行。我开始研究阿里的 &lt;code&gt;Aoneflow&lt;/code&gt;，它的核心理念是基于需求进行分支管理，平台会自动合并所有需求分支到 &lt;code&gt;release&lt;/code&gt;，发现挺合适的就切换到它了。现在的工作流是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;每个需求从 &lt;code&gt;main&lt;/code&gt; 切对应的需求分支，比如 &lt;code&gt;story/xxx&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;开发者基于 &lt;code&gt;story&lt;/code&gt; 切自己的开发分支，提交 MR 到 &lt;code&gt;story&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;登录 &lt;code&gt;flow&lt;/code&gt; 平台，手动选择要合并的需求分支，发布即可；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;临时下线某个需求，在 &lt;code&gt;flow&lt;/code&gt; 平台，手动删除即可，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;多个需求上线，发布 &lt;code&gt;release&lt;/code&gt; 即可&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;部署流程-1&#34;&gt;部署流程&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;flow&lt;/code&gt; 平台自动化管理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;问题-1&#34;&gt;问题&lt;/h3&gt;
-&lt;p&gt;这种模式同样运作了小半年，可以算是很完美的方案了，但是还有点问题&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;flow&lt;/code&gt; 只关心部署，无法和业务迭代关联起来&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;没有分支部署保护，允许添加个人分支部署（有些同学因为没有合并权限，经常先添加自己的开发分支去 flow 部署），无法感知分支功能，严重影响分支维护&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;已上线的分支不会自己去掉，需要手动删除&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;当时 &lt;code&gt;gitlab&lt;/code&gt; 上会有很多 &lt;code&gt;release&lt;/code&gt; 分支，提 &lt;code&gt;MR&lt;/code&gt; 的时候，很难找到需求分支&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;无法感知需求的上线时间，是否 delay，也没有日报管理等&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;flow&lt;/code&gt; 的流水线是按环境区分，不是按业务项目划分，即 &lt;code&gt;dev&lt;/code&gt; 下有其他我并没有参与的项目，不是很直接同时也不是很安全&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;flow&lt;/code&gt; 登录有时效，经常几天就要重新登录&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我的想法是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;对于开发来说，是不需要感知 &lt;code&gt;flow&lt;/code&gt; 界面的，开发更关注部署结果；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一个需求的从开始到上线要可追溯，包括&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;当时的需求、UI、技术文档&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;当时的开发者、分支MR&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;部署、上线记录&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;成套的阿里云产品是包括这些的，但是我们没有购买。。。。&lt;/p&gt;
-&lt;h2 id=&#34;自建平台管理&#34;&gt;自建平台管理&lt;/h2&gt;
-&lt;p&gt;这时候，我就想到了以前公司的产品，但是时间有点长，我都记不清具体有啥了，只能模糊的还原一个大概。&lt;/p&gt;
-&lt;p&gt;其实最开始我没想实现这个平台，后来业务越来越多，而且今年上半年我也想做点基建，就决定尝试一下，没想到一做就是2个月。&lt;/p&gt;
-&lt;p&gt;这里简单罗列一下功能，具体的技术方案下篇文章再细说&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;项目管理（新建、编辑、删除）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;迭代管理（新建、编辑、删除）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;部署（开发、测试、线上）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;日报管理（新增、编辑、发送到群里）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;分支管理（根据内部规范，分类管理分支，比如 hotfix/story/release/&amp;hellip;)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;MR 管理 （创建MR、查看MR列表）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;上线记录（上线/tag记录）&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;PS：相比较于用了什么新技术，或许可以反向思考一下，不用新技术会有什么不好嘛。技术是服务于业务/解决问题的，脱离了上下文单纯论技术是无意义的，能真正解决问题的技术才是有用的技术。&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>基建 API Mock</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-mock/</link>
-      <pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-mock/</guid>
-      
-        <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
-&lt;p&gt;开发没有mock还是比较痛苦的，最开始接入mock-server需要在业务里新开一个 &lt;code&gt;mock&lt;/code&gt; 手动写 json，维护成本很高，也不利于共享。一直以来，都想着接入现在开源的mock产品，但是，一方面需要收钱，一方面比较复杂需要自己搭建服务&amp;amp;数据，一致拖到现在还没有顺手的mock方案。&lt;/p&gt;
-&lt;p&gt;最近决定自己写个简单的，可能有人说你又在创建轮子，我的想法是，&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一方面我只开发mock功能，不支持其他比如api自动化测试的功能，我要的功能就是mock&lt;/li&gt;
-&lt;li&gt;另一方面mock通常只是在开发阶段才用到，就那么2天时间，后面进入联调就不会使用了&lt;/li&gt;
-&lt;li&gt;再有就是用来测试接口超时等异常情况&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;综上，一个简单的mock平台足以满足我的需求，实际上，做这么个平台也就需要1天时间而已。&lt;/p&gt;
-&lt;h2 id=&#34;mock平台&#34;&gt;Mock平台&lt;/h2&gt;
-&lt;h3 id=&#34;创建项目&#34;&gt;创建项目&lt;/h3&gt;
-&lt;p&gt;每个业务需要创建对应的项目，我们就简单点&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockProjectSchema&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mongoose&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Schema&lt;/span&gt;({
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;desc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里 &lt;code&gt;id&lt;/code&gt; 才是最关键的，后续业务要使用&lt;/p&gt;
-&lt;h3 id=&#34;创建-api&#34;&gt;创建 API&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;api&lt;/code&gt; 层只要几个功能&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;支持 &lt;code&gt;GET/POST&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;支持超时 &lt;code&gt;timeout&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一个 &lt;code&gt;json editor&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;至于 &lt;code&gt;api&lt;/code&gt; 的匹配，一期做个模糊匹配即可，也就是只关心 &lt;code&gt;method/url&lt;/code&gt;，不考虑入参&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockAPISchema&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mongoose&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Schema&lt;/span&gt;({
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;projectId&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;desc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mocked&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Boolean&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;timeout&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Number&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 超时时间
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;json&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;String&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 出参
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后就是对应的 &lt;code&gt;crud&lt;/code&gt; 接口实现，比较简单，这里就简单举个例子，不再赘述。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockMeController&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/mockme&amp;#39;&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;queryProjectById&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockProjectModel&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;findOne&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt; }, { &lt;span style=&#34;color:#a6e22e&#34;&gt;__v&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;_id&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;0&lt;/span&gt; })
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;业务接入&#34;&gt;业务接入&lt;/h2&gt;
-&lt;p&gt;重点看看，业务怎么接入平台&lt;/p&gt;
-&lt;h3 id=&#34;mock-option&#34;&gt;mock option&lt;/h3&gt;
-&lt;p&gt;从开发者的角度思考，他只需要在 &lt;code&gt;api&lt;/code&gt; 这个文件对需要 mock 的 api，加一个参数即可&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;queryList() {&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;({
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;test/list&amp;#39;&lt;/span&gt;,
-  }, {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;mock&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 开启 mock
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  })
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;要想拿到 mock 数据，必须和 mock 平台关联，也就是要拦截请求，代理到平台的地址。以 &lt;code&gt;axios&lt;/code&gt; 为例，我们封装如下方法&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;confg&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;option&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;({ ...&lt;span style=&#34;color:#a6e22e&#34;&gt;conf&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get&amp;#39;&lt;/span&gt;, }, &lt;span style=&#34;color:#a6e22e&#34;&gt;option&lt;/span&gt;)
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;conf&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;option&lt;/span&gt;) {
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 判断接口是否开启了 mock
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;option&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mock&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mockUrl&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;conf&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;conf&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这段代码判断是否开启了 mock，如果开启，则把 &lt;code&gt;mockUrl&lt;/code&gt; 和业务的 &lt;code&gt;url&lt;/code&gt; 拼接起来，这里的 &lt;code&gt;mockUrl&lt;/code&gt; 是代理到平台的地址，这样就实现了请求的拦截。&lt;/p&gt;
-&lt;p&gt;不过，这里会有跨域的问题，后面会解决这个问题&lt;/p&gt;
-&lt;h3 id=&#34;mock-url&#34;&gt;mock url&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;mockUrl&lt;/code&gt; 是 &lt;code&gt;mock&lt;/code&gt; 平台提供的，前面我们说过每个业务对应一个mock项目，也就会有对应唯一的项目id，平台根据这个 id会自动生成一个地址，格式如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;https:&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//test.com/mockme/proxy/:projectId
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;test.com&lt;/code&gt; 是平台服务器地址&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;/mockme/proxy&lt;/code&gt;是路由&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;projectId&lt;/code&gt; 就是每个业务在 mock 平台的项目 id&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;举个例子&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 项目一
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;https&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//test.com/mockme/proxy/elem
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;// 项目二
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;https&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//test.com/mockme/proxy/ant-design
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;请求打到平台后，平台会有对应的接口处理&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockMeController&lt;/span&gt; {
-  ...
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;proxyAPI&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;urlRegResult&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;match&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;/\/mockme\/proxy(.*)/&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; [, &lt;span style=&#34;color:#a6e22e&#34;&gt;regUrl&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;urlRegResult&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pathNode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pathToRegexp&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/:projectId/:proxyURL*&amp;#39;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;regUrl&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; [, &lt;span style=&#34;color:#a6e22e&#34;&gt;projectId&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;proxyURL&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pathNode&lt;/span&gt;
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;doc&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MockAPIModel&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;findOne&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;projectId&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;proxyURL&lt;/span&gt; })
-  }
-}
-
-&lt;span style=&#34;color:#a6e22e&#34;&gt;router&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;all&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`/mockme/proxy/:id/(.*)`&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;proxyAPI&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里有几点注意&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;我们使用 &lt;code&gt;router.all&lt;/code&gt; 来覆盖所有的 &lt;code&gt;http method&lt;/code&gt;，毕竟不知道业务会有哪些方法&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;通过 &lt;code&gt;path-to-regexp&lt;/code&gt; 转换为 url 为正则，方便匹配需要的数据&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;跨域&#34;&gt;跨域&lt;/h3&gt;
-&lt;p&gt;Q：前面说过代理地址会有跨域问题，那该怎么解决呢？&lt;/p&gt;
-&lt;p&gt;A：mock 平台配置 &lt;code&gt;cors&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Q：但是怎么识别请求是真的来自业务呢？&lt;code&gt;cors&lt;/code&gt; 只能对白名单列表的 &lt;code&gt;url&lt;/code&gt; 开启，&lt;/p&gt;
-&lt;p&gt;A：业务连接到 mock 平台，可以带个请求头，表明身份&lt;/p&gt;
-&lt;p&gt;以 &lt;code&gt;axios&lt;/code&gt; 为例，只要添加一个 &lt;code&gt;requestInterceptor&lt;/code&gt; 即可&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;axiosInstance&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-    &lt;span style=&#34;color:#75715e&#34;&gt;// 加签校验，配置 mock 请求头
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;serverMode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mock&lt;/span&gt;) {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mock-me&amp;#39;&lt;/span&gt;
-    }
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;
-}, &lt;span style=&#34;color:#66d9ef&#34;&gt;undefined&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;服务端则检测请求头，进行白名单校验，以 &lt;code&gt;koa&lt;/code&gt; 为例&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;cors&lt;/span&gt;({
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;origin&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-        &lt;span style=&#34;color:#75715e&#34;&gt;// cors 预检
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;access-control-request-headers&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;)) {
-          &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;
-        }
-
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mock-me&amp;#39;&lt;/span&gt;) {
-          &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;
-        }
-      },
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;allowHeaders&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x-test-mock&amp;#39;&lt;/span&gt;],
-    })
-  )
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;综上，一个简单的 api mock 平台就开发好了，还有更多功能可以扩展，比如 &lt;code&gt;api&lt;/code&gt; 自动化测试、实现网页版本 &lt;code&gt;postman&lt;/code&gt; 等。&lt;/p&gt;
 </description>
       
     </item>
