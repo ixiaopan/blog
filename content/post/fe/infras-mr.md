@@ -1,8 +1,8 @@
 ---
-title: "Automatically Send MR Notification"
+title: "MR Notification"
 date: "2023-01-28"
 description: ""
-# tags: []
+tags: [基建]
 categories: [
   "Frontend",
 ]

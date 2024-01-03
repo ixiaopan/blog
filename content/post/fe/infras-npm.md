@@ -1,7 +1,8 @@
 ---
-title: "基建 包发布管理平台"
+title: "包发布管理平台"
 date: "2023-12-11"
 description: ""
+tags: [基建]
 categories : [
   "Frontend",
 ]

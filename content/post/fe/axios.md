@@ -616,7 +616,7 @@ const { cancelA } = source.token.promise.then(() => {
 ```ts
 const source = axios.CancelToken.source()
 
-axios.get('https://cback.getmogic.com/creativeSaas/pix/login/index', {
+axios.get('xxx', {
   cancelToken: source.token
 })
 setTimeout(() => {

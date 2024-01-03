@@ -8,61 +8,20 @@ categories: [
 ]
 ---
 
-Directives and plugins are different from third-party libraries. Usually, they are used to do simple tasks, such as lazy load image, format text, and so on.
+总结一些常用的指令、插件
 
 <!--more-->
 
-## 注册指令/插件
+## 防重复点击
 
-注册指令
-```vue
-app.directive('name', directive)
-```
-
-注册插件
-```vue
-export default {
-  install: (app: App, options) => {
-    app.component('foo', fooComp)
-    app.directive('lazy', lazyDirective)
-  }
-}
-```
-
-可以看到，插件其实更为灵活，你可以在插件里注册组件、注册指令等。举个例子，
-
-如果需要做全局配置，插件再好不过了。比如之前做懒加载图片的时候，一开始是写成一个指令，后来希望支持 `webp` ，也就只需要在 `url` 后添加参数即可。当然可以直接写死在指令里，不过这也太死了，所以打算加开关，这就改成了插件模式，在插件里注册一个指令。这样，既支持全局开关统一开启 `webp`，也支持单个图片是否开启 `webp`。
-
-
-```vue
-let enableWebp
-
-const lazyDirective: Directive = {
-  mounted(el: HTMLElement, binding: DirectiveBinding<any>) {
-    // 图片自己的开关
-    el.webp = binding.value?.indexOf('webp') > -1
-  },
-}
-
-export default {
-  install: (app: App, options) => {
-    // 全局开关
-    enableWebp = options?.webp || false    
-    app.directive('lazy', lazyDirective)
-  }
-}
-```
-
-## 防重复
-
-```vue
+```ts
 /**
  * Prevent repeated clicks
- * @Example v-throttle="500"
+ * @example v-throttle="500"
  */
 
 import type { App, Directive, DirectiveBinding } from 'vue';
-import { on } from '@mogic-ui/utils';
+import { on } from './utils';
 
 const throttleDirective: Directive = {
   beforeMount(el: Element, binding: DirectiveBinding<any>) {
@@ -97,12 +56,40 @@ Then We can use `v-throttle` like this
 <button v-throttle>Submit</button>
 ```
 
+## 文本高亮
+
+```ts
+import type { App, Directive, DirectiveBinding } from 'vue'
+
+function highlightMe(el, keyword) {
+  if (!keyword) return
+  
+  const text = el.textContent
+  const kwdRegExp = new RegExp(keyword, 'gi')
+  el.innerHTML = text.replace(kwdRegExp, (match) => '<em class="highlight">' + match + '</em>')
+}
+
+const highlightDirective: Directive = {
+  mounted(el: Element, binding: DirectiveBinding<string>) {
+    highlightMe(el, binding.value)
+  },
+
+  updated(el: Element, binding: DirectiveBinding<string>) {
+    highlightMe(el, binding.value)
+  },
+}
+
+export function setupHighlightDirective(app: App) {
+  app.directive('highlight', highlightDirective)
+}
+```
+
 ## 一键复制
 
-```vue
+```ts
 /**
  * https://clipboardjs.com/
- * @Example v-copy
+ * @example v-copy
  */
 
 import type { App, Directive, DirectiveBinding } from 'vue'
@@ -136,10 +123,166 @@ export function setupCopyDirective(app: App) {
 
 Then We can use `v-copy` like this
 
-```vue
+```html
 <div v-copy data-clipboard-text="you've copied me">
   copy me
 </div>
+```
+
+## button-level access
+
+### 需求
+
+通常，业务需要支持按钮级别权限控制，一般情况控制显隐就足够了，但是我们这个有点麻烦，需要做到3点
+
+- `disabled` 置灰
+- `tooltip` 显示 『无权限』『不可下载』等提示文案
+- 不可点击
+
+直观的做法就是在各需要的地方，加上对应逻辑，比如
+
+```ts
+import { shouldDel } from 'xxx'
+
+<a-tooltip :title="shouldDel() ? '删除' : '无权限'">
+  <span :class="shouldDel() ? '' : 'disabled'" @click="onDel">删除</span>
+</a-tooltip>
+
+<a-tooltip :title="shouldDel() ? '删除' : '无权限'">
+  <button :disabled="shouldDel()" @click="onDel">删除</button>
+</a-tooltip>
+
+function onDel() {
+  if (!shouldDel()) return
+}
+```
+
+这种写法有几个问题
+
+- `button` 有 `disabled` 属性，可以直接屏蔽点击，但是普通标签 `div/span` 必须在事件中进行规避，缺少统一性
+- `shouldXX()` 会被多次使用在 `html/js` 中，混乱且冗余
+- 提示文案使用 `a-tooltip` 不仅 html 冗余，也和业务逻辑判断杂糅在一起
+
+### 改进
+
+这种需求用指令来封装再合适不过了，同样的功能但是只需要这样写就行
+
+```html
+<span v-access.del="permission">删除</span>
+<button v-access.edit="permission">修改</button>
+```
+
+其中 `permission` 就是业务指定的权限，当在 `mounted` 时候，会判断是否需要 `disabled`
+
+```ts
+const accessDirective: Directive = {
+  mounted: (el: Element, binding: DirectiveBinding<any>) => {
+    checkAccess(el, binding)
+    
+    toggleDisableClass()
+    disableClick()
+    toggleTooltip()
+  },
+
+  updated: (el: Element, binding: DirectiveBinding<any>) => {
+    checkAccess(el, binding)
+
+    toggleDisableClass()
+  },
+}
+
+function checkAccess(el, binding) {
+  el.shouldDisable = shouldXX(binding.value)
+}
+```
+
+指令 `v-access` 是怎么实现的呢？仔细分析一下这3个功能，其实最核心的是 **不可点击**，其他2个都可以用 `css` 解决
+
+1、屏蔽点击事件`DOM` 本身就支持
+
+```js
+function disableClick() {
+  el.addEventListener('click', () => {
+    if (el.shouldDisable) {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      e.stopPropagation()
+    }
+  }, true)
+}
+```
+
+- `stopImmediatePropagation` 会阻止监听同一事件的其他 `event handler` 被调用
+- `stopPropagation` 则阻止事件进一步向上冒泡
+-  `e.preventDefault()` 阻止标签的默认行为
+
+
+2、样式置灰
+
+写一个全局的置灰样式 `.global-access-disabled`，根据权限动态修改 `class`
+
+```ts
+function toggleDisableClass() {
+  if (el.shouldDisable) {
+    el.classList.add('global-access-disabled')
+  } else {
+    el.classList.remove('global-access-disabled')
+  }
+}
+```
+
+3、提示文案
+
+使用原生 `js` 实现，其实就是动态实现 `a-tooltip`，难点在于根据触发的元素设置 `tooltip` 的位置
+
+```ts
+function toggleTooltip() {
+  const { showTooltip, hideTooltip } = createTooltip()
+  el.addEventListener('mouseenter', () => { showTooltip(el.shouldDisable ? '无权限' : '删除') })
+  el.addEventListener('mouseleave', hideTooltip)
+}
+```
+
+如何计算 `tooltip` 位置？首先要知道当前元素的位置，可以使用 `Element.getBoundingClientRect()` 获取元素的 `top/left/width/height` 在根据业务需要是否居中、偏左、偏上等计算
+
+```ts
+function createTooltip() {
+  if (!toolTipElem) {
+    toolTipElem = document.createElement('span')
+    document.body.appendChild(toolTipElem)
+    toolTipElem.style.position = 'absolute'
+  }
+
+  function showTooltip(t: string) {
+    if (toolTipElem) {
+      toolTipElem.textContent = t
+      toolTipElem.style.display = 'block'
+      
+      // 计算位置
+      setPosition()
+    }
+  }
+  function hideTooltip() {
+    toolTipElem.style.display = 'none'
+  }
+  function setPosition() {
+    const { left, top, width, height } = el.getBoundingClientRect()
+    
+    let tipTop = 0, tipLeft = 0
+    if (placement == 'top') { // 上方居中
+      tipTop = top
+      tipLeft = left + width / 2
+    }
+    toolTipElem!.style.top = tipTop + 'px'
+    toolTipElem!.style.left = tipLeft + 'px'
+    toolTipElem!.classList.add(`global-access-tooltip-${placement}`)
+  }
+
+  return {
+    showTooltip,
+    hideTooltip,
+  }
+}
 ```
 
 ## 懒加载
@@ -150,7 +293,7 @@ Then We can use `v-copy` like this
 
 使用最新的 `intersectionObserver API`，如果不支持，全部加载不考虑降级(业务不需要，面向 `chrome` 开发)
 
-```vue
+```ts
 let enableWebp
 let previewHost
 
@@ -258,7 +401,7 @@ const lazyDirective: Directive = {
 - 只有用户使用了上传才加载额外的第三方库
 - 上传本身就会 `loading`，所以延迟加载不会有什么体验问题
 
-```vue
+```ts
 const customCache = new Set()
 function loadScriptFromRemote() {  
   if (customCache.has(scriptUrl)) {

@@ -6,7 +6,7 @@
     <description>Recent content on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://ixiaopan.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
@@ -87,7 +87,40 @@ li {
     </item>
     
     <item>
-      <title>基建 服务端实现</title>
+      <title>Audio Sprite</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Polling</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/poll/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>前端实现</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-client/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-client/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>服务端实现</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
@@ -297,29 +330,7 @@ li {
     </item>
     
     <item>
-      <title>基建 Micro Frontend</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</link>
-      <pubDate>Sun, 31 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</guid>
-      
-        <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Audio Sprite</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
-      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
-      
-        <description></description>
-      
-    </item>
-    
-    <item>
-      <title>基建 迭代管理&amp;发布平台 02</title>
+      <title>迭代管理&amp;发布平台 02</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
       <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -1357,7 +1368,7 @@ li {
     </item>
     
     <item>
-      <title>基建 包发布管理平台</title>
+      <title>包发布管理平台</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
       <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -1525,7 +1536,7 @@ li {
     </item>
     
     <item>
-      <title>基建 性能监控SDK</title>
+      <title>性能监控SDK</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</link>
       <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -2272,7 +2283,7 @@ value2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;针对此改写，我们可以写个 &lt;code&gt;demo&lt;/code&gt;，体验一下&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;CancelToken&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;()
 
-&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://cback.getmogic.com/creativeSaas/pix/login/index&amp;#39;&lt;/span&gt;, {
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;xxx&amp;#39;&lt;/span&gt;, {
   &lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;source.token&lt;/span&gt;
 })
 &lt;span style=&#34;color:#a6e22e&#34;&gt;setTimeout&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
@@ -2291,409 +2302,6 @@ value2
 &lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST&#34;&gt;POST - MDN&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams&#34;&gt;URLSearchParams - MDN&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/API/FormData&#34;&gt;FormData - MDN&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      
-    </item>
-    
-    <item>
-      <title>i18n</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/i18n/</link>
-      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/i18n/</guid>
-      
-        <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
-&lt;p&gt;前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是单独定制的。看到这个要求，就立刻能想到用 &lt;code&gt;monorepo&lt;/code&gt; 管理再适合不过了。&lt;/p&gt;
-&lt;h2 id=&#34;项目结构&#34;&gt;项目结构&lt;/h2&gt;
-&lt;p&gt;要支持多渠道部署，也就是有多个应用入口，为了方便管理，所有应用入口都放在目录 &lt;code&gt;app&lt;/code&gt; 下。比如我们有 3 个渠道 &lt;code&gt;A&lt;/code&gt;，&lt;code&gt;B&lt;/code&gt;，&lt;code&gt;C&lt;/code&gt;，项目结构如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;- project
-  - pnpm-workspace.yaml
-  - app
-    - channelA
-      - src
-         - main.ts
-         - App.vue
-      - index.html
-    - channelB
-    - channelC
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为 80% 的功能都是一样且 UI 布局也是基本一样，只有部分功能是独有比如登录、支付等，所以我们要抽出通用的功能和组件等，这一部分我们放在 &lt;code&gt;packages&lt;/code&gt; 里，具体划分如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;- project
-    - pnpm-workspace.yaml
-    - app
-    - packages
-      - api
-        - common // 通用接口
-        - channelA // 业务独有
-        - channelB
-        - channelC
-      - components
-      - hooks
-      - locales
-        - channelA
-        - channelB
-        - channelC
-      - store
-      - utils
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;api&lt;/code&gt; 层可以放在项目级别，也可以放在 &lt;code&gt;packages&lt;/code&gt;，考虑到会有公共的api，所以干脆把 &lt;code&gt;api&lt;/code&gt; 也按渠道划分，通用接口则放在 &lt;code&gt;common&lt;/code&gt;。举个例子&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// packages/api/channelA/xx.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt; } &lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./inject&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;queryList&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;string&lt;/span&gt; }) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`/query/list`&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; })
-  },
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到，&lt;code&gt;api&lt;/code&gt; 仅维护一堆接口列表，真正的 &lt;code&gt;request&lt;/code&gt; 来自业务，所以才有一个 &lt;code&gt;inject&lt;/code&gt;。这个 &lt;code&gt;inject&lt;/code&gt; 也比较简单，在业务入口初始化一个 &lt;code&gt;axios&lt;/code&gt; 实例，传进来即可&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// app/channelA/src/main.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;@/utils/http&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bootstrap() {&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createApp&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;App&lt;/span&gt;)
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;injectRequest&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;components/hooks/store&lt;/code&gt; 之间是有依赖的，通用的组件逻辑抽象到这里，不再赘述。剩下的就是 &lt;code&gt;locales&lt;/code&gt; ，多语言实现了。&lt;/p&gt;
-&lt;h2 id=&#34;locales&#34;&gt;locales&lt;/h2&gt;
-&lt;h3 id=&#34;类型定义&#34;&gt;类型定义&lt;/h3&gt;
-&lt;p&gt;首先，定义2个 &lt;code&gt;enum&lt;/code&gt;：渠道和语言，目前业务只支持中文和英文&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;enum&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LocaleType&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;EN_US&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;en&amp;#39;&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ZH&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;zh&amp;#39;&lt;/span&gt;
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LOCALE_CHANNEL&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;CHANNEL_A&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;channel_a&amp;#39;&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;CHANNEL_B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;channel_b&amp;#39;&lt;/span&gt;,
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;CHANNEL_C&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;channel_c&amp;#39;&lt;/span&gt;,
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可见，在这个例子就有 &lt;code&gt;2*3=6&lt;/code&gt; 种配置项。&lt;/p&gt;
-&lt;h3 id=&#34;按渠道缓存&#34;&gt;按渠道缓存&lt;/h3&gt;
-&lt;p&gt;此外，因为 &lt;code&gt;locale&lt;/code&gt; 放在浏览器 &lt;code&gt;localStorage&lt;/code&gt; ，不同渠道要有自己对应的 &lt;code&gt;key&lt;/code&gt;，这里我们就用渠道作为 &lt;code&gt;key&lt;/code&gt; 足以。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// helper.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 缓存
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;// 注意，这里用 渠道 作为缓存的 key
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setCacheKey&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;locale&amp;#39;&lt;/span&gt;
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getLangCache() {&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localStorage&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getItem&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt;)
-  } &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;getLangCache&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt;)
-  }
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setLangCache&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;localStorage&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setItem&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;)
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;removeLangCache() {&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;localStorage&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;removeItem&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cachedKey&lt;/span&gt;)
-}
-
-
-&lt;span style=&#34;color:#75715e&#34;&gt;// 配置渠道
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setChannel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LOCALE_CHANNEL&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;setCacheKey&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;)
-}
-&lt;span style=&#34;color:#75715e&#34;&gt;// 校验渠道是否合法
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;isValidChannel() {&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; Object.&lt;span style=&#34;color:#a6e22e&#34;&gt;values&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;LOCALE_CHANNEL&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;默认语言&#34;&gt;默认语言&lt;/h3&gt;
-&lt;p&gt;此外，业务还要配置该渠道的默认语言&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// helper.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setDefaultLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDefaultLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;初始化语言包&#34;&gt;初始化语言包&lt;/h3&gt;
-&lt;p&gt;综上，我们就可以初始化语言了&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setupI18n&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;App&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;I18nOptions&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; }) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;both default locale and channel are required&amp;#39;&lt;/span&gt;)
-  }
-  
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 使用渠道作为缓存key
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;setChannel&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;)
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 指定该渠道的默认语言
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;setDefaultLocale&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createI18n&lt;/span&gt;({
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LocaleType.EN_US&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;legacy&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 使用 composition api
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  })
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 优先从缓存读取，其次是默认语言
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;changeLocale&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;getLangCache&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LocaleType&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;组件中使用语言&#34;&gt;组件中使用语言&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// index.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocales&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;useI18n&lt;/span&gt;()
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;前面配置了 &lt;code&gt;legacy: false&lt;/code&gt; 所以这里我们可以使用 &lt;code&gt;composition API&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vue&#34; data-lang=&#34;vue&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;{{&lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;upload&amp;#39;&lt;/span&gt;)}}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
-&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setup&lt;/span&gt;&amp;gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocales&lt;/span&gt; } &lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;@xx/locales&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocales&lt;/span&gt;()
-&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;切换语言&#34;&gt;切换语言&lt;/h3&gt;
-&lt;p&gt;前面的代码中有个陌生的函数 &lt;code&gt;changeLocale()&lt;/code&gt;，用来切换语言的，具体代码是参考 &lt;a href=&#34;https://vue-i18n.intlify.dev/guide/advanced/lazy.html&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;changeLocale&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LocaleType&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;force?&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;boolean&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;force&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;global&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  }
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;force&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cachedLocale&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;setI18nLang&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  }
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ok&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;loadLocale&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ok&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;setI18nLang&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  }
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cachedLocale&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LocaleType&lt;/span&gt;[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;loadLocale&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;I18n&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LocaleType&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;isValidChannel&lt;/span&gt;()) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 懒加载
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;langModule&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`./&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.ts`&lt;/span&gt;)).&lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;langModule&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; module`&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;langModule&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;cachedLocale&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;global&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setLocaleMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;langModule&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;)
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setI18nLang&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;I18n&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;LocaleType&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;legacy&amp;#39;&lt;/span&gt;) {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;global&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
-    &lt;span style=&#34;color:#75715e&#34;&gt;// @ts-ignore
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;i18n&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;global&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  }
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;setLangCache&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;currentLang&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;
-  
-  document.&lt;span style=&#34;color:#a6e22e&#34;&gt;querySelector&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;html&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setAttribute&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;lang&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;message&#34;&gt;Message&lt;/h3&gt;
-&lt;p&gt;最后，每个语言对应的 &lt;code&gt;json&lt;/code&gt; 是如何组织的呢？我们知道 &lt;code&gt;i18n message&lt;/code&gt; 是个对象&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;messages&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;hello&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hello world&amp;#39;&lt;/span&gt;
-    }
-  },
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ja&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;hello&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;こんにちは、世界&amp;#39;&lt;/span&gt;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在实际开发中，如果这么写下去，这个 &lt;code&gt;json&lt;/code&gt; 会很难维护。一种方法是按某种规则划分，在想办法整合为这种形式。&lt;/p&gt;
-&lt;p&gt;首先，每个语言独立拆分，然后再按页面功能模块划分，如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;- channelA
-    - en
-      - common.ts // 比如 okText
-      - component.ts
-      - sys.ts
-    - zh
-      - common.ts
-      - component.ts
-      - sys.ts // api 接口层
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;common.ts&lt;/code&gt; 就是通用的字段，比如 &lt;code&gt;okText, cacelText, loadingText&lt;/code&gt; 等&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;component.ts&lt;/code&gt; 就是业务中各组件的字段，比如&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; {
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 上传
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;upload&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;uploadText&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;上传图片&amp;#39;&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;acceptType&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;PNG、JPG&amp;#39;&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;maxSize&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;,
-  },
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 下载
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;download&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;downloadText&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;下载&amp;#39;&lt;/span&gt;
-  },
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;sys.ts&lt;/code&gt; 就是接口层了&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;api&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    &lt;span style=&#34;color:#75715e&#34;&gt;// 通用兜底
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;timeout&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;网络超时，请稍后重试&amp;#39;&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;requestFailed&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;服务异常，请稍后重试&amp;#39;&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;networkException&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;网络异常，请稍后重试&amp;#39;&lt;/span&gt;,
-
-    &lt;span style=&#34;color:#75715e&#34;&gt;// 业务错误码定制信息
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 通用的异常码
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    [&lt;span style=&#34;color:#a6e22e&#34;&gt;BizCodeEnum&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;FAILED&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;服务异常，请稍后重试&amp;#39;&lt;/span&gt;,
-    [&lt;span style=&#34;color:#a6e22e&#34;&gt;BizCodeEnum&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;TIMEOUT&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;网络超时，请稍后重试&amp;#39;&lt;/span&gt;,
-    [&lt;span style=&#34;color:#a6e22e&#34;&gt;BizCodeEnum&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;NETWORK_ERROR&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;网络异常，请稍后重试&amp;#39;&lt;/span&gt;,
-    [&lt;span style=&#34;color:#a6e22e&#34;&gt;BizCodeEnum&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;TOKEN_EXPIRED&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;登录失效，请重新登录&amp;#39;&lt;/span&gt;,
-
-    [&lt;span style=&#34;color:#a6e22e&#34;&gt;BizCodeEnum&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;EMPTY_EMAIL&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;邮箱名称不能为空&amp;#39;&lt;/span&gt;,
-  },
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在信息都被模块掉了，剩下的就是怎么组装了&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;modules&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;any&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;meta&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;glob&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./en/**/*.ts&amp;#39;&lt;/span&gt;, { &lt;span style=&#34;color:#a6e22e&#34;&gt;eager&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; })
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; {
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-    ...&lt;span style=&#34;color:#a6e22e&#34;&gt;genMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;modules&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;en&amp;#39;&lt;/span&gt;)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重点是 &lt;code&gt;genMessage()&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;genMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;langs&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Record&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;string&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Record&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;string&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;lang&amp;#39;&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;any&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;// ./en/common.ts
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  Object.&lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;langs&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;) =&amp;gt; {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;langFileModule&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;langs&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;].&lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fileName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`./&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/`&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;/^\.\//&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lastIndex&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fileName&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lastIndexOf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;fileName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fileName&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;substring&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;lastIndex&lt;/span&gt;)
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;keyList&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fileName&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;split&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;keyList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;shift&lt;/span&gt;()
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;objKey&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;keyList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;join&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;)
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt;) {
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;objKey&lt;/span&gt;) {
-        &lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {})
-        &lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt;], &lt;span style=&#34;color:#a6e22e&#34;&gt;objKey&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;langFileModule&lt;/span&gt;)
-      } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
-        &lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;moduleName&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;langFileModule&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {})
-      }
-    }
-  })
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;组件库的国际化&#34;&gt;组件库的国际化&lt;/h2&gt;
-&lt;p&gt;一般我们用 &lt;code&gt;antd-design-vue&lt;/code&gt; 的都会用 &lt;code&gt;ConfigProvider&lt;/code&gt;，这个组件是用来给所有的 &lt;code&gt;vue components&lt;/code&gt; 提供配置项，这其中就包括了国际化的配置&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;provider&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;enUS&amp;#34;&lt;/span&gt;&amp;gt;
-  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;pagination&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;total&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;50&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;show&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;size&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;changer&lt;/span&gt; /&amp;gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;/a-config-provider&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;enUS&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ant-design-vue/es/locale/en_US&amp;#39;&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;zhCN&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ant-design-vue/es/locale/zh_CN&amp;#39;&lt;/span&gt;;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看源码，发现是使用了 &lt;code&gt;provider/inject&lt;/code&gt;，同时 &lt;code&gt;locale&lt;/code&gt; 提供了2个组件 &lt;code&gt;&amp;lt;LocaleReceiver /&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;LocaleProvider /&amp;gt;&lt;/code&gt;，从名字就能看出，&lt;code&gt;provider&lt;/code&gt; 提供语言环境，&lt;code&gt;reveiver&lt;/code&gt; 用来消费&lt;/p&gt;
-&lt;p&gt;先看 &lt;code&gt;provider&lt;/code&gt; 源码，比较简单，就是把业务提供的语言包通过 &lt;code&gt;provide&lt;/code&gt; 导出去&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setup() {&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 这里的 props.locale 就是前面业务通过 `a-config-provider` 传入的
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reactive&lt;/span&gt;({
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;,
-    }
-  })
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;watch&lt;/span&gt;(
-    () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-      &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-        ...&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;,
-      }
-    },
-    { &lt;span style=&#34;color:#a6e22e&#34;&gt;immediate&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; }
-  )
-
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;provide&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;localeData&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;)
-  
-  &lt;span style=&#34;color:#75715e&#34;&gt;// &amp;lt;template&amp;gt;&amp;lt;slot /&amp;gt;&amp;lt;/template&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slots&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.()
-  };
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;receiver&lt;/code&gt; 稍微比较复杂，主要是考虑了兜底默认值，本质这个组件就是拿到依赖的语言，传入到子组件即可&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setup&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;) {
- &lt;span style=&#34;color:#75715e&#34;&gt;// 业务提供的语言环境
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;inject&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;localeData&amp;#39;&lt;/span&gt;, {})
-
- &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;computed&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocaleData&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;componentName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;global&amp;#39;&lt;/span&gt;];
-  
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeFromContext&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;componentName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;componentName&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {};
-  
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {
-    ...(&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;function&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;),
-    ...(&lt;span style=&#34;color:#a6e22e&#34;&gt;localeFromContext&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {}),
-  };
- });
- 
- &lt;span style=&#34;color:#75715e&#34;&gt;// &amp;lt;template&amp;gt;&amp;lt;slot :localeData=&amp;#34;locale.value&amp;#34; :localeCode=&amp;#34;localeCode.value&amp;#34; :antLocale=&amp;#34;localeData.antLocale&amp;#34; /&amp;gt;&amp;lt;/template&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;props&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slots&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.(&lt;span style=&#34;color:#a6e22e&#34;&gt;locale&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;localeCode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt;)
- }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再看组件是如何更新的，比如写一个简单的 &lt;code&gt;header.vue&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
-  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;LocaleReceiver&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;compName&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;header&amp;#34;&lt;/span&gt;&amp;gt;
-    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;slot&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{ localeData }&amp;#34;&lt;/span&gt;&amp;gt;
-      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hello&lt;/span&gt; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;back&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
-    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
-  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;LocaleReceiver&lt;/span&gt;&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
-
-&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setup&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;computed&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;onMounted&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;vue&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LocaleReceiver&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;@/components/LocalesReceiver.vue&amp;#39;&lt;/span&gt;
-&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面这种写法比较麻烦，其实我们想要的就是组件本身需要的 &lt;code&gt;locales&lt;/code&gt;，那可以封装一个 &lt;code&gt;hooks&lt;/code&gt; 即可&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocaleReceiver&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;compName&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;propsLocale&lt;/span&gt;) {
-  &lt;span style=&#34;color:#75715e&#34;&gt;// 业务提供的语言环境
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;inject&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;localeData&amp;#39;&lt;/span&gt;, {})
- 
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;computed&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeFromContext&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;compName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;localeData&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;antLocale&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;compName&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {};
-  
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {
-      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultLocale&lt;/span&gt;,
-      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;localeFromContext&lt;/span&gt;,
-      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;propsLocale&lt;/span&gt;,
-    }
- }) 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;此时 &lt;code&gt;header.vue&lt;/code&gt; 要改写为如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
-  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hello&lt;/span&gt; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;compLocale&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;back&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
-
-&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setup&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;computed&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;onMounted&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;vue&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocaleReceiver&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./useReceiver&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;compLocale&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;useLocaleReceiver&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;header&amp;#39;&lt;/span&gt;)
-&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;under-the-hood&#34;&gt;Under the hood&lt;/h2&gt;
-&lt;p&gt;最后一个问题，&lt;code&gt;i18n&lt;/code&gt; 是怎么更新语言的？毕竟我们没有显示的使用 &lt;code&gt;config-provider&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;refer&#34;&gt;Refer&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://vue-i18n.intlify.dev/guide/advanced/lazy.html&#34;&gt;i18n Lazy&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       

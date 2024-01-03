@@ -127,6 +127,13 @@
         
           
           
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
             <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
           
         
@@ -239,6 +246,17 @@
           
           
             <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
           
 
         
@@ -758,7 +776,7 @@ value2
 </code></pre></div><p>针对此改写，我们可以写个 <code>demo</code>，体验一下</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">CancelToken</span>.<span style="color:#a6e22e">source</span>()
 
-<span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">get</span>(<span style="color:#e6db74">&#39;https://cback.getmogic.com/creativeSaas/pix/login/index&#39;</span>, {
+<span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">get</span>(<span style="color:#e6db74">&#39;xxx&#39;</span>, {
   <span style="color:#a6e22e">cancelToken</span>: <span style="color:#66d9ef">source.token</span>
 })
 <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
@@ -807,7 +825,7 @@ value2
 </svg>
 
                 </i>
-                <span class="prev-text nav-default">基建 性能监控SDK</span>
+                <span class="prev-text nav-default">性能监控SDK</span>
                 <span class="prev-text nav-mobile">Prev</span>
               </a>
             

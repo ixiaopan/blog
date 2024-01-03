@@ -6,9 +6,36 @@
     <description>Recent content in Posts on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>基建 服务端实现</title>
+      <title>Audio Sprite</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Polling</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/poll/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>前端实现</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-client/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-client/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>服务端实现</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
@@ -17,25 +44,7 @@
     </item>
     
     <item>
-      <title>基建 Micro Frontend</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</link>
-      <pubDate>Sun, 31 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-microfe/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Audio Sprite</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
-      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>基建 迭代管理&amp;发布平台 02</title>
+      <title>迭代管理&amp;发布平台 02</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
       <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -53,7 +62,7 @@
     </item>
     
     <item>
-      <title>基建 包发布管理平台</title>
+      <title>包发布管理平台</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
       <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -62,7 +71,7 @@
     </item>
     
     <item>
-      <title>基建 性能监控SDK</title>
+      <title>性能监控SDK</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</link>
       <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
       
@@ -86,21 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/i18n/</guid>
       <description>Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是</description>
-    </item>
-    
-    <item>
-      <title>数据压缩 101</title>
-      <link>https://ixiaopan.github.io/blog/post/misc/data-compress/</link>
-      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/misc/data-compress/</guid>
-      <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;哈夫曼编码&lt;/li&gt;
-&lt;li&gt;算术编码&lt;/li&gt;
-&lt;li&gt;LZ编码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,8 +1,8 @@
 ---
-title: "数据压缩 101"
+title: "《数据压缩入门》"
 date: "2023-10-25"
 description: ""
-# tags: []
+tags: [Reading]
 categories: [
   "Misc",
 ]
