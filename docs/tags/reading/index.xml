@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reading on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/tags/reading/</link>
+    <description>Recent content in Reading on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Pattern</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/pattern/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/pattern/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>《数据压缩入门》</title>
+      <link>https://ixiaopan.github.io/blog/post/misc/data-compress/</link>
+      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/misc/data-compress/</guid>
+      <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;哈夫曼编码&lt;/li&gt;
+&lt;li&gt;算术编码&lt;/li&gt;
+&lt;li&gt;LZ编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>《JavaScript with Promise》 Revisited</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/promise/</link>
+      <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/promise/</guid>
+      <description>&lt;p&gt;关于 &lt;code&gt;promise&lt;/code&gt; 介绍的太多了，今天就推荐一本我收藏已久的小册子，&lt;a href=&#34;https://book.douban.com/subject/26261877/&#34;&gt;Javascript with promise - douban&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

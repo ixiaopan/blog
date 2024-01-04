@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Component on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/tags/component/</link>
+    <description>Recent content in Component on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/component/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Component - Message</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/comp-message/</link>
+      <pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/comp-message/</guid>
+      <description>What message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还</description>
+    </item>
+    
+    <item>
+      <title>Component - Cascader</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/comp-cascader/</link>
+      <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/comp-cascader/</guid>
+      <description>&lt;p&gt;实现一个业务定制的级联选择器&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

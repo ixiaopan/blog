@@ -6,7 +6,16 @@
     <description>Recent content in Posts on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Polling</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/poll/</link>
+      <pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
+      <description>业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin</description>
+    </item>
+    
     <item>
       <title>Audio Sprite</title>
       <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
@@ -17,16 +26,16 @@
     </item>
     
     <item>
-      <title>Polling</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/poll/</link>
+      <title>Design Pattern</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/pattern/</link>
       <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
+      <guid>https://ixiaopan.github.io/blog/post/fe/pattern/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>前端实现</title>
+      <title>Micro Frontend</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-client/</link>
       <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
       
@@ -86,15 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
       <description>MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资</description>
-    </item>
-    
-    <item>
-      <title>i18n</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/i18n/</link>
-      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/i18n/</guid>
-      <description>Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是</description>
     </item>
     
   </channel>
