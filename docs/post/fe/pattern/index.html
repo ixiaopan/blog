@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>
-          Design Pattern - xiaopan&#39;s blog
+          《Game Programming Patterns》 - xiaopan&#39;s blog
         </title>
     
 
@@ -29,7 +29,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="xiaopan" />
-  <meta name="description" content="" />
+  <meta name="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书" />
 
 
 
@@ -66,20 +66,20 @@
 
 
 
-<meta property="og:title" content="Design Pattern" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="《Game Programming Patterns》" />
+<meta property="og:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/pattern/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-01-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-01-03T00:00:00+00:00" />
+<meta property="article:published_time" content="2024-01-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-01-08T00:00:00+00:00" />
 
-<meta itemprop="name" content="Design Pattern">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-01-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-01-03T00:00:00+00:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="name" content="《Game Programming Patterns》">
+<meta itemprop="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"><meta itemprop="datePublished" content="2024-01-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-01-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3635">
 <meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Design Pattern"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="《Game Programming Patterns》"/>
+<meta name="twitter:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -302,7 +302,7 @@
       <article class="post">
         
         <header class="post-header">
-          <h1 class="post-title">Design Pattern</h1>
+          <h1 class="post-title">《Game Programming Patterns》</h1>
           
 
           <div class="post-meta">
@@ -317,8 +317,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-01-03">
-      2024-01-03
+    <time datetime="2024-01-08">
+      2024-01-08
     </time>
   </div>
 
@@ -347,7 +347,554 @@
 
         
         <div class="post-content">
-          
+          <p>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 <code>web</code> 开发中也很常见，比如 <code>singleton/observer/dirty check</code> 等。不过由于书中代码示例是用 <code>c++</code> 编写的，对于前端不是很直观，所以有了从前端角度剖析的想法，权当自身学习。</p>
+<h2 id="design-patterns">Design Patterns</h2>
+<h3 id="observer">Observer</h3>
+<blockquote>
+<p>It lets one piece of code announce that something interesting happened without actually caring who receives the notification</p>
+</blockquote>
+<p>既然是观察者模式，那就有被观察的对象和观察者，2个主体</p>
+<h4 id="subjectobserver">Subject/Observer</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span> {
+  <span style="color:#a6e22e">onNotify</span>(<span style="color:#a6e22e">sbj</span>, <span style="color:#a6e22e">eventName</span>) {}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">observerList</span>: <span style="color:#66d9ef">Observer</span>[]
+  <span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) {}
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observerList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">o</span>) }
+  <span style="color:#a6e22e">notify</span>(<span style="color:#a6e22e">eventName</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observerList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">onNotify</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">eventName</span>))
+  }
+}
+</code></pre></div><p>从这段代码可以看到 <code>subject</code> 有2个主要工作</p>
+<p>1、内部维护了一个数组 <code>observerList</code>，表示对 <code>subject</code> 发生变化感兴趣的对象即 <code>observer</code>；同时支持外部代码添加、删除 <code>observer</code></p>
+<p>2、一旦 <code>subject</code> 发生变化，就要发送通知 <code>subject.notify()</code></p>
+<p>这个模式在前端领域更习惯用 <code>EventEmitter</code>，举个图片编辑器的例子</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageObject</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">EventEmitter</span> {
+  <span style="color:#a6e22e">render() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;object:rendered&#39;</span>)
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Renderer</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">imageObj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ImageObject</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">imageObj</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;object:rendered&#39;</span>, () <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#a6e22e">hideLoading</span>()
+    })
+  }
+  <span style="color:#a6e22e">render() {</span>
+    <span style="color:#a6e22e">showLoading</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_objects</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">o</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">render</span>())
+  }
+}
+</code></pre></div><p>这个例子使用 <code>EventEmitter</code> 第三方库，不使用也是可以的，那就要自己包装一个 <code>EventEmitter</code> 比如我们对 <code>resize</code> 事件感兴趣</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResizeEvent</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">constructor</span>() {
+    window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">e</span>))
+    })
+  }
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">fn</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">fn</span>)
+  }
+}
+</code></pre></div><p>可见，如果应用中多次使用观察者模式，还是使用 <code>EventEmitter</code> 更为方便。</p>
+<h4 id="observer-vs-pub-sub">Observer VS Pub-Sub</h4>
+<p><code>pub-sub</code> 即发布订阅模式，和观察者模式很像，区别在于</p>
+<p>观察者模式</p>
+<ul>
+<li>2个主体之间是明确知道对方存在的</li>
+<li>操作是同步的</li>
+<li>通信发生在同一个应用内容</li>
+</ul>
+<p><code>pub-sub</code></p>
+<ul>
+<li>通过 <code>broker</code> 联系发布者和订阅者，也就是说可以订阅一个压根不存在的发布者</li>
+<li>操作可以异步</li>
+<li>可以跨组件、跨应用通信</li>
+</ul>
+<p>同样是对 <code>resize</code> 事件感兴趣，使用 <code>pub-sub</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">eventBus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventBus</span>()
+
+window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;window:resize&#39;</span>, <span style="color:#a6e22e">e</span>)
+})
+
+<span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;window:resize&#39;</span>, () <span style="color:#f92672">=&gt;</span> {}) <span style="color:#75715e">// triggered
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;window:scroll&#39;</span>, () <span style="color:#f92672">=&gt;</span> {}) <span style="color:#75715e">// not triggered, because there&#39;s no publisher
+</span></code></pre></div><h3 id="singleton">Singleton</h3>
+<blockquote>
+<p>Ensure a class has one instance, and provide a global point of access to it.</p>
+</blockquote>
+<p>经典的模式，下面的代码大家或多或少都见过</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResourceManager</span> {
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">_instance</span>
+
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span>) {
+      <span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ResourceManager</span>()
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span>
+  }
+}
+</code></pre></div><p>业务中不管在任何地方调用多少次 <code>new ResourceManager()</code>，全局都只有一个实例 <code>ResourceManager._instance</code>。</p>
+<p>这个模式的主要槽点在于实例是全局可访问的，但通常我们都不喜欢变量是全局可访问</p>
+<ul>
+<li>
+<p>难以追踪，比如代码中突然出现一个未曾被引入的变量 <code>xxx</code> ，你就得查一下这是啥；而且也很难知道哪些地方使用了全局变量</p>
+</li>
+<li>
+<p>容易耦合，比如在游戏中一些东西落在地上要发出声音，很可能就有人在这块业务代码中直接引入 <code>AudioManager</code>（显示全局我们只有一个声音管理器），如果每个需要播放声音的地方都这样引入 <code>AudioManager</code> 代码就冗余了，后面就麻烦了；更好的方式或许是使用 <code>observer</code> 模式通知 <code>AudioManager</code> 播放声音</p>
+</li>
+</ul>
+<p>或许下次在考虑单例模式的时候，可以思考一下如何 <code>limit access scope</code></p>
+<p>1、从 <code>base class</code> 获取</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">msg</span>) {}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TextLayer</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">doSth() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;text layer&#39;</span>)
+  }
+}
+</code></pre></div><p>2、从已存在的全局对象获取</p>
+<p>就拿 <code>AudioManager</code> 来说，可以挂在 <code>Editor/Game</code> 下面，毕竟全局只有一个游戏或者编辑器存在</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioManager</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AudioManager</span>()
+  }
+  <span style="color:#a6e22e">playSound</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioManager</span>.<span style="color:#a6e22e">play</span>(<span style="color:#a6e22e">name</span>)
+  }
+}
+
+<span style="color:#75715e">// 业务逻辑：切换不同声音
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeSound</span>(<span style="color:#a6e22e">name</span>) {
+  <span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">playSound</span>(<span style="color:#a6e22e">name</span>)
+}
+</code></pre></div><p>3、从 <code>Service Locator</code> 获取</p>
+<p>定义一个对象 <code>Service Locator</code>（这也是一个模式，下文单独介绍），专门提供对全局对象的访问</p>
+<h3 id="state">State</h3>
+<blockquote>
+<p>States, inputs, transitions</p>
+<ul>
+<li>You have a fixed set of states that the machine can be in</li>
+<li>The machine can only be in one state at a time</li>
+<li>A sequence of inputs or events is sent to the machine</li>
+<li>Each state has a set of transitions, each associated with an input and pointing to a state.</li>
+</ul>
+</blockquote>
+<p>有限状态机 <code>finite state machine</code> 之前在 <a href="/blog/post/fe/infras-basement-2/">迭代管理&amp;发布平台 02</a> 就有所提及，本质上部署流水线就是一个状态机模型。</p>
+<p>我们以书中的例子解释 <code>FSM</code></p>
+<p><img src="/blog/post/images/fsm.png" alt="" title="Game Programming Pattern"></p>
+<p>如图所示有4个状态 standing, jumping, ducking and diving，各状态之间的转换通过用户的输入控制 pressB/pressDown/releaseDown</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> {
+  <span style="color:#a6e22e">STANDING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;standing&#39;</span>,
+  <span style="color:#a6e22e">JUMPING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jumping&#39;</span>,
+  <span style="color:#a6e22e">DUCKING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ducking&#39;</span>,
+  <span style="color:#a6e22e">DIVING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;diving&#39;</span>
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleInput() {</span>
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">state</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.STANDING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressB</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">JUMPING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_JUMP</span>)
+      }
+      <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.JUMPING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DIVING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DIVE</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.DUCKING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">STANDING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+  }
+}
+</code></pre></div><p>显然这是我们第一时间想到的写法，实际上我就是这样实现部署流水线的，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start() {</span>
+  <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">step</span>) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BRANCH_CHECK</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">check</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BUILD</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">build</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.DEPLOY</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deploy</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">break</span>
+    }
+  }
+}
+</code></pre></div><p>目前看这样写是没问题，但如果我们想加点东西，比如在按下 <code>down</code> 的时候，让游戏角色可以积蓄力量发动某种能力</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chargeTime</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleInput() {</span>
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">state</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.STANDING</span>:
+      <span style="color:#66d9ef">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>
+      <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    }
+    <span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">update() {</span>
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>) {
+      <span style="color:#a6e22e">chargeTime</span><span style="color:#f92672">++</span>
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">MAX_CHARGE</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sendBomb</span>()
+      }
+    }
+  }
+}
+</code></pre></div><p>可以看到，我们要修改2个地方才能实现这个简单功能，而且还要额外维护一个变量 <code>chargeTime</code>，然而这个变量除了和 <code>ducking</code> 有关系外，别的地方都不会用到，显然问题原因在于<strong>状态自身逻辑和外部的业务逻辑耦合</strong>。</p>
+<p>既如此，那就让每个状态维护自己的逻辑好了，也就是把 <code>switch/case</code> 的逻辑放在对应的状态类 <code>state class</code> 中，比如 <code>ducking state</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>}
+  <span style="color:#a6e22e">update() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  }
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#75715e">// state = State.STANDING 
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+  <span style="color:#a6e22e">update() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span><span style="color:#f92672">++</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">MAX_CHARGE</span>) {
+      <span style="color:#75715e">// game 是全局的唯一示例
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">sendBomb</span>()
+    }
+  }
+}
+</code></pre></div><p>Q：每个 <code>state</code> 处理自己的业务逻辑，<code>state transition</code> 怎么触发呢，也就是如何实现 <code>switch/case</code> 的功能？</p>
+<p>A：代理给 <code>game</code>，既然同一时间只能有一个状态，那就给全局唯一的游戏实例 <code>game</code> 加个指针指向当前的 <code>state instance</code>，在 <code>handleInput</code> 中实现 <code>state transition</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span>
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>() <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+}
+</code></pre></div><p>Q：<code>state instance</code> 从哪里来</p>
+<p>A：可以考虑全局就这4个状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GlobalState</span> {
+  <span style="color:#a6e22e">ducking</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DuckingState</span>(),
+  <span style="color:#a6e22e">standing</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>(),
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GlobalState</span>.<span style="color:#a6e22e">standing</span>
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>() <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GlobalState</span>.<span style="color:#a6e22e">standing</span> <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+}
+</code></pre></div><p>A：或者每次 <code>state transition</code> 生成一个新 <code>state</code>，注意这里，我们仅仅是返回了新的 <code>state</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>() <span style="color:#75715e">// create a new state instance when we transition to it
+</span><span style="color:#75715e"></span>    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressB</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DuckingState</span>() <span style="color:#75715e">// create a new state instance when we transition to it
+</span><span style="color:#75715e"></span>    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>()
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextState</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextState</span>
+    }
+  }
+}
+</code></pre></div><p>现在代码还有一点小问题，仔细观察就会发现 <code>game.setGraphics(IMAGE_DUCK)</code> 的逻辑在 <code>standingState</code> 中，应该由 <code>duckingState</code> 负责比较合理。换句话说，每个 <code>state class</code> 应该自包含所有和它相关的行为和数据</p>
+<blockquote>
+<p>The goal of the State pattern is to encapsulate all of the behavior and data for one state in a single class.</p>
+</blockquote>
+<p>解决方法也很简单，提供 <code>state transition</code> 的 <code>hooks</code> 如 <code>enter/leave</code> 等，这样就能实现新state的初始化，以及旧state的 <code>clean up</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">enter() {</span>
+    <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+  }
+  <span style="color:#a6e22e">leave() {</span>}
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">enter() {</span>
+    <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+  }
+  <span style="color:#a6e22e">leave() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>()
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextState</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">leave</span>()
+      
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextState</span>
+      
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">enter</span>()
+    }
+  }
+}
+</code></pre></div><h3 id="flyweight">Flyweight</h3>
+<h3 id="command">Command</h3>
+<p>这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 <code>Command</code> 是什么。</p>
+<blockquote>
+<p>A command is a reusable object that represents a thing that can be done.</p>
+</blockquote>
+<p>很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 <code>up/down/left/right</code> 控制方向，有些人喜欢用 <code>wasd</code>。用代码实现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">keyCode</span>) {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">keyCode</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.UP</span>:
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.W</span>:
+      <span style="color:#66d9ef">jump</span>()
+      <span style="color:#66d9ef">break</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.LEFT</span>:
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.A</span>:
+      <span style="color:#66d9ef">move</span>()
+      <span style="color:#66d9ef">break</span>
+  }
+}
+</code></pre></div><p>很明显，这段代码中 <code>keyCode</code> 和要执行的动作 <code>jump/duck/...</code> 太耦合，无法支持用户自定义快捷命令。解决方法也很显而易见，那就是把 <code>keyCode</code> 和执行动作拆开</p>
+<p>1、每个动作负责自己的行为</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#a6e22e">execute() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JumpCommand</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#a6e22e">execute() {</span> <span style="color:#a6e22e">jump</span>() }
+}
+</code></pre></div><p>2、绑定 <code>keyCode</code> 和动作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputHandler</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> {}
+  <span style="color:#75715e">// 自定义快捷命令
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">customCommand</span>(<span style="color:#a6e22e">keyCode</span>, <span style="color:#a6e22e">cmd</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span>[<span style="color:#a6e22e">keyCode</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">cmd</span>
+  }
+  <span style="color:#a6e22e">bindDefaultCommand() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> {
+      [<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>]<span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">JumpCommand</span>(),
+    }
+  }
+  <span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">code</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isPressed</span>(<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>)) <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span>[<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>].<span style="color:#a6e22e">execute</span>()
+  }
+}
+</code></pre></div><h4 id="undoredo">Undo/Redo</h4>
+<blockquote>
+<p>Commands can be specific. They represent a thing that can be done at a specific point in time.</p>
+</blockquote>
+<p><code>Command</code> 模式的精华在于，它可以很简单的实现 <code>undo/redo</code>。棋牌游戏、编辑软件等都允许用户 <code>undo/redo</code>，我之前在做 <code>PSD</code> 编辑器就有这个功能，待会再细说业务中怎么使用的，我们先看看 <code>undo</code> 是怎么实现的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MoveCommand</span> {
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">entity</span>, <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">entity</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>
+  }
+  <span style="color:#a6e22e">execute() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevX</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">getX</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">getY</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextX</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextY</span>)
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevX</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevY</span>)
+  }
+}
+</code></pre></div><p>从这段可以可以看出，<code>undo</code> 能实现是因为我们给每个命令拍了快照，执行命令的同时也记住了之前的状态。</p>
+<h4 id="record-list">Record List</h4>
+<p>在实际的产品中，用户可以 <code>undo</code> 多次，然后再次 <code>redo</code> 或者执行新的命令，这就要求我们要维护一个 <code>command list</code></p>
+<ul>
+<li><code>undo/redo</code> 实际上是指针的移动
+<ul>
+<li><code>undo</code>: undo the current command and move the pointer back</li>
+<li><code>redo</code>: advance the pointer and execute the command</li>
+</ul>
+</li>
+<li><code>undo</code> 后执行新操作，则是废弃当前指针后的所有命令，把新命令加入到列表</li>
+<li>另外，列表不可能无限大，一般我们 <code>undo</code> 20次就不能再撤销了，所以还需要配置一个可撤销最大次数</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RecordList</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_list</span>: <span style="color:#66d9ef">Command</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_index</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">options</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_max</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">20</span>
+  }
+  <span style="color:#75715e">// 可以 重做
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">get</span> <span style="color:#a6e22e">redoEnabled() {</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+  }
+  <span style="color:#75715e">// 可以 撤销
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">get</span> <span style="color:#a6e22e">undoEnabled() {</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>
+  }
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">cmd</span>: <span style="color:#66d9ef">Command</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">// 将栈后面的内容清空
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">command</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span><span style="color:#f92672">++</span>
+
+    <span style="color:#75715e">// 不能超过最大历史记录
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">slice</span>(Math.<span style="color:#a6e22e">max</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_max</span>))
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+
+    <span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">exec</span>()
+  }
+  <span style="color:#a6e22e">redo() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">cmd</span>) <span style="color:#66d9ef">return</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">execute</span>()
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span>]
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">cmd</span>) <span style="color:#66d9ef">return</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">undo</span>()
+  }
+}
+</code></pre></div><p>以图片编辑器为例，每次修改图层的位置、文字颜色、文字大小等都要存入历史记录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_oldV</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_newV</span>
+
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_exec</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_undo</span>
+
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">exec</span>, <span style="color:#a6e22e">newV</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">oldV</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_exec</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">exec</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_undo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">exec</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_oldV</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldV</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_newV</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newV</span>
+  }
+
+  <span style="color:#a6e22e">exec() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_exec</span>(<span style="color:#a6e22e">parseJSON</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_newV</span>))
+  }
+
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_undo</span>(<span style="color:#a6e22e">parseJSON</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_oldV</span>))
+  }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">RecordList</span>()
+  }
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">setPropsByCommand</span>(<span style="color:#a6e22e">d</span>)<span style="color:#f92672">:</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ao</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">findObjectByIndex</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">zIndex</span>)
+    <span style="color:#a6e22e">ao</span><span style="color:#f92672">?</span>.<span style="color:#66d9ef">set</span>(<span style="color:#a6e22e">d</span>)
+  }
+  <span style="color:#a6e22e">addRecord</span>(<span style="color:#a6e22e">newV</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">oldV</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Command</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setPropsByCommand</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>), <span style="color:#a6e22e">newV</span>, <span style="color:#a6e22e">oldV</span>))
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">undo</span>()
+  }
+  <span style="color:#a6e22e">redo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">redo</span>()
+  }
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onModifyLayerAttr</span>(<span style="color:#a6e22e">layer</span>, <span style="color:#a6e22e">attrName</span>, <span style="color:#a6e22e">newVal</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ao</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">editor</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">findObjectByIndex</span>(<span style="color:#a6e22e">layer</span>.<span style="color:#a6e22e">zIndex</span>)
+  
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">attrName</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;fontColor&#39;</span>) {
+    <span style="color:#a6e22e">editor</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addRecord</span>(
+      <span style="color:#75715e">// 新值
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ [<span style="color:#a6e22e">attrName</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">zIndex</span>: <span style="color:#66d9ef">ao.zIndex</span> }),
+      <span style="color:#75715e">// 旧值
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ [<span style="color:#a6e22e">attrName</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">ao</span>[<span style="color:#a6e22e">attrName</span>], <span style="color:#a6e22e">zIndex</span>: <span style="color:#66d9ef">ao.zIndex</span> })
+    )
+  }
+}
+</code></pre></div><ul>
+<li>
+<p>业务需要修改图层状态，调用 <code>onModifyLayerAttr</code> 传入要修改的图层对象、图层属性以及新的属性值</p>
+</li>
+<li>
+<p>这段代码不同于 <code>MoveCommand</code> 的地方在于</p>
+<ul>
+<li>
+<p>我们并没有创建 <code>new FontColorCommand() / new PositionCommand()</code> 诸如这样的命令，而是把执行命令的方法抽象为 <code>_exec</code>，这是因为 <code>object.set(props, value)</code> 是修改图层属性的唯一方法</p>
+</li>
+<li>
+<p>要修改的对象也没有直接传入 <code>new Command</code>，这里我们是托管到 <code>editor</code>，然后通过图层的 <code>zIndex</code> 属性找到它（ <code>setPropsByCommand()</code> ）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>写法虽然有所不同，但本质都是一样，实现 <code>redo/undo</code> 的核心都是要保存执行命令那一刻，对象的当下状态。</p>
+<h2 id="optimization-patterns">Optimization Patterns</h2>
+<h3 id="dirty-flag">Dirty Flag</h3>
+<blockquote>
+<p>A set of primary data changes over time. A set of derived data is determined from this using some expensive process. A “dirty” flag tracks when the derived data is out of sync with the primary data. It is set when the primary data changes. If the flag is set when the derived data is needed, then it is reprocessed and the flag is cleared. Otherwise, the previous cached derived data is used</p>
+</blockquote>
+<p>用 <code>vue</code> 来解释，就是 <code>computed</code> 的功能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">amount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalPrice</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">amount</span>)
+</code></pre></div><h2 id="decoupling-patterns">Decoupling Patterns</h2>
+<h3 id="component">Component</h3>
+<h3 id="event-queue">Event Queue</h3>
+<h3 id="service-locator">Service Locator</h3>
+<h2 id="summary">Summary</h2>
+<p>本文所总结的几个模式仅仅是书中的一部分，还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。</p>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c">observer vs pub-sub pattern</a></li>
+</ul>
+
         </div>
 
         
@@ -369,22 +916,9 @@
           
           <nav class="post-nav">
             
-              <a class="prev" href="/blog/post/fe/audio-sprite/">
-                
-                <i class="iconfont">
-                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-                </i>
-                <span class="prev-text nav-default">Audio Sprite</span>
-                <span class="prev-text nav-mobile">Prev</span>
-              </a>
             
-              <a class="next" href="/blog/post/fe/infras-client/">
-                <span class="next-text nav-default">Micro Frontend</span>
+              <a class="next" href="/blog/post/fe/poll/">
+                <span class="next-text nav-default">Polling</span>
                 <span class="prev-text nav-mobile">Next</span>
                 
                 <i class="iconfont">
@@ -429,7 +963,38 @@
     </div>
 
     
-    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#design-patterns">Design Patterns</a>
+      <ul>
+        <li><a href="#observer">Observer</a></li>
+        <li><a href="#singleton">Singleton</a></li>
+        <li><a href="#state">State</a></li>
+        <li><a href="#flyweight">Flyweight</a></li>
+        <li><a href="#command">Command</a></li>
+      </ul>
+    </li>
+    <li><a href="#optimization-patterns">Optimization Patterns</a>
+      <ul>
+        <li><a href="#dirty-flag">Dirty Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#decoupling-patterns">Decoupling Patterns</a>
+      <ul>
+        <li><a href="#component">Component</a></li>
+        <li><a href="#event-queue">Event Queue</a></li>
+        <li><a href="#service-locator">Service Locator</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
 
 
   </div>
