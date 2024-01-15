@@ -232,10 +232,9 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
 &lt;li&gt;Each state has a set of transitions, each associated with an input and pointing to a state.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;有限状态机 &lt;code&gt;finite state machine&lt;/code&gt; 之前在 &lt;a href=&#34;https://ixiaopan.github.io/blog/blog/post/fe/infras-basement-2/&#34;&gt;迭代管理&amp;amp;发布平台 02&lt;/a&gt; 就有所提及，本质上部署流水线就是一个状态机模型。&lt;/p&gt;
-&lt;p&gt;我们以书中的例子解释 &lt;code&gt;FSM&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;有限状态机 &lt;code&gt;finite state machine&lt;/code&gt; 之前在 &lt;a href=&#34;https://ixiaopan.github.io/blog/blog/post/fe/infras-basement-2/&#34;&gt;迭代管理&amp;amp;发布平台 02&lt;/a&gt; 就有所提及，本质上部署流水线就是一个状态机模型，那什么是 &lt;code&gt;FSM&lt;/code&gt;？我们以书中的例子来看&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://ixiaopan.github.io/blog/blog/post/images/fsm.png&#34; alt=&#34;&#34; title=&#34;Game Programming Pattern&#34;&gt;&lt;/p&gt;
-&lt;p&gt;如图所示有4个状态 standing, jumping, ducking and diving，各状态之间的转换通过用户的输入控制 pressB/pressDown/releaseDown&lt;/p&gt;
+&lt;p&gt;如图所示有4个状态 &lt;code&gt;standing, jumping, ducking and diving&lt;/code&gt;，各状态之间的转换通过用户的输入控制 &lt;code&gt;pressB/pressDown/releaseDown&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;enum&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;State&lt;/span&gt; {
   &lt;span style=&#34;color:#a6e22e&#34;&gt;STANDING&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;standing&amp;#39;&lt;/span&gt;,
   &lt;span style=&#34;color:#a6e22e&#34;&gt;JUMPING&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;jumping&amp;#39;&lt;/span&gt;,
@@ -436,12 +435,89 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
   }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;flyweight&#34;&gt;Flyweight&lt;/h3&gt;
-&lt;h3 id=&#34;command&#34;&gt;Command&lt;/h3&gt;
-&lt;p&gt;这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 &lt;code&gt;Command&lt;/code&gt; 是什么。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flyweight comes into play when you have objects that need to be more lightweight, generally because you have too many of them.&lt;/p&gt;
+&lt;p&gt;This pattern separates out an object’s data into two kinds:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;intrinsic state: the stuff that can be shared across all instances&lt;/li&gt;
+&lt;li&gt;extrinsic state: the stuff that is unique to that instance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;说白了，也就是资源共享，在前端中也比较常见，比如编辑器中层的设计&lt;/p&gt;
+&lt;h4 id=&#34;case-1&#34;&gt;Case 1&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;每个图层都有基本的属性 &lt;code&gt;startTime/endTime/duration/visible/...&lt;/code&gt; 等&lt;/li&gt;
+&lt;li&gt;不同图层类型也有自己特殊的属性，比如图片层有图片url、宽高等；文本图层需要维护文本属性 &lt;code&gt;fontColor/fontSize/...&lt;/code&gt; 等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;显然，要设计一个基类 &lt;code&gt;Layer&lt;/code&gt; 共享共有的属性，子类集成父类实现定制化&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Layer&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;endTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;duration&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;zIndex&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;visible&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ImageLayer&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;width&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;height&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;loadImageFromUrl() {&lt;/span&gt;}
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TextLayer&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;text&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;setText() {&lt;/span&gt;}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;case-2&#34;&gt;Case 2&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Case 1&lt;/code&gt; 的例子里，&lt;code&gt;layer&lt;/code&gt; 之间共享的属性很明显且子类之间差异化也比较大，所以可以直接抽象一个独立共享的对象，但也存在一些不明显的情况，书中就给出了这样的例子，假设游戏里地形有几种类型 &lt;code&gt;grass/dirt/hill/river&lt;/code&gt; 等，每种类型都有一些属性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;移动速度&lt;/li&gt;
+&lt;li&gt;船能否通过&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;开始编码阶段，图方便一般是把地形放在 &lt;code&gt;game&lt;/code&gt; 全局实例中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Game&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tiles&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    [&lt;span style=&#34;color:#a6e22e&#34;&gt;GRASS&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;HILL&lt;/span&gt;],
+    [&lt;span style=&#34;color:#a6e22e&#34;&gt;HILL&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;RIVER&lt;/span&gt;],
+  ]
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getMoveCost&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;tiles&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;]) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;GRASS&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;HILL&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+    }
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;isWater&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;tiles&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;]) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;GRASS&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;RIVER&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;问题也很明显，&lt;code&gt;movecost/wetness&lt;/code&gt; 都是地形的元属性，现在和业务代码耦合在一起，需要独立出来&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Terrain&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;moveCost&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;water&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;moveCost&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;moveCost&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;water&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;water&lt;/span&gt;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不同于保存地形的类型，现在是保存每个地形的实例&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;grass&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Terrain&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hill&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Terrain&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;river&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Terrain&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Game&lt;/span&gt; {
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tiles&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+    [&lt;span style=&#34;color:#a6e22e&#34;&gt;grass&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;hill&lt;/span&gt;],
+    [&lt;span style=&#34;color:#a6e22e&#34;&gt;hill&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;river&lt;/span&gt;],
+  ]
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getTile&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tiles&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;]
+  }
+}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;game&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getTile&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;moveCost&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;command&#34;&gt;Command&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A command is a reusable object that represents a thing that can be done.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 &lt;code&gt;up/down/left/right&lt;/code&gt; 控制方向，有些人喜欢用 &lt;code&gt;wasd&lt;/code&gt;。用代码实现&lt;/p&gt;
+&lt;p&gt;这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 &lt;code&gt;Command&lt;/code&gt; 是什么。很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 &lt;code&gt;up/down/left/right&lt;/code&gt; 控制方向，有些人喜欢用 &lt;code&gt;wasd&lt;/code&gt;。用代码实现&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;handleInput&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;keyCode&lt;/span&gt;) {
   &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;keyCode&lt;/span&gt;) {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;KEY_CODE.UP&lt;/span&gt;:
@@ -630,12 +706,60 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;price&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;amount&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
 &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;totalPrice&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;computed&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;price&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;amount&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;decoupling-patterns&#34;&gt;Decoupling Patterns&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用该模式要注意的地方&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每次重新计算，都要重置 dirty flag&lt;/li&gt;
+&lt;li&gt;derived data 维护在内存中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以该模式实际上是拿空间换速度 &lt;code&gt;trades memory for speed&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;decoupling-patterns&#34;&gt;Decoupling Patterns&lt;/h2&gt;
 &lt;h3 id=&#34;component&#34;&gt;Component&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Allow a single entity to span multiple domains without coupling the domains to each other.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;前端再熟悉不过，不再赘述。。。&lt;/p&gt;
 &lt;h3 id=&#34;event-queue&#34;&gt;Event Queue&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A queue stores a series of notifications or requests in first-in, first-out order. Sending a notification enqueues the request and returns.&lt;/p&gt;
+&lt;p&gt;The request processor then processes items from the queue at a later time.&lt;/p&gt;
+&lt;p&gt;Requests can be handled directly or routed to interested parties. This decouples the sender from the receiver both statically and in time.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;看样子很像 &lt;code&gt;observer&lt;/code&gt;，确实很像，都是可以解耦 &lt;code&gt;sender&lt;/code&gt; 和 &lt;code&gt;receiver&lt;/code&gt;，不过区别在于 &lt;code&gt;event queue&lt;/code&gt; 多一个 &lt;code&gt;queue&lt;/code&gt; 用来存储堆积的 &lt;code&gt;event&lt;/code&gt;，既然有堆积，说明事件处理的实时性不高。&lt;/p&gt;
+&lt;p&gt;作者用 &lt;code&gt;push and pull&lt;/code&gt; 去理解 &lt;code&gt;event queue&lt;/code&gt;，我觉得很有意思，这里就放上原文&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I think of it in terms of pushing and pulling. You have some code A that wants another chunk B to do some work. The natural way for A to initiate that is by pushing the request to B.&lt;/p&gt;
+&lt;p&gt;Meanwhile, the natural way for B to process that request is by pulling it in at a convenient time in its run cycle. When you have a push model on one end and a pull model on the other, you need a buffer between them. That’s what a queue provides that simpler decoupling patterns don’t.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Queues give control to the code that pulls from it&lt;/strong&gt; — the receiver can delay processing, aggregate requests, or discard them entirely. But queues do this by taking control away from the sender. All the sender can do is throw a request on the queue and hope for the best. This makes queues a poor fit when the sender needs a response.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;说白了，&lt;code&gt;sender&lt;/code&gt; 的请求，&lt;code&gt;receiver&lt;/code&gt; 不一定会响应，这个在前端肯定深有体会，经常出现的页面卡住、点不动等。&lt;/p&gt;
 &lt;h3 id=&#34;service-locator&#34;&gt;Service Locator&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Provide a global point of access to a service without coupling users to the concrete class that implements it&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于前端而言，或许叫作 &lt;code&gt;dependency inject&lt;/code&gt; 更方便理解。不同于 &lt;code&gt;singleton&lt;/code&gt;（我们明确知道全局存在这么一个实例），&lt;code&gt;service locator&lt;/code&gt; 隐藏了服务使用方和服务提供方的联系&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;提供服务的人，通过 &lt;code&gt;service locator&lt;/code&gt; 先注册&lt;/li&gt;
+&lt;li&gt;使用服务的人，通过 &lt;code&gt;service locator&lt;/code&gt; 获取服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// app.ts
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;provide&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$message&amp;#39;&lt;/span&gt;, { &lt;span style=&#34;color:#a6e22e&#34;&gt;success&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;warn&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;loading&lt;/span&gt; })
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// download.vue
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setup() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;inject&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$message&amp;#39;&lt;/span&gt;)
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;success&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;下载成功&amp;#39;&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用这种模式，要注意2点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;服务不一定存在，即 &lt;code&gt;inject(&#39;$message&#39;)&lt;/code&gt; 可能为空&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务提供商不知道谁在使用该服务，这就意味着服务必须能在任何环境中正确执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
-&lt;p&gt;本文所总结的几个模式仅仅是书中的一部分，还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。&lt;/p&gt;
+&lt;p&gt;本文所总结的几个模式虽然仅仅是书中的一部分，不过也是前端开发中经常用到的。还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得还是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。&lt;/p&gt;
 &lt;h2 id=&#34;refer&#34;&gt;Refer&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c&#34;&gt;observer vs pub-sub pattern&lt;/a&gt;&lt;/li&gt;
@@ -751,9 +875,98 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
 &lt;span style=&#34;color:#a6e22e&#34;&gt;step&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这段代码参考了 &lt;code&gt;axios.cancelToken&lt;/code&gt; 的设计，把 &lt;code&gt;cancel&lt;/code&gt; 传给业务函数 &lt;code&gt;fn&lt;/code&gt;，这也是因为 &lt;code&gt;createPolling()&lt;/code&gt; 虽然可以返回 &lt;code&gt;cancel&lt;/code&gt; 但此时 &lt;code&gt;fn&lt;/code&gt; 已经无法引用到。&lt;/p&gt;
 &lt;h2 id=&#34;long-polling&#34;&gt;Long Polling&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;客户端发起请求&lt;/li&gt;
+&lt;li&gt;服务端挂起连接，直到有消息要给客户端&lt;/li&gt;
+&lt;li&gt;客户端收到后，立刻发起新的请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同样，连接会有超时，或者网络错误导致连接中断，此时客户端离开发起新的请求。&lt;/p&gt;
+&lt;p&gt;但是这个方法适用于信息稀疏的情况，试想服务端在短时间内就能收到多个来自四面八方的消息，&lt;code&gt;http&lt;/code&gt; 连接数无异于 &lt;code&gt;short polling&lt;/code&gt;，这么做就没啥收益，信息密集型业务更适合使用 &lt;code&gt;Web Sockets/sse&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在迭代管理&amp;amp;发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 &lt;code&gt;10s&lt;/code&gt; 查询一次&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;loop() {&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;timer&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setInterval&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;fetchIterDetail&lt;/span&gt;()
+  }, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deploy() {&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;//...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;loop&lt;/span&gt;()
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果整个构建需要 &lt;code&gt;2min&lt;/code&gt; 完成，那么总共有 &lt;code&gt;12&lt;/code&gt; 次请求。现在改为 &lt;code&gt;Long Polling&lt;/code&gt; 优化一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// client.ts
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deploy() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Service&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;startDeploy&lt;/span&gt;()
+  
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;fetchDetail&lt;/span&gt;()
+  }
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fetchDetail() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Service&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;longPolling&lt;/span&gt;()
+  
+  &lt;span style=&#34;color:#75715e&#34;&gt;// 异常
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setTimeout&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fetchDetail&lt;/span&gt;()
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 继续请求，直到部署完成
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deploy success&amp;#39;&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fetchDetail&lt;/span&gt;()
+    }
+  }
+}
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// server.js
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Event&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;events&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;messageChange&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Event&lt;/span&gt;()
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;longPolling&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;any&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolver&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;handler&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;resolver&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;messageChange&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;removeListener&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;handler&lt;/span&gt;)
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;messageChange&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;handler&lt;/span&gt;)
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// 挂起请求
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;resolver&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;
+  })
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;RESPONSE_ENUM.SUCCESS&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;data&lt;/span&gt;,
+    }
+  })
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;startDeploy() {&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;// 模拟构建、部署过程
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;timer&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setInterval&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;running&lt;/span&gt;()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;messageChange&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deploy success&amp;#39;&lt;/span&gt;)
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;clearInterval&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;timer&lt;/span&gt;)
+    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;messageChange&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;build success&amp;#39;&lt;/span&gt;)
+    }
+  }, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;RESPONSE_ENUM.SUCCESS&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;success&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;优化之后，不考虑超时等异常，只有 &lt;code&gt;2&lt;/code&gt; 次请求。&lt;/p&gt;
 &lt;h2 id=&#34;sse&#34;&gt;SSE&lt;/h2&gt;
 &lt;h2 id=&#34;websocket&#34;&gt;WebSocket&lt;/h2&gt;
 &lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;refer&#34;&gt;Refer&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://javascript.info/long-polling&#34;&gt;Long polling - javascript.info&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://web.dev/articles/eventsource-basics&#34;&gt;Stream Updates with Server-Sent Events - web.dev&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
       
     </item>

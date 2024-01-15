@@ -76,7 +76,7 @@
 <meta itemprop="name" content="《Game Programming Patterns》">
 <meta itemprop="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"><meta itemprop="datePublished" content="2024-01-08T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2024-01-08T00:00:00+00:00" />
-<meta itemprop="wordCount" content="3635">
+<meta itemprop="wordCount" content="4897">
 <meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="《Game Programming Patterns》"/>
 <meta name="twitter:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"/>
@@ -486,10 +486,9 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <li>Each state has a set of transitions, each associated with an input and pointing to a state.</li>
 </ul>
 </blockquote>
-<p>有限状态机 <code>finite state machine</code> 之前在 <a href="/blog/post/fe/infras-basement-2/">迭代管理&amp;发布平台 02</a> 就有所提及，本质上部署流水线就是一个状态机模型。</p>
-<p>我们以书中的例子解释 <code>FSM</code></p>
+<p>有限状态机 <code>finite state machine</code> 之前在 <a href="/blog/post/fe/infras-basement-2/">迭代管理&amp;发布平台 02</a> 就有所提及，本质上部署流水线就是一个状态机模型，那什么是 <code>FSM</code>？我们以书中的例子来看</p>
 <p><img src="/blog/post/images/fsm.png" alt="" title="Game Programming Pattern"></p>
-<p>如图所示有4个状态 standing, jumping, ducking and diving，各状态之间的转换通过用户的输入控制 pressB/pressDown/releaseDown</p>
+<p>如图所示有4个状态 <code>standing, jumping, ducking and diving</code>，各状态之间的转换通过用户的输入控制 <code>pressB/pressDown/releaseDown</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> {
   <span style="color:#a6e22e">STANDING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;standing&#39;</span>,
   <span style="color:#a6e22e">JUMPING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jumping&#39;</span>,
@@ -690,12 +689,89 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><h3 id="flyweight">Flyweight</h3>
-<h3 id="command">Command</h3>
-<p>这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 <code>Command</code> 是什么。</p>
+<blockquote>
+<p>Flyweight comes into play when you have objects that need to be more lightweight, generally because you have too many of them.</p>
+<p>This pattern separates out an object’s data into two kinds:</p>
+<ul>
+<li>intrinsic state: the stuff that can be shared across all instances</li>
+<li>extrinsic state: the stuff that is unique to that instance</li>
+</ul>
+</blockquote>
+<p>说白了，也就是资源共享，在前端中也比较常见，比如编辑器中层的设计</p>
+<h4 id="case-1">Case 1</h4>
+<ul>
+<li>每个图层都有基本的属性 <code>startTime/endTime/duration/visible/...</code> 等</li>
+<li>不同图层类型也有自己特殊的属性，比如图片层有图片url、宽高等；文本图层需要维护文本属性 <code>fontColor/fontSize/...</code> 等</li>
+</ul>
+<p>显然，要设计一个基类 <code>Layer</code> 共享共有的属性，子类集成父类实现定制化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">duration</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">zIndex</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">visible</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageLayer</span> {
+  <span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">loadImageFromUrl() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TextLayer</span> {
+  <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+  <span style="color:#a6e22e">setText() {</span>}
+}
+</code></pre></div><h4 id="case-2">Case 2</h4>
+<p><code>Case 1</code> 的例子里，<code>layer</code> 之间共享的属性很明显且子类之间差异化也比较大，所以可以直接抽象一个独立共享的对象，但也存在一些不明显的情况，书中就给出了这样的例子，假设游戏里地形有几种类型 <code>grass/dirt/hill/river</code> 等，每种类型都有一些属性</p>
+<ul>
+<li>移动速度</li>
+<li>船能否通过</li>
+</ul>
+<p>开始编码阶段，图方便一般是把地形放在 <code>game</code> 全局实例中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">tiles</span> <span style="color:#f92672">=</span> [
+    [<span style="color:#a6e22e">GRASS</span>, <span style="color:#a6e22e">HILL</span>],
+    [<span style="color:#a6e22e">HILL</span>, <span style="color:#a6e22e">RIVER</span>],
+  ]
+  <span style="color:#a6e22e">getMoveCost</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">GRASS</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">HILL</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>
+    }
+  }
+  <span style="color:#a6e22e">isWater</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">GRASS</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">RIVER</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+  }
+}
+</code></pre></div><p>问题也很明显，<code>movecost/wetness</code> 都是地形的元属性，现在和业务代码耦合在一起，需要独立出来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Terrain</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">moveCost</span>, <span style="color:#a6e22e">water</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">moveCost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">moveCost</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">water</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">water</span>
+  }
+}
+</code></pre></div><p>不同于保存地形的类型，现在是保存每个地形的实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">grass</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hill</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">false</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">river</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">tiles</span> <span style="color:#f92672">=</span> [
+    [<span style="color:#a6e22e">grass</span>, <span style="color:#a6e22e">hill</span>],
+    [<span style="color:#a6e22e">hill</span>, <span style="color:#a6e22e">river</span>],
+  ]
+  <span style="color:#a6e22e">getTile</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]
+  }
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">getTile</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">moveCost</span>)
+</code></pre></div><h3 id="command">Command</h3>
 <blockquote>
 <p>A command is a reusable object that represents a thing that can be done.</p>
 </blockquote>
-<p>很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 <code>up/down/left/right</code> 控制方向，有些人喜欢用 <code>wasd</code>。用代码实现</p>
+<p>这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 <code>Command</code> 是什么。很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 <code>up/down/left/right</code> 控制方向，有些人喜欢用 <code>wasd</code>。用代码实现</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">keyCode</span>) {
   <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">keyCode</span>) {
     <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.UP</span>:
@@ -884,12 +960,60 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">amount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalPrice</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">amount</span>)
-</code></pre></div><h2 id="decoupling-patterns">Decoupling Patterns</h2>
+</code></pre></div><p>使用该模式要注意的地方</p>
+<ul>
+<li>每次重新计算，都要重置 dirty flag</li>
+<li>derived data 维护在内存中</li>
+</ul>
+<p>所以该模式实际上是拿空间换速度 <code>trades memory for speed</code></p>
+<h2 id="decoupling-patterns">Decoupling Patterns</h2>
 <h3 id="component">Component</h3>
+<blockquote>
+<p>Allow a single entity to span multiple domains without coupling the domains to each other.</p>
+</blockquote>
+<p>前端再熟悉不过，不再赘述。。。</p>
 <h3 id="event-queue">Event Queue</h3>
+<blockquote>
+<p>A queue stores a series of notifications or requests in first-in, first-out order. Sending a notification enqueues the request and returns.</p>
+<p>The request processor then processes items from the queue at a later time.</p>
+<p>Requests can be handled directly or routed to interested parties. This decouples the sender from the receiver both statically and in time.</p>
+</blockquote>
+<p>看样子很像 <code>observer</code>，确实很像，都是可以解耦 <code>sender</code> 和 <code>receiver</code>，不过区别在于 <code>event queue</code> 多一个 <code>queue</code> 用来存储堆积的 <code>event</code>，既然有堆积，说明事件处理的实时性不高。</p>
+<p>作者用 <code>push and pull</code> 去理解 <code>event queue</code>，我觉得很有意思，这里就放上原文</p>
+<blockquote>
+<p>I think of it in terms of pushing and pulling. You have some code A that wants another chunk B to do some work. The natural way for A to initiate that is by pushing the request to B.</p>
+<p>Meanwhile, the natural way for B to process that request is by pulling it in at a convenient time in its run cycle. When you have a push model on one end and a pull model on the other, you need a buffer between them. That’s what a queue provides that simpler decoupling patterns don’t.</p>
+<p><strong>Queues give control to the code that pulls from it</strong> — the receiver can delay processing, aggregate requests, or discard them entirely. But queues do this by taking control away from the sender. All the sender can do is throw a request on the queue and hope for the best. This makes queues a poor fit when the sender needs a response.</p>
+</blockquote>
+<p>说白了，<code>sender</code> 的请求，<code>receiver</code> 不一定会响应，这个在前端肯定深有体会，经常出现的页面卡住、点不动等。</p>
 <h3 id="service-locator">Service Locator</h3>
+<blockquote>
+<p>Provide a global point of access to a service without coupling users to the concrete class that implements it</p>
+</blockquote>
+<p>对于前端而言，或许叫作 <code>dependency inject</code> 更方便理解。不同于 <code>singleton</code>（我们明确知道全局存在这么一个实例），<code>service locator</code> 隐藏了服务使用方和服务提供方的联系</p>
+<ul>
+<li>提供服务的人，通过 <code>service locator</code> 先注册</li>
+<li>使用服务的人，通过 <code>service locator</code> 获取服务</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app.ts
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">provide</span>(<span style="color:#e6db74">&#39;$message&#39;</span>, { <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">warn</span>, <span style="color:#a6e22e">loading</span> })
+
+<span style="color:#75715e">// download.vue
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">setup() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">inject</span>(<span style="color:#e6db74">&#39;$message&#39;</span>)
+  <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">success</span>(<span style="color:#e6db74">&#39;下载成功&#39;</span>)
+}
+</code></pre></div><p>使用这种模式，要注意2点</p>
+<ul>
+<li>
+<p>服务不一定存在，即 <code>inject('$message')</code> 可能为空</p>
+</li>
+<li>
+<p>服务提供商不知道谁在使用该服务，这就意味着服务必须能在任何环境中正确执行</p>
+</li>
+</ul>
 <h2 id="summary">Summary</h2>
-<p>本文所总结的几个模式仅仅是书中的一部分，还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。</p>
+<p>本文所总结的几个模式虽然仅仅是书中的一部分，不过也是前端开发中经常用到的。还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得还是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。</p>
 <h2 id="refer">Refer</h2>
 <ul>
 <li><a href="https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c">observer vs pub-sub pattern</a></li>

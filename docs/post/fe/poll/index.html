@@ -76,7 +76,7 @@
 <meta itemprop="name" content="Polling">
 <meta itemprop="description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"><meta itemprop="datePublished" content="2024-01-04T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2024-01-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="922">
+<meta itemprop="wordCount" content="1410">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Polling"/>
 <meta name="twitter:description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"/>
@@ -447,9 +447,98 @@
 <span style="color:#a6e22e">step</span>()
 </code></pre></div><p>这段代码参考了 <code>axios.cancelToken</code> 的设计，把 <code>cancel</code> 传给业务函数 <code>fn</code>，这也是因为 <code>createPolling()</code> 虽然可以返回 <code>cancel</code> 但此时 <code>fn</code> 已经无法引用到。</p>
 <h2 id="long-polling">Long Polling</h2>
+<ul>
+<li>客户端发起请求</li>
+<li>服务端挂起连接，直到有消息要给客户端</li>
+<li>客户端收到后，立刻发起新的请求</li>
+</ul>
+<p>同样，连接会有超时，或者网络错误导致连接中断，此时客户端离开发起新的请求。</p>
+<p>但是这个方法适用于信息稀疏的情况，试想服务端在短时间内就能收到多个来自四面八方的消息，<code>http</code> 连接数无异于 <code>short polling</code>，这么做就没啥收益，信息密集型业务更适合使用 <code>Web Sockets/sse</code></p>
+<p>在迭代管理&amp;发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 <code>10s</code> 查询一次</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loop() {</span>
+  <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">fetchIterDetail</span>()
+  }, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">loop</span>()
+}
+</code></pre></div><p>如果整个构建需要 <code>2min</code> 完成，那么总共有 <code>12</code> 次请求。现在改为 <code>Long Polling</code> 优化一下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">startDeploy</span>()
+  
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">data</span>) {
+    <span style="color:#a6e22e">fetchDetail</span>()
+  }
+}
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchDetail() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">longPolling</span>()
+  
+  <span style="color:#75715e">// 异常
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">200</span>) {
+    <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#ae81ff">1000</span>))
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchDetail</span>()
+  }
+  <span style="color:#66d9ef">else</span> {
+    <span style="color:#75715e">// 继续请求，直到部署完成
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">msg</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;deploy success&#39;</span>) {
+      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchDetail</span>()
+    }
+  }
+}
+
+<span style="color:#75715e">// server.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Event</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;events&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">messageChange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Event</span>()
+
+<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">longPolling</span>(<span style="color:#a6e22e">ctx</span>: <span style="color:#66d9ef">any</span>) {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resolver</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">resolver</span>(<span style="color:#a6e22e">data</span>)
+    <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">removeListener</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#a6e22e">handler</span>)
+  }
+  <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#a6e22e">handler</span>)
+
+  <span style="color:#75715e">// 挂起请求
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">resolver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resolve</span>
+  })
+  .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">code</span>: <span style="color:#66d9ef">RESPONSE_ENUM.SUCCESS</span>,
+      <span style="color:#a6e22e">msg</span>: <span style="color:#66d9ef">data</span>,
+    }
+  })
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">startDeploy() {</span>
+  <span style="color:#75715e">// 模拟构建、部署过程
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">running</span>()
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">num</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">12</span>) {
+      <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#e6db74">&#39;deploy success&#39;</span>)
+      <span style="color:#a6e22e">clearInterval</span>(<span style="color:#a6e22e">timer</span>)
+    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">num</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) {
+      <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#e6db74">&#39;build success&#39;</span>)
+    }
+  }, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+
+  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">code</span>: <span style="color:#66d9ef">RESPONSE_ENUM.SUCCESS</span>,
+    <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;success&#39;</span>,
+    <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">true</span>,
+  })
+}
+</code></pre></div><p>优化之后，不考虑超时等异常，只有 <code>2</code> 次请求。</p>
 <h2 id="sse">SSE</h2>
 <h2 id="websocket">WebSocket</h2>
 <p>TODO</p>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://javascript.info/long-polling">Long polling - javascript.info</a></li>
+<li><a href="https://web.dev/articles/eventsource-basics">Stream Updates with Server-Sent Events - web.dev</a></li>
+</ul>
 
         </div>
 
@@ -544,6 +633,7 @@
     <li><a href="#long-polling">Long Polling</a></li>
     <li><a href="#sse">SSE</a></li>
     <li><a href="#websocket">WebSocket</a></li>
+    <li><a href="#refer">Refer</a></li>
   </ul>
 </nav>
     </div>

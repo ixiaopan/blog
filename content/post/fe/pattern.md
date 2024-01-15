@@ -185,13 +185,11 @@ function changeSound(name) {
 > - A sequence of inputs or events is sent to the machine
 > - Each state has a set of transitions, each associated with an input and pointing to a state.
 
-有限状态机 `finite state machine` 之前在 [迭代管理&发布平台 02](/blog/post/fe/infras-basement-2/) 就有所提及，本质上部署流水线就是一个状态机模型。
-
-我们以书中的例子解释 `FSM`
+有限状态机 `finite state machine` 之前在 [迭代管理&发布平台 02](/blog/post/fe/infras-basement-2/) 就有所提及，本质上部署流水线就是一个状态机模型，那什么是 `FSM`？我们以书中的例子来看
 
 ![](/blog/post/images/fsm.png "Game Programming Pattern")
 
-如图所示有4个状态 standing, jumping, ducking and diving，各状态之间的转换通过用户的输入控制 pressB/pressDown/releaseDown
+如图所示有4个状态 `standing, jumping, ducking and diving`，各状态之间的转换通过用户的输入控制 `pressB/pressDown/releaseDown`
 
 ```ts
 enum State {
@@ -428,13 +426,104 @@ class Game {
 
 ### Flyweight
 
-### Command
+> Flyweight comes into play when you have objects that need to be more lightweight, generally because you have too many of them.
+> 
+> This pattern separates out an object’s data into two kinds: 
+> - intrinsic state: the stuff that can be shared across all instances
+> - extrinsic state: the stuff that is unique to that instance
 
-这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 `Command` 是什么。
+说白了，也就是资源共享，在前端中也比较常见，比如编辑器中层的设计
+
+#### Case 1
+
+- 每个图层都有基本的属性 `startTime/endTime/duration/visible/...` 等
+- 不同图层类型也有自己特殊的属性，比如图片层有图片url、宽高等；文本图层需要维护文本属性 `fontColor/fontSize/...` 等
+
+显然，要设计一个基类 `Layer` 共享共有的属性，子类集成父类实现定制化
+
+```ts
+class Layer {
+  startTime = 0
+  endTime = 0
+  duration = 0
+  zIndex = 0
+  visible = false
+}
+class ImageLayer {
+  width = 0
+  height = 0
+  loadImageFromUrl() {}
+}
+class TextLayer {
+  text = ''
+  setText() {}
+}
+```
+
+#### Case 2
+
+`Case 1` 的例子里，`layer` 之间共享的属性很明显且子类之间差异化也比较大，所以可以直接抽象一个独立共享的对象，但也存在一些不明显的情况，书中就给出了这样的例子，假设游戏里地形有几种类型 `grass/dirt/hill/river` 等，每种类型都有一些属性
+
+- 移动速度
+- 船能否通过
+
+开始编码阶段，图方便一般是把地形放在 `game` 全局实例中
+
+```ts
+class Game {
+  private tiles = [
+    [GRASS, HILL],
+    [HILL, RIVER],
+  ]
+  getMoveCost(x, y) {
+    switch (tiles[x][y]) {
+      case GRASS: return 1
+      case HILL: return 2
+    }
+  }
+  isWater(x, y) {
+    switch (tiles[x][y]) {
+      case GRASS: return false
+      case RIVER: return true
+    }
+  }
+}
+```
+问题也很明显，`movecost/wetness` 都是地形的元属性，现在和业务代码耦合在一起，需要独立出来
+
+```js
+class Terrain {
+  constructor(moveCost, water) {
+    this.moveCost = moveCost
+    this.water = water
+  }
+}
+```
+
+不同于保存地形的类型，现在是保存每个地形的实例
+
+```js
+const grass = new Terrain(2, false)
+const hill = new Terrain(3, false)
+const river = new Terrain(1, true)
+
+class Game {
+   private tiles = [
+    [grass, hill],
+    [hill, river],
+  ]
+  getTile(x, y) {
+    return tiles[x][y]
+  }
+}
+console.log(game.getTile(1, 1).moveCost)
+```
+
+### Command
 
 > A command is a reusable object that represents a thing that can be done. 
 
-很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 `up/down/left/right` 控制方向，有些人喜欢用 `wasd`。用代码实现
+这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 `Command` 是什么。很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 `up/down/left/right` 控制方向，有些人喜欢用 `wasd`。用代码实现
 
 ```ts
 handleInput(keyCode) {
@@ -647,18 +736,69 @@ const amount = ref(0)
 const totalPrice = computed(() => price * amount)
 ```
 
+使用该模式要注意的地方
+- 每次重新计算，都要重置 dirty flag
+- derived data 维护在内存中
+
+所以该模式实际上是拿空间换速度 `trades memory for speed`
+
 ## Decoupling Patterns
 
 ### Component
 
+> Allow a single entity to span multiple domains without coupling the domains to each other.
+
+前端再熟悉不过，不再赘述。。。
+
 ### Event Queue
+> A queue stores a series of notifications or requests in first-in, first-out order. Sending a notification enqueues the request and returns.
+>
+> The request processor then processes items from the queue at a later time.
+>
+> Requests can be handled directly or routed to interested parties. This decouples the sender from the receiver both statically and in time.
+
+看样子很像 `observer`，确实很像，都是可以解耦 `sender` 和 `receiver`，不过区别在于 `event queue` 多一个 `queue` 用来存储堆积的 `event`，既然有堆积，说明事件处理的实时性不高。
+
+作者用 `push and pull` 去理解 `event queue`，我觉得很有意思，这里就放上原文
+
+> I think of it in terms of pushing and pulling. You have some code A that wants another chunk B to do some work. The natural way for A to initiate that is by pushing the request to B.
+> 
+> Meanwhile, the natural way for B to process that request is by pulling it in at a convenient time in its run cycle. When you have a push model on one end and a pull model on the other, you need a buffer between them. That’s what a queue provides that simpler decoupling patterns don’t.
+> 
+> **Queues give control to the code that pulls from it** — the receiver can delay processing, aggregate requests, or discard them entirely. But queues do this by taking control away from the sender. All the sender can do is throw a request on the queue and hope for the best. This makes queues a poor fit when the sender needs a response.
+
+
+说白了，`sender` 的请求，`receiver` 不一定会响应，这个在前端肯定深有体会，经常出现的页面卡住、点不动等。
+
 
 ### Service Locator
 
+> Provide a global point of access to a service without coupling users to the concrete class that implements it
+
+对于前端而言，或许叫作 `dependency inject` 更方便理解。不同于 `singleton`（我们明确知道全局存在这么一个实例），`service locator` 隐藏了服务使用方和服务提供方的联系
+- 提供服务的人，通过 `service locator` 先注册
+- 使用服务的人，通过 `service locator` 获取服务
+
+```ts
+// app.ts
+provide('$message', { success, error, warn, loading })
+
+// download.vue
+setup() {
+  const message = inject('$message')
+  message.success('下载成功')
+}
+```
+
+使用这种模式，要注意2点
+
+- 服务不一定存在，即 `inject('$message')` 可能为空
+
+- 服务提供商不知道谁在使用该服务，这就意味着服务必须能在任何环境中正确执行
 
 ## Summary
 
-本文所总结的几个模式仅仅是书中的一部分，还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。
+本文所总结的几个模式虽然仅仅是书中的一部分，不过也是前端开发中经常用到的。还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得还是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。
 
 ## Refer
 - [observer vs pub-sub pattern](https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c)

@@ -143,8 +143,108 @@ step()
 
 ## Long Polling
 
+- 客户端发起请求
+- 服务端挂起连接，直到有消息要给客户端
+- 客户端收到后，立刻发起新的请求
+
+同样，连接会有超时，或者网络错误导致连接中断，此时客户端离开发起新的请求。
+
+但是这个方法适用于信息稀疏的情况，试想服务端在短时间内就能收到多个来自四面八方的消息，`http` 连接数无异于 `short polling`，这么做就没啥收益，信息密集型业务更适合使用 `Web Sockets/sse`
+
+
+在迭代管理&发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 `10s` 查询一次
+
+```ts
+function loop() {
+  timer = setInterval(() => {
+    fetchIterDetail()
+  }, 10 * 1000)
+}
+function deploy() {
+  //...
+  loop()
+}
+```
+
+如果整个构建需要 `2min` 完成，那么总共有 `12` 次请求。现在改为 `Long Polling` 优化一下
+
+```ts
+// client.ts
+function deploy() {
+  const res = await Service.startDeploy()
+  
+  if (res?.data) {
+    fetchDetail()
+  }
+}
+async function fetchDetail() {
+  const res = await Service.longPolling()
+  
+  // 异常
+  if (res.status != 200) {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await fetchDetail()
+  }
+  else {
+    // 继续请求，直到部署完成
+    if (res.data.msg != 'deploy success') {
+      await fetchDetail()
+    }
+  }
+}
+
+// server.js
+const Event = require('events')
+const messageChange = new Event()
+
+async longPolling(ctx: any) {
+  let resolver
+  const handler = (data) => {
+    resolver(data)
+    messageChange.removeListener('change', handler)
+  }
+  messageChange.on('change', handler)
+
+  // 挂起请求
+  await new Promise((resolve) => {
+    resolver = resolve
+  })
+  .then((data) => {
+    ctx.body = {
+      code: RESPONSE_ENUM.SUCCESS,
+      msg: data,
+    }
+  })
+}
+function startDeploy() {
+  // 模拟构建、部署过程
+  const timer = setInterval(() => {
+    const num = mock.running()
+    if (num >= 12) {
+      messageChange.emit('change', 'deploy success')
+      clearInterval(timer)
+    } else if (num == 6) {
+      messageChange.emit('change', 'build success')
+    }
+  }, 10 * 1000)
+
+  return (ctx.body = {
+    code: RESPONSE_ENUM.SUCCESS,
+    msg: 'success',
+    data: true,
+  })
+}
+```
+
+优化之后，不考虑超时等异常，只有 `2` 次请求。
+
 ## SSE
 
 ## WebSocket
 
 TODO
+
+## Refer
+
+- [Long polling - javascript.info](https://javascript.info/long-polling)
+- [Stream Updates with Server-Sent Events - web.dev](https://web.dev/articles/eventsource-basics)
