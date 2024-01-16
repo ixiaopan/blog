@@ -2,7 +2,7 @@
 title: "埋点管理"
 date: "2023-08-22"
 description: ""
-tags: [基建]
+tags: [hands-on]
 categories: [
   "Frontend",
 ]

@@ -2,7 +2,7 @@
 title: "迭代管理&发布平台 01"
 date: "2023-08-26"
 description: ""
-tags: [基建]
+tags: [hands-on]
 categories: [
   "Frontend",
 ]

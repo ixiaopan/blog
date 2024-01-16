@@ -1,7 +1,7 @@
 ---
 title: "基建 101"
 date: "2023-08-06"
-tags: [基建]
+tags: [hands-on]
 description: ""
 categories : [
   "Frontend",

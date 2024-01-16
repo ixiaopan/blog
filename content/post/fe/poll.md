@@ -1,6 +1,6 @@
 ---
 title: "Polling"
-date: "2024-01-04"
+date: "2024-01-16"
 description: ""
 # tags: []
 categories: [
@@ -146,23 +146,16 @@ step()
 - 客户端发起请求
 - 服务端挂起连接，直到有消息要给客户端
 - 客户端收到后，立刻发起新的请求
-
-同样，连接会有超时，或者网络错误导致连接中断，此时客户端离开发起新的请求。
-
-但是这个方法适用于信息稀疏的情况，试想服务端在短时间内就能收到多个来自四面八方的消息，`http` 连接数无异于 `short polling`，这么做就没啥收益，信息密集型业务更适合使用 `Web Sockets/sse`
-
+- 连接超时或者网络错误导致连接中断，客户端同样立刻发起新的请求
 
 在迭代管理&发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 `10s` 查询一次
 
 ```ts
-function loop() {
+function deploy() {
+  //...
   timer = setInterval(() => {
     fetchIterDetail()
   }, 10 * 1000)
-}
-function deploy() {
-  //...
-  loop()
 }
 ```
 
@@ -178,18 +171,22 @@ function deploy() {
   }
 }
 async function fetchDetail() {
-  const res = await Service.longPolling()
-  
-  // 异常
-  if (res.status != 200) {
+  try {
+    const res = await Service.longPolling()
+    
+    // 异常
+    if (res.status != 200) {
+      throw new Error('status is not 200')
+    }
+    else {
+      // 继续请求，直到部署完成
+      if (res.data.msg != 'deploy success') {
+        await fetchDetail()
+      }
+    }
+  } catch (e) {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     await fetchDetail()
-  }
-  else {
-    // 继续请求，直到部署完成
-    if (res.data.msg != 'deploy success') {
-      await fetchDetail()
-    }
   }
 }
 
@@ -236,9 +233,83 @@ function startDeploy() {
 }
 ```
 
-优化之后，不考虑超时等异常，只有 `2` 次请求。
+优化之后，不考虑超时等异常，只有 `2` 次请求（假设只关心 `build/deploy success` 这2个卡点）。
+
+虽然优化效果比较明显，但是这个方法并不太适合信息密集的应用，如果我们想实时打印出 `install/build/deploy` 的详细信息，相应的 `http` 连接数也会变多，还不如 `short polling`。
+
+此外，还有很多细节没有考虑，比如历史消息怎么发给迟到的客户端、服务端超时。
 
 ## SSE
+
+`SSE (Server-Sent Events)` 正如其名，服务端发送事件到客户端，有点像 `web socket` 但是，`SSE` 是单向的，数据流只能是服务端到客户端。另外，二者的协议也不一样，`sse` 是 `http` 而 `websocket` 是基于 `tcp`。
+对于一些客户端不需要向服务端推送数据的应用，比如天气预报、股票信息、以及上文的流水线部署更适合使用 `sse`。
+
+OK，让我们尝试使用 `sse` 推送部署信息到客户端
+
+```ts
+// client.ts
+function deploy() {
+  const source = new EventSource('http://localhost:8001/sse')
+  source.onopen = () => console.log('Connected')
+  source.onerror = console.error
+  source.onmessage = (e) => {
+    console.log('res', e.data)
+    if (e.data == 8) {
+      source.close()
+    }
+  }
+}
+
+// server.ts
+const Event = require('events')
+const { PassThrough } = require('stream')
+
+async sse(ctx: any) {
+  ctx.set({
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive',
+  })
+
+  const stream = new PassThrough()
+  const listener = (data) => stream.write(`data: ${data}\n\n`)
+  messageChange.on('sse', listener)
+
+  // in case you reload browser or close source
+  stream.on('close', (e) => {
+    console.log('stream close', e)
+    messageChange.off('sse', listener)
+  })
+
+  ctx.status = 200
+  ctx.body = stream
+}
+function startDeploy() {
+  // 模拟构建、部署过程
+  const timer = setInterval(() => {
+    const num = mockFlow.running()
+    messageChange.emit('sse', num)
+    if (data >= 12) {
+      clearInterval(timer)
+    }
+  }, 1000)
+
+  return (ctx.body = {
+    code: RESPONSE_ENUM.SUCCESS,
+    msg: 'success',
+    data: true,
+  })
+}
+```
+
+
+可以看到，和 `long polling` 相比
+- 前端不必再手动处理重连的问题，`sse` 会自动重连，除非客户端调用 `.close()` 明确终止
+- 服务端也不必挂起请求，而是通过响应头 `Content-Type: text/event-stream` 实现数据流的传输
+- 如果想打印 `npm install/build/deploy` 的详细信息，数据也可以像 `stream` 一样发给客户端，无需更多的 `http`
+
+
+至于数据规范等、主动断连等更多功能，参考 [SSE - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)，不再赘述。
 
 ## WebSocket
 
@@ -247,4 +318,5 @@ TODO
 ## Refer
 
 - [Long polling - javascript.info](https://javascript.info/long-polling)
+- [SSE - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
 - [Stream Updates with Server-Sent Events - web.dev](https://web.dev/articles/eventsource-basics)

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hands-on on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/tags/hands-on/</link>
+    <description>Recent content in hands-on on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/hands-on/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>服务端实现</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
+      <description>Background 前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志</description>
+    </item>
+    
+    <item>
+      <title>迭代管理&amp;发布平台 02</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
+      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</guid>
+      <description>Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla</description>
+    </item>
+    
+    <item>
+      <title>包发布管理平台</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
+      <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-npm/</guid>
+      <description>Background 之前介绍过用 verdaccio 搭建私有 npm 源，公司内部用到的包可以通过 npm publish 发布上去。不过随着包越来越多，开发者也越来越多，只用 npm publish 已经不能满足现有的诉求了，</description>
+    </item>
+    
+    <item>
+      <title>性能监控SDK</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</link>
+      <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</guid>
+      <description>Background 一开始也没想要做监控，当时其实是接入了阿里的 arms，但是接入一段时间后，觉得用起来不舒服，不知道是不是使用姿势不对，而且还收费，因此才有</description>
+    </item>
+    
+    <item>
+      <title>迭代管理&amp;发布平台 01</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</link>
+      <pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</guid>
+      <description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>API Mock</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-mock/</link>
+      <pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-mock/</guid>
+      <description>Background 开发没有mock还是比较痛苦的，最开始接入mock-server需要在业务里新开一个 mock 手动写 json，维护成本很高，也不利于共享。一直以来</description>
+    </item>
+    
+    <item>
+      <title>埋点管理</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-track/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-track/</guid>
+      <description>&lt;p&gt;简单实现一个埋点sdk和管理平台&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>开关配置</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-switch/</link>
+      <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-switch/</guid>
+      <description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>基建 101</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras/</link>
+      <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras/</guid>
+      <description>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的</description>
+    </item>
+    
+    <item>
+      <title>Build your own UI component library from scratch</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-ui/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-ui/</guid>
+      <description>&lt;p&gt;In this post, we will learn how to build your own UI component library.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

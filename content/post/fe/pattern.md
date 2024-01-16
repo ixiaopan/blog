@@ -1,6 +1,6 @@
 ---
 title: "《Game Programming Patterns》"
-date: "2024-01-08"
+date: "2024-01-15"
 description: ""
 tags: [Reading]
 categories: [

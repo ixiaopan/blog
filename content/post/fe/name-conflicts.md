@@ -176,4 +176,4 @@ export default function duplicateFileCheck(options: IOption) {
 ```
 
 
-剩下的就是初始化检查项目、实时监听文件变动，这个就属于插件自身逻辑了，这里就不在赘述了，完整的代码参考 [VitePluginDuplicateFileCheck - Github](https://github.com/ixiaopan/DataScience/tree/master/VitePluginDuplicateFileCheck)
+剩下的就是初始化检查项目、实时监听文件变动，这个就属于插件自身逻辑了，这里就不在赘述了，完整的代码参考 [VitePluginDuplicateFileCheck - Github](https://github.com/ixiaopan/fe-side-projects/tree/main/node-app/VitePluginDuplicateFileCheck)

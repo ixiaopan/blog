@@ -2,7 +2,7 @@
 title: "性能监控SDK"
 date: "2023-12-07"
 description: ""
-tags: [基建]
+tags: [hands-on]
 categories : [
   "Frontend",
 ]

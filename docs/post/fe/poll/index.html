@@ -70,13 +70,13 @@
 <meta property="og:description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/poll/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-01-04T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-01-04T00:00:00+00:00" />
+<meta property="article:published_time" content="2024-01-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-01-16T00:00:00+00:00" />
 
 <meta itemprop="name" content="Polling">
-<meta itemprop="description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"><meta itemprop="datePublished" content="2024-01-04T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-01-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1410">
+<meta itemprop="description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"><meta itemprop="datePublished" content="2024-01-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-01-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1885">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Polling"/>
 <meta name="twitter:description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"/>
@@ -317,8 +317,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-01-04">
-      2024-01-04
+    <time datetime="2024-01-16">
+      2024-01-16
     </time>
   </div>
 
@@ -451,18 +451,14 @@
 <li>客户端发起请求</li>
 <li>服务端挂起连接，直到有消息要给客户端</li>
 <li>客户端收到后，立刻发起新的请求</li>
+<li>连接超时或者网络错误导致连接中断，客户端同样立刻发起新的请求</li>
 </ul>
-<p>同样，连接会有超时，或者网络错误导致连接中断，此时客户端离开发起新的请求。</p>
-<p>但是这个方法适用于信息稀疏的情况，试想服务端在短时间内就能收到多个来自四面八方的消息，<code>http</code> 连接数无异于 <code>short polling</code>，这么做就没啥收益，信息密集型业务更适合使用 <code>Web Sockets/sse</code></p>
 <p>在迭代管理&amp;发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 <code>10s</code> 查询一次</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loop() {</span>
-  <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">fetchIterDetail</span>()
   }, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
-}
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
-  <span style="color:#75715e">//...
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">loop</span>()
 }
 </code></pre></div><p>如果整个构建需要 <code>2min</code> 完成，那么总共有 <code>12</code> 次请求。现在改为 <code>Long Polling</code> 优化一下</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
@@ -474,18 +470,22 @@
   }
 }
 <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchDetail() {</span>
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">longPolling</span>()
-  
-  <span style="color:#75715e">// 异常
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">200</span>) {
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">longPolling</span>()
+    
+    <span style="color:#75715e">// 异常
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">200</span>) {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;status is not 200&#39;</span>)
+    }
+    <span style="color:#66d9ef">else</span> {
+      <span style="color:#75715e">// 继续请求，直到部署完成
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">msg</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;deploy success&#39;</span>) {
+        <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchDetail</span>()
+      }
+    }
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
     <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#ae81ff">1000</span>))
     <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchDetail</span>()
-  }
-  <span style="color:#66d9ef">else</span> {
-    <span style="color:#75715e">// 继续请求，直到部署完成
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">msg</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;deploy success&#39;</span>) {
-      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchDetail</span>()
-    }
   }
 }
 
@@ -530,13 +530,79 @@
     <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">true</span>,
   })
 }
-</code></pre></div><p>优化之后，不考虑超时等异常，只有 <code>2</code> 次请求。</p>
+</code></pre></div><p>优化之后，不考虑超时等异常，只有 <code>2</code> 次请求（假设只关心 <code>build/deploy success</code> 这2个卡点）。</p>
+<p>虽然优化效果比较明显，但是这个方法并不太适合信息密集的应用，如果我们想实时打印出 <code>install/build/deploy</code> 的详细信息，相应的 <code>http</code> 连接数也会变多，还不如 <code>short polling</code>。</p>
+<p>此外，还有很多细节没有考虑，比如历史消息怎么发给迟到的客户端、服务端超时。</p>
 <h2 id="sse">SSE</h2>
+<p><code>SSE (Server-Sent Events)</code> 正如其名，服务端发送事件到客户端，有点像 <code>web socket</code> 但是，<code>SSE</code> 是单向的，数据流只能是服务端到客户端。另外，二者的协议也不一样，<code>sse</code> 是 <code>http</code> 而 <code>websocket</code> 是基于 <code>tcp</code>。
+对于一些客户端不需要向服务端推送数据的应用，比如天气预报、股票信息、以及上文的流水线部署更适合使用 <code>sse</code>。</p>
+<p>OK，让我们尝试使用 <code>sse</code> 推送部署信息到客户端</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventSource</span>(<span style="color:#e6db74">&#39;http://localhost:8001/sse&#39;</span>)
+  <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">onopen</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Connected&#39;</span>)
+  <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>
+  <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;res&#39;</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span>) {
+      <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">close</span>()
+    }
+  }
+}
+
+<span style="color:#75715e">// server.ts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Event</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;events&#39;</span>)
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">PassThrough</span> } <span style="color:#f92672">=</span> <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;stream&#39;</span>)
+
+<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">sse</span>(<span style="color:#a6e22e">ctx</span>: <span style="color:#66d9ef">any</span>) {
+  <span style="color:#a6e22e">ctx</span>.<span style="color:#66d9ef">set</span>({
+    <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;text/event-stream&#39;</span>,
+    <span style="color:#e6db74">&#39;Cache-Control&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;no-cache&#39;</span>,
+    <span style="color:#a6e22e">Connection</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;keep-alive&#39;</span>,
+  })
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stream</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">PassThrough</span>()
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listener</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">write</span>(<span style="color:#e6db74">`data: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span><span style="color:#e6db74">}</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n`</span>)
+  <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;sse&#39;</span>, <span style="color:#a6e22e">listener</span>)
+
+  <span style="color:#75715e">// in case you reload browser or close source
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;close&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;stream close&#39;</span>, <span style="color:#a6e22e">e</span>)
+    <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">off</span>(<span style="color:#e6db74">&#39;sse&#39;</span>, <span style="color:#a6e22e">listener</span>)
+  })
+
+  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
+  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream</span>
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">startDeploy() {</span>
+  <span style="color:#75715e">// 模拟构建、部署过程
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mockFlow</span>.<span style="color:#a6e22e">running</span>()
+    <span style="color:#a6e22e">messageChange</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;sse&#39;</span>, <span style="color:#a6e22e">num</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">12</span>) {
+      <span style="color:#a6e22e">clearInterval</span>(<span style="color:#a6e22e">timer</span>)
+    }
+  }, <span style="color:#ae81ff">1000</span>)
+
+  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">code</span>: <span style="color:#66d9ef">RESPONSE_ENUM.SUCCESS</span>,
+    <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;success&#39;</span>,
+    <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">true</span>,
+  })
+}
+</code></pre></div><p>可以看到，和 <code>long polling</code> 相比</p>
+<ul>
+<li>前端不必再手动处理重连的问题，<code>sse</code> 会自动重连，除非客户端调用 <code>.close()</code> 明确终止</li>
+<li>服务端也不必挂起请求，而是通过响应头 <code>Content-Type: text/event-stream</code> 实现数据流的传输</li>
+<li>如果想打印 <code>npm install/build/deploy</code> 的详细信息，数据也可以像 <code>stream</code> 一样发给客户端，无需更多的 <code>http</code></li>
+</ul>
+<p>至于数据规范等、主动断连等更多功能，参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">SSE - MDN</a>，不再赘述。</p>
 <h2 id="websocket">WebSocket</h2>
 <p>TODO</p>
 <h2 id="refer">Refer</h2>
 <ul>
 <li><a href="https://javascript.info/long-polling">Long polling - javascript.info</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">SSE - MDN</a></li>
 <li><a href="https://web.dev/articles/eventsource-basics">Stream Updates with Server-Sent Events - web.dev</a></li>
 </ul>
 
@@ -558,7 +624,7 @@
           
           <nav class="post-nav">
             
-              <a class="prev" href="/blog/post/fe/pattern/">
+              <a class="prev" href="/blog/post/fe/audio-sprite/">
                 
                 <i class="iconfont">
                   <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -568,12 +634,12 @@
 </svg>
 
                 </i>
-                <span class="prev-text nav-default">《Game Programming Patterns》</span>
+                <span class="prev-text nav-default">Audio Sprite</span>
                 <span class="prev-text nav-mobile">Prev</span>
               </a>
             
-              <a class="next" href="/blog/post/fe/audio-sprite/">
-                <span class="next-text nav-default">Audio Sprite</span>
+              <a class="next" href="/blog/post/fe/pattern/">
+                <span class="next-text nav-default">《Game Programming Patterns》</span>
                 <span class="prev-text nav-mobile">Next</span>
                 
                 <i class="iconfont">

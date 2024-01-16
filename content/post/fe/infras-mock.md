@@ -2,7 +2,7 @@
 title: "API Mock"
 date: "2023-08-23"
 description: ""
-tags: [基建]
+tags: [hands-on]
 categories: [
   "Frontend",
 ]

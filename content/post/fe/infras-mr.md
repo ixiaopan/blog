@@ -2,7 +2,7 @@
 title: "MR Notification"
 date: "2023-01-28"
 description: ""
-tags: [基建]
+tags: [hands-on]
 categories: [
   "Frontend",
 ]
@@ -331,4 +331,4 @@ later.setInterval(createMRMention, s)
 ```
 
 ## Summary
-完整的代码，[点击这里](https://github.com/ixiaopan/DataScience/tree/master/GitlabWebhook)
+完整的代码，[点击这里](https://github.com/ixiaopan/fe-side-projects/tree/main/node-app/GitlabWebhook)
