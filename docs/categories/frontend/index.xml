@@ -6,14 +6,14 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Audio Sprite</title>
       <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
-      <pubDate>Tue, 16 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
-      <description></description>
+      <description>Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例</description>
     </item>
     
     <item>
@@ -32,15 +32,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/pattern/</guid>
       <description>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书</description>
-    </item>
-    
-    <item>
-      <title>Micro Frontend</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/mfe/</link>
-      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/mfe/</guid>
-      <description></description>
     </item>
     
     <item>
@@ -95,6 +86,15 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
       <description>MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资</description>
+    </item>
+    
+    <item>
+      <title>i18n</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/i18n/</link>
+      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/i18n/</guid>
+      <description>Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是</description>
     </item>
     
   </channel>

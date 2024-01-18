@@ -29,7 +29,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="xiaopan" />
-  <meta name="description" content="" />
+  <meta name="description" content="Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例" />
 
 
 
@@ -67,19 +67,19 @@
 
 
 <meta property="og:title" content="Audio Sprite" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/audio-sprite/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-01-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-01-16T00:00:00+00:00" />
+<meta property="article:published_time" content="2024-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-01-18T00:00:00+00:00" />
 
 <meta itemprop="name" content="Audio Sprite">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-01-16T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-01-16T00:00:00+00:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="description" content="Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例"><meta itemprop="datePublished" content="2024-01-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-01-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1702">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Audio Sprite"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -317,8 +317,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-01-16">
-      2024-01-16
+    <time datetime="2024-01-18">
+      2024-01-18
     </time>
   </div>
 
@@ -347,7 +347,223 @@
 
         
         <div class="post-content">
-          
+          <h2 id="background">Background</h2>
+<p>业务中遇到一个 <code>tts</code> 生成音频并播放的需求，为了节省 <code>tts</code> 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例子</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">0~3 文案一 四川话
+3~8 文案二 北京话
+8~10 文案三 四川话
+10~16 文案四 北京话
+</code></pre></div><p>如上音频长度 <code>16s</code></p>
+<ul>
+<li>文案一和三是四川话，会生成一个时长 <code>5s</code> 的音频文件 <code>四川话.mp3</code></li>
+<li>文案二和四是北京话，会生成一个时长 <code>11s</code> 的音频文件 <code>北京话.mp3</code></li>
+</ul>
+<p>所以现在文本音频交叉在各个音频文件中，需求是前端要按正确的顺序播放。</p>
+<h2 id="audio-sprite">Audio Sprite</h2>
+<p>这个问题在游戏开发中很常见，一个小游戏可能就下载了一个声音文件，但其中包含了各种音效比如赢得金币、通关失败、遭受攻击等，然后在必要的时候播放相应的音效，这个技巧就是 <code>audio sprite</code>，很像前端的 <code>css sprite</code> 只不过是图片而已。对于 <code>css sprite</code> 关心的是每个 <code>sprite</code> 的位置，对于 <code>audio sprite</code> 而言，则是每个 <code>sprite</code> 的时间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+  <span style="color:#a6e22e">src</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://xx.mp3&#39;</span>,
+  <span style="color:#a6e22e">sprite</span><span style="color:#f92672">:</span> {
+    [<span style="color:#a6e22e">name</span>]<span style="color:#f92672">:</span> [<span style="color:#a6e22e">startTime</span>, <span style="color:#a6e22e">offset</span>, <span style="color:#a6e22e">duration</span>],
+  }
+}
+</code></pre></div><ul>
+<li><code>src</code> 包含多个音效的一整个音频文件</li>
+<li><code>name</code> 音效的 <code>id</code></li>
+<li><code>startTime</code> 该音效在全局播放器中的开始时间</li>
+<li><code>offset</code> 音效在音频文件中的偏移</li>
+<li><code>duration</code> 该音效的时长</li>
+</ul>
+<p>以此，我们可以整理出上文中的 <code>audio sprite</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">[
+  {
+    <span style="color:#a6e22e">src</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://xxx/四川话.mp3&#39;</span>,
+    <span style="color:#a6e22e">sprite</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">s1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3000</span>],
+      <span style="color:#a6e22e">s2</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">8000</span>, <span style="color:#ae81ff">3000</span>, <span style="color:#ae81ff">2000</span>] <span style="color:#75715e">// 单位是 ms
+</span><span style="color:#75715e"></span>    }
+  },
+  {
+    <span style="color:#a6e22e">src</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://xxx/北京话.mp3&#39;</span>,
+    <span style="color:#a6e22e">sprite</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">s1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">3000</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5000</span>],
+      <span style="color:#a6e22e">s2</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">5000</span>, <span style="color:#ae81ff">6000</span>]
+    }
+  }
+]
+</code></pre></div><p>现在要实现的是按 <code>startTime</code> 顺序播放每个 <code>sprite</code>，代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">play() {</span>
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>()
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>() <span style="color:#f92672">-</span> <span style="color:#a6e22e">startTime</span>
+
+    <span style="color:#a6e22e">spriteList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">sprite</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sprite</span>.<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">sprite</span>.<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">sprite</span>.<span style="color:#a6e22e">duration</span>) {
+        <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">play</span>(<span style="color:#a6e22e">sprite</span>.<span style="color:#a6e22e">name</span>)
+      } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">pause</span>(<span style="color:#a6e22e">sprite</span>.<span style="color:#a6e22e">name</span>)
+      }
+    })
+    <span style="color:#75715e">// 终止播放
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">totalDuration</span>) {
+      <span style="color:#a6e22e">requestAnimationFrame</span>(<span style="color:#a6e22e">step</span>)
+    }
+  }
+
+  <span style="color:#a6e22e">requestAnimationFrame</span>(<span style="color:#a6e22e">step</span>)
+}
+</code></pre></div><p>这段代码有几个注意点</p>
+<ul>
+<li>
+<p>这里用到了《Game Programming Pattern》提到的模式 <code>Game Loop</code>，在 <code>js</code> 中，我们使用 <code>requestAnimationFrame</code> 实现</p>
+</li>
+<li>
+<p><code>currentTime</code> 表示播放器中的当前时间，只要判断 <code>currentTime</code> 是否落在 <code>sprite</code> 的起止时间内，如果是，播放对应的 <code>sprite</code>，否则暂停</p>
+</li>
+<li>
+<p>当 <code>currentTime</code> 大于总时长，需要终止播放</p>
+</li>
+</ul>
+<h2 id="single-sound">Single Sound</h2>
+<p>现在的问题是如何播放音频以及播放指定位置的音频</p>
+<ul>
+<li>播放音频可以使用 <code>html5 audio</code> 或者复杂的 <code>web audio</code></li>
+<li>指定 <code>audio.currentTime</code> 可以实现音频的偏移</li>
+</ul>
+<p>整体思路就是</p>
+<ul>
+<li>每个音频文件创建对应的 <code>audio</code> 元素</li>
+<li>播放 <code>sprite</code> 的时候，找到它的时间偏移，设置给 <code>audio.currentTime</code></li>
+<li>需要注意暂停的时候，要判断暂停的 <code>sprite</code> 是不是在播放的 <code>sprite</code>，不然会不停触发 <code>audio.play()/audio.pause()</code> 因为不同的 <code>sprite</code> 共享一个 <code>audio</code> 元素</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Source</span> {
+  <span style="color:#a6e22e">playing</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  <span style="color:#a6e22e">playingName</span>
+  
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">options</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">src</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_sprite</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">sprite</span> <span style="color:#f92672">||</span> {}
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">load</span>()
+  }
+
+  <span style="color:#a6e22e">load() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;audio&#39;</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">src</span>
+    document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>)
+  }
+  <span style="color:#a6e22e">pause</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#75715e">// 暂停的 `sprite` 是不是在播放的 `sprite`
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playing</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playingName</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">name</span>) <span style="color:#66d9ef">return</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">pause</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playing</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  }
+  <span style="color:#a6e22e">play</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playing</span>) <span style="color:#66d9ef">return</span>
+    
+    <span style="color:#75715e">// 找到时间偏移
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sprite</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sprite</span>[<span style="color:#a6e22e">name</span>]
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprite</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">play</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playing</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">playingName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+  }
+}
+</code></pre></div><p>不过还有一个问题没解决，所有音频都需要先加载，但只靠 <code>audio</code> 标签是没法精准做到的，因为 <code>audio.src</code> 并不会立刻加载音频，即使加上 <code>preload</code> 属性，也不一定保证100%加载。
+其实我们要做的只是加载这个 <code>mp3</code> 文件，那就用普通的 <code>http</code> 先 <code>download</code> 下来，借助于浏览器的缓存 <code>audio.play()</code> 的时候，会从缓存中获取。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadAudioFile() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xhr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>()
+  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;GET&#39;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#66d9ef">true</span>)
+  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">responseType</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;arraybuffer&#39;</span>
+  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {}
+  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>()
+}  
+</code></pre></div><h2 id="sound-pool">Sound Pool</h2>
+<p>看起来挺简单的，这是因为每个 <code>sprite</code> 是按照顺序播放，不会有时间重叠的问题，一个音频文件对应一个 <code>audio</code> 元素即可满足。但如果随机随时播放，就会存一个音频文件中不同 <code>sprites</code> 同时播放的情况，这就不止有一个 <code>audio</code> 元素。</p>
+<p>这样，每播放一个 <code>sprite</code> 都要创建一个 <code>audio</code> 而且在播放完成之后，还要手动移除它，不然页面会有很多 <code>audio</code> 元素，内存会很容易被占满。仔细观察，就会发现，反复创建移除是没必要的，相反，可以维护一个 <code>object pool</code>，每次生成之前都去 <code>pool</code> 里看看有没有空闲的，如果没有才去生成新的。</p>
+<p>那问题是谁去维护这么一个 <code>pool</code>，自然是每个音频源 <code>class source</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Source</span> {
+  <span style="color:#a6e22e">_pool</span>: <span style="color:#66d9ef">Sound</span>[]
+
+  <span style="color:#a6e22e">play</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sound</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">findAvailableSound</span>()
+
+    <span style="color:#75715e">// 找到时间偏移
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sprite</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sprite</span>[<span style="color:#a6e22e">name</span>]
+    <span style="color:#a6e22e">sound</span>.<span style="color:#a6e22e">playAt</span>(<span style="color:#a6e22e">sprite</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>)
+  }
+  
+  <span style="color:#a6e22e">findAvailableSound() {</span>
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sound</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pool</span>.<span style="color:#a6e22e">find</span>((<span style="color:#a6e22e">s</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ended</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">paused</span>)
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sound</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sound</span>
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Sound</span>(<span style="color:#66d9ef">this</span>)
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sound</span> {
+  <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  
+  <span style="color:#a6e22e">paused</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+  <span style="color:#a6e22e">ended</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+  
+  <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">duration</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+  <span style="color:#a6e22e">audioNode</span>
+
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">parent</span>: <span style="color:#66d9ef">Source</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;audio&#39;</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parent</span>.<span style="color:#a6e22e">_src</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">load</span>()
+
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;ended&#39;</span>, () <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ended</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    })
+    
+    <span style="color:#a6e22e">parent</span>.<span style="color:#a6e22e">_pool</span>.<span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">this</span>)
+  }
+
+  <span style="color:#a6e22e">playAt</span>(<span style="color:#a6e22e">time</span>: <span style="color:#66d9ef">number</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">time</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">play</span>()
+  }
+}
+</code></pre></div><p>可以看到和第一版 <code>class Source</code> 相比，播放的功能由 <code>class Sound</code> 承载，当想要播放某个 <code>sprite</code>，就去 <code>_pool</code> 里查看一下是否有可用，可用的判断条件是没有声音，即 <code>paused</code> 或者 <code>ended</code>。</p>
+<p>不过当你运行上面的会发现，声音从 <code>sprite.startTime</code> 开始播放到整个音频结束，这是因为我们没有判断什么时候该终止这个 <code>sprite</code> 的播放。有几种方法解决</p>
+<ul>
+<li>设置定时器</li>
+<li>在 <code>progress</code> 判断</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sound</span> {
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">parent</span>: <span style="color:#66d9ef">Source</span>) {
+    <span style="color:#75715e">// method 2
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;progress&#39;</span>, () <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">&gt;=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">endTime</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">pause</span>()
+      }
+    })
+  }
+  <span style="color:#a6e22e">playAt</span>(<span style="color:#a6e22e">time</span>: <span style="color:#66d9ef">number</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">currentTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">time</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">play</span>()
+
+    <span style="color:#75715e">// 设置定时器
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioNode</span>.<span style="color:#a6e22e">pause</span>()
+    }, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">duration</span>)
+  }
+}
+</code></pre></div><h2 id="summary">Summary</h2>
+<p>除了 <code>html5 audio</code> 之外，还可以用 <code>web audio</code> 实现一样的功能，后者功能更为强大，具体实现可以参考 <a href="https://github.com/goldfire/howler.js/tree/master">Howler.js - Github</a>，上文提到到 <code>sound pool</code> 就是出自 <code>Howler</code>，源码还有很多地方值得学习的。</p>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://github.com/goldfire/howler.js/tree/master">Howler.js - Github</a></li>
+</ul>
+
         </div>
 
         
@@ -413,7 +629,21 @@
     </div>
 
     
-    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#audio-sprite">Audio Sprite</a></li>
+    <li><a href="#single-sound">Single Sound</a></li>
+    <li><a href="#sound-pool">Sound Pool</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
 
 
   </div>
@@ -543,7 +773,7 @@
 
 
 
-<script type="text/javascript" src="/blog/js/main.4484b3f29dd568c80320701800e1b69704b179f367b8223a43c728d819f39b97.js" integrity="sha256-RISz8p3VaMgDIHAYAOG2lwSxefNnuCI6Q8co2Bnzm5c=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
 
 
 

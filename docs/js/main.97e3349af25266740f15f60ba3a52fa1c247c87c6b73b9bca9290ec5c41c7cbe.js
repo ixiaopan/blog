@@ -1,5 +1,5 @@
 (() => {
-  // ns-hugo:/Users/wuxiaopan/work/mogic/blog/themes/jane/assets/js/initMobileNavbar.js
+  // ns-hugo:/Users/wuxiaopan/work/blog/themes/jane/assets/js/initMobileNavbar.js
   var initMobileNavbar = () => {
     const $mobileNav = $("#mobile-navbar");
     const $mobileNavIcon = $(".mobile-navbar-icon");
@@ -40,7 +40,7 @@
   };
   var initMobileNavbar_default = initMobileNavbar;
 
-  // ns-hugo:/Users/wuxiaopan/work/mogic/blog/themes/jane/assets/js/initToc.js
+  // ns-hugo:/Users/wuxiaopan/work/blog/themes/jane/assets/js/initToc.js
   function createTocObserver() {
     const headings = document.querySelectorAll("article h1[id], article h2[id], article h3[id], article h4[id], article h5[id], article h6[id]");
     const setCurrentActive = () => {
@@ -80,7 +80,7 @@
   };
   var initToc_default = initToc;
 
-  // ns-hugo:/Users/wuxiaopan/work/mogic/blog/themes/jane/assets/js/initHeaderAnchor
+  // ns-hugo:/Users/wuxiaopan/work/blog/themes/jane/assets/js/initHeaderAnchor
   var anchorForId = (id) => {
     var anchor = document.createElement("a");
     anchor.className = "header-link";
@@ -109,7 +109,7 @@
   };
   var initHeaderAnchor_default = initHeaderAnchor;
 
-  // ns-hugo:/Users/wuxiaopan/work/mogic/blog/themes/jane/assets/js/initFootnoteTooltip.js
+  // ns-hugo:/Users/wuxiaopan/work/blog/themes/jane/assets/js/initFootnoteTooltip.js
   var initFootnoteTooltip = () => {
     $(".footnote-ref").each(function() {
       var id = $(this).attr("href").substr(1), footnote = $(document.getElementById(id)).clone(), outer_wrapper = $("<span>", { "class": "fn-content" }), inner_wrapper = $("<span>", { "class": "fn-text" });

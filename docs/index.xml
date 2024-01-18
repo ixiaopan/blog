@@ -6,7 +6,7 @@
     <description>Recent content on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jan 2024 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://ixiaopan.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
@@ -89,11 +89,227 @@ li {
     <item>
       <title>Audio Sprite</title>
       <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
-      <pubDate>Tue, 16 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
       
-        <description></description>
+        <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;业务中遇到一个 &lt;code&gt;tts&lt;/code&gt; 生成音频并播放的需求，为了节省 &lt;code&gt;tts&lt;/code&gt; 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例子&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;0~3 文案一 四川话
+3~8 文案二 北京话
+8~10 文案三 四川话
+10~16 文案四 北京话
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如上音频长度 &lt;code&gt;16s&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文案一和三是四川话，会生成一个时长 &lt;code&gt;5s&lt;/code&gt; 的音频文件 &lt;code&gt;四川话.mp3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;文案二和四是北京话，会生成一个时长 &lt;code&gt;11s&lt;/code&gt; 的音频文件 &lt;code&gt;北京话.mp3&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以现在文本音频交叉在各个音频文件中，需求是前端要按正确的顺序播放。&lt;/p&gt;
+&lt;h2 id=&#34;audio-sprite&#34;&gt;Audio Sprite&lt;/h2&gt;
+&lt;p&gt;这个问题在游戏开发中很常见，一个小游戏可能就下载了一个声音文件，但其中包含了各种音效比如赢得金币、通关失败、遭受攻击等，然后在必要的时候播放相应的音效，这个技巧就是 &lt;code&gt;audio sprite&lt;/code&gt;，很像前端的 &lt;code&gt;css sprite&lt;/code&gt; 只不过是图片而已。对于 &lt;code&gt;css sprite&lt;/code&gt; 关心的是每个 &lt;code&gt;sprite&lt;/code&gt; 的位置，对于 &lt;code&gt;audio sprite&lt;/code&gt; 而言，则是每个 &lt;code&gt;sprite&lt;/code&gt; 的时间&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;{
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://xx.mp3&amp;#39;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    [&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;offset&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;duration&lt;/span&gt;],
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src&lt;/code&gt; 包含多个音效的一整个音频文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt; 音效的 &lt;code&gt;id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;startTime&lt;/code&gt; 该音效在全局播放器中的开始时间&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;offset&lt;/code&gt; 音效在音频文件中的偏移&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;duration&lt;/code&gt; 该音效的时长&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以此，我们可以整理出上文中的 &lt;code&gt;audio sprite&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;[
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://xxx/四川话.mp3&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;s1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;],
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;s2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;8000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;] &lt;span style=&#34;color:#75715e&#34;&gt;// 单位是 ms
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    }
+  },
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://xxx/北京话.mp3&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;s1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;],
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;s2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6000&lt;/span&gt;]
+    }
+  }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在要实现的是按 &lt;code&gt;startTime&lt;/code&gt; 顺序播放每个 &lt;code&gt;sprite&lt;/code&gt;，代码如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;play() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;()
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;step&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;spriteList&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;duration&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;)
+      } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;)
+      }
+    })
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 终止播放
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;totalDuration&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;requestAnimationFrame&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;step&lt;/span&gt;)
+    }
+  }
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;requestAnimationFrame&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;step&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这段代码有几个注意点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;这里用到了《Game Programming Pattern》提到的模式 &lt;code&gt;Game Loop&lt;/code&gt;，在 &lt;code&gt;js&lt;/code&gt; 中，我们使用 &lt;code&gt;requestAnimationFrame&lt;/code&gt; 实现&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;currentTime&lt;/code&gt; 表示播放器中的当前时间，只要判断 &lt;code&gt;currentTime&lt;/code&gt; 是否落在 &lt;code&gt;sprite&lt;/code&gt; 的起止时间内，如果是，播放对应的 &lt;code&gt;sprite&lt;/code&gt;，否则暂停&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当 &lt;code&gt;currentTime&lt;/code&gt; 大于总时长，需要终止播放&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;single-sound&#34;&gt;Single Sound&lt;/h2&gt;
+&lt;p&gt;现在的问题是如何播放音频以及播放指定位置的音频&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;播放音频可以使用 &lt;code&gt;html5 audio&lt;/code&gt; 或者复杂的 &lt;code&gt;web audio&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;指定 &lt;code&gt;audio.currentTime&lt;/code&gt; 可以实现音频的偏移&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;整体思路就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个音频文件创建对应的 &lt;code&gt;audio&lt;/code&gt; 元素&lt;/li&gt;
+&lt;li&gt;播放 &lt;code&gt;sprite&lt;/code&gt; 的时候，找到它的时间偏移，设置给 &lt;code&gt;audio.currentTime&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;需要注意暂停的时候，要判断暂停的 &lt;code&gt;sprite&lt;/code&gt; 是不是在播放的 &lt;code&gt;sprite&lt;/code&gt;，不然会不停触发 &lt;code&gt;audio.play()/audio.pause()&lt;/code&gt; 因为不同的 &lt;code&gt;sprite&lt;/code&gt; 共享一个 &lt;code&gt;audio&lt;/code&gt; 元素&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Source&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;playing&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;playingName&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_src&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_sprite&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; {}
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;load&lt;/span&gt;()
+  }
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;load() {&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; document.&lt;span style=&#34;color:#a6e22e&#34;&gt;createElement&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;audio&amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;
+    document.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;appendChild&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;)
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;) {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 暂停的 `sprite` 是不是在播放的 `sprite`
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playing&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playingName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playing&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playing&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+    
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 找到时间偏移
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playing&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playingName&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不过还有一个问题没解决，所有音频都需要先加载，但只靠 &lt;code&gt;audio&lt;/code&gt; 标签是没法精准做到的，因为 &lt;code&gt;audio.src&lt;/code&gt; 并不会立刻加载音频，即使加上 &lt;code&gt;preload&lt;/code&gt; 属性，也不一定保证100%加载。
+其实我们要做的只是加载这个 &lt;code&gt;mp3&lt;/code&gt; 文件，那就用普通的 &lt;code&gt;http&lt;/code&gt; 先 &lt;code&gt;download&lt;/code&gt; 下来，借助于浏览器的缓存 &lt;code&gt;audio.play()&lt;/code&gt; 的时候，会从缓存中获取。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;loadAudioFile() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;XMLHttpRequest&lt;/span&gt;()
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;open&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;GET&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;responseType&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;arraybuffer&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;onload&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {}
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;send&lt;/span&gt;()
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;sound-pool&#34;&gt;Sound Pool&lt;/h2&gt;
+&lt;p&gt;看起来挺简单的，这是因为每个 &lt;code&gt;sprite&lt;/code&gt; 是按照顺序播放，不会有时间重叠的问题，一个音频文件对应一个 &lt;code&gt;audio&lt;/code&gt; 元素即可满足。但如果随机随时播放，就会存一个音频文件中不同 &lt;code&gt;sprites&lt;/code&gt; 同时播放的情况，这就不止有一个 &lt;code&gt;audio&lt;/code&gt; 元素。&lt;/p&gt;
+&lt;p&gt;这样，每播放一个 &lt;code&gt;sprite&lt;/code&gt; 都要创建一个 &lt;code&gt;audio&lt;/code&gt; 而且在播放完成之后，还要手动移除它，不然页面会有很多 &lt;code&gt;audio&lt;/code&gt; 元素，内存会很容易被占满。仔细观察，就会发现，反复创建移除是没必要的，相反，可以维护一个 &lt;code&gt;object pool&lt;/code&gt;，每次生成之前都去 &lt;code&gt;pool&lt;/code&gt; 里看看有没有空闲的，如果没有才去生成新的。&lt;/p&gt;
+&lt;p&gt;那问题是谁去维护这么一个 &lt;code&gt;pool&lt;/code&gt;，自然是每个音频源 &lt;code&gt;class source&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Source&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;_pool&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Sound&lt;/span&gt;[]
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sound&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;findAvailableSound&lt;/span&gt;()
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 找到时间偏移
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;sound&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;playAt&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sprite&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)
+  }
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;findAvailableSound() {&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sound&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_pool&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;find&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ended&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;paused&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;sound&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sound&lt;/span&gt;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Sound&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+  }
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Sound&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;paused&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ended&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;startTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;endTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;duration&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;parent&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Source&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; document.&lt;span style=&#34;color:#a6e22e&#34;&gt;createElement&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;audio&amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;parent&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_src&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;load&lt;/span&gt;()
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ended&amp;#39;&lt;/span&gt;, () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ended&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    })
+    
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;parent&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_pool&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;)
+  }
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;playAt&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到和第一版 &lt;code&gt;class Source&lt;/code&gt; 相比，播放的功能由 &lt;code&gt;class Sound&lt;/code&gt; 承载，当想要播放某个 &lt;code&gt;sprite&lt;/code&gt;，就去 &lt;code&gt;_pool&lt;/code&gt; 里查看一下是否有可用，可用的判断条件是没有声音，即 &lt;code&gt;paused&lt;/code&gt; 或者 &lt;code&gt;ended&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;不过当你运行上面的会发现，声音从 &lt;code&gt;sprite.startTime&lt;/code&gt; 开始播放到整个音频结束，这是因为我们没有判断什么时候该终止这个 &lt;code&gt;sprite&lt;/code&gt; 的播放。有几种方法解决&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置定时器&lt;/li&gt;
+&lt;li&gt;在 &lt;code&gt;progress&lt;/code&gt; 判断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Sound&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;parent&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Source&lt;/span&gt;) {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// method 2
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;progress&amp;#39;&lt;/span&gt;, () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;endTime&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;()
+      }
+    })
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;playAt&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;currentTime&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;play&lt;/span&gt;()
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 设置定时器
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;setTimeout&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;audioNode&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;()
+    }, &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;duration&lt;/span&gt;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;除了 &lt;code&gt;html5 audio&lt;/code&gt; 之外，还可以用 &lt;code&gt;web audio&lt;/code&gt; 实现一样的功能，后者功能更为强大，具体实现可以参考 &lt;a href=&#34;https://github.com/goldfire/howler.js/tree/master&#34;&gt;Howler.js - Github&lt;/a&gt;，上文提到到 &lt;code&gt;sound pool&lt;/code&gt; 就是出自 &lt;code&gt;Howler&lt;/code&gt;，源码还有很多地方值得学习的。&lt;/p&gt;
+&lt;h2 id=&#34;refer&#34;&gt;Refer&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/goldfire/howler.js/tree/master&#34;&gt;Howler.js - Github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
       
     </item>
     
@@ -1045,17 +1261,6 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
 &lt;li&gt;&lt;a href=&#34;https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c&#34;&gt;observer vs pub-sub pattern&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      
-    </item>
-    
-    <item>
-      <title>Micro Frontend</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/mfe/</link>
-      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/mfe/</guid>
-      
-        <description></description>
       
     </item>
     
@@ -2782,6 +2987,466 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
 &lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/sendBeacon&#34;&gt;sendBeacon&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://mrluo.life/article/detail/149/send-blob-via-sendbeacon&#34;&gt;当 sendBeacon 遇上 Blob
 &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Axios</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/axios/</link>
+      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
+      
+        <description>&lt;h2 id=&#34;mime&#34;&gt;MIME&lt;/h2&gt;
+&lt;p&gt;即 &lt;code&gt;media type&lt;/code&gt;，表示资源的类型，格式为&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type/subtype
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;常见类型的有 &lt;code&gt;text/plain, text/html, text/javascript, image/png...&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;MIME&lt;/code&gt; 分为两类，&lt;code&gt;discrete&lt;/code&gt; 和 &lt;code&gt;multipart&lt;/code&gt;，顾名思义，前者就是完整的一份资源，后者表示多个类型资源组合在一起，比如邮件中的多个附件。对于前端来说，最常见的 &lt;code&gt;multipart&lt;/code&gt; 是 &lt;code&gt;multipart/form-data&lt;/code&gt;，用在 &lt;code&gt;POST&lt;/code&gt; 中。&lt;/p&gt;
+&lt;p&gt;介绍这个有什么用？？因为 HTTP 是无状态的，不关心数据的格式，在它眼中都是二进制数据流。但是对业务来说，我们只需要知道收发数据的格式才能正确的处理数据。&lt;/p&gt;
+&lt;h2 id=&#34;content-type&#34;&gt;Content-Type&lt;/h2&gt;
+&lt;p&gt;在 HTTP 中，我们通过 &lt;code&gt;Content-Type&lt;/code&gt; 指定资源的类型，即 &lt;code&gt;MIME&lt;/code&gt;。格式为&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Content-Type: media-type; charset?; boundary?
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对于前端来说，常见的不外乎以下3种&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aplication/json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;multipart/form-data&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;从 &lt;code&gt;postman&lt;/code&gt; 中也能看出&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ixiaopan.github.io/blog/blog/post/images/axios-postman.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;具体看一下这几个类型的区别&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt; 会被 &lt;code&gt;url-encode&lt;/code&gt; 通过 &lt;code&gt;key=val&amp;amp;key1=val2&lt;/code&gt; 拼接起来，所以不适合二进制数据，比如上传文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;POST&lt;/span&gt; /test &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.1&lt;/span&gt;
+Host&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;foo.example&lt;/span&gt;
+Content-Type&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;application/x-www-form-urlencoded&lt;/span&gt;
+Content-Length&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;27&lt;/span&gt;
+
+field1=value1&amp;amp;field2=value2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;multipart/form-data&lt;/code&gt; 通过 &lt;code&gt;boundary&lt;/code&gt; 发送多个数据片段，每个片段中资源的类型通过 &lt;code&gt;Content-Disposition&lt;/code&gt; 指定&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;POST&lt;/span&gt; /test &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.1&lt;/span&gt;
+Host&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;foo.example&lt;/span&gt;
+Content-Type&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;multipart/form-data;boundary=&amp;#34;boundary&amp;#34;&lt;/span&gt;
+
+--boundary
+Content-Disposition: form-data; name=&amp;#34;field1&amp;#34;
+
+value1
+--boundary
+Content-Disposition: form-data; name=&amp;#34;field2&amp;#34;; filename=&amp;#34;example.txt&amp;#34;
+
+value2
+--boundary--
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;content-disposition&#34;&gt;Content-Disposition&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Content-Disposition&lt;/code&gt; 主要有2中用法&lt;/p&gt;
+&lt;h3 id=&#34;消息主体的标头&#34;&gt;消息主体的标头&lt;/h3&gt;
+&lt;p&gt;这种场景下，第一个参数要么是 &lt;code&gt;inline&lt;/code&gt; 表示以页面的一部分或者整个页面显示要么是 &lt;code&gt;attachement&lt;/code&gt; 表示资源需要被下载到本地，可选 &lt;code&gt;filename&lt;/code&gt; 被用作 『保存为』对话框中呈现给用户的默认文件名&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: inline
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: attachment
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: attachment; filename=&amp;#34;filename.jpg&amp;#34;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;multipartform-data&#34;&gt;multipart/form-data&lt;/h3&gt;
+&lt;p&gt;在 &lt;code&gt;multipart/form-data&lt;/code&gt; 中，第一个指令始终是 &lt;code&gt;form-data&lt;/code&gt;，其后跟着 &lt;code&gt;name&lt;/code&gt; 表示业务的字段&lt;code&gt;key&lt;/code&gt;，可选 &lt;code&gt;filename&lt;/code&gt; 表示文件名，也可以指定额外自定义的指令，指令名不区分大小写。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: form-data; name=&amp;#34;fieldName&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: form-data; name=&amp;#34;fieldName&amp;#34;; filename=&amp;#34;filename.jpg&amp;#34;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;axios&#34;&gt;Axios&lt;/h2&gt;
+&lt;h3 id=&#34;实例化&#34;&gt;实例化&lt;/h3&gt;
+&lt;p&gt;根据官方文档，&lt;code&gt;axios&lt;/code&gt; 既可以直接使用，也可以重新创建一个实例。&lt;/p&gt;
+&lt;p&gt;直接使用的话，&lt;code&gt;axios&lt;/code&gt; 本身就能直接用，同时也有很多 &lt;code&gt;alias methods&lt;/code&gt; 比如 &lt;code&gt;get/post&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;()
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;()
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;()
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;按这个逻辑去实现源码的话，大致是下面这样&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// seg1
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt;) {}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get&amp;#39;&lt;/span&gt; }) }
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;post&amp;#39;&lt;/span&gt; }) }
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// seg2
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;看似能用，但总觉得怪怪的&lt;/p&gt;
+&lt;p&gt;1、后续扩展 &lt;code&gt;delete/put&lt;/code&gt; 等方法，&lt;code&gt;seg1&lt;/code&gt; 和 &lt;code&gt;seg2&lt;/code&gt; 都要重复再写一遍&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;...
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;post&amp;#39;&lt;/span&gt; }) }
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create() {&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、无法创建新的实例对象，即使再次调用 &lt;code&gt;create()&lt;/code&gt; 也是指向同一个 &lt;code&gt;request()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3、&lt;code&gt;request()&lt;/code&gt; 本身扩展性不够灵活，缺少独立的上下文信息，就目前的设计，上下文信息是 &lt;code&gt;global&lt;/code&gt; 级别的，无法扩展&lt;/p&gt;
+&lt;p&gt;针对以上问题，有以下改进方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;改为面向对象的模式，把 &lt;code&gt;request&lt;/code&gt; 抽象为一个类&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get/post/...&lt;/code&gt; 通过 &lt;code&gt;forEach&lt;/code&gt; 自动扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是还有一个问题，实例化 &lt;code&gt;request&lt;/code&gt; 得到的就是一个对象，对象怎么又可以进行函数调用呢？？&lt;/p&gt;
+&lt;p&gt;这一点可以借鉴 &lt;code&gt;axios&lt;/code&gt; 的设计，原理就是通过 &lt;code&gt;bind&lt;/code&gt; 绑定函数的上下文&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createInstance&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultConfig&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Axios&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultConfig&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;);
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Copy axios.prototype to instance
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;utils&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;extend&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;, {&lt;span style=&#34;color:#a6e22e&#34;&gt;allOwnKeys&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;});
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Copy context to instance
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;utils&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;extend&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;, {&lt;span style=&#34;color:#a6e22e&#34;&gt;allOwnKeys&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;});
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Factory for creating new instances
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;instanceConfig&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createInstance&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;mergeConfig&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;defaultConfig&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;instanceConfig&lt;/span&gt;));
+  };
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;根据他这个原理，我们可以写个自己的 &lt;code&gt;demo&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Animal&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cate&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;animal&amp;#39;&lt;/span&gt;
+  }
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;action&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;action:&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;);
+  }
+}
+
+[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;eat&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;stand&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sleep&amp;#39;&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;Animal&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; () {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;action&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;)
+  }
+})
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createInstance() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;animal&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Animal&lt;/span&gt;()
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Animal&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;action&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bind&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;animal&lt;/span&gt;);
+  [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;eat&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;stand&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sleep&amp;#39;&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Animal&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;bind&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;animal&lt;/span&gt;)
+  })
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;instance&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;创建一个新的实例，也就显而易见了 &lt;code&gt;axios.create(config)&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;interceptor&#34;&gt;interceptor&lt;/h3&gt;
+&lt;p&gt;拦截器算是 &lt;code&gt;axios&lt;/code&gt; 的核心逻辑了，分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;requestInterceptor&lt;/code&gt;，发起请求前执行，比如自定义 &lt;code&gt;headers&lt;/code&gt;，打印相关入参&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;responseInterceptor&lt;/code&gt;，请求结束后执行，比如打印结果，计算接口耗时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;他这个模式其实就是串行的一系列函数（本质是一个数组），串起了请求开始、发起请求、响应结束这3个阶段&lt;/p&gt;
+&lt;p&gt;看这个使用方式就不难猜底层是怎么实现&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;fn&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;fn&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;底层是有个 &lt;code&gt;interceptorManager&lt;/code&gt; 维护一个函数数组，支持 &lt;code&gt;push/pop/remove/clear&lt;/code&gt; 等方法，初始化 &lt;code&gt;axios&lt;/code&gt; 的时候实例化2个 &lt;code&gt;manager&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;InterceptorManager&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [];
+  }
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolved&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;rejected&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;({
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;fulfilled&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;rejected&lt;/span&gt;,
+    });
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 返回当前索引，作为 id
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;]) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+    }
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;clear() {&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [];
+    }
+  }
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;fn&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;handlers&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;h&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;h&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fn&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;h&lt;/span&gt;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但是 &lt;code&gt;axios&lt;/code&gt; 拦截器顺序有点奇怪&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;requestInterceptor&lt;/code&gt; 是倒序，先注册后执行，后注册先执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;responseInterceptor&lt;/code&gt; 是正序，先注册的先执行，后注册后执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;从源码可见确实如此，不是很明白倒序的原因&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unshiftRequestInterceptors&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;unshift&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;fulfilled&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rejected&lt;/span&gt;);
+});
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;responseInterceptorChain&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [];
+&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pushResponseInterceptors&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;responseInterceptorChain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;fulfilled&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rejected&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;runwhen&#34;&gt;runWhen&lt;/h4&gt;
+&lt;p&gt;此外，请求拦截器本身自带2个属性 &lt;code&gt;runWhen&lt;/code&gt; 和 &lt;code&gt;synchronous&lt;/code&gt;，但是业务不怎么使用到。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;runWhen&lt;/code&gt; 顾名思义就是满足指定条件才执行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unshiftRequestInterceptors&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;runWhen&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;function&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;runWhen&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;举个例子&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; { &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cfg&lt;/span&gt; }, &lt;span style=&#34;color:#66d9ef&#34;&gt;undefined&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;runWhen&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;){
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;post&amp;#39;&lt;/span&gt;
+  } 
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;synchronous&#34;&gt;synchronous&lt;/h4&gt;
+&lt;p&gt;注册 interceptor 的时候，如果不指定该参数，默认是 &lt;code&gt;false&lt;/code&gt;；如果指定，必须每个 &lt;code&gt;interceptor&lt;/code&gt; 都要设置为 &lt;code&gt;true&lt;/code&gt;。那么，二者的区别在哪里？&lt;/p&gt;
+&lt;p&gt;1、false&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;axios&lt;/code&gt; 会生成一个 &lt;code&gt;promise&lt;/code&gt; 链&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;dispatchRequest&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bind&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;undefined&lt;/span&gt;];
+&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;unshift&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;apply&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;apply&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;responseInterceptorChain&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;], &lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;]);
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;每个 &lt;code&gt;interceptor&lt;/code&gt; 都会顺序执行到，如果在这条链中出现异常，会被下一个 &lt;code&gt;promise.catch()&lt;/code&gt; 捕获&lt;/p&gt;
+&lt;p&gt;2、true&lt;/p&gt;
+&lt;p&gt;相反，同步模式下，只要出现异常，就会 &lt;code&gt;break&lt;/code&gt; 跳转到 &lt;code&gt;disaptchRequest()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newConfig&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onFulfilled&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;];
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onRejected&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;requestInterceptorChain&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;];
+  
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;newConfig&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onFulfilled&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;newConfig&lt;/span&gt;);
+  } &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;) {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 跳出循环
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;onRejected&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;call&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+  }
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dispatchRequest&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;call&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;newConfig&lt;/span&gt;);
+} &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;adapter&#34;&gt;Adapter&lt;/h3&gt;
+&lt;p&gt;因为 &lt;code&gt;axios&lt;/code&gt; 同时支持在 &lt;code&gt;brower&lt;/code&gt; 和 &lt;code&gt;node&lt;/code&gt;，但是这两个端依赖的技术是不一样的（浏览器用的 &lt;code&gt;xhr&lt;/code&gt;, &lt;code&gt;node&lt;/code&gt; 端使用 &lt;code&gt;http&lt;/code&gt; 模块），所以需要判断当前环境到底支持哪种能力，在 &lt;code&gt;axios&lt;/code&gt; 中这种能力被抽象为 &lt;code&gt;adapter&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;不过相较于检测环境是否是浏览器、node端，更灵活的方式是检测特性&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// xhr.js
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;undefined&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;) {
+}
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// node
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;undefined&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;) {
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xhr&#34;&gt;XHR&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;axios&lt;/code&gt; 其实就是根据 &lt;code&gt;config&lt;/code&gt; 调用 &lt;code&gt;xhr&lt;/code&gt; 不同的 &lt;code&gt;api&lt;/code&gt; 而已&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;) {
+ &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;requestData&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;;
+   
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;XMLHttpRequest&lt;/span&gt;()
+   
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;open&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toUpperCase&lt;/span&gt;(), &lt;span style=&#34;color:#a6e22e&#34;&gt;buildURL&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;fullPath&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;paramsSerializer&lt;/span&gt;), &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+   
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;timeout&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;timeout&lt;/span&gt;
+   
+   &lt;span style=&#34;color:#75715e&#34;&gt;// 事件监听
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;// 消息体封装
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;onloadend&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {      
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;settle&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_resolve&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;);
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt;();
+      }, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;);
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt;();
+      }, {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;responseData&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;request.status&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;statusText&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;request.statusText&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;responseHeaders&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;
+      });
+
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+   }
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;onabort&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;aborted&amp;#39;&lt;/span&gt;))
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+   }
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;onerror&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Network Error&amp;#39;&lt;/span&gt;))
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+   }
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ontimeout&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;timeout&amp;#39;&lt;/span&gt;))
+     &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+   }
+   
+   &lt;span style=&#34;color:#75715e&#34;&gt;//
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setRequestHeaders&lt;/span&gt;()
+
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;send&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;requestData&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)   
+ ))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;http&#34;&gt;HTTP&lt;/h4&gt;
+&lt;h3 id=&#34;取消请求&#34;&gt;取消请求&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;xhr.abort()&lt;/code&gt; 可以终止请求，问题是需要业务提供终止的时机。 对此，有2种方式解决，一种是 &lt;code&gt;AbortController&lt;/code&gt;，一种是 &lt;code&gt;axios&lt;/code&gt; 自己实现的 &lt;code&gt;CancelToken&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abortcontroller&#34;&gt;AbortController&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;controller&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;AbortController&lt;/span&gt;();
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/foo/bar&amp;#39;&lt;/span&gt;, {
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;controller.signal&lt;/span&gt;
+}).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;) {
+   &lt;span style=&#34;color:#75715e&#34;&gt;//...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// cancel the request
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;controller&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;abort&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;从上面的代码，可以看出 &lt;code&gt;axios&lt;/code&gt; 内部必定监听了 &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/abort_event&#34;&gt;abort event&lt;/a&gt; 然后在 &lt;code&gt;callback&lt;/code&gt; 里调用了 &lt;code&gt;xhr.abort&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;看源码确实如此&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;onCanceled&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+    }
+    
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;()
+    
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;abort&lt;/span&gt;()
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  };
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aborted&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onCanceled&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;abort&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;onCanceled&lt;/span&gt;);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;canceltoken&#34;&gt;CancelToken&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;CancelToken&lt;/code&gt; 本质是 &lt;code&gt;axios&lt;/code&gt; 自己实现的类似  &lt;code&gt;AbortController&lt;/code&gt; 的一个类。&lt;/p&gt;
+&lt;h5 id=&#34;executor&#34;&gt;executor&lt;/h5&gt;
+&lt;p&gt;当初始化一个 &lt;code&gt;CancelToken&lt;/code&gt; 本质是初始化一个等待 &lt;code&gt;fullfilled&lt;/code&gt; 的 &lt;code&gt;promise&lt;/code&gt;，同时给业务提供 &lt;code&gt;fullfilled&lt;/code&gt; 的方法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CancelToken&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;constructor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;executor&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_listeners&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolvePromise&lt;/span&gt;;
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 等待 fullfilled
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promiseExecutor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;resolvePromise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;;
+    });
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 一旦 fullfilled
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_listeners&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_listeners&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;;
+
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_listeners&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;](&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;);
+      }
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_listeners&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+    });
+   }
+   
+   &lt;span style=&#34;color:#75715e&#34;&gt;// 暴露 fulfilled 的方法
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;executor&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolvePromise&lt;/span&gt;())
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这段代码的模式出现在很多开源框架中，其实就2点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;框架内部初始化一个等待 &lt;code&gt;fulfilled&lt;/code&gt; 的 &lt;code&gt;promise&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;业务通过 &lt;code&gt;executor&lt;/code&gt; 闭包框架内部的 &lt;code&gt;cancel&lt;/code&gt; 方法，而这个方式就是用来 fulfill promise的&lt;/li&gt;
+&lt;li&gt;采用发布订阅模式，在需要 &lt;code&gt;cancel&lt;/code&gt; 的时候，注册对应事件即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;axios&lt;/code&gt; 本身也提供了静态方法，方便业务不传  &lt;code&gt;executor&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source() {&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CancelToken&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;executor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;) {
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;;
+  });
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;
+  };
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;订阅&#34;&gt;订阅&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;signal&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;onCanceled&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;();
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;abort&lt;/span&gt;();
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;xhr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+  };
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;onCanceled&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;覆盖-promisethen&#34;&gt;覆盖 promise.then&lt;/h5&gt;
+&lt;p&gt;查看 &lt;code&gt;axios&lt;/code&gt; 的源码，可以看到 &lt;code&gt;CancelToken&lt;/code&gt; 内改写了 &lt;code&gt;promise.then&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onfulfilled&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_resolve&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;);
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;_resolve&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;;
+  }).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;onfulfilled&lt;/span&gt;);
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reject() {&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;unsubscribe&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;_resolve&lt;/span&gt;);
+  };
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;原因不明，我感觉应该是个语法糖，方便业务自定义自己的订阅事件。设想如果业务自己想订阅一下 &lt;code&gt;cancel&lt;/code&gt; 也是这样的写法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;callback&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {}
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;callback&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;unsubscribe&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;callback&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果有多个事件岂不是很麻烦，要定义多个 &lt;code&gt;callback&lt;/code&gt; 注册、取消注册，不符合 &lt;code&gt;axios cancel&lt;/code&gt;的思想，如果用改写的 &lt;code&gt;promise.then&lt;/code&gt; 就优雅很多&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;cancelB&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;cancel me 2&amp;#39;&lt;/span&gt;)
+})
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// 回调的时候，先执行，因为是订阅事件的调用是倒序的
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;cancelA&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;cancel me 1&amp;#39;&lt;/span&gt;)
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;针对此改写，我们可以写个 &lt;code&gt;demo&lt;/code&gt;，体验一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;CancelToken&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;()
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt;.&lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;xxx&amp;#39;&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;cancelToken&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;source.token&lt;/span&gt;
+})
+&lt;span style=&#34;color:#a6e22e&#34;&gt;setTimeout&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;()
+}, &lt;span style=&#34;color:#ae81ff&#34;&gt;4000&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;token&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;controller promise done&amp;#39;&lt;/span&gt;)
+})
+&lt;span style=&#34;color:#a6e22e&#34;&gt;setTimeout&lt;/span&gt;(() &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;()
+}, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types&#34;&gt;MIME - MDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type&#34;&gt;Content-Type - MDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST&#34;&gt;POST - MDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams&#34;&gt;URLSearchParams - MDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/API/FormData&#34;&gt;FormData - MDN&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       
