@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/pattern/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,12 +70,12 @@
 <meta property="og:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/pattern/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-01-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-01-15T00:00:00+00:00" />
+<meta property="article:published_time" content="2024-01-15T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-01-15T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="《Game Programming Patterns》">
-<meta itemprop="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"><meta itemprop="datePublished" content="2024-01-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-01-15T00:00:00+00:00" />
+<meta itemprop="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"><meta itemprop="datePublished" content="2024-01-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-01-15T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="4897">
 <meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="《Game Programming Patterns》"/>
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -355,7 +352,7 @@
 </blockquote>
 <p>既然是观察者模式，那就有被观察的对象和观察者，2个主体</p>
 <h4 id="subjectobserver">Subject/Observer</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span> {
   <span style="color:#a6e22e">onNotify</span>(<span style="color:#a6e22e">sbj</span>, <span style="color:#a6e22e">eventName</span>) {}
 }
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
@@ -370,7 +367,7 @@
 <p>1、内部维护了一个数组 <code>observerList</code>，表示对 <code>subject</code> 发生变化感兴趣的对象即 <code>observer</code>；同时支持外部代码添加、删除 <code>observer</code></p>
 <p>2、一旦 <code>subject</code> 发生变化，就要发送通知 <code>subject.notify()</code></p>
 <p>这个模式在前端领域更习惯用 <code>EventEmitter</code>，举个图片编辑器的例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageObject</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">EventEmitter</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageObject</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">EventEmitter</span> {
   <span style="color:#a6e22e">render() {</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;object:rendered&#39;</span>)
   }
@@ -388,7 +385,7 @@
   }
 }
 </code></pre></div><p>这个例子使用 <code>EventEmitter</code> 第三方库，不使用也是可以的，那就要自己包装一个 <code>EventEmitter</code> 比如我们对 <code>resize</code> 事件感兴趣</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResizeEvent</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResizeEvent</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> []
   <span style="color:#66d9ef">constructor</span>() {
     window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
@@ -415,7 +412,7 @@
 <li>可以跨组件、跨应用通信</li>
 </ul>
 <p>同样是对 <code>resize</code> 事件感兴趣，使用 <code>pub-sub</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">eventBus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventBus</span>()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">eventBus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventBus</span>()
 
 window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;window:resize&#39;</span>, <span style="color:#a6e22e">e</span>)
@@ -428,7 +425,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>Ensure a class has one instance, and provide a global point of access to it.</p>
 </blockquote>
 <p>经典的模式，下面的代码大家或多或少都见过</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResourceManager</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResourceManager</span> {
   <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">_instance</span>
 
   <span style="color:#66d9ef">constructor</span>() {
@@ -450,7 +447,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 </ul>
 <p>或许下次在考虑单例模式的时候，可以思考一下如何 <code>limit access scope</code></p>
 <p>1、从 <code>base class</code> 获取</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
   <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">msg</span>) {}
 }
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TextLayer</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Layer</span> {
@@ -460,7 +457,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 }
 </code></pre></div><p>2、从已存在的全局对象获取</p>
 <p>就拿 <code>AudioManager</code> 来说，可以挂在 <code>Editor/Game</code> 下面，毕竟全局只有一个游戏或者编辑器存在</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
   <span style="color:#66d9ef">constructor</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioManager</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AudioManager</span>()
   }
@@ -489,7 +486,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>有限状态机 <code>finite state machine</code> 之前在 <a href="/blog/post/fe/infras-basement-2/">迭代管理&amp;发布平台 02</a> 就有所提及，本质上部署流水线就是一个状态机模型，那什么是 <code>FSM</code>？我们以书中的例子来看</p>
 <p><img src="/blog/post/images/fsm.png" alt="" title="Game Programming Pattern"></p>
 <p>如图所示有4个状态 <code>standing, jumping, ducking and diving</code>，各状态之间的转换通过用户的输入控制 <code>pressB/pressDown/releaseDown</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> {
   <span style="color:#a6e22e">STANDING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;standing&#39;</span>,
   <span style="color:#a6e22e">JUMPING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jumping&#39;</span>,
   <span style="color:#a6e22e">DUCKING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ducking&#39;</span>,
@@ -522,7 +519,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><p>显然这是我们第一时间想到的写法，实际上我就是这样实现部署流水线的，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start() {</span>
   <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
     <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">step</span>) {
@@ -541,7 +538,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><p>目前看这样写是没问题，但如果我们想加点东西，比如在按下 <code>down</code> 的时候，让游戏角色可以积蓄力量发动某种能力</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chargeTime</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chargeTime</span>
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleInput() {</span>
   <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">state</span>) {
     <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.STANDING</span>:
@@ -565,7 +562,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 }
 </code></pre></div><p>可以看到，我们要修改2个地方才能实现这个简单功能，而且还要额外维护一个变量 <code>chargeTime</code>，然而这个变量除了和 <code>ducking</code> 有关系外，别的地方都不会用到，显然问题原因在于<strong>状态自身逻辑和外部的业务逻辑耦合</strong>。</p>
 <p>既如此，那就让每个状态维护自己的逻辑好了，也就是把 <code>switch/case</code> 的逻辑放在对应的状态类 <code>state class</code> 中，比如 <code>ducking state</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseState</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseState</span> {
   <span style="color:#a6e22e">handleInput() {</span>}
   <span style="color:#a6e22e">update() {</span>}
 }
@@ -591,7 +588,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 }
 </code></pre></div><p>Q：每个 <code>state</code> 处理自己的业务逻辑，<code>state transition</code> 怎么触发呢，也就是如何实现 <code>switch/case</code> 的功能？</p>
 <p>A：代理给 <code>game</code>，既然同一时间只能有一个状态，那就给全局唯一的游戏实例 <code>game</code> 加个指针指向当前的 <code>state instance</code>，在 <code>handleInput</code> 中实现 <code>state transition</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
   <span style="color:#a6e22e">state</span>
   <span style="color:#a6e22e">handleInput() {</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>() <span style="color:#75715e">// trigger state transition
@@ -607,7 +604,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 }
 </code></pre></div><p>Q：<code>state instance</code> 从哪里来</p>
 <p>A：可以考虑全局就这4个状态</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GlobalState</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GlobalState</span> {
   <span style="color:#a6e22e">ducking</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DuckingState</span>(),
   <span style="color:#a6e22e">standing</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>(),
 }
@@ -626,7 +623,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><p>A：或者每次 <code>state transition</code> 生成一个新 <code>state</code>，注意这里，我们仅仅是返回了新的 <code>state</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
   <span style="color:#a6e22e">handleInput() {</span>
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
       <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
@@ -657,7 +654,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>The goal of the State pattern is to encapsulate all of the behavior and data for one state in a single class.</p>
 </blockquote>
 <p>解决方法也很简单，提供 <code>state transition</code> 的 <code>hooks</code> 如 <code>enter/leave</code> 等，这样就能实现新state的初始化，以及旧state的 <code>clean up</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
   <span style="color:#a6e22e">enter() {</span>
     <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
   }
@@ -704,7 +701,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <li>不同图层类型也有自己特殊的属性，比如图片层有图片url、宽高等；文本图层需要维护文本属性 <code>fontColor/fontSize/...</code> 等</li>
 </ul>
 <p>显然，要设计一个基类 <code>Layer</code> 共享共有的属性，子类集成父类实现定制化</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
   <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
   <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
   <span style="color:#a6e22e">duration</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
@@ -727,7 +724,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <li>船能否通过</li>
 </ul>
 <p>开始编码阶段，图方便一般是把地形放在 <code>game</code> 全局实例中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">tiles</span> <span style="color:#f92672">=</span> [
     [<span style="color:#a6e22e">GRASS</span>, <span style="color:#a6e22e">HILL</span>],
     [<span style="color:#a6e22e">HILL</span>, <span style="color:#a6e22e">RIVER</span>],
@@ -746,14 +743,14 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><p>问题也很明显，<code>movecost/wetness</code> 都是地形的元属性，现在和业务代码耦合在一起，需要独立出来</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Terrain</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Terrain</span> {
   <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">moveCost</span>, <span style="color:#a6e22e">water</span>) {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">moveCost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">moveCost</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">water</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">water</span>
   }
 }
 </code></pre></div><p>不同于保存地形的类型，现在是保存每个地形的实例</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">grass</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">grass</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hill</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">false</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">river</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
 
@@ -772,7 +769,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>A command is a reusable object that represents a thing that can be done.</p>
 </blockquote>
 <p>这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 <code>Command</code> 是什么。很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 <code>up/down/left/right</code> 控制方向，有些人喜欢用 <code>wasd</code>。用代码实现</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">keyCode</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">keyCode</span>) {
   <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">keyCode</span>) {
     <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.UP</span>:
     <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.W</span>:
@@ -786,14 +783,14 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 }
 </code></pre></div><p>很明显，这段代码中 <code>keyCode</code> 和要执行的动作 <code>jump/duck/...</code> 太耦合，无法支持用户自定义快捷命令。解决方法也很显而易见，那就是把 <code>keyCode</code> 和执行动作拆开</p>
 <p>1、每个动作负责自己的行为</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
   <span style="color:#a6e22e">execute() {</span>}
 }
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JumpCommand</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Command</span> {
   <span style="color:#a6e22e">execute() {</span> <span style="color:#a6e22e">jump</span>() }
 }
 </code></pre></div><p>2、绑定 <code>keyCode</code> 和动作</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputHandler</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputHandler</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> {}
   <span style="color:#75715e">// 自定义快捷命令
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">customCommand</span>(<span style="color:#a6e22e">keyCode</span>, <span style="color:#a6e22e">cmd</span>) {
@@ -813,7 +810,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>Commands can be specific. They represent a thing that can be done at a specific point in time.</p>
 </blockquote>
 <p><code>Command</code> 模式的精华在于，它可以很简单的实现 <code>undo/redo</code>。棋牌游戏、编辑软件等都允许用户 <code>undo/redo</code>，我之前在做 <code>PSD</code> 编辑器就有这个功能，待会再细说业务中怎么使用的，我们先看看 <code>undo</code> 是怎么实现的</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MoveCommand</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MoveCommand</span> {
   <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">entity</span>, <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">entity</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>
@@ -841,7 +838,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <li><code>undo</code> 后执行新操作，则是废弃当前指针后的所有命令，把新命令加入到列表</li>
 <li>另外，列表不可能无限大，一般我们 <code>undo</code> 20次就不能再撤销了，所以还需要配置一个可撤销最大次数</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RecordList</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RecordList</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_list</span>: <span style="color:#66d9ef">Command</span>[] <span style="color:#f92672">=</span> []
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_index</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 
@@ -881,7 +878,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
   }
 }
 </code></pre></div><p>以图片编辑器为例，每次修改图层的位置、文字颜色、文字大小等都要存入历史记录</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_oldV</span>
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_newV</span>
 
@@ -957,7 +954,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <p>A set of primary data changes over time. A set of derived data is determined from this using some expensive process. A “dirty” flag tracks when the derived data is out of sync with the primary data. It is set when the primary data changes. If the flag is set when the derived data is needed, then it is reprocessed and the flag is cleared. Otherwise, the previous cached derived data is used</p>
 </blockquote>
 <p>用 <code>vue</code> 来解释，就是 <code>computed</code> 的功能</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">amount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalPrice</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">amount</span>)
 </code></pre></div><p>使用该模式要注意的地方</p>
@@ -995,7 +992,7 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
 <li>提供服务的人，通过 <code>service locator</code> 先注册</li>
 <li>使用服务的人，通过 <code>service locator</code> 获取服务</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app.ts
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">provide</span>(<span style="color:#e6db74">&#39;$message&#39;</span>, { <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">warn</span>, <span style="color:#a6e22e">loading</span> })
 
 <span style="color:#75715e">// download.vue
@@ -1255,13 +1252,13 @@ window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

@@ -38,7 +38,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/infras-ui/" />
@@ -59,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -71,14 +71,14 @@
 <meta property="og:description" content="In this post, we will learn how to build your own UI component library." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/infras-ui/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-06-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-06-08T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-06-08T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-06-08T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Build your own UI component library from scratch">
-<meta itemprop="description" content="In this post, we will learn how to build your own UI component library."><meta itemprop="datePublished" content="2023-06-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-06-08T00:00:00+00:00" />
+<meta itemprop="description" content="In this post, we will learn how to build your own UI component library."><meta itemprop="datePublished" content="2023-06-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-06-08T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2846">
-<meta itemprop="keywords" content="hands-on," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="基建," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Build your own UI component library from scratch"/>
 <meta name="twitter:description" content="In this post, we will learn how to build your own UI component library."/>
 
@@ -121,21 +121,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -215,9 +215,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -246,7 +243,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -257,7 +254,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -268,7 +265,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -377,35 +374,35 @@
 </code></pre>
 <h2 id="initialize-a-project">Initialize a project</h2>
 <p>First, we install the package manager <code>pnpm</code> globally.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i pnpm -g
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i pnpm -g
 </code></pre></div><p>Then we create an empty project and initialize it. In this tutorial, the project is called <code>ui-demo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir ui-demo
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir ui-demo
 cd ui-demo
 pnpm init -y
 </code></pre></div><p>Next, install <code>vue &amp; typescript</code> using <code>pnpm</code>, and then initialize the ts config file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install vue@next typescript -D 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install vue@next typescript -D 
 
 npx tsc --init
 </code></pre></div><p>Generate the <code>.npmrc</code> and <code>pnpm-workspace.yaml</code> files under the root of <code>ui-demo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch .npmrc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch .npmrc
 
 <span style="color:#75715e"># content</span>
 shamefully-hoist <span style="color:#f92672">=</span> true
 </code></pre></div><p>Since we are using <code>vue + ts</code>, a declare ts file <code>vue-shim.d.ts</code> should be included.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir typings
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir typings
 
 cd typings
 
 touch vue-shim.d.ts
 </code></pre></div><p>Then copy the following content into <code>vue-shim.d.ts</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#a6e22e">module</span> <span style="color:#e6db74">&#39;*.vue&#39;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#a6e22e">module</span> <span style="color:#e6db74">&#39;*.vue&#39;</span> {
   <span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">DefineComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
   <span style="color:#75715e">// eslint-disable-next-line @typescript-eslint/ban-types
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">DefineComponent</span><span style="color:#f92672">&lt;</span>{}, {}, <span style="color:#66d9ef">any</span><span style="color:#f92672">&gt;</span>
   <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">component</span>
 }
 </code></pre></div><p>Finally, declare the packages in pnpm config file <code>pnpm-workspace.yaml</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch pnpm-workspace.yaml
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch pnpm-workspace.yaml
 
 <span style="color:#75715e"># the content</span>
 packages:
@@ -417,7 +414,7 @@ packages:
 <p><img src="/blog/post/images/ui-demo-01.png" alt=""></p>
 <h2 id="playground">Playground</h2>
 <p>This is where you write components demos to debug components.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir play
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir play
 cd play
 
 pnpm init -y
@@ -483,7 +480,7 @@ pnpm install vite @vitejs/plugin-vue -D
 </li>
 </ul>
 <p>综上，我们确定命名规则如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// package scope
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// package scope
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">scope</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">wxp</span>
 
 <span style="color:#75715e">// package name
@@ -506,16 +503,16 @@ pnpm install vite @vitejs/plugin-vue -D
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">abbr</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">w</span>
 </code></pre></div><h3 id="包的划分">包的划分</h3>
 <p>By default, packages are stored in the folder <code>packages</code>. Of course, you can change the name. In this project, we create four packages, as shown below.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir packages
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir packages
 mkdir packages/components
 mkdir packages/themes
 mkdir packages/utils
 mkdir packages/wxp-ui
 </code></pre></div><p>Then, we initialize the first three package and add a scope for them by modifying the <code>name</code> field in the file <code>package.json</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd components <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd components <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 cd themes <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 cd utils <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
-</code></pre></div><pre tabindex="0"><code>{
+</code></pre></div><pre><code>{
   - &quot;name&quot;: &quot;components&quot;,
   + &quot;name&quot;: &quot;@wxp-ui/components&quot;,
 }
@@ -528,7 +525,7 @@ cd utils <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
   + &quot;name&quot;: &quot;@wxp-ui/utils&quot;,
 }
 </code></pre><p>The last package is a bit special. In fact, it&rsquo;s the entry file that export all components.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">components</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">type</span> { <span style="color:#a6e22e">App</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
@@ -541,7 +538,7 @@ cd utils <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 
 <span style="color:#66d9ef">export</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@wxp-ui/components&#39;</span>
 </code></pre></div><p>The <code>package.json</code> for this package is served as the final <code>package.json</code> for the published package.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;@wxp/wxp-ui&#34;</span>,
   <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1-alpha.1&#34;</span>,
   <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Vue UI Components&#34;</span>,
@@ -568,12 +565,12 @@ cd utils <span style="color:#f92672">&amp;&amp;</span> pnpm init -y
 }
 
 </code></pre></div><p>Now, install these packages at the <code>root</code> directory.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install @wxp-ui/components -w
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pnpm install @wxp-ui/components -w
 pnpm install @wxp-ui/themes -w
 pnpm install @wxp-ui/utils -w
 pnpm install @wxp/wxp-ui -w
 </code></pre></div><p>You can see that the above dependencies has been added into <code>ui-demo/package.json</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
   <span style="color:#f92672">&#34;@wxp-ui/components&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
   <span style="color:#f92672">&#34;@wxp-ui/themes&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
   <span style="color:#f92672">&#34;@wxp-ui/utils&#34;</span>: <span style="color:#e6db74">&#34;workspace:^1.0.0&#34;</span>,
@@ -581,7 +578,7 @@ pnpm install @wxp/wxp-ui -w
 }<span style="color:#960050;background-color:#1e0010">,</span>
 </code></pre></div><h2 id="components">Components</h2>
 <p>以 <code>Button</code> 为例，以下就是一个 <code>button</code> 组件需要的文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">packages</span><span style="color:#f92672">/</span><span style="color:#a6e22e">components</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">-</span> <span style="color:#a6e22e">packages</span><span style="color:#f92672">/</span><span style="color:#a6e22e">components</span>
   <span style="color:#f92672">-</span> <span style="color:#a6e22e">button</span>
     <span style="color:#f92672">-</span> <span style="color:#a6e22e">__docs__</span>
       <span style="color:#f92672">-</span> <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">md</span>
@@ -599,7 +596,7 @@ pnpm install @wxp/wxp-ui -w
 <li>export the component</li>
 <li>register the component globally</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">withInstall</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@wxp/utils/with-install&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">withInstall</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@wxp/utils/with-install&#34;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Button</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./src/button.vue&#39;</span>
 
 <span style="color:#75715e">// register
@@ -611,11 +608,11 @@ pnpm install @wxp/wxp-ui -w
 }
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">WButton</span>
 </code></pre></div><h3 id="src">src</h3>
-<pre tabindex="0"><code>src
+<pre><code>src
 - button.ts
 - button.vue
 </code></pre><p><code>ts</code> 定义 组件的 <code>props</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">ExtractPropTypes</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;vue&#34;</span> 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">ExtractPropTypes</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;vue&#34;</span> 
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buttonProps</span> <span style="color:#f92672">=</span> {
   <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> {
@@ -632,7 +629,7 @@ pnpm install @wxp/wxp-ui -w
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ButtonProps</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ExtractPropTypes</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">buttonProps</span>&gt;
 
 </code></pre></div><p><code>vue</code> 就是普通的 <code>vue sfc</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">a-button</span> <span style="color:#f92672">:type</span><span style="color:#e6db74">=&#34;type&#34;</span> <span style="color:#f92672">:size</span><span style="color:#e6db74">=&#34;size&#34;</span>&gt;
     &lt;<span style="color:#f92672">slot</span>&gt;&lt;/<span style="color:#f92672">slot</span>&gt;
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a-button&gt;</span>
@@ -663,14 +660,14 @@ pnpm install @wxp/wxp-ui -w
 </ul>
 <p>PS：这些文件无需手动编写，后续我们会有一个 <code>pnpm run create</code> 的命令，一键创建开发组件的模板</p>
 <p><code>css.ts</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/base.css&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/base.css&#39;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/w-button.css&#39;</span>
 </code></pre></div><p><code>index.ts</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/base.less&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/base.less&#39;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/button.less&#39;</span>
 </code></pre></div><h3 id="doc">doc</h3>
 <p>简单的方式，在每个组件内编写 <code>md</code>，然后在构建的时候，同步到 <code>packages/docs</code>，找个插件类似 <code>md2doc</code> 转为静态页面即可</p>
-<pre tabindex="0"><code>button
+<pre><code>button
   - __docs__
     - button.md
 </code></pre><p>这种方式也有缺点，毕竟是面向开发同学的文档</p>
@@ -686,7 +683,7 @@ pnpm install @wxp/wxp-ui -w
 <h2 id="theme">Theme</h2>
 <h3 id="组件样式">组件样式</h3>
 <p>按照约定，组件对应的样式名同组件名。可以看到，这里并没有 <code>theme/w-button.css</code> 只有源码 <code>button.less</code></p>
-<pre tabindex="0"><code>theme
+<pre><code>theme
  - src
    - button.less
    - index.less
@@ -694,7 +691,7 @@ pnpm install @wxp/wxp-ui -w
  - package.json
 </code></pre><h3 id="入口文件">入口文件</h3>
 <p>除了组件样式之外，我们发现还多了一个 <code>index.less</code>，这是入口文件，会引入所有的组件样式，这是为了后续打包 <code>dist/inde.css</code> 做准备</p>
-<pre tabindex="0"><code class="language-less" data-lang="less">// component styles, add your component style from here
+<pre><code class="language-less" data-lang="less">// component styles, add your component style from here
 @import './button.less';
 </code></pre><h2 id="build">Build</h2>
 <p>准备工作已经完成，现在就差打包构建了。我们希望支持</p>
@@ -707,7 +704,7 @@ pnpm install @wxp/wxp-ui -w
 </li>
 </ul>
 <p>换句话说，构建的产物大概是这个样子，才可以满足我们的需求</p>
-<pre tabindex="0"><code>- dist
+<pre><code>- dist
   - wxp-ui
     - dist
       - index.css // the whole css 
@@ -735,7 +732,7 @@ pnpm install @wxp/wxp-ui -w
 </ul>
 <h3 id="css">css</h3>
 <p>先看样式，这个最简单，就只有一个事情 <code>less2css</code>，所以首先安装 <code>less2css</code> 的相关插件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pnpm install gulp-less @types/gulp-less @types/sass gulp-autoprefixer @types/gulp-autoprefixer @types/gulp-clean-css gulp-clean-css -w -D
 </code></pre></div><p>观察 <code>dist/wxp-ui/theme</code> 下的目录结构，可以看到</p>
 <ul>
 <li>
@@ -748,7 +745,7 @@ pnpm install @wxp/wxp-ui -w
 <p><code>src</code> 是整个源码</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">compile</span>() {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">compile</span>() {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">src</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;./src/*.less&#39;</span>))
   .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">gulpLess</span>())
   .<span style="color:#a6e22e">pipe</span>(
@@ -786,7 +783,7 @@ pnpm install @wxp/wxp-ui -w
 <p>不管哪种方式，我们的目的都是编译高级语法的<code>ts</code> 到兼容性更好的 <code>es6</code>语法的<code>cjs/esm</code>格式，</p>
 <p>同时我还希望维持源码的目录层级，因为这个组件库后续我还会添加其他的包，比如 <code>plugins/utils</code> 等（他们可以选择作为子包单独发布，也可以集成在这个组件库里，通过 <code>import</code> 自动导入</p>
 <h4 id="step-1-确定输入文件">Step 1 确定输入文件</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">excludeFiles</span>(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">excludeFiles</span>(
   <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">glob</span>(<span style="color:#e6db74">&#39;**/*.{js,ts,vue}&#39;</span>, {
     <span style="color:#a6e22e">cwd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">packageRoot</span>, <span style="color:#75715e">// ui-demo/packages
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">absolute</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
@@ -801,7 +798,7 @@ pnpm install @wxp/wxp-ui -w
   )
 }
 </code></pre></div><p>如果是方式2，我们可以调用 <code>pnpm/findWorkspacePackages</code> 遍历每个子包，明确的指定要编译的子包</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getDistPackages</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getDistPackages</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt;
   (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">findWorkspacePackages</span>(<span style="color:#a6e22e">projectRoot</span>))
    .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">pkg</span> =&gt; ({ <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pkg</span>.<span style="color:#a6e22e">manifest</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">dir</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pkg</span>.<span style="color:#a6e22e">dir</span> }))
    .<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">pkg</span>=&gt; <span style="color:#f92672">!!</span><span style="color:#a6e22e">pkg</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!!</span><span style="color:#a6e22e">pkg</span>.<span style="color:#a6e22e">dir</span> 
@@ -810,14 +807,14 @@ pnpm install @wxp/wxp-ui -w
 </code></pre></div><h4 id="step-2-build">Step 2 build</h4>
 <p>打包可以使用 <code>esbuild/vue/commonjs</code> 等插件即可，但是有2个注意点</p>
 <p>第一，我们发现 <code>button/style/index.ts</code> 中的引入路径不对，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/base.less&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/base.less&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp-ui/theme/src/button.less&#39;</span>
 </code></pre></div><p><code>@wxp-ui/theme</code> 是 <code>pnpm workspace name</code> 的域名空间，而我们要发布到 <code>npm</code> 的组件库的域名空间是 <code>@wxp</code>，换句话说，期望的引入路径是这样的</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp/wxp-ui/theme/src/base.less&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp/wxp-ui/theme/src/base.less&#39;</span>
 <span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;@wxp/wxp-ui/theme/src/button.less&#39;</span>
 </code></pre></div><p>那为什么不是 <code>import '../../theme/src/base.less</code> 呢？？因为我们希望保持外链导入，而不是在构建 <code>js</code> 的时候，再次打包 <code>css</code>，为此还需要告诉构建工具 导入模块路径或者 <code>id</code> 包含<code>theme</code> 的都是 <code>external</code> 这样就可以保持该文件内容不变（具体实现代码见下方）</p>
 <p>为此，我们需要写个插件遍历每个文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">lessPathAlias</span>() {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">lessPathAlias</span>() {
   <span style="color:#66d9ef">return</span> {
     <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;less-path-alias-plugin&#39;</span>,
 
@@ -837,13 +834,13 @@ pnpm install @wxp/wxp-ui -w
   }
 }
 </code></pre></div><p>第2个问题是，组件依赖的第三库怎么处理，这里我偷懒了，选择让业务方主动安装，为此我在 <code>package/wxp-ui</code> 的 <code>package.json</code> 定义了 <code>peerDependencies</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;@wxp/wxp-ui&#34;</span>,
   <span style="color:#f92672">&#34;peerDependencies&#34;</span>: {
     <span style="color:#f92672">&#34;vue&#34;</span>: <span style="color:#e6db74">&#34;^3.2.20&#34;</span>
   }
 }
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">generateExternal</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">generateExternal</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
   <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">packages</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>[] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;vue&#39;</span>, <span style="color:#e6db74">&#39;wxp-ui/theme&#39;</span>, <span style="color:#e6db74">&#39;@vue&#39;</span>, ...<span style="color:#a6e22e">getPeerDependencies</span>(<span style="color:#e6db74">&#39;package/wxp-ui/package.json&#39;</span>)]
 
@@ -853,7 +850,7 @@ pnpm install @wxp/wxp-ui -w
   }
 }
 </code></pre></div><p>最后用 <code>rollup</code> 打包即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bundle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">rollup</span>({
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bundle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">rollup</span>({
   <span style="color:#a6e22e">input</span>,
   <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
     <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">lessPathAlias</span>(),
@@ -875,7 +872,7 @@ pnpm install @wxp/wxp-ui -w
 </code></pre></div><h2 id="debug">Debug</h2>
 <p>Usually, we use <code>npm link</code> to install our package globally, and then we install it in other projects. However, if you are using other versions of this package, it could cause confusion. Thus, I don&rsquo;t recommend this method.</p>
 <p>The method I used is to write some bas scripts, like this,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">build</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">pnpm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">build</span>
 
 <span style="color:#a6e22e">cp</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">R</span> <span style="color:#a6e22e">dist</span><span style="color:#f92672">/</span><span style="color:#a6e22e">wxp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ui</span> ..<span style="color:#f92672">/</span><span style="color:#a6e22e">your</span><span style="color:#f92672">-</span><span style="color:#a6e22e">project</span><span style="color:#f92672">/</span><span style="color:#a6e22e">node_modules</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">wxp</span><span style="color:#f92672">/</span>
 
@@ -889,7 +886,7 @@ pnpm install @wxp/wxp-ui -w
 <p>Of course, you can improve this script further by watching file changes and restarting server automatically.</p>
 <h2 id="cli">Cli</h2>
 <p>最后为了方便一键创建组件模板，开发了一个简单的 <code>cli</code>，其实就是提前定义好模板，嵌入用户输入的组件名即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IAction</span>  {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IAction</span>  {
   <span style="color:#a6e22e">ADD</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;add&#39;</span>
   <span style="color:#a6e22e">CREATE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;create&#39;</span>
 }
@@ -936,7 +933,7 @@ pnpm install @wxp/wxp-ui -w
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/hands-on/">hands-on</a>
+              <a href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/">基建</a>
                 
             </div>
 
@@ -1167,13 +1164,13 @@ pnpm install @wxp/wxp-ui -w
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

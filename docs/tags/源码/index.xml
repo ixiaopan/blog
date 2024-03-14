@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>源码 on xiaopan&#39;s blog</title>
+    <link>https://ixiaopan.github.io/blog/tags/%E6%BA%90%E7%A0%81/</link>
+    <description>Recent content in 源码 on xiaopan&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 10 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/%E6%BA%90%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Axios</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/axios/</link>
+      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
+      <description>MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,7 +2,6 @@
 title: "Component - Message"
 date: "2022-06-03"
 description: ""
-tags: [Component]
 categories: [
   "Frontend",
 ]

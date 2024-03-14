@@ -38,7 +38,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/infras-switch/" />
@@ -59,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -71,14 +71,14 @@
 <meta property="og:description" content="先说一下最简单的开关配置吧" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/infras-switch/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-08-07T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-08-07T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-08-07T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-08-07T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="开关配置">
-<meta itemprop="description" content="先说一下最简单的开关配置吧"><meta itemprop="datePublished" content="2023-08-07T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-08-07T00:00:00+00:00" />
+<meta itemprop="description" content="先说一下最简单的开关配置吧"><meta itemprop="datePublished" content="2023-08-07T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-08-07T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="703">
-<meta itemprop="keywords" content="hands-on," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="基建," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="开关配置"/>
 <meta name="twitter:description" content="先说一下最简单的开关配置吧"/>
 
@@ -121,21 +121,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -215,9 +215,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -246,7 +243,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -257,7 +254,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -268,7 +265,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -379,7 +376,7 @@
 <h3 id="数据">数据</h3>
 <h4 id="项目">项目</h4>
 <p>项目除了自身的必要字段(id/name/desc)之外，还保存着开关列表、配置表的 <code>url</code> 这2个重要信息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目ID
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目名
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">String</span>, <span style="color:#75715e">// 项目描述
@@ -399,7 +396,7 @@
 </li>
 </ul>
 <p>基于此可以确定一个开关的数据结构</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ISwitch</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ISwitch</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 唯一id
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 名称
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">disbaled</span>: <span style="color:#66d9ef">boolean</span> <span style="color:#75715e">// 是否被禁用
@@ -408,14 +405,14 @@
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>举几个例子，</p>
 <p>1、<code>boolean</code> 开关</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;approved&#34;</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;允许访问&#34;</span>,
   <span style="color:#e6db74">&#34;control&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;boolean&#34;</span>,
   <span style="color:#e6db74">&#34;content&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;false&#34;</span>
 }
 </code></pre></div><p>2、<code>string</code> 开关</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;videoList&#34;</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;视频列表&#34;</span>,
   <span style="color:#e6db74">&#34;control&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;string&#34;</span>,
@@ -423,7 +420,7 @@
 }
 </code></pre></div><h3 id="保存">保存</h3>
 <p>可以前端组装好数据，在前端上传到 <code>oss</code>，也可以后端组装/上传。具体上传就是调用 <code>OSS API</code>，下面的代码使用的是后端流式上传</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">putStream</span>(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">putStream</span>(
   <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">DIR_ON_OSS</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.json`</span>,
   <span style="color:#a6e22e">stringToStream</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">config</span> }))
 )
@@ -443,7 +440,7 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/hands-on/">hands-on</a>
+              <a href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/">基建</a>
                 
             </div>
 
@@ -651,13 +648,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

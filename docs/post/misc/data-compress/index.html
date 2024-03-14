@@ -39,7 +39,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/misc/data-compress/" />
@@ -60,7 +60,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -78,8 +78,8 @@ LZ编码
 在实际应用中，这几个算法也是经常结合使用的，比如 gzip。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/misc/data-compress/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-10-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-10-25T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-10-25T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-10-25T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="《数据压缩入门》">
 <meta itemprop="description" content="前几天得闲随手翻了翻 《数据压缩入门 - 豆瓣》，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法
@@ -88,8 +88,8 @@ LZ编码
 算术编码
 LZ编码
 
-在实际应用中，这几个算法也是经常结合使用的，比如 gzip。"><meta itemprop="datePublished" content="2023-10-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-10-25T00:00:00+00:00" />
+在实际应用中，这几个算法也是经常结合使用的，比如 gzip。"><meta itemprop="datePublished" content="2023-10-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-10-25T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2929">
 <meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="《数据压缩入门》"/>
@@ -140,21 +140,21 @@ LZ编码
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -234,9 +234,6 @@ LZ编码
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -265,7 +262,7 @@ LZ编码
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -276,7 +273,7 @@ LZ编码
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -287,7 +284,7 @@ LZ编码
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -510,7 +507,7 @@ $$</p>
 <ul>
 <li>因为使用了一元码，对于大数字，要经过位数很长的编码，比如1000要19个bit</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">egc</span>(<span style="color:#a6e22e">n</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">egc</span>(<span style="color:#a6e22e">n</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">log2</span>(<span style="color:#a6e22e">n</span>))
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> Math.<span style="color:#a6e22e">pow</span>(<span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">u</span>)
     
@@ -545,7 +542,7 @@ $$</p>
 </li>
 </ul>
 <p>Step 1 计算频率</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">calFreq</span>(<span style="color:#a6e22e">str</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">calFreq</span>(<span style="color:#a6e22e">str</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">freqTable</span> <span style="color:#f92672">=</span> {}
   <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">str</span>) {
     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">freqTable</span>[<span style="color:#a6e22e">s</span>]) {
@@ -558,7 +555,7 @@ $$</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">freqTable</span>
 }
 </code></pre></div><p>Step 2 Build Tree</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span> {
   <span style="color:#a6e22e">constructor</span>(<span style="color:#66d9ef">char</span>, <span style="color:#a6e22e">weight</span>) {
     <span style="color:#66d9ef">this</span>.<span style="color:#66d9ef">char</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">char</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">weight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">weight</span>
@@ -595,7 +592,7 @@ $$</p>
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// encode(nodeList[0], codings)
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>Step 3 encode</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">coding</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">coding</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>) {
     <span style="color:#a6e22e">coding</span>[<span style="color:#a6e22e">node</span>.<span style="color:#66d9ef">char</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>
     <span style="color:#66d9ef">return</span>
@@ -605,7 +602,7 @@ $$</p>
   <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">coding</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;1&#39;</span>)
 }
 </code></pre></div><p>来看个实际例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Huffman</span>(<span style="color:#e6db74">&#39;BCAADDDCCACACAC&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Huffman</span>(<span style="color:#e6db74">&#39;BCAADDDCCACACAC&#39;</span>)
 
 <span style="color:#a6e22e">A</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;11&#34;</span>
 <span style="color:#a6e22e">B</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;100&#34;</span>
@@ -984,13 +981,13 @@ $$</p>
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

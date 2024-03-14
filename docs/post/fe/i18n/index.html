@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/i18n/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,12 +70,12 @@
 <meta property="og:description" content="Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/i18n/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-11-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-11-10T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-11-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-11-10T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="i18n">
-<meta itemprop="description" content="Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是"><meta itemprop="datePublished" content="2023-11-10T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-11-10T00:00:00+00:00" />
+<meta itemprop="description" content="Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是"><meta itemprop="datePublished" content="2023-11-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-11-10T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2332">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="i18n"/>
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -351,7 +348,7 @@
 <p>前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是单独定制的。看到这个要求，就立刻能想到用 <code>monorepo</code> 管理再适合不过了。</p>
 <h2 id="项目结构">项目结构</h2>
 <p>要支持多渠道部署，也就是有多个应用入口，为了方便管理，所有应用入口都放在目录 <code>app</code> 下。比如我们有 3 个渠道 <code>A</code>，<code>B</code>，<code>C</code>，项目结构如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- project
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- project
   - pnpm-workspace.yaml
   - app
     - channelA
@@ -362,7 +359,7 @@
     - channelB
     - channelC
 </code></pre></div><p>因为 80% 的功能都是一样且 UI 布局也是基本一样，只有部分功能是独有比如登录、支付等，所以我们要抽出通用的功能和组件等，这一部分我们放在 <code>packages</code> 里，具体划分如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- project
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- project
     - pnpm-workspace.yaml
     - app
     - packages
@@ -380,7 +377,7 @@
       - store
       - utils
 </code></pre></div><p><code>api</code> 层可以放在项目级别，也可以放在 <code>packages</code>，考虑到会有公共的api，所以干脆把 <code>api</code> 也按渠道划分，通用接口则放在 <code>common</code>。举个例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// packages/api/channelA/xx.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// packages/api/channelA/xx.ts
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">request</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./inject&#39;</span>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
@@ -389,7 +386,7 @@
   },
 }
 </code></pre></div><p>可以看到，<code>api</code> 仅维护一堆接口列表，真正的 <code>request</code> 来自业务，所以才有一个 <code>inject</code>。这个 <code>inject</code> 也比较简单，在业务入口初始化一个 <code>axios</code> 实例，传进来即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app/channelA/src/main.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app/channelA/src/main.ts
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">request</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@/utils/http&#39;</span>
 
@@ -401,7 +398,7 @@
 <h2 id="locales">locales</h2>
 <h3 id="类型定义">类型定义</h3>
 <p>首先，定义2个 <code>enum</code>：渠道和语言，目前业务只支持中文和英文</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">LocaleType</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">LocaleType</span> {
   <span style="color:#a6e22e">EN_US</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;en&#39;</span>,
   <span style="color:#a6e22e">ZH</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;zh&#39;</span>
 }
@@ -414,7 +411,7 @@
 </code></pre></div><p>可见，在这个例子就有 <code>2*3=6</code> 种配置项。</p>
 <h3 id="按渠道缓存">按渠道缓存</h3>
 <p>此外，因为 <code>locale</code> 放在浏览器 <code>localStorage</code> ，不同渠道要有自己对应的 <code>key</code>，这里我们就用渠道作为 <code>key</code> 足以。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// helper.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// helper.ts
 </span><span style="color:#75715e">// 缓存
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cachedKey</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
 <span style="color:#75715e">// 注意，这里用 渠道 作为缓存的 key
@@ -453,14 +450,14 @@
 }
 </code></pre></div><h3 id="默认语言">默认语言</h3>
 <p>此外，业务还要配置该渠道的默认语言</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// helper.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// helper.ts
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">defaultLocale</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setDefaultLocale</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> (<span style="color:#a6e22e">defaultLocale</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">v</span>)
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getDefaultLocale</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">defaultLocale</span>
 </code></pre></div><h3 id="初始化语言包">初始化语言包</h3>
 <p>综上，我们就可以初始化语言了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupI18n</span>(<span style="color:#a6e22e">app</span>: <span style="color:#66d9ef">App</span>, <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">I18nOptions</span>, <span style="color:#a6e22e">cfg</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">channel</span>: <span style="color:#66d9ef">string</span> }) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupI18n</span>(<span style="color:#a6e22e">app</span>: <span style="color:#66d9ef">App</span>, <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">I18nOptions</span>, <span style="color:#a6e22e">cfg</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">channel</span>: <span style="color:#66d9ef">string</span> }) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">locale</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">channel</span>) {
     <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;both default locale and channel are required&#39;</span>)
   }
@@ -484,20 +481,20 @@
 }
 
 </code></pre></div><h3 id="组件中使用语言">组件中使用语言</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// index.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// index.ts
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useLocales</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">t</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useI18n</span>()
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
 }
 </code></pre></div><p>前面配置了 <code>legacy: false</code> 所以这里我们可以使用 <code>composition API</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span>&gt;{{<span style="color:#a6e22e">t</span>(<span style="color:#e6db74">&#39;upload&#39;</span>)}}&lt;/<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span>&gt;{{<span style="color:#a6e22e">t</span>(<span style="color:#e6db74">&#39;upload&#39;</span>)}}&lt;/<span style="color:#f92672">div</span>&gt;
 &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">setup</span>&gt;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useLocales</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@xx/locales&#39;</span>
 <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">t</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useLocales</span>()
 &lt;/<span style="color:#f92672">script</span>&gt;
 </code></pre></div><h3 id="切换语言">切换语言</h3>
 <p>前面的代码中有个陌生的函数 <code>changeLocale()</code>，用来切换语言的，具体代码是参考 <a href="https://vue-i18n.intlify.dev/guide/advanced/lazy.html">官方文档</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeLocale</span>(<span style="color:#a6e22e">locale</span>: <span style="color:#66d9ef">LocaleType</span>, <span style="color:#a6e22e">force?</span>: <span style="color:#66d9ef">boolean</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeLocale</span>(<span style="color:#a6e22e">locale</span>: <span style="color:#66d9ef">LocaleType</span>, <span style="color:#a6e22e">force?</span>: <span style="color:#66d9ef">boolean</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">force</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i18n</span>.<span style="color:#66d9ef">global</span>.<span style="color:#a6e22e">locale</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">locale</span>) {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">locale</span>
   }
@@ -546,7 +543,7 @@
 }
 </code></pre></div><h3 id="message">Message</h3>
 <p>最后，每个语言对应的 <code>json</code> 是如何组织的呢？我们知道 <code>i18n message</code> 是个对象</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">messages</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">messages</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">en</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> {
       <span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello world&#39;</span>
@@ -560,7 +557,7 @@
 }
 </code></pre></div><p>在实际开发中，如果这么写下去，这个 <code>json</code> 会很难维护。一种方法是按某种规则划分，在想办法整合为这种形式。</p>
 <p>首先，每个语言独立拆分，然后再按页面功能模块划分，如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- channelA
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- channelA
     - en
       - common.ts // 比如 okText
       - component.ts
@@ -571,7 +568,7 @@
       - sys.ts // api 接口层
 </code></pre></div><p><code>common.ts</code> 就是通用的字段，比如 <code>okText, cacelText, loadingText</code> 等</p>
 <p><code>component.ts</code> 就是业务中各组件的字段，比如</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
   <span style="color:#75715e">// 上传
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">upload</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">uploadText</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;上传图片&#39;</span>,
@@ -584,7 +581,7 @@
   },
 }
 </code></pre></div><p><code>sys.ts</code> 就是接口层了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
   <span style="color:#a6e22e">api</span><span style="color:#f92672">:</span> {
     <span style="color:#75715e">// 通用兜底
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">timeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;网络超时，请稍后重试&#39;</span>,
@@ -601,7 +598,7 @@
     [<span style="color:#a6e22e">BizCodeEnum</span>.<span style="color:#a6e22e">EMPTY_EMAIL</span>]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;邮箱名称不能为空&#39;</span>,
   },
 </code></pre></div><p>现在信息都被模块掉了，剩下的就是怎么组装了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">modules</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">import</span>.<span style="color:#a6e22e">meta</span>.<span style="color:#a6e22e">glob</span>(<span style="color:#e6db74">&#39;./en/**/*.ts&#39;</span>, { <span style="color:#a6e22e">eager</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> })
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">modules</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">import</span>.<span style="color:#a6e22e">meta</span>.<span style="color:#a6e22e">glob</span>(<span style="color:#e6db74">&#39;./en/**/*.ts&#39;</span>, { <span style="color:#a6e22e">eager</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> })
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
   <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> {
@@ -609,7 +606,7 @@
   }
 }
 </code></pre></div><p>重点是 <code>genMessage()</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">genMessage</span>(<span style="color:#a6e22e">langs</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Record</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">Record</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;&gt;</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;lang&#39;</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">genMessage</span>(<span style="color:#a6e22e">langs</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Record</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">Record</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;&gt;</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;lang&#39;</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> <span style="color:#f92672">=</span> {}
 
   <span style="color:#75715e">// ./en/common.ts
@@ -637,7 +634,7 @@
 }
 </code></pre></div><h2 id="组件库的国际化">组件库的国际化</h2>
 <p>一般我们用 <code>antd-design-vue</code> 的都会用 <code>ConfigProvider</code>，这个组件是用来给所有的 <code>vue components</code> 提供配置项，这其中就包括了国际化的配置</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">a</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">config</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">provider</span> <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">locale</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enUS&#34;</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">a</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">config</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">provider</span> <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">locale</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enUS&#34;</span>&gt;
   &lt;<span style="color:#f92672">a</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">pagination</span> <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">total</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;50&#34;</span> <span style="color:#a6e22e">show</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">size</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">changer</span> /&gt;
 <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a-config-provider&gt;</span>
 
@@ -645,7 +642,7 @@
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">zhCN</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;ant-design-vue/es/locale/zh_CN&#39;</span>;
 </code></pre></div><p>查看源码，发现是使用了 <code>provider/inject</code>，同时 <code>locale</code> 提供了2个组件 <code>&lt;LocaleReceiver /&gt;</code> 和 <code>&lt;LocaleProvider /&gt;</code>，从名字就能看出，<code>provider</code> 提供语言环境，<code>reveiver</code> 用来消费</p>
 <p>先看 <code>provider</code> 源码，比较简单，就是把业务提供的语言包通过 <code>provide</code> 导出去</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setup() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setup() {</span>
   <span style="color:#75715e">// 这里的 props.locale 就是前面业务通过 `a-config-provider` 传入的
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reactive</span>({
     <span style="color:#a6e22e">antLocale</span><span style="color:#f92672">:</span> {
@@ -671,7 +668,7 @@
   };
 }
 </code></pre></div><p><code>receiver</code> 稍微比较复杂，主要是考虑了兜底默认值，本质这个组件就是拿到依赖的语言，传入到子组件即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setup</span>(<span style="color:#a6e22e">props</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setup</span>(<span style="color:#a6e22e">props</span>) {
  <span style="color:#75715e">// 业务提供的语言环境
 </span><span style="color:#75715e"></span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">localeData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">inject</span>(<span style="color:#e6db74">&#39;localeData&#39;</span>, {})
 
@@ -693,7 +690,7 @@
  }
 }
 </code></pre></div><p>再看组件是如何更新的，比如写一个简单的 <code>header.vue</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">LocaleReceiver</span> <span style="color:#a6e22e">compName</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;header&#34;</span>&gt;
     &lt;<span style="color:#f92672">template</span> <span style="color:#a6e22e">v</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{ localeData }&#34;</span>&gt;
       &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">hello</span> {{ <span style="color:#a6e22e">localeData</span>.<span style="color:#a6e22e">back</span> }}&lt;/<span style="color:#f92672">h1</span>&gt;
@@ -707,7 +704,7 @@
 &lt;/<span style="color:#f92672">script</span>&gt;
 
 </code></pre></div><p>上面这种写法比较麻烦，其实我们想要的就是组件本身需要的 <code>locales</code>，那可以封装一个 <code>hooks</code> 即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">useLocaleReceiver</span>(<span style="color:#a6e22e">compName</span>, <span style="color:#a6e22e">defaultLocale</span>, <span style="color:#a6e22e">propsLocale</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">useLocaleReceiver</span>(<span style="color:#a6e22e">compName</span>, <span style="color:#a6e22e">defaultLocale</span>, <span style="color:#a6e22e">propsLocale</span>) {
   <span style="color:#75715e">// 业务提供的语言环境
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">localeData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">inject</span>(<span style="color:#e6db74">&#39;localeData&#39;</span>, {})
  
@@ -722,7 +719,7 @@
  }) 
 }
 </code></pre></div><p>此时 <code>header.vue</code> 要改写为如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">hello</span> {{ <span style="color:#a6e22e">compLocale</span>.<span style="color:#a6e22e">back</span> }}&lt;/<span style="color:#f92672">h1</span>&gt;
 &lt;/<span style="color:#f92672">template</span>&gt;
 
@@ -966,13 +963,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

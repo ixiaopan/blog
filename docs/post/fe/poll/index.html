@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/poll/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,12 +70,12 @@
 <meta property="og:description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/poll/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-01-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-01-16T00:00:00+00:00" />
+<meta property="article:published_time" content="2024-01-16T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-01-16T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Polling">
-<meta itemprop="description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"><meta itemprop="datePublished" content="2024-01-16T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-01-16T00:00:00+00:00" />
+<meta itemprop="description" content="业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin"><meta itemprop="datePublished" content="2024-01-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-01-16T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="1885">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Polling"/>
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -350,7 +347,7 @@
           <p>业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 <code>Polling</code>，但除此之外，还有其他数据推送方案，比如 Long Polling、SSE(Server-Sent Events) 以及 <code>WebSockets</code>。这些方案的目的都是希望可以及时/实时获取服务端数据，特别是对 real-time app 比如 chat、game，实时性是第一位。</p>
 <h2 id="short-polling">Short Polling</h2>
 <p>一般业务中碰到的轮询大都是 <code>short polling</code>，即每隔 <code>n</code> 秒发送一次请求，根据返回结果判断是否结束轮询，比如查询文件的上传进度。通常，我们会写如下代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">step() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">step() {</span>
   <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">url</span>)
       .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
@@ -370,7 +367,7 @@
 <p>即使业务可以使用 <code>short polling</code>，上面的代码也需要进一步改进</p>
 <h3 id="超时时间">超时时间</h3>
 <p>就如 <code>xhr</code> 一样，某些情况下，轮询可能也需要设置一个最大等待时间，避免内存、性能问题等。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">number</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">number</span>) {
   <span style="color:#75715e">// 新增
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>()
 
@@ -382,7 +379,7 @@
 }
 </code></pre></div><h3 id="取消轮询">取消轮询</h3>
 <p>除了设置超时时间，有很多种情况，需要用户主动取消轮询，比如离开当前页面，从而避免内存泄露。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">number</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">number</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">canceled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span> <span style="color:#75715e">// 新增
 </span><span style="color:#75715e"></span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
@@ -409,14 +406,14 @@
 <li>未满足业务条件 <code>promise.then()</code> 中 <code>if not</code></li>
 </ul>
 <p>这2个都可以优化为 <code>promise.finally</code>，因为 <code>promise.finally</code> 不管是 <code>then/catch</code> 最后都会执行。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">request</span>().<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">progress</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">100</span>) {
     }
   }).<span style="color:#66d9ef">finally</span>(<span style="color:#a6e22e">step</span>)
 })
 </code></pre></div><p>那问题来了，<code>if (data.progress == 100)</code> 也会走到 <code>finally(step)</code>，怎么办？这种情况，需要业务主动调用 <code>cancel()</code> 取消轮询。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">request</span>().<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">progress</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">100</span>) {
       <span style="color:#a6e22e">cancel</span>() <span style="color:#75715e">// 新增
@@ -425,7 +422,7 @@
 }
 </code></pre></div><p>换句话说，业务方只需要关心<strong>何时满足业务条件</strong>，此时，取消轮询即可。</p>
 <p><code>step()</code> 冗余的问题解决了，但 <code>createPolling()</code> 本身和 <code>request(url).then()</code> 业务逻辑耦合在一起，如果有另外的轮询，我们要复制整个 <code>createPolling()</code> 但只是修改其中的 <code>request(url).then()</code> 部分。为此，我们要把 <code>request(url).then()</code> 抽象出来</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">interval</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>, <span style="color:#a6e22e">timeout?</span>: <span style="color:#66d9ef">number</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPolling</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">interval</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>, <span style="color:#a6e22e">timeout?</span>: <span style="color:#66d9ef">number</span>) {
   <span style="color:#75715e">// 新增 cancelToken
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_run</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">cancel</span>).<span style="color:#66d9ef">finally</span>(<span style="color:#a6e22e">step</span>)
 
@@ -454,14 +451,14 @@
 <li>连接超时或者网络错误导致连接中断，客户端同样立刻发起新的请求</li>
 </ul>
 <p>在迭代管理&amp;发布平台的前端实现中，我是用轮询不断查询当前迭代部署情况，因为构建部署事件较长，所以每隔 <code>10s</code> 查询一次</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
   <span style="color:#75715e">//...
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">fetchIterDetail</span>()
   }, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
 }
 </code></pre></div><p>如果整个构建需要 <code>2min</code> 完成，那么总共有 <code>12</code> 次请求。现在改为 <code>Long Polling</code> 优化一下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">startDeploy</span>()
   
@@ -537,7 +534,7 @@
 <p><code>SSE (Server-Sent Events)</code> 正如其名，服务端发送事件到客户端，有点像 <code>web socket</code> 但是，<code>SSE</code> 是单向的，数据流只能是服务端到客户端。另外，二者的协议也不一样，<code>sse</code> 是 <code>http</code> 而 <code>websocket</code> 是基于 <code>tcp</code>。
 对于一些客户端不需要向服务端推送数据的应用，比如天气预报、股票信息、以及上文的流水线部署更适合使用 <code>sse</code>。</p>
 <p>OK，让我们尝试使用 <code>sse</code> 推送部署信息到客户端</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// client.ts
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy() {</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventSource</span>(<span style="color:#e6db74">&#39;http://localhost:8001/sse&#39;</span>)
   <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">onopen</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Connected&#39;</span>)
@@ -827,13 +824,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

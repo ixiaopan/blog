@@ -6,7 +6,16 @@
     <description>Recent content in Reading on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《Effective JavaScript》</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/effective-js/</link>
+      <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/effective-js/</guid>
+      <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
+    </item>
+    
     <item>
       <title>《Game Programming Patterns》</title>
       <link>https://ixiaopan.github.io/blog/post/fe/pattern/</link>

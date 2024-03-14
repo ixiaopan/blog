@@ -56,7 +56,7 @@ li {
 
 <section>
 <div class="timeline work-item">
-  <p class="time">12/2021 - present</p>
+  <p class="time">12/2021 - 01/2024</p>
   <p class="work-title">Front-end Technical Specialist, startup, Hangzhou</p>
 </div>
 <div class="timeline work-item">

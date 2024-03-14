@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/axios/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,14 +70,14 @@
 <meta property="og:description" content="MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/axios/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-11-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-11-10T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-11-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-11-10T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Axios">
-<meta itemprop="description" content="MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资"><meta itemprop="datePublished" content="2023-11-10T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-11-10T00:00:00+00:00" />
+<meta itemprop="description" content="MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资"><meta itemprop="datePublished" content="2023-11-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-11-10T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2727">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="源码," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Axios"/>
 <meta name="twitter:description" content="MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资"/>
 
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -349,13 +346,13 @@
         <div class="post-content">
           <h2 id="mime">MIME</h2>
 <p>即 <code>media type</code>，表示资源的类型，格式为</p>
-<pre tabindex="0"><code>type/subtype
+<pre><code>type/subtype
 </code></pre><p>常见类型的有 <code>text/plain, text/html, text/javascript, image/png...</code></p>
 <p><code>MIME</code> 分为两类，<code>discrete</code> 和 <code>multipart</code>，顾名思义，前者就是完整的一份资源，后者表示多个类型资源组合在一起，比如邮件中的多个附件。对于前端来说，最常见的 <code>multipart</code> 是 <code>multipart/form-data</code>，用在 <code>POST</code> 中。</p>
 <p>介绍这个有什么用？？因为 HTTP 是无状态的，不关心数据的格式，在它眼中都是二进制数据流。但是对业务来说，我们只需要知道收发数据的格式才能正确的处理数据。</p>
 <h2 id="content-type">Content-Type</h2>
 <p>在 HTTP 中，我们通过 <code>Content-Type</code> 指定资源的类型，即 <code>MIME</code>。格式为</p>
-<pre tabindex="0"><code>Content-Type: media-type; charset?; boundary?
+<pre><code>Content-Type: media-type; charset?; boundary?
 </code></pre><p>对于前端来说，常见的不外乎以下3种</p>
 <ul>
 <li><code>application/x-www-form-urlencoded</code></li>
@@ -366,14 +363,14 @@
 <p><img src="/blog/post/images/axios-postman.png" alt=""></p>
 <p>具体看一下这几个类型的区别</p>
 <p><code>application/x-www-form-urlencoded</code> 会被 <code>url-encode</code> 通过 <code>key=val&amp;key1=val2</code> 拼接起来，所以不适合二进制数据，比如上传文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a6e22e">POST</span> /test <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a6e22e">POST</span> /test <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
 Host<span style="color:#f92672">:</span> <span style="color:#ae81ff">foo.example</span>
 Content-Type<span style="color:#f92672">:</span> <span style="color:#ae81ff">application/x-www-form-urlencoded</span>
 Content-Length<span style="color:#f92672">:</span> <span style="color:#ae81ff">27</span>
 
 field1=value1&amp;field2=value2
 </code></pre></div><p><code>multipart/form-data</code> 通过 <code>boundary</code> 发送多个数据片段，每个片段中资源的类型通过 <code>Content-Disposition</code> 指定</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a6e22e">POST</span> /test <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a6e22e">POST</span> /test <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
 Host<span style="color:#f92672">:</span> <span style="color:#ae81ff">foo.example</span>
 Content-Type<span style="color:#f92672">:</span> <span style="color:#ae81ff">multipart/form-data;boundary=&#34;boundary&#34;</span>
 
@@ -390,23 +387,23 @@ value2
 <p><code>Content-Disposition</code> 主要有2中用法</p>
 <h3 id="消息主体的标头">消息主体的标头</h3>
 <p>这种场景下，第一个参数要么是 <code>inline</code> 表示以页面的一部分或者整个页面显示要么是 <code>attachement</code> 表示资源需要被下载到本地，可选 <code>filename</code> 被用作 『保存为』对话框中呈现给用户的默认文件名</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">Content-Disposition: inline
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">Content-Disposition: inline
 </span><span style="color:#960050;background-color:#1e0010">Content-Disposition: attachment
 </span><span style="color:#960050;background-color:#1e0010">Content-Disposition: attachment; filename=&#34;filename.jpg&#34;
 </span></code></pre></div><h3 id="multipartform-data">multipart/form-data</h3>
 <p>在 <code>multipart/form-data</code> 中，第一个指令始终是 <code>form-data</code>，其后跟着 <code>name</code> 表示业务的字段<code>key</code>，可选 <code>filename</code> 表示文件名，也可以指定额外自定义的指令，指令名不区分大小写。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">Content-Disposition: form-data; name=&#34;fieldName&#34;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">Content-Disposition: form-data; name=&#34;fieldName&#34;
 </span><span style="color:#960050;background-color:#1e0010">Content-Disposition: form-data; name=&#34;fieldName&#34;; filename=&#34;filename.jpg&#34;
 </span></code></pre></div><h2 id="axios">Axios</h2>
 <h3 id="实例化">实例化</h3>
 <p>根据官方文档，<code>axios</code> 既可以直接使用，也可以重新创建一个实例。</p>
 <p>直接使用的话，<code>axios</code> 本身就能直接用，同时也有很多 <code>alias methods</code> 比如 <code>get/post</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>()
 <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">request</span>()
 <span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">get</span>()
 <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>()
 </code></pre></div><p>按这个逻辑去实现源码的话，大致是下面这样</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">
 <span style="color:#75715e">// seg1
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">cfg</span>) {}
 <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">get</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) <span style="color:#f92672">=&gt;</span> { <span style="color:#a6e22e">request</span>({ <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;get&#39;</span> }) }
@@ -422,7 +419,7 @@ value2
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">create</span>()
 </code></pre></div><p>看似能用，但总觉得怪怪的</p>
 <p>1、后续扩展 <code>delete/put</code> 等方法，<code>seg1</code> 和 <code>seg2</code> 都要重复再写一遍</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">...
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">...
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">put</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) <span style="color:#f92672">=&gt;</span> { <span style="color:#a6e22e">request</span>({ <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;post&#39;</span> }) }
 
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">create() {</span>
@@ -439,7 +436,7 @@ value2
 </ul>
 <p>但是还有一个问题，实例化 <code>request</code> 得到的就是一个对象，对象怎么又可以进行函数调用呢？？</p>
 <p>这一点可以借鉴 <code>axios</code> 的设计，原理就是通过 <code>bind</code> 绑定函数的上下文</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createInstance</span>(<span style="color:#a6e22e">defaultConfig</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createInstance</span>(<span style="color:#a6e22e">defaultConfig</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">context</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Axios</span>(<span style="color:#a6e22e">defaultConfig</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">bind</span>(<span style="color:#a6e22e">Axios</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">request</span>, <span style="color:#a6e22e">context</span>);
 
@@ -457,7 +454,7 @@ value2
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>;
 }
 </code></pre></div><p>根据他这个原理，我们可以写个自己的 <code>demo</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {
   <span style="color:#66d9ef">constructor</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">cate</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;animal&#39;</span>
   }
@@ -492,10 +489,10 @@ value2
 </ul>
 <p>他这个模式其实就是串行的一系列函数（本质是一个数组），串起了请求开始、发起请求、响应结束这3个阶段</p>
 <p>看这个使用方式就不难猜底层是怎么实现</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">fn</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">fn</span>)
 <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">fn</span>)
 </code></pre></div><p>底层是有个 <code>interceptorManager</code> 维护一个函数数组，支持 <code>push/pop/remove/clear</code> 等方法，初始化 <code>axios</code> 的时候实例化2个 <code>manager</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InterceptorManager</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InterceptorManager</span> {
   <span style="color:#66d9ef">constructor</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handlers</span> <span style="color:#f92672">=</span> [];
   }
@@ -533,7 +530,7 @@ value2
 </li>
 </ul>
 <p>从源码可见确实如此，不是很明白倒序的原因</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">requestInterceptorChain</span> <span style="color:#f92672">=</span> []
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">requestInterceptorChain</span> <span style="color:#f92672">=</span> []
 <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">unshiftRequestInterceptors</span>(<span style="color:#a6e22e">interceptor</span>) {
   <span style="color:#a6e22e">requestInterceptorChain</span>.<span style="color:#a6e22e">unshift</span>(<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">fulfilled</span>, <span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">rejected</span>);
 });
@@ -545,13 +542,13 @@ value2
 </code></pre></div><h4 id="runwhen">runWhen</h4>
 <p>此外，请求拦截器本身自带2个属性 <code>runWhen</code> 和 <code>synchronous</code>，但是业务不怎么使用到。</p>
 <p><code>runWhen</code> 顾名思义就是满足指定条件才执行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">unshiftRequestInterceptors</span>(<span style="color:#a6e22e">interceptor</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">unshiftRequestInterceptors</span>(<span style="color:#a6e22e">interceptor</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">runWhen</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">runWhen</span>(<span style="color:#a6e22e">config</span>) <span style="color:#f92672">===</span> <span style="color:#66d9ef">false</span>) {
     <span style="color:#66d9ef">return</span>;
   }
 })
 </code></pre></div><p>举个例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>((<span style="color:#a6e22e">cfg</span>) <span style="color:#f92672">=&gt;</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cfg</span> }, <span style="color:#66d9ef">undefined</span>, {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">interceptor</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>((<span style="color:#a6e22e">cfg</span>) <span style="color:#f92672">=&gt;</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cfg</span> }, <span style="color:#66d9ef">undefined</span>, {
   <span style="color:#a6e22e">runWhen</span>(<span style="color:#a6e22e">config</span>){
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;post&#39;</span>
   } 
@@ -560,7 +557,7 @@ value2
 <p>注册 interceptor 的时候，如果不指定该参数，默认是 <code>false</code>；如果指定，必须每个 <code>interceptor</code> 都要设置为 <code>true</code>。那么，二者的区别在哪里？</p>
 <p>1、false</p>
 <p><code>axios</code> 会生成一个 <code>promise</code> 链</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chain</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">dispatchRequest</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>), <span style="color:#66d9ef">undefined</span>];
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chain</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">dispatchRequest</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>), <span style="color:#66d9ef">undefined</span>];
 <span style="color:#a6e22e">chain</span>.<span style="color:#a6e22e">unshift</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">chain</span>, <span style="color:#a6e22e">requestInterceptorChain</span>);
 <span style="color:#a6e22e">chain</span>.<span style="color:#a6e22e">push</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">chain</span>, <span style="color:#a6e22e">responseInterceptorChain</span>);
 
@@ -574,7 +571,7 @@ value2
 </code></pre></div><p>每个 <code>interceptor</code> 都会顺序执行到，如果在这条链中出现异常，会被下一个 <code>promise.catch()</code> 捕获</p>
 <p>2、true</p>
 <p>相反，同步模式下，只要出现异常，就会 <code>break</code> 跳转到 <code>disaptchRequest()</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">newConfig</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">newConfig</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>
 
 <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">requestInterceptorChain</span>.<span style="color:#a6e22e">length</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">onFulfilled</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">requestInterceptorChain</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>];
@@ -597,7 +594,7 @@ value2
 </code></pre></div><h3 id="adapter">Adapter</h3>
 <p>因为 <code>axios</code> 同时支持在 <code>brower</code> 和 <code>node</code>，但是这两个端依赖的技术是不一样的（浏览器用的 <code>xhr</code>, <code>node</code> 端使用 <code>http</code> 模块），所以需要判断当前环境到底支持哪种能力，在 <code>axios</code> 中这种能力被抽象为 <code>adapter</code>。</p>
 <p>不过相较于检测环境是否是浏览器、node端，更灵活的方式是检测特性</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// xhr.js
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// xhr.js
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">xhr</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;undefined&#39;</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">config</span>) {
 }
 
@@ -606,7 +603,7 @@ value2
 }
 </code></pre></div><h4 id="xhr">XHR</h4>
 <p><code>axios</code> 其实就是根据 <code>config</code> 调用 <code>xhr</code> 不同的 <code>api</code> 而已</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">config</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">config</span>) {
  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) <span style="color:#f92672">=&gt;</span> {
    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">requestData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">data</span>;
    
@@ -658,7 +655,7 @@ value2
 <h3 id="取消请求">取消请求</h3>
 <p><code>xhr.abort()</code> 可以终止请求，问题是需要业务提供终止的时机。 对此，有2种方式解决，一种是 <code>AbortController</code>，一种是 <code>axios</code> 自己实现的 <code>CancelToken</code></p>
 <h4 id="abortcontroller">AbortController</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">controller</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">controller</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
 
 <span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">get</span>(<span style="color:#e6db74">&#39;/foo/bar&#39;</span>, {
    <span style="color:#a6e22e">signal</span>: <span style="color:#66d9ef">controller.signal</span>
@@ -670,7 +667,7 @@ value2
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">controller</span>.<span style="color:#a6e22e">abort</span>()
 </code></pre></div><p>从上面的代码，可以看出 <code>axios</code> 内部必定监听了 <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/abort_event">abort event</a> 然后在 <code>callback</code> 里调用了 <code>xhr.abort</code></p>
 <p>看源码确实如此</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">signal</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">signal</span>) {
   <span style="color:#a6e22e">onCanceled</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">request</span>) {
       <span style="color:#66d9ef">return</span>;
@@ -690,7 +687,7 @@ value2
 <p><code>CancelToken</code> 本质是 <code>axios</code> 自己实现的类似  <code>AbortController</code> 的一个类。</p>
 <h5 id="executor">executor</h5>
 <p>当初始化一个 <code>CancelToken</code> 本质是初始化一个等待 <code>fullfilled</code> 的 <code>promise</code>，同时给业务提供 <code>fullfilled</code> 的方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CancelToken</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CancelToken</span> {
   <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">executor</span>) {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_listeners</span> <span style="color:#f92672">=</span> []
 
@@ -722,7 +719,7 @@ value2
 <li>采用发布订阅模式，在需要 <code>cancel</code> 的时候，注册对应事件即可</li>
 </ul>
 <p><code>axios</code> 本身也提供了静态方法，方便业务不传  <code>executor</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">static</span> <span style="color:#a6e22e">source() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">static</span> <span style="color:#a6e22e">source() {</span>
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cancel</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CancelToken</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">executor</span>(<span style="color:#a6e22e">c</span>) {
    <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>;
@@ -733,7 +730,7 @@ value2
   };
 }
 </code></pre></div><h5 id="订阅">订阅</h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">signal</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">signal</span>) {
   <span style="color:#a6e22e">onCanceled</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">reject</span>();
     <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">abort</span>();
@@ -743,7 +740,7 @@ value2
   <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">cancelToken</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">onCanceled</span>);
 </code></pre></div><h5 id="覆盖-promisethen">覆盖 promise.then</h5>
 <p>查看 <code>axios</code> 的源码，可以看到 <code>CancelToken</code> 内改写了 <code>promise.then</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">onfulfilled</span> <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">onfulfilled</span> <span style="color:#f92672">=&gt;</span> {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_resolve</span>;
 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>(<span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=&gt;</span> {
@@ -758,14 +755,14 @@ value2
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">promise</span>;
 };
 </code></pre></div><p>原因不明，我感觉应该是个语法糖，方便业务自定义自己的订阅事件。设想如果业务自己想订阅一下 <code>cancel</code> 也是这样的写法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {}
 
 <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">callback</span>)
 
 <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">unsubscribe</span>(<span style="color:#a6e22e">callback</span>)
 </code></pre></div><p>如果有多个事件岂不是很麻烦，要定义多个 <code>callback</code> 注册、取消注册，不符合 <code>axios cancel</code>的思想，如果用改写的 <code>promise.then</code> 就优雅很多</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">cancelB</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">cancelB</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;cancel me 2&#39;</span>)
 })
 
@@ -774,7 +771,7 @@ value2
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;cancel me 1&#39;</span>)
 })
 </code></pre></div><p>针对此改写，我们可以写个 <code>demo</code>，体验一下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">CancelToken</span>.<span style="color:#a6e22e">source</span>()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">CancelToken</span>.<span style="color:#a6e22e">source</span>()
 
 <span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">get</span>(<span style="color:#e6db74">&#39;xxx&#39;</span>, {
   <span style="color:#a6e22e">cancelToken</span>: <span style="color:#66d9ef">source.token</span>
@@ -809,7 +806,10 @@ value2
 
 
         <footer class="post-footer">
-          
+          <div class="post-tags">
+              <a href="https://ixiaopan.github.io/blog/tags/%E6%BA%90%E7%A0%81/">源码</a>
+                
+            </div>
 
 
           
@@ -1024,13 +1024,13 @@ value2
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

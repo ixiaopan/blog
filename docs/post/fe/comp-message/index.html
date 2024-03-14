@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/comp-message/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,14 +70,14 @@
 <meta property="og:description" content="What message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/comp-message/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-06-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-06-03T00:00:00+00:00" />
+<meta property="article:published_time" content="2022-06-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-06-03T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Component - Message">
-<meta itemprop="description" content="What message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还"><meta itemprop="datePublished" content="2022-06-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-06-03T00:00:00+00:00" />
+<meta itemprop="description" content="What message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还"><meta itemprop="datePublished" content="2022-06-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2022-06-03T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="611">
-<meta itemprop="keywords" content="Component," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Component - Message"/>
 <meta name="twitter:description" content="What message 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 message。不管是 jQuery 还"/>
 
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -349,7 +346,7 @@
         <div class="post-content">
           <h2 id="what">What</h2>
 <p><code>message</code> 不同于一般的组件，其生命周期非常短暂，只有在需要的时候，才会出现，然后快速被销毁，这就要求我们要动态的创建一条 <code>message</code>。不管是 <code>jQuery</code> 还是 <code>vue/react</code>，调用方法都是类似的</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// jQuery
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// jQuery
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">toast</span>({
   <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello world&#39;</span>
   <span style="color:#a6e22e">duration</span>: <span style="color:#66d9ef">5000</span>
@@ -369,7 +366,7 @@
   <span style="color:#a6e22e">duration</span>: <span style="color:#66d9ef">5000</span>
 })
 </code></pre></div><p>通过 <code>jQuery</code> 我们知道，调用 <code>$.toast()</code> 实际上是动态的创建了一个含有 <code>text</code> 的 <code>html tag</code> 然后插入到 <code>body</code> 最后，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;div&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;div&#39;</span>)
 <span style="color:#a6e22e">div</span>.<span style="color:#a6e22e">textContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">text</span>
 
 document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">div</span>)
@@ -381,13 +378,13 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
 </code></pre></div><p>类似的，<code>vue</code> 的实现也是如此，只不过我们是通过 <code>VNode</code> 生成真实的 <code>DOM</code>。</p>
 <h2 id="implementation">Implementation</h2>
 <h3 id="render">render</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">div</span>&gt;
     {{ <span style="color:#a6e22e">message</span> }}
   &lt;/<span style="color:#f92672">div</span>&gt;
 &lt;/<span style="color:#f92672">template</span>&gt;
 </code></pre></div><p>以上定义 HTML 模板，接下来 &lsquo;编译&rsquo; 为 <code>VNode</code>，渲染为 <code>HTML</code> 插入到 <code>body</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createVNode</span>, <span style="color:#a6e22e">render</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createVNode</span>, <span style="color:#a6e22e">render</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">MessageConstructor</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./message.vue&#39;</span>
 
@@ -424,7 +421,7 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
 }
 </code></pre></div><h3 id="timer">timer</h3>
 <p><code>vue</code> 中我们在 <code>onMounted</code> 开启计时器，由于使用了 <code>transition</code> 实现动画效果，所以在动画结束即 <code>after-leave</code> 触发 <code>onDestroy</code> 移除 <code>DOM</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
 &lt;<span style="color:#f92672">transition</span> <span style="color:#f92672">@before-leave</span><span style="color:#e6db74">=&#34;onBeforeLeave&#34;</span> <span style="color:#f92672">@after-leave</span><span style="color:#e6db74">=&#34;onDestroy&#34;</span>&gt;
   &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">v-show</span><span style="color:#e6db74">=&#34;visible&#34;</span>&gt;
     {{ <span style="color:#a6e22e">message</span> }}
@@ -474,10 +471,7 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
 
 
         <footer class="post-footer">
-          <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/component/">Component</a>
-                
-            </div>
+          
 
 
           
@@ -683,13 +677,13 @@ document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">app
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

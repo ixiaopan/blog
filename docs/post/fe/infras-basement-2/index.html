@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/infras-basement-2/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,14 +70,14 @@
 <meta property="og:description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/infras-basement-2/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-12-30T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-12-30T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-12-30T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-12-30T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="迭代管理&amp;发布平台 02">
-<meta itemprop="description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla"><meta itemprop="datePublished" content="2023-12-30T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-12-30T00:00:00+00:00" />
+<meta itemprop="description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla"><meta itemprop="datePublished" content="2023-12-30T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-12-30T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="6304">
-<meta itemprop="keywords" content="hands-on," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="基建," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="迭代管理&amp;发布平台 02"/>
 <meta name="twitter:description" content="Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla"/>
 
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -367,7 +364,7 @@
 <h3 id="关联-git">关联 Git</h3>
 <p>一个应用除了基本的信息（应用名、描述、维护者等）之外，最关键的是要关联对应的 <code>git</code> 项目上，目的是获取 <code>git project id</code>，为后续的分支管理、<code>MR</code> 等准备。</p>
 <p>此时，应用的 <code>schema</code> 可以定义如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUser</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUser</span> {
   <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>
   <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">string</span>
 }
@@ -389,7 +386,7 @@
 </code></pre></div><h3 id="项目模板">项目模板</h3>
 <p>基本上每个前端团队都有自己的项目脚手架 <code>cli</code>，一键生成项目，保证前端基建统一。</p>
 <p>既然现在有了平台，我们就把 <code>cli</code> 接入平台，在创建新项目的时候，选择对应项目模板，相应的，应用 <code>schema</code> 此时需要新增一个模板字段</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TEMPLATE_TYPE</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TEMPLATE_TYPE</span> {
   <span style="color:#a6e22e">BLANK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;blank&#39;</span>
   <span style="color:#a6e22e">VUE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;vue&#39;</span>,
   <span style="color:#a6e22e">REACT</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;react&#39;</span>,
@@ -404,7 +401,7 @@
 </code></pre></div><h3 id="monorepo">monorepo</h3>
 <p>这里要考虑当下 <code>monorepo</code> 的项目架构，最开始开发的时候我就没考虑到，不过后续扩展也简单，因为这里主要是维护<strong>项目元信息</strong>。</p>
 <p>对于 <code>monorepo</code> 而言是共享 <code>git project id</code>，不同在于项目名，所以新增一个字段 <code>aliasName</code> 支持自定义业务别名，即使不是 <code>monorepo</code> 也是可以使用的。对于 <code>monorepo</code> 的项目当然要加个字段标识进行区分</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">aliasName</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 项目别名
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">monorepo</span>: <span style="color:#66d9ef">boolean</span>
@@ -435,7 +432,7 @@
 </ul>
 <h3 id="部署相关">部署相关</h3>
 <p>部署这块接的是阿里的云效，有2个要考虑的地方，一个要考虑是否开启分支模式，一个是配置流水线</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devPipelineId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 开发环境流水线id
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">betaPipelineId</span>: <span style="color:#66d9ef">string</span>
@@ -445,7 +442,7 @@
 </code></pre></div><h3 id="发布审批上线日志">发布审批/上线日志</h3>
 <p>之前上线，都是要手动写个发布计划的文档，内容包括需求文档、开发人、MR、回滚方案等，效率低不说，压根起不到审批的作用，而且时间长了之后，发布计划文档，也是难以追溯。</p>
 <p>现在接入平台之后，需求上线前会发起自动审批，前提是项目配置了「发布审批」，因为不是所有项目都需要审批的，比如技术项目组件库、三方库等。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">BasementSchema</span> {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">needProdAudit</span>: <span style="color:#66d9ef">boolean</span>
 }
@@ -462,7 +459,7 @@
 </ul>
 <h3 id="元信息">元信息</h3>
 <p>根据定义，迭代对应的基本数据模型如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
   <span style="color:#a6e22e">appId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 所属应用id，平台自动生成(创建应用返回的 appId)
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 本次迭代标题
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">desc</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 本次迭代描述
@@ -490,7 +487,7 @@
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">projectId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// gitlab project id
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>其中 <code>ITER_STATUS</code>，表示迭代的进度，我们定义以下7种状态</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ITER_STATUS</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ITER_STATUS</span> {
   <span style="color:#a6e22e">INIT</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#a6e22e">DEV</span>,
   <span style="color:#a6e22e">TESTING</span>,
@@ -501,7 +498,7 @@
 }
 </code></pre></div><h3 id="关联-git-分支">关联 Git 分支</h3>
 <p>一个迭代对应一个分支，在创建的时候，开发者需要填入分支名 <code>branch</code>，服务端然后调用 <code>gitlab/codeup api</code> 生成对应的远程分支。下面是使用 <code>gitlab api</code> 创建新分支的代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(
   <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">GITLAB_API_V4</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/projects/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">projectId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/repository/branches?branch=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">branch</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;ref=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ref</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
   {},
   {
@@ -517,7 +514,7 @@
 <p>以前，项目日报都只是发到项目群，并没有归档，不同需求想要汇总查看，还是比较麻烦的，要到处查看群消息。</p>
 <p>现在，日报和迭代关联在一起，不仅支持一键发到群组，还可以查看历史日报，而且对所有人都是公开的。</p>
 <p>要存储的信息就只有内容和日期，毕竟其他信息迭代本身就已经有了，而内容也不需要 <code>markdown</code>，寥寥几十字足以</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">dailyReportList</span><span style="color:#f92672">:</span> { <span style="color:#75715e">// 日报列表
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">dailyReportList</span><span style="color:#f92672">:</span> { <span style="color:#75715e">// 日报列表
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">content</span>: <span style="color:#66d9ef">string</span>
   <span style="color:#a6e22e">date</span>: <span style="color:#66d9ef">number</span>
 }[]
@@ -530,7 +527,7 @@
 </ul>
 <p>整个流程非常被动，核心问题是真正负责该迭代的同学却没有发布的权限和对应的责任。</p>
 <p>现在，当测试通过准备上线，开发者只需要提交审批流，审批者收到通知确认无误，同意发布即可，后续所有事项皆由开发同学操作。因此，每个迭代都要有至少一个审批者</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IterationSchema</span> {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">audit</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">String</span>,
@@ -561,7 +558,7 @@
 <li>取消流水线运行 <code>stopPipelineRunWithOptions</code></li>
 </ul>
 <p>整个服务只需要实例化一个 <code>flow</code> 对象即可，具体实现代码参考 <a href="https://next.api.aliyun.com/api/devops/2021-06-25/GetPipelineArtifactUrl?lang=TYPESCRIPT">官方文档</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlowClient</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlowClient</span> {
   <span style="color:#a6e22e">client</span>
   <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">accessKeyId</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">accessKeySecret</span>: <span style="color:#66d9ef">string</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">$OpenApi</span>.<span style="color:#a6e22e">Config</span>({
@@ -584,7 +581,7 @@
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FlowClient</span>.<span style="color:#a6e22e">create</span>()
 </code></pre></div><h3 id="状态机">状态机</h3>
 <p>一次发布至少有2个步骤：构建 和 部署。在 <code>flow</code> 平台，如果选择了分支模式，那么第一步是做分支集成，然后才是构建、部署。显然，整个流程是一个有限状态机</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FLOW_STATE</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FLOW_STATE</span> {
   <span style="color:#a6e22e">BRANCH_CHECK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;branch_check&#39;</span>,
   <span style="color:#a6e22e">BUILD</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;build&#39;</span>,
   <span style="color:#a6e22e">DEPLOY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;deploy&#39;</span>,
@@ -626,7 +623,7 @@
 <li><code>afterEach()</code></li>
 <li><code>after[FLOW_STATE]()</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">start() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">start() {</span>
   <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
 
@@ -660,7 +657,7 @@
 </code></pre></div><h3 id="pipeline">Pipeline</h3>
 <p>状态机是一次发布的状态流转，而一次发布我们抽象为 <code>pipeline</code>。</p>
 <p>首先是一次发布的状态，主要有4种情况</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">PIPELINE_STATE</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">PIPELINE_STATE</span> {
   <span style="color:#a6e22e">WAITING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;WAITING&#39;</span>,
   <span style="color:#a6e22e">RUNNING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;RUNNING&#39;</span>,
   <span style="color:#a6e22e">SUCCESS</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>,
@@ -675,7 +672,7 @@
 <li>取消部署</li>
 </ul>
 <p>基于此，一个简单的 <code>pipeline</code> 类定义如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
     <span style="color:#a6e22e">branch</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
     <span style="color:#a6e22e">projectId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
@@ -708,12 +705,12 @@
 }
 </code></pre></div><h3 id="构建部署">构建/部署</h3>
 <p>触发构建，其实就是调用 <code>flow api</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">build() {</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">build() {</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pipelineRunId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">pipelineRunId</span>
 }
 </code></pre></div><p>问题是该接口返回的只是当下的流水线实例 <code>id</code> 即 <code>pipelineRunId</code>，如果想知道具体的流水线详情，还需要不断轮询查询详情的接口</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">build() {</span>
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
     
@@ -731,7 +728,7 @@
   }
 }
 </code></pre></div><p>流水线详情接口返回结果如下，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">pipelineRun</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">pipelineId</span>: <span style="color:#66d9ef">123</span>,
     <span style="color:#a6e22e">pipelineRunId</span>: <span style="color:#66d9ef">992</span>,
@@ -774,7 +771,7 @@
 <li><code>pipelineRun.stages</code> 说明我们有2个步骤：构建、部署；每一步也有自己的 <code>status</code></li>
 </ul>
 <p>有了这些字段就可以更新状态机了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">build() {</span>
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">flowIns</span>.<span style="color:#a6e22e">runPipeline</span>(<span style="color:#a6e22e">pipelineId</span>, <span style="color:#a6e22e">runningBranches</span>)
     
@@ -822,7 +819,7 @@
   }
 }
 </code></pre></div><p>这段代码需要注意的点是，不同于以往的 <code>new Promise(handler)</code>，<code>resolve/reject</code> 会在 <code>handler</code> 中调用，这里我们存储了 <code>resolve</code> 的引用，只有当其他外界条件满足时，才会触发 <code>resolve()</code> 使 <code>promise</code> 变为 <code>fulfilled</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 普通模式
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 普通模式
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span>(), <span style="color:#ae81ff">1000</span>)
 }).<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;haha&#39;</span>))
@@ -844,7 +841,7 @@
 <li>commit and push release/xxx</li>
 </ul>
 <p>代码实现如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createRelease</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createRelease</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
   <span style="color:#a6e22e">sourceBranchList</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">branch</span>: <span style="color:#66d9ef">string</span>
     <span style="color:#a6e22e">branchUrl</span>: <span style="color:#66d9ef">string</span>
@@ -927,7 +924,7 @@
 <p>注意 <code>createRelease</code> 只负责保证有 release ，不关心到底需不需要创建新的 release，需不需要应该是上层业务决定，然后保存到 <code>this.lastRelease</code></p>
 <p>2、合并冲突</p>
 <p>发生冲突是很常见的，问题是怎么通知给开发者让其手动解决，可以看到一旦发生冲突，代码就会抛出异常 <code>throw new MergeException</code>，所以我们要在第一步做分支集成的时候捕获冲突异常，再次使用 <code>保存promise引用</code> 的方法让状态机始终维持在第一步，直到开发者手动解决</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">check() {</span>
     <span style="color:#66d9ef">try</span> {
       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">stepMerge</span>()
@@ -965,7 +962,7 @@
   }
 }
 </code></pre></div><p>冲突一旦解决完成，需要开发者手动通知服务器，根据上面的代码，可知服务端会调用 <code>this._conflictResolver()</code>，推进状态机进入第2步【构建】。但这是不对的，因为分支集成还没结束，只是因为现在冲突发生了。怎么避免进入第2步呢？？很简单，状态机的运行顺序是通过 <code>currentStep</code> 控制的，强制修改回到第一步即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#a6e22e">resolveConflict() {</span>
     <span style="color:#75715e">// 强制 -1，回到最开始，重新来过
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
@@ -973,7 +970,7 @@
   }
 }
 </code></pre></div><p>回到第一步之后，如果还是继续创建新的 <code>release</code>，那么依然还是有冲突，这样就进入了死循环。所以在 <code>stepMerge()</code> 还需要判断是否已经发生了冲突，如果是的，就使用旧的 <code>release</code>，这样才能保证旧的 <code>release</code> 已经知道该 <code>commit</code> 已经手动标记解决</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">stepMerge() {</span>
     <span style="color:#66d9ef">try</span> {
       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">createRelease</span>({
@@ -993,7 +990,7 @@
 <p>最后如何取消分支集成？</p>
 <p>1、要清空数据库中分支对应的 <code>release.commitId</code>，因为 <code>nextRelease.commitId</code> 表示冲突发生了，既然取消分支集成，这个标记就要清空避免发生未知错误；</p>
 <p>2、要销毁本次部署的状态机</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">cancelReleaseDueConflict() {</span>
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isFunction</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancelRelease</span>)) {
       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">onCancelRelease</span>({
@@ -1027,7 +1024,7 @@
 <p>取消部署，说明已经到 <code>flow</code> 平台了，此时查询流水线详情会存在一个 <code>pipelineRunId</code>，这时候取消，意味着取消 <code>flow</code> 平台的流水线</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#75715e">// 取消部署
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">cancel() {</span>
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">FlowIns</span>.<span style="color:#a6e22e">cancelPipelineRun</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineId</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pipelineRunId</span>)
@@ -1047,7 +1044,7 @@
 }
 </code></pre></div><h3 id="销毁发布">销毁发布</h3>
 <p>不管是取消分支集成、还是取消部署，最后都要做 <code>clean up</code> 当前 <code>pipeline</code> 的状态，避免内存泄露。我们的 <code>class pipeline</code> 存在轮询，所以需要及时销毁</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pipeline</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">destroy() {</span>
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">clearInterval</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span>)
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runTimer</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
@@ -1056,7 +1053,7 @@
 </code></pre></div><h3 id="pipelinemanager">PipelineManager</h3>
 <p><code>Pipeline class</code> 仅仅是单次部署的抽象，现实中，我们要实现多项目、多环境下同时部署，这就导致排队的问题，为了维护队列按顺序执行，我们要实现一个 <code>PipelineManager</code></p>
 <p>1、不同项目应该对应不同的 <code>manager</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
   <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">managerByProject</span> <span style="color:#f92672">=</span> {}
 
   <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">options</span>) {
@@ -1071,7 +1068,7 @@
 </code></pre></div><p>2、按环境区分同一个迭代同时间部署</p>
 <p>3、当有 <code>pipeline</code> 在运行，其他 <code>pipeline</code> 加入队列</p>
 <p>4、当运行完成，从队列中拿出最近的一条，开始运行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
   <span style="color:#a6e22e">devPipelineList</span>: <span style="color:#66d9ef">Pipeline</span>[] <span style="color:#f92672">=</span> []
   <span style="color:#a6e22e">devRunning</span>: <span style="color:#66d9ef">Pipeline</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
 
@@ -1146,7 +1143,7 @@
   }
 }
 </code></pre></div><p>5、运行取消排队，从对列中删除</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PipelineManager</span> {
   <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">cancelQueue</span>(<span style="color:#a6e22e">env</span>, <span style="color:#a6e22e">appId</span>, <span style="color:#a6e22e">id</span>) {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">manager</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">PipelineManager</span>.<span style="color:#a6e22e">managerByProject</span>[<span style="color:#a6e22e">appId</span>]
 
@@ -1177,7 +1174,7 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/hands-on/">hands-on</a>
+              <a href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/">基建</a>
                 
             </div>
 
@@ -1413,13 +1410,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

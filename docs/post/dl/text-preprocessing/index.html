@@ -38,7 +38,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/dl/text-preprocessing/" />
@@ -59,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -71,12 +71,12 @@
 <meta property="og:description" content="From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM &#43; CRF. The very first step in NLP is text preprocessing, so I am going to start from here." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/dl/text-preprocessing/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-06-22T00:00:00+00:00" />
+<meta property="article:published_time" content="2021-06-22T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-06-22T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="NLP - Text Preprocessing">
-<meta itemprop="description" content="From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM &#43; CRF. The very first step in NLP is text preprocessing, so I am going to start from here."><meta itemprop="datePublished" content="2021-06-22T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-06-22T00:00:00+00:00" />
+<meta itemprop="description" content="From now on, we will focus on a specific domain — Natural Language Processing(NLP), in part because my summer project is about Named Entities Recognition(NER). Therefore, I need to know some text preprocessing techniques and have a good understanding of the state-of-art NLP models, particularly BiLSTM &#43; CRF. The very first step in NLP is text preprocessing, so I am going to start from here."><meta itemprop="datePublished" content="2021-06-22T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-22T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="1045">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="NLP - Text Preprocessing"/>
@@ -121,21 +121,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -215,9 +215,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -246,7 +243,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -257,7 +254,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -268,7 +265,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -353,10 +350,10 @@
 <p>For some letter-based languages such as English, letters could be either lowercase or uppercase, e.g. <code>book</code> , <code>Book</code> or <code>BOOK</code>. Since they represent the same word <code>book</code> with the same semantics, there is no need to encode them three times. The common way is to convert all words into a consistent written style — lowercase because of its readable and concise style.</p>
 <p>However, this method sometimes could affect semantics of some specific words, for instance,  <code>May</code> and <code>may</code> are two different words. Well, for tasks that involve parts-of-speech analysis, it&rsquo;s a matter.</p>
 <p>In python, it&rsquo;s easy to convert a string into lowercase,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>lower()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>lower()
 </code></pre></div><h2 id="removing-punctuation">Removing Punctuation</h2>
 <p>For some tasks, punctuations such as <code>, . &quot; @ #</code> are meaningless to us, so we should remove them. In Python, we can do this using  the <code>sub()</code> method of the <code>re</code> module to replace any matched punctuation with an empty character</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">&#39;[,</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">.!&#34;]&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;&#34;20.2 dollars! That</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s impossible&#34;, he said.&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">&#39;[,</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">.!&#34;]&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;&#34;20.2 dollars! That</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s impossible&#34;, he said.&#39;</span>)
 <span style="color:#75715e">#&gt;&gt; 202 dollars Thats impossible he said</span>
 
 </code></pre></div><p>From the above code, we can see some issues,</p>
@@ -374,9 +371,9 @@
 </ul>
 <p>Why do we tokenize text? The answer is that the ultimate goal of tokenization is to build vocabulary for a corpus. After all, words in each sentence are ultimately from the vocabulary.</p>
 <p>Okay, so how do we perform tokenization to get a sequence of words? A naive way is to split a string by whitespace shown below.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)
 </code></pre></div><p>However, there are some issues. For example, <code>United Kindom</code> will be split into two words,  <code>United</code> and <code>Kindom</code>. A common practice is to use the popular <a href="https://www.nltk.org/%5D">natural language toolkit (NLTK)</a> to do this</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.tokenize <span style="color:#f92672">import</span> word_tokenize
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.tokenize <span style="color:#f92672">import</span> word_tokenize
 
 tokens <span style="color:#f92672">=</span> word_tokenize(text)
 
@@ -399,12 +396,12 @@ tokens <span style="color:#f92672">=</span> word_tokenize(text)
 <p>Stemming and Lemmatization are two common methods to convert each word back to its original form or the root.</p>
 <h3 id="stemming">Stemming</h3>
 <p>Stemming is a simple and crude method that simply chopps off letters from the end of a word until <strong>a common root</strong> is found, which is the idea of Potter Stemming algorithm.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.stem <span style="color:#f92672">import</span> PorterStemmer, WordNetLemmatizer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.stem <span style="color:#f92672">import</span> PorterStemmer, WordNetLemmatizer
 
 words <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;runner&#39;</span>, <span style="color:#e6db74">&#39;running&#39;</span>, <span style="color:#e6db74">&#39;ran&#39;</span>, <span style="color:#e6db74">&#39;runs&#39;</span>, <span style="color:#e6db74">&#39;easily&#39;</span>, <span style="color:#e6db74">&#39;saw&#39;</span>]
 p_stemmer <span style="color:#f92672">=</span> PorterStemmer()
 <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> words:
-    print(word <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;--&gt;&#39;</span> <span style="color:#f92672">+</span> p_stemmer<span style="color:#f92672">.</span>stem(word))
+    <span style="color:#66d9ef">print</span>(word <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;--&gt;&#39;</span> <span style="color:#f92672">+</span> p_stemmer<span style="color:#f92672">.</span>stem(word))
 
 <span style="color:#75715e"># run--&gt;run</span>
 <span style="color:#75715e"># runner--&gt;runner</span>
@@ -417,7 +414,7 @@ p_stemmer <span style="color:#f92672">=</span> PorterStemmer()
 <h3 id="lemmatization">Lemmatization</h3>
 <p>On the contrary, lemmatization returns the <strong>true root</strong> or <strong>lemma</strong> of a word by considering the whole vocabulary of a language and the context of that word in the sentence. In the case of <code>ran</code> and <code>saw</code>, the true root words or lemmas are <code>run</code> and <code>see</code> respectively.</p>
 <p>NLTK provides a popular lemmatizer for us — WordNet Lemmatizer, which is an large lexical database of English. But before using it, we need to know the parts of speech of each word, which can also be done using <code>pos_tag()</code> method of NLTK.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># we mannually specify the parts of speech for each word</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># we mannually specify the parts of speech for each word</span>
 words <span style="color:#f92672">=</span> [
 (<span style="color:#e6db74">&#34;grows&#34;</span>, <span style="color:#e6db74">&#39;v&#39;</span>), (<span style="color:#e6db74">&#39;running&#39;</span>, <span style="color:#e6db74">&#39;v&#39;</span>), (<span style="color:#e6db74">&#34;better&#34;</span>, <span style="color:#e6db74">&#39;a&#39;</span>), (<span style="color:#e6db74">&#34;cats&#34;</span>, <span style="color:#e6db74">&#39;n&#39;</span>), (<span style="color:#e6db74">&#39;quickly&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>)
 ]
@@ -429,7 +426,7 @@ lemmatizer <span style="color:#f92672">=</span> WordNetLemmatizer()
 <p>It seems that we&rsquo;ve obtained the tokens as desired. But wait, let&rsquo;s plot the number of occurrence of each word.</p>
 <p><img src="/blog/post/images/tokens_counts.png#full" alt="" title="Figure 1: The top 10 frequently tokens"></p>
 <p>Figure 1 shows the frequency of each token in the built-in NLTK corpus named <code>1789-Washington.txt</code>. It can be seen that most tokens are determiners, prepositions, conjuctions or other <strong>function words</strong> that have little lexical meaning. Obvisously, we need to remove them, which can be done easily using NLTK,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.corpus <span style="color:#f92672">import</span> stopwords
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> nltk.corpus <span style="color:#f92672">import</span> stopwords
 
 stop_words_en <span style="color:#f92672">=</span> stopwords<span style="color:#f92672">.</span>words(<span style="color:#e6db74">&#39;english&#39;</span>)
 
@@ -437,7 +434,7 @@ tokens <span style="color:#f92672">=</span> [ w <span style="color:#66d9ef">for<
 
 </code></pre></div><h2 id="putting-it-together">Putting it together</h2>
 <p>So far, we&rsquo;ve introduced some basic and necessary text preprocessing techniques. Now let&rsquo;s put it together to build the whole text preprocessing pipeline.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> string<span style="color:#f92672">,</span> re
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> string<span style="color:#f92672">,</span> re
 <span style="color:#f92672">import</span> nltk
 <span style="color:#f92672">from</span> nltk.corpus <span style="color:#f92672">import</span> wordnet
 <span style="color:#f92672">from</span> nltk.tokenize <span style="color:#f92672">import</span> word_tokenize
@@ -706,13 +703,13 @@ stop_words_en <span style="color:#f92672">=</span> stopwords<span style="color:#
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

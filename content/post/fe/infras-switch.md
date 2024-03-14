@@ -2,7 +2,7 @@
 title: "开关配置"
 date: "2023-08-07"
 description: ""
-tags: [hands-on]
+tags: [基建]
 categories: [
   "Frontend",
 ]

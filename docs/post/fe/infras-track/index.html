@@ -38,7 +38,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/infras-track/" />
@@ -59,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -71,14 +71,14 @@
 <meta property="og:description" content="简单实现一个埋点sdk和管理平台" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/infras-track/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-08-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-08-22T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-08-22T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-08-22T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="埋点管理">
-<meta itemprop="description" content="简单实现一个埋点sdk和管理平台"><meta itemprop="datePublished" content="2023-08-22T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-08-22T00:00:00+00:00" />
+<meta itemprop="description" content="简单实现一个埋点sdk和管理平台"><meta itemprop="datePublished" content="2023-08-22T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-08-22T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2749">
-<meta itemprop="keywords" content="hands-on," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="基建," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="埋点管理"/>
 <meta name="twitter:description" content="简单实现一个埋点sdk和管理平台"/>
 
@@ -121,21 +121,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -215,9 +215,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -246,7 +243,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -257,7 +254,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -268,7 +265,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -371,7 +368,7 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IEventType</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">IEventType</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">PAGE_SHOW</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pageShow&#39;</span>,
   <span style="color:#a6e22e">CLICK</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;behavior.click&#39;</span>,
   <span style="color:#a6e22e">EXPOSURE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;behavior.exposure&#39;</span>,
@@ -381,7 +378,7 @@
 <p>对于页面打开 <code>PageShow</code>，就很简单，一般统计 当前页面 <code>url/pageId</code> 即可</p>
 <h4 id="behavior"><code>behavior</code></h4>
 <p>试想怎么描述 『点击了登录按钮』这件事件，至少需要</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEvent</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEvent</span> {
   <span style="color:#a6e22e">eventId</span>: <span style="color:#66d9ef">string</span>, <span style="color:#75715e">//  行为 `id`，比如下载download, 分享 share, 登录 login
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType</span>,
   <span style="color:#a6e22e">eventTarget</span>: <span style="color:#66d9ef">IEventTarget</span>[], <span style="color:#75715e">// 事件对象的描述，类似 `js` 里的 `event.target`
@@ -395,7 +392,7 @@
 <li>分享商品，统计 分享的商品id，分享渠道</li>
 </ul>
 <p>举个例子，分享商品</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
   <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
   <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
@@ -411,7 +408,7 @@
   <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">Date.now</span>()
 }
 </code></pre></div><p>上面这个 <code>eventTarget</code> 结构上有一点点问题，不方便后续的数据分析，上面的例子中事件对象是 <code>goodId</code>，换到其他业务，这个对象可能是 <code>projectId</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
   <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
   <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
@@ -425,13 +422,13 @@
   <span style="color:#a6e22e">timestamp</span>: <span style="color:#66d9ef">Date.now</span>()
 }
 </code></pre></div><p>可以发现，<code>eventTarget</code> 结构不固定，无法统一分析。优化后的结构如下，其中 <code>extend</code> 作为扩展字段，存储其他业务信息，比如说上面的渠道</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEventTarget</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IEventTarget</span> {
   <span style="color:#a6e22e">targetKey</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 这个就是前文中的 goodId/projectId
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">targetValue</span>: <span style="color:#66d9ef">string</span>
   <span style="color:#a6e22e">extend</span><span style="color:#f92672">?:</span> { [<span style="color:#a6e22e">k</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#66d9ef">any</span> }
 }
 </code></pre></div><p>优化后如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
   <span style="color:#a6e22e">eventId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;share&#39;</span>,
   <span style="color:#a6e22e">eventType</span>: <span style="color:#66d9ef">IEventType.CLICK</span>,
   <span style="color:#a6e22e">eventTarget</span><span style="color:#f92672">:</span> [
@@ -461,7 +458,7 @@
 <li>页面信息</li>
 </ul>
 <p>综上，我们可以定义一条完备的日志数据结构</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ITrack</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ITrack</span> {
   <span style="color:#a6e22e">common</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">appId</span>: <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 应用ID
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">appName</span>: <span style="color:#66d9ef">string</span>, <span style="color:#75715e">// 应用名称
@@ -534,7 +531,7 @@
 <h2 id="sdk">SDK</h2>
 <h3 id="初始化">初始化</h3>
 <p>根据前面的数据结构定义，需要外部传入的参数只有应用元信息、用户身份</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IUser</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IUser</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">userId</span>: <span style="color:#66d9ef">string</span>
 }
 
@@ -557,7 +554,7 @@
 <p>注册插件系统，在埋点最后上报之前，提供给业务进行数据处理的钩子</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTracker</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTracker</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">common</span>
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">pageStack</span>: <span style="color:#66d9ef">MyPage</span>
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_transform</span>
@@ -582,7 +579,7 @@
   }
 }
 </code></pre></div><p><code>MyPage</code> 负责页面信息管理，默认只保留当前访问的页面信息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyPage</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyPage</span> {
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">string</span> }[]
   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">maxLength</span>
   <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">opts</span><span style="color:#f92672">?</span>) {
@@ -597,7 +594,7 @@
   }
 }
 </code></pre></div><p>最后，暴露2个上报方法给业务</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 上报pageShow
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 上报pageShow
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">page</span>(<span style="color:#a6e22e">page?</span>: <span style="color:#66d9ef">IPage</span>, <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>) {
   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pageStack</span>.<span style="color:#a6e22e">record</span>(<span style="color:#a6e22e">page</span>)
   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_report</span>({
@@ -615,7 +612,7 @@
 
 </code></pre></div><h3 id="插件系统">插件系统</h3>
 <p>埋点发送之前，会经过一系列注册的插件，类似 <code>axios</code> 的 <code>interceptors</code>，一个顺序执行的插件流</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">compose</span>(<span style="color:#a6e22e">plugins</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">compose</span>(<span style="color:#a6e22e">plugins</span>) {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>Array.<span style="color:#a6e22e">isArray</span>(<span style="color:#a6e22e">plugins</span>)) {
     <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;plugins must be an array&#39;</span>)
   }
@@ -650,7 +647,7 @@
 </code></pre></div><p>前面说明，埋点验证有2个小工具，一个是UI查看工具，一个是自动验证，本质就是2个插件</p>
 <h4 id="ui查看工具">UI查看工具</h4>
 <p>UI查看工具的话，我们是封装一个 <code>web component</code>，业务开启的话，会在业务页面弹出一个浮层，每次埋点上报都能看到埋点数据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrackDebug</span> <span style="color:#a6e22e">extend</span> <span style="color:#a6e22e">HTMLElement</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrackDebug</span> <span style="color:#a6e22e">extend</span> <span style="color:#a6e22e">HTMLElement</span> {
   <span style="color:#a6e22e">container</span>
 
   <span style="color:#66d9ef">constructor</span>() {
@@ -701,7 +698,7 @@
 }
 <span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;track-debug&#39;</span>, <span style="color:#a6e22e">TrackDebug</span>)
 </code></pre></div><p>然后注册一个插件，每次埋点发送都会经过这里，从而添加到 <code>UI</code> 上即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">trackIns</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">trackIns</span>
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">trackIns</span>) {
     <span style="color:#a6e22e">trackIns</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;track-debug&#39;</span>)
@@ -712,7 +709,7 @@
 }
 </code></pre></div><h4 id="自动验证">自动验证</h4>
 <p>同理，自动验证的话，只需要连接到埋点平台的验证接口，不合规的埋点不会发送请求</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#75715e">// 数据校验
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">valid</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">validate</span>) {
@@ -728,7 +725,7 @@
   }
 }
 </code></pre></div><p>最后，插件流转完成，会回到最后的发送接口</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_report</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">IEvent_Type</span>, <span style="color:#a6e22e">log?</span>: <span style="color:#66d9ef">IEvent</span> }) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_report</span>(<span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">IEvent_Type</span>, <span style="color:#a6e22e">log?</span>: <span style="color:#66d9ef">IEvent</span> }) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">logData</span>: <span style="color:#66d9ef">ITrack</span> <span style="color:#f92672">=</span> {
     <span style="color:#a6e22e">common</span>: <span style="color:#66d9ef">this.common</span>,
     <span style="color:#a6e22e">user</span>: <span style="color:#66d9ef">this.options?.userInfo</span>()
@@ -785,7 +782,7 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/hands-on/">hands-on</a>
+              <a href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/">基建</a>
                 
             </div>
 
@@ -1005,13 +1002,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

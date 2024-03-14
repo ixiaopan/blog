@@ -2,7 +2,6 @@
 title: "Component - Cascader"
 date: "2022-05-29"
 description: ""
-tags: [Component]
 categories: [
   "Frontend",
 ]

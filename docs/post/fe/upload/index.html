@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/upload/" />
@@ -58,7 +58,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -70,12 +70,12 @@
 <meta property="og:description" content="Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/upload/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-12-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-12-16T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-12-16T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-12-16T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Upload">
-<meta itemprop="description" content="Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS"><meta itemprop="datePublished" content="2023-12-16T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-12-16T00:00:00+00:00" />
+<meta itemprop="description" content="Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS"><meta itemprop="datePublished" content="2023-12-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-12-16T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="1946">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upload"/>
@@ -120,21 +120,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -214,9 +214,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -245,7 +242,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -256,7 +253,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -267,7 +264,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -359,7 +356,7 @@
 <p><img src="/blog/post/images/oss.jpg" alt=""></p>
 <h3 id="sts">STS</h3>
 <p>首先 <code>OSS</code> 采用临时 <code>STS</code> 进行授权访问，所以第一步要有获取到凭证才能进行上传。这一步可以参考官方文档 <a href="https://help.aliyun.com/document_detail/32077.html">Node.js授权访问 - Ali OSS</a>，具体代码参考如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">OSS</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;ali-oss&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">OSS</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;ali-oss&#39;</span>)
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">queryOssSTS() {</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sts</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OSS</span>.<span style="color:#a6e22e">STS</span>({
     <span style="color:#a6e22e">accessKeyId</span>: <span style="color:#66d9ef">ACCESS_KEY_ID</span>,
@@ -383,7 +380,7 @@
 }
 </code></pre></div><h3 id="初始化">初始化</h3>
 <p>前端获得凭证后，就可以初始化OSS实例</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OSS</span>({
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OSS</span>({
   <span style="color:#a6e22e">accessKeyId</span>: <span style="color:#66d9ef">res.AccessKeyId</span>,
   <span style="color:#a6e22e">accessKeySecret</span>: <span style="color:#66d9ef">res.AccessKeySecret</span>,
   <span style="color:#a6e22e">stsToken</span>: <span style="color:#66d9ef">res.SecurityToken</span>,
@@ -402,7 +399,7 @@
 </code></pre></div><p>其中 <code>res</code> 就是前文 <code>node</code> 服务返回的结果，要注意既然是临时<code>token</code>，所以就有过期的时候，过期可以通过<code>refreshSTSToken</code>拿到新token就行。</p>
 <h3 id="简单分片上传">简单/分片上传</h3>
 <p>最后就是上传文件，对于大文件建议走分片上传，这样做不仅可以提高上传速度，还可以实现断点续传、获取到上传进度等</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 大于100M
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 大于100M
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>) {
   <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">multipartUpload</span>(<span style="color:#a6e22e">filePath</span>, <span style="color:#a6e22e">file</span>, {
     <span style="color:#a6e22e">parallel</span>: <span style="color:#66d9ef">4</span>,
@@ -417,12 +414,12 @@
 }
 </code></pre></div><h3 id="简单上传模拟进度条">简单上传模拟进度条</h3>
 <p>根据官方文档，简单上传不支持获取进度的，没办法如果非要显示进度只能想办法模拟。一个思路是获取当前网速</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">bytePerSec</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">bytePerSec</span>
 <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;change&#39;</span>, () <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">bytePerSec</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">downlink</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">8</span>
 })
 </code></pre></div><p>然后再计算时差乘以网速得到网络包大小从而模拟进度，需要注意 <code>clearInterval</code> 避免内存泄露</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span>
 <span style="color:#a6e22e">simpleUpload() {</span>
   <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(() <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fakeSize</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">bytePerSec</span> <span style="color:#f92672">*</span> (Date.<span style="color:#a6e22e">now</span>() <span style="color:#f92672">-</span> <span style="color:#a6e22e">startTime</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span>
@@ -442,7 +439,7 @@
 }
 </code></pre></div><h3 id="封装成class">封装成class</h3>
 <p>可以把上面的代码封装一下，既提供工厂模式，也支持单例模式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// utils/oss.ts
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// utils/oss.ts
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyOSS</span> {
   <span style="color:#66d9ef">constructor</span>() {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OSS</span>({})
@@ -454,7 +451,7 @@
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">MyOSS</span>.<span style="color:#a6e22e">create</span>()
 </code></pre></div><h2 id="resource">Resource</h2>
 <p>对于业务要上传的文件，我们抽象为一个对象 <code>resource</code>，至少包括要上传的文件本身，此外还可以配置几个事件钩子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IResource</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IResource</span> {
   <span style="color:#a6e22e">file</span>: <span style="color:#66d9ef">File</span>
   <span style="color:#a6e22e">id?</span>: <span style="color:#66d9ef">string</span>
   <span style="color:#a6e22e">name?</span>: <span style="color:#66d9ef">string</span>
@@ -465,7 +462,7 @@
   <span style="color:#a6e22e">onError</span><span style="color:#f92672">?</span>(<span style="color:#a6e22e">error</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> Error)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>
 }
 </code></pre></div><p>封装之后，对于业务来说就很简单了，实际上，前文基建中提到的文件上传平台就是这么实现的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 业务使用
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 业务使用
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">myOSS</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;utils/oss&#39;</span>
 <span style="color:#a6e22e">myOSS</span>.<span style="color:#a6e22e">autoUpload</span>({ <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">onComplete() {</span>}, <span style="color:#a6e22e">onError() {</span>}, })
 </code></pre></div><h2 id="多个大文件同时上传">多个大文件同时上传</h2>
@@ -478,7 +475,7 @@
 <p>此外，不同入口下的上传会有不同的业务逻辑，下图有3个入口，每个入口要处理的业务逻辑是不一样的。</p>
 <p><img src="/blog/post/images/upload-midware.png" alt=""></p>
 <p>很容易想到使用中间件来解决这个问题，中间件也有很多模式，针对该业务逻辑，使用最简单的顺序型模型就足以，参考代码如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sequence</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sequence</span> {
   <span style="color:#66d9ef">constructor</span>() {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tasks</span> <span style="color:#f92672">=</span> []
   }
@@ -509,14 +506,14 @@
 <p>上传并不一定总是来自前端，也可能是服务端上传，前端不断轮询对应文件状态，比如上图中的 <code>entry 1</code> 这种情况。这种要怎么跳过前端 <code>oss</code> 上传同时又能更新状态呢？</p>
 <p>1、所有中间件执行完成后的方法中，判断是否跳过 <code>oss</code></p>
 <p>上图可以看到，所有中间件执行完成后，会进入到一个 <code>doneCallback</code> 中，这里会开始真正的上传文件，最终会调用 <code>oss.autoUpload()</code>，所以这里加个判断是否需要前端上传，字段 <code>noClientOSS</code> 当然是业务指定了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">sequence</span>.<span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">resource</span>, () <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">sequence</span>.<span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">resource</span>, () <span style="color:#f92672">=&gt;</span> {
   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resource</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">bizData</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">noClientOSS</span>) {
     <span style="color:#a6e22e">oss</span>.<span style="color:#a6e22e">autoUpload</span>()
   }
 })
 </code></pre></div><p>2、轮询接口中，更新 <code>resource</code></p>
 <p>前文已经说过，我们把文件抽象成一个 <code>IResource</code>，有自己的状态、事件钩子，同时轮询是其中一个中间件，所以我们可以在其中拿到 <code>resource</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pollMiddleware</span>(<span style="color:#a6e22e">resource</span>, <span style="color:#a6e22e">next</span>) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pollMiddleware</span>(<span style="color:#a6e22e">resource</span>, <span style="color:#a6e22e">next</span>) {
   <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">queryProgress() {</span>
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">queryProgress</span>()
 
@@ -780,13 +777,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

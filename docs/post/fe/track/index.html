@@ -38,7 +38,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.81.0" />
 
 
 <link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/track/" />
@@ -59,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="/blog/sass/jane.min.e826e860368147e5a6685e686355e4d7789023c18c9ea2e78b35f6786ce92736.css" integrity="sha256-6CboYDaBR&#43;WmaF5oY1Xk13iQI8GMnqLnizX2eGzpJzY=" media="screen" crossorigin="anonymous">
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
 
 
 
@@ -71,12 +71,12 @@
 <meta property="og:description" content="In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the UI part. For the edit operation, we will talk it later." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/track/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-06-26T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-06-26T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-06-26T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-06-26T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="The track panel of a video editor">
-<meta itemprop="description" content="In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the UI part. For the edit operation, we will talk it later."><meta itemprop="datePublished" content="2023-06-26T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-06-26T00:00:00+00:00" />
+<meta itemprop="description" content="In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the UI part. For the edit operation, we will talk it later."><meta itemprop="datePublished" content="2023-06-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2023-06-26T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="1059">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="The track panel of a video editor"/>
@@ -121,21 +121,21 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
         
       </li><li class="mobile-menu-item">
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
         
       </li><li class="mobile-menu-item">
@@ -215,9 +215,6 @@
 
     
 
-    
-
-
     <header id="header" class="header">
       <div class="logo-wrapper">
   <a href="/blog/" class="logo">
@@ -246,7 +243,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/post/">Archives</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
           
 
         
@@ -257,7 +254,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/tags/">Tags</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
           
 
         
@@ -268,7 +265,7 @@
         
           
           
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/categories/">Categories</a>
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
           
 
         
@@ -378,7 +375,7 @@
 </ul>
 <h2 id="track">Track</h2>
 <p>Different track type has different styles, so we need to define each track type first.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TRACK_TYPE</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">TRACK_TYPE</span> {
   <span style="color:#a6e22e">BGM</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#a6e22e">TEXT</span>,
   <span style="color:#a6e22e">TTS</span>,
@@ -387,12 +384,12 @@
   <span style="color:#a6e22e">CLIP</span>,
 }
 </code></pre></div><p>A track has its position and width, which is determined by the start time, duration, yIndex and the baseWidth.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">duration</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">duration</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
 
 <span style="color:#a6e22e">offsetX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">baseWidth</span>
 
 <span style="color:#a6e22e">offsetY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yIndex</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">someHeight</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
   &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[&#39;track&#39;, &#39;track-&#39; + type]&#34;</span> <span style="color:#f92672">:style</span><span style="color:#e6db74">=&#34;styleObj&#34;</span> <span style="color:#f92672">:data-scale</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> <span style="color:#f92672">:data-start</span><span style="color:#e6db74">=&#34;startTime&#34;</span> <span style="color:#f92672">:data-duration</span><span style="color:#e6db74">=&#34;duration&#34;</span>&gt;
     &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">:class</span><span style="color:#e6db74">=&#34;[&#39;track-inner&#39;]&#34;</span>&gt;
       &lt;<span style="color:#f92672">icon</span> /&gt;
@@ -424,7 +421,7 @@
 }
 &lt;/<span style="color:#f92672">style</span>&gt;
 </code></pre></div><p>The interesting thing here is the use of <code>outline</code> instead of <code>border</code>. The reason is that the segment width in hover status is <code>1px</code> while it&rsquo;s <code>2px</code> in active status. If we use <code>border</code>, the whole segment will shake slightly when we hover and click it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
 .<span style="color:#a6e22e">track-bgm</span> {
   <span style="color:#960050;background-color:#1e0010">&amp;:hover</span> <span style="color:#960050;background-color:#1e0010">.track-inner</span> <span style="color:#960050;background-color:#1e0010">{</span>
     <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#f00</span>;
@@ -440,7 +437,7 @@
 <p>Unlike other areas of the box, outlines don&rsquo;t take up space, so they don&rsquo;t affect the layout of the document in any way - MDN</p>
 </blockquote>
 <p>Besides <code>outline</code>, we can also use <code>border + box-shadow</code> to achieve the same effect.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
 .<span style="color:#a6e22e">track-bgm</span> {
   <span style="color:#960050;background-color:#1e0010">.track-inner</span> <span style="color:#960050;background-color:#1e0010">{</span>
     <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#66d9ef">transparent</span>;
@@ -457,7 +454,7 @@
 <span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
 </code></pre></div><h2 id="zoom">Zoom</h2>
 <p>This component is simple enough. All we care about is the scale value.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onZoomOut</span>() {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onZoomOut</span>() {
   <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;change&#39;</span>, Math.<span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>, <span style="color:#a6e22e">scaleVal</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">step</span>) <span style="color:#f92672">/</span> (<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">min</span>))
 }
 
@@ -481,7 +478,7 @@
 </li>
 </ul>
 <p>Based on the above two principles, we can write code like this</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
 &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler-wrap&#34;</span>&gt;
   &lt;<span style="color:#f92672">a-seek</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;onSeek&#34;</span> <span style="color:#a6e22e">scrollable</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler&#34;</span>&gt;
     &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-major&#34;</span> <span style="color:#f92672">v-for</span><span style="color:#e6db74">=&#34;m in realMax - min&#34;&gt;
@@ -511,7 +508,7 @@
 &lt;/<span style="color:#f92672">script</span>&gt;
 </code></pre></div><h3 id="auto-resized">Auto-Resized</h3>
 <p>As mentioned earlier, we define a param called <code>baseWidth</code>, which means the width per second(e.g. <code>80px/1000ms</code>) or the width of a major scale. Thus, we can set the whole timeline in this way</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">
 &lt;<span style="color:#f92672">template</span>&gt;
 &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler-wrap&#34;</span> <span style="color:#f92672">:style</span><span style="color:#e6db74">=&#34;wrapStyle&#34;</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scrollRef&#34;</span>&gt;
   &lt;<span style="color:#f92672">a-seek</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;onSeek&#34;</span> <span style="color:#a6e22e">scrollable</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeline-ruler&#34;</span>&gt;...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a-seek&gt;</span>
@@ -524,7 +521,7 @@
 }))
 &lt;/<span style="color:#f92672">script</span>&gt;
 </code></pre></div><p>As the zoom changes, we can get the scaled value from the <code>change</code> event, and then we simply change the <code>baseWidth</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
 &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;editor-track-panel&#34;</span>&gt;
   &lt;<span style="color:#f92672">a-zoom</span> <span style="color:#f92672">@change</span><span style="color:#e6db74">=&#34;onZoomChange&#34;</span> /&gt;
   &lt;<span style="color:#f92672">a-timeline</span> <span style="color:#f92672">:baseWidth</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> /&gt;
@@ -547,7 +544,7 @@
 </li>
 </ul>
 <p>To have the exact click position, we use <code>clientX</code> instead of <code>offsetX</code>. <code>offsetX</code> can be used in simple cases, for example, a pure div container. But in our case, <code>major-scale</code> and <code>minor-scale</code> are set <code>position: relative/absolute</code>, thus, <code>offsetX</code> is unstable because the minor-scale is relative major-scale. On the contrary, <code>clientX</code> will always be the position we click.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#f92672">@click</span><span style="color:#e6db74">=&#34;onClick&#34;</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;seekRef&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">div</span> <span style="color:#f92672">@click</span><span style="color:#e6db74">=&#34;onClick&#34;</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;seekRef&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
 
 &lt;<span style="color:#f92672">script</span>&gt;
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onClick</span>(<span style="color:#a6e22e">e</span>) {
@@ -559,8 +556,8 @@
 })
 &lt;/<span style="color:#f92672">script</span>&gt;
 </code></pre></div><p>However, <code>clientX</code> is not sufficient because the timeline can scroll, so we need to calculate both the <code>scrollLeft</code> and <code>clientX</code> of the timeline. The formula is</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">realPosition</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ratio</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">seekWidth</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">clientXOfTimeline</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">scrollLeftOfTimeline</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">realPosition</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ratio</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">seekWidth</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">clientXOfTimeline</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">scrollLeftOfTimeline</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
 &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;editor-track-panel&#34;</span>&gt;
   &lt;<span style="color:#f92672">a-zoom</span> <span style="color:#f92672">@change</span><span style="color:#e6db74">=&#34;onZoomChange&#34;</span> /&gt;
   &lt;<span style="color:#f92672">a-timeline</span> <span style="color:#f92672">:baseWidth</span><span style="color:#e6db74">=&#34;baseWidth&#34;</span> <span style="color:#f92672">@seek</span><span style="color:#e6db74">=&#34;oSeek&#34;</span> /&gt;
@@ -800,13 +797,13 @@
       </div>
     </div>
     
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
 
 
 
 
-<script type="text/javascript" src="/blog/js/main.97e3349af25266740f15f60ba3a52fa1c247c87c6b73b9bca9290ec5c41c7cbe.js" integrity="sha256-l&#43;M0mvJSZnQPFfYLo6UvocJHyHxrc7m8qSkOxcQcfL4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
 
 
 

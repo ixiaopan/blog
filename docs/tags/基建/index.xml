@@ -6,16 +6,7 @@
     <description>Recent content in 基建 on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Micro Frontend</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-client/</link>
-      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-client/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/%E5%9F%BA%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>服务端实现</title>
       <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
@@ -95,6 +86,15 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/infras/</guid>
       <description>这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的</description>
+    </item>
+    
+    <item>
+      <title>Build your own UI component library from scratch</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/infras-ui/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/infras-ui/</guid>
+      <description>&lt;p&gt;In this post, we will learn how to build your own UI component library.&lt;/p&gt;</description>
     </item>
     
   </channel>

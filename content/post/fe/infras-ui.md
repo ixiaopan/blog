@@ -1,7 +1,7 @@
 ---
 title: "Build your own UI component library from scratch"
 date: "2023-06-08"
-tags: [hands-on]
+tags: [基建]
 categories: [
   "Frontend",
 ]

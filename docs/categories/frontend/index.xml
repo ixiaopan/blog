@@ -6,7 +6,25 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 18 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《Effective JavaScript》</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/effective-js/</link>
+      <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/effective-js/</guid>
+      <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
+    </item>
+    
+    <item>
+      <title>CSS Box Model</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/css-box-model/</link>
+      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/css-box-model/</guid>
+      <description>新开一个系列，从 w3c spec 的角度梳理 CSS 知识点，先从 box model 开始。 box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画</description>
+    </item>
+    
     <item>
       <title>Audio Sprite</title>
       <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
@@ -77,24 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</guid>
       <description>Background 一开始也没想要做监控，当时其实是接入了阿里的 arms，但是接入一段时间后，觉得用起来不舒服，不知道是不是使用姿势不对，而且还收费，因此才有</description>
-    </item>
-    
-    <item>
-      <title>Axios</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/axios/</link>
-      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/axios/</guid>
-      <description>MIME 即 media type，表示资源的类型，格式为 type/subtype 常见类型的有 text/plain, text/html, text/javascript, image/png... MIME 分为两类，discrete 和 multipart，顾名思义，前者就是完整的一份资</description>
-    </item>
-    
-    <item>
-      <title>i18n</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/i18n/</link>
-      <pubDate>Fri, 10 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/i18n/</guid>
-      <description>Background 前两天做了一个比较有意思的需求，一个项目既需要支持多渠道部署也要支持多语言切换。不同渠道之间大约 80% 的功能都是一样的，只有部分功能比如登录是</description>
     </item>
     
   </channel>
