@@ -6,13 +6,49 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 14 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[WIP] Koa</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/koa/</link>
+      <pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/koa/</guid>
+      <description>middleware </description>
+    </item>
+    
+    <item>
+      <title>[WIP] 《Micro Frontends in Action》</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/mfe/</link>
+      <pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/mfe/</guid>
+      <description>Micro Frontend 原理 框架 Reference</description>
+    </item>
+    
+    <item>
+      <title>Modules</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/module/</link>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/module/</guid>
+      <description>Module 模块的作用 类似命名空间的上下文隔离，避免各个功能模块间的变量冲突 支持模块间的引用即依赖，避免把需要用到的变量、方法等提升到全局作用域 主流方</description>
+    </item>
+    
+    <item>
+      <title>Promise/Async/Generator</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/async/</link>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/async/</guid>
+      <description>Promise executor console.log(&amp;#39;1&amp;#39;) let promise = new Promise(function(resolve, reject) { console.log(&amp;#39;2&amp;#39;) setTimeout(() =&amp;gt; { resolve(&amp;#34;done&amp;#34;) resolve(&amp;#39;ok&amp;#39;) // ignored reject(&amp;#34;my error&amp;#34;) // ignored }, 1000) }) promise.then((val) =&amp;gt; { console.log(&amp;#39;val: &amp;#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则</description>
+    </item>
+    
     <item>
       <title>《Effective JavaScript》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/effective-js/</link>
+      <link>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</link>
       <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/effective-js/</guid>
+      <guid>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</guid>
       <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
     </item>
     
@@ -45,10 +81,10 @@
     
     <item>
       <title>《Game Programming Patterns》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/pattern/</link>
+      <link>https://ixiaopan.github.io/blog/post/fe/read-pattern/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/pattern/</guid>
+      <guid>https://ixiaopan.github.io/blog/post/fe/read-pattern/</guid>
       <description>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书</description>
     </item>
     
@@ -59,42 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
       <description>Background 前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志</description>
-    </item>
-    
-    <item>
-      <title>迭代管理&amp;发布平台 02</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
-      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</guid>
-      <description>Background 之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂 需求/技术文档在飞书，但不知道该需求对应哪个分支 代码托管在 gitla</description>
-    </item>
-    
-    <item>
-      <title>Upload</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/upload/</link>
-      <pubDate>Sat, 16 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/upload/</guid>
-      <description>Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS</description>
-    </item>
-    
-    <item>
-      <title>包发布管理平台</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
-      <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-npm/</guid>
-      <description>Background 之前介绍过用 verdaccio 搭建私有 npm 源，公司内部用到的包可以通过 npm publish 发布上去。不过随着包越来越多，开发者也越来越多，只用 npm publish 已经不能满足现有的诉求了，</description>
-    </item>
-    
-    <item>
-      <title>性能监控SDK</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</link>
-      <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</guid>
-      <description>Background 一开始也没想要做监控，当时其实是接入了阿里的 arms，但是接入一段时间后，觉得用起来不舒服，不知道是不是使用姿势不对，而且还收费，因此才有</description>
     </item>
     
   </channel>

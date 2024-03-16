@@ -76,7 +76,7 @@
 <meta itemprop="name" content="Upload">
 <meta itemprop="description" content="Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS"><meta itemprop="datePublished" content="2023-12-16T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2023-12-16T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1946">
+<meta itemprop="wordCount" content="1961">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upload"/>
 <meta name="twitter:description" content="Background 业务中涉及大量上传，应该说上传是业务的基石，因此只有理解了上传的逻辑，才能服务好业务。本文主要从以下几个方面总结关于上传的开发经验 使用OS"/>
@@ -532,8 +532,11 @@
   <span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">queryProgress</span>, <span style="color:#ae81ff">2000</span>)
 }
 </code></pre></div><h3 id="并发">并发</h3>
-<p>最后一个问题，浏览器同一时间内支持的 <code>http</code> 并发数量是有限制的，比如 <code>chrome</code> 可能是 <code>6-10</code> 个，现在我们上传了1000个文件，同时又是分片，如果每次分片数量是4个，那就是同一时间内有4000个 <code>http</code> 发送出去，就会造成网络堵塞，甚至浏览器崩溃。所以，我们要做一个队列，同时间只能 <code>N</code> 个文件在上传。</p>
-<h2 id="resourcemanager">ResourceManager</h2>
+<p>最后一个问题，浏览器同一时间内支持的 <code>http</code> 并发数量是有限制的，比如 <code>chrome</code> 可能是 <code>6-10</code> 个，现在我们上传了1000个文件，同时又是分片，如果每次分片数量是4个，那就是同一时间内有4000个 <code>http</code> 发送出去，就会造成网络堵塞，甚至浏览器崩溃。所以，我们要做一个队列，同时间只能 <code>N</code> 个文件在上传，也就是并发控制的实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">concurrency</span>(<span style="color:#a6e22e">urlList</span>, <span style="color:#a6e22e">n</span>) {
+
+}
+</code></pre></div><h2 id="resourcemanager">ResourceManager</h2>
 <p>从另外一个角度来看，每个文件都要在UI层更新自己的状态，为了避免业务直接接触到每个文件，我们还要实现一个中心管理器 <code>ResourceManager</code>，文件的动态统一收口在管理中心，同时管理中心还可以实现并发的调度。</p>
 <p>综上，最后的架构图如下</p>
 <p><img src="/blog/post/images/resource-manager.png" alt=""></p>

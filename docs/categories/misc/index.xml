@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 25 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《数据压缩入门》</title>
-      <link>https://ixiaopan.github.io/blog/post/misc/data-compress/</link>
+      <link>https://ixiaopan.github.io/blog/post/misc/read-data-compress/</link>
       <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/misc/data-compress/</guid>
+      <guid>https://ixiaopan.github.io/blog/post/misc/read-data-compress/</guid>
       <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;哈夫曼编码&lt;/li&gt;

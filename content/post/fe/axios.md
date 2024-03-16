@@ -2,7 +2,6 @@
 title: "Axios"
 date: "2023-11-10"
 description: ""
-tags: ["源码"]
 categories : [
   "Frontend",
 ]

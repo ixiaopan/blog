@@ -267,8 +267,13 @@ function pollMiddleware(resource, next) {
 ```
 
 ### 并发
-最后一个问题，浏览器同一时间内支持的 `http` 并发数量是有限制的，比如 `chrome` 可能是 `6-10` 个，现在我们上传了1000个文件，同时又是分片，如果每次分片数量是4个，那就是同一时间内有4000个 `http` 发送出去，就会造成网络堵塞，甚至浏览器崩溃。所以，我们要做一个队列，同时间只能 `N` 个文件在上传。
+最后一个问题，浏览器同一时间内支持的 `http` 并发数量是有限制的，比如 `chrome` 可能是 `6-10` 个，现在我们上传了1000个文件，同时又是分片，如果每次分片数量是4个，那就是同一时间内有4000个 `http` 发送出去，就会造成网络堵塞，甚至浏览器崩溃。所以，我们要做一个队列，同时间只能 `N` 个文件在上传，也就是并发控制的实现
 
+```ts
+function concurrency(urlList, n) {
+
+}
+```
 
 ## ResourceManager
 
@@ -281,6 +286,7 @@ function pollMiddleware(resource, next) {
 
 
 ## From Scratch
+
 
 ## Reference
 

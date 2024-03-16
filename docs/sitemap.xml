@@ -9,49 +9,77 @@
   </url>
   
   <url>
+    <loc>https://ixiaopan.github.io/blog/post/fe/koa/</loc>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/post/fe/mfe/</loc>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ixiaopan.github.io/blog/categories/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/categories/frontend/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/post/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/tags/reading/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/tags/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ixiaopan.github.io/blog/</loc>
-    <lastmod>2024-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2024-03-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/post/fe/effective-js/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe/module/</loc>
+    <lastmod>2024-03-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/post/fe/async/</loc>
+    <lastmod>2024-03-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</loc>
     <lastmod>2024-03-14T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -86,7 +114,7 @@
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/post/fe/pattern/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe/read-pattern/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -149,13 +177,6 @@
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/tags/%E6%BA%90%E7%A0%81/</loc>
-    <lastmod>2023-11-10T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://ixiaopan.github.io/blog/categories/misc/</loc>
     <lastmod>2023-10-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -163,7 +184,7 @@
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/post/misc/data-compress/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/misc/read-data-compress/</loc>
     <lastmod>2023-10-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -240,7 +261,7 @@
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/post/fe/promise/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe/read-promise/</loc>
     <lastmod>2023-03-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -352,7 +373,7 @@
   </url>
   
   <url>
-    <loc>https://ixiaopan.github.io/blog/post/fe/layout/</loc>
+    <loc>https://ixiaopan.github.io/blog/post/fe/css-layout/</loc>
     <lastmod>2022-01-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

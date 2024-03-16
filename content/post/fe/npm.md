@@ -2,7 +2,6 @@
 title: "Package Manager"
 date: "2022-01-07"
 description: ""
-# tags: []
 categories: [
   "Frontend",
 ]

@@ -2,7 +2,7 @@
 title: "CSS Layout 101"
 date: "2022-01-03"
 description: ""
-# tags: []
+tags: [css]
 categories: [
   "Frontend",
 ]

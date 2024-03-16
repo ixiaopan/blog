@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CSS on xiaopan&#39;s blog</title>
+    <title>css on xiaopan&#39;s blog</title>
     <link>https://ixiaopan.github.io/blog/tags/css/</link>
-    <description>Recent content in CSS on xiaopan&#39;s blog</description>
+    <description>Recent content in css on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 09 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/css/index.xml" rel="self" type="application/rss+xml" />
@@ -14,6 +14,15 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/css-box-model/</guid>
       <description>新开一个系列，从 w3c spec 的角度梳理 CSS 知识点，先从 box model 开始。 box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画</description>
+    </item>
+    
+    <item>
+      <title>CSS Layout 101</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/css-layout/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/css-layout/</guid>
+      <description>&lt;p&gt;This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.&lt;/p&gt;</description>
     </item>
     
   </channel>

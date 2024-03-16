@@ -2,7 +2,7 @@
 title: "CSS Box Model"
 date: "2024-03-09"
 description: ""
-tags: ["CSS"]
+tags: [css]
 categories : [
   "Frontend",
 ]

@@ -1,8 +1,8 @@
 ---
-title: "CSS Border and Background"
+title: "[WIP] CSS Border and Background"
 date: "2024-03-09"
 description: ""
-tags: ["CSS"]
+tags: [css]
 categories : [
   "Frontend",
 ]

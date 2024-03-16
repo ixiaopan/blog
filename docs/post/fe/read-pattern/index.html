@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          《Game Programming Patterns》 - xiaopan&#39;s blog
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="xiaopan" />
+  <meta name="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/read-pattern/" />
+
+
+
+
+
+<link rel="icon" href="/blog/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="《Game Programming Patterns》" />
+<meta property="og:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/read-pattern/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-01-15T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-01-15T00:00:00&#43;00:00" />
+
+<meta itemprop="name" content="《Game Programming Patterns》">
+<meta itemprop="description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"><meta itemprop="datePublished" content="2024-01-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-01-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4897">
+<meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Game Programming Patterns》"/>
+<meta name="twitter:description" content="最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/blog/" class="logo">Pan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/blog/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/blog/" class="logo">
+    
+      Pan
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">《Game Programming Patterns》</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2024-01-15">
+      2024-01-15
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 <code>web</code> 开发中也很常见，比如 <code>singleton/observer/dirty check</code> 等。不过由于书中代码示例是用 <code>c++</code> 编写的，对于前端不是很直观，所以有了从前端角度剖析的想法，权当自身学习。</p>
+<h2 id="design-patterns">Design Patterns</h2>
+<h3 id="observer">Observer</h3>
+<blockquote>
+<p>It lets one piece of code announce that something interesting happened without actually caring who receives the notification</p>
+</blockquote>
+<p>既然是观察者模式，那就有被观察的对象和观察者，2个主体</p>
+<h4 id="subjectobserver">Subject/Observer</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span> {
+  <span style="color:#a6e22e">onNotify</span>(<span style="color:#a6e22e">sbj</span>, <span style="color:#a6e22e">eventName</span>) {}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">observerList</span>: <span style="color:#66d9ef">Observer</span>[]
+  <span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) {}
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observerList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">o</span>) }
+  <span style="color:#a6e22e">notify</span>(<span style="color:#a6e22e">eventName</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observerList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">o</span>: <span style="color:#66d9ef">Observer</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">onNotify</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">eventName</span>))
+  }
+}
+</code></pre></div><p>从这段代码可以看到 <code>subject</code> 有2个主要工作</p>
+<p>1、内部维护了一个数组 <code>observerList</code>，表示对 <code>subject</code> 发生变化感兴趣的对象即 <code>observer</code>；同时支持外部代码添加、删除 <code>observer</code></p>
+<p>2、一旦 <code>subject</code> 发生变化，就要发送通知 <code>subject.notify()</code></p>
+<p>这个模式在前端领域更习惯用 <code>EventEmitter</code>，举个图片编辑器的例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageObject</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">EventEmitter</span> {
+  <span style="color:#a6e22e">render() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;object:rendered&#39;</span>)
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Renderer</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">imageObj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ImageObject</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">imageObj</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;object:rendered&#39;</span>, () <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#a6e22e">hideLoading</span>()
+    })
+  }
+  <span style="color:#a6e22e">render() {</span>
+    <span style="color:#a6e22e">showLoading</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_objects</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">o</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">render</span>())
+  }
+}
+</code></pre></div><p>这个例子使用 <code>EventEmitter</code> 第三方库，不使用也是可以的，那就要自己包装一个 <code>EventEmitter</code> 比如我们对 <code>resize</code> 事件感兴趣</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResizeEvent</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">constructor</span>() {
+    window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">e</span>))
+    })
+  }
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">fn</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">fn</span>)
+  }
+}
+</code></pre></div><p>可见，如果应用中多次使用观察者模式，还是使用 <code>EventEmitter</code> 更为方便。</p>
+<h4 id="observer-vs-pub-sub">Observer VS Pub-Sub</h4>
+<p><code>pub-sub</code> 即发布订阅模式，和观察者模式很像，区别在于</p>
+<p>观察者模式</p>
+<ul>
+<li>2个主体之间是明确知道对方存在的</li>
+<li>操作是同步的</li>
+<li>通信发生在同一个应用内容</li>
+</ul>
+<p><code>pub-sub</code></p>
+<ul>
+<li>通过 <code>broker</code> 联系发布者和订阅者，也就是说可以订阅一个压根不存在的发布者</li>
+<li>操作可以异步</li>
+<li>可以跨组件、跨应用通信</li>
+</ul>
+<p>同样是对 <code>resize</code> 事件感兴趣，使用 <code>pub-sub</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">eventBus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventBus</span>()
+
+window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;resize&#39;</span>, (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;window:resize&#39;</span>, <span style="color:#a6e22e">e</span>)
+})
+
+<span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;window:resize&#39;</span>, () <span style="color:#f92672">=&gt;</span> {}) <span style="color:#75715e">// triggered
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">eventBus</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;window:scroll&#39;</span>, () <span style="color:#f92672">=&gt;</span> {}) <span style="color:#75715e">// not triggered, because there&#39;s no publisher
+</span></code></pre></div><h3 id="singleton">Singleton</h3>
+<blockquote>
+<p>Ensure a class has one instance, and provide a global point of access to it.</p>
+</blockquote>
+<p>经典的模式，下面的代码大家或多或少都见过</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResourceManager</span> {
+  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">_instance</span>
+
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span>) {
+      <span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ResourceManager</span>()
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ResourceManager</span>.<span style="color:#a6e22e">_instance</span>
+  }
+}
+</code></pre></div><p>业务中不管在任何地方调用多少次 <code>new ResourceManager()</code>，全局都只有一个实例 <code>ResourceManager._instance</code>。</p>
+<p>这个模式的主要槽点在于实例是全局可访问的，但通常我们都不喜欢变量是全局可访问</p>
+<ul>
+<li>
+<p>难以追踪，比如代码中突然出现一个未曾被引入的变量 <code>xxx</code> ，你就得查一下这是啥；而且也很难知道哪些地方使用了全局变量</p>
+</li>
+<li>
+<p>容易耦合，比如在游戏中一些东西落在地上要发出声音，很可能就有人在这块业务代码中直接引入 <code>AudioManager</code>（显示全局我们只有一个声音管理器），如果每个需要播放声音的地方都这样引入 <code>AudioManager</code> 代码就冗余了，后面就麻烦了；更好的方式或许是使用 <code>observer</code> 模式通知 <code>AudioManager</code> 播放声音</p>
+</li>
+</ul>
+<p>或许下次在考虑单例模式的时候，可以思考一下如何 <code>limit access scope</code></p>
+<p>1、从 <code>base class</code> 获取</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">msg</span>) {}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TextLayer</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">doSth() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;text layer&#39;</span>)
+  }
+}
+</code></pre></div><p>2、从已存在的全局对象获取</p>
+<p>就拿 <code>AudioManager</code> 来说，可以挂在 <code>Editor/Game</code> 下面，毕竟全局只有一个游戏或者编辑器存在</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioManager</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AudioManager</span>()
+  }
+  <span style="color:#a6e22e">playSound</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">audioManager</span>.<span style="color:#a6e22e">play</span>(<span style="color:#a6e22e">name</span>)
+  }
+}
+
+<span style="color:#75715e">// 业务逻辑：切换不同声音
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeSound</span>(<span style="color:#a6e22e">name</span>) {
+  <span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">playSound</span>(<span style="color:#a6e22e">name</span>)
+}
+</code></pre></div><p>3、从 <code>Service Locator</code> 获取</p>
+<p>定义一个对象 <code>Service Locator</code>（这也是一个模式，下文单独介绍），专门提供对全局对象的访问</p>
+<h3 id="state">State</h3>
+<blockquote>
+<p>States, inputs, transitions</p>
+<ul>
+<li>You have a fixed set of states that the machine can be in</li>
+<li>The machine can only be in one state at a time</li>
+<li>A sequence of inputs or events is sent to the machine</li>
+<li>Each state has a set of transitions, each associated with an input and pointing to a state.</li>
+</ul>
+</blockquote>
+<p>有限状态机 <code>finite state machine</code> 之前在 <a href="/blog/post/fe/infras-basement-2/">迭代管理&amp;发布平台 02</a> 就有所提及，本质上部署流水线就是一个状态机模型，那什么是 <code>FSM</code>？我们以书中的例子来看</p>
+<p><img src="/blog/post/images/fsm.png" alt="" title="Game Programming Pattern"></p>
+<p>如图所示有4个状态 <code>standing, jumping, ducking and diving</code>，各状态之间的转换通过用户的输入控制 <code>pressB/pressDown/releaseDown</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> {
+  <span style="color:#a6e22e">STANDING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;standing&#39;</span>,
+  <span style="color:#a6e22e">JUMPING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jumping&#39;</span>,
+  <span style="color:#a6e22e">DUCKING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ducking&#39;</span>,
+  <span style="color:#a6e22e">DIVING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;diving&#39;</span>
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleInput() {</span>
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">state</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.STANDING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressB</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">JUMPING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_JUMP</span>)
+      }
+      <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.JUMPING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DIVING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DIVE</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.DUCKING</span>:
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+        <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">STANDING</span>
+        <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+      }
+      <span style="color:#66d9ef">break</span>;
+  }
+}
+</code></pre></div><p>显然这是我们第一时间想到的写法，实际上我就是这样实现部署流水线的，</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start() {</span>
+  <span style="color:#66d9ef">for</span> (; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">stepList</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span><span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stepList</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">currentStep</span>]
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">step</span>) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BRANCH_CHECK</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">check</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.BUILD</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">build</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FLOW_STATE.DEPLOY</span>:
+        <span style="color:#66d9ef">error</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deploy</span>()
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">break</span>
+    }
+  }
+}
+</code></pre></div><p>目前看这样写是没问题，但如果我们想加点东西，比如在按下 <code>down</code> 的时候，让游戏角色可以积蓄力量发动某种能力</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chargeTime</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleInput() {</span>
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">state</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">State.STANDING</span>:
+      <span style="color:#66d9ef">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>
+      <span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    }
+    <span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">update() {</span>
+    <span style="color:#75715e">// 新增
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">State</span>.<span style="color:#a6e22e">DUCKING</span>) {
+      <span style="color:#a6e22e">chargeTime</span><span style="color:#f92672">++</span>
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">MAX_CHARGE</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sendBomb</span>()
+      }
+    }
+  }
+}
+</code></pre></div><p>可以看到，我们要修改2个地方才能实现这个简单功能，而且还要额外维护一个变量 <code>chargeTime</code>，然而这个变量除了和 <code>ducking</code> 有关系外，别的地方都不会用到，显然问题原因在于<strong>状态自身逻辑和外部的业务逻辑耦合</strong>。</p>
+<p>既如此，那就让每个状态维护自己的逻辑好了，也就是把 <code>switch/case</code> 的逻辑放在对应的状态类 <code>state class</code> 中，比如 <code>ducking state</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>}
+  <span style="color:#a6e22e">update() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  }
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#75715e">// state = State.STANDING 
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+  <span style="color:#a6e22e">update() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span><span style="color:#f92672">++</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">chargeTime</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">MAX_CHARGE</span>) {
+      <span style="color:#75715e">// game 是全局的唯一示例
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">sendBomb</span>()
+    }
+  }
+}
+</code></pre></div><p>Q：每个 <code>state</code> 处理自己的业务逻辑，<code>state transition</code> 怎么触发呢，也就是如何实现 <code>switch/case</code> 的功能？</p>
+<p>A：代理给 <code>game</code>，既然同一时间只能有一个状态，那就给全局唯一的游戏实例 <code>game</code> 加个指针指向当前的 <code>state instance</code>，在 <code>handleInput</code> 中实现 <code>state transition</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span>
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>() <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+}
+</code></pre></div><p>Q：<code>state instance</code> 从哪里来</p>
+<p>A：可以考虑全局就这4个状态</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GlobalState</span> {
+  <span style="color:#a6e22e">ducking</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DuckingState</span>(),
+  <span style="color:#a6e22e">standing</span>: <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>(),
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GlobalState</span>.<span style="color:#a6e22e">standing</span>
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>() <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GlobalState</span>.<span style="color:#a6e22e">standing</span> <span style="color:#75715e">// trigger state transition
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+    }
+  }
+}
+</code></pre></div><p>A：或者每次 <code>state transition</code> 生成一个新 <code>state</code>，注意这里，我们仅仅是返回了新的 <code>state</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>() <span style="color:#75715e">// create a new state instance when we transition to it
+</span><span style="color:#75715e"></span>    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">pressB</span>) {
+      <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DuckingState</span>() <span style="color:#75715e">// create a new state instance when we transition to it
+</span><span style="color:#75715e"></span>    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>()
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextState</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextState</span>
+    }
+  }
+}
+</code></pre></div><p>现在代码还有一点小问题，仔细观察就会发现 <code>game.setGraphics(IMAGE_DUCK)</code> 的逻辑在 <code>standingState</code> 中，应该由 <code>duckingState</code> 负责比较合理。换句话说，每个 <code>state class</code> 应该自包含所有和它相关的行为和数据</p>
+<blockquote>
+<p>The goal of the State pattern is to encapsulate all of the behavior and data for one state in a single class.</p>
+</blockquote>
+<p>解决方法也很简单，提供 <code>state transition</code> 的 <code>hooks</code> 如 <code>enter/leave</code> 等，这样就能实现新state的初始化，以及旧state的 <code>clean up</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuckingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">enter() {</span>
+    <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_DUCK</span>)
+  }
+  <span style="color:#a6e22e">leave() {</span>}
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">releaseDown</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+    }
+  }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StandingState</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">BaseState</span> {
+  <span style="color:#a6e22e">enter() {</span>
+    <span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">setGraphics</span>(<span style="color:#a6e22e">IMAGE_STAND</span>)
+  }
+  <span style="color:#a6e22e">leave() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">StandingState</span>()
+
+  <span style="color:#a6e22e">handleInput() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">handleInput</span>()
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextState</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">leave</span>()
+      
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextState</span>
+      
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">enter</span>()
+    }
+  }
+}
+</code></pre></div><h3 id="flyweight">Flyweight</h3>
+<blockquote>
+<p>Flyweight comes into play when you have objects that need to be more lightweight, generally because you have too many of them.</p>
+<p>This pattern separates out an object’s data into two kinds:</p>
+<ul>
+<li>intrinsic state: the stuff that can be shared across all instances</li>
+<li>extrinsic state: the stuff that is unique to that instance</li>
+</ul>
+</blockquote>
+<p>说白了，也就是资源共享，在前端中也比较常见，比如编辑器中层的设计</p>
+<h4 id="case-1">Case 1</h4>
+<ul>
+<li>每个图层都有基本的属性 <code>startTime/endTime/duration/visible/...</code> 等</li>
+<li>不同图层类型也有自己特殊的属性，比如图片层有图片url、宽高等；文本图层需要维护文本属性 <code>fontColor/fontSize/...</code> 等</li>
+</ul>
+<p>显然，要设计一个基类 <code>Layer</code> 共享共有的属性，子类集成父类实现定制化</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Layer</span> {
+  <span style="color:#a6e22e">startTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">duration</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">zIndex</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">visible</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ImageLayer</span> {
+  <span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">loadImageFromUrl() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TextLayer</span> {
+  <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+  <span style="color:#a6e22e">setText() {</span>}
+}
+</code></pre></div><h4 id="case-2">Case 2</h4>
+<p><code>Case 1</code> 的例子里，<code>layer</code> 之间共享的属性很明显且子类之间差异化也比较大，所以可以直接抽象一个独立共享的对象，但也存在一些不明显的情况，书中就给出了这样的例子，假设游戏里地形有几种类型 <code>grass/dirt/hill/river</code> 等，每种类型都有一些属性</p>
+<ul>
+<li>移动速度</li>
+<li>船能否通过</li>
+</ul>
+<p>开始编码阶段，图方便一般是把地形放在 <code>game</code> 全局实例中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">tiles</span> <span style="color:#f92672">=</span> [
+    [<span style="color:#a6e22e">GRASS</span>, <span style="color:#a6e22e">HILL</span>],
+    [<span style="color:#a6e22e">HILL</span>, <span style="color:#a6e22e">RIVER</span>],
+  ]
+  <span style="color:#a6e22e">getMoveCost</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">GRASS</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">HILL</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>
+    }
+  }
+  <span style="color:#a6e22e">isWater</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]) {
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">GRASS</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">RIVER</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+  }
+}
+</code></pre></div><p>问题也很明显，<code>movecost/wetness</code> 都是地形的元属性，现在和业务代码耦合在一起，需要独立出来</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Terrain</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">moveCost</span>, <span style="color:#a6e22e">water</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">moveCost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">moveCost</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">water</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">water</span>
+  }
+}
+</code></pre></div><p>不同于保存地形的类型，现在是保存每个地形的实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">grass</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hill</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">false</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">river</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Terrain</span>(<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> {
+   <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">tiles</span> <span style="color:#f92672">=</span> [
+    [<span style="color:#a6e22e">grass</span>, <span style="color:#a6e22e">hill</span>],
+    [<span style="color:#a6e22e">hill</span>, <span style="color:#a6e22e">river</span>],
+  ]
+  <span style="color:#a6e22e">getTile</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tiles</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>]
+  }
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">game</span>.<span style="color:#a6e22e">getTile</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">moveCost</span>)
+</code></pre></div><h3 id="command">Command</h3>
+<blockquote>
+<p>A command is a reusable object that represents a thing that can be done.</p>
+</blockquote>
+<p>这个模式在前端不是特别常见，我们先借下游戏开发的一些场景帮助理解 <code>Command</code> 是什么。很多游戏允许玩家自定义快捷键操作角色，很经典的有些人喜欢用 <code>up/down/left/right</code> 控制方向，有些人喜欢用 <code>wasd</code>。用代码实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">keyCode</span>) {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">keyCode</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.UP</span>:
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.W</span>:
+      <span style="color:#66d9ef">jump</span>()
+      <span style="color:#66d9ef">break</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.LEFT</span>:
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">KEY_CODE.A</span>:
+      <span style="color:#66d9ef">move</span>()
+      <span style="color:#66d9ef">break</span>
+  }
+}
+</code></pre></div><p>很明显，这段代码中 <code>keyCode</code> 和要执行的动作 <code>jump/duck/...</code> 太耦合，无法支持用户自定义快捷命令。解决方法也很显而易见，那就是把 <code>keyCode</code> 和执行动作拆开</p>
+<p>1、每个动作负责自己的行为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#a6e22e">execute() {</span>}
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JumpCommand</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#a6e22e">execute() {</span> <span style="color:#a6e22e">jump</span>() }
+}
+</code></pre></div><p>2、绑定 <code>keyCode</code> 和动作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputHandler</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> {}
+  <span style="color:#75715e">// 自定义快捷命令
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">customCommand</span>(<span style="color:#a6e22e">keyCode</span>, <span style="color:#a6e22e">cmd</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span>[<span style="color:#a6e22e">keyCode</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">cmd</span>
+  }
+  <span style="color:#a6e22e">bindDefaultCommand() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> {
+      [<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>]<span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">JumpCommand</span>(),
+    }
+  }
+  <span style="color:#a6e22e">handleInput</span>(<span style="color:#a6e22e">code</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isPressed</span>(<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>)) <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span>[<span style="color:#a6e22e">KEY_CODE</span>.<span style="color:#a6e22e">UP</span>].<span style="color:#a6e22e">execute</span>()
+  }
+}
+</code></pre></div><h4 id="undoredo">Undo/Redo</h4>
+<blockquote>
+<p>Commands can be specific. They represent a thing that can be done at a specific point in time.</p>
+</blockquote>
+<p><code>Command</code> 模式的精华在于，它可以很简单的实现 <code>undo/redo</code>。棋牌游戏、编辑软件等都允许用户 <code>undo/redo</code>，我之前在做 <code>PSD</code> 编辑器就有这个功能，待会再细说业务中怎么使用的，我们先看看 <code>undo</code> 是怎么实现的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MoveCommand</span> {
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">entity</span>, <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">entity</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>
+  }
+  <span style="color:#a6e22e">execute() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevX</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">getX</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">getY</span>()
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextX</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextY</span>)
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">entity</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevX</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">prevY</span>)
+  }
+}
+</code></pre></div><p>从这段可以可以看出，<code>undo</code> 能实现是因为我们给每个命令拍了快照，执行命令的同时也记住了之前的状态。</p>
+<h4 id="record-list">Record List</h4>
+<p>在实际的产品中，用户可以 <code>undo</code> 多次，然后再次 <code>redo</code> 或者执行新的命令，这就要求我们要维护一个 <code>command list</code></p>
+<ul>
+<li><code>undo/redo</code> 实际上是指针的移动
+<ul>
+<li><code>undo</code>: undo the current command and move the pointer back</li>
+<li><code>redo</code>: advance the pointer and execute the command</li>
+</ul>
+</li>
+<li><code>undo</code> 后执行新操作，则是废弃当前指针后的所有命令，把新命令加入到列表</li>
+<li>另外，列表不可能无限大，一般我们 <code>undo</code> 20次就不能再撤销了，所以还需要配置一个可撤销最大次数</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RecordList</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_list</span>: <span style="color:#66d9ef">Command</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_index</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">options</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_max</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">max</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">20</span>
+  }
+  <span style="color:#75715e">// 可以 重做
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">get</span> <span style="color:#a6e22e">redoEnabled() {</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+  }
+  <span style="color:#75715e">// 可以 撤销
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">get</span> <span style="color:#a6e22e">undoEnabled() {</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>
+  }
+  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">cmd</span>: <span style="color:#66d9ef">Command</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">// 将栈后面的内容清空
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">command</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span><span style="color:#f92672">++</span>
+
+    <span style="color:#75715e">// 不能超过最大历史记录
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">slice</span>(Math.<span style="color:#a6e22e">max</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_max</span>))
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+
+    <span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">exec</span>()
+  }
+  <span style="color:#a6e22e">redo() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">cmd</span>) <span style="color:#66d9ef">return</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">execute</span>()
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_list</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span>]
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">cmd</span>) <span style="color:#66d9ef">return</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_index</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">undo</span>()
+  }
+}
+</code></pre></div><p>以图片编辑器为例，每次修改图层的位置、文字颜色、文字大小等都要存入历史记录</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_oldV</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_newV</span>
+
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_exec</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_undo</span>
+
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">exec</span>, <span style="color:#a6e22e">newV</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">oldV</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_exec</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">exec</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_undo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">exec</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_oldV</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldV</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_newV</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newV</span>
+  }
+
+  <span style="color:#a6e22e">exec() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_exec</span>(<span style="color:#a6e22e">parseJSON</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_newV</span>))
+  }
+
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_undo</span>(<span style="color:#a6e22e">parseJSON</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_oldV</span>))
+  }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+  <span style="color:#66d9ef">constructor</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">RecordList</span>()
+  }
+  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">setPropsByCommand</span>(<span style="color:#a6e22e">d</span>)<span style="color:#f92672">:</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ao</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">findObjectByIndex</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">zIndex</span>)
+    <span style="color:#a6e22e">ao</span><span style="color:#f92672">?</span>.<span style="color:#66d9ef">set</span>(<span style="color:#a6e22e">d</span>)
+  }
+  <span style="color:#a6e22e">addRecord</span>(<span style="color:#a6e22e">newV</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">oldV</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Command</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setPropsByCommand</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>), <span style="color:#a6e22e">newV</span>, <span style="color:#a6e22e">oldV</span>))
+  }
+  <span style="color:#a6e22e">undo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">undo</span>()
+  }
+  <span style="color:#a6e22e">redo() {</span>
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_recorder</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">redo</span>()
+  }
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onModifyLayerAttr</span>(<span style="color:#a6e22e">layer</span>, <span style="color:#a6e22e">attrName</span>, <span style="color:#a6e22e">newVal</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ao</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">editor</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">findObjectByIndex</span>(<span style="color:#a6e22e">layer</span>.<span style="color:#a6e22e">zIndex</span>)
+  
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">attrName</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;fontColor&#39;</span>) {
+    <span style="color:#a6e22e">editor</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addRecord</span>(
+      <span style="color:#75715e">// 新值
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ [<span style="color:#a6e22e">attrName</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">zIndex</span>: <span style="color:#66d9ef">ao.zIndex</span> }),
+      <span style="color:#75715e">// 旧值
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ [<span style="color:#a6e22e">attrName</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">ao</span>[<span style="color:#a6e22e">attrName</span>], <span style="color:#a6e22e">zIndex</span>: <span style="color:#66d9ef">ao.zIndex</span> })
+    )
+  }
+}
+</code></pre></div><ul>
+<li>
+<p>业务需要修改图层状态，调用 <code>onModifyLayerAttr</code> 传入要修改的图层对象、图层属性以及新的属性值</p>
+</li>
+<li>
+<p>这段代码不同于 <code>MoveCommand</code> 的地方在于</p>
+<ul>
+<li>
+<p>我们并没有创建 <code>new FontColorCommand() / new PositionCommand()</code> 诸如这样的命令，而是把执行命令的方法抽象为 <code>_exec</code>，这是因为 <code>object.set(props, value)</code> 是修改图层属性的唯一方法</p>
+</li>
+<li>
+<p>要修改的对象也没有直接传入 <code>new Command</code>，这里我们是托管到 <code>editor</code>，然后通过图层的 <code>zIndex</code> 属性找到它（ <code>setPropsByCommand()</code> ）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>写法虽然有所不同，但本质都是一样，实现 <code>redo/undo</code> 的核心都是要保存执行命令那一刻，对象的当下状态。</p>
+<h2 id="optimization-patterns">Optimization Patterns</h2>
+<h3 id="dirty-flag">Dirty Flag</h3>
+<blockquote>
+<p>A set of primary data changes over time. A set of derived data is determined from this using some expensive process. A “dirty” flag tracks when the derived data is out of sync with the primary data. It is set when the primary data changes. If the flag is set when the derived data is needed, then it is reprocessed and the flag is cleared. Otherwise, the previous cached derived data is used</p>
+</blockquote>
+<p>用 <code>vue</code> 来解释，就是 <code>computed</code> 的功能</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">amount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalPrice</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">computed</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">amount</span>)
+</code></pre></div><p>使用该模式要注意的地方</p>
+<ul>
+<li>每次重新计算，都要重置 dirty flag</li>
+<li>derived data 维护在内存中</li>
+</ul>
+<p>所以该模式实际上是拿空间换速度 <code>trades memory for speed</code></p>
+<h2 id="decoupling-patterns">Decoupling Patterns</h2>
+<h3 id="component">Component</h3>
+<blockquote>
+<p>Allow a single entity to span multiple domains without coupling the domains to each other.</p>
+</blockquote>
+<p>前端再熟悉不过，不再赘述。。。</p>
+<h3 id="event-queue">Event Queue</h3>
+<blockquote>
+<p>A queue stores a series of notifications or requests in first-in, first-out order. Sending a notification enqueues the request and returns.</p>
+<p>The request processor then processes items from the queue at a later time.</p>
+<p>Requests can be handled directly or routed to interested parties. This decouples the sender from the receiver both statically and in time.</p>
+</blockquote>
+<p>看样子很像 <code>observer</code>，确实很像，都是可以解耦 <code>sender</code> 和 <code>receiver</code>，不过区别在于 <code>event queue</code> 多一个 <code>queue</code> 用来存储堆积的 <code>event</code>，既然有堆积，说明事件处理的实时性不高。</p>
+<p>作者用 <code>push and pull</code> 去理解 <code>event queue</code>，我觉得很有意思，这里就放上原文</p>
+<blockquote>
+<p>I think of it in terms of pushing and pulling. You have some code A that wants another chunk B to do some work. The natural way for A to initiate that is by pushing the request to B.</p>
+<p>Meanwhile, the natural way for B to process that request is by pulling it in at a convenient time in its run cycle. When you have a push model on one end and a pull model on the other, you need a buffer between them. That’s what a queue provides that simpler decoupling patterns don’t.</p>
+<p><strong>Queues give control to the code that pulls from it</strong> — the receiver can delay processing, aggregate requests, or discard them entirely. But queues do this by taking control away from the sender. All the sender can do is throw a request on the queue and hope for the best. This makes queues a poor fit when the sender needs a response.</p>
+</blockquote>
+<p>说白了，<code>sender</code> 的请求，<code>receiver</code> 不一定会响应，这个在前端肯定深有体会，经常出现的页面卡住、点不动等。</p>
+<h3 id="service-locator">Service Locator</h3>
+<blockquote>
+<p>Provide a global point of access to a service without coupling users to the concrete class that implements it</p>
+</blockquote>
+<p>对于前端而言，或许叫作 <code>dependency inject</code> 更方便理解。不同于 <code>singleton</code>（我们明确知道全局存在这么一个实例），<code>service locator</code> 隐藏了服务使用方和服务提供方的联系</p>
+<ul>
+<li>提供服务的人，通过 <code>service locator</code> 先注册</li>
+<li>使用服务的人，通过 <code>service locator</code> 获取服务</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app.ts
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">provide</span>(<span style="color:#e6db74">&#39;$message&#39;</span>, { <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">warn</span>, <span style="color:#a6e22e">loading</span> })
+
+<span style="color:#75715e">// download.vue
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">setup() {</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">inject</span>(<span style="color:#e6db74">&#39;$message&#39;</span>)
+  <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">success</span>(<span style="color:#e6db74">&#39;下载成功&#39;</span>)
+}
+</code></pre></div><p>使用这种模式，要注意2点</p>
+<ul>
+<li>
+<p>服务不一定存在，即 <code>inject('$message')</code> 可能为空</p>
+</li>
+<li>
+<p>服务提供商不知道谁在使用该服务，这就意味着服务必须能在任何环境中正确执行</p>
+</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p>本文所总结的几个模式虽然仅仅是书中的一部分，不过也是前端开发中经常用到的。还有一部分没有提及，主要是因为我在读英文版的时候，总感觉有点晦涩，大概是因为对游戏开发不是很懂以及对 c++ 的不熟悉导致的，所以有一部分内容我就跳过了。但不可否认的是，这本书写的还不错，属于那种常看常新的类型，而且设计模式这种东西本身也比较虚，个人觉得还是要有足够的开发经验再去看设计模式才能有更切身的理解。所以跳过的部分待以后再重新拾起来温故知新吧。</p>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c">observer vs pub-sub pattern</a></li>
+</ul>
+
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://ixiaopan.github.io/blog/tags/reading/">Reading</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+              <a class="prev" href="/blog/post/fe/poll/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">Polling</span>
+                <span class="prev-text nav-mobile">Prev</span>
+              </a>
+            
+              <a class="next" href="/blog/post/fe/infras-server/">
+                <span class="next-text nav-default">服务端实现</span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#design-patterns">Design Patterns</a>
+      <ul>
+        <li><a href="#observer">Observer</a></li>
+        <li><a href="#singleton">Singleton</a></li>
+        <li><a href="#state">State</a></li>
+        <li><a href="#flyweight">Flyweight</a></li>
+        <li><a href="#command">Command</a></li>
+      </ul>
+    </li>
+    <li><a href="#optimization-patterns">Optimization Patterns</a>
+      <ul>
+        <li><a href="#dirty-flag">Dirty Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#decoupling-patterns">Decoupling Patterns</a>
+      <ul>
+        <li><a href="#component">Component</a></li>
+        <li><a href="#event-queue">Event Queue</a></li>
+        <li><a href="#service-locator">Service Locator</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+  
+    <a href="wxp201013@163.com" rel="me noopener" class="iconfont"
+      title="email"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://www.linkedin.com/in/ixiaopan" rel="me noopener" class="iconfont"
+      title="linkedin"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="33" height="33">
+  <path d="M872.405333 872.618667h-151.637333v-237.610667c0-56.661333-1.152-129.578667-79.018667-129.578667-79.061333 0-91.136 61.653333-91.136 125.397334v241.792H398.976V384h145.664v66.602667h1.962667c20.352-38.4 69.845333-78.933333 143.786666-78.933334 153.642667 0 182.058667 101.12 182.058667 232.746667v268.202667zM227.712 317.141333a87.978667 87.978667 0 0 1-88.021333-88.106666 88.064 88.064 0 1 1 88.021333 88.106666z m76.032 555.477334H151.68V384h152.064v488.618667zM948.266667 0H75.562667C33.792 0 0 33.024 0 73.770667v876.458666C0 991.018667 33.792 1024 75.562667 1024h872.576C989.866667 1024 1024 991.018667 1024 950.229333V73.770667C1024 33.024 989.866667 0 948.138667 0h0.128z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://github.com/ixiaopan" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://space.bilibili.com/22910840" rel="me noopener" class="iconfont"
+      title="bilibili"  target="_blank"
+      >
+      <svg
+  class="icon" style="" viewBox="0 0 1024 1024" version="1.1" width="36"
+  height="36" id="svg8">
+  <path
+      style=""
+      d="M 744.60599,0.00486267 A 41.779915,41.779915 0 0 0 710.4184,18.673394 L 548.5048,255.32642 h -11.70046 a 41.779915,41.779915 0 0 0 -10.80295,-7.84928 L 235.66,97.084498 a 41.779915,41.779915 0 0 0 -20.07193,-4.960864 41.779915,41.779915 0 0 0 -18.3748,79.145436 L 359.4859,255.32642 H 128.16909 c -49.458302,0 -89.27932,39.82105 -89.27932,89.27932 v 508.65224 c 0,49.4583 39.821018,89.27934 89.27932,89.27934 h 19.48445 C 149.12802,984.5043 179.92773,1024 224.79179,1024 c 44.86407,0 75.66379,-39.4957 77.13826,-81.46268 H 719.98116 C 721.45559,984.5043 752.25533,1024 797.1194,1024 c 44.86406,0 75.6638,-39.4957 77.13824,-81.46268 h 21.57323 c 49.45831,0 89.27936,-39.82104 89.27936,-89.27934 V 344.60574 c 0,-49.45827 -39.82105,-89.27932 -89.27936,-89.27932 H 649.74567 L 779.38103,65.866924 A 41.779915,41.779915 0 0 0 744.60599,0.00486267 Z M 644.49108,418.70871 c 6.29985,0.21538 12.44451,2.01107 17.86888,5.22196 l 171.36218,98.10771 c 18.23417,10.21935 24.63334,33.34627 14.24614,51.48533 -10.38726,18.13909 -33.57344,24.32718 -51.61587,13.77296 L 624.9903,489.18895 c -15.21356,-8.41858 -22.66871,-26.1765 -18.03211,-42.93436 4.63664,-16.75784 20.15573,-28.14465 37.53289,-27.54588 z M 350.2006,432.31846 c 16.89952,0.0317 31.69582,11.33328 36.17844,27.62747 4.48262,16.2942 -2.44981,33.57765 -16.95507,42.24898 l -140.7157,86.91312 c -17.68528,11.18244 -41.09629,5.77692 -52.08912,-12.02686 -10.99282,-17.80373 -5.33855,-41.15658 12.58167,-51.95857 L 329.9002,438.2095 c 6.0643,-3.86439 13.10951,-5.90891 20.3004,-5.89104 z M 501.605,641.53985 c 3.75002,-0.15248 7.48645,0.53903 10.93349,2.0235 0.15842,0.0637 0.31618,0.12888 0.47325,0.19582 0.59328,0.27092 1.17574,0.56489 1.74609,0.88121 0.15868,0.0854 0.31643,0.17233 0.47325,0.2611 0.55694,0.32165 1.10131,0.66458 1.63185,1.02807 0.16455,0.1123 0.32777,0.2265 0.48956,0.34269 0.50382,0.36781 0.99371,0.75428 1.46868,1.15864 0.18724,0.15504 0.37218,0.31282 0.55484,0.47323 0.43271,0.38784 0.8518,0.79061 1.25653,1.20756 0.15449,0.16114 0.30679,0.32437 0.45693,0.48959 0.40798,0.44266 0.79989,0.89988 1.17494,1.37076 0.17799,0.22544 0.35205,0.45395 0.5222,0.68538 0.25932,0.34701 0.50964,0.70071 0.75064,1.06071 0.26712,0.39516 0.52286,0.79784 0.76699,1.20757 0.16907,0.29043 0.33231,0.58424 0.48957,0.88123 0.21836,0.41297 0.42513,0.83199 0.62009,1.25653 0.14836,0.32333 0.28983,0.64976 0.42429,0.97911 0.21319,0.51552 0.40915,1.03801 0.58747,1.5666 0.0677,0.19499 0.13296,0.39085 0.19582,0.58748 0.18652,0.60823 0.34984,1.22334 0.48957,1.84399 0.0397,0.16277 0.0779,0.32601 0.11423,0.48957 0.1436,0.69112 0.25788,1.38801 0.34269,2.08877 0.005,0.0381 0.0111,0.0761 0.0163,0.11424 0.0857,0.78056 0.13474,1.56471 0.14687,2.34988 0.005,0.0543 0.0111,0.10879 0.0163,0.1632 0,0 -0.008,1.12132 0,1.45234 0,0 -0.14697,17.84761 5.89102,34.12231 3.01902,8.13734 7.33278,15.10615 12.61433,19.61501 5.28157,4.50889 11.42894,7.62081 23.64572,7.62081 12.2168,0 18.36416,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.5953,-11.47767 12.6143,-19.61501 6.03799,-16.2747 5.89103,-34.12231 5.89103,-34.12231 -0.44885,-13.87045 10.45922,-25.46302 24.3311,-25.86506 13.87189,-0.40201 25.42828,10.53953 25.78348,24.41272 0,0 1.11929,25.7226 -9.00791,53.01927 -5.06359,13.64832 -13.1986,28.46036 -27.05631,40.29073 -13.85772,11.83039 -33.5454,19.63135 -56.20142,19.63135 -22.65603,0 -42.34371,-7.80096 -56.20141,-19.63135 -4.1801,-3.56856 -7.78733,-7.42433 -10.99878,-11.42303 -3.21235,4.00037 -6.81703,7.85309 -10.99876,11.42303 -13.85773,11.83039 -33.5454,19.63135 -56.20144,19.63135 -22.65601,0 -42.3437,-7.80096 -56.2014,-19.63135 -13.85775,-11.83037 -21.99272,-26.64241 -27.05632,-40.29073 -10.12725,-27.29667 -9.00789,-53.01928 -9.00789,-53.01927 0.20714,-13.83687 11.58744,-24.88848 25.42444,-24.69013 14.1263,0.19991 25.2971,12.0278 24.69011,26.14247 0,0 -0.14697,17.84761 5.89103,34.12231 3.01902,8.13734 7.31646,15.10615 12.598,19.61501 5.28155,4.50889 11.44526,7.62081 23.66203,7.62081 12.21681,0 18.36418,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.57899,-11.47767 12.598,-19.61501 5.76352,-15.53489 5.89112,-32.05691 5.89103,-33.56746 0.006,-0.37466 0.0111,-1.05336 0.0163,-1.20759 -0.0117,-0.74583 0.0105,-1.49177 0.0652,-2.23565 0.009,-0.15784 0.0204,-0.31561 0.0327,-0.47324 0.14204,-1.56859 0.43163,-3.12027 0.86487,-4.63449 0.0213,-0.0763 0.0433,-0.15244 0.0652,-0.22848 3.0335,-10.25748 12.24157,-17.46007 22.92769,-17.93417 z"
+      id="rect824"/>
+</svg>
+
+    </a>
+
+
+<a href="https://ixiaopan.github.io/blog/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2021 -
+    2024
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        xiaopan
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
