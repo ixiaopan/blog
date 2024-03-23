@@ -6,14 +6,14 @@
     <description>Recent content in Reading on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[WIP] 《Micro Frontends in Action》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/mfe/</link>
-      <pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate>
+      <title>《Micro Frontends in Action》</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/read-mfe/</link>
+      <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/mfe/</guid>
-      <description>Micro Frontend 原理 框架 Reference</description>
+      <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
+      <description>Micro Frontend what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间</description>
     </item>
     
     <item>

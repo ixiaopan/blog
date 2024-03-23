@@ -6,23 +6,32 @@
     <description>Recent content in Frontend on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[WIP] Koa</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/koa/</link>
-      <pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate>
+      <title>Vite</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/vite/</link>
+      <pubDate>Fri, 22 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/koa/</guid>
-      <description>middleware </description>
+      <guid>https://ixiaopan.github.io/blog/post/fe/vite/</guid>
+      <description>vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器</description>
     </item>
     
     <item>
-      <title>[WIP] 《Micro Frontends in Action》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/mfe/</link>
-      <pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate>
+      <title>Vue3 nextTick/effectScope</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/effect-scope/</link>
+      <pubDate>Fri, 22 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/mfe/</guid>
-      <description>Micro Frontend 原理 框架 Reference</description>
+      <guid>https://ixiaopan.github.io/blog/post/fe/effect-scope/</guid>
+      <description>nextTick 问题：更新响应式数据，并不能立即获取到最新的DOM &amp;lt;div id=&amp;#34;foo&amp;#34;&amp;gt;hello, {{ name }}&amp;lt;/div&amp;gt; const name = ref(&amp;#39;world&amp;#39;) setTimeout(() =&amp;gt; { name.value = &amp;#39;sky&amp;#39; console.log(&amp;#39;updated&amp;#39;, document.querySelector(&amp;#39;#foo&amp;#39;).innerHTML) // hello, world }, 2000) 解决方法：使用 nextTick() const name = ref(&amp;#39;world&amp;#39;) setTimeout(() =&amp;gt; { name.value = &amp;#39;sky&amp;#39; nextTick(() =&amp;gt; { console.log(&amp;#39;updated&amp;#39;,</description>
+    </item>
+    
+    <item>
+      <title>《Micro Frontends in Action》</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/read-mfe/</link>
+      <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
+      <description>Micro Frontend what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间</description>
     </item>
     
     <item>
@@ -40,7 +49,7 @@
       <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/async/</guid>
-      <description>Promise executor console.log(&amp;#39;1&amp;#39;) let promise = new Promise(function(resolve, reject) { console.log(&amp;#39;2&amp;#39;) setTimeout(() =&amp;gt; { resolve(&amp;#34;done&amp;#34;) resolve(&amp;#39;ok&amp;#39;) // ignored reject(&amp;#34;my error&amp;#34;) // ignored }, 1000) }) promise.then((val) =&amp;gt; { console.log(&amp;#39;val: &amp;#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则</description>
+      <description>Simple callback difficult error handling because try...catch don&amp;rsquo;t work getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) invite(data[0].name, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&amp;#39;xx&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) person</description>
     </item>
     
     <item>
@@ -86,15 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/read-pattern/</guid>
       <description>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书</description>
-    </item>
-    
-    <item>
-      <title>服务端实现</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
-      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
-      <description>Background 前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志</description>
     </item>
     
   </channel>

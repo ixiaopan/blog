@@ -299,7 +299,7 @@
   <header class="post-header">
     <h1 class="post-title">
       
-      <a class="post-link" href="/blog/post/fe/koa/">[WIP] Koa</a>
+      <a class="post-link" href="/blog/post/fe/vite/">Vite</a>
     </h1>
     
 
@@ -315,8 +315,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-03-16">
-      2024-03-16
+    <time datetime="2024-03-22">
+      2024-03-22
     </time>
   </div>
 
@@ -346,10 +346,10 @@
   <div class="post-content">
     
       <div class="post-summary">
-        middleware 
+        vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器
       </div>
       <div class="read-more">
-        <a href="/blog/post/fe/koa/" class="read-more-link"
+        <a href="/blog/post/fe/vite/" class="read-more-link"
           >Read more</a
         >
       </div>
@@ -362,7 +362,7 @@
   <header class="post-header">
     <h1 class="post-title">
       
-      <a class="post-link" href="/blog/post/fe/mfe/">[WIP] 《Micro Frontends in Action》</a>
+      <a class="post-link" href="/blog/post/fe/effect-scope/">Vue3 nextTick/effectScope</a>
     </h1>
     
 
@@ -378,8 +378,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-03-16">
-      2024-03-16
+    <time datetime="2024-03-22">
+      2024-03-22
     </time>
   </div>
 
@@ -409,10 +409,73 @@
   <div class="post-content">
     
       <div class="post-summary">
-        Micro Frontend 原理 框架 Reference
+        nextTick 问题：更新响应式数据，并不能立即获取到最新的DOM &lt;div id=&#34;foo&#34;&gt;hello, {{ name }}&lt;/div&gt; const name = ref(&#39;world&#39;) setTimeout(() =&gt; { name.value = &#39;sky&#39; console.log(&#39;updated&#39;, document.querySelector(&#39;#foo&#39;).innerHTML) // hello, world }, 2000) 解决方法：使用 nextTick() const name = ref(&#39;world&#39;) setTimeout(() =&gt; { name.value = &#39;sky&#39; nextTick(() =&gt; { console.log(&#39;updated&#39;,
       </div>
       <div class="read-more">
-        <a href="/blog/post/fe/mfe/" class="read-more-link"
+        <a href="/blog/post/fe/effect-scope/" class="read-more-link"
+          >Read more</a
+        >
+      </div>
+    
+  </div>
+</article>
+
+  
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      
+      <a class="post-link" href="/blog/post/fe/read-mfe/">《Micro Frontends in Action》</a>
+    </h1>
+    
+
+    <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2024-03-18">
+      2024-03-18
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+  </header>
+  
+  <div class="post-content">
+    
+      <div class="post-summary">
+        Micro Frontend what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间
+      </div>
+      <div class="read-more">
+        <a href="/blog/post/fe/read-mfe/" class="read-more-link"
           >Read more</a
         >
       </div>
@@ -535,73 +598,10 @@
   <div class="post-content">
     
       <div class="post-summary">
-        Promise executor console.log(&#39;1&#39;) let promise = new Promise(function(resolve, reject) { console.log(&#39;2&#39;) setTimeout(() =&gt; { resolve(&#34;done&#34;) resolve(&#39;ok&#39;) // ignored reject(&#34;my error&#34;) // ignored }, 1000) }) promise.then((val) =&gt; { console.log(&#39;val: &#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则
+        Simple callback difficult error handling because try...catch don&rsquo;t work getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) invite(data[0].name, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&#39;xx&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) person
       </div>
       <div class="read-more">
         <a href="/blog/post/fe/async/" class="read-more-link"
-          >Read more</a
-        >
-      </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/blog/post/fe/read-effective-js/">《Effective JavaScript》</a>
-    </h1>
-    
-
-    <div class="post-meta">
-  <div class="post-meta-author">
-    by
-      <a href="/blog/about">
-        <span class="post-meta-author-name">
-          xiaopan
-        </span>
-      </a>
-    
-  </div>
-
-  <div class="post-meta-time">
-    <time datetime="2024-03-14">
-      2024-03-14
-    </time>
-  </div>
-
-  
-
-
-  <div class="post-meta__right">
-    
-
-    <div class="post-meta-category">
-        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
-          
-      </div>
-
-
-    
-    
-
-
-    
-    
-  </div>
-</div>
-
-  </header>
-  
-  <div class="post-content">
-    
-      <div class="post-summary">
-        floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，
-      </div>
-      <div class="read-more">
-        <a href="/blog/post/fe/read-effective-js/" class="read-more-link"
           >Read more</a
         >
       </div>

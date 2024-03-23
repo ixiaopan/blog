@@ -29,7 +29,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="xiaopan" />
-  <meta name="description" content="Promise executor console.log(&amp;#39;1&amp;#39;) let promise = new Promise(function(resolve, reject) { console.log(&amp;#39;2&amp;#39;) setTimeout(() =&amp;gt; { resolve(&amp;#34;done&amp;#34;) resolve(&amp;#39;ok&amp;#39;) // ignored reject(&amp;#34;my error&amp;#34;) // ignored }, 1000) }) promise.then((val) =&amp;gt; { console.log(&amp;#39;val: &amp;#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则" />
+  <meta name="description" content="Simple callback difficult error handling because try...catch don&amp;rsquo;t work getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) invite(data[0].name, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&amp;#39;xx&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) person" />
 
 
 
@@ -67,19 +67,19 @@
 
 
 <meta property="og:title" content="Promise/Async/Generator" />
-<meta property="og:description" content="Promise executor console.log(&#39;1&#39;) let promise = new Promise(function(resolve, reject) { console.log(&#39;2&#39;) setTimeout(() =&gt; { resolve(&#34;done&#34;) resolve(&#39;ok&#39;) // ignored reject(&#34;my error&#34;) // ignored }, 1000) }) promise.then((val) =&gt; { console.log(&#39;val: &#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则" />
+<meta property="og:description" content="Simple callback difficult error handling because try...catch don&rsquo;t work getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) invite(data[0].name, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&#39;xx&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) person" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/async/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2024-03-15T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2024-03-15T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Promise/Async/Generator">
-<meta itemprop="description" content="Promise executor console.log(&#39;1&#39;) let promise = new Promise(function(resolve, reject) { console.log(&#39;2&#39;) setTimeout(() =&gt; { resolve(&#34;done&#34;) resolve(&#39;ok&#39;) // ignored reject(&#34;my error&#34;) // ignored }, 1000) }) promise.then((val) =&gt; { console.log(&#39;val: &#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则"><meta itemprop="datePublished" content="2024-03-15T00:00:00&#43;00:00" />
+<meta itemprop="description" content="Simple callback difficult error handling because try...catch don&rsquo;t work getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) invite(data[0].name, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&#39;xx&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) person"><meta itemprop="datePublished" content="2024-03-15T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-03-15T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1777">
+<meta itemprop="wordCount" content="2105">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Promise/Async/Generator"/>
-<meta name="twitter:description" content="Promise executor console.log(&#39;1&#39;) let promise = new Promise(function(resolve, reject) { console.log(&#39;2&#39;) setTimeout(() =&gt; { resolve(&#34;done&#34;) resolve(&#39;ok&#39;) // ignored reject(&#34;my error&#34;) // ignored }, 1000) }) promise.then((val) =&gt; { console.log(&#39;val: &#39;, val) }) // 1, 2, val: done executor() 会同步执行 executor() 接收2个参数：resolve, reject 任务成功调用 resolve(val) 失败则"/>
+<meta name="twitter:description" content="Simple callback difficult error handling because try...catch don&rsquo;t work getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) invite(data[0].name, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&#39;xx&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) person"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -344,7 +344,39 @@
 
         
         <div class="post-content">
-          <h2 id="promise">Promise</h2>
+          <h2 id="simple-callback">Simple callback</h2>
+<p>difficult error handling because <code>try...catch</code> don&rsquo;t work</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#39;xx.json&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
+  <span style="color:#75715e">// do something
+</span><span style="color:#75715e"></span>})
+</code></pre></div><p>sequences of steps, leading to pyramid of doom</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#39;xx.json&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
+  
+  <span style="color:#a6e22e">invite</span>(<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">name</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
+    <span style="color:#75715e">// do something
+</span><span style="color:#75715e"></span>  })
+})
+</code></pre></div><p>waiting until all the parallel tasks are done</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">item</span>,
+<span style="color:#a6e22e">getPerson</span>(<span style="color:#e6db74">&#39;xx&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
+  <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+  <span style="color:#a6e22e">checkReady</span>()
+})
+<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#39;xx&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
+  <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+  <span style="color:#a6e22e">checkReady</span>()
+})
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkReady() {</span>
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">person</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">item</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;ready go&#39;</span>)
+  }
+}
+</code></pre></div><h2 id="promise">Promise</h2>
 <h3 id="executor">executor</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;1&#39;</span>)
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
@@ -708,14 +740,15 @@
 <ul>
 <li>generator is a special type of iterator，and it&rsquo;s iterable.</li>
 <li><code>yield</code> returns the result to the outside and passes the value to the generator</li>
+<li><code>next()</code> supplies the value to the waiitng <code>yield</code>, so if there is no <code>yield</code> waiting, this is no need to supply the value to. In other words, the first call <code>next()</code> has no argument.</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">a</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
 }
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">iterSum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">1</span>)
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>()) <span style="color:#75715e">// 3
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">iterSum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">1</span>) <span style="color:#75715e">// pass parameter like other normal functions do
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>()) <span style="color:#75715e">// 3, the first call `next()` has no argument.
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>(<span style="color:#ae81ff">4</span>)) <span style="color:#75715e">// 9
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>(<span style="color:#ae81ff">12</span>)) <span style="color:#75715e">// 12
 </span></code></pre></div><h3 id="throw">throw</h3>
@@ -732,14 +765,47 @@
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>()) <span style="color:#75715e">// 3
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">iterSum</span>.<span style="color:#66d9ef">throw</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;custom error&#39;</span>))
 </code></pre></div><p>如果不在 <code>generator</code> 内捕获的话，error 会抛在调用 generator 的地方</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">iterSum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">a</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
+}
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">iterSum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">1</span>)
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterSum</span>.<span style="color:#a6e22e">next</span>()) <span style="color:#75715e">// 3
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">try</span> {
   <span style="color:#a6e22e">iterSum</span>.<span style="color:#66d9ef">throw</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;custom error&#39;</span>))
 } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;error:&#39;</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">message</span>) <span style="color:#75715e">// error: custom error
 </span><span style="color:#75715e"></span>}
-</code></pre></div><h2 id="asyncawait">Async/Await</h2>
+</code></pre></div><h3 id="under-the-hood">under the hood</h3>
+<h4 id="state-machine">state machine</h4>
+<p><img src="/blog/post/images/generator-state.png" alt="" title="Source From: Secrets of the JavaScript Ninja-2nd"></p>
+<p><i>Source From: Secrets of the JavaScript Ninja-2nd</i></p>
+<ul>
+<li><code>suspended start</code>: 调用 <code>generator()</code> 进入起始状态</li>
+<li><code>executing</code>: 调用 <code>next()</code> 进入此状态，即初次运行或者从上次 <code>suspended</code> 的地方继续</li>
+<li><code>suspended yield</code>: 遇到 <code>yield</code></li>
+<li><code>completed</code>: 遇到 <code>return</code> 或者函数结束</li>
+</ul>
+<h4 id="execution-context-stack">execution context stack</h4>
+<p>以这段代码为例（以下代码和图来源于 《Secrets of the JavaScript Ninja-2nd》）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">NinjaGenerator</span>(<span style="color:#a6e22e">action</span>) { 
+  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#34;Hattori &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">action</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Yoshi &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">action</span>
+}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ninjaIterator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NinjaGenerator</span>(<span style="color:#e6db74">&#34;skulk&#34;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ninjaIterator</span>.<span style="color:#a6e22e">next</span>()
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ninjaIterator</span>.<span style="color:#a6e22e">next</span>()
+</code></pre></div><p>Step 1: <code>NinjaGenerator(&quot;skulk&quot;)</code></p>
+<p><img src="/blog/post/images/generator-step-1.png" alt="">
+<img src="/blog/post/images/generator-step-2.png" alt=""></p>
+<p>Step 2: <code>const result1 = ninjaIterator.next()</code></p>
+<p><img src="/blog/post/images/generator-step-3.png" alt="">
+<img src="/blog/post/images/generator-step-4.png" alt=""></p>
+<p>Step 3: <code>const result2 = ninjaIterator.next()</code></p>
+<p>同 <code>Step 2</code></p>
+<h2 id="asyncawait">Async/Await</h2>
 <p>利用 <code>generator</code> 简单实现 <code>async/await</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">gen</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">iter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gen</span>()
@@ -749,20 +815,22 @@
 
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">done</span>) <span style="color:#66d9ef">return</span>
     
-    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">v</span>) <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#a6e22e">step</span>(<span style="color:#a6e22e">v</span>)
-    })
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">v</span>) <span style="color:#f92672">=&gt;</span> { <span style="color:#a6e22e">step</span>(<span style="color:#a6e22e">v</span>) }).<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">iter</span>.<span style="color:#66d9ef">throw</span>(<span style="color:#a6e22e">err</span>))
   }
 
   <span style="color:#a6e22e">step</span>()
 }
 
 <span style="color:#a6e22e">run</span>(<span style="color:#66d9ef">function</span> <span style="color:#f92672">*</span>() {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#ae81ff">1</span>)
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#a6e22e">a</span>)
-  
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#ae81ff">3</span>)
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#a6e22e">b</span>)
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#a6e22e">a</span>)
+    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#a6e22e">b</span>)
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;opps&#39;</span>)
+  }
 })
 </code></pre></div><h2 id="see-also">See also</h2>
 <ul>
@@ -855,6 +923,7 @@
     <div class="toc-content custom-scrollbar">
       <nav id="TableOfContents">
   <ul>
+    <li><a href="#simple-callback">Simple callback</a></li>
     <li><a href="#promise">Promise</a>
       <ul>
         <li><a href="#executor">executor</a></li>
@@ -874,6 +943,7 @@
       <ul>
         <li><a href="#yield">yield</a></li>
         <li><a href="#throw">throw</a></li>
+        <li><a href="#under-the-hood">under the hood</a></li>
       </ul>
     </li>
     <li><a href="#asyncawait">Async/Await</a></li>

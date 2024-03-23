@@ -7,6 +7,52 @@ categories : [
 ]
 ---
 
+## Simple callback
+
+difficult error handling because `try...catch` don't work
+
+```ts
+getJSON('xx.json', (err, data) => {
+  if (err) console.log('err')
+  // do something
+})
+```
+
+sequences of steps, leading to pyramid of doom
+
+```ts
+getJSON('xx.json', (err, data) => {
+  if (err) console.log('err')
+  
+  invite(data[0].name, (err, data) => {
+    if (err) console.log('err')
+    // do something
+  })
+})
+```
+
+waiting until all the parallel tasks are done
+
+```ts
+let person, item,
+getPerson('xx', (err, data) => {
+  if (err) console.log('err')
+  person = data
+  checkReady()
+})
+getItem('xx', (err, data) => {
+  if (err) console.log('err')
+  item = data
+  checkReady()
+})
+function checkReady() {
+  if (!person && !item) {
+    console.log('ready go')
+  }
+}
+```
+
+
 ## Promise
 
 ### executor
@@ -425,6 +471,8 @@ for (const value of ["a", "b", "c"]) {
 
 - generator is a special type of iterator，and it's iterable.
 - `yield` returns the result to the outside and passes the value to the generator
+- `next()` supplies the value to the waiitng `yield`, so if there is no `yield` waiting, this is no need to supply the value to. In other words, the first call `next()` has no argument.
+
 
 ```ts
 function* sum(a) {
@@ -432,8 +480,8 @@ function* sum(a) {
   const c = yield b + 5
   return c
 }
-const iterSum = sum(1)
-console.log(iterSum.next()) // 3
+const iterSum = sum(1) // pass parameter like other normal functions do
+console.log(iterSum.next()) // 3, the first call `next()` has no argument.
 console.log(iterSum.next(4)) // 9
 console.log(iterSum.next(12)) // 12
 ```
@@ -458,6 +506,11 @@ iterSum.throw(new Error('custom error'))
 如果不在 `generator` 内捕获的话，error 会抛在调用 generator 的地方
 
 ```ts
+function* sum(a) {
+  const b = yield 2 + a
+  const c = yield b + 5
+  return c
+}
 const iterSum = sum(1)
 console.log(iterSum.next()) // 3
 try {
@@ -466,6 +519,50 @@ try {
   console.log('error:', e.message) // error: custom error
 }
 ```
+
+### under the hood
+
+#### state machine
+
+![](/blog/post/images/generator-state.png "Source From: Secrets of the JavaScript Ninja-2nd")
+
+<i>Source From: Secrets of the JavaScript Ninja-2nd</i>
+
+- `suspended start`: 调用 `generator()` 进入起始状态
+- `executing`: 调用 `next()` 进入此状态，即初次运行或者从上次 `suspended` 的地方继续
+- `suspended yield`: 遇到 `yield`
+- `completed`: 遇到 `return` 或者函数结束
+
+
+#### execution context stack
+
+以这段代码为例（以下代码和图来源于 《Secrets of the JavaScript Ninja-2nd》）
+
+```ts
+function* NinjaGenerator(action) { 
+  yield "Hattori " + action
+  return "Yoshi " + action
+}
+
+const ninjaIterator = NinjaGenerator("skulk")
+const result1 = ninjaIterator.next()
+const result2 = ninjaIterator.next()
+```
+
+Step 1: `NinjaGenerator("skulk")`
+
+![](/blog/post/images/generator-step-1.png)
+![](/blog/post/images/generator-step-2.png)
+
+Step 2: `const result1 = ninjaIterator.next()`
+
+![](/blog/post/images/generator-step-3.png)
+![](/blog/post/images/generator-step-4.png)
+
+Step 3: `const result2 = ninjaIterator.next()`
+
+同 `Step 2`
+
 
 ## Async/Await
 
@@ -480,20 +577,22 @@ function run(gen) {
 
     if (res.done) return
     
-    res.value.then((v) => {
-      step(v)
-    })
+    res.value.then((v) => { step(v) }).catch(err => iter.throw(err))
   }
 
   step()
 }
 
 run(function *() {
-  const a = yield Promise.resolve(1)
-  console.log('a', a)
-  
-  const b = yield Promise.resolve(3)
-  console.log('b', b)
+  try {
+    const a = yield Promise.resolve(1)
+    console.log('a', a)
+    
+    const b = yield Promise.resolve(3)
+    console.log('b', b)
+  } catch (e) {
+    console.log('opps')
+  }
 })
 ```
 
