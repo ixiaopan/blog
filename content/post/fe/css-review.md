@@ -1,14 +1,11 @@
 ---
-title: "CSS Box Model"
+title: "CSS Review"
 date: "2024-03-09"
 description: ""
-tags: [css]
 categories : [
   "Frontend",
 ]
 ---
-
-新开一个系列，从 w3c spec 的角度梳理 `CSS` 知识点，先从 `box model` 开始。
 
 ## box model
 

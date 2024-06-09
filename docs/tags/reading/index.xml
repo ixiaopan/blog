@@ -13,16 +13,7 @@
       <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
-      <description>Micro Frontend what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间</description>
-    </item>
-    
-    <item>
-      <title>《Effective JavaScript》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</link>
-      <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</guid>
-      <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
+      <description>Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的</description>
     </item>
     
     <item>

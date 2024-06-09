@@ -7,7 +7,9 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Archive - xiaopan&#39;s blog</title>
+    <title>
+          CSS Review - xiaopan&#39;s blog
+        </title>
     
 
 <meta name="renderer" content="webkit" />
@@ -27,6 +29,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="xiaopan" />
+  <meta name="description" content="box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包" />
+
 
 
 
@@ -36,8 +40,8 @@
 <meta name="generator" content="Hugo 0.81.0" />
 
 
-<link rel="canonical" href="https://ixiaopan.github.io/blog/post/" />
-<link href="/blog/post/index.xml" rel="alternate" type="application/rss+xml" title="xiaopan&#39;s blog" />
+<link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/css-review/" />
+
 
 
 
@@ -62,15 +66,20 @@
 
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://ixiaopan.github.io/blog/post/" />
+<meta property="og:title" content="CSS Review" />
+<meta property="og:description" content="box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/css-review/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-03-09T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-09T00:00:00&#43;00:00" />
 
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content=""/>
+<meta itemprop="name" content="CSS Review">
+<meta itemprop="description" content="box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包"><meta itemprop="datePublished" content="2024-03-09T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-03-09T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="905">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS Review"/>
+<meta name="twitter:description" content="box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -285,201 +294,248 @@
 
     <div id="mobile-panel">
       <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
         
-<section id="archive" class="archive">
+        <header class="post-header">
+          <h1 class="post-title">CSS Review</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
     
-      <div class="collection-title">
-        <h2 class="archive-year">2021</h2>
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2024-03-09">
+      2024-03-09
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
+          
       </div>
 
-    <div class="archive-post">
-      <time datetime="2021-11-17" class="archive-post-time">
-        2021-11-17
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/dl/lr-ner/" class="archive-post-link">
-          Literature Review on NER
-        </a>
-      </span>
-    </div>
+
+    
     
 
-    <div class="archive-post">
-      <time datetime="2021-11-12" class="archive-post-time">
-        2021-11-12
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/ml/optimization/" class="archive-post-link">
-          Optimization
-        </a>
-      </span>
-    </div>
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <h2 id="box-model">box model</h2>
+<p>css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。</p>
+<p>每个 box 都是一个矩形框，包括</p>
+<ul>
+<li>content area</li>
+<li>padding area</li>
+<li>border area</li>
+<li>margin area</li>
+</ul>
+<h2 id="padding">padding</h2>
+<ul>
+<li>padding 不能为负值</li>
+<li>百分比是相对元素的包含块的宽度</li>
+</ul>
+<h2 id="border">border</h2>
+<ul>
+<li>border-color 默认取 color 属性的值</li>
+<li>border-left 会重置 width/style/color 的值，这意味着如下代码中的 <code>p</code> 的 <code>left border</code> 是 black，不是 red</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">p</span> {
+  <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">solid</span> <span style="color:#66d9ef">red</span>;
+  <span style="color:#66d9ef">border-left</span>: <span style="color:#66d9ef">double</span>;
+  <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">black</span>;
+}
+</code></pre></div><h2 id="margin">margin</h2>
+<ul>
+<li>margin 可以是负值，比如常见的 『负magin 布局』</li>
+<li>百分比是相对元素的包含块的宽度</li>
+<li>对于 non-replaced inline element 比如 <code>span/em/strong</code>，设置 margin-top/bottom 无效</li>
+<li>collapsing margins</li>
+</ul>
+<h3 id="collapsed-margin">collapsed margin</h3>
+<p>1、什么是 collapsed margin</p>
+<ul>
+<li>
+<p>相邻2个 box 之间（不一定是兄弟元素，父子之间也可以）的 margin 会合并为一个 margin，即 collapsed margin</p>
+</li>
+<li>
+<p>水平方向上的 margin 不会发生 collapse</p>
+</li>
+</ul>
+<p>2、为什么会折叠</p>
+<p>可以参考 <a href="https://stackoverflow.com/questions/3069921/what-is-the-point-of-css-collapsing-margins">Stackoverflow</a> 上这个回答</p>
+<blockquote>
+<p>The general meaning of “margin” isn’t to convey “move this over by 10px” but rather, “there must be 10px of empty space beside this element.” I’ve always found this is easiest to conceptualize with paragraphs.</p>
+<p>If you just gave paragraphs margin-top: 10px and had no margins on any other elements, a series of paragraphs would be spaced beautifully. But of course, you’d run into trouble when placing another element underneath a paragraph. The two would touch.</p>
+<p>If margins didn’t collapse, you’d hesitate to add margin-bottom: 10px to your previous code, because then any pair of paragraphs would get spaced 20px apart, while paragraphs would separate from other elements by only 10px.</p>
+<p>So vertical margins collapse. By adding top and bottom margins of 10px you’re saying, “I don’t care what margin rules any other elements have. I demand at least 10px of padding above and below each of my paragraphs.”</p>
+</blockquote>
+<p>3、什么时候会折叠</p>
+<p>满足以下条件</p>
+<ul>
+<li>both belong to in-flow block-level boxes that participate in the same block formatting context</li>
+<li>no line boxes, no clearance, no padding and no border separate them</li>
+<li>垂直方向相邻
+<ul>
+<li>top margin of a box and top margin of its first in-flow child （父、第一个孩子相邻）</li>
+<li>bottom margin of box and top margin of its next in-flow following sibling（兄弟相邻）</li>
+<li>bottom margin of a last in-flow child and bottom margin of its parent if the parent has &lsquo;auto&rsquo; computed height （父高度是auto height、最后一个孩子）</li>
+<li>top and bottom margins of a box that does not establish a new block formatting context and that has zero computed &lsquo;min-height&rsquo;, zero or &lsquo;auto&rsquo; computed &lsquo;height&rsquo;, and no in-flow children （空元素）</li>
+</ul>
+</li>
+</ul>
+<p>4、怎么折叠</p>
+<ul>
+<li>对于正的边距，取最大的值</li>
+<li>对于一正一负，从正的一方减去负的绝对值</li>
+<li>对于都是负值的，从0中减去绝对值最大的</li>
+</ul>
+<p>5、如何规避折叠</p>
+<ul>
+<li>Margins between a floated box and any other box do not collapse, not even between a float and its in-flow children</li>
+<li>Margins of absolutely positioned elements do not collapse, not even with their in-flow children</li>
+<li>Margins of inline-block elements do not collapse, not even with their in-flow children</li>
+<li>elements that esablish a new bfc（如overflow 值不是 visible、float、绝对定位等）do not collapse with their in-flow children</li>
+<li>父、第一个孩子相邻
+<ul>
+<li>父元素添加 padding、border</li>
+<li>child has clearence</li>
+</ul>
+</li>
+<li>兄弟相邻
+<ul>
+<li>sibling has clearence</li>
+</ul>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/css-box-3/">CSS3 Box Model - W3C</a></li>
+<li><a href="https://www.w3.org/TR/CSS2/box.html">CSS2 Box Model - W3C</a></li>
+</ul>
+
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          
+
+
+          
+          <nav class="post-nav">
+            
+              <a class="prev" href="/blog/post/fe/js-review/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">JavaScript Review</span>
+                <span class="prev-text nav-mobile">Prev</span>
+              </a>
+            
+              <a class="next" href="/blog/post/fe/audio-sprite/">
+                <span class="next-text nav-default">Audio Sprite</span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
     
 
-    <div class="archive-post">
-      <time datetime="2021-11-07" class="archive-post-time">
-        2021-11-07
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/ml/recommendation/" class="archive-post-link">
-          Recommender Systems
-        </a>
-      </span>
+  
+
+  
+
+
     </div>
-    
 
-    <div class="archive-post">
-      <time datetime="2021-10-28" class="archive-post-time">
-        2021-10-28
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/misc/remove-splash/" class="archive-post-link">
-          REMOVING ANNOYING SPLASH ADs!!!
-        </a>
-      </span>
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#box-model">box model</a></li>
+    <li><a href="#padding">padding</a></li>
+    <li><a href="#border">border</a></li>
+    <li><a href="#margin">margin</a>
+      <ul>
+        <li><a href="#collapsed-margin">collapsed margin</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
     </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-10-26" class="archive-post-time">
-        2021-10-26
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/ml/metrics-classification/" class="archive-post-link">
-          Metrics for classification
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-09-26" class="archive-post-time">
-        2021-09-26
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/dl/rnn/" class="archive-post-link">
-          Deep Learning - RNN
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-09-23" class="archive-post-time">
-        2021-09-23
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/dl/cnn/" class="archive-post-link">
-          Deep Learning - CNN
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-09-19" class="archive-post-time">
-        2021-09-19
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/ml/model-selection/" class="archive-post-link">
-          Model Selection
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-09-18" class="archive-post-time">
-        2021-09-18
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/dl/architecture/" class="archive-post-link">
-          Deep Learning - Neural Networks
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-09-11" class="archive-post-time">
-        2021-09-11
-      </time>
-      <span class="archive-post-title">
-        <a href="/blog/post/ml/dataviz/" class="archive-post-link">
-          Data Visualisation
-        </a>
-      </span>
-    </div></section>
-
-
-
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  <nav class="pagination">
-    <ul>
-      
-      <li >
-        <a href="/blog/post/">1</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/2/">2</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/3/">3</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/4/">4</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/5/">5</a>
-      </li>
-      
-      <li  class="active" >
-        <a href="/blog/post/page/6/">6</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/7/">7</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/8/">8</a>
-      </li>
-      
-      <li >
-        <a href="/blog/post/page/9/">9</a>
-      </li>
-      
-    </ul>
   </nav>
 
-  
-  
 
-
-
-
-
+  </div>
 
       </main>
 

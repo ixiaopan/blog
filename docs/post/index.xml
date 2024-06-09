@@ -6,11 +6,20 @@
     <description>Recent content in Posts on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 22 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>variance in ts</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/ts-covariance/</link>
+      <pubDate>Wed, 27 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ixiaopan.github.io/blog/post/fe/ts-covariance/</guid>
+      <description>上次面试，问到了 ts 的协变、逆变，没有回答上来。。。下来后查了相关文档，发现很多文章都说的不清楚，所以打算写一下自己的理解作为迟来的答案。 See also</description>
+    </item>
+    
     <item>
       <title>Vite</title>
       <link>https://ixiaopan.github.io/blog/post/fe/vite/</link>
-      <pubDate>Fri, 22 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 Mar 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/vite/</guid>
       <description>vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器</description>
@@ -31,7 +40,7 @@
       <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
-      <description>Micro Frontend what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间</description>
+      <description>Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的</description>
     </item>
     
     <item>
@@ -53,21 +62,21 @@
     </item>
     
     <item>
-      <title>《Effective JavaScript》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</link>
+      <title>JavaScript Review</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/js-review/</link>
       <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-effective-js/</guid>
+      <guid>https://ixiaopan.github.io/blog/post/fe/js-review/</guid>
       <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
     </item>
     
     <item>
-      <title>CSS Box Model</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/css-box-model/</link>
+      <title>CSS Review</title>
+      <link>https://ixiaopan.github.io/blog/post/fe/css-review/</link>
       <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ixiaopan.github.io/blog/post/fe/css-box-model/</guid>
-      <description>新开一个系列，从 w3c spec 的角度梳理 CSS 知识点，先从 box model 开始。 box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画</description>
+      <guid>https://ixiaopan.github.io/blog/post/fe/css-review/</guid>
+      <description>box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包</description>
     </item>
     
     <item>
@@ -86,15 +95,6 @@
       
       <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
       <description>业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin</description>
-    </item>
-    
-    <item>
-      <title>《Game Programming Patterns》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-pattern/</link>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-pattern/</guid>
-      <description>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书</description>
     </item>
     
   </channel>

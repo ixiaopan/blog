@@ -299,7 +299,70 @@
   <header class="post-header">
     <h1 class="post-title">
       
-      <a class="post-link" href="/blog/post/fe/read-effective-js/">《Effective JavaScript》</a>
+      <a class="post-link" href="/blog/post/fe/async/">Promise/Async/Generator</a>
+    </h1>
+    
+
+    <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/blog/about">
+        <span class="post-meta-author-name">
+          xiaopan
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2024-03-15">
+      2024-03-15
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    
+
+    <div class="post-meta-category">
+        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+  </header>
+  
+  <div class="post-content">
+    
+      <div class="post-summary">
+        Simple callback difficult error handling because try...catch don&rsquo;t work getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&#39;xx.json&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) invite(data[0].name, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&#39;xx&#39;, (err, data) =&gt; { if (err) console.log(&#39;err&#39;) person
+      </div>
+      <div class="read-more">
+        <a href="/blog/post/fe/async/" class="read-more-link"
+          >Read more</a
+        >
+      </div>
+    
+  </div>
+</article>
+
+  
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      
+      <a class="post-link" href="/blog/post/fe/js-review/">JavaScript Review</a>
     </h1>
     
 
@@ -349,7 +412,7 @@
         floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，
       </div>
       <div class="read-more">
-        <a href="/blog/post/fe/read-effective-js/" class="read-more-link"
+        <a href="/blog/post/fe/js-review/" class="read-more-link"
           >Read more</a
         >
       </div>
@@ -362,7 +425,7 @@
   <header class="post-header">
     <h1 class="post-title">
       
-      <a class="post-link" href="/blog/post/fe/css-box-model/">CSS Box Model</a>
+      <a class="post-link" href="/blog/post/fe/css-review/">CSS Review</a>
     </h1>
     
 
@@ -409,10 +472,10 @@
   <div class="post-content">
     
       <div class="post-summary">
-        新开一个系列，从 w3c spec 的角度梳理 CSS 知识点，先从 box model 开始。 box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画
+        box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包
       </div>
       <div class="read-more">
-        <a href="/blog/post/fe/css-box-model/" class="read-more-link"
+        <a href="/blog/post/fe/css-review/" class="read-more-link"
           >Read more</a
         >
       </div>
@@ -539,69 +602,6 @@
       </div>
       <div class="read-more">
         <a href="/blog/post/fe/poll/" class="read-more-link"
-          >Read more</a
-        >
-      </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/blog/post/fe/read-pattern/">《Game Programming Patterns》</a>
-    </h1>
-    
-
-    <div class="post-meta">
-  <div class="post-meta-author">
-    by
-      <a href="/blog/about">
-        <span class="post-meta-author-name">
-          xiaopan
-        </span>
-      </a>
-    
-  </div>
-
-  <div class="post-meta-time">
-    <time datetime="2024-01-15">
-      2024-01-15
-    </time>
-  </div>
-
-  
-
-
-  <div class="post-meta__right">
-    
-
-    <div class="post-meta-category">
-        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
-          
-      </div>
-
-
-    
-    
-
-
-    
-    
-  </div>
-</div>
-
-  </header>
-  
-  <div class="post-content">
-    
-      <div class="post-summary">
-        最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书
-      </div>
-      <div class="read-more">
-        <a href="/blog/post/fe/read-pattern/" class="read-more-link"
           >Read more</a
         >
       </div>

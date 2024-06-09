@@ -1,8 +1,7 @@
 ---
-title: "《Effective JavaScript》"
+title: "JavaScript Review"
 date: "2024-03-14"
 description: ""
-tags: ["Reading"]
 categories : [
   "Frontend",
 ]

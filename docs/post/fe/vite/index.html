@@ -70,13 +70,13 @@
 <meta property="og:description" content="vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/vite/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-03-22T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2024-03-22T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2024-03-23T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-23T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="Vite">
-<meta itemprop="description" content="vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器"><meta itemprop="datePublished" content="2024-03-22T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2024-03-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2929">
+<meta itemprop="description" content="vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器"><meta itemprop="datePublished" content="2024-03-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-03-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3271">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vite"/>
 <meta name="twitter:description" content="vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器"/>
@@ -314,8 +314,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2024-03-22">
-      2024-03-22
+    <time datetime="2024-03-23">
+      2024-03-23
     </time>
   </div>
 
@@ -487,10 +487,34 @@
 </li>
 <li>如果没有一个插件 <code>load()</code> 返回结果，读取本地文件</li>
 </ul>
-<p>综上，<code>koa</code> 中间件负责拦截请求，<code>server.container</code> 负责输出内容</p>
-<h2 id="插件机制">插件机制</h2>
+<p>综上，<code>koa middleware</code> 中间件负责拦截请求，<code>container</code> 负责输出内容</p>
+<h3 id="viteclient">/@vite/client</h3>
+<p><code>/@vite/client</code> 比较特殊，是通过 <code>rollup-alias</code> 转的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// config.ts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clientAlias</span> <span style="color:#f92672">=</span> [
+  {
+    <span style="color:#a6e22e">find</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/^\/?@vite\/env/</span>,
+    <span style="color:#a6e22e">replacement</span>: <span style="color:#66d9ef">path.posix.join</span>(<span style="color:#a6e22e">FS_PREFIX</span>, <span style="color:#a6e22e">normalizePath</span>(<span style="color:#a6e22e">ENV_ENTRY</span>)),
+  },
+  {
+    <span style="color:#a6e22e">find</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/^\/?@vite\/client/</span>,
+    <span style="color:#75715e">// /@fs/Users/me/todo-app/node_modules/vite/dist/client/env.mjs
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">replacement</span>: <span style="color:#66d9ef">path.posix.join</span>(<span style="color:#a6e22e">FS_PREFIX</span>, <span style="color:#a6e22e">normalizePath</span>(<span style="color:#a6e22e">CLIENT_ENTRY</span>)),
+  },
+]
+<span style="color:#75715e">// resolve alias with internal client alias
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resolvedAlias</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">normalizeAlias</span>(
+  <span style="color:#a6e22e">mergeAlias</span>(<span style="color:#a6e22e">clientAlias</span>, <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">resolve</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">alias</span> <span style="color:#f92672">||</span> []),
+)
+</code></pre></div><p>在 <code>rollup-alias</code> 插件内部会调用自定义的 resolver 也就是 <code>vite:resolve</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// explicit fs paths that starts with /@fs/*
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#a6e22e">FS_PREFIX</span>)) {
+  <span style="color:#75715e">// Users/me/todo-app/node_modules/vite/dist/client/env.mjs
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">FS_PREFIX</span>.<span style="color:#a6e22e">length</span>)
+}
+</code></pre></div><h2 id="插件机制">插件机制</h2>
 <h3 id="plugincontainer">pluginContainer</h3>
-<p>不过 <code>container</code> 也是个中间人，<code>container.resolveId/load/transform()</code> 实际是遍历 <code>config.plugins</code> 调用其对应的方法。</p>
+<p><code>container.resolveId/load/transform()</code> 实际是遍历 <code>config.plugins</code> 调用其对应的方法。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createPluginContainer</span>(<span style="color:#a6e22e">config</span>) {
   <span style="color:#66d9ef">return</span> {
     <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">resolveId</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">importer</span>) {
@@ -500,6 +524,7 @@
         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">id</span>
         <span style="color:#66d9ef">try</span> {
           <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">resolveId</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">importer</span>)
+          <span style="color:#66d9ef">break</span>
         } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
           <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#a6e22e">e</span>);
         }
@@ -514,6 +539,7 @@
         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ret</span>
         <span style="color:#66d9ef">try</span> {
           <span style="color:#a6e22e">ret</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">id</span>)
+          <span style="color:#66d9ef">break</span>
         } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {}
 
         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
@@ -529,14 +555,19 @@
         } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {}
 
         <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ret</span>) <span style="color:#66d9ef">continue</span>
-
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
+        
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">ret</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;object&#39;</span>) {
+          <span style="color:#a6e22e">code</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">code</span>
+        } <span style="color:#66d9ef">else</span> {
+          <span style="color:#a6e22e">code</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">code</span>
+        }
       }
+      
+      <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">code</span> }
     }
   }
 }
-</code></pre></div><p>所以为什么不直接用 <code>rollup</code> 呢？</p>
-<p>现在我们可以写个简单的插件，改写 <code>src/main.ts</code> 的内容</p>
+</code></pre></div><p>现在我们可以写个简单的插件，改写 <code>src/main.ts</code> 的内容</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">createServer</span>({
   <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
     {
@@ -565,6 +596,49 @@
     }
   ]
 })
+</code></pre></div><h3 id="插件顺序">插件顺序</h3>
+<p>插件可以根据 <code>enforce</code> 指定运行的顺序，实现很简单</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sortUserPlugins</span>(<span style="color:#a6e22e">plugins</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prePlugins</span>: <span style="color:#66d9ef">Plugin</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postPlugins</span>: <span style="color:#66d9ef">Plugin</span>[] <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">normalPlugins</span>: <span style="color:#66d9ef">Plugin</span>[] <span style="color:#f92672">=</span> []
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">plugins</span>) {
+    <span style="color:#a6e22e">plugins</span>.<span style="color:#a6e22e">flat</span>().<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">p</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">enforce</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;pre&#39;</span>) <span style="color:#a6e22e">prePlugins</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">p</span>)
+      <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">enforce</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;post&#39;</span>) <span style="color:#a6e22e">postPlugins</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">p</span>)
+      <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">normalPlugins</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">p</span>)
+    })
+  }
+
+  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">prePlugins</span>, <span style="color:#a6e22e">normalPlugins</span>, <span style="color:#a6e22e">postPlugins</span>]
+}
+</code></pre></div><p>然后编排到内置插件中就好，可以看到 vite 内置了很多常用的插件，如 <code>alias/css/json</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">resolvePlugins</span>(<span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">prePlugins</span>, <span style="color:#a6e22e">normalPlugins</span>, <span style="color:#a6e22e">postPlugins</span>) {
+  <span style="color:#66d9ef">return</span> [
+    <span style="color:#a6e22e">preAliasPlugin</span>(<span style="color:#a6e22e">config</span>),
+    <span style="color:#a6e22e">aliasPlugin</span>({
+      <span style="color:#a6e22e">entries</span>: <span style="color:#66d9ef">config.resolve.alias</span>,
+      <span style="color:#a6e22e">customResolver</span>: <span style="color:#66d9ef">viteAliasCustomResolver</span>,
+    }),
+    
+    ...<span style="color:#a6e22e">prePlugins</span>
+    
+    <span style="color:#a6e22e">resolvePlugin</span>(),
+    <span style="color:#a6e22e">cssPlugin</span>(),
+    <span style="color:#a6e22e">jsonPlugin</span>(),
+    
+    ...<span style="color:#a6e22e">normalPlugins</span>,
+    <span style="color:#a6e22e">definePlugin</span>(),
+    <span style="color:#a6e22e">cssPostPlugin</span>()
+    
+    ...<span style="color:#a6e22e">buildPlugins</span>.<span style="color:#a6e22e">pre</span>,
+    
+    ...<span style="color:#a6e22e">postPlugins</span>,
+    
+    ...<span style="color:#a6e22e">buildPlugins</span>.<span style="color:#a6e22e">post</span>,
+  ].<span style="color:#a6e22e">filter</span>(Boolean)
+}
 </code></pre></div><h2 id="依赖预构建">依赖预构建</h2>
 <p><code>vite</code> 在开发模式，http 服务启动之前，会先进行依赖预构建，下面的代码 <code>initDepsOptimizer()</code> 就是用来预构建依赖的</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createServer</span>(<span style="color:#a6e22e">options</span>) {
@@ -958,8 +1032,87 @@
       }
     }
   }
-</code></pre></div><h2 id="hmr">HMR</h2>
-<h2 id="优化手段">优化手段</h2>
+</code></pre></div><h2 id="优化手段">优化手段</h2>
+<ul>
+<li>
+<p>开启图片压缩 vite-plugin-imagemin</p>
+</li>
+<li>
+<p>tree-shaking</p>
+</li>
+<li>
+<p>rollup-plugin-visualizer 分析模块大小</p>
+</li>
+<li>
+<p>按需导入组件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">Components</span>({
+  <span style="color:#a6e22e">resolvers</span><span style="color:#f92672">:</span> [
+    <span style="color:#a6e22e">AntDesignVueResolver</span>({
+      <span style="color:#a6e22e">importStyle</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;less&#39;</span>,
+    }),
+
+    (<span style="color:#a6e22e">name</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#39;M&#39;</span>)) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dirName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">kebabCase</span>(<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>))
+
+        <span style="color:#66d9ef">return</span> {
+          <span style="color:#a6e22e">importName</span>: <span style="color:#66d9ef">name</span>,
+          <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@lib/lib-ui/es&#39;</span>,
+          <span style="color:#a6e22e">sideEffects</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`@lib/lib-ui/es/components/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">dirName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/style/index`</span>,
+        }
+      }
+    },
+  ],
+}),
+</code></pre></div></li>
+<li>
+<p>资源分类</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">build</span><span style="color:#f92672">:</span> {
+  <span style="color:#a6e22e">rollupOptions</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">chunkFileNames</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;js/[name]-[hash].js&#39;</span>, <span style="color:#75715e">// 引入文件名的名称
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">entryFileNames</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;js/[name]-[hash].js&#39;</span>, <span style="color:#75715e">// 包的入口文件名称
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">assetFileNames</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;[ext]/[name]-[hash].[ext]&#39;</span>, <span style="color:#75715e">// 资源文件像 字体，图片等
+</span><span style="color:#75715e"></span>    }
+  }
+}
+</code></pre></div></li>
+<li>
+<p>拆分包</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#a6e22e">build</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">rollupOptions</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">manualChunks</span>(<span style="color:#a6e22e">id</span>) {
+          <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#39;node_modules&#39;</span>)) {
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;vendor&#39;</span> <span style="color:#75715e">// 合并为一个文件
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// return id.split(&#39;node_modules&#39;)[1].split(&#39;/&#39;)[0] // 分开打包
+</span><span style="color:#75715e"></span>          }
+        }
+      }
+    }
+  }
+</code></pre></div></li>
+<li>
+<p>terser &amp;&amp; drop console</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">build</span><span style="color:#f92672">:</span> {
+  <span style="color:#a6e22e">minify</span>: <span style="color:#66d9ef">isDev</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">false</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;terser&#39;</span>,
+  <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;es2015&#39;</span>,
+  <span style="color:#a6e22e">terserOptions</span>: <span style="color:#66d9ef">isDev</span>
+    <span style="color:#f92672">?</span> <span style="color:#66d9ef">undefined</span>
+    <span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">compress</span><span style="color:#f92672">:</span> {
+          <span style="color:#a6e22e">keep_infinity</span>: <span style="color:#66d9ef">true</span>,
+          <span style="color:#a6e22e">drop_console</span>: <span style="color:#66d9ef">VITE_DROP_CONSOLE</span>,
+          <span style="color:#a6e22e">drop_debugger</span>: <span style="color:#66d9ef">VITE_DROP_CONSOLE</span>,
+        },
+      },
+}
+</code></pre></div></li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="https://juejin.cn/post/7103730522517569567">https://juejin.cn/post/7103730522517569567</a></li>
+</ul>
 
         </div>
 
@@ -979,6 +1132,19 @@
           
           <nav class="post-nav">
             
+              <a class="prev" href="/blog/post/fe/ts-covariance/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">variance in ts</span>
+                <span class="prev-text nav-mobile">Prev</span>
+              </a>
             
               <a class="next" href="/blog/post/fe/effect-scope/">
                 <span class="next-text nav-default">Vue3 nextTick/effectScope</span>
@@ -1035,11 +1201,13 @@
       <ul>
         <li><a href="#indexhtmlmiddleware">indexHtmlMiddleware</a></li>
         <li><a href="#transformmiddleware">transformMiddleware</a></li>
+        <li><a href="#viteclient">/@vite/client</a></li>
       </ul>
     </li>
     <li><a href="#插件机制">插件机制</a>
       <ul>
         <li><a href="#plugincontainer">pluginContainer</a></li>
+        <li><a href="#插件顺序">插件顺序</a></li>
       </ul>
     </li>
     <li><a href="#依赖预构建">依赖预构建</a>
@@ -1051,8 +1219,8 @@
     </li>
     <li><a href="#viteresolve">vite:resolve</a></li>
     <li><a href="#viteimport-analysis">vite:import-analysis</a></li>
-    <li><a href="#hmr">HMR</a></li>
     <li><a href="#优化手段">优化手段</a></li>
+    <li><a href="#see-also">See also</a></li>
   </ul>
 </nav>
     </div>

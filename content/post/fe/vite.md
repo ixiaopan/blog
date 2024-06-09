@@ -1,6 +1,6 @@
 ---
 title: "Vite"
-date: "2024-03-22"
+date: "2024-03-23"
 description: ""
 categories : [
   "Frontend",
@@ -172,13 +172,46 @@ async function transformRequest(url, server) {
   - `transform()` 对原内容进行二次加工，比如注入代码、编译等
 - 如果没有一个插件 `load()` 返回结果，读取本地文件
 
-综上，`koa` 中间件负责拦截请求，`server.container` 负责输出内容
+综上，`koa middleware` 中间件负责拦截请求，`container` 负责输出内容
+
+### /@vite/client
+
+`/@vite/client` 比较特殊，是通过 `rollup-alias` 转的
+
+```ts
+// config.ts
+const clientAlias = [
+  {
+    find: /^\/?@vite\/env/,
+    replacement: path.posix.join(FS_PREFIX, normalizePath(ENV_ENTRY)),
+  },
+  {
+    find: /^\/?@vite\/client/,
+    // /@fs/Users/me/todo-app/node_modules/vite/dist/client/env.mjs
+    replacement: path.posix.join(FS_PREFIX, normalizePath(CLIENT_ENTRY)),
+  },
+]
+// resolve alias with internal client alias
+const resolvedAlias = normalizeAlias(
+  mergeAlias(clientAlias, config.resolve?.alias || []),
+)
+```
+
+在 `rollup-alias` 插件内部会调用自定义的 resolver 也就是 `vite:resolve`
+
+```ts
+// explicit fs paths that starts with /@fs/*
+if (id.startsWith(FS_PREFIX)) {
+  // Users/me/todo-app/node_modules/vite/dist/client/env.mjs
+  return id.slice(FS_PREFIX.length)
+}
+```
 
 ## 插件机制
 
 ### pluginContainer
 
-不过 `container` 也是个中间人，`container.resolveId/load/transform()` 实际是遍历 `config.plugins` 调用其对应的方法。
+`container.resolveId/load/transform()` 实际是遍历 `config.plugins` 调用其对应的方法。
 
 ```ts
 function createPluginContainer(config) {
@@ -190,6 +223,7 @@ function createPluginContainer(config) {
         let id
         try {
           id = await p.resolveId(path, importer)
+          break
         } catch (e) {
           console.log('e', e);
         }
@@ -204,6 +238,7 @@ function createPluginContainer(config) {
         let ret
         try {
           ret = await p.load(id)
+          break
         } catch (e) {}
 
         return ret
@@ -219,16 +254,19 @@ function createPluginContainer(config) {
         } catch (e) {}
 
         if (!ret) continue
-
-        return ret
+        
+        if (typeof ret == 'object') {
+          code = ret.code
+        } else {
+          code = code
+        }
       }
+      
+      return { code }
     }
   }
 }
 ```
-
-所以为什么不直接用 `rollup` 呢？
-
 
 现在我们可以写个简单的插件，改写 `src/main.ts` 的内容
 
@@ -267,6 +305,57 @@ createServer({
 })
 ```
 
+### 插件顺序
+
+插件可以根据 `enforce` 指定运行的顺序，实现很简单
+
+```ts
+export function sortUserPlugins(plugins) {
+  const prePlugins: Plugin[] = []
+  const postPlugins: Plugin[] = []
+  const normalPlugins: Plugin[] = []
+
+  if (plugins) {
+    plugins.flat().forEach((p) => {
+      if (p.enforce === 'pre') prePlugins.push(p)
+      else if (p.enforce === 'post') postPlugins.push(p)
+      else normalPlugins.push(p)
+    })
+  }
+
+  return [prePlugins, normalPlugins, postPlugins]
+}
+```
+
+然后编排到内置插件中就好，可以看到 vite 内置了很多常用的插件，如 `alias/css/json`
+
+```ts
+export async function resolvePlugins(config, prePlugins, normalPlugins, postPlugins) {
+  return [
+    preAliasPlugin(config),
+    aliasPlugin({
+      entries: config.resolve.alias,
+      customResolver: viteAliasCustomResolver,
+    }),
+    
+    ...prePlugins
+    
+    resolvePlugin(),
+    cssPlugin(),
+    jsonPlugin(),
+    
+    ...normalPlugins,
+    definePlugin(),
+    cssPostPlugin()
+    
+    ...buildPlugins.pre,
+    
+    ...postPlugins,
+    
+    ...buildPlugins.post,
+  ].filter(Boolean)
+}
+```
 
 ## 依赖预构建
 
@@ -721,7 +810,86 @@ metadata {
   }
 ```
 
-
-## HMR
-
 ## 优化手段
+
+- 开启图片压缩 vite-plugin-imagemin
+
+- tree-shaking
+
+- rollup-plugin-visualizer 分析模块大小
+
+- 按需导入组件
+
+  ```ts
+  Components({
+    resolvers: [
+      AntDesignVueResolver({
+        importStyle: 'less',
+      }),
+
+      (name) => {
+        if (name.startsWith('M')) {
+          const dirName = kebabCase(name.slice(1))
+
+          return {
+            importName: name,
+            path: '@lib/lib-ui/es',
+            sideEffects: `@lib/lib-ui/es/components/${dirName}/style/index`,
+          }
+        }
+      },
+    ],
+  }),
+  ```
+
+- 资源分类
+
+  ```ts
+  build: {
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+        entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+        assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
+      }
+    }
+  }
+  ```
+
+- 拆分包
+
+  ```ts
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor' // 合并为一个文件
+              // return id.split('node_modules')[1].split('/')[0] // 分开打包
+            }
+          }
+        }
+      }
+    }
+  ```
+
+- terser && drop console
+
+  ```ts
+  build: {
+    minify: isDev ? false : 'terser',
+    target: 'es2015',
+    terserOptions: isDev
+      ? undefined
+      : {
+          compress: {
+            keep_infinity: true,
+            drop_console: VITE_DROP_CONSOLE,
+            drop_debugger: VITE_DROP_CONSOLE,
+          },
+        },
+  }
+  ```
+
+## See also
+- https://juejin.cn/post/7103730522517569567

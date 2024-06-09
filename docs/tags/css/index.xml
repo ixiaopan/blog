@@ -6,16 +6,7 @@
     <description>Recent content in css on xiaopan&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/css/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CSS Box Model</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/css-box-model/</link>
-      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/css-box-model/</guid>
-      <description>新开一个系列，从 w3c spec 的角度梳理 CSS 知识点，先从 box model 开始。 box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画</description>
-    </item>
-    
+    <lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/css/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CSS Layout 101</title>
       <link>https://ixiaopan.github.io/blog/post/fe/css-layout/</link>
