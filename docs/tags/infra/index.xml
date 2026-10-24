@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Infra on xiaopan&#39;s blog</title>
-		<link>http://localhost:1313/blog/tags/infra/</link>
+		<link>https://ixiaopan.github.io/blog/tags/infra/</link>
 		<description>Recent content in Infra on xiaopan&#39;s blog</description>
 		<generator>Hugo</generator>
 		<language>en</language>
@@ -12,75 +12,75 @@
 		
 			<lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="http://localhost:1313/blog/tags/infra/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://ixiaopan.github.io/blog/tags/infra/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>服务端实现</title>
-				<link>http://localhost:1313/blog/post/fe/infras-server/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-server/</link>
 				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-server/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-server/</guid>
 				<description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;p&gt;前面一系列关于基建的文章主要侧重子模块的实现，但是技术选型还没有确定，此外虽然模块功能已经确定，但还缺少服务端必不可少的基础服务，比如日志、鉴权等。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>迭代管理&amp;发布平台 02</title>
-				<link>http://localhost:1313/blog/post/fe/infras-basement-2/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</link>
 				<pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-basement-2/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-2/</guid>
 				<description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;p&gt;之前介绍了开发这个平台的初衷以及平台具有的功能，是因为当下工作流太割裂&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;需求/技术文档在飞书，但不知道该需求对应哪个分支&lt;/li&gt;&#xA;&lt;li&gt;代码托管在 &lt;code&gt;gitlab&lt;/code&gt;，但不知道该分支是需求分支、还是个人开发分支&lt;/li&gt;&#xA;&lt;li&gt;部署在另外的平台比如云效，只看分支名压根不知道是什么需求&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;上面3个平台单独来看，根本无法知道在做什么需求，需求的进度如何等。比如要查看前一周上线了什么需求，就只能查看 &lt;code&gt;git&lt;/code&gt; 提交历史，或者部署记录，但如果部署分支是 dev/release/main，那根本不可能知道上线了什么内容。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>包发布管理平台</title>
-				<link>http://localhost:1313/blog/post/fe/infras-npm/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-npm/</link>
 				<pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-npm/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-npm/</guid>
 				<description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;p&gt;之前介绍过用 &lt;code&gt;verdaccio&lt;/code&gt; 搭建私有 npm 源，公司内部用到的包可以通过 &lt;code&gt;npm publish&lt;/code&gt; 发布上去。不过随着包越来越多，开发者也越来越多，只用 &lt;code&gt;npm publish&lt;/code&gt; 已经不能满足现有的诉求了，主要问题在于&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>性能监控SDK</title>
-				<link>http://localhost:1313/blog/post/fe/infras-monitor/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</link>
 				<pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-monitor/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-monitor/</guid>
 				<description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;p&gt;一开始也没想要做监控，当时其实是接入了阿里的 &lt;code&gt;arms&lt;/code&gt;，但是接入一段时间后，觉得用起来不舒服，不知道是不是使用姿势不对，而且还收费，因此才有了自己实现一套监控的想法。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>迭代管理&amp;发布平台 01</title>
-				<link>http://localhost:1313/blog/post/fe/infras-basement-1/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</link>
 				<pubDate>Sat, 26 Aug 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-basement-1/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-basement-1/</guid>
 				<description>&lt;p&gt;这个项目前后大概用了2个月的时间，是所有基建中我最满意的项目。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>API Mock</title>
-				<link>http://localhost:1313/blog/post/fe/infras-mock/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-mock/</link>
 				<pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-mock/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-mock/</guid>
 				<description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;p&gt;开发没有mock还是比较痛苦的，最开始接入mock-server需要在业务里新开一个 &lt;code&gt;mock&lt;/code&gt; 手动写 json，维护成本很高，也不利于共享。一直以来，都想着接入现在开源的mock产品，但是，一方面需要收钱，一方面比较复杂需要自己搭建服务&amp;amp;数据，一致拖到现在还没有顺手的mock方案。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>埋点管理</title>
-				<link>http://localhost:1313/blog/post/fe/infras-track/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-track/</link>
 				<pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-track/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-track/</guid>
 				<description>&lt;p&gt;简单实现一个埋点sdk和管理平台&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>开关配置</title>
-				<link>http://localhost:1313/blog/post/fe/infras-switch/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-switch/</link>
 				<pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-switch/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-switch/</guid>
 				<description>&lt;p&gt;先说一下最简单的开关配置吧&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>基建 101</title>
-				<link>http://localhost:1313/blog/post/fe/infras/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras/</link>
 				<pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras/</guid>
 				<description>&lt;p&gt;这半年做了不少的前端基建，虽说系统迷你且有诸多问题，远达不到业界优秀开源的地步，起码目前是满足内部需要。再说罗马也不是一日建成的，先从简单的系统开始，再根据业务情况不断的扩展，在这个阶段，其实自己也能学到很多知识。毕竟以前都是用别人开发好的工具，现在要自己写，不管系统多小，都要自己去理解去设计，所以整个开发过程其实会进一步加深对基建的理解。&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Build your own UI component library from scratch</title>
-				<link>http://localhost:1313/blog/post/fe/infras-ui/</link>
+				<link>https://ixiaopan.github.io/blog/post/fe/infras-ui/</link>
 				<pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/post/fe/infras-ui/</guid>
+				<guid>https://ixiaopan.github.io/blog/post/fe/infras-ui/</guid>
 				<description>&lt;p&gt;In this post, we will learn how to build your own UI component library.&lt;/p&gt;</description>
 			</item>
 	</channel>

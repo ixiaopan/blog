@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Tags on xiaopan&#39;s blog</title>
-		<link>http://localhost:1313/blog/tags/</link>
+		<link>https://ixiaopan.github.io/blog/tags/</link>
 		<description>Recent content in Tags on xiaopan&#39;s blog</description>
 		<generator>Hugo</generator>
 		<language>en</language>
@@ -12,47 +12,47 @@
 		
 			<lastBuildDate>Fri, 22 Mar 2024 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="http://localhost:1313/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://ixiaopan.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Frontend</title>
-				<link>http://localhost:1313/blog/tags/frontend/</link>
+				<link>https://ixiaopan.github.io/blog/tags/frontend/</link>
 				<pubDate>Fri, 22 Mar 2024 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/frontend/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/frontend/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>Reading</title>
-				<link>http://localhost:1313/blog/tags/reading/</link>
+				<link>https://ixiaopan.github.io/blog/tags/reading/</link>
 				<pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/reading/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/reading/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>Infra</title>
-				<link>http://localhost:1313/blog/tags/infra/</link>
+				<link>https://ixiaopan.github.io/blog/tags/infra/</link>
 				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/infra/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/infra/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>Misc</title>
-				<link>http://localhost:1313/blog/tags/misc/</link>
+				<link>https://ixiaopan.github.io/blog/tags/misc/</link>
 				<pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/misc/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/misc/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>Deep Learning</title>
-				<link>http://localhost:1313/blog/tags/deep-learning/</link>
+				<link>https://ixiaopan.github.io/blog/tags/deep-learning/</link>
 				<pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/deep-learning/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/deep-learning/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>Machine Learning</title>
-				<link>http://localhost:1313/blog/tags/machine-learning/</link>
+				<link>https://ixiaopan.github.io/blog/tags/machine-learning/</link>
 				<pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/blog/tags/machine-learning/</guid>
+				<guid>https://ixiaopan.github.io/blog/tags/machine-learning/</guid>
 				<description></description>
 			</item>
 	</channel>
