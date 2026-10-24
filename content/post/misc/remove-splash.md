@@ -1,9 +1,9 @@
 ---
 title: "REMOVING ANNOYING SPLASH ADs!!!"
 date: "2021-10-28"
-description: ""
-# tags: []
-categories: [
+
+
+tags: [
     "Misc",
 ]
 ---

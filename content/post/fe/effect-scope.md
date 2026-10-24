@@ -1,10 +1,7 @@
 ---
 title: "Vue3 nextTick/effectScope"
 date: "2024-03-22"
-description: ""
-categories : [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## nextTick

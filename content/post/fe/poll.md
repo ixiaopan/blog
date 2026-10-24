@@ -1,11 +1,7 @@
 ---
 title: "Polling"
 date: "2024-01-16"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 `Polling`，但除此之外，还有其他数据推送方案，比如 Long Polling、SSE(Server-Sent Events) 以及 `WebSockets`。这些方案的目的都是希望可以及时/实时获取服务端数据，特别是对 real-time app 比如 chat、game，实时性是第一位。

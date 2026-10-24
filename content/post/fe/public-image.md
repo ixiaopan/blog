@@ -1,11 +1,7 @@
 ---
 title: "Prefix static url when using public Image"
 date: "2023-02-25"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Background

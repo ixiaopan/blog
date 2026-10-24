@@ -1,10 +1,7 @@
 ---
 title: "Axios"
 date: "2023-11-10"
-description: ""
-categories : [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 

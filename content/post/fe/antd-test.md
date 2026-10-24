@@ -1,10 +1,7 @@
 ---
 title: "Antd modal has no transition in test env"
 date: "2022-01-23"
-description: ""
-categories: [
-    "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 记录一下 `antd modal` 在测试环境打开关闭 `modal` 组件没有 `transition` 过渡效果的 bug，说来也是我手欠，改构建改的。

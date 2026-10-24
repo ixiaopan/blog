@@ -12,7 +12,7 @@ toc: false
 
 ## PROFILE
 
-MSc Data Science graduate with 7 years of work experience in frontend development. Solid programming experience and problem-solving skills gained through many large-scale projects in Baidu and Ant Group. Also, a Ukulele Fan.
+MSc in Data Science | 10 years of professional frontend engineering experience. Solid programming skills and strong problem‑solving mindset forged in large‑scale projects at Baidu and Ant Group. Avid ukulele fan.
 
 
 ## PROFESSIONAL SKILLS
@@ -25,18 +25,16 @@ MSc Data Science graduate with 7 years of work experience in frontend developmen
 - Good at data visualization and UI design
 
 <style>
+#profile {
+  margin-top: 0 !important;
+}
 .post-header {
   display: none;
 }
 .post-content {
   margin-top: -3em;
 }
-.timeline p {
-  margin: 0;
-}
 .timeline .time {
-  margin-right: 20px;
-  color: rgba(0,0,0,0.6);
   flex: 0 0 160px;
 }
 .timeline {
@@ -44,28 +42,22 @@ MSc Data Science graduate with 7 years of work experience in frontend developmen
   justify-content: flex-start;
   align-items: flex-start;
 }
-.timeline+.timeline {
-  margin-top: 8px;
-}
-li {
-  margin-left: -20px
-}
 </style>
 
 ## EMPLOYMENT HISTORY
 
 <section>
 <div class="timeline work-item">
-  <p class="time">12/2021 - 01/2024</p>
-  <p class="work-title">Front-end Technical Specialist, startup, Hangzhou</p>
+  <span class="time">12/2021 - 01/2024</span>
+  <span class="work-title">Front-end Technical Specialist, startup, Hangzhou</span>
 </div>
 <div class="timeline work-item">
-  <p class="time">07/2017 - 04/2020</p>
-  <p class="work-title">Front-end Engineer II, Ant Group, Hangzhou</p>
+  <span class="time">07/2017 - 04/2020</span>
+  <span class="work-title">Front-end Engineer II, Ant Group, Hangzhou</span>
 </div>
 <div class="timeline work-item">
-  <p class="time">07/2014 - 07/2017</p>
-  <p class="work-title">Front-end Engineer, Baidu, Beijing & Shanghai</p>
+  <span class="time">07/2014 - 07/2017</span>
+  <span class="work-title">Front-end Engineer, Baidu, Beijing & Shanghai</span>
 </div>
 </section>
 
@@ -73,12 +65,12 @@ li {
 
 <section >
 <div class="timeline">
-  <p class="time">09/2020 - 11/2021</p>
-  <p>MSc Data Science, University of Southampton</p>
+  <span class="time">09/2020 - 11/2021</span>
+  <span>MSc Data Science, University of Southampton</span>
 </div>
 <div class="timeline">
-  <p class="time">09/2010 - 07/2014</p>
-  <p>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </p>
+  <span class="time">09/2010 - 07/2014</span>
+  <span>BSc Computer Science and Technology, University of Electronic Science and Technology of China (UESTC) </span>
 </div>
 </section>
 

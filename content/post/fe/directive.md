@@ -1,11 +1,7 @@
 ---
 title: "Common directives/plugins in Vue"
 date: "2022-05-29"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 总结一些常用的指令、插件

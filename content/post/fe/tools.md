@@ -1,11 +1,7 @@
 ---
 title: "Tools for daily work"
 date: "2022-01-03"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 Sharp tools make good work.

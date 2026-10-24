@@ -1,11 +1,7 @@
 ---
 title: "《Micro Frontends in Action》"
 date: "2024-03-18"
-description: ""
-tags: [Reading]
-categories: [
-  "Frontend",
-]
+tags: ["Reading"]
 ---
 
 ## Introduction

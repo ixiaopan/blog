@@ -1,11 +1,7 @@
 ---
 title: "Deep Learning - CNN"
 date: "2021-09-23"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
 

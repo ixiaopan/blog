@@ -1,11 +1,7 @@
 ---
 title: "埋点管理"
 date: "2023-08-22"
-description: ""
-tags: [基建]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend", "Infra"]
 ---
 
 简单实现一个埋点sdk和管理平台

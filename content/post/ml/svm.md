@@ -1,9 +1,9 @@
 ---
 title: "Support Vector Machine"
 date: "2021-06-15"
-description: ""
-# tags: []
-categories: [
+
+
+tags: [
     "Machine Learning",
 ]
 katex: true

@@ -1,10 +1,7 @@
 ---
 title: "Package Manager"
 date: "2022-01-07"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## npm

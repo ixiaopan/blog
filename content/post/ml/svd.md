@@ -2,8 +2,8 @@
 title: "Singular Value Decomposition"
 date: "2021-05-04"
 description: "Singular Value Decomposition(SVD) is an important concept in Linear Algebra. Any matrix can be decomposed into three matrices using SVD. In machine learning, SVD is typically used to reduce dimensionality. Another popular dimension reduction technique is PCA. We will cover both of them in this post."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

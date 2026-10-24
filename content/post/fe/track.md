@@ -1,10 +1,7 @@
 ---
 title: "The track panel of a video editor"
 date: "2023-06-26"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 In the previous post, we have learned how to design a video player. In fact, a video player is a container containing many tracks, such as bgm, text, and so on. Can we show and edit these tracks? Of course we can. But today, we will focus on the `UI` part. For the edit operation, we will talk it later.

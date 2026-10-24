@@ -1,10 +1,7 @@
 ---
 title: "Build your own UI component library from scratch"
 date: "2023-06-08"
-tags: [基建]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend", "Infra"]
 ---
 
 In this post, we will learn how to build your own UI component library.

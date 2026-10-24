@@ -1,11 +1,7 @@
 ---
 title: "迭代管理&发布平台 02"
 date: "2023-12-30"
-description: ""
-tags: [基建]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend", "Infra"]
 ---
 
 ## Background

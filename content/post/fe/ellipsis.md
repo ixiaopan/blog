@@ -1,10 +1,7 @@
 ---
 title: "Text ellipsis"
 date: "2022-11-05"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Why

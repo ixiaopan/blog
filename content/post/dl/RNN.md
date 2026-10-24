@@ -1,11 +1,7 @@
 ---
 title: "Deep Learning - RNN"
 date: "2021-09-26"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
 

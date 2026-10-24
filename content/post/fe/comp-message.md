@@ -1,10 +1,7 @@
 ---
 title: "Component - Message"
 date: "2022-06-03"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## What

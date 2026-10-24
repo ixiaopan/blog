@@ -2,8 +2,8 @@
 title: "An E2E Project - EDA"
 date: "2021-04-25"
 description: "So far, we have discussed many algorithms, such as linear regression and ensemble methods. It's time to learn how to build a real machine learning project to enhance our understanding of these models."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

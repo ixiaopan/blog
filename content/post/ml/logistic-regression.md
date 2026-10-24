@@ -1,9 +1,9 @@
 ---
 title: "Logistic Regression"
 date: "2021-06-14"
-description: ""
-# tags: []
-categories: [
+
+
+tags: [
     "Machine Learning",
 ]
 

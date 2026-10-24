@@ -1,11 +1,7 @@
 ---
 title: "CSS Layout 101"
 date: "2022-01-03"
-description: ""
-tags: [css]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 This post will introduce the modern CSS layout modes, including flexbox, multi-columns, and grid.

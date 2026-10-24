@@ -1,9 +1,7 @@
 ---
 title: "Upload"
 date: "2023-12-16"
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Background

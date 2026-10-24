@@ -1,10 +1,7 @@
 ---
 title: "Things about frames"
 date: "2023-06-22"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 Speaking of images and videos, we often use `img/video` to preview them. However, there are more ways to do this. Today we will introduce some new preview techniques based on frames, such as frame-based video preview, drawing continuous frames over a time, and extract any frame of a gif image.

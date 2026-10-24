@@ -1,10 +1,7 @@
 ---
 title: "CSS Review"
 date: "2024-03-09"
-description: ""
-categories : [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## box model

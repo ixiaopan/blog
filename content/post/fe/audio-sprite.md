@@ -1,10 +1,7 @@
 ---
 title: "Audio Sprite"
 date: "2024-01-18"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Background

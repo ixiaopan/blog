@@ -1,11 +1,7 @@
 ---
 title: "Sorting"
 date: "2021-07-11"
-description: ""
-# tags: []
-categories: [
-    "Misc",
-]
+tags: ["Misc"]
 katex: true
 ---
 

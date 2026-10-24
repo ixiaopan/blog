@@ -1,12 +1,7 @@
 ---
 title: "Deep Learning - Regularization"
 date: "2021-11-22"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
-
+tags: ["Deep Learning"]
 katex: true
 ---
 

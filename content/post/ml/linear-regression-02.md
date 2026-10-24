@@ -2,8 +2,8 @@
 title: "Linear Regression 02"
 date: "2021-04-17"
 description: "In the previous post, we talked about simple linear regression. However, we only considered one predictor. It's quite common to have mulitple predictors for real-world problems."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 

@@ -1,11 +1,7 @@
 ---
 title: "Intro to Video Format"
 date: "2022-01-01"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Codec

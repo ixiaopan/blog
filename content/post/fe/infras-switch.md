@@ -1,11 +1,7 @@
 ---
 title: "开关配置"
 date: "2023-08-07"
-description: ""
-tags: [基建]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend", "Infra"]
 ---
 
 先说一下最简单的开关配置吧

@@ -2,8 +2,8 @@
 title: "Information Theory"
 date: "2021-06-07"
 description: "I remembered that I learned a little stuff about information when I was in my undergraduate course. Well, maybe I was wrong. It’s been almost ten years. But when it comes to information theory, I know that we will talk about a person — Shannon. So what’s the information theory? What problems does it help to solve?"
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

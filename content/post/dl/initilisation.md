@@ -1,14 +1,9 @@
 ---
 title: "Deep Learning - Weight Initialization"
 date: "2021-11-24"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
-
 
 
 The goal of machine learning is to find the best parameters. To train the model, we must start from some values. So, what do the initial parameters look like? Can we set all of them to the same value? Or we assign random values to the weights? In this post, we will talk about another important aspect of learning — weight initialization.

@@ -1,101 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Frontend on xiaopan&#39;s blog</title>
-    <link>https://ixiaopan.github.io/blog/categories/frontend/</link>
-    <description>Recent content in Frontend on xiaopan&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 27 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>variance in ts</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/ts-covariance/</link>
-      <pubDate>Wed, 27 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/ts-covariance/</guid>
-      <description>上次面试，问到了 ts 的协变、逆变，没有回答上来。。。下来后查了相关文档，发现很多文章都说的不清楚，所以打算写一下自己的理解作为迟来的答案。 See also</description>
-    </item>
-    
-    <item>
-      <title>Vite</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/vite/</link>
-      <pubDate>Sat, 23 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/vite/</guid>
-      <description>vite 核心代码分为3大块 server 插件 依赖预构建 server 本文使用 koa 搭建服务器，源码简化如下 function createServer(options) { const config = { root: process.cwd(), ...options, plugins: [ ...builtInPlugins, ...options.plugins, ] } // -- 创建 server 实例 const app = new Koa() // -- 插件容器</description>
-    </item>
-    
-    <item>
-      <title>Vue3 nextTick/effectScope</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/effect-scope/</link>
-      <pubDate>Fri, 22 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/effect-scope/</guid>
-      <description>nextTick 问题：更新响应式数据，并不能立即获取到最新的DOM &amp;lt;div id=&amp;#34;foo&amp;#34;&amp;gt;hello, {{ name }}&amp;lt;/div&amp;gt; const name = ref(&amp;#39;world&amp;#39;) setTimeout(() =&amp;gt; { name.value = &amp;#39;sky&amp;#39; console.log(&amp;#39;updated&amp;#39;, document.querySelector(&amp;#39;#foo&amp;#39;).innerHTML) // hello, world }, 2000) 解决方法：使用 nextTick() const name = ref(&amp;#39;world&amp;#39;) setTimeout(() =&amp;gt; { name.value = &amp;#39;sky&amp;#39; nextTick(() =&amp;gt; { console.log(&amp;#39;updated&amp;#39;,</description>
-    </item>
-    
-    <item>
-      <title>《Micro Frontends in Action》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-mfe/</link>
-      <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
-      <description>Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的</description>
-    </item>
-    
-    <item>
-      <title>Modules</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/module/</link>
-      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/module/</guid>
-      <description>Module 模块的作用 类似命名空间的上下文隔离，避免各个功能模块间的变量冲突 支持模块间的引用即依赖，避免把需要用到的变量、方法等提升到全局作用域 主流方</description>
-    </item>
-    
-    <item>
-      <title>Promise/Async/Generator</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/async/</link>
-      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/async/</guid>
-      <description>Simple callback difficult error handling because try...catch don&amp;rsquo;t work getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) sequences of steps, leading to pyramid of doom getJSON(&amp;#39;xx.json&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) invite(data[0].name, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) // do something }) }) waiting until all the parallel tasks are done let person, item, getPerson(&amp;#39;xx&amp;#39;, (err, data) =&amp;gt; { if (err) console.log(&amp;#39;err&amp;#39;) person</description>
-    </item>
-    
-    <item>
-      <title>JavaScript Review</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/js-review/</link>
-      <pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/js-review/</guid>
-      <description>floating-point numbers Number 类型 follow IEE 754 的规范，即双精度浮点数， 浮点数运算会造成误差，比如 0.1 + 0.2 // 0.30000000000000004 能表示的安全整数的范围大小在 [-2^53 + 1, 2^53 - 1] 之间，在此范围内的整数，</description>
-    </item>
-    
-    <item>
-      <title>CSS Review</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/css-review/</link>
-      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/css-review/</guid>
-      <description>box model css 把文档树中的每个元素描述为一个 box，通过相关的属性决定每个 box 的大小、位置、在画布上的层叠顺序 stacking level等。 每个 box 都是一个矩形框，包</description>
-    </item>
-    
-    <item>
-      <title>Audio Sprite</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</link>
-      <pubDate>Thu, 18 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/audio-sprite/</guid>
-      <description>Background 业务中遇到一个 tts 生成音频并播放的需求，为了节省 tts 生成成本，属于同一个音色的所有文案会生成同一个音频文件，但是前端要按正常的顺序播放。举个例</description>
-    </item>
-    
-    <item>
-      <title>Polling</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/poll/</link>
-      <pubDate>Tue, 16 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/poll/</guid>
-      <description>业务中或多或少会遇到服务端无法立刻返回结果的情况，一般解决方案是轮询接口 Polling，但除此之外，还有其他数据推送方案，比如 Long Pollin</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Frontend on xiaopan&#39;s blog</title>
+		<link>http://localhost:1313/blog/categories/frontend/</link>
+		<description>Recent content in Frontend on xiaopan&#39;s blog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 23 Mar 2024 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/blog/categories/frontend/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Vite</title>
+				<link>http://localhost:1313/blog/post/fe/vite/</link>
+				<pubDate>Sat, 23 Mar 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/blog/post/fe/vite/</guid>
+				<description>&lt;p&gt;&lt;code&gt;vite&lt;/code&gt; 核心代码分为3大块&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;server&lt;/li&gt;&#xA;&lt;li&gt;插件&lt;/li&gt;&#xA;&lt;li&gt;依赖预构建&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;server&#34;&gt;server&lt;/h2&gt;&#xA;&lt;p&gt;本文使用 koa 搭建服务器，源码简化如下&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createServer&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;root&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;process.cwd&lt;/span&gt;(),&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;plugins&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;builtInPlugins&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ...&lt;span style=&#34;color:#a6e22e&#34;&gt;options&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;plugins&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ]&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// -- 创建 server 实例&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt;()&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// -- 插件容器&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;container&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createPluginContainer&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;container&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;container&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// main transform middleware&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;transformMiddleware&lt;/span&gt;())&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// transform index.html&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;indexHtmlMiddleware&lt;/span&gt;())&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// -- 依赖预构建&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bind&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;initDepsOptimizer&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;中间件&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

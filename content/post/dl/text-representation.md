@@ -1,12 +1,7 @@
 ---
 title: "NLP - Text Representation"
 date: "2021-07-10"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
-
+tags: ["Deep Learning"]
 katex: true
 ---
 

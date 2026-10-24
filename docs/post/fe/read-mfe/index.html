@@ -1,350 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
+
+
+
+
+
+
+
 <html
+  class="not-ready lg:text-base"
+  style="--bg:#faf8f1"
   lang="en"
-  itemscope
-  itemtype="http://schema.org/WebPage"
->
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>
-          《Micro Frontends in Action》 - xiaopan&#39;s blog
-        </title>
-    
+  dir="ltr"
+><head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
 
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+  
+  <title>《Micro Frontends in Action》 - xiaopan&#39;s blog</title>
 
-<meta name="MobileOptimized" content="width"/>
-<meta name="HandheldFriendly" content="true"/>
+  
+  <meta name="theme-color" />
 
+  <meta name="description" content="Introduction
+what
 
-<meta name="applicable-device" content="pc,mobile">
+Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development.
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="mobile-web-app-capable" content="yes">
+Teams can work autonomously in their field of expertise.
+Teams can choose the technology stack that fits best for the job at hand.
+The applications are loosely coupled and only integrate in the frontend (e.g., via links).
 
-<meta name="author" content="xiaopan" />
-  <meta name="description" content="Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的" />
+how
 
+routing 指页面之间的 navigation" />
+  <meta name="author" content="xiaopan&#39;s blog" /><link rel="preload stylesheet" as="style" href="http://localhost:1313/blog/main.min.0d4b67b40dc4bc1881be7f1baa2f8a4c119701f7943e390e1a8963084b2b742b.css" integrity="sha256-DUtntA3EvBiBvn8bqi&#43;KTBGXAfeUPjkOGoljCEsrdCs=" />
 
-
-
-
-
-
-<meta name="generator" content="Hugo 0.81.0" />
-
-
-<link rel="canonical" href="https://ixiaopan.github.io/blog/post/fe/read-mfe/" />
-
-
-
-
-
-<link rel="icon" href="/blog/favicon.ico" />
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/blog/sass/jane.min.74977c7446e205bad48a3e6fbb98e0a1566bd939e7c40ca1aecde689a0a1376e.css" integrity="sha256-dJd8dEbiBbrUij5vu5jgoVZr2TnnxAyhrs3miaChN24=" media="screen" crossorigin="anonymous">
-
-
-
-
-
-
-
-<meta property="og:title" content="《Micro Frontends in Action》" />
-<meta property="og:description" content="Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://ixiaopan.github.io/blog/post/fe/read-mfe/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-03-18T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2024-03-18T00:00:00&#43;00:00" />
-
-<meta itemprop="name" content="《Micro Frontends in Action》">
-<meta itemprop="description" content="Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的"><meta itemprop="datePublished" content="2024-03-18T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2024-03-18T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3325">
-<meta itemprop="keywords" content="Reading," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="《Micro Frontends in Action》"/>
-<meta name="twitter:description" content="Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-
-  </head>
-  <body>
-    <div id="back-to-top"></div>
-
-    <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/blog/" class="logo">Pan</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
-          
-        
-      </li>
-    
-
-    
-  </ul>
-</nav>
-
-
-    
-      
-
-
-
-
-
-
-  <link rel="stylesheet" href="/blog/lib/photoswipe/photoswipe.min.css" />
-  <link rel="stylesheet" href="/blog/lib/photoswipe/default-skin/default-skin.min.css" />
-
-
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-    
-
-    
-
-    <header id="header" class="header">
-      <div class="logo-wrapper">
-  <a href="/blog/" class="logo">
-    
-      Pan
-    
-  </a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">This is Home</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Archives</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Tags</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/">Categories</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://ixiaopan.github.io/blog/about/">About</a>
-          
-
-        
-
-      </li>
-    
-
-    
-    
-
-    
-  </ul>
-</nav>
-
-    </header>
-
-    <div id="mobile-panel">
-      <main id="main" class="main bg-llight wallpaper">
-        <div class="content-wrapper">
-    <div id="content" class="content">
-      <article class="post">
-        
-        <header class="post-header">
-          <h1 class="post-title">《Micro Frontends in Action》</h1>
-          
-
-          <div class="post-meta">
-  <div class="post-meta-author">
-    by
-      <a href="/blog/about">
-        <span class="post-meta-author-name">
-          xiaopan
-        </span>
-      </a>
-    
-  </div>
-
-  <div class="post-meta-time">
-    <time datetime="2024-03-18">
-      2024-03-18
-    </time>
-  </div>
+  
+  <link rel="preload" as="image" href="http://localhost:1313/blog/theme.png" />
 
   
 
+  
 
-  <div class="post-meta__right">
-    
+  <script
+    defer
+    src="http://localhost:1313/blog/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad()"
+  ></script>
 
-    <div class="post-meta-category">
-        <a href="https://ixiaopan.github.io/blog/categories/frontend/"> Frontend </a>
-          
-      </div>
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/blog/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/blog/apple-touch-icon.png"
+  />
 
-
-    
-    
-
-
-    
-    
+  <meta name="generator" content="Hugo 0.168.0">
+</head>
+<body
+    class="bg-(--bg) text-black antialiased duration-200 ease-out [-webkit-tap-highlight-color:transparent] dark:text-white"
+  ><header
+  class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center"
+>
+  <div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto">
+    <a
+      class="-translate-y-[1px] text-2xl font-medium"
+      href="http://localhost:1313/blog/"
+      >xiaopan&#39;s blog</a
+    >
+    <div
+      class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
   </div>
-</div>
 
-        </header>
+  <div
+    class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8"
+    role="button"
+    aria-label="Menu"
+  ></div>
 
-        
-        <div class="post-content">
-          <h2 id="introduction">Introduction</h2>
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? "rgb(0 0 0 / 85%)" : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none"
+  ><nav
+      class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10 rtl:space-x-reverse"
+    ><a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/blog/about/"
+        >About</a
+      ></nav>
+  </div>
+</header>
+<main
+      class="prose prose-neutral dark:prose-invert relative mx-auto min-h-[calc(100vh-9rem)] max-w-(--w) px-8 pt-14 pb-16"
+    ><article>
+ 
+  <header class="mb-14">
+    <h1 class="my-0! pb-2.5">《Micro Frontends in Action》</h1><div class="text-xs antialiased opacity-60"><time>Mar 18, 2024</time></div></header>
+  
+
+  <section><h2 id="introduction">Introduction</h2>
 <h3 id="what">what</h3>
 <blockquote>
 <p>Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development.</p>
@@ -432,97 +239,97 @@
 <li>app shell 要知道路由、组件的映射</li>
 <li>组件之间需要知道 url，如果要实现组件间跳转</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app-shell.html
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-shell&#34;</span>&gt;
-  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-content&#34;</span>&gt;&lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">content</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">loaded</span> <span style="color:#a6e22e">yet</span>&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
-&lt;/<span style="color:#f92672">div</span>&gt;
-
-<span style="color:#75715e">// app-shell.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
-  <span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inspire-home&#34;</span>,
-  <span style="color:#e6db74">&#34;/checkout/pay&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout-pay&#34;</span>,
-}
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updatePageComponent</span>(<span style="color:#a6e22e">pathname</span>) {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">comp</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">routes</span>[<span style="color:#a6e22e">pathname</span>])
-  <span style="color:#a6e22e">appContent</span>.<span style="color:#a6e22e">replaceChild</span>(<span style="color:#a6e22e">comp</span>, <span style="color:#a6e22e">appContent</span>.<span style="color:#a6e22e">firstChild</span>)
-}
-<span style="color:#75715e">// 三方 history 实现
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">updatePageComponent</span>)
-<span style="color:#a6e22e">updatePageComponent</span>(window.<span style="color:#a6e22e">location</span>)
-
-<span style="color:#75715e">// 
-</span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">nodeName</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;A&#34;</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">href</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;href&#34;</span>);
-    <span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">href</span>)
-    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>()
-  }
-})
-</code></pre></div><h4 id="two-level-routing">two-level routing</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// app-shell.html
+</span></span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-shell&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-content&#34;</span>&gt;&lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">content</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">loaded</span> <span style="color:#a6e22e">yet</span>&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// app-shell.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inspire-home&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/checkout/pay&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout-pay&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updatePageComponent</span>(<span style="color:#a6e22e">pathname</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">comp</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">routes</span>[<span style="color:#a6e22e">pathname</span>])
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">appContent</span>.<span style="color:#a6e22e">replaceChild</span>(<span style="color:#a6e22e">comp</span>, <span style="color:#a6e22e">appContent</span>.<span style="color:#a6e22e">firstChild</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 三方 history 实现
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">updatePageComponent</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">updatePageComponent</span>(window.<span style="color:#a6e22e">location</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">nodeName</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;A&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">href</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;href&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">href</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h4 id="two-level-routing">two-level routing</h4>
 <p>单层路由的问题在于 app shell 要维护所有 url，实际上只需要子系统的路径，系统内的跳转各自负责即可</p>
 <p><code>app-shell</code> 层和单层路由的代码一样，只是 <code>routes map</code> 只有顶级路由映射了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app-shell.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
-  <span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inspire-pages&#34;</span>
-  <span style="color:#e6db74">&#34;/product/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;decide-pages&#34;</span>,
-  <span style="color:#e6db74">&#34;/checkout/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout-pages&#34;</span>,
-}
-</code></pre></div><p>以 <code>checkout</code> 为例，页面地址为 <code>/checkout/pay</code> 时，代码运行如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// checkout.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
-  <span style="color:#e6db74">&#34;/checkout/pay&#34;</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">`&lt;a href=&#34;/checkout/success&#34;&gt;buy now&lt;/a&gt;`</span>,
-  <span style="color:#e6db74">&#34;/checkout/success&#34;</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">`&lt;h1&gt;Success&lt;/h1&gt;`</span>
-};
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutPages</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
-  <span style="color:#a6e22e">connectedCallback() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>(window.<span style="color:#a6e22e">location</span>)
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">unlisten</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">location</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">location</span>))
-  }
-  <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">location</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">route</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">routes</span>[<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span>]
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">route</span>) {
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">route</span>()
-    }
-  }
-  <span style="color:#a6e22e">disconnectedCallback() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">unlisten</span>()
-  }
-}
-window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;checkout-pages&#34;</span>, <span style="color:#a6e22e">CheckoutPages</span>);
-</code></pre></div><h3 id="iframe">iframe</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recos&#34;</span>&gt;
-  &lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/recommendations/eicher&#34;</span> /&gt;
-&lt;/<span style="color:#f92672">aside</span>&gt;
-</code></pre></div><p>cons</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// app-shell.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inspire-pages&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/product/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;decide-pages&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/checkout/&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout-pages&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>以 <code>checkout</code> 为例，页面地址为 <code>/checkout/pay</code> 时，代码运行如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// checkout.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/checkout/pay&#34;</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">`&lt;a href=&#34;/checkout/success&#34;&gt;buy now&lt;/a&gt;`</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;/checkout/success&#34;</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">`&lt;h1&gt;Success&lt;/h1&gt;`</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutPages</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">connectedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>(window.<span style="color:#a6e22e">location</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">unlisten</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">myHistory</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">location</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">location</span>))
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">location</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">route</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">routes</span>[<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">route</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">route</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">disconnectedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">unlisten</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;checkout-pages&#34;</span>, <span style="color:#a6e22e">CheckoutPages</span>);
+</span></span></code></pre></div><h3 id="iframe">iframe</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recos&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/recommendations/eicher&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">aside</span>&gt;
+</span></span></code></pre></div><p>cons</p>
 <ul>
 <li>页面刷新，iframe url 丢失</li>
 <li>弹窗只能在 iframe 内显示</li>
 <li>只能通过 postMessage 传递序列化内容</li>
 </ul>
 <h3 id="ajax">ajax</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">aside</span>
-  <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;decide_recos&#34;</span>
-  <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">fragment</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/fragment/recommendations/eicher&#34;</span>
-&gt;
-  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/recommendations/eicher&#34;</span>&gt;
-    <span style="color:#a6e22e">Show</span> <span style="color:#a6e22e">Recommendations</span>
-  &lt;/<span style="color:#f92672">a</span>&gt;
-&lt;/<span style="color:#f92672">aside</span>&gt;
-&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/page.js&#34;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-
-<span style="color:#75715e">// /static/page.js
-</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">function</span>() {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">element</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;.decide_recos&#34;</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;data-fragment&#34;</span>);
-
-  window
-    .<span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
-    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">text</span>())
-    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">html</span> <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">html</span>;
-    });
-})()
-</code></pre></div><p>pros</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span>&lt;<span style="color:#f92672">aside</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;decide_recos&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-fragment</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/fragment/recommendations/eicher&#34;</span>
+</span></span><span style="display:flex;"><span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/recommendations/eicher&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Show</span> <span style="color:#a6e22e">Recommendations</span>
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">aside</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/page.js&#34;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// /static/page.js
+</span></span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">element</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;.decide_recos&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;data-fragment&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  window
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">text</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">html</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">html</span>;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>})()
+</span></span></code></pre></div><p>pros</p>
 <ul>
 <li>integrate all content into one DOM</li>
 <li>progressive enhancement</li>
@@ -536,35 +343,35 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 <li>no lifecycle for scripts</li>
 </ul>
 <h3 id="web-component">web component</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;decide_recos&#34;</span>&gt;
-  &lt;<span style="color:#f92672">inspire</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">recommendations</span> <span style="color:#a6e22e">sku</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;eicher&#34;</span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/inspire-recommendations&gt;</span>
-&lt;/<span style="color:#f92672">aside</span>&gt;
-&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/static/fragment.js&#34;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-
-
-<span style="color:#75715e">// fragment.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prices</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">porsche</span>: <span style="color:#66d9ef">66</span>,
-  <span style="color:#a6e22e">fendt</span>: <span style="color:#66d9ef">54</span>,
-  <span style="color:#a6e22e">eicher</span>: <span style="color:#66d9ef">58</span>,
-};
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
-  <span style="color:#a6e22e">connectedCallback() {</span>
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sku</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;sku&#34;</span>);
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">      &lt;button type=&#34;button&#34;&gt;buy for $</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">prices</span>[<span style="color:#a6e22e">sku</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/button&gt;
-</span><span style="color:#e6db74">    `</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Thank you ❤️&#34;</span>);
-    });
-  }
-  <span style="color:#a6e22e">disconnectedCallback() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">removeEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>);
-  }
-}
-window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>, <span style="color:#a6e22e">CheckoutBuy</span>)
-</code></pre></div><p>pros</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span>&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;decide_recos&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">inspire</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">recommendations</span> <span style="color:#a6e22e">sku</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;eicher&#34;</span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/inspire-recommendations&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">aside</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://localhost:3002/static/fragment.js&#34;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// fragment.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prices</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">porsche</span>: <span style="color:#66d9ef">66</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fendt</span>: <span style="color:#66d9ef">54</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">eicher</span>: <span style="color:#66d9ef">58</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">connectedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sku</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#34;sku&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;button type=&#34;button&#34;&gt;buy for $</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">prices</span>[<span style="color:#a6e22e">sku</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Thank you ❤️&#34;</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">disconnectedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">removeEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>, <span style="color:#a6e22e">CheckoutBuy</span>)
+</span></span></code></pre></div><p>pros</p>
 <ul>
 <li>
 <p>浏览器原生支持，组件有 lifecyle hooks</p>
@@ -576,19 +383,19 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 <li>对主文档的 JavaScript 选择器隐身，比如 querySelector。</li>
 <li>只使用 shadow tree 内部的样式，不使用主文档的样式</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
-  <span style="color:#a6e22e">connectedCallback() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">attachShadow</span>({ <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;open&#34;</span> });
-      
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shadowRoot</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">      &lt;style&gt;
-</span><span style="color:#e6db74">        button { background: rgb(75, 158, 204); }
-</span><span style="color:#e6db74">      &lt;/style&gt;
-</span><span style="color:#e6db74">      &lt;button type=&#34;button&#34;&gt;buy for $</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">prices</span>[<span style="color:#a6e22e">sku</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/button&gt;
-</span><span style="color:#e6db74">    `</span>;
-  }
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">connectedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">attachShadow</span>({ <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;open&#34;</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shadowRoot</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;style&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        button { background: rgb(75, 158, 204); }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;/style&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;button type=&#34;button&#34;&gt;buy for $</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">prices</span>[<span style="color:#a6e22e">sku</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 </ul>
 <p>cons</p>
 <ul>
@@ -608,61 +415,61 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 </ul>
 <h4 id="parent-to-fragment">parent to fragment</h4>
 <p>pass props</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// decide.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>)
-<span style="color:#a6e22e">platinum</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;change&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">edition</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">checked</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;platinum&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;standard&#34;</span>
-  <span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;edition&#34;</span>, <span style="color:#a6e22e">edition</span>)
-})
-
-<span style="color:#75715e">// checkout.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
-  <span style="color:#a6e22e">attributeChangedCallback() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>();
-  }
-}
-</code></pre></div><h4 id="fragment-to-parent">fragment to parent</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// decide.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">platinum</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;change&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">edition</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">checked</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;platinum&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;standard&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;edition&#34;</span>, <span style="color:#a6e22e">edition</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// checkout.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">attributeChangedCallback() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">render</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="fragment-to-parent">fragment to parent</h4>
 <p>emit custom event</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// decide.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>);
-<span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;checkout:item_added&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;decide_product--confirm&#34;</span>);
-});
-
-<span style="color:#75715e">// checkout.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
-  <span style="color:#a6e22e">render() {</span>
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#34;checkout:item_added&#34;</span>)) <span style="color:#75715e">// emit event
-</span><span style="color:#75715e"></span>    });
-  }
-}
-</code></pre></div><h4 id="fragment-to-fragment">fragment to fragment</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// decide.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;checkout-buy&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;checkout:item_added&#34;</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;decide_product--confirm&#34;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// checkout.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CheckoutBuy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#34;checkout:item_added&#34;</span>)) <span style="color:#75715e">// emit event
+</span></span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="fragment-to-fragment">fragment to fragment</h4>
 <ul>
 <li>direct</li>
 <li>via their parent</li>
 <li>pub/sub</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// inspire.js
-</span><span style="color:#75715e"></span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, () <span style="color:#f92672">=&gt;</span> {})
-
-<span style="color:#75715e">// checkout.js
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fragmentA</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, { <span style="color:#a6e22e">bubbles</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">payload</span><span style="color:#f92672">:</span> {} }))
-</code></pre></div><p>使用 <code>broadcast channel api</code> 实现 pub/sub</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// inspire.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">channel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BroadcastChannel</span>(<span style="color:#e6db74">&#34;tractor_channel&#34;</span>); 
-<span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) { 
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>.<span style="color:#66d9ef">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;checkout:item_added&#34;</span>) { 
-     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`tractor </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>.<span style="color:#66d9ef">type</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> added`</span>)
-  }
-}
-
-<span style="color:#75715e">// checkout.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">channel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BroadcastChannel</span>(<span style="color:#e6db74">&#34;tractor_channel&#34;</span>)
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>)
-<span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
-<span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">postMessage</span>({<span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout:item_added&#34;</span>, <span style="color:#a6e22e">sku</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;fendt&#34;</span>}
-</code></pre></div><h2 id="assets-loading">assets loading</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// inspire.js
+</span></span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, () <span style="color:#f92672">=&gt;</span> {})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// checkout.js
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">fragmentA</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, { <span style="color:#a6e22e">bubbles</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">payload</span><span style="color:#f92672">:</span> {} }))
+</span></span></code></pre></div><p>使用 <code>broadcast channel api</code> 实现 pub/sub</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// inspire.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">channel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BroadcastChannel</span>(<span style="color:#e6db74">&#34;tractor_channel&#34;</span>); 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) { 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>.<span style="color:#66d9ef">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;checkout:item_added&#34;</span>) { 
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`tractor </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>.<span style="color:#66d9ef">type</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> added`</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// checkout.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">channel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BroadcastChannel</span>(<span style="color:#e6db74">&#34;tractor_channel&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buyButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">buyButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">postMessage</span>({<span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;checkout:item_added&#34;</span>, <span style="color:#a6e22e">sku</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;fendt&#34;</span>}
+</span></span></code></pre></div><h2 id="assets-loading">assets loading</h2>
 <p>前面解决的主要是应用的分发，应用一旦加载到主应用内，意味着主应用和子应用同处于一个页面内，<code>html/css/js</code> 很可能存在资源冲突</p>
 <ul>
 <li>主/子应用都有 <code>&lt;div class=&quot;nav&quot;&gt;&lt;/div&gt;</code>，子应用有这行代码 <code>document.quertySelector('.nav')</code></li>
@@ -672,37 +479,37 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 <h3 id="isolating">isolating</h3>
 <h4 id="html">html</h4>
 <p>对 <code>DOM</code> 的访问，一种解决方法是只在子应用的 DOM 内搜索，比如 <code>micro-app</code> 重写了 <code>querySelector</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">querySelector</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">selector</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getCurrentApp</span>()
-  
-  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">app</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rawQuerySelector</span>(<span style="color:#a6e22e">selector</span>)
-  }
-  
-  <span style="color:#75715e">// app.container 就是子应用的 root
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#a6e22e">selector</span>)
-}
-</code></pre></div><h4 id="css">css</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">querySelector</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">selector</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getCurrentApp</span>()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">app</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rawQuerySelector</span>(<span style="color:#a6e22e">selector</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// app.container 就是子应用的 root
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#a6e22e">selector</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="css">css</h4>
 <ul>
 <li><code>BEM</code>，每个子应用取一个自己 <code>prefix</code></li>
 <li>使用 <code>css module</code> 在打包的时候自动创建唯一的命名</li>
 <li><code>shadow dom</code>，纯天然的隔离</li>
 </ul>
 <p><code>micro-app</code> 内部是用 <code>prefix</code> 的方式，具体实现是 <code>scopeCSS()</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">micro-app</span><span style="color:#f92672">[</span><span style="color:#f92672">name</span><span style="color:#f92672">=</span><span style="color:#f92672">xxx</span><span style="color:#f92672">]</span> .<span style="color:#a6e22e">nav</span> {
-  <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">red</span>;
-}
-</code></pre></div><p>但是这种方式不是100%隔离的，如果在主应用添加 <code>.nav { color: white }</code> 还是会影响到子应用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">micro-app</span><span style="color:#f92672">[</span><span style="color:#f92672">name</span><span style="color:#f92672">=</span><span style="color:#f92672">xxx</span><span style="color:#f92672">]</span> .<span style="color:#a6e22e">nav</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">red</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>但是这种方式不是100%隔离的，如果在主应用添加 <code>.nav { color: white }</code> 还是会影响到子应用。</p>
 <h4 id="js">js</h4>
 <ul>
 <li>创建一个独立的作用域，避免变量冲突</li>
 <li>避免 global（这里是 <code>window</code>） 污染，包括全局变量、全局事件的监听、卸载等</li>
 </ul>
 <p>第一个问题用 <code>IIFE</code> 就能解决</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">((window) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>
-})(<span style="color:#a6e22e">something</span>)
-</code></pre></div><p>第二个问题主要用 <code>sandbox</code> 解决，每个子应用都有自己的 <code>sandbox</code>。<code>sandbox</code> 的实现主要有2种思路：<code>snapshot &amp; proxy</code>，具体实现参考 <a href="https://juejin.cn/post/6920110573418086413">15分钟快速理解qiankun的js沙箱原理及其实现</a> 不再赘述。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span>((window) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>})(<span style="color:#a6e22e">something</span>)
+</span></span></code></pre></div><p>第二个问题主要用 <code>sandbox</code> 解决，每个子应用都有自己的 <code>sandbox</code>。<code>sandbox</code> 的实现主要有2种思路：<code>snapshot &amp; proxy</code>，具体实现参考 <a href="https://juejin.cn/post/6920110573418086413">15分钟快速理解qiankun的js沙箱原理及其实现</a> 不再赘述。</p>
 <h3 id="shared">shared</h3>
 <p>不同子应用之间的框架使用情况</p>
 <ul>
@@ -711,56 +518,56 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 <li>受限的框架，比如大小少于 10KB</li>
 </ul>
 <p>对于同一种框架，直接在全局引入是最省性能的</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// app shell
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dist/vue2.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><p>业务在打包的时候，配置 <code>external</code> 即可</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">externals</span><span style="color:#f92672">:</span> {
-  <span style="color:#a6e22e">vue</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;vue&#39;</span>,
-  <span style="color:#a6e22e">react</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;React&#39;</span>,
-}
-</code></pre></div><p>但有个问题，要如何升级呢？比如现在是 vue2，现在要升级到 vue3，如果要等所有子应用都适配 vue3，不知道是什么时候。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// app shell
+</span></span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dist/vue2.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>业务在打包的时候，配置 <code>external</code> 即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">externals</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">vue</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;vue&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">react</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;React&#39;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>但有个问题，要如何升级呢？比如现在是 vue2，现在要升级到 vue3，如果要等所有子应用都适配 vue3，不知道是什么时候。</p>
 <p>一种方式是使用 <a href="https://webpack.js.org/plugins/dll-plugin/">DLLPlugin</a>，如下有个独立的 vendor 模块</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">vendor</span>
- <span style="color:#f92672">-</span> <span style="color:#66d9ef">static</span>
-   <span style="color:#f92672">-</span> <span style="color:#a6e22e">vue_2</span>.<span style="color:#a6e22e">js</span>
-   <span style="color:#f92672">-</span> <span style="color:#a6e22e">vue_3</span>.<span style="color:#a6e22e">js</span>
- <span style="color:#f92672">-</span> <span style="color:#a6e22e">manifest_2</span>.<span style="color:#a6e22e">json</span>
- <span style="color:#f92672">-</span> <span style="color:#a6e22e">manifest_3</span>.<span style="color:#a6e22e">json</span>
- <span style="color:#f92672">-</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">js</span>
-
-<span style="color:#66d9ef">module</span><span style="color:#a6e22e">.exports</span> <span style="color:#f92672">=</span> { 
-  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">react</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;vue&#34;</span>,] }, 
-  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_3.js&#34;</span>,
-    <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">path.resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;./static&#34;</span>), 
-    <span style="color:#a6e22e">library</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_[hash]&#34;</span>
-  }, 
-  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">DllPlugin</span>({
-      <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">__dirname</span>,
-      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_[hash]&#34;</span>,
-      <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">path.resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;manifest_3.json&#34;</span>)
-    })
-  ]
-}
-</code></pre></div><p>子应用如何使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
-  <span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#f92672">:</span> {
-    <span style="color:#e6db74">&#34;vue&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;^3.2.0&#34;</span>,
-    <span style="color:#e6db74">&#34;shared-vendor&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;@xx/vendor&#34;</span>
-  }
- },
-}
-
-<span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
-  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">DllReferencePlugin</span>({
-    <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">path.join</span>(<span style="color:#a6e22e">__dirname</span>),
-    <span style="color:#a6e22e">manifest</span>: <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;vendor/manifest_3.json&#34;</span>), 
-    <span style="color:#a6e22e">sourceType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;var&#34;</span>
-  })
-]
-</code></pre></div><h2 id="框架">框架</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">vendor</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">static</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">-</span> <span style="color:#a6e22e">vue_2</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">-</span> <span style="color:#a6e22e">vue_3</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">manifest_2</span>.<span style="color:#a6e22e">json</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">manifest_3</span>.<span style="color:#a6e22e">json</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">react</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;vue&#34;</span>,] }, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_3.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">path.resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;./static&#34;</span>), 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">library</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_[hash]&#34;</span>
+</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">DllPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">__dirname</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[name]_[hash]&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">path.resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;manifest_3.json&#34;</span>)
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>子应用如何使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;vue&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;^3.2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;shared-vendor&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;@xx/vendor&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> },
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">DllReferencePlugin</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">path.join</span>(<span style="color:#a6e22e">__dirname</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">manifest</span>: <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;vendor/manifest_3.json&#34;</span>), 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sourceType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;var&#34;</span>
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h2 id="框架">框架</h2>
 <h3 id="single-spa">single-spa</h3>
 <p>子应用配置 <code>bootstrap/mount/unmount</code> 的钩子，内部监听 <code>hashchange/postate</code> 实现路由分发，缺点很明显</p>
 <ul>
@@ -776,228 +583,226 @@ window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e
 </ul>
 <h4 id="app-shell-路由">app shell 路由</h4>
 <p>根据文档，基座采用 <code>history route</code>，子应用采用 <code>hash route</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// app shell router/index.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">router</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRouter</span>({
-  <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">createWebHistory</span>(<span style="color:#e6db74">&#39;base&#39;</span>),
-  <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">basicRoutes</span>
-})
-
-<span style="color:#75715e">// 子应用 router/index.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">router</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRouter</span>({
-  <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">createWebHashHistory</span>(),
-  <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">basicRoutes</span>,
-})
-
-</code></pre></div><h4 id="子应用路由">子应用路由</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// app shell router/index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">router</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRouter</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">createWebHistory</span>(<span style="color:#e6db74">&#39;base&#39;</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">basicRoutes</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子应用 router/index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">router</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRouter</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">createWebHashHistory</span>(),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">basicRoutes</span>,
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h4 id="子应用路由">子应用路由</h4>
 <p>因为业务采用 <code>monorepo</code>，每个子应用都是一个 <code>package</code>，我们可以把应用元信息（比如子应用的地址 <code>url</code>、开发端口 <code>port</code>）写到 <code>package.json</code>，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{
-  <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;@micro-app/mockme&#34;</span>,
-  <span style="color:#e6db74">&#34;description&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;API Mock&#34;</span>,
-  <span style="color:#e6db74">&#34;devPort&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3008</span>, <span style="color:#75715e">// 
-</span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#34;url&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/child/mockme/&#34;</span>, <span style="color:#75715e">// 访问地址
-</span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#34;outDir&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../../dist/child/mockme&#34;</span>, <span style="color:#75715e">//
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>然后每次启动 <code>vite</code> 遍历 <code>[micro-app]/package.json</code> 获取每个子应用的配置，通过 <code>define</code> 注入到业务，从而动态创建路由</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// script.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">walkMicroFE</span>(<span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">relPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>) {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">relPath</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#e6db74">&#34;packages&#34;</span>);
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">files</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readdirSync</span>(<span style="color:#a6e22e">dir</span>);
-
-  <span style="color:#a6e22e">files</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">file</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">filePath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">dir</span>, <span style="color:#a6e22e">file</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stats</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">statSync</span>(<span style="color:#a6e22e">filePath</span>);
-
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">stats</span>.<span style="color:#a6e22e">isDirectory</span>()) {
-      <span style="color:#66d9ef">try</span> {
-        <span style="color:#75715e">// 可能没有
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">filePath</span>, <span style="color:#e6db74">&#34;package.json&#34;</span>));
-
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">jsonData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">data</span>);
-
-        <span style="color:#75715e">// 说明这是一个mfe的包
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;@micro-app/&#34;</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">devPort</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;@micro-app/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
-
-          <span style="color:#a6e22e">config</span>[<span style="color:#a6e22e">id</span>] <span style="color:#f92672">=</span> {
-            <span style="color:#a6e22e">mfeName</span>: <span style="color:#66d9ef">id</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;base&#34;</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;app-&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>,
-            <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">jsonData.name</span>,
-            <span style="color:#a6e22e">description</span>: <span style="color:#66d9ef">jsonData.description</span>,
-            <span style="color:#a6e22e">devPort</span>: <span style="color:#66d9ef">jsonData.devPort</span>,
-            <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">jsonData.url</span>,
-            <span style="color:#a6e22e">outDir</span>: <span style="color:#66d9ef">jsonData.outDir</span>,
-          };
-        }
-      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {}
-    }
-  });
-
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>;
-}
-
-<span style="color:#75715e">// vite.config.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mfeEntryUrlMap</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">walkMicroFE</span>({}, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#e6db74">&#39;..&#39;</span>, <span style="color:#e6db74">&#39;..&#39;</span>))
-<span style="color:#a6e22e">define</span><span style="color:#f92672">:</span> {
-  <span style="color:#a6e22e">__APP_MFE__</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">mfeEntryUrlMap</span>),
-},
-
-<span style="color:#75715e">// routes/index.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildMicroRoutes() {</span>
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> []
-
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;buildMicroRoutes&#39;</span>, <span style="color:#a6e22e">__APP_MFE__</span>)
-
-  Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">__APP_MFE__</span>).<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">name</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">description</span>, <span style="color:#a6e22e">mfeName</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_MFE__</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">||</span> {}
-
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;base&#39;</span>) {
-      <span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">push</span>({
-        <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">url</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;:page*&#39;</span>,
-        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">mfeName</span>,
-        <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">buildPage</span>(<span style="color:#a6e22e">name</span>),
-        <span style="color:#a6e22e">meta</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">description</span>,
-        },
-      })
-    }
-  })
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">routes</span>
-}
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncRoutes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildMicroRoutes</span>()
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">basicRoutes</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">WhiteRoutes</span>, ...<span style="color:#a6e22e">ConstantRoutes</span>, <span style="color:#a6e22e">PageNotFoundRoute</span>]
-</code></pre></div><p>注意这段代码 <code>buildPage</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">defineComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildPage</span>(<span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>) {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">mfeName</span>, <span style="color:#a6e22e">devPort</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_MFE__</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">||</span> {}
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hostname</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_DEV__</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">`http://localhost:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">devPort</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span> <span style="color:#f92672">:</span> window.<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">origin</span>
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">realUrl</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">hostname</span><span style="color:#e6db74">}${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
-
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">defineComponent</span>({
-    <span style="color:#a6e22e">name</span>,
-    <span style="color:#a6e22e">setup() {</span>
-      <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> (
-        &lt;<span style="color:#f92672">div</span>&gt;
-          &lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">mfeName</span>} <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">realUrl</span>} <span style="color:#a6e22e">iframe</span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
-        &lt;/<span style="color:#f92672">div</span>&gt;
-      )
-    },
-  })
-}
-
-</code></pre></div><h4 id="启动服务">启动服务</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// main.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">microApp</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@micro-zoe/micro-app&#39;</span>
-<span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">start</span>()
-</code></pre></div><h4 id="数据通信">数据通信</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;@micro-app/mockme&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;description&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;API Mock&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;devPort&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3008</span>, <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;url&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/child/mockme/&#34;</span>, <span style="color:#75715e">// 访问地址
+</span></span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;outDir&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../../dist/child/mockme&#34;</span>, <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后每次启动 <code>vite</code> 遍历 <code>[micro-app]/package.json</code> 获取每个子应用的配置，通过 <code>define</code> 注入到业务，从而动态创建路由</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// script.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">walkMicroFE</span>(<span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">relPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">relPath</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#e6db74">&#34;packages&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">files</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readdirSync</span>(<span style="color:#a6e22e">dir</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">files</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">file</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">filePath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">dir</span>, <span style="color:#a6e22e">file</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stats</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">statSync</span>(<span style="color:#a6e22e">filePath</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">stats</span>.<span style="color:#a6e22e">isDirectory</span>()) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 可能没有
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">filePath</span>, <span style="color:#e6db74">&#34;package.json&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">jsonData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 说明这是一个mfe的包
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;@micro-app/&#34;</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">devPort</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">name</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;@micro-app/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">config</span>[<span style="color:#a6e22e">id</span>] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">mfeName</span>: <span style="color:#66d9ef">id</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;base&#34;</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;app-&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">jsonData.name</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">description</span>: <span style="color:#66d9ef">jsonData.description</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">devPort</span>: <span style="color:#66d9ef">jsonData.devPort</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">jsonData.url</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">outDir</span>: <span style="color:#66d9ef">jsonData.outDir</span>,
+</span></span><span style="display:flex;"><span>          };
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// vite.config.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mfeEntryUrlMap</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">walkMicroFE</span>({}, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#e6db74">&#39;..&#39;</span>, <span style="color:#e6db74">&#39;..&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">__APP_MFE__</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">mfeEntryUrlMap</span>),
+</span></span><span style="display:flex;"><span>},
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// routes/index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildMicroRoutes() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;buildMicroRoutes&#39;</span>, <span style="color:#a6e22e">__APP_MFE__</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">__APP_MFE__</span>).<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">name</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">description</span>, <span style="color:#a6e22e">mfeName</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_MFE__</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">||</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;base&#39;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">push</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span>: <span style="color:#66d9ef">url</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;:page*&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">mfeName</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">buildPage</span>(<span style="color:#a6e22e">name</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">meta</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">description</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">routes</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncRoutes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildMicroRoutes</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">basicRoutes</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">WhiteRoutes</span>, ...<span style="color:#a6e22e">ConstantRoutes</span>, <span style="color:#a6e22e">PageNotFoundRoute</span>]
+</span></span></code></pre></div><p>注意这段代码 <code>buildPage</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">defineComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildPage</span>(<span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">mfeName</span>, <span style="color:#a6e22e">devPort</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_MFE__</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">||</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hostname</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">__APP_DEV__</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">`http://localhost:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">devPort</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span> <span style="color:#f92672">:</span> window.<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">origin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">realUrl</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">hostname</span><span style="color:#e6db74">}${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">defineComponent</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setup() {</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">mfeName</span>} <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">realUrl</span>} <span style="color:#a6e22e">iframe</span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="启动服务">启动服务</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// main.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">microApp</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@micro-zoe/micro-app&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">start</span>()
+</span></span></code></pre></div><h4 id="数据通信">数据通信</h4>
 <p>前文提到，<code>micro-app</code> 是使用 <code>pub-sub</code> 实现数据通信的，简单实现如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// data.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BASE_EVENT_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;__from_base_app___&#39;</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MICRO_EVENT_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;__from_micro_app___&#39;</span>
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventCenterForBaseApp</span> {
-  <span style="color:#a6e22e">setData</span> (<span style="color:#a6e22e">appName</span>, <span style="color:#a6e22e">data</span>) {
-    <span style="color:#a6e22e">eventCenter</span>.<span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">BASE_EVENT_NAME</span>, <span style="color:#a6e22e">data</span>)
-  }
-}
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventCenterForMicroApp</span> {
-  <span style="color:#66d9ef">constructor</span> (<span style="color:#a6e22e">appName</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">appName</span>
-  }
-  <span style="color:#a6e22e">addDataListener</span> (<span style="color:#a6e22e">cb</span>) {
-    <span style="color:#a6e22e">eventCenter</span>.<span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">BASE_EVENT_NAME</span>, <span style="color:#a6e22e">cb</span>)
-  }
-
-  <span style="color:#a6e22e">dispatch</span> (<span style="color:#a6e22e">data</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">appInstanceMap</span>.<span style="color:#66d9ef">get</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appName</span>)
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">container</span>) {
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">event</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#39;datachange&#39;</span>, {
-        <span style="color:#a6e22e">detail</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">data</span>,
-        }
-      })
-      <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#a6e22e">event</span>)
-    }
-  }
-}
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SandBox</span> {
-  <span style="color:#66d9ef">constructor</span> (<span style="color:#a6e22e">appName</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">microWindow</span>.<span style="color:#a6e22e">microApp</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventCenterForMicroApp</span>(<span style="color:#a6e22e">appName</span>)
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>  }
-}
-</code></pre></div><p>然后重写 <code>setAttribute</code>，因为 <code>&lt;micro-app&gt;</code> 是一个自定义元素，父子间的通过是通过属性的变更</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// /src/index.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">EventCenterForBaseApp</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./data&#39;</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BaseAppData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventCenterForBaseApp</span>()
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawSetAttribute</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">setAttribute</span>
-<span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">setAttribute</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setAttribute</span> (<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>) {
-  <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">/^micro-app/i</span>.<span style="color:#a6e22e">test</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tagName</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;data&#39;</span>) {
-      <span style="color:#a6e22e">BaseAppData</span>.<span style="color:#a6e22e">setData</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;name&#39;</span>) <span style="color:#75715e">/* micro-app name*/</span>, <span style="color:#a6e22e">value</span>)
-    }
-  } <span style="color:#66d9ef">else</span> {
-    <span style="color:#a6e22e">rawSetAttribute</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
-  }
-}
-</code></pre></div><p>父应用传递消息给子应用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 主应用
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span>
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;basement&#39;</span>
-  <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://localhost:3001/&#39;</span>
-  <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data&#39;</span>
-&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
-
-<span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;来自基座应用的数据&#39;</span>
-  }
-}, <span style="color:#ae81ff">2000</span>)
-
-<span style="color:#75715e">// 子应用 basement 内监听
-</span><span style="color:#75715e"></span>window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addDataListener</span>((<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;data from base app: &#39;</span>, <span style="color:#a6e22e">data</span>)
-})
-</code></pre></div><p>子应用传递消息给父应用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 子应用 basement 内派发事件
-</span><span style="color:#75715e"></span>window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;来自子应用的数据&#39;</span> })
-
-<span style="color:#75715e">// 主应用
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span>
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;basement&#39;</span>
-  <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://localhost:3001/&#39;</span>
-  <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data&#39;</span>
-  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">datachange</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;handleDataChange&#39;</span>
-&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleDataChange</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;data from micro-app&#39;</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">detail</span>.<span style="color:#a6e22e">data</span>)
-}
-</code></pre></div><p>业务中使用的是全局通信，有2个用处</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// data.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BASE_EVENT_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;__from_base_app___&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MICRO_EVENT_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;__from_micro_app___&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventCenterForBaseApp</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setData</span> (<span style="color:#a6e22e">appName</span>, <span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">eventCenter</span>.<span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">BASE_EVENT_NAME</span>, <span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventCenterForMicroApp</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span> (<span style="color:#a6e22e">appName</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">appName</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">addDataListener</span> (<span style="color:#a6e22e">cb</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">eventCenter</span>.<span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">BASE_EVENT_NAME</span>, <span style="color:#a6e22e">cb</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">dispatch</span> (<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">appInstanceMap</span>.<span style="color:#66d9ef">get</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appName</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">app</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">container</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">event</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CustomEvent</span>(<span style="color:#e6db74">&#39;datachange&#39;</span>, {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">detail</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">data</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      })
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#a6e22e">event</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SandBox</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span> (<span style="color:#a6e22e">appName</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">microWindow</span>.<span style="color:#a6e22e">microApp</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventCenterForMicroApp</span>(<span style="color:#a6e22e">appName</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后重写 <code>setAttribute</code>，因为 <code>&lt;micro-app&gt;</code> 是一个自定义元素，父子间的通过是通过属性的变更</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// /src/index.js
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">EventCenterForBaseApp</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./data&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BaseAppData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">EventCenterForBaseApp</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawSetAttribute</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">setAttribute</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">setAttribute</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setAttribute</span> (<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">/^micro-app/i</span>.<span style="color:#a6e22e">test</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tagName</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;data&#39;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">BaseAppData</span>.<span style="color:#a6e22e">setData</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;name&#39;</span>) <span style="color:#75715e">/* micro-app name*/</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rawSetAttribute</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>父应用传递消息给子应用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// 主应用
+</span></span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;basement&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://localhost:3001/&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data&#39;</span>
+</span></span><span style="display:flex;"><span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;来自基座应用的数据&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}, <span style="color:#ae81ff">2000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子应用 basement 内监听
+</span></span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addDataListener</span>((<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;data from base app: &#39;</span>, <span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>子应用传递消息给父应用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// 子应用 basement 内派发事件
+</span></span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;来自子应用的数据&#39;</span> })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 主应用
+</span></span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">micro</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;basement&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://localhost:3001/&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">datachange</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;handleDataChange&#39;</span>
+</span></span><span style="display:flex;"><span>&gt;<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/micro-app&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleDataChange</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;data from micro-app&#39;</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">detail</span>.<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>业务中使用的是全局通信，有2个用处</p>
 <ul>
 <li>存放全局数据，比如用户信息</li>
 <li>判断 token 是否失效，通知 app shell 退出系统</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// main.ts
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">addGlobalDataListener</span>((<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">code</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">HTTP_RESPONSE_CODE</span>.<span style="color:#a6e22e">TOKEN_INVALID</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useUserStoreWithout</span>()
-    <span style="color:#a6e22e">userStore</span>.<span style="color:#a6e22e">reLogin</span>(<span style="color:#a6e22e">data</span>)
-  }
-})
-<span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">setGlobalData</span>({
-  <span style="color:#a6e22e">fetchUserList</span>: <span style="color:#66d9ef">AccountService.getUserList</span>,
-})
-window.<span style="color:#a6e22e">microApp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">microApp</span>
-
-<span style="color:#75715e">// 子应用使用
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userList</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">getGlobalData</span>().<span style="color:#a6e22e">fetchUserList</span>()
-</code></pre></div><h2 id="see-also">See also</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// main.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">addGlobalDataListener</span>((<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">code</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">HTTP_RESPONSE_CODE</span>.<span style="color:#a6e22e">TOKEN_INVALID</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useUserStoreWithout</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">userStore</span>.<span style="color:#a6e22e">reLogin</span>(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">microApp</span>.<span style="color:#a6e22e">setGlobalData</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fetchUserList</span>: <span style="color:#66d9ef">AccountService.getUserList</span>,
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">microApp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">microApp</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子应用使用
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userList</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> window.<span style="color:#a6e22e">microApp</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">getGlobalData</span>().<span style="color:#a6e22e">fetchUserList</span>()
+</span></span></code></pre></div><h2 id="see-also">See also</h2>
 <ul>
 <li><a href="https://segmentfault.com/a/1190000040446543">从零开始写一个微前端框架-渲染篇</a></li>
 <li><a href="https://juejin.cn/post/7099436217707528228">micro-app 原理解析</a></li>
@@ -1006,289 +811,37 @@ window.<span style="color:#a6e22e">microApp</span> <span style="color:#f92672">=
 <li><a href="https://juejin.cn/post/6920110573418086413">15分钟快速理解qiankun的js沙箱原理及其实现</a></li>
 <li><a href="https://juejin.cn/post/7265956919004643340">single-spa的简单使用、原理、实现</a></li>
 </ul>
+</section>
 
-        </div>
+  <footer class="mt-12 flex flex-wrap"><a
+      class="mb-1.5 rounded-lg bg-black/[3%] px-5 py-1 no-underline hover:bg-black/[6%] ltr:mr-1.5 rtl:ml-1.5 dark:bg-white/[8%] dark:hover:bg-white/[12%]"
+      href="http://localhost:1313/blog/tags/reading"
+      >Reading</a
+    ></footer><nav
+    class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg leading-[1.2]! *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"
+  ><a class="ltr:pr-3 rtl:pl-3" href="http://localhost:1313/blog/post/fe/effect-scope/"
+      ><span class="ltr:mr-1.5 rtl:ml-1.5">←</span><span>Vue3 nextTick/effectScope</span></a
+    ><a
+      class="justify-end pl-3 ltr:ml-auto rtl:mr-auto"
+      href="http://localhost:1313/blog/post/fe/module/"
+      ><span>Modules</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a
+    ></nav></article></main>
 
-        
-        
-
-
-
-        
-        
-
-
-        <footer class="post-footer">
-          <div class="post-tags">
-              <a href="https://ixiaopan.github.io/blog/tags/reading/">Reading</a>
-                
-            </div>
-
-
-          
-          <nav class="post-nav">
-            
-              <a class="prev" href="/blog/post/fe/effect-scope/">
-                
-                <i class="iconfont">
-                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-                </i>
-                <span class="prev-text nav-default">Vue3 nextTick/effectScope</span>
-                <span class="prev-text nav-mobile">Prev</span>
-              </a>
-            
-              <a class="next" href="/blog/post/fe/module/">
-                <span class="next-text nav-default">Modules</span>
-                <span class="prev-text nav-mobile">Next</span>
-                
-                <i class="iconfont">
-                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
-</svg>
-
-                </i>
-              </a>
-          </nav>
-        </footer>
-      </article>
-
-      
-      
-
-
-      
-      
-
-  
-
-  
-  
-
-  
-  
-
-  
-
-  
-
+<footer class="mt-20 py-10 text-sm opacity-60">
+  <div class="mb-4">
+      <span>
+        <a href="mailto:wxp201013@163.com" class="mx-1">Email</a>
+        <a href="https://github.com/ixiaopan" target="_blank" class="mx-1">GitHub</a>
+        <a href="https://www.linkedin.com/in/ixiaopan" target="_blank" class="mx-1">LinkedIn</a>
+        <a href="https://space.bilibili.com/22910840" target="_blank" class="mx-1">Bilibili</a>
+      </span>
     
-
-  
-
-  
-
-
-    </div>
-
-    
-    <nav class="toc" id="toc">
-    <div class="toc-title">Table of Contents</div>
-    <div class="toc-content custom-scrollbar">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#introduction">Introduction</a>
-      <ul>
-        <li><a href="#what">what</a></li>
-        <li><a href="#how">how</a></li>
-        <li><a href="#misc">misc</a></li>
-        <li><a href="#proscons">pros&amp;cons</a></li>
-      </ul>
-    </li>
-    <li><a href="#原理">原理</a>
-      <ul>
-        <li><a href="#appshell">AppShell</a></li>
-        <li><a href="#iframe">iframe</a></li>
-        <li><a href="#ajax">ajax</a></li>
-        <li><a href="#web-component">web component</a></li>
-        <li><a href="#communication">Communication</a></li>
-      </ul>
-    </li>
-    <li><a href="#assets-loading">assets loading</a>
-      <ul>
-        <li><a href="#isolating">isolating</a></li>
-        <li><a href="#shared">shared</a></li>
-      </ul>
-    </li>
-    <li><a href="#框架">框架</a>
-      <ul>
-        <li><a href="#single-spa">single-spa</a></li>
-        <li><a href="#micro-app">micro-app</a></li>
-      </ul>
-    </li>
-    <li><a href="#see-also">See also</a></li>
-  </ul>
-</nav>
-    </div>
-  </nav>
-
-
   </div>
-
-      </main>
-
-      <footer id="footer" class="footer">
-        <div class="icon-links">
-  
-  
-    <a href="wxp201013@163.com" rel="me noopener" class="iconfont"
-      title="email"  target="_blank"
-      >
-      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://www.linkedin.com/in/ixiaopan" rel="me noopener" class="iconfont"
-      title="linkedin"  target="_blank"
-      >
-      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="33" height="33">
-  <path d="M872.405333 872.618667h-151.637333v-237.610667c0-56.661333-1.152-129.578667-79.018667-129.578667-79.061333 0-91.136 61.653333-91.136 125.397334v241.792H398.976V384h145.664v66.602667h1.962667c20.352-38.4 69.845333-78.933333 143.786666-78.933334 153.642667 0 182.058667 101.12 182.058667 232.746667v268.202667zM227.712 317.141333a87.978667 87.978667 0 0 1-88.021333-88.106666 88.064 88.064 0 1 1 88.021333 88.106666z m76.032 555.477334H151.68V384h152.064v488.618667zM948.266667 0H75.562667C33.792 0 0 33.024 0 73.770667v876.458666C0 991.018667 33.792 1024 75.562667 1024h872.576C989.866667 1024 1024 991.018667 1024 950.229333V73.770667C1024 33.024 989.866667 0 948.138667 0h0.128z"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://github.com/ixiaopan" rel="me noopener" class="iconfont"
-      title="github"  target="_blank"
-      >
-      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://space.bilibili.com/22910840" rel="me noopener" class="iconfont"
-      title="bilibili"  target="_blank"
-      >
-      <svg
-  class="icon" style="" viewBox="0 0 1024 1024" version="1.1" width="36"
-  height="36" id="svg8">
-  <path
-      style=""
-      d="M 744.60599,0.00486267 A 41.779915,41.779915 0 0 0 710.4184,18.673394 L 548.5048,255.32642 h -11.70046 a 41.779915,41.779915 0 0 0 -10.80295,-7.84928 L 235.66,97.084498 a 41.779915,41.779915 0 0 0 -20.07193,-4.960864 41.779915,41.779915 0 0 0 -18.3748,79.145436 L 359.4859,255.32642 H 128.16909 c -49.458302,0 -89.27932,39.82105 -89.27932,89.27932 v 508.65224 c 0,49.4583 39.821018,89.27934 89.27932,89.27934 h 19.48445 C 149.12802,984.5043 179.92773,1024 224.79179,1024 c 44.86407,0 75.66379,-39.4957 77.13826,-81.46268 H 719.98116 C 721.45559,984.5043 752.25533,1024 797.1194,1024 c 44.86406,0 75.6638,-39.4957 77.13824,-81.46268 h 21.57323 c 49.45831,0 89.27936,-39.82104 89.27936,-89.27934 V 344.60574 c 0,-49.45827 -39.82105,-89.27932 -89.27936,-89.27932 H 649.74567 L 779.38103,65.866924 A 41.779915,41.779915 0 0 0 744.60599,0.00486267 Z M 644.49108,418.70871 c 6.29985,0.21538 12.44451,2.01107 17.86888,5.22196 l 171.36218,98.10771 c 18.23417,10.21935 24.63334,33.34627 14.24614,51.48533 -10.38726,18.13909 -33.57344,24.32718 -51.61587,13.77296 L 624.9903,489.18895 c -15.21356,-8.41858 -22.66871,-26.1765 -18.03211,-42.93436 4.63664,-16.75784 20.15573,-28.14465 37.53289,-27.54588 z M 350.2006,432.31846 c 16.89952,0.0317 31.69582,11.33328 36.17844,27.62747 4.48262,16.2942 -2.44981,33.57765 -16.95507,42.24898 l -140.7157,86.91312 c -17.68528,11.18244 -41.09629,5.77692 -52.08912,-12.02686 -10.99282,-17.80373 -5.33855,-41.15658 12.58167,-51.95857 L 329.9002,438.2095 c 6.0643,-3.86439 13.10951,-5.90891 20.3004,-5.89104 z M 501.605,641.53985 c 3.75002,-0.15248 7.48645,0.53903 10.93349,2.0235 0.15842,0.0637 0.31618,0.12888 0.47325,0.19582 0.59328,0.27092 1.17574,0.56489 1.74609,0.88121 0.15868,0.0854 0.31643,0.17233 0.47325,0.2611 0.55694,0.32165 1.10131,0.66458 1.63185,1.02807 0.16455,0.1123 0.32777,0.2265 0.48956,0.34269 0.50382,0.36781 0.99371,0.75428 1.46868,1.15864 0.18724,0.15504 0.37218,0.31282 0.55484,0.47323 0.43271,0.38784 0.8518,0.79061 1.25653,1.20756 0.15449,0.16114 0.30679,0.32437 0.45693,0.48959 0.40798,0.44266 0.79989,0.89988 1.17494,1.37076 0.17799,0.22544 0.35205,0.45395 0.5222,0.68538 0.25932,0.34701 0.50964,0.70071 0.75064,1.06071 0.26712,0.39516 0.52286,0.79784 0.76699,1.20757 0.16907,0.29043 0.33231,0.58424 0.48957,0.88123 0.21836,0.41297 0.42513,0.83199 0.62009,1.25653 0.14836,0.32333 0.28983,0.64976 0.42429,0.97911 0.21319,0.51552 0.40915,1.03801 0.58747,1.5666 0.0677,0.19499 0.13296,0.39085 0.19582,0.58748 0.18652,0.60823 0.34984,1.22334 0.48957,1.84399 0.0397,0.16277 0.0779,0.32601 0.11423,0.48957 0.1436,0.69112 0.25788,1.38801 0.34269,2.08877 0.005,0.0381 0.0111,0.0761 0.0163,0.11424 0.0857,0.78056 0.13474,1.56471 0.14687,2.34988 0.005,0.0543 0.0111,0.10879 0.0163,0.1632 0,0 -0.008,1.12132 0,1.45234 0,0 -0.14697,17.84761 5.89102,34.12231 3.01902,8.13734 7.33278,15.10615 12.61433,19.61501 5.28157,4.50889 11.42894,7.62081 23.64572,7.62081 12.2168,0 18.36416,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.5953,-11.47767 12.6143,-19.61501 6.03799,-16.2747 5.89103,-34.12231 5.89103,-34.12231 -0.44885,-13.87045 10.45922,-25.46302 24.3311,-25.86506 13.87189,-0.40201 25.42828,10.53953 25.78348,24.41272 0,0 1.11929,25.7226 -9.00791,53.01927 -5.06359,13.64832 -13.1986,28.46036 -27.05631,40.29073 -13.85772,11.83039 -33.5454,19.63135 -56.20142,19.63135 -22.65603,0 -42.34371,-7.80096 -56.20141,-19.63135 -4.1801,-3.56856 -7.78733,-7.42433 -10.99878,-11.42303 -3.21235,4.00037 -6.81703,7.85309 -10.99876,11.42303 -13.85773,11.83039 -33.5454,19.63135 -56.20144,19.63135 -22.65601,0 -42.3437,-7.80096 -56.2014,-19.63135 -13.85775,-11.83037 -21.99272,-26.64241 -27.05632,-40.29073 -10.12725,-27.29667 -9.00789,-53.01928 -9.00789,-53.01927 0.20714,-13.83687 11.58744,-24.88848 25.42444,-24.69013 14.1263,0.19991 25.2971,12.0278 24.69011,26.14247 0,0 -0.14697,17.84761 5.89103,34.12231 3.01902,8.13734 7.31646,15.10615 12.598,19.61501 5.28155,4.50889 11.44526,7.62081 23.66203,7.62081 12.21681,0 18.36418,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.57899,-11.47767 12.598,-19.61501 5.76352,-15.53489 5.89112,-32.05691 5.89103,-33.56746 0.006,-0.37466 0.0111,-1.05336 0.0163,-1.20759 -0.0117,-0.74583 0.0105,-1.49177 0.0652,-2.23565 0.009,-0.15784 0.0204,-0.31561 0.0327,-0.47324 0.14204,-1.56859 0.43163,-3.12027 0.86487,-4.63449 0.0213,-0.0763 0.0433,-0.15244 0.0652,-0.22848 3.0335,-10.25748 12.24157,-17.46007 22.92769,-17.93417 z"
-      id="rect824"/>
-</svg>
-
-    </a>
+  <div>
+    &copy; 2026 xiaopan&#39;s blog &middot; Powered by Hugo &middot; Theme Paper
+  </div>
+</footer>
 
 
-<a href="https://ixiaopan.github.io/blog/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
-    class="iconfont" title="rss" target="_blank">
-    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="30" height="30">
-  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
-</svg>
-
-  </a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
-  </span>
-
-  <span class="copyright-year">
-    &copy;
-    
-      2021 -
-    2024
-    <span class="heart">
-      
-      <i class="iconfont">
-        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="14" height="14">
-  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
-   fill="#8a8a8a"></path>
-</svg>
-
-      </i>
-    </span><span class="author">
-        xiaopan
-        
-      </span></span>
-
-  
-  
-
-  
-</div>
-
-      </footer>
-
-      <div class="button__back-to-top">
-        <a href="#back-to-top">
-          <i class="iconfont">
-            
-            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="35" height="35">
-  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
-</svg>
-
-          </i>
-        </a>
-      </div>
-    </div>
-    
-<script type="text/javascript" src="/blog/lib/jquery/jquery-3.7.1.min.js"></script>
-  <script type="text/javascript" src="/blog/lib/slideout/slideout-1.0.1.min.js"></script>
-
-
-
-
-<script type="text/javascript" src="/blog/js/main.c1d1af3f9a0921a0b05ae7493629f72e7ca2ac9e76b08a207b14636632f3fdf7.js" integrity="sha256-wdGvP5oJIaCwWudJNin3LnyirJ52sIogexRjZjLz/fc=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe.min.js"></script>
-    <script type="text/javascript" src="/blog/lib/photoswipe/photoswipe-ui-default.min.js"></script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </body>
+</body>
 </html>

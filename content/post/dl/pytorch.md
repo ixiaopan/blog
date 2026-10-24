@@ -1,12 +1,7 @@
 ---
 title: "Deep Learning - PyTorch"
 date: "2021-07-19"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
-
+tags: ["Deep Learning"]
 katex: true
 ---
 

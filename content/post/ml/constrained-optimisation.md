@@ -1,9 +1,9 @@
 ---
 title: "Constrained Optimisation"
 date: "2021-06-03"
-description: ""
-# tags: []
-categories: [
+
+
+tags: [
     "Machine Learning",
 ]
 katex: true

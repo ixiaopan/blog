@@ -1,9 +1,9 @@
 ---
 title: "Naive Bayes Classification"
 date: "2021-06-16"
-description: ""
-# tags: []
-categories: [
+
+
+tags: [
     "Machine Learning",
 ]
 

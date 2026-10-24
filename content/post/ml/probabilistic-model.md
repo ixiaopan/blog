@@ -2,8 +2,8 @@
 title: "Probabilistic Model"
 date: "2021-05-26"
 description: "The goal of machine learning is to infer an unknown pattern from data. However, both parameters and predictions are estimated values, so how confident are we in these values? To measure uncertainty, we use probability. On the other hand, Bayes' theorem provides a framework for us to invert the problem into a forward process, where we observe data from parameters instead of making inferences from data."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

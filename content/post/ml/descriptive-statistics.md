@@ -2,8 +2,8 @@
 title: "Descriptive Statistics"
 date: "2021-04-13"
 description: "Statistics is one of the most important skills required to be a data scientist. There are two main branches of statistics:"
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

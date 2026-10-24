@@ -1,11 +1,7 @@
 ---
 title: "Deep Learning - Neural Networks"
 date: "2021-09-18"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
 

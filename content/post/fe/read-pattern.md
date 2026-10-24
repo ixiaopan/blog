@@ -1,11 +1,7 @@
 ---
 title: "《Game Programming Patterns》"
 date: "2024-01-15"
-description: ""
-tags: [Reading]
-categories: [
-  "Frontend",
-]
+tags: ["Reading"]
 ---
 
 最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 `web` 开发中也很常见，比如 `singleton/observer/dirty check` 等。不过由于书中代码示例是用 `c++` 编写的，对于前端不是很直观，所以有了从前端角度剖析的想法，权当自身学习。

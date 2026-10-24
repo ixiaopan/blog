@@ -2,8 +2,8 @@
 title: "K-nearest neighbours"
 date: "2021-06-12"
 description: "K-Nearest Neighbors(KNN) is a distance-based algorithm in machine learning used for both classification and regression. It's simple and intutive to understand because it doesn't require extra training step and the idea behind it is simple enough — similar points are tends to be close to each other. In this article, we will learn how KNN works."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

@@ -1,11 +1,7 @@
 ---
 title: "Composition bug in Safari"
 date: "2022-05-21"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 中文输入法 composition event 在 chrome 和 safari 表现相反

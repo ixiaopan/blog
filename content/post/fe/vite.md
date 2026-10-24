@@ -1,7 +1,7 @@
 ---
 title: "Vite"
 date: "2024-03-23"
-description: ""
+
 categories : [
   "Frontend",
 ]

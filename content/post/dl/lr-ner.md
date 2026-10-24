@@ -1,11 +1,7 @@
 ---
 title: "Literature Review on NER"
 date: "2021-11-17"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
 

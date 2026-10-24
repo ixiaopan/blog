@@ -1,9 +1,7 @@
 ---
 title: "Frontend Project Structure"
 date: "2023-06-07"
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 

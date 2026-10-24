@@ -1,10 +1,7 @@
 ---
 title: "Promise/Async/Generator"
 date: "2024-03-15"
-description: ""
-categories : [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Simple callback

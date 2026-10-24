@@ -2,8 +2,8 @@
 title: "Perceptron"
 date: "2021-06-13"
 description: "Perceptron is a traditional classification algorithm and it is the basis of the neural network. Though it's out of date, it plays a historical role in the development of neural network. Knowing how it works will help us lay the foundations for the future study of the neural network."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

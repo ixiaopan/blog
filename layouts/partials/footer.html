@@ -1,0 +1,33 @@
+<footer
+  class="mx-auto flex h-[4.5rem] max-w-(--w) items-center px-8 text-xs tracking-wider uppercase opacity-60"
+>
+  <div class="mr-auto">
+    {{- with site.Params.social }}
+      <span>
+        {{ if .email }}<a href="mailto:{{ .email }}" class="mx-1">Email</a>{{ end }}
+        {{ if .github }}<a href="{{ .github }}" target="_blank" class="mx-1">GitHub</a>{{ end }}
+        {{ if .linkedin }}<a href="{{ .linkedin }}" target="_blank" class="mx-1">LinkedIn</a>{{ end }}
+        {{ if .bilibili }}<a href="{{ .bilibili }}" target="_blank" class="mx-1">Bilibili</a>{{ end }}
+      </span>
+    {{ end }}
+  </div>
+  <div class="flex">
+    <span>
+      {{- if site.Copyright -}} {{- site.Copyright -}} {{- else -}} &copy; {{-
+      now.Year }}
+      {{- end -}}
+    </span>
+    <span class="mx-1">&middot;</span>
+    
+    <a class="link" href="https://gohugo.io/" rel="noopener" target="_blank">powered by hugo️️</a>️
+    
+    <span class="mx-1">&middot;</span>
+    
+    <a
+      class="link"
+      href="https://github.com/nanxiaobei/hugo-paper"
+      rel="noopener"
+      target="_blank"
+    >hugo-paper</a>
+  </div>
+</footer>

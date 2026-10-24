@@ -2,8 +2,8 @@
 title: "Ensemble Methods"
 date: "2021-04-20"
 description: "Ensemble means a group of people or a collection of things. Ensemble methods means rather than using a single model, we will use a group of different models to gain a better prediction. In fact, ensemble methods usually defeat other models in Kaggle competitions. In this post, we will talk about the most popular ensemble methods , including voting, bagging, and boosting."
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

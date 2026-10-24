@@ -1,10 +1,7 @@
 ---
 title: "Video autoplay not working when low power mode is on (iphone)"
 date: "2022-08-06"
-description: ""
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 An interesting bug about the HTML5 video.

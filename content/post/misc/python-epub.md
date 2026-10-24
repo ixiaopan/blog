@@ -1,10 +1,7 @@
 ---
 title: "html2epub"
 date: "2022-02-19"
-description: ""
-categories: [
-  "Misc",
-]
+tags: ["Misc"]
 ---
 
 A simple book scraper written in Python, converting html to epub.

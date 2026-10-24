@@ -1,11 +1,7 @@
 ---
 title: "Replace antd theme"
 date: "2022-05-29"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 没有整啥插件，使用 `less variable` 覆盖即可

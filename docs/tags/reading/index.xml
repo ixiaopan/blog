@@ -1,53 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Reading on xiaopan&#39;s blog</title>
-    <link>https://ixiaopan.github.io/blog/tags/reading/</link>
-    <description>Recent content in Reading on xiaopan&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 18 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ixiaopan.github.io/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>《Micro Frontends in Action》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-mfe/</link>
-      <pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-mfe/</guid>
-      <description>Introduction what Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development. Teams can work autonomously in their field of expertise. Teams can choose the technology stack that fits best for the job at hand. The applications are loosely coupled and only integrate in the frontend (e.g., via links). how routing 指页面之间的</description>
-    </item>
-    
-    <item>
-      <title>《Game Programming Patterns》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-pattern/</link>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-pattern/</guid>
-      <description>最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 web 开发中也很常见，比如 singleton/observer/dirty check 等。不过由于书</description>
-    </item>
-    
-    <item>
-      <title>《数据压缩入门》</title>
-      <link>https://ixiaopan.github.io/blog/post/misc/read-data-compress/</link>
-      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/misc/read-data-compress/</guid>
-      <description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;哈夫曼编码&lt;/li&gt;
-&lt;li&gt;算术编码&lt;/li&gt;
-&lt;li&gt;LZ编码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript with Promise》</title>
-      <link>https://ixiaopan.github.io/blog/post/fe/read-promise/</link>
-      <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://ixiaopan.github.io/blog/post/fe/read-promise/</guid>
-      <description>&lt;p&gt;关于 &lt;code&gt;promise&lt;/code&gt; 介绍的太多了，今天就推荐一本我收藏已久的小册子，&lt;a href=&#34;https://book.douban.com/subject/26261877/&#34;&gt;Javascript with promise - douban&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Reading on xiaopan&#39;s blog</title>
+		<link>http://localhost:1313/blog/tags/reading/</link>
+		<description>Recent content in Reading on xiaopan&#39;s blog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 18 Mar 2024 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/blog/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>《Micro Frontends in Action》</title>
+				<link>http://localhost:1313/blog/post/fe/read-mfe/</link>
+				<pubDate>Mon, 18 Mar 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/blog/post/fe/read-mfe/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;h3 id=&#34;what&#34;&gt;what&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Micro frontends are not a concrete technology. They’re an alternative organizational and architectural approach for scaling development.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Teams can work autonomously in their field of expertise.&lt;/li&gt;&#xA;&lt;li&gt;Teams can choose the technology stack that fits best for the job at hand.&lt;/li&gt;&#xA;&lt;li&gt;The applications are loosely coupled and only integrate in the frontend (e.g., via links).&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;how&#34;&gt;how&lt;/h3&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/blog/post/images/mfe-01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;routing&lt;/code&gt; 指页面之间的 &lt;code&gt;navigation&lt;/code&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>《Game Programming Patterns》</title>
+				<link>http://localhost:1313/blog/post/fe/read-pattern/</link>
+				<pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/blog/post/fe/read-pattern/</guid>
+				<description>&lt;p&gt;最近了读了关于设计模式的一本书，《Game Programming Patterns》虽然是说游戏的，但书中介绍的设计模式在 &lt;code&gt;web&lt;/code&gt; 开发中也很常见，比如 &lt;code&gt;singleton/observer/dirty check&lt;/code&gt; 等。不过由于书中代码示例是用 &lt;code&gt;c++&lt;/code&gt; 编写的，对于前端不是很直观，所以有了从前端角度剖析的想法，权当自身学习。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>《数据压缩入门》</title>
+				<link>http://localhost:1313/blog/post/misc/read-data-compress/</link>
+				<pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/blog/post/misc/read-data-compress/</guid>
+				<description>&lt;p&gt;前几天得闲随手翻了翻 &lt;a href=&#34;https://book.douban.com/subject/35034359/&#34;&gt;《数据压缩入门 - 豆瓣》&lt;/a&gt;，内容是比较浅显，但是真的要深入理解并应用这些算法还是有一定难度，印象比较深刻的是这3个算法&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;哈夫曼编码&lt;/li&gt;&#xA;&lt;li&gt;算术编码&lt;/li&gt;&#xA;&lt;li&gt;LZ编码&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在实际应用中，这几个算法也是经常结合使用的，比如 &lt;code&gt;gzip&lt;/code&gt;。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>《JavaScript with Promise》</title>
+				<link>http://localhost:1313/blog/post/fe/read-promise/</link>
+				<pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/blog/post/fe/read-promise/</guid>
+				<description>&lt;p&gt;关于 &lt;code&gt;promise&lt;/code&gt; 介绍的太多了，今天就推荐一本我收藏已久的小册子，&lt;a href=&#34;https://book.douban.com/subject/26261877/&#34;&gt;Javascript with promise - douban&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

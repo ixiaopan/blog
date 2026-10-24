@@ -2,8 +2,8 @@
 title: "Linear Regression 01"
 date: "2021-04-14"
 description: "There are two main tasks in machine learning: regression and classification. Today we will talk about regression, more specifically, linear regression. "
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

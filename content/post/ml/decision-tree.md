@@ -2,8 +2,8 @@
 title: "Decision Tree"
 date: "2021-04-19"
 description: "The way decision tree works is similar to the way we make decisions in real life. For example,when you are going to watch a movie, you might have some questions on your head, such as 'Is it a fiction movie? Is it directed by David Fincher?'"
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

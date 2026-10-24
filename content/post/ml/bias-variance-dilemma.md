@@ -2,8 +2,8 @@
 title: "Bias-Variance dilemma"
 date: "2021-04-15"
 description: "When you learn more about machine learning, you must  hear people talking about high bias, high variance or something like that. What do they mean by 'high bias' or 'high variance'?"
-# tags: []
-categories: [
+
+tags: [
     "Machine Learning",
 ]
 katex: true

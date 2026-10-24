@@ -1,11 +1,7 @@
 ---
 title: "Deep Learning - Preliminary"
 date: "2021-09-09"
-description: ""
-# tags: []
-categories: [
-    "Deep Learning",
-]
+tags: ["Deep Learning"]
 katex: true
 ---
 

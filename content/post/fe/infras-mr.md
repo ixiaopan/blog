@@ -1,11 +1,7 @@
 ---
 title: "MR Notification"
 date: "2023-01-28"
-description: ""
-tags: [基建]
-categories: [
-  "Frontend",
-]
+tags: ["Frontend", "Infra"]
 ---
 
 ## Why

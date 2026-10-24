@@ -1,11 +1,7 @@
 ---
 title: "Build a private npm registry using verdaccio"
 date: "2022-01-07"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 In this post, we will learn how to create your own npm registry using verdaccio. Why do you bother using a private registry? This is because we do not want to publish our code to the public due to data security and privacy.

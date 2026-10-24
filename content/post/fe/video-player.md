@@ -1,9 +1,7 @@
 ---
 title: "Design a video player"
 date: "2023-06-21"
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 业务最开始实现的视频播放功能用的是 `xgplayer` 插件，这个插件比较重，更侧重于直播。而我们业务所需要的仅仅是一个美化版本的 `<video>`，为此，我们需要基于 `video api` 实现自己的播放器。

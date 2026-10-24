@@ -1,11 +1,7 @@
 ---
 title: "Naming conflicts in unplugin-vue-component"
 date: "2023-02-25"
-description: ""
-# tags: []
-categories: [
-  "Frontend",
-]
+tags: ["Frontend"]
 ---
 
 ## Background
